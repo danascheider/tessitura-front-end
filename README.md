@@ -1,4 +1,4 @@
-canto-front-end
+Canto Front-End
 ===============
 
-Front end for Canto task management app
+Front end for [Canto](https://github.com/danascheider/canto) task management app
