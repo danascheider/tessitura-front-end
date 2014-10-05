@@ -19,6 +19,7 @@ body {
 
 #wrapper {
     width: 100%;
+    background-color: #222;
 }
 
 #page-wrapper {
@@ -263,8 +264,13 @@ body {
 
 /* Login Page */
 
+.login {
+    background-color: #080808;
+}
+
 .login-panel {
     margin-top: 25%;
+    opacity: 0.5;
 }
 
 /* Flot Chart Containers */
