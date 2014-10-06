@@ -406,6 +406,24 @@
                 <button type='submit' class='btn btn-default'>Create</button>
                 <button type='reset' class='btn btn-default'>Reset</button>
               </form>
+
+              <!-- Task display table -->
+              <div class='table-responsive show-tasks'>
+                <table class='table'>
+                  <thead>
+                    <th></th>
+                    <th>Title</th>
+                    <th>Status</th>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td></td>
+                      <td>Dummy Task</td>
+                      <td>Blocking</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div> <!-- end .table-responsive .show-tasks -->
             </div> <!-- end .panel-body -->
         </div> <!-- end col-lg-6 -->
       </div> <!-- end row -->
@@ -419,6 +437,8 @@
   <script src="js/external/backbone.js"></script>
 
   <!-- Canto scripts -->
+  <script src="js/backbone-main.js"></script>
+  <script src="js/plugins/backbone.basicauth/backbone.basicauth.js"></script>
   <script src="js/canto.js"></script>
 
   <!-- SB Admin Scripts - Include with every page -->
