@@ -332,10 +332,81 @@
 
     <div id="page-wrapper">
       <div class="row">
-        <div class="col-lg-4">
+        <div class="col-lg-6">
           <div class="panel panel-primary dash-widget">
             <div class="panel-heading">My Tasks</div>
-            <div class="panel-body">You have no outstanding tasks!</div>
+            <div class="panel-body">
+              You have no outstanding tasks! 
+              <a class='create-task' href='#'>Create one <i class='fa fa-caret-right'></i></a>
+
+              <!-- Task creation form -->
+              <form class='task-form' role='form'>
+                <h3>New Task</h3>
+                <div class='form-group'>
+                  <label>Title (required)</label>
+                  <input class='form-control' name='title' placeholder='New task'>
+                </div>
+
+                <div class='form-group'>
+                  <label>Deadline</label>
+                  <input type='date' name='deadline' class='form-control'>
+                </div>
+
+                <!-- status options -->
+                <div class='form-group'>
+                  <label>Status</label>
+                  <label class='radio-inline'>
+                    <input type='radio' name='status' value='new' checked>
+                    New
+                  </label>
+                  <label class='radio-inline'>
+                    <input type='radio' name='status' value='in_progress'>
+                    In Progress
+                  </label>
+                  <label class='radio-inline'>
+                    <input type='radio' name='status' value='blocking'>
+                    Blocking
+                  </label>
+                  <label class='radio-inline'>
+                    <input type='radio' name='status' value='complete'>
+                    Complete
+                  </label>
+                </div>
+
+                <!-- Priority options -->
+                <div class='form-group'>
+                  <label>Priority</label>
+                  <label class='radio-inline'>
+                    <input type='radio' name='priority' value='urgent'>
+                    Urgent
+                  </label>
+                  <label class='radio-inline'>
+                    <input type='radio' name='priority' value='high'>
+                    High
+                  </label>
+                  <label class='radio-inline'>
+                    <input type='radio' name='priority' value='normal' checked>
+                    Normal
+                  </label>
+                  <label class='radio-inline'>
+                    <input type='radio' name='priority' value='low'>
+                    Low
+                  </label>
+                  <label class='radio-inline'>
+                    <input type='radio' name='priority' value='not_important'>
+                    Lowest
+                  </label>
+                </div>
+
+                <div class='form-group'>
+                  <label>Notes</label>
+                  <textarea class='form-control' rows='2'></textarea>
+                </div>
+
+                <button type='submit' class='btn btn-default'>Create</button>
+                <button type='reset' class='btn btn-default'>Reset</button>
+              </form>
+            </div>
         </div> <!-- end col-lg-12 -->
       </div> <!-- end row -->
     </div> <!--end #page-wrapper -->
@@ -347,8 +418,8 @@
   <script src="js/external/underscore.js"></script>
   <script src="js/external/backbone.js"></script>
 
-  <!-- Backbone scripts -->
-  <script src="js/user.js"></script>
+  <!-- Canto scripts -->
+  <script src="js/canto.js"></script>
 
   <!-- SB Admin Scripts - Include with every page -->
   <script src="js/sb-admin.js"></script>
