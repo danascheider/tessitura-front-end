@@ -4,8 +4,9 @@ $('a.create-task').click(function() {
 })
 
 $('.task-form button:submit').click(function(e) {
-  var formData = $(this).parent('form').serializeArray();
-  var postData = {}
+  var form = $(this).parent('form');
+  var formData = form.serializeArray();
+  var postData = {};
 
   for(key in formData) {
     var chiave = formData[key]['name'];
@@ -13,7 +14,6 @@ $('.task-form button:submit').click(function(e) {
       postData[chiave] = formData[key]['value']
     }
   }
-  console.log(postData);
 
   e.preventDefault();
   $.ajax({
@@ -24,6 +24,10 @@ $('.task-form button:submit').click(function(e) {
     xhrFields: {
       withCredentials: true
     },
-    data: JSON.stringify(postData)
+    data: JSON.stringify(postData),
+    success: function(data, status, error) {
+      $('a.create-task').find('i.fa').toggleClass('fa-caret-down fa-caret-right');
+      form.slideUp();
+    }
   });
 })
