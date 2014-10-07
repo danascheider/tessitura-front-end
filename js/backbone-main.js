@@ -4,7 +4,6 @@ User = Backbone.Model.extend({
     // Perhaps this should trigger the API call that creates the
     // user in the database, and form submission should trigger
     // the creation of the Backbone model. Food for thought.
-
     defaults: {
       admin: false
     }

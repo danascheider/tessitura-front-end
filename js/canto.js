@@ -15,7 +15,7 @@ requirejs(['jquery',
            'lib/sb-admin'], 
           function($, _, backbone, rel, basic) {
   requirejs(['backbone-main'], function(main) {
-    
+
     // General functions
     var getAttributes = function(form) {
       var formData = form.serializeArray();
@@ -30,6 +30,19 @@ requirejs(['jquery',
 
       return attributes;
     }
+
+    //Expand second-level nav stuff
+    $('ul#side-menu li a').click(function() {
+      var li = $(this).parent('li');
+      li.toggleClass('active');
+
+      if(li.hasClass('active')) {
+        li.siblings('li').removeClass('active');
+        li.siblings('li').find('ul.nav').slideUp();
+      }
+      
+      li.find('ul.nav').slideToggle();
+    })
 
     // Dashboard task display & forms
     $('a.create-task').click(function() {
