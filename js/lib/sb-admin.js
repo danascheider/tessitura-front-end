@@ -16,15 +16,17 @@ $(function() {
 })
 
 $(function() {
-  $(document).click(function() {
-    $('.dropdown-menu').hide();
+  $(document).click(function(e) {
+    var menu = $('.dropdown-menu');
+    if(!menu.is(e.target) && menu.has(e.target).length === 0) {
+      menu.hide();
+    }
   })
 })
 
 //Shows the things the top nav bar is supposed to show
 $(function() {
   $('.navbar-top-links a').click(function(e) {
-    e.stopPropagation();
     var uncles = $(this).parent('li').siblings();
     $.each(uncles, function() {
       if ($(this).find('.dropdown-menu').is(':visible')) {
