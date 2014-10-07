@@ -40,8 +40,8 @@ requirejs(['jquery',
         li.siblings('li').removeClass('active');
         li.siblings('li').find('ul.nav').slideUp();
       }
-      
-      li.find('ul.nav').slideToggle();
+
+      li.children('ul.nav').slideToggle();
     })
 
     // Dashboard task display & forms
