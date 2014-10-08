@@ -1,3 +1,15 @@
+.btn-login {
+  color: #fff;
+  background-color: #428bca;
+  border-color: #357ebd;
+}
+
+.btn-login:focus,
+.btn-login:hover {
+  color: #fff;
+  background-color: #357ebd;
+}
+
 .dash-widget {
   margin-top: 30px;
 }
