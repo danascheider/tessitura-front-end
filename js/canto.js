@@ -5,7 +5,12 @@ requirejs.config({
     backbone:   './lib/backbone',
     relational: './lib/backbone-relational',
     basic:      './lib/backbone.basicauth',
-    bootstrap:  './lib/bootstrap'
+    bootstrap:  './lib/bootstrap',
+
+    // Canto-specific code
+    users:      './models/users',
+    tasks:      './models/tasks',
+    taskLists:  './models/task-lists'
   },
 
   shim: {
