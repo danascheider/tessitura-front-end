@@ -39,7 +39,7 @@ requirejs(['jquery',
            'bootstrap',
            'sb-admin'], 
           function($, _, backbone, rel, basic) {
-  requirejs(['backbone-main'], function(main) {
+  requirejs(['users', 'taskLists', 'tasks'], function(main) {
 
     // General functions
     var getAttributes = function(form) {
