@@ -17,4 +17,7 @@ Task = Backbone.RelationalModel.extend({
       return 'Title is required';
     }
   }
-})
+});
+
+TaskView = Backbone.View.extend({
+});
