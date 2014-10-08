@@ -1,7 +1,27 @@
 requirejs.config({
   paths: {
-    // Maintain directory structure for external libraries
-    lib: './lib'
+    jquery:     './lib/jquery-2.1.1',
+    underscore: './lib/underscore',
+    backbone:   './lib/backbone',
+    relational: './lib/backbone-relational',
+    basic:      './lib/backbone.basicauth',
+    bootstrap:  './lib/bootstrap'
+  },
+
+  shim: {
+    underscore: {
+      exports: '_'
+    },
+    backbone: {
+      deps: [
+        'underscore',
+        'jquery'
+      ],
+      exports: 'Backbone'
+    },
+    bootstrap: {
+      deps: ['jquery']
+    }
   }
 });
 
@@ -9,10 +29,10 @@ requirejs.config({
 requirejs(['jquery', 
            'underscore', 
            'backbone', 
-           'lib/backbone-relational', 
-           'lib/backbone.basicauth', 
-           'lib/bootstrap',
-           'lib/sb-admin'], 
+           'relational', 
+           'basic', 
+           'bootstrap',
+           'sb-admin'], 
           function($, _, backbone, rel, basic) {
   requirejs(['backbone-main'], function(main) {
 
