@@ -55,6 +55,17 @@ body {
 .navbar-top-links li a {
   padding: 15px;
   min-height: 50px;
+  color: #999;
+  text-decoration: none;
+}
+
+.navbar-top-links li a:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+.navbar-top-links li.open > a {
+  color: #fff;
 }
 
 .navbar-top-links .dropdown-menu li {
