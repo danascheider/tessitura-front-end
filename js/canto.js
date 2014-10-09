@@ -56,6 +56,12 @@ requirejs(['jquery',
       return attributes;
     }
 
+    var makeBasicAuth = function(username, password) {
+      var tok = username + ':' + password
+      var hash=btoa(tok);
+      return 'Basic ' + hash
+    }
+
     //Expand second-level nav stuff
     $('ul#side-menu li a').click(function() {
       var li = $(this).parent('li');
@@ -69,11 +75,32 @@ requirejs(['jquery',
       li.children('ul.nav').slideToggle();
     })
 
+    // Login page
+    $('.login-form button:submit').click(function(e) {
+      e.preventDefault();
+      var form = $(this).parent('form');
+      var data = getAttributes(form);
+
+      $.ajax({
+        url: 'http://localhost:9292/login',
+        type: 'POST',
+        beforeSend: function(xhr) {
+          xhr.setRequestHeader('Authorization', makeBasicAuth(data['username'], data['password']));
+        },
+        success: function(data, status, xhr) {
+          window.location = 'file:///home/dscheider/Development/canto-front-end/dashboard.html';
+        },
+        error: function() {
+          console.log('Error');
+        }
+      });
+    });
+
     // Dashboard task display & forms
     $('a.create-task').click(function() {
       $(this).find('i.fa').toggleClass('fa-caret-right fa-caret-down');
       $(this).parent('.panel-body').find('form.task-form').slideToggle();
-    })
+    });
 
     $('.task-form button:submit').click(function(e) {
       e.preventDefault();
