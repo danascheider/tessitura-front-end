@@ -333,8 +333,10 @@
     <div id="page-wrapper">
       <div class="row">
         <div class="col-lg-6">
+
+          <!-- Task list widget -->
           <div class="panel panel-primary dash-widget">
-            <div class="panel-heading">My Tasks</div>
+            <div class="panel-heading"><i class='fa fa-tasks fa-fw'></i>  My Tasks</div>
             <div class="panel-body">
               You have no outstanding tasks! 
               <a class='create-task' href='#'>Create one <i class='fa fa-caret-right'></i></a>
@@ -408,22 +410,14 @@
               </form>
 
               <!-- Task display table -->
-              <div class='table-responsive show-tasks'>
-                <table class='table'>
-                  <thead>
-                    <th></th>
-                    <th>Title</th>
-                    <th>Status</th>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td></td>
-                      <td>Dummy Task</td>
-                      <td>Blocking</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div> <!-- end .table-responsive .show-tasks -->
+              <div class='show-tasks'>
+                <ul>
+                  <li class='task'>
+                    <table class='table'>
+                    </table>
+                  </li>
+                </ul>
+              </div> <!-- end .show-tasks -->
             </div> <!-- end .panel-body -->
         </div> <!-- end col-lg-6 -->
       </div> <!-- end row -->
