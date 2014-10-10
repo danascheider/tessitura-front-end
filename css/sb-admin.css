@@ -79,6 +79,12 @@ body {
 .navbar-top-links .dropdown-menu li a {
   padding: 3px 20px;
   min-height: 0;
+  color: #333;
+}
+
+.navbar-top-links .dropdown-menu li a:hover,
+.navbar-top-links .dropdown-menu li a:focus {
+  background-color: #f5f5f5;
 }
 
 .navbar-top-links .dropdown-menu li a div {
