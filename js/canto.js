@@ -39,28 +39,31 @@ requirejs(['jquery',
            'bootstrap',
            'sb-admin'], 
           function($, _, backbone, rel, basic) {
-  requirejs(['users', 'taskLists', 'tasks'], function(main) {
 
-    // General functions
-    var getAttributes = function(form) {
-      var formData = form.serializeArray();
-      var attributes = {};
+  // General functions
+  var getAttributes = function(form) {
+    var formData = form.serializeArray();
+    var attributes = {};
 
-      for(key in formData) {
-        var chiave = formData[key]['name'];
-        if(formData[key]['value'] != '') {
-          attributes[chiave] = formData[key]['value'];
-        }
+    for(key in formData) {
+      var chiave = formData[key]['name'];
+      if(formData[key]['value'] != '') {
+        attributes[chiave] = formData[key]['value'];
       }
-
-      return attributes;
     }
 
-    var makeBasicAuth = function(username, password) {
-      var tok = username + ':' + password
-      var hash=btoa(tok);
-      return 'Basic ' + hash
-    }
+    return attributes;
+  }
+
+  requirejs(['users', 'taskLists', 'tasks', 'dashboard', 'login'], function(main) {
+
+    // User login
+    $('.login-form button:submit').click(function(e) {
+      e.preventDefault();
+      var form = $(this).parent('form');
+      var data = getAttributes(form)
+      loginUser(data);
+    })
 
     //Expand second-level nav stuff
     $('ul#side-menu li a').click(function() {
@@ -74,27 +77,6 @@ requirejs(['jquery',
 
       li.children('ul.nav').slideToggle();
     })
-
-    // Login page
-    $('.login-form button:submit').click(function(e) {
-      e.preventDefault();
-      var form = $(this).parent('form');
-      var data = getAttributes(form);
-
-      $.ajax({
-        url: 'http://localhost:9292/login',
-        type: 'POST',
-        beforeSend: function(xhr) {
-          xhr.setRequestHeader('Authorization', makeBasicAuth(data['username'], data['password']));
-        },
-        success: function(data, status, xhr) {
-          window.location = 'file:///home/dscheider/Development/canto-front-end/dashboard.html';
-        },
-        error: function() {
-          console.log('Error');
-        }
-      });
-    });
 
     // Dashboard task display & forms
     $('a.create-task').click(function() {
