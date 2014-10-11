@@ -18,28 +18,3 @@ Task = Backbone.RelationalModel.extend({
     }
   }
 });
-
-DashboardTaskView = Backbone.View.extend({
-  initialize: function() {
-    this.$el = $('#dash-task-display');
-  },
-  taskTemplate: _.template($('#dashboard-task-template')),
-  render: function() {
-    this.$el.html(this.taskTemplate(this.model.attributes) );
-    return this
-  },
-  tagName: 'li',
-  events: {
-    'click .mark-complete' : 'markComplete',
-    'dblclick this' : 'showUpdateForm'
-  },
-  markComplete: function() {
-    // Change the task status to 'complete'
-    // Remove task from list
-    // For a few seconds show a placeholder with an 'undo' option
-    // Remove the placeholder
-  },
-  showUpdateForm: function() {
-    // Replace task display with an update form
-  }
-});
