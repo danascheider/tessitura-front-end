@@ -12,6 +12,10 @@ var getAttributes = function(form) {
   return attributes;
 }
 
+$(function() {
+  console.log(JSON.stringify(currentSession));
+});
+
 //Expand second-level nav stuff
 $('ul#side-menu li a').click(function() {
   var li = $(this).parent('li');

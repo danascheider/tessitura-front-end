@@ -1,4 +1,6 @@
-Task = Backbone.RelationalModel.extend({
+var app = app || {};
+
+app.Task = Backbone.RelationalModel.extend({
   urlRoot: 'http://localhost:9292/users/1/tasks',
 
   relations: [{
