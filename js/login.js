@@ -19,3 +19,11 @@ var loginUser = function(data) {
     }
   });
 }
+
+// User login
+$('.login-form button:submit').click(function(e) {
+  e.preventDefault();
+  var form = $(this).parent('form');
+  var data = getAttributes(form)
+  loginUser(data);
+});
