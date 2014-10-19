@@ -1,32 +1,18 @@
-// General functions
-var getAttributes = function(form) {
-  var formData = form.serializeArray();
-  var attributes = {};
+define([
+  'jquery', 
+  'underscore', 
+  'backbone', 
+  'router', 
+  'extras'
+  ], function($, _, Backbone, Router, Extras) {
 
-  for(key in formData) {
-    var chiave = formData[key]['name'];
-    if(formData[key]['value'] != '') {
-      attributes[chiave] = formData[key]['value'];
-    }
-  }
-  return attributes;
-}
-
-$(function() {
-  console.log(JSON.stringify(currentSession));
-});
-
-//Expand second-level nav stuff
-$('ul#side-menu li a').click(function() {
-  var li = $(this).parent('li');
-  li.toggleClass('active');
-
-  if(li.hasClass('active')) {
-    li.siblings('li').removeClass('active');
-    li.siblings('li').find('ul.nav').slideUp();
+  var initialize = function() {
+    Router.initialize();
   }
 
-  li.children('ul.nav').slideToggle();
+  return {
+    initialize: initialize
+  };
 });
 
 // Dashboard task display & forms
