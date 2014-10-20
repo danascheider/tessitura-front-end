@@ -1,7 +1,8 @@
 # Locally-stored notes and experimental files
 .notes/
-js/canto-client.js
-client-testing.html
 
 # Bootstrap downloads
 bootstrap/
+
+# Symbolic link
+server
