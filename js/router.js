@@ -5,7 +5,7 @@ define([
   'views/tasks/collection',
   'views/task-lists/collection',
   'views/users/collection',
-  'views/sessions/login-form',
+  'views/app/login-form',
   ], function($, _, Backbone, TaskCollectionView, TaskListCollectionView, UserCollectionView, LoginView) {
   
   var CantoRouter = Backbone.Router.extend({
@@ -20,6 +20,7 @@ define([
   });
 
   var initialize = function() {
+    alert('It is working');
     var cantoRouter = new CantoRouter;
 
     cantoRouter.on('displayLogin', function() {

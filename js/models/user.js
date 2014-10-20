@@ -14,5 +14,9 @@ app.User = Backbone.RelationalModel.extend({
     defaults: {
       admin: false
     }
+  },
+
+  name: function() {
+    return this.firstName + ' ' + this.lastName;
   }
 })
