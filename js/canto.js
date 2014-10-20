@@ -5,8 +5,10 @@ define([
   'backbone', 
   'router', 
   'models/session',
+  'bootstrap',
+  'sb-admin',
   'extras',
-  ], function($, _, Cookie, Backbone, Router, Session, Extras) {
+  ], function($, _, Cookie, Backbone, Router, Session, Bootstrap, SBAdmin, Extras) {
 
   var initialize = function() {
     Router.initialize();

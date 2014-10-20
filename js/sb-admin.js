@@ -26,18 +26,6 @@ $(function() {
   })
 })
 
-// Toggle dropdown menus on the top nav when links clicked
-$(function() {
-  $('.navbar-top-links a').click(function(e) {
-    $.each($(this).parent('li').siblings(), function() {
-      if ($(this).find('.dropdown-menu').is(':visible')) {
-        $(this).find('.dropdown-menu').hide();
-      }
-    })
-    $(this).parent('li').find('.dropdown-menu').toggle();
-  });
-});
-
 $(function() {
   $('a.dropdown-toggle').click(function() {
     if($(this).parent('li').find('.dropdown-menu').is(':visible')) {
