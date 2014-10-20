@@ -1,13 +1,24 @@
 define([
   'jquery', 
-  'underscore', 
+  'underscore',
+  'cookie', 
   'backbone', 
   'router', 
-  'extras'
-  ], function($, _, Backbone, Router, Extras) {
+  'models/session',
+  'extras',
+  ], function($, _, Cookie, Backbone, Router, Session, Extras) {
 
   var initialize = function() {
     Router.initialize();
+  }
+
+  var start = function() {
+    this.Session = new Session();
+    if(this.Session.authenticated()) {
+      // redirect to user page
+    } else {
+      // show login form
+    }
   }
 
   return {

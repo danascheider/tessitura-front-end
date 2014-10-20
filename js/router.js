@@ -4,11 +4,14 @@ define([
   'backbone', 
   'views/tasks/collection',
   'views/task-lists/collection',
-  'views/users/collection'
-  ], function($, _, Backbone, TaskCollectionView, TaskListCollectionView, UserCollectionView) {
+  'views/users/collection',
+  'views/sessions/login-form',
+  ], function($, _, Backbone, TaskCollectionView, TaskListCollectionView, UserCollectionView, LoginView) {
   
   var CantoRouter = Backbone.Router.extend({
     routes: {
+      '/login'     : 'displayLogin',
+      '/dashboard' : 'displayDashboard',
       '/users'     : 'listUsers',
       '/tasks'     : 'listTasks',
       '/task-lists': 'listTaskLists',
@@ -18,6 +21,16 @@ define([
 
   var initialize = function() {
     var cantoRouter = new CantoRouter;
+
+    cantoRouter.on('displayLogin', function() {
+      var loginView = new LoginView;
+      loginView.render();
+    });
+
+    cantoRouter.on('displayDashboard', function() {
+      // 
+    });
+
     cantoRouter.on('listUsers', function() {
       var userCollectionView = new UserCollectionView();
       userCollectionView.render();

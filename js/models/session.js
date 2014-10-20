@@ -1,25 +1,38 @@
-var app = app || {};
 
 define([
   'underscore',
   'backbone',
-  'storage'
-  ], function(_, Backbone, LocalStorage) {
+  'storage',
+  'cookie'
+  ], function(_, Backbone, LocalStorage, Cookie) {
   
   var SessionModel = Backbone.Model.extend({
     initialize: function() {
-      console.log('Session created');
+      this.load();
     },
 
     defaults: {
-      adminSession: false,
-      remember:     false
+      username     : null, 
+      password     : null,
+      adminSession : false
     },
 
     validate: function(attrs) {
-      if(!attrs.userID) {
-        return 'userID required';
+      if(!attrs.userID || !attrs.password) {
+        return 'userID and password required';
       }
+    },
+
+    save: function(auth_hash) {
+      $.cookie('username', auth_hash.username);
+      $.cookie('password', auth_hash.password);
+    },
+
+    load: function() {
+      this.set({
+        username: $.cookie('username'),
+        password: $.cookie('password')
+      });
     },
 
     localStorage: new Backbone.LocalStorage('sessions-canto')
@@ -27,15 +40,6 @@ define([
 });
 
 app.Session = Backbone.Model.extend({
-  initialize: function() {
-    console.log('Session created');
-  },
-  
-  defaults: {
-    adminSession: false,
-    remember: false
-  },
-
   validate: function(attrs) {
     if(!attrs.userID) {
       return 'userID required'

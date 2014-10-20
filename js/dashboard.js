@@ -57,7 +57,8 @@ var WidgetTaskView = Backbone.View.extend({
   class: 'task',
   template: taskWidgetItem,
   render: function() {
-    this.$el.html(this.template(this.model.attributes))
+    this.$el.html(this.template(this.model.attributes));
+    return this
   }
 });
 
@@ -67,6 +68,7 @@ var TaskView = Backbone.View.extend({
   template: taskListingTemplate,
   render: function() {
     this.$el.html(this.template(this.model.attributes));
+    return this;
   }
 });
 

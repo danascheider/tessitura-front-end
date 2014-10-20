@@ -2,17 +2,18 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'text!templates/task/list.html'
-  ], function($, _, Backbone, taskListTemplate) {
+  'text!templates/task/collection.html'
+  ], function($, _, Backbone, taskCollectionTemplate) {
   
-  var TaskListView = Backbone.View.extend({
+  var TaskCollectionView = Backbone.View.extend({
     el    : $('#container'),
     render: function() {
       var data = {};
-      var compiledTemplate = _.template(taskListTemplate, data);
+      var compiledTemplate = _.template(taskCollectionTemplate, data);
       this.$el.append(compiledTemplate);
+      return this;
     }
   });
 
-  return TaskListView;
+  return TaskCollectionView;
 });
