@@ -6,7 +6,6 @@ define([
   'router', 
   'models/session',
   'bootstrap',
-  'sb-admin',
   'extras',
   ], function($, _, Cookie, Backbone, Router, Session, Bootstrap, SBAdmin, Extras) {
 

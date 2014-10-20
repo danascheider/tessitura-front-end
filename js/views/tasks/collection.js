@@ -2,7 +2,7 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'text!templates/task/collection.html'
+  'text!templates/tasks/collection.html'
   ], function($, _, Backbone, taskCollectionTemplate) {
   
   var TaskCollectionView = Backbone.View.extend({

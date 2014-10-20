@@ -27,7 +27,7 @@ define([
           // Create and store a new session
         }
       });
-    }
+    },  
 
     render : function() {
       var data = {};

@@ -4,14 +4,15 @@ requirejs.config({
     underscore : './lib/underscore',
     backbone   : './lib/backbone',
     relational : './lib/backbone-relational',
-    cookie     : './lib/jquery.cookie-1.4.1.min',
+    cookie     : './lib/cookie',
     storage    : './lib/backbone.localStorage-min',
-    bootstrap  : './lib/bootstrap'
+    bootstrap  : './lib/bootstrap',
+    text       : './lib/text',
+    templates  : '../templates'
   },
 
   shim: {
     bootstrap  : ['jquery'],
-    'sb-admin' : ['jquery', 'bootstrap']
   }
 });
 

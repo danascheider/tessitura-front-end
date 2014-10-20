@@ -1,4 +1,3 @@
-
 define([
   'underscore',
   'backbone',
@@ -37,14 +36,4 @@ define([
 
     localStorage: new Backbone.LocalStorage('sessions-canto')
   });
-});
-
-app.Session = Backbone.Model.extend({
-  validate: function(attrs) {
-    if(!attrs.userID) {
-      return 'userID required'
-    }
-  },
-
-  localStorage: new Backbone.LocalStorage('sessions-canto')
 });
