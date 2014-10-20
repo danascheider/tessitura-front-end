@@ -10,10 +10,17 @@ define([
 
     events : {
       'click body'               : 'hideDropdownMenus',
-      'click navbar-top-links a' : 'toggleDropdownMenu'
+      'click navbar-top-links a' : 'toggleDropdownMenu',
+      'click a.dropdown-toggle'  : 'blurParentLi'
     },
 
-    render : function() {,
+    blurParentLi: function() {
+      if($(this).parent('li').is(':visible')) {
+        $(this).parent('li').blur();
+      }
+    },
+
+    render: function() {
       var data = {};
       var compiledTemplate = _.template(DashboardTemplate, data);
       this.$el.html(compiledTemplate);
