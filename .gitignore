@@ -4,5 +4,9 @@
 # Bootstrap downloads
 bootstrap/
 
+# Images downloaded for comparison
+/img/Shutterstock*
+/img/iStock*
+
 # Symbolic link
 server
