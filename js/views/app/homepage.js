@@ -3,7 +3,7 @@ define([
   'underscore',
   'backbone',
   'text!templates/app/homepage.html',
-  'css!css/homepage.css'], function($, _, Backbone, HomepageTemplate, Stylesheet){
+  'css!stylesheets/homepage.css'], function($, _, Backbone, HomepageTemplate, Stylesheet){
   
   HomepageView = Backbone.View.extend({
     el: $('body'),
