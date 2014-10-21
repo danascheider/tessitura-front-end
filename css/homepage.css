@@ -68,7 +68,7 @@ body {
 }
 
 /* Top nav */
-#homepage > #navbar-top > ul {
+#navbar-top > ul {
   list-style-type: none;
   position: fixed;
   right: 10px;
@@ -76,7 +76,7 @@ body {
   padding: 0;
 }
 
-#homepage > #navbar-top > ul > li {
+#navbar-top > ul > li {
   display: inline;
 }
 

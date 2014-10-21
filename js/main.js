@@ -10,7 +10,8 @@ requirejs.config({
     text        : './lib/text',
     css         : './lib/css.min',
     templates   : '../templates',
-    stylesheets : '../css'
+    stylesheets : '../css',
+    'fa-styles' : '../font-awesome/css'
   },
 
   shim: {
