@@ -3,11 +3,14 @@ define([
   'underscore',
   'backbone',
   'extras',
-  'text!templates/app/login-form.html'
-  ], function($, _, Backbone, Extras, LoginForm) {
+  'text!templates/app/login-form.html',
+  'css!stylesheets/bootstrap.css',
+  'css!stylesheets/sb-admin.css',
+  'css!fa-styles/font-awesome.min.css'
+  ], function($, _, Backbone, Extras, LoginForm, BootstrapStyles, ThemeStyles, FAStyles) {
 
   LoginFormView = Backbone.View.extend({
-    el     : $('#wrapper'),
+    el     : $('body'),
     events : {
       'click button:submit': 'loginUser'
     },
@@ -30,9 +33,8 @@ define([
     },  
 
     render : function() {
-      var data = {};
-      var compiledTemplate = _.template(LoginForm);
-      this.$el.html(compiledTemplate, data);
+      this.$el.html(_.template(LoginForm));
+      return this;
     }
   });
 

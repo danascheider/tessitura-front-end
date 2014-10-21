@@ -12,7 +12,7 @@ define([
   return {
     initialize: function() {
       var router = new Router();
-      Backbone.history.start({pushState: true});
+      Backbone.history.start();
     },
 
     start: function() {

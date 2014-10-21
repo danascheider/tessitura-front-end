@@ -15,9 +15,25 @@ define([
     HomepageStyles){
   
   HomepageView = Backbone.View.extend({
-    el: $('body'),
-    render: function() {
+    initialize: function(router) {
+      this.router = router;
+    },
+
+    el     : $('body'),
+
+    events : {
+      'click .login-link' : 'getLogin'
+    },
+
+    getLogin : function(e) {
+      e.preventDefault();
+      this.router.displayLogin();
+      Backbone.history.navigate('login');
+    },
+
+    render : function() {
       this.$el.html(_.template(HomepageTemplate));
+      return this;
     }
   });
 

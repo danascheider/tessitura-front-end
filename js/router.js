@@ -19,23 +19,25 @@ define([
   
   var CantoRouter = Backbone.Router.extend({
     routes: {
-      ''           : 'displayHomepage',
-      '/'          : 'displayHomepage',
-      '/login'     : 'displayLogin',
-      '/dashboard' : 'displayDashboard',
-      '/users'     : 'listUsers',
-      '/tasks'     : 'listTasks',
-      '/task-lists': 'listTaskLists',
-      '*actions'   : 'defaultAction'
+      ''            : 'displayHomepage',
+      '/'           : 'displayHomepage',
+      '/login'      : 'displayLogin',
+      '/dashboard'  : 'displayDashboard',
+      '/users'      : 'listUsers',
+      '/tasks'      : 'listTasks',
+      '/task-lists' : 'listTaskLists',
+      '*actions'    : 'defaultAction'
     },
 
     displayLogin: function() {
       var loginView = new LoginView;
+      $('body').attr('id', 'dashboard');
       loginView.render();
     },
 
     displayHomepage: function() {
-      var homepageView = new HomepageView;
+      var homepageView = new HomepageView(this);
+      $('body').attr('id', 'homepage');
       homepageView.render();
     },
 
