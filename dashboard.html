@@ -2,30 +2,31 @@
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset='utf-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
 
   <title>Canto - Career Management for Classical Singers</title>
 
   <!-- Core CSS - Include with every page -->
-  <link href="css/bootstrap.css" rel="stylesheet">
-  <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+  <link href='css/bootstrap.css' rel='stylesheet'>
+  <link href='css/stylish-portfolio.css' rel='stylesheet'>
+  <link href='font-awesome/css/font-awesome.css' rel='stylesheet'>
 
   <!-- App-specific CSS -->
-  <link href="css/canto.css" rel="stylesheet">
+  <link href='css/canto.css' rel='stylesheet'>
 
   <!-- SB Admin CSS - Include with every page -->
-  <link href="css/sb-admin.css" rel="stylesheet">
+  <link href='css/sb-admin.css' rel='stylesheet'>
 </head>
 
 <body>
-  <div id="wrapper"></div>
+  <div id='wrapper'></div>
 
   <!-- Canto scripts -->
   <script data-main='js/main' src='js/lib/require.js'></script>
   <script src='js/lib/jquery-2.1.1.js'></script>
   <script type='text/javascript'>
-    $(window).bind("load resize", function() {
+    $(window).bind('load resize', function() {
       width = (this.window.innerWidth > 0) ? this.window.innerWidth : this.screen.width;
       if (width < 768) {
         $('div.sidebar-collapse').addClass('collapse')

@@ -16,6 +16,10 @@ define([
       adminSession : false
     },
 
+    authenticated: function() {
+      Boolean(this.get('userID'));
+    },
+
     validate: function(attrs) {
       if(!attrs.userID || !attrs.password) {
         return 'userID and password required';
@@ -36,4 +40,6 @@ define([
 
     localStorage: new Backbone.LocalStorage('sessions-canto')
   });
+
+  return SessionModel;
 });

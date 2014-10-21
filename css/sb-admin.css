@@ -4,7 +4,7 @@
 
 body {
   padding-top: 100px;
-  background-color: #f8f8f8;
+  background-color: #333;
 }
 
 @media(min-width:768px) {
@@ -19,6 +19,7 @@ body {
 
 #wrapper {
   width: 100%;
+  height: 100%;
   background-color: #333;
 }
 
@@ -44,73 +45,73 @@ body {
 
 /* Top Right Navigation Dropdown Styles */
 
-.navbar-top-links li {
+#dashboard > .navbar-top-links li {
   display: inline-block;
 }
 
-.navbar-top-links li:last-child {
+#dashboard > .navbar-top-links li:last-child {
   margin-right: 15px;
 }
 
-.navbar-top-links li a {
+#dashboard > .navbar-top-links li a {
   padding: 15px;
   min-height: 50px;
   color: #ccc;
   text-decoration: none;
 }
 
-.navbar-top-links li a:hover {
+#dashboard > .navbar-top-links li a:hover {
   color: #7DCCC8;
   text-decoration: none;
 }
 
-.navbar-top-links li.open > a {
+#dashboard > .navbar-top-links li.open > a {
   color: #7DCCC8;
 }
 
-.navbar-top-links .dropdown-menu li {
+#dashboard > .navbar-top-links .dropdown-menu li {
   display: block;
 }
 
-.navbar-top-links .dropdown-menu li:last-child {
+#dashboard > .navbar-top-links .dropdown-menu li:last-child {
   margin-right: 0;
 }
 
-.navbar-top-links .dropdown-menu li a {
+#dashboard > .navbar-top-links .dropdown-menu li a {
   padding: 3px 20px;
   min-height: 0;
   color: #333;
 }
 
-.navbar-top-links .dropdown-menu li a:hover,
-.navbar-top-links .dropdown-menu li a:focus {
+#dashboard > .navbar-top-links .dropdown-menu li a:hover,
+#dashboard > .navbar-top-links .dropdown-menu li a:focus {
   background-color: #f5f5f5;
 }
 
-.navbar-top-links .dropdown-menu li a div {
+#dashboard > .navbar-top-links .dropdown-menu li a div {
   white-space: normal;
 }
 
-.navbar-top-links .dropdown-messages,
-.navbar-top-links .dropdown-tasks,
-.navbar-top-links .dropdown-alerts {
+#dashboard > .navbar-top-links .dropdown-messages,
+#dashboard > .navbar-top-links .dropdown-tasks,
+#dashboard > .navbar-top-links .dropdown-alerts {
   width: 310px;
   min-width: 0;
 }
 
-.navbar-top-links .dropdown-messages {
+#dashboard > .navbar-top-links .dropdown-messages {
   margin-left: 5px;
 }
 
-.navbar-top-links .dropdown-tasks {
+#dashboard > .navbar-top-links .dropdown-tasks {
   margin-left: -59px;
 }
 
-.navbar-top-links .dropdown-alerts {
+#dashboard > .navbar-top-links .dropdown-alerts {
   margin-left: -123px;
 }
 
-.navbar-top-links .dropdown-user {
+#dashboard > .navbar-top-links .dropdown-user {
   right: 0;
   left: auto;
 }
@@ -179,9 +180,9 @@ body {
     margin-top: 51px;
   }
 
-  .navbar-top-links .dropdown-messages,
-  .navbar-top-links .dropdown-tasks,
-  .navbar-top-links .dropdown-alerts {
+  #dashboard > .navbar-top-links .dropdown-messages,
+  #dashboard > .navbar-top-links .dropdown-tasks,
+  #dashboard > .navbar-top-links .dropdown-alerts {
     margin-left: auto;
   }
 }

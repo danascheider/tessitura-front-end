@@ -498,7 +498,7 @@ cite {
   color: #999;
 }
 .text-primary {
-  color: #428bca;
+  color: #74ABCC; /* Previously #428bca */
 }
 a.text-primary:hover {
   color: #3071a9;
@@ -529,7 +529,7 @@ a.text-danger:hover {
 }
 .bg-primary {
   color: #fff;
-  background-color: #428bca;
+  background-color: #74ABCC; /* Previously #428bca */
 }
 a.bg-primary:hover {
   background-color: #3071a9;

@@ -6,55 +6,59 @@ define([
   'views/task-lists/collection',
   'views/users/collection',
   'views/app/login-form',
-  ], function($, _, Backbone, TaskCollectionView, TaskListCollectionView, UserCollectionView, LoginView) {
+  'views/app/dashboard',
+  'views/app/homepage'
+  ], function($, 
+      _, Backbone, 
+      TaskCollectionView, 
+      TaskListCollectionView, 
+      UserCollectionView, 
+      LoginView, 
+      DashboardView,
+      HomepageView) {
   
   var CantoRouter = Backbone.Router.extend({
     routes: {
+      ''           : 'displayHomepage',
+      '/'          : 'displayHomepage',
       '/login'     : 'displayLogin',
       '/dashboard' : 'displayDashboard',
       '/users'     : 'listUsers',
       '/tasks'     : 'listTasks',
       '/task-lists': 'listTaskLists',
       '*actions'   : 'defaultAction'
+    },
+
+    displayLogin: function() {
+      var loginView = new LoginView;
+      loginView.render();
+    },
+
+    displayHomepage: function() {
+      var homepageView = new HomepageView;
+      homepageView.render();
+    },
+
+    displayDashboard: function() {
+      var dashboardView = new DashboardView;
+      dashboardView.render();
+    },
+
+    listUsers: function() {
+      var userCollectionView = new UserCollectionView;
+      userCollectionView.render();
+    },
+
+    listTasks: function() {
+      var taskCollectionView = new TaskCollectionView;
+      taskCollectionView.router();
+    },
+
+    listTaskLists: function() {
+      var taskListCollectionView = new TaskListCollectionView;
+      taskListCollectionView.render();
     }
   });
 
-  var initialize = function() {
-    alert('It is working');
-    var cantoRouter = new CantoRouter;
-
-    cantoRouter.on('displayLogin', function() {
-      var loginView = new LoginView;
-      loginView.render();
-    });
-
-    cantoRouter.on('displayDashboard', function() {
-      // 
-    });
-
-    cantoRouter.on('listUsers', function() {
-      var userCollectionView = new UserCollectionView();
-      userCollectionView.render();
-    });
-
-    cantoRouter.on('listTasks', function() {
-      var taskCollectionView = new TaskCollectionView();
-      taskCollectionView.render();
-    });
-
-    cantoRouter.on('listTaskLists', function() {
-      var taskListCollectionView = new TaskListCollectionView();
-      taskListCollectionView.render();
-    });
-
-    cantoRouter.on('defaultAction', function(actions) {
-      console.log('No route: ', actions);
-    });
-
-    Backbone.history.start();
-  }
-
-  return {
-    initialize: initialize
-  };
+  return CantoRouter;
 });

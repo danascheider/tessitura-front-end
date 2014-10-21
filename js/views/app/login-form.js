@@ -3,7 +3,7 @@ define([
   'underscore',
   'backbone',
   'extras',
-  'text!templates/sessions/login-form.html'
+  'text!templates/app/login-form.html'
   ], function($, _, Backbone, Extras, LoginForm) {
 
   LoginFormView = Backbone.View.extend({
