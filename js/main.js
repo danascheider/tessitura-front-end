@@ -8,7 +8,7 @@ requirejs.config({
     storage     : './lib/backbone.localStorage-min',
     bootstrap   : './lib/bootstrap',
     text        : './lib/text',
-    css         : './lib/css.min'
+    css         : './lib/css.min',
     templates   : '../templates',
     stylesheets : '../css'
   },
