@@ -8,8 +8,15 @@ requirejs.config({
     storage    : './lib/backbone.localStorage-min',
     bootstrap  : './lib/bootstrap',
     text       : './lib/text',
-    templates  : '../templates'
+    templates  : '../templates',
+    styles     : '../css'
   },
+
+  map: {
+    '*': {
+      css: './lib/css.min'
+    }
+  }
 
   shim: {
     bootstrap  : ['jquery'],
