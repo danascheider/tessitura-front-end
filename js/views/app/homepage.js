@@ -2,7 +2,8 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'text!templates/app/homepage.html'], function($, _, Backbone, HomepageTemplate){
+  'text!templates/app/homepage.html',
+  'css!css/homepage.css'], function($, _, Backbone, HomepageTemplate, Stylesheet){
   
   HomepageView = Backbone.View.extend({
     el: $('body'),
