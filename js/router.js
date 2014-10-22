@@ -21,16 +21,20 @@ define([
     routes: {
       ''            : 'displayHomepage',
       '/'           : 'displayHomepage',
-      '/login'      : 'displayLogin',
-      '/dashboard'  : 'displayDashboard',
-      '/users'      : 'listUsers',
-      '/tasks'      : 'listTasks',
-      '/task-lists' : 'listTaskLists',
+      'login'       : 'displayLogin',
+      'dashboard'   : 'displayDashboard',
+      'users'       : 'listUsers',
+      'tasks'       : 'listTasks',
+      'task-lists'  : 'listTaskLists',
       '*actions'    : 'defaultAction'
     },
 
+    defaultAction: function(action) {
+      console.log('No route for ', action);
+    },
+
     displayLogin: function() {
-      var loginView = new LoginView;
+      var loginView = new LoginView(this);
       $('body').attr('id', 'dashboard');
       loginView.render();
     },
@@ -42,7 +46,7 @@ define([
     },
 
     displayDashboard: function() {
-      var dashboardView = new DashboardView;
+      var dashboardView = new DashboardView(this);
       dashboardView.render();
     },
 

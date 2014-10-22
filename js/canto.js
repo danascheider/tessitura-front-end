@@ -11,16 +11,20 @@ define([
 
   return {
     initialize: function() {
-      var router = new Router();
+      var router = new Router;
       Backbone.history.start();
     },
 
     start: function() {
       this.Session = new Session();
       if(this.Session.authenticated()) {
-        // redirect to user page
+        // get this.Session.userID
+        // use userID to know which user's data to return
       } else {
-        // show homepage
+        // if user has attempted to navigate to dashboard
+        //   show login page
+        // else
+        //   show homepage
       }
     }
   };

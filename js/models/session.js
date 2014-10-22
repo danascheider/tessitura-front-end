@@ -11,9 +11,9 @@ define([
     },
 
     defaults: {
-      username     : null, 
-      password     : null,
-      adminSession : false
+      username : null, 
+      password : null,
+      userID   : null
     },
 
     authenticated: function() {
@@ -29,12 +29,14 @@ define([
     save: function(auth_hash) {
       $.cookie('username', auth_hash.username);
       $.cookie('password', auth_hash.password);
+      $.cookie('userID', auth_hash.userID);
     },
 
     load: function() {
       this.set({
-        username: $.cookie('username'),
-        password: $.cookie('password')
+        username : $.cookie('username'),
+        password : $.cookie('password'),
+        userID   : $.cookie('userID')
       });
     },
 

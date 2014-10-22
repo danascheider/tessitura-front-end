@@ -14,6 +14,10 @@ define([
       'click a.dropdown-toggle'  : 'blurParentLi'
     },
 
+    initialize: function(router) {
+      this.router = router;
+    },
+
     blurParentLi: function() {
       if($(this).parent('li').is(':visible')) {
         $(this).parent('li').blur();
