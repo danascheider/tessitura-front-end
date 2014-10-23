@@ -1,16 +1,3 @@
-//Expand second-level nav stuff
-$('ul#side-menu li a').click(function() {
-  var li = $(this).parent('li');
-  li.toggleClass('active');
-
-  if(li.hasClass('active')) {
-    li.siblings('li').removeClass('active');
-    li.siblings('li').find('ul.nav').slideUp();
-  }
-
-  li.children('ul.nav').slideToggle();
-});
-
 /* This is a temporary thing that fetches all the tasks from the server
    when the dashboard is loaded. Eventually, it will dynamically render
    the dashboard views so users can see their data when they log in. 

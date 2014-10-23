@@ -15,7 +15,8 @@ define([
     events : {
       'click body'                : 'hideDropdownMenus',
       'click navbar-top-links a'  : 'toggleDropdownMenu',
-      'click a.dropdown-toggle'   : 'blurParentLi'
+      'click a.dropdown-toggle'   : 'blurParentLi',
+      'click ul#side-menu li a'   : 'toggleSecondLevelNav'
     },
 
     blurParentLi: function() {
@@ -47,6 +48,20 @@ define([
         }
       });
       $(this).parent('li').find('.dropdown-menu').toggle();
+    },
+
+    toggleSecondLevelNav: function(e) {
+      e.preventDefault();
+      var li = $(e.target).parent('li');
+
+      li.toggleClass('active');
+
+      if (li.hasClass('active')) {
+        li.siblings('li').removeClass('active');
+        li.siblings('li').find('ul.nav').slideUp();
+      }
+
+      li.children('ul.nav').slideToggle();
     }
   });
 
