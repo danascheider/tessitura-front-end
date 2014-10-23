@@ -1,4 +1,4 @@
-define(['jquery', 'models/session'], function($, Session) {
+define(['jquery', 'cookie', 'models/session'], function($, Cookie, Session) {
   var extras = {
     getAttributes: function(form) {
       var formData = form.serializeArray();
@@ -20,6 +20,10 @@ define(['jquery', 'models/session'], function($, Session) {
 
     makeBasicAuth: function(username, password) {
       return 'Basic ' + this.getAuthHash(username, password);
+    },
+
+    setCookie: function(obj) {
+      $.cookie('auth', this.getAuthHash(obj['username'], obj['password']));
     }
   };
 

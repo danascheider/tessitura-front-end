@@ -11,13 +11,14 @@ define([
   ], function($, _, Backbone, Extras, Cookie, LoginForm, BootstrapStyles, ThemeStyles, FAStyles) {
 
   LoginFormView = Backbone.View.extend({
-    initialize: function(router) {
-      this.router = router;
-    },
-
     el     : $('body'),
+
     events : {
       'click button:submit': 'loginUser'
+    },
+
+    initialize: function(router) {
+      this.router = router;
     },
 
     loginUser: function(e) {
@@ -33,21 +34,23 @@ define([
         beforeSend : function(xhr) {
           xhr.setRequestHeader('Authorization', Extras.makeBasicAuth(username, password));
         },
-        success    : function(data, status, xhr) {
-          $.cookie('username', data['username']);
-          $.cookie('password', data['password']);
-          $.cookie('userID', data['id']);
-          console.log('Success');
-          that.router.navigate('dashboard');
+
+        success    : function(obj, status, xhr) {
+          var obj = JSON.parse(obj)
+          $.cookie('auth', Extras.getAuthHash(username, password));
+          $.cookie('user', obj['user']);
+          Backbone.history.navigate('dashboard');
         },
+
         error      : function(xhr, status, error) {
-          that.$el.find('form').clear();
+          that.$el.find('form').reset();
           console.log('Error: ', error);
         }
       });
     },  
 
     render : function() {
+      $('body').attr('id', 'dashboard');
       this.$el.html(_.template(LoginForm));
       return this;
     }

@@ -1,9 +1,11 @@
 define([
+  'jquery',
   'underscore',
   'backbone',
   'storage',
-  'cookie'
-  ], function(_, Backbone, LocalStorage, Cookie) {
+  'cookie',
+  'extras'
+  ], function($, _, Backbone, LocalStorage, Cookie, Extras) {
   
   var SessionModel = Backbone.Model.extend({
     initialize: function() {
@@ -17,26 +19,24 @@ define([
     },
 
     authenticated: function() {
-      Boolean(this.get('userID'));
+      Boolean(this.get('user'));
     },
 
     validate: function(attrs) {
-      if(!attrs.userID || !attrs.password) {
-        return 'userID and password required';
+      if(!attrs.user || !attrs.auth) {
+        return 'user and auth required';
       }
     },
 
     save: function(auth_hash) {
-      $.cookie('username', auth_hash.username);
-      $.cookie('password', auth_hash.password);
-      $.cookie('userID', auth_hash.userID);
+      $.cookie('auth', Extras.getAuthHash(auth_hash.username, auth_hash.password));
+      $.cookie('user', auth_hash.user);
     },
 
     load: function() {
       this.set({
-        username : $.cookie('username'),
-        password : $.cookie('password'),
-        userID   : $.cookie('userID')
+        auth : $.cookie('auth'),
+        user : $.cookie('user')
       });
     },
 
