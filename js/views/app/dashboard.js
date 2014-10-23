@@ -4,10 +4,10 @@ define([
   'backbone',
   'text!templates/app/dashboard.html',
   'css!stylesheets/bootstrap.css',
-  'css!stylesheets/sb-admin.css',
+  'css!stylesheets/dashboard.css',
   'css!stylesheets/canto.css',
   'css!stylesheets/font-awesome.css'
-  ], function($, _, Backbone, DashboardTemplate, BootstrapStyles, ThemeStyles, CantoStyles, FAStyles) {
+  ], function($, _, Backbone, DashboardTemplate, BootstrapStyles, DashStyles, CantoStyles, FAStyles) {
   
   var DashboardView = Backbone.View.extend({
     el     : $('body'),

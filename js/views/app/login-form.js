@@ -6,9 +6,9 @@ define([
   'cookie',
   'text!templates/app/login-form.html',
   'css!stylesheets/bootstrap.css',
-  'css!stylesheets/sb-admin.css',
+  'css!stylesheets/dashboard.css',
   'css!fa-styles/font-awesome.min.css'
-  ], function($, _, Backbone, Extras, Cookie, LoginForm, BootstrapStyles, ThemeStyles, FAStyles) {
+  ], function($, _, Backbone, Extras, Cookie, LoginForm, BootstrapStyles, DashStyles, FAStyles) {
 
   LoginFormView = Backbone.View.extend({
     el     : $('body'),
