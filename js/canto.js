@@ -11,15 +11,14 @@ define([
 
   return {
     initialize: function() {
-      var router = new Router;
+      this.router = new Router;
       Backbone.history.start();
     },
 
     start: function() {
       this.Session = new Session();
       if(this.Session.authenticated()) {
-        // get this.Session.userID
-        // use userID to know which user's data to return
+        this.router.navigate('dashboard');
       } else {
         // if user has attempted to navigate to dashboard
         //   show login page

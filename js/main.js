@@ -16,6 +16,10 @@ requirejs.config({
 
   shim: {
     bootstrap  : ['jquery'],
+    'backbone' : {
+      deps     : ['jquery', 'underscore'],
+      exports  : 'Backbone'
+    }
   }
 });
 

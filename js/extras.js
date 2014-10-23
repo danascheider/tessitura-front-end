@@ -22,8 +22,9 @@ define(['jquery', 'cookie', 'models/session'], function($, Cookie, Session) {
       return 'Basic ' + this.getAuthHash(username, password);
     },
 
-    setCookie: function(obj) {
-      $.cookie('auth', this.getAuthHash(obj['username'], obj['password']));
+    setCookie: function(username, password, user) {
+      $.cookie('auth', this.getAuthHash(username, password));
+      $.cookie('user', user);
     }
   };
 

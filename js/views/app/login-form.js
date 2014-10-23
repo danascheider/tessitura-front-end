@@ -37,9 +37,8 @@ define([
 
         success    : function(obj, status, xhr) {
           var obj = JSON.parse(obj)
-          $.cookie('auth', Extras.getAuthHash(username, password));
-          $.cookie('user', obj['user']);
-          Backbone.history.navigate('dashboard');
+          Extras.setCookie(username, password, obj['user']);
+          Backbone.history.navigate('dashboard', {trigger: true});
         },
 
         error      : function(xhr, status, error) {

@@ -3,19 +3,19 @@ define([
   'underscore',
   'backbone',
   'text!templates/app/dashboard.html',
-  ], function($, _, Backbone, DashboardTemplate) {
+  'css!stylesheets/bootstrap.css',
+  'css!stylesheets/sb-admin.css',
+  'css!stylesheets/canto.css',
+  'css!stylesheets/font-awesome.css'
+  ], function($, _, Backbone, DashboardTemplate, BootstrapStyles, ThemeStyles, CantoStyles, FAStyles) {
   
   var DashboardView = Backbone.View.extend({
-    el     : $('#wrapper'),
+    el     : $('body'),
 
     events : {
-      'click body'               : 'hideDropdownMenus',
-      'click navbar-top-links a' : 'toggleDropdownMenu',
-      'click a.dropdown-toggle'  : 'blurParentLi'
-    },
-
-    initialize: function(router) {
-      this.router = router;
+      'click body'                : 'hideDropdownMenus',
+      'click navbar-top-links a'  : 'toggleDropdownMenu',
+      'click a.dropdown-toggle'   : 'blurParentLi'
     },
 
     blurParentLi: function() {
@@ -24,10 +24,13 @@ define([
       }
     },
 
+    initialize: function(router) {
+      this.router = router;
+    },
+
     render: function() {
-      var data = {};
-      var compiledTemplate = _.template(DashboardTemplate, data);
-      this.$el.html(compiledTemplate);
+      this.$el.html(_.template(DashboardTemplate));
+      return this;
     },
 
     hideDropdownMenus: function(e) {
@@ -45,5 +48,7 @@ define([
       });
       $(this).parent('li').find('.dropdown-menu').toggle();
     }
-  })
+  });
+
+  return DashboardView;
 });
