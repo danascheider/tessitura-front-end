@@ -2,13 +2,13 @@
 
 /* ------------------------------- */
 
-#dashboard body {
+#dashboard {
   padding-top: 100px;
   background-color: #333;
 }
 
 @media(min-width:768px) {
-  #dashboard body {
+  #dashboard {
     padding-top: 50px;
     background-color: #333;
   }
