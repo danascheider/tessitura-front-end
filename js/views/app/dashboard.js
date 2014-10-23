@@ -62,6 +62,7 @@ define([
       }
 
       li.children('ul.nav').slideToggle();
+      e.stopPropagation();
     }
   });
 
