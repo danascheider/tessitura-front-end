@@ -50,7 +50,7 @@ define([
     },
 
     displayLogin: function() {
-      if (window.Session.authenticated()) {
+      if (window.Session && window.Session.authenticated()) {
         Backbone.history.navigate('dashboard', {trigger: true});
       } else {
         var loginView = new LoginView(this);
