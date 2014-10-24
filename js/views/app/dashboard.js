@@ -57,11 +57,22 @@ define([
       li.toggleClass('active');
 
       if (li.hasClass('active')) {
+
+        // Only one li can be active at a time.
+
         li.siblings('li').removeClass('active');
         li.siblings('li').find('ul.nav').slideUp();
+      } else {
+
+        // When the li is no longer active, its children should not
+        // be active, either.
+
+        li.find('li.active').removeClass('active');
       }
 
       li.children('ul.nav').slideToggle();
+
+      // Stop the menu from immediately sliding up again.
       e.stopPropagation();
     }
   });
