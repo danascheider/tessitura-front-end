@@ -93,11 +93,17 @@ define([
     },
 
     render: function() {
+      // Enable dashboard-linked CSS properties
       $('body').attr('id', 'dashboard');
-      var html = this.template({user: this.options.user});
-      this.$el.append(html);
+
+      // Render main dashboard view
+      this.$el.append(this.template({user: this.options.user}));
+
+      // Render task panel widget view
       var taskPanel = new TaskPanelView({el: this.$('#task-panel')});
       taskPanel.render();
+
+      // Best practices
       return this;
     }
   });

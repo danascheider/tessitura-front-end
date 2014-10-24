@@ -2,10 +2,8 @@ define([
   'jquery', 
   'underscore', 
   'backbone',
-  'views/tasks/create-form',
+  'views/tasks/empty-panel',
   'text!templates/partials/task-panel.html',
-  'text!templates/partials/empty-task-panel.html',
-  'text!templates/tasks/create-form.html',
   'css!stylesheets/bootstrap.css',
   'css!stylesheets/dashboard.css',
   'css!stylesheets/canto.css',
@@ -13,9 +11,8 @@ define([
   ], function(
     $, _,
     Backbone,
-    CreateFormView,
+    EmptyPanelView,
     TaskPanelTemplate,
-    EmptyPanelTemplate,
     CreateFormTemplate,
     BootstrapStyles,
     DashboardStyles,
@@ -31,8 +28,6 @@ define([
 
     template : _.template(TaskPanelTemplate),
 
-    emptyTemplate: _.template(EmptyPanelTemplate),
-
     showTaskForm: function(e) {
       e.preventDefault();
       var target = e.target
@@ -41,8 +36,9 @@ define([
     },
 
     render: function() {
-      var panelContent = this.emptyTemplate({createForm: CreateFormTemplate});
-      this.$el.html(this.template({panelContent: panelContent}));
+      this.$el.append(this.template());
+      var emptyPanel = new EmptyPanelView({el: $(this.el).find('.panel-body')});
+      emptyPanel.render();
       return this;
     }
   });

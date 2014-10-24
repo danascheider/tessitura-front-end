@@ -6,11 +6,19 @@ define([
   ], function($, _, Backbone, CreateFormTemplate) {
 
   var TaskCreateFormView = Backbone.View.extend({
-    el       : 'div.panel-body',
+    events   : {
+      'submit form' : 'createTask'
+    },
+
     template : _.template(CreateFormTemplate),
 
+    createTask: function(e) {
+      e.preventDefault();
+      console.log('Nice try!');
+    },
+
     render: function() {
-      this.$el.append(compiledTemplate);
+      this.$el.append(this.template);
       return this;
     }
   });
