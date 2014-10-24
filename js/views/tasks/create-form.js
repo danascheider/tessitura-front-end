@@ -3,13 +3,14 @@ define([
   'underscore',
   'backbone',
   'text!templates/tasks/create-form.html'
-  ], function($, _, Backbone, taskCreateForm) {
+  ], function($, _, Backbone, CreateFormTemplate) {
 
   var TaskCreateFormView = Backbone.View.extend({
-    el    : $('#task-form'),
+    el       : 'div.panel-body',
+    template : _.template(CreateFormTemplate),
+
     render: function() {
-      var compiledTemplate = _.template(taskCreateForm);
-      this.$el.html(compiledTemplate);
+      this.$el.append(compiledTemplate);
       return this;
     }
   });
