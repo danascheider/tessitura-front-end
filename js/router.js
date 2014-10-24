@@ -4,7 +4,7 @@ define([
   'backbone', 
   'cookie',
   'models/session',
-  'callbacks',
+  'filter',
   'views/tasks/collection',
   'views/task-lists/collection',
   'views/users/collection',
@@ -15,7 +15,7 @@ define([
       _, Backbone, 
       Cookie,
       Session,
-      Callbacks,
+      Filter,
       TaskCollectionView, 
       TaskListCollectionView, 
       UserCollectionView, 
@@ -33,6 +33,12 @@ define([
       '*actions'       : 'defaultAction'
     },
 
+    before: {
+      'dashboard(/)' : 'verifyLoggedIn',
+      '(/)'          : 'rerouteIfLoggedIn',
+      'login(/)'     : 'rerouteIfLoggedIn'
+    },
+
     defaultAction: function(action) {
       // FIX: In production this should render some sort of a 'missing
       //      resource' view since opera singers have an inexplicable
@@ -42,12 +48,8 @@ define([
     },
 
     displayDashboard: function() {
-      if (window.Session && window.Session.get('user')) {
-        var dashboardView = new DashboardView(this);
-        dashboardView.render(window.Session.get('user'));
-      } else {
-        Backbone.history.navigate('login', {trigger: true});
-      }
+      var dashboardView = new DashboardView(this);
+      dashboardView.render($.cookie('user'));
     },
 
     displayHomepage: function() {
@@ -56,12 +58,8 @@ define([
     },
 
     displayLogin: function() {
-      if (window.Session && window.Session.authenticated()) {
-        Backbone.history.navigate('dashboard', {trigger: true});
-      } else {
-        var loginView = new LoginView(this);
-        loginView.render();
-      }
+      var loginView = new LoginView(this);
+      loginView.render();
     },
 
     logOut: function() {
@@ -69,6 +67,22 @@ define([
       $.removeCookie('user');
       $.removeCookie('userID');
       Backbone.history.navigate('login', {trigger: true});
+    },
+
+    rerouteIfLoggedIn: function(fragment, args, next) {
+      if (!$.cookie('auth')) {
+        next();
+      } else {
+        Backbone.history.navigate('dashboard', {trigger: true});
+      }
+    },
+
+    verifyLoggedIn: function(fragment, args, next) {
+      if ($.cookie('auth')) {
+        next();
+      } else {
+        Backbone.history.navigate('login', {trigger: true});
+      }
     }
   });
 
