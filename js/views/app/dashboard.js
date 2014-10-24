@@ -2,6 +2,7 @@ define([
   'jquery',
   'underscore',
   'backbone',
+  'views/app/dashboard-sidebar',
   'views/tasks/task-panel',
   'text!templates/app/dashboard.html',
   'text!templates/tasks/create-form.html',
@@ -12,6 +13,7 @@ define([
   ], function(
     $, _, 
     Backbone, 
+    SidebarView,
     TaskPanelView,
     DashboardTemplate, 
     EmptyTaskPanelTemplate,
@@ -31,7 +33,6 @@ define([
       'click body'                : 'hideDropdownMenus',
       'click navbar-top-links a'  : 'toggleDropdownMenu',
       'click a.dropdown-toggle'   : 'blurParentLi',
-      'click ul#side-menu li a'   : 'toggleSecondLevelNav'
     },
 
     template : _.template(DashboardTemplate),
@@ -60,32 +61,6 @@ define([
       $(this).parent('li').find('.dropdown-menu').toggle();
     },
 
-    toggleSecondLevelNav: function(e) {
-      e.preventDefault();
-      var li = $(e.target).parent('li');
-
-      li.toggleClass('active');
-
-      if (li.hasClass('active')) {
-
-        // Only one li can be active at a time.
-
-        li.siblings('li').removeClass('active');
-        li.siblings('li').find('ul.nav').slideUp();
-      } else {
-
-        // When the li is no longer active, its children should not
-        // be active, either.
-
-        li.find('li.active').removeClass('active');
-      }
-
-      li.children('ul.nav').slideToggle();
-
-      // Stop the menu from immediately sliding up again.
-      e.stopPropagation();
-    },
-
     // Core View Methods //
 
     initialize: function(options) {
@@ -98,6 +73,10 @@ define([
 
       // Render main dashboard view
       this.$el.append(this.template({user: this.options.user}));
+
+      // Render sidebar
+      var sidebar = new SidebarView({el: this.$('div.sidebar-collapse')});
+      sidebar.render();
 
       // Render task panel widget view
       var taskPanel = new TaskPanelView({el: this.$('#task-panel')});
