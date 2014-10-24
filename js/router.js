@@ -5,6 +5,7 @@ define([
   'cookie',
   'models/session',
   'filter',
+  'extras',
   'views/tasks/collection',
   'views/task-lists/collection',
   'views/users/collection',
@@ -16,6 +17,7 @@ define([
       Cookie,
       Session,
       Filter,
+      Extras,
       TaskCollectionView, 
       TaskListCollectionView, 
       UserCollectionView, 
@@ -48,8 +50,12 @@ define([
     },
 
     displayDashboard: function() {
-      var dashboardView = new DashboardView(this);
-      dashboardView.render($.cookie('user'));
+      Extras.fetchUser().done(function(user) {
+        dashboardView = new DashboardView({user: JSON.parse(user)});
+        dashboardView.render();
+      }).fail(function() {
+        console.log("Error: Failed to retrieve user data for user " + $.cookie('userID'));
+      })
     },
 
     displayHomepage: function() {

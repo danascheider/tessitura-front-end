@@ -19,20 +19,16 @@ define([
       'click ul#side-menu li a'   : 'toggleSecondLevelNav'
     },
 
+    template: _.template(DashboardTemplate),
+
     blurParentLi: function() {
       if($(this).parent('li').is(':visible')) {
         $(this).parent('li').blur();
       }
     },
 
-    initialize: function(router) {
-      this.router = router;
-    },
-
-    render: function() {
-      $('body').attr('id', 'dashboard');
-      this.$el.html(_.template(DashboardTemplate));
-      return this;
+    initialize: function(options) {
+      this.options = options || {};
     },
 
     hideDropdownMenus: function(e) {
@@ -40,6 +36,13 @@ define([
       if(!menu.is(e.target) && menu.has(e.target).length === 0) {
         menu.hide();
       }
+    },
+
+    render: function() {
+      alert(this.options.user);
+      $('body').attr('id', 'dashboard');
+      this.$el.html(this.template({user: this.options.user}));
+      return this;
     },
 
     toggleDropdownMenu: function(e) {

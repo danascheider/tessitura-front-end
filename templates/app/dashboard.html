@@ -19,7 +19,7 @@
           <li>
             <a href='#'>
               <div>
-                <strong><%= name %></strong>
+                <strong><%= user.first_name + ' ' + user.last_name %></strong>
                 <span class='pull-right text-muted'>
                   <em>Yesterday</em>
                 </span>
@@ -31,7 +31,7 @@
           <li>
             <a href='#'>
               <div>
-                <strong><%= name %></strong>
+                <strong><%= user.first_name + ' ' + user.last_name %></strong>
                 <span class='pull-right text-muted'>
                   <em>Yesterday</em>
                 </span>
@@ -43,7 +43,7 @@
           <li>
             <a href='#'>
               <div>
-                <strong><%= name %></strong>
+                <strong><%= user.first_name + ' ' + user.last_name %></strong>
                 <span class='pull-right text-muted'>
                   <em>Yesterday</em>
                 </span>
@@ -200,7 +200,7 @@
 
       <li class='dropdown'>
         <a class='dropdown-toggle' data-toggle='dropdown' href='#'>
-          <i class='fa fa-user fa-fw'></i>  <%= name %>  <i class='fa fa-caret-down'></i>
+          <i class='fa fa-user fa-fw'></i>  <%= user.first_name + ' ' + user.last_name %>  <i class='fa fa-caret-down'></i>
         </a>
         <ul class='dropdown-menu dropdown-user'>
           <li><a href='#'><i class='fa fa-user fa-fw'></i> User Profile</a></li>
