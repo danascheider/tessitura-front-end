@@ -2,6 +2,8 @@ define([
   'jquery', 
   'underscore', 
   'backbone', 
+  'cookie',
+  'models/session',
   'views/tasks/collection',
   'views/task-lists/collection',
   'views/users/collection',
@@ -10,6 +12,8 @@ define([
   'views/app/homepage'
   ], function($, 
       _, Backbone, 
+      Cookie,
+      Session,
       TaskCollectionView, 
       TaskListCollectionView, 
       UserCollectionView, 
@@ -20,8 +24,10 @@ define([
   var CantoRouter = Backbone.Router.extend({
     routes: {
       '(/)'            : 'displayHomepage',
+      'home(/)'        : 'displayHomepage',
       'login(/)'       : 'displayLogin',
       'dashboard(/)'   : 'displayDashboard',
+      'logout(/)'      : 'logOut',
       '*actions'       : 'defaultAction'
     },
 
@@ -44,8 +50,19 @@ define([
     },
 
     displayLogin: function() {
-      var loginView = new LoginView(this);
-      loginView.render();
+      if (window.Session.authenticated()) {
+        Backbone.history.navigate('dashboard', {trigger: true});
+      } else {
+        var loginView = new LoginView(this);
+        loginView.render();
+      }
+    },
+
+    logOut: function() {
+      $.removeCookie('auth');
+      $.removeCookie('user');
+      $.removeCookie('userID');
+      Backbone.history.navigate('login', {trigger: true});
     }
   });
 

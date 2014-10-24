@@ -13,13 +13,13 @@ define([
     },
 
     defaults: {
-      username : null, 
-      password : null,
-      userID   : null
+      auth   : null, 
+      user   : null,
+      userID : null
     },
 
     authenticated: function() {
-      Boolean(this.get('user'));
+      return !!this.attributes.auth;
     },
 
     validate: function(attrs) {
@@ -34,9 +34,12 @@ define([
     },
 
     load: function() {
+      var user = $.cookie('user');
+
       this.set({
-        auth : $.cookie('auth'),
-        user : $.cookie('user')
+        auth   : $.cookie('auth'),
+        user   : $.cookie('user'),
+        userID : $.cookie('userID')
       });
     },
 

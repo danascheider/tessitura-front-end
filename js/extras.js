@@ -25,6 +25,7 @@ define(['jquery', 'cookie', 'models/session'], function($, Cookie, Session) {
     setCookie: function(username, password, user) {
       $.cookie('auth', this.getAuthHash(username, password));
       $.cookie('user', user);
+      $.cookie('userID', user['id']);
     }
   };
 

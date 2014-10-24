@@ -16,14 +16,10 @@ define([
     },
 
     start: function() {
-      this.Session = new Session();
+      this.Session = new Session;
+
       if(this.Session.authenticated()) {
-        this.router.navigate('dashboard');
-      } else {
-        // if user has attempted to navigate to dashboard
-        //   show login page
-        // else
-        //   show homepage
+        Backbone.history.navigate('dashboard', {trigger: true});
       }
     }
   };
