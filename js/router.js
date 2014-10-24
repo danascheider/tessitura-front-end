@@ -4,6 +4,7 @@ define([
   'backbone', 
   'cookie',
   'models/session',
+  'callbacks',
   'views/tasks/collection',
   'views/task-lists/collection',
   'views/users/collection',
@@ -14,6 +15,7 @@ define([
       _, Backbone, 
       Cookie,
       Session,
+      Callbacks,
       TaskCollectionView, 
       TaskListCollectionView, 
       UserCollectionView, 
@@ -40,8 +42,12 @@ define([
     },
 
     displayDashboard: function() {
-      var dashboardView = new DashboardView(this);
-      dashboardView.render();
+      if (window.Session && window.Session.get('user')) {
+        var dashboardView = new DashboardView(this);
+        dashboardView.render(window.Session.get('user'));
+      } else {
+        Backbone.history.navigate('login', {trigger: true});
+      }
     },
 
     displayHomepage: function() {

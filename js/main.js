@@ -6,6 +6,7 @@ requirejs.config({
     relational  : './lib/backbone-relational',
     cookie      : './lib/cookie',
     storage     : './lib/backbone.localStorage-min',
+    filter      : './lib/backbone.routefilter',
     bootstrap   : './lib/bootstrap',
     text        : './lib/text',
     css         : './lib/css.min',
