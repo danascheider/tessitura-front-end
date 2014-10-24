@@ -22,6 +22,7 @@ define([
     el     : $('body'),
 
     render : function() {
+      $('body').attrs('id', 'homepage');
       this.$el.html(_.template(HomepageTemplate));
       return this;
     }

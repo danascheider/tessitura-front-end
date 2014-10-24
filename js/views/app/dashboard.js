@@ -30,6 +30,7 @@ define([
     },
 
     render: function() {
+      $('body').attr('id', 'dashboard');
       this.$el.html(_.template(DashboardTemplate));
       return this;
     },

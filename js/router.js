@@ -34,23 +34,17 @@ define([
     },
 
     displayDashboard: function() {
-      console.log('Function called: displayDashboard');
       var dashboardView = new DashboardView(this);
-      $('body').attr('id', 'dashboard');
       dashboardView.render();
     },
 
     displayHomepage: function() {
-      console.log('Function called: displayHomepage');
       var homepageView = new HomepageView(this);
-      $('body').attr('id', 'homepage');
       homepageView.render();
     },
 
     displayLogin: function() {
-      console.log('Function called: displayLogin');
       var loginView = new LoginView(this);
-      $('body').attr('id', 'dashboard');
       loginView.render();
     }
   });
