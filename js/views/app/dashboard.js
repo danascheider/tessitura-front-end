@@ -2,32 +2,41 @@ define([
   'jquery',
   'underscore',
   'backbone',
+  'views/tasks/task-panel',
   'text!templates/app/dashboard.html',
-  'text!templates/partials/empty-task-panel.html',
+  'text!templates/tasks/create-form.html',
   'css!stylesheets/bootstrap.css',
   'css!stylesheets/dashboard.css',
   'css!stylesheets/canto.css',
   'css!stylesheets/font-awesome.css'
-  ], function($, _, 
+  ], function(
+    $, _, 
     Backbone, 
+    TaskPanelView,
     DashboardTemplate, 
     EmptyTaskPanelTemplate,
+    TaskCreateFormTemplate,
     BootstrapStyles, 
     DashStyles, 
     CantoStyles, 
     FAStyles) {
   
   var DashboardView = Backbone.View.extend({
-    el     : $('body'),
 
-    events : {
+    // Core View Attributes //
+
+    el       : $('body'),
+
+    events   : {
       'click body'                : 'hideDropdownMenus',
       'click navbar-top-links a'  : 'toggleDropdownMenu',
       'click a.dropdown-toggle'   : 'blurParentLi',
       'click ul#side-menu li a'   : 'toggleSecondLevelNav'
     },
 
-    template: _.template(DashboardTemplate),
+    template : _.template(DashboardTemplate),
+
+    // Event Callbacks // 
 
     blurParentLi: function() {
       if($(this).parent('li').is(':visible')) {
@@ -35,22 +44,11 @@ define([
       }
     },
 
-    initialize: function(options) {
-      this.options = options || {};
-    },
-
     hideDropdownMenus: function(e) {
       var menu = $('.dropdown-menu');
       if(!menu.is(e.target) && menu.has(e.target).length === 0) {
         menu.hide();
       }
-    },
-
-    render: function() {
-      alert(this.options.user);
-      $('body').attr('id', 'dashboard');
-      this.$el.html(this.template({user: this.options.user}));
-      return this;
     },
 
     toggleDropdownMenu: function(e) {
@@ -86,6 +84,21 @@ define([
 
       // Stop the menu from immediately sliding up again.
       e.stopPropagation();
+    },
+
+    // Core View Methods //
+
+    initialize: function(options) {
+      this.options = options || {};
+    },
+
+    render: function() {
+      $('body').attr('id', 'dashboard');
+      var html = this.template({user: this.options.user});
+      this.$el.append(html);
+      var taskPanel = new TaskPanelView({el: this.$('#task-panel')});
+      taskPanel.render();
+      return this;
     }
   });
 
