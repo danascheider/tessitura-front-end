@@ -1,13 +1,11 @@
 define([
   'jquery', 
   'underscore',
-  'cookie', 
   'backbone', 
   'router', 
   'models/session',
   'bootstrap',
-  'extras',
-  ], function($, _, Cookie, Backbone, Router, Session, Bootstrap, SBAdmin, Extras) {
+  ], function($, _, Backbone, Router, Session, Bootstrap) {
 
   return {
     initialize: function() {

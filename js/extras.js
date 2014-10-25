@@ -1,4 +1,10 @@
-define(['jquery', 'cookie', 'models/session'], function($, Cookie, Session) {
+define([
+  'jquery', 
+  'cookie', 
+  'models/session', 
+  'models/user'
+  ], function($, Cookie, Session, UserModel) {
+
   var extras = {
     getAttributes: function(form) {
       var formData = form.serializeArray();
@@ -19,15 +25,18 @@ define(['jquery', 'cookie', 'models/session'], function($, Cookie, Session) {
     },
 
     fetchUser: function() {
+      var currentUser;
       var uid = $.cookie('userID');
 
-      return $.ajax({
+      return $.ajax({ // Why does this need `return`? I have no fucking idea.
         url: 'http://localhost:9292/users/' + uid,
         type: 'GET',
         beforeSend: function(xhr) {
           xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
         },
         success: function(data, status, xhr) {
+          currentUser = new UserModel(data);
+          currentUser.save(currentUser.attributes, {remote: false});
           return data;
         },
         error: function(xhr, status, error) {
@@ -40,11 +49,9 @@ define(['jquery', 'cookie', 'models/session'], function($, Cookie, Session) {
       return 'Basic ' + this.getAuthHash(username, password);
     },
 
-    setCookie: function(username, password, user) {
-      $.cookie.json = true;
+    setCookie: function(username, password, uid) {
       $.cookie('auth', this.getAuthHash(username, password));
-      $.cookie('user', user);
-      $.cookie('userID', user['id']);
+      $.cookie('userID', uid);
     }
   };
 

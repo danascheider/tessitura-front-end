@@ -29,6 +29,5 @@ require(['canto'], function(Canto) {
   
   $(function() {
     Canto.start();
-    window.Session = Canto.Session;
   });
 });

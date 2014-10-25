@@ -14,14 +14,14 @@ define([
     el     : $('body'),
 
     events : {
-      'click button:submit': 'loginUser'
+      'click button:submit': 'logInUser'
     },
 
     initialize: function(router) {
       this.router = router;
     },
 
-    loginUser: function(e) {
+    logInUser: function(e) {
       e.preventDefault();
       var that = this
       var data = Extras.getAttributes(this.$el.find('form'));
@@ -37,7 +37,7 @@ define([
 
         success    : function(obj, status, xhr) {
           var obj = JSON.parse(obj)
-          Extras.setCookie(username, password, obj['user']);
+          Extras.setCookie(username, password, obj['user']['id']);
           Backbone.history.navigate('dashboard', {trigger: true});
         },
 
