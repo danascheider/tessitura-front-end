@@ -1,15 +1,8 @@
 define([
-  'jquery', 'underscore', 'backbone', 'relational', 'storage'
-  ], function($, _, Backbone, Relational, DualStorage) {
-  var User = Backbone.RelationalModel.extend({
+  'jquery', 'underscore', 'backbone', 'storage'
+  ], function($, _, Backbone, DualStorage) {
+  var User = Backbone.Model.extend({
     urlRoot: 'http://localhost:9292/users',
-    relations: [{
-      type:           'HasMany',
-      relatedModel:   'TaskList',
-      reverseRelation: {
-        key: 'userId'
-      }
-    }],
     
     initialize: function() {
       defaults: {
@@ -21,5 +14,6 @@ define([
       return this.firstName + ' ' + this.lastName;
     }
   });
+  
   return User;
 });

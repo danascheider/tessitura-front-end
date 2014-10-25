@@ -3,7 +3,6 @@ requirejs.config({
     jquery      : './lib/jquery-2.1.1',
     underscore  : './lib/underscore',
     backbone    : './lib/backbone',
-    relational  : './lib/backbone-relational',
     cookie      : './lib/cookie',
     storage     : './lib/backbone.dualstorage.amd',
     filter      : './lib/backbone-route-filter-min',

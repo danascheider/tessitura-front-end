@@ -2,17 +2,12 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'relational',
-  'cookie'
-  ], function($, _, Backbone, Relational, cookie) {
+  'cookie',
+  'storage'
+  ], function($, _, Backbone, Cookie, DualStorage) {
   
-  var TaskModel = Backbone.RelationalModel.extend({
+  var TaskModel = Backbone.Model.extend({
     urlRoot   : 'http://localhost:9292/users/' + $.cookie('userID') + '/tasks',
-
-    relations : [{
-      type        : Backbone.HasOne,
-      relatedModel: 'TaskList'
-    }],
 
     initialize: function() {
       this.on('invalid', function(model, error) {
@@ -25,7 +20,9 @@ define([
       if (!attrs.title) {
         return 'Title is required';
       }
-    }
+    },
+
+    storeName : 'tasks'
   });
 
   return TaskModel

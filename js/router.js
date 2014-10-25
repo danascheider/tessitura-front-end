@@ -51,7 +51,7 @@ define([
 
     displayDashboard: function() {
       Extras.fetchUser().done(function(user) {
-
+        Extras.fetchTasks();
         dashboardView = new DashboardView({user: user});
         dashboardView.render();
       }).fail(function() {
@@ -65,7 +65,7 @@ define([
     },
 
     displayLogin: function() {
-      var loginView = new LoginView(this);
+      var loginView = new LoginView;
       loginView.render();
     },
 

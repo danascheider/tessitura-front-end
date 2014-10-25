@@ -16,11 +16,7 @@ define([
     events : {
       'click button:submit': 'logInUser'
     },
-
-    initialize: function(router) {
-      this.router = router;
-    },
-
+    
     logInUser: function(e) {
       e.preventDefault();
       var that = this

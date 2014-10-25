@@ -83,38 +83,3 @@ var TaskView = Backbone.View.extend({
 //     // Replace task display with an update form
 //   }
 // });
-
-// FIX: This function is defined in two different places
-//      due to scoping issues.
-var makeBasicAuth = function(username, password) {
-  var tok = username + ':' + password
-  var hash=btoa(tok);
-  return 'Basic ' + hash
-}
-
-var fetchTasks = function(username, password, successFunction) {
-  $.ajax({
-    // FIX: Hard-coded user ID
-    url: 'http://localhost:9292/users/1/tasks',
-    type: 'GET',
-    beforeSend: function(xhr) {
-      xhr.setRequestHeader('Authorization', makeBasicAuth(username, password));
-    },
-    xhrFields: {
-      withCredentials: true
-    },
-    error: function(xhr, status, error) {
-      console.log(error);
-    },
-    success: successFunction
-  })
-}
-
-$(function() {
-  fetchTasks('danascheider', 'danascheider', function(data, status, xhr) {
-    _.each(JSON.parse(data), function(task) {
-      var taskView = new DashboardTaskView();
-      console.log(taskView.el);
-    });
-  });
-});
