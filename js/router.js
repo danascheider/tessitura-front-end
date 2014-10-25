@@ -51,7 +51,7 @@ define([
 
     displayDashboard: function() {
       Extras.fetchUser().done(function(user) {
-        dashboardView = new DashboardView({user: JSON.parse(user)});
+        dashboardView = new DashboardView({user: user});
         dashboardView.render();
       }).fail(function() {
         console.log("Error: Failed to retrieve user data for user " + $.cookie('userID'));

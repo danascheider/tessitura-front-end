@@ -1,11 +1,13 @@
 define([
+  'jquery',
   'underscore',
   'backbone',
-  'relational'
-  ], function(_, Backbone, Relational) {
+  'relational',
+  'cookie'
+  ], function($, _, Backbone, Relational, cookie) {
   
   var TaskModel = Backbone.RelationalModel.extend({
-    urlRoot   : 'http://localhost:9292/users/1/tasks',
+    urlRoot   : 'http://localhost:9292/users/' + $.cookie('userID') + '/tasks',
 
     relations : [{
       type        : Backbone.HasOne,
@@ -14,6 +16,7 @@ define([
 
     initialize: function() {
       this.on('invalid', function(model, error) {
+        console.info(model.attributes);
         console.log('**Validation error: ' + error + '**');
       });
     },
