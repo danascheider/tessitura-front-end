@@ -70,7 +70,6 @@ define([
 
     logOut: function() {
       $.removeCookie('auth');
-      $.removeCookie('user');
       $.removeCookie('userID');
       Backbone.history.navigate('login', {trigger: true});
     },

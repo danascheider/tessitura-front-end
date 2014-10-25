@@ -5,7 +5,7 @@ define([
   'storage',
   'cookie',
   'extras'
-  ], function($, _, Backbone, LocalStorage, Cookie, Extras) {
+  ], function($, _, Backbone, DualStorage, Cookie, Extras) {
   
   var SessionModel = Backbone.Model.extend({
     initialize: function() {
@@ -14,7 +14,6 @@ define([
 
     defaults: {
       auth   : null, 
-      user   : null,
       userID : null
     },
 
@@ -24,26 +23,23 @@ define([
 
     validate: function(attrs) {
       if(!attrs.user || !attrs.auth) {
-        return 'user and auth required';
+        return 'userID and auth required';
       }
     },
 
     save: function(auth_hash) {
       $.cookie('auth', Extras.getAuthHash(auth_hash.username, auth_hash.password));
-      $.cookie('user', auth_hash.user);
+      $.cookie('userID', auth_hash.userID);
     },
 
     load: function() {
-      var user = $.cookie('user');
-
       this.set({
         auth   : $.cookie('auth'),
-        user   : $.cookie('user'),
         userID : $.cookie('userID')
       });
     },
 
-    localStorage: new Backbone.LocalStorage('sessions-canto')
+    local: true // Sessions should only be stored locally
   });
 
   return SessionModel;
