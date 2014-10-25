@@ -28,6 +28,7 @@ define([
         },
         success: function(data, status, xhr) {
           $('a.create-task').find('i.fa').toggleClass('fa-caret-down fa-caret-right');
+          form[0].reset();
           form.slideUp();
         },
         error: function(model, xhr, options) {
