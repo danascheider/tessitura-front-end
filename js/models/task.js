@@ -22,7 +22,7 @@ define([
       }
     },
 
-    storeName : 'tasks'
+    storeName : 'tasks',
   });
 
   return TaskModel
