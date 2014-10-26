@@ -51,12 +51,11 @@ define([
 
     displayDashboard: function() {
       Extras.fetchUser().done(function(user) {
-        Extras.fetchTasks();
-        dashboardView = new DashboardView({user: user});
-        dashboardView.render();
-      }).fail(function() {
-        console.log("Error: Failed to retrieve user data for user " + $.cookie('userID'));
-      })
+        Extras.fetchTasks().done(function(tasks) {
+          var dashboardView = new DashboardView({user: user, tasks: tasks});
+          dashboardView.render();
+        });
+      });
     },
 
     displayHomepage: function() {

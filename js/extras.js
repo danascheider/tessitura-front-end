@@ -15,11 +15,29 @@ define([
 
     // Functions //
 
+    fetchSessionData: function() {
+      var user, tasks;
+
+      this.fetchUser().done(function(person) {
+        user = person;
+        return user;
+      });
+
+      // this.fetchTasks().done(function(items) {
+      //   tasks = items;
+      //   return tasks;
+      // });
+
+      // return {user: user, tasks: tasks};
+      return user;
+    },
+
     fetchTasks: function() {
       var tasks;
+      var uid = $.cookie('userID');
 
-      $.ajax({
-        url: this.basePath + '/users/' + $.cookie('userID') + '/tasks',
+      return $.ajax({
+        url: this.basePath + '/users/' + uid + '/tasks',
         type: 'GET',
         beforeSend: function(xhr) {
           xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
@@ -32,9 +50,10 @@ define([
             taskCollection.create(tasks[i], {remote: false});
           }
 
-          console.info(taskCollection);
-
           return taskCollection;
+        },
+        error: function(xhr, status, error) {
+          console.log('Error: ', error);
         }
       });
     },
@@ -44,7 +63,7 @@ define([
       var uid = $.cookie('userID');
 
       return $.ajax({ // Why does this need `return`? I have no fucking idea.
-        url: 'http://localhost:9292/users/' + uid,
+        url: this.basePath + '/users/' + uid,
         type: 'GET',
         beforeSend: function(xhr) {
           xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
@@ -52,7 +71,7 @@ define([
         success: function(data, status, xhr) {
           currentUser = new UserModel(data);
           currentUser.save(currentUser.attributes, {remote: false});
-          return data;
+          return currentUser;
         },
         error: function(xhr, status, error) {
           console.log('Error: ', error);

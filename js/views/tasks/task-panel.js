@@ -2,6 +2,8 @@ define([
   'jquery', 
   'underscore', 
   'backbone',
+  'views/tasks/model',
+  'views/tasks/collection',
   'views/tasks/empty-panel',
   'text!templates/partials/task-panel.html',
   'css!stylesheets/bootstrap.css',
@@ -11,6 +13,8 @@ define([
   ], function(
     $, _,
     Backbone,
+    TaskModelView,
+    TaskCollectionView,
     EmptyPanelView,
     TaskPanelTemplate,
     CreateFormTemplate,
@@ -28,6 +32,20 @@ define([
 
     template : _.template(TaskPanelTemplate),
 
+    checkIfTasks: function() {
+      return this.tasks ? true : false;
+    },
+
+    renderContent: function() {
+      if(this.checkIfTasks() === true) {
+        var collectionView = new TaskCollectionView({tasks: this.tasks, el: $(this.el).find('.panel-body')});
+        collectionView.render();
+      } else {
+        var emptyPanel = new EmptyPanelView({el: $(this.el).find('.panel-body')});
+        emptyPanel.render();
+      }
+    },
+
     showTaskForm: function(e) {
       e.preventDefault();
       var target = e.target
@@ -35,10 +53,16 @@ define([
       $(target).siblings('.task-form').slideToggle();
     },
 
+    // Core View Functions //
+
+    initialize: function(tasks) {
+      this.tasks = JSON.parse(tasks.tasks) || {};
+    },
+
     render: function() {
+      console.log('Task Panel is being rendered');
       this.$el.append(this.template());
-      var emptyPanel = new EmptyPanelView({el: $(this.el).find('.panel-body')});
-      emptyPanel.render();
+      this.renderContent();
       return this;
     }
   });

@@ -3,13 +3,14 @@ define([
   'underscore',
   'backbone',
   'text!templates/tasks/model.html'
-  ], function($, _, Backbone, taskModelTemplate) {
+  ], function($, _, Backbone, TaskModelTemplate) {
 
   var TaskModelView = Backbone.View.extend({
+    template: _.template(TaskModelTemplate),
+
     render: function() {
-      var data = {};
-      var compiledTemplate = _.template(taskModelTemplate, data);
-      this.$el.html(compiledTemplate);
+      console.log('Rendering task model');
+      this.$el.html(this.template(this.model));
       return this;
     }
   });

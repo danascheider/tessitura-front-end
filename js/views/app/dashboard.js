@@ -76,7 +76,7 @@ define([
       sidebar.render();
 
       // Render task panel widget view
-      var taskPanel = new TaskPanelView({el: this.$('#task-panel')});
+      var taskPanel = new TaskPanelView({el: this.$('#task-panel'), tasks: this.options.tasks});
       taskPanel.render();
 
       // Best practices

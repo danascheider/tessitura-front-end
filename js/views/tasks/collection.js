@@ -2,15 +2,30 @@ define([
   'jquery',
   'underscore',
   'backbone',
+  'views/tasks/list-entry',
   'text!templates/tasks/collection.html'
-  ], function($, _, Backbone, taskCollectionTemplate) {
+  ], function($, _, Backbone, ListEntryView, TaskCollectionTemplate) {
   
   var TaskCollectionView = Backbone.View.extend({
-    el    : $('#container'),
+    template : _.template("<table class='task-list'></table>"),
+
+    // Core View Functions //
+
+    initialize: function(tasks) {
+      this.tasks = tasks.tasks;
+    },
+
     render: function() {
-      var data = {};
-      var compiledTemplate = _.template(taskCollectionTemplate, data);
-      this.$el.append(compiledTemplate);
+      this.$el.append(this.template());
+      var that = this;
+      var html = ''
+
+      _.each(this.tasks, function(task) {
+        console.log(task.title);
+        var listEntryView = new ListEntryView({task: task, el: that.$el.find('table.task-list')});
+        that.$el.append(listEntryView.render().el);
+      });
+
       return this;
     }
   });
