@@ -32,14 +32,11 @@ define([
 
     template : _.template(TaskPanelTemplate),
 
-    checkIfTasks: function() {
-      return this.tasks ? true : false;
-    },
-
     renderContent: function() {
-      if(this.checkIfTasks() === true) {
-        var collectionView = new TaskCollectionView({tasks: this.tasks, el: $(this.el).find('.panel-body')});
-        collectionView.render();
+      if(this.collection) {
+        var collectionView = new TaskCollectionView({ el: $(this.el).find('.panel-body'), 
+                                                      collection: this.collection
+                                                    });
       } else {
         var emptyPanel = new EmptyPanelView({el: $(this.el).find('.panel-body')});
         emptyPanel.render();
@@ -55,12 +52,11 @@ define([
 
     // Core View Functions //
 
-    initialize: function(tasks) {
-      this.tasks = JSON.parse(tasks.tasks) || {};
+    initialize: function() {
+      this.render();
     },
 
     render: function() {
-      console.log('Task Panel is being rendered');
       this.$el.append(this.template());
       this.renderContent();
       return this;

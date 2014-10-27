@@ -34,6 +34,10 @@ define(['jquery', 'underscore', 'backbone', 'text!templates/partials/dashboard-s
       e.stopPropagation();
     },
 
+    initialize: function() {
+      this.render();
+    },
+
     render: function() {
       this.$el.html(this.template);
     }

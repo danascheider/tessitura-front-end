@@ -2,6 +2,8 @@ define([
   'jquery',
   'underscore',
   'backbone',
+  'models/user',
+  'collections/tasks',
   'views/app/dashboard-sidebar',
   'views/tasks/task-panel',
   'text!templates/app/dashboard.html',
@@ -12,6 +14,8 @@ define([
   ], function(
     $, _, 
     Backbone, 
+    UserModel,
+    TaskCollection,
     SidebarView,
     TaskPanelView,
     DashboardTemplate, 
@@ -60,24 +64,38 @@ define([
 
     // Core View Methods //
 
-    initialize: function(options) {
-      this.options = options || {};
+    initialize: function() {
+      this.user = new UserModel({id: $.cookie('userID')});
+      this.user.fetch({
+        beforeSend: function(xhr) {
+          xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
+        }
+      });
     },
 
     render: function() {
-      // Enable dashboard-linked CSS properties
+      // Enable dashboard-specific CSS properties
       $('body').attr('id', 'dashboard');
 
       // Render main dashboard view
-      this.$el.append(this.template({user: this.options.user}));
+      this.$el.append(this.template({user: this.user.attributes}));
 
       // Render sidebar
-      var sidebar = new SidebarView({el: this.$('div.sidebar-collapse')});
-      sidebar.render();
+      this.$sidebar = new SidebarView({el: this.$('div.sidebar-collapse')});
 
-      // Render task panel widget view
-      var taskPanel = new TaskPanelView({el: this.$('#task-panel'), tasks: this.options.tasks});
-      taskPanel.render();
+      // Fetch the user's tasks and render in the task panel
+      this.user.tasks = new TaskCollection();
+      var that = this;
+
+      this.user.tasks.fetch({
+        beforeSend: function(xhr) {
+          xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
+        },
+        success: function(collection, response, options) {
+          console.log(collection)
+          that.$taskPanel = new TaskPanelView({el: that.$('#task-panel'), collection: collection});
+        }
+      });
 
       // Best practices
       return this;

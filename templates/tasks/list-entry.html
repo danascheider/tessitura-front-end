@@ -1,4 +1,28 @@
 <tr>
-  <td><i class='fa fa-square-o'></i></td>
-  <td class='task-listing'></td>
+  <td style='vertical-align: top'><i class='fa fa-square-o'></i></td>
+  <td class='task-listing'>
+    <table class='task-model'>
+      <tr>
+        <td colspan='2'>
+          <a href='' class='task-title'><%= title %></a>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Deadline:</strong></td>
+        <td>May 17, 2015</td>
+      </tr>
+      <tr>
+        <td><strong>Priority:</strong></td>
+        <td><%= priority %></td>
+      </tr>
+      <tr>
+        <td><strong>Status:</strong></td>
+        <td><%= status %></td>
+      </tr>
+      <tr>
+        <td style='vertical-align: text-top'><strong>Notes:</td>
+        <td>We have some problems here and we need to figure out why.</td>
+      </tr>
+    </table>
+  </td>
 </tr>

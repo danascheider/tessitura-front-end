@@ -4,8 +4,7 @@ define([
   'backbone', 
   'router', 
   'models/session',
-  'bootstrap',
-], function($, _, Backbone, Router, Session, Bootstrap) {
+], function($, _, Backbone, Router, Session) {
 
   return {
     initialize: function() {

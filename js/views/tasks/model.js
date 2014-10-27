@@ -8,9 +8,12 @@ define([
   var TaskModelView = Backbone.View.extend({
     template: _.template(TaskModelTemplate),
 
+    initialize: function() {
+      this.model = this.model.task;
+    },
+
     render: function() {
-      console.log('Rendering task model');
-      this.$el.html(this.template(this.model));
+      return (this.template(this.model));
       return this;
     }
   });

@@ -8,18 +8,16 @@ define([
 ], function($, _, Backbone, TaskView, ListEntryTemplate, TaskModelTemplate) {
 
   var ListEntryView = Backbone.View.extend({
+    tagName: 'tr',
     template: _.template(ListEntryTemplate),
 
-    initialize: function(task) {
-      this.task = task;
+    initialize: function() {
+      this.render();
     },
 
     render: function() {
-      this.$el.append(this.template());
-
-      var listing = this.$el.find('td.task-listing');
-      var modelView = new TaskView({el: listing, model: this.task});
-      listing.append(modelView.render().el);
+      this.$el.append(this.template(this.model.attributes));
+      console.log(this.el);
       return this;
     }
   });

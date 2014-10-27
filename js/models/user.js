@@ -12,7 +12,9 @@ define([
 
     name: function() {
       return this.firstName + ' ' + this.lastName;
-    }
+    },
+
+    storeName: 'users' 
   });
   
   return User;

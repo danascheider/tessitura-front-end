@@ -2,10 +2,8 @@ define([
   'jquery', 
   'cookie', 
   'models/session', 
-  'models/user',
-  'models/task',
-  'collections/task-collection'
-  ], function($, Cookie, Session, UserModel, TaskModel, TaskCollection) {
+  'models/user'
+  ], function($, Cookie, Session, UserModel) {
 
   var extras = {
 
@@ -14,49 +12,6 @@ define([
     basePath : 'http://localhost:9292',
 
     // Functions //
-
-    fetchSessionData: function() {
-      var user, tasks;
-
-      this.fetchUser().done(function(person) {
-        user = person;
-        return user;
-      });
-
-      // this.fetchTasks().done(function(items) {
-      //   tasks = items;
-      //   return tasks;
-      // });
-
-      // return {user: user, tasks: tasks};
-      return user;
-    },
-
-    fetchTasks: function() {
-      var tasks;
-      var uid = $.cookie('userID');
-
-      return $.ajax({
-        url: this.basePath + '/users/' + uid + '/tasks',
-        type: 'GET',
-        beforeSend: function(xhr) {
-          xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
-        },
-        success: function(data, status, xhr) {
-          var taskCollection = new TaskCollection;
-          var tasks = JSON.parse(data);
-
-          for(var i = 0; i < tasks.length; i++) {
-            taskCollection.create(tasks[i], {remote: false});
-          }
-
-          return taskCollection;
-        },
-        error: function(xhr, status, error) {
-          console.log('Error: ', error);
-        }
-      });
-    },
 
     fetchUser: function() {
       var currentUser;

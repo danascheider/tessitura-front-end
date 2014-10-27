@@ -6,9 +6,6 @@ define([
   'models/session',
   'filter',
   'extras',
-  'views/tasks/collection',
-  'views/task-lists/collection',
-  'views/users/collection',
   'views/app/login-form',
   'views/app/dashboard',
   'views/app/homepage'
@@ -18,9 +15,6 @@ define([
       Session,
       Filter,
       Extras,
-      TaskCollectionView, 
-      TaskListCollectionView, 
-      UserCollectionView, 
       LoginView, 
       DashboardView,
       HomepageView) {
@@ -50,12 +44,8 @@ define([
     },
 
     displayDashboard: function() {
-      Extras.fetchUser().done(function(user) {
-        Extras.fetchTasks().done(function(tasks) {
-          var dashboardView = new DashboardView({user: user, tasks: tasks});
-          dashboardView.render();
-        });
-      });
+      var dashboardView = new DashboardView;
+      dashboardView.render();
     },
 
     displayHomepage: function() {
