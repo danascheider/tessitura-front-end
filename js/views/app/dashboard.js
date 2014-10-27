@@ -92,7 +92,6 @@ define([
           xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
         },
         success: function(collection, response, options) {
-          console.log(collection)
           that.$taskPanel = new TaskPanelView({el: that.$('#task-panel'), collection: collection});
         }
       });

@@ -17,7 +17,6 @@ define([
 
     render: function() {
       this.$el.append(this.template(this.model.attributes));
-      console.log(this.el);
       return this;
     }
   });
