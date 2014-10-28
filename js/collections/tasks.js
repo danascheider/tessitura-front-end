@@ -3,12 +3,15 @@ define([
   'underscore',
   'backbone',
   'cookie',
-  'models/task'
-], function($, _, Backbone, Cookie, TaskModel) {
+  'models/task',
+  'api'
+], function($, _, Backbone, Cookie, TaskModel, API) {
   
   var TaskCollection = Backbone.Collection.extend({
-    url   : 'http://localhost:9292/users/' + $.cookie('userID') + '/tasks',
-    model : TaskModel
+    model : TaskModel,
+    url   : function() {
+      return API.tasks.collection($.cookie('userID'));
+    }
   });
 
   return TaskCollection;

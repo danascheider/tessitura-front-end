@@ -2,12 +2,12 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'cookie',
-  'storage'
-  ], function($, _, Backbone, Cookie, DualStorage) {
+  'storage',
+  'api'
+  ], function($, _, Backbone, DualStorage, API) {
   
   var TaskModel = Backbone.Model.extend({
-    urlRoot   : 'http://localhost:9292/users/' + $.cookie('userID') + '/tasks',
+    urlRoot: API.tasks.root,
 
     initialize: function() {
       this.on('invalid', function(model, error) {

@@ -2,6 +2,7 @@ define([
   'jquery',
   'underscore',
   'backbone',
+  'api',
   'models/user',
   'collections/tasks',
   'views/app/dashboard-sidebar',
@@ -14,6 +15,7 @@ define([
   ], function(
     $, _, 
     Backbone, 
+    API,
     UserModel,
     TaskCollection,
     SidebarView,
@@ -88,6 +90,7 @@ define([
       var that = this;
 
       this.user.tasks.fetch({
+        url: API.tasks.collection(this.user.id),
         beforeSend: function(xhr) {
           xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
         },

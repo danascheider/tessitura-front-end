@@ -1,8 +1,13 @@
 define([
-  'jquery', 'underscore', 'backbone', 'storage'
-  ], function($, _, Backbone, DualStorage) {
+  'jquery', 
+  'underscore', 
+  'backbone', 
+  'storage', 
+  'api'
+  ], function($, _, Backbone, DualStorage, API) {
+
   var User = Backbone.Model.extend({
-    urlRoot: 'http://localhost:9292/users',
+    urlRoot: API.users.collection,
     
     initialize: function() {
       defaults: {

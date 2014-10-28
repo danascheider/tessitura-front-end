@@ -11,15 +11,18 @@ define([
 
     // Core View Functions //
     initialize: function() {
+      _.bindAll(this, 'renderModel');
       this.render();
+    },
+
+    renderModel: function(task) {
+      var listEntryView = new ListEntryView({model: task});
+      $(this.el).append(listEntryView.el);
     },
 
     render: function() {
       var that = this;
-
-      this.collection.each(function(task) {
-        var listEntryView = new ListEntryView({el: that.$el, model: task});
-      });
+      this.collection.each(this.renderModel);
 
       return this;
     }

@@ -2,37 +2,12 @@ define([
   'jquery', 
   'cookie', 
   'models/session', 
-  'models/user'
+  'models/user',
   ], function($, Cookie, Session, UserModel) {
 
   var extras = {
 
-    // Basic info for Ajax requests //
-
-    basePath : 'http://localhost:9292',
-
     // Functions //
-
-    fetchUser: function() {
-      var currentUser;
-      var uid = $.cookie('userID');
-
-      return $.ajax({ // Why does this need `return`? I have no fucking idea.
-        url: this.basePath + '/users/' + uid,
-        type: 'GET',
-        beforeSend: function(xhr) {
-          xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
-        },
-        success: function(data, status, xhr) {
-          currentUser = new UserModel(data);
-          currentUser.save(currentUser.attributes, {remote: false});
-          return currentUser;
-        },
-        error: function(xhr, status, error) {
-          console.log('Error: ', error);
-        }
-      });
-    },
 
     getAttributes: function(form) {
       var formData = form.serializeArray();
