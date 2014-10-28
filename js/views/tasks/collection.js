@@ -3,11 +3,12 @@ define([
   'underscore',
   'backbone',
   'views/tasks/list-entry',
-  'text!templates/tasks/collection.html'
-  ], function($, _, Backbone, ListEntryView, TaskCollectionTemplate) {
+  'views/tasks/create-form',
+  'text!templates/tasks/collection.html',
+  ], function($, _, Backbone, ListEntryView, CreateFormView, TaskCollectionTemplate) {
   
   var TaskCollectionView = Backbone.View.extend({
-    template : _.template(TaskCollectionTemplate),
+    template : _.template("<table class='task-list'></table>"),
 
     // Core View Functions //
     initialize: function() {
@@ -16,12 +17,15 @@ define([
     },
 
     renderModel: function(task) {
-      var listEntryView = new ListEntryView({model: task});
-      $(this.el).append(listEntryView.el);
+      if (task.attributes.status !== 'Complete') {
+        var listEntryView = new ListEntryView({model: task});
+        $(this.el).append(listEntryView.el);
+      }
     },
 
     render: function() {
-      var that = this;
+      this.$createForm = new CreateFormView({el: $(this.el).find('tr.create-task td')});
+      this.$createForm.render();
       this.collection.each(this.renderModel);
 
       return this;
