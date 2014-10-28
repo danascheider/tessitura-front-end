@@ -15,12 +15,18 @@ define([
     },
 
     markComplete: function(e) {
-      $(e.target).removeClass('fa-square-o').addClass('fa-check-square-o');
-      this.model.set({status: 'complete'});
-      this.model.save({status: 'complete'}, {
-        dataType: 'application/json',
+      var target = e.target;
+      var el = this.el;
+
+      this.model.save({status: 'Complete'}, {
+        dataType: 'html',
         beforeSend: function(xhr) {
           xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
+        },
+        success: function(model, response, options) {
+          console.log('Success');
+          $(target).removeClass('fa-square-o').addClass('fa-check-square-o');
+          $(el).fadeOut();
         },
         error: function(model, response, options) {
           console.log(response);
