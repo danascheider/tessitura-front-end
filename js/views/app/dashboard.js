@@ -6,6 +6,7 @@ define([
   'models/user',
   'collections/tasks',
   'views/app/dashboard-sidebar',
+  'views/app/dashboard-top-nav',
   'views/tasks/task-panel',
   'text!templates/app/dashboard.html',
   'css!stylesheets/bootstrap.css',
@@ -19,6 +20,7 @@ define([
     UserModel,
     TaskCollection,
     SidebarView,
+    TopNavView,
     TaskPanelView,
     DashboardTemplate, 
     BootstrapStyles, 
@@ -33,35 +35,18 @@ define([
     el       : $('body'),
 
     events   : {
-      'click body'                : 'hideDropdownMenus',
-      'click navbar-top-links a'  : 'toggleDropdownMenu',
-      'click a.dropdown-toggle'   : 'blurParentLi',
+      'click #wrapper' : 'hideDropdownMenus',
     },
 
     template : _.template(DashboardTemplate),
 
     // Event Callbacks // 
 
-    blurParentLi: function() {
-      if($(this).parent('li').is(':visible')) {
-        $(this).parent('li').blur();
-      }
-    },
-
     hideDropdownMenus: function(e) {
-      var menu = $('.dropdown-menu');
-      if(!menu.is(e.target) && menu.has(e.target).length === 0) {
-        menu.hide();
+      var li = $('li.dropdown');
+      if(!li.is(e.target) && li.has(e.target).length === 0) {
+        li.removeClass('open');
       }
-    },
-
-    toggleDropdownMenu: function(e) {
-      $.each($(this).parent('li').siblings(), function() {
-        if ($(this).find('.dropdown-menu').is(':visible')) {
-          $(this).find('.dropdown-menu').hide();
-        }
-      });
-      $(this).parent('li').find('.dropdown-menu').toggle();
     },
 
     // Core View Methods //
@@ -80,7 +65,10 @@ define([
       $('body').attr('id', 'dashboard');
 
       // Render main dashboard view
-      this.$el.append(this.template({user: this.user.attributes}));
+      this.$el.html(this.template());
+
+      // Render top navbar
+      this.$topNav = new TopNavView({model: this.user.attributes, el: this.$('nav.navbar-fixed-top')});
 
       // Render sidebar
       this.$sidebar = new SidebarView({el: this.$('div.sidebar-collapse')});

@@ -70,6 +70,10 @@
   color: #7DCCC8;
 }
 
+#dashboard .navbar-top-links li.open > .dropdown-menu {
+  display: block;
+}
+
 #dashboard .navbar-top-links .dropdown-menu li {
   display: block;
 }

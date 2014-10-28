@@ -9,6 +9,10 @@ define([
   var TaskModel = Backbone.Model.extend({
     urlRoot: API.tasks.root,
 
+    incomplete: function() {
+      return Boolean(this.status !== 'Complete');
+    },
+
     initialize: function() {
       this.on('invalid', function(model, error) {
         console.info(model.attributes);

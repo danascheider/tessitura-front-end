@@ -17,7 +17,7 @@ define([
     },
 
     renderModel: function(task) {
-      if (task.attributes.status !== 'Complete') {
+      if (task.incomplete()) {
         var listEntryView = new ListEntryView({model: task});
         $(this.el).append(listEntryView.el);
       }
