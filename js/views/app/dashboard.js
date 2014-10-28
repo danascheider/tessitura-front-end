@@ -6,7 +6,6 @@ define([
   'models/user',
   'collections/tasks',
   'views/app/dashboard-sidebar',
-  'views/app/dashboard-top-nav',
   'views/tasks/task-panel',
   'text!templates/app/dashboard.html',
   'css!stylesheets/bootstrap.css',
@@ -20,7 +19,6 @@ define([
     UserModel,
     TaskCollection,
     SidebarView,
-    TopNavView,
     TaskPanelView,
     DashboardTemplate, 
     BootstrapStyles, 
@@ -36,6 +34,7 @@ define([
 
     events   : {
       'click #wrapper'            : 'hideDropdownMenus',
+      'click .navbar-top-links a' : 'toggleDropdownMenu'
     },
 
     template : _.template(DashboardTemplate),
@@ -49,6 +48,17 @@ define([
       }
     },
 
+    toggleDropdownMenu: function(e) {
+      e.preventDefault();
+      var target = e.target;
+
+      $.each($(target).parent('li').siblings(), function() {
+        $(this).removeClass('open');
+      });
+
+      $(target).parent('li').toggleClass('open');
+    },
+
     // Core View Methods //
 
     initialize: function() {
@@ -58,6 +68,7 @@ define([
           xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
         }
       });
+      _.extend(this, Backbone.Events);
     },
 
     render: function() {
@@ -65,10 +76,7 @@ define([
       $('body').attr('id', 'dashboard');
 
       // Render main dashboard view
-      this.$el.html(this.template());
-
-      // Render top navbar
-      this.$topNav = new TopNavView({model: this.user.attributes, el: this.$('nav.navbar-fixed-top')});
+      this.$el.html(this.template(this.user.attributes));
 
       // Render sidebar
       this.$sidebar = new SidebarView({el: this.$('div.sidebar-collapse')});
