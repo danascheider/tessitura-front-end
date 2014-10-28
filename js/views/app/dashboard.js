@@ -35,7 +35,7 @@ define([
     el       : $('body'),
 
     events   : {
-      'click #wrapper' : 'hideDropdownMenus',
+      'click #wrapper'            : 'hideDropdownMenus',
     },
 
     template : _.template(DashboardTemplate),

@@ -14,12 +14,6 @@ define([
 
     events: {
       'click .navbar-top-links a' : 'toggleDropdownMenu',
-      'body:click'                : 'hideDropdownMenus'
-    },
-
-    hideDropdownMenus: function(e) {
-      e.preventDefault();
-      $('li.dropdown').removeClass('open');
     },
 
     toggleDropdownMenu: function(e) {
@@ -32,8 +26,9 @@ define([
 
       $(target).parent('li').toggleClass('open');
     },
-
+    
     initialize: function() {
+      _.extend(this, Backbone.Events);
       this.render();
     },
 
