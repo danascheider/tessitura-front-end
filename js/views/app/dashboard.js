@@ -84,7 +84,6 @@ define([
       this.$sidebar = new SidebarView({el: this.$('div.sidebar-collapse')});
 
       // Fetch the user's tasks and render in the task panel
-      this.user.tasks = new TaskCollection();
       var that = this;
 
       this.user.tasks.fetch({
