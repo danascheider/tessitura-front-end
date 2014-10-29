@@ -33,8 +33,8 @@ define([
     el       : $('body'),
 
     events   : {
-      'click #wrapper'            : 'hideDropdownMenus',
-      'click .navbar-top-links a' : 'toggleDropdownMenu'
+      'click #wrapper'          : 'hideDropdownMenus',
+      'click a.dropdown-toggle' : 'toggleDropdownMenu'
     },
 
     template : _.template(DashboardTemplate),
@@ -64,10 +64,12 @@ define([
     initialize: function() {
       this.user = new UserModel({id: $.cookie('userID')});
       this.user.fetch({
-        beforeSend: function(xhr) {
+        async      : false,
+        beforeSend : function(xhr) {
           xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
         }
       });
+
       _.extend(this, Backbone.Events);
     },
 

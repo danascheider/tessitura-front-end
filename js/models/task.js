@@ -9,13 +9,16 @@ define([
   var TaskModel = Backbone.Model.extend({
     urlRoot: API.tasks.root,
 
+    complete: function() {
+      return Boolean(this.get('status') === 'Complete');
+    },
+
     incomplete: function() {
-      return Boolean(this.status !== 'Complete');
+      return Boolean(this.get('status') !== 'Complete');
     },
 
     initialize: function() {
       this.on('invalid', function(model, error) {
-        console.info(model.attributes);
         console.log('**Validation error: ' + error + '**');
       });
     },
