@@ -4,25 +4,29 @@
     <table class='task-model'>
       <tr>
         <td colspan='2'>
-          <a href='' class='task-title'><%= title %></a>
+          <a href='' class='task-title'><%= attributes.title %></a>
         </td>
       </tr>
-      <tr>
-        <td><strong>Deadline:</strong></td>
-        <td>May 17, 2015</td>
-      </tr>
+      <% if (attributes.deadline !== undefined) { %> 
+        <tr>
+          <td><strong>Deadline:</strong></td>
+          <td>$<%= attributes.deadline %></td>
+        </tr>
+      <% } %>
       <tr>
         <td><strong>Priority:</strong></td>
-        <td><%= priority %></td>
+        <td><%= attributes.priority %></td>
       </tr>
       <tr>
         <td><strong>Status:</strong></td>
-        <td><%= status %></td>
+        <td><%= attributes.status %></td>
       </tr>
-      <tr>
-        <td style='vertical-align: text-top'><strong>Notes:</td>
-        <td>We have some problems here and we need to figure out why.</td>
-      </tr>
+      <% if (attributes.description !== undefined) { %>
+        <tr>
+          <td style='vertical-align: text-top'><strong>Notes:</td>
+          <td>$<%= attributesdescription %></td>
+        </tr>
+      <% } %>
     </table>
   </td>
 </tr>

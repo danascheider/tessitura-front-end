@@ -13,7 +13,7 @@ define([
       var formData = form.serializeArray();
       var attributes = {};
 
-      for(key in formData) {
+      for(var key in formData) {
         var chiave = formData[key]['name'];
         if(formData[key]['value'] != '') {
           attributes[chiave] = formData[key]['value'];

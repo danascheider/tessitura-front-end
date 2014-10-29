@@ -4,8 +4,7 @@ define([
   'backbone',
   'views/tasks/model',
   'text!templates/tasks/list-entry.html',
-  'text!templates/tasks/model.html'
-], function($, _, Backbone, TaskView, ListEntryTemplate, TaskModelTemplate) {
+], function($, _, Backbone, TaskView, ListEntryTemplate) {
 
   var ListEntryView = Backbone.View.extend({
     tagName  : 'tr',
@@ -39,7 +38,7 @@ define([
     },
 
     render: function() {
-      this.$el.append(this.template(this.model.attributes));
+      this.$el.append(this.template(this.model));
       return this;
     }
   });
