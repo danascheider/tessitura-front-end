@@ -2,9 +2,8 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'cookie',
-  'extras'
-  ], function($, _, Backbone, Cookie, Extras) {
+  'cookie'
+  ], function($, _, Backbone, Cookie) {
   
   var SessionModel = Backbone.Model.extend({
     initialize: function() {
@@ -26,9 +25,10 @@ define([
       }
     },
 
-    save: function(auth_hash) {
-      $.cookie('auth', Extras.getAuthHash(auth_hash.username, auth_hash.password));
-      $.cookie('userID', auth_hash.userID);
+    save: function(auth) {
+      var hash = btoa(auth.username + ':' + auth.password);
+      $.cookie('auth', hash);
+      $.cookie('userID', auth.userID);
     },
 
     load: function() {

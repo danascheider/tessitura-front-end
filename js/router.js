@@ -5,7 +5,6 @@ define([
   'cookie',
   'models/session',
   'filter',
-  'extras',
   'views/app/login-form',
   'views/app/dashboard',
   'views/app/homepage'
@@ -14,7 +13,6 @@ define([
       Cookie,
       Session,
       Filter,
-      Extras,
       LoginView, 
       DashboardView,
       HomepageView) {

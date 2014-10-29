@@ -2,11 +2,11 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'extras',
+  'form-utils',
   'api',
   'models/task',
   'text!templates/tasks/create-form.html'
-  ], function($, _, Backbone, Extras, API, TaskModel, CreateFormTemplate) {
+  ], function($, _, Backbone, FormUtils, API, TaskModel, CreateFormTemplate) {
 
   var TaskCreateFormView = Backbone.View.extend({
     events   : {
@@ -18,7 +18,7 @@ define([
     createTask: function(e) {
       e.preventDefault();
       var form  = $(e.target).parent('form');
-      var attrs = Extras.getAttributes(form);
+      var attrs = FormUtils.getAttributes(form);
       
       var newTask = new TaskModel(attrs);
 
