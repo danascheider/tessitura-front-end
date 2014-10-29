@@ -2,9 +2,8 @@ define([
   'jquery', 
   'underscore', 
   'backbone', 
-  'storage', 
   'api'
-  ], function($, _, Backbone, DualStorage, API) {
+  ], function($, _, Backbone, API) {
 
   var User = Backbone.Model.extend({
     urlRoot: API.users.collection,
@@ -18,8 +17,6 @@ define([
     name: function() {
       return this.firstName + ' ' + this.lastName;
     },
-
-    storeName: 'users' 
   });
   
   return User;

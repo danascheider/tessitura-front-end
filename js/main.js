@@ -4,7 +4,6 @@ requirejs.config({
     underscore  : './lib/underscore',
     backbone    : './lib/backbone',
     cookie      : './lib/cookie',
-    storage     : './lib/backbone.dualstorage.amd',
     filter      : './lib/backbone-route-filter-min',
     bootstrap   : './lib/bootstrap',
     text        : './lib/text',

@@ -2,9 +2,8 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'storage',
   'api'
-  ], function($, _, Backbone, DualStorage, API) {
+  ], function($, _, Backbone, API) {
   
   var TaskModel = Backbone.Model.extend({
     urlRoot: API.tasks.root,
@@ -27,9 +26,7 @@ define([
       if (!attrs.title) {
         return 'Title is required';
       }
-    },
-
-    storeName : 'tasks',
+    }
   });
 
   return TaskModel

@@ -2,10 +2,9 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'storage',
   'cookie',
   'extras'
-  ], function($, _, Backbone, DualStorage, Cookie, Extras) {
+  ], function($, _, Backbone, Cookie, Extras) {
   
   var SessionModel = Backbone.Model.extend({
     initialize: function() {
@@ -37,9 +36,7 @@ define([
         auth   : $.cookie('auth'),
         userID : $.cookie('userID')
       });
-    },
-
-    local: true // Sessions should only be stored locally
+    }
   });
 
   return SessionModel;
