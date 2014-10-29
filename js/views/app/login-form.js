@@ -27,7 +27,7 @@ define([
         url        : 'http://localhost:9292/login',
         type       : 'POST',
         beforeSend : function(xhr) {
-          xhr.setRequestHeader('Authorization', 'Basic: ' + hash);
+          xhr.setRequestHeader('Authorization', 'Basic ' + hash);
         },
 
         success    : function(obj, status, xhr) {

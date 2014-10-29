@@ -23,7 +23,6 @@ define([
           xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
         },
         success: function(model, response, options) {
-          console.log('Success');
           $(target).removeClass('fa-square-o').addClass('fa-check-square-o');
           $(el).fadeOut();
         },

@@ -2,16 +2,23 @@ define([
   'jquery', 
   'underscore', 
   'backbone', 
-  'api'
-  ], function($, _, Backbone, API) {
+  'api',
+  'collections/tasks'
+  ], function($, _, Backbone, API, TaskCollection) {
 
   var User = Backbone.Model.extend({
     urlRoot: API.users.collection,
     
     initialize: function() {
-      defaults: {
-        admin: false
-      }
+      var id = this.id || $.cookie('userID');
+
+      this.tasks = new TaskCollection({url: API.tasks.collection(id)});
+
+      this.tasks.fetch({
+        beforeSend: function(xhr) {
+          xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
+        }
+      });
     },
 
     name: function() {
