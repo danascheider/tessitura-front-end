@@ -8,7 +8,7 @@ define([
   ], function($, _, Backbone, ListEntryView, CreateFormView, TaskCollectionTemplate) {
   
   var TaskCollectionView = Backbone.View.extend({
-    template : _.template("<table class='task-list'></table>"),
+    template : _.template(TaskCollectionTemplate),
 
     // Core View Functions //
     initialize: function() {

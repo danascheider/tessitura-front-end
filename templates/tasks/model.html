@@ -4,20 +4,24 @@
       <a href='' class='task-title'><%= title %></a>
     </td>
   </tr>
-  <tr>
-    <td><strong>Deadline:</strong></td>
-    <td>May 17, 2015</td>
-  </tr>
+  <% if (deadline !== '') { %>
+    <tr>
+      <td><strong>Deadline:</strong></td>
+      <td><%= deadline %></td>
+    </tr>
+  <% } %>
   <tr>
     <td><strong>Priority:</strong></td>
-    <td>Urgent</td>
+    <td><%= priority %></td>
   </tr>
   <tr>
     <td><strong>Status:</strong></td>
-    <td>Blocking</td>
+    <td><%= status %></td>
   </tr>
-  <tr>
-    <td style='vertical-align: text-top'><strong>Notes:</td>
-    <td>We have some problems here and we need to figure out why.</td>
-  </tr>
+  <% if (description !== '') { %>
+    <tr>
+      <td style='vertical-align: text-top'><strong>Notes:</strong></td>
+      <td><% description %></td>
+    </tr>
+  <% } %>
 </table>

@@ -7,6 +7,8 @@ define([
   var UserPresenter = function(options) {
     Presenter.apply(this, arguments);
 
+    // Presenter methods
+    
     this.name = this.model.get('first_name') + ' ' + this.model.get('last_name');
   };
 

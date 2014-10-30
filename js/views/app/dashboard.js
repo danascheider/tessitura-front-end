@@ -69,8 +69,6 @@ define([
           xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
         }
       });
-
-      _.extend(this, Backbone.Events);
     },
 
     render: function() {
@@ -79,7 +77,6 @@ define([
 
       // Render main dashboard view
       var userPresenter = new UserPresenter({model: this.user});
-      console.log(userPresenter);
       this.$el.html(userPresenter.partial(this.template));
 
       // Render sidebar

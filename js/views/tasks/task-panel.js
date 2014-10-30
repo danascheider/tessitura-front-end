@@ -54,10 +54,12 @@ define([
 
     initialize: function() {
       this.render();
+
+      this.listenTo(this.collection, 'change', this.render());
     },
 
     render: function() {
-      this.$el.append(this.template());
+      this.$el.html(this.template());
       this.renderContent();
       return this;
     }

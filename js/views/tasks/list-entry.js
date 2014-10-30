@@ -3,8 +3,9 @@ define([
   'underscore',
   'backbone',
   'models/task-presenter',
+  'text!templates/tasks/model.html',
   'text!templates/tasks/list-entry.html',
-], function($, _, Backbone, TaskPresenter, ListEntryTemplate) {
+], function($, _, Backbone, TaskPresenter, TaskModelTemplate, ListEntryTemplate) {
 
   var ListEntryView = Backbone.View.extend({
     tagName  : 'tr',
@@ -12,6 +13,8 @@ define([
     events   : {
       'click .fa-square-o' : 'markComplete'
     },
+
+    modelTemplate: _.template(TaskModelTemplate),
 
     markComplete: function(e) {
       var target = e.target;
@@ -38,7 +41,7 @@ define([
 
     render: function() {
       var presenter = new TaskPresenter({model: this.model});
-      this.$el.html(presenter.partial(this.template));
+      this.$el.html(this.template({modelTemplate: presenter.partial(this.modelTemplate)}));
       return this;
     }
   });
