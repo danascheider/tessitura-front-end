@@ -1,27 +1,27 @@
 <table class='task-model'>
   <tr>
     <td colspan='2'>
-      <a href='' class='task-title'><%= title %></a>
+      <a href='' class='task-title'><%= attributes.title %></a>
     </td>
   </tr>
-  <% if (deadline !== '') { %>
+  <% if (attributes.deadline) { %>
     <tr>
       <td><strong>Deadline:</strong></td>
-      <td><%= deadline %></td>
+      <td><%= attributes.deadline %></td>
     </tr>
   <% } %>
   <tr>
     <td><strong>Priority:</strong></td>
-    <td><%= priority %></td>
+    <td><%= attributes.priority %></td>
   </tr>
   <tr>
     <td><strong>Status:</strong></td>
-    <td><%= status %></td>
+    <td><%= attributes.status %></td>
   </tr>
-  <% if (description !== '') { %>
+  <% if (attributes.description) { %>
     <tr>
       <td style='vertical-align: text-top'><strong>Notes:</strong></td>
-      <td><% description %></td>
+      <td><%= attributes.description %></td>
     </tr>
   <% } %>
 </table>
