@@ -2,9 +2,9 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'views/tasks/model',
+  'models/task-presenter',
   'text!templates/tasks/list-entry.html',
-], function($, _, Backbone, TaskView, ListEntryTemplate) {
+], function($, _, Backbone, TaskPresenter, ListEntryTemplate) {
 
   var ListEntryView = Backbone.View.extend({
     tagName  : 'tr',
@@ -24,7 +24,6 @@ define([
         },
         success: function(model, response, options) {
           $(target).removeClass('fa-square-o').addClass('fa-check-square-o');
-          $(el).fadeOut();
         },
         error: function(model, response, options) {
           console.log(response);
@@ -34,10 +33,12 @@ define([
 
     initialize: function() {
       this.render();
+      this.listenTo(this.model, 'change', this.render());
     },
 
     render: function() {
-      this.$el.append(this.template(this.model));
+      var presenter = new TaskPresenter({model: this.model});
+      this.$el.append(this.template(presenter));
       return this;
     }
   });

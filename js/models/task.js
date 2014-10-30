@@ -1,9 +1,8 @@
 define([
-  'jquery',
   'underscore',
   'backbone',
-  'api'
-  ], function($, _, Backbone, API) {
+  'api',
+  ], function(_, Backbone, API) {
   
   var TaskModel = Backbone.Model.extend({
     urlRoot: API.tasks.root,

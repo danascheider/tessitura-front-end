@@ -4,7 +4,7 @@ define([
   'backbone',
   'api',
   'models/user',
-  'collections/tasks',
+  'models/user-presenter',
   'views/app/dashboard-sidebar',
   'views/tasks/task-panel',
   'text!templates/app/dashboard.html',
@@ -17,7 +17,7 @@ define([
     Backbone, 
     API,
     UserModel,
-    TaskCollection,
+    UserPresenter,
     SidebarView,
     TaskPanelView,
     DashboardTemplate, 
@@ -78,7 +78,8 @@ define([
       $('body').attr('id', 'dashboard');
 
       // Render main dashboard view
-      this.$el.html(this.template(this.user.attributes));
+      var userPresenter = new UserPresenter({model: this.user});
+      this.$el.html(this.template(userPresenter));
 
       // Render sidebar
       this.$sidebar = new SidebarView({el: this.$('div.sidebar-collapse')});

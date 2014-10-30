@@ -1,10 +1,9 @@
 define([
-  'jquery', 
   'underscore', 
   'backbone', 
   'api',
   'collections/tasks'
-  ], function($, _, Backbone, API, TaskCollection) {
+  ], function(_, Backbone, API, TaskCollection) {
 
   var User = Backbone.Model.extend({
     urlRoot: API.users.collection,
