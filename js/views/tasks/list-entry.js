@@ -38,7 +38,7 @@ define([
 
     render: function() {
       var presenter = new TaskPresenter({model: this.model});
-      this.$el.append(this.template(presenter));
+      this.$el.html(presenter.partial(this.template));
       return this;
     }
   });

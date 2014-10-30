@@ -4,34 +4,15 @@ define([
   'presenter'
 ], function(_, Backbone, Presenter) {
 
-  var TaskPresenter = _.extend(Presenter, {
+  var TaskPresenter = function(options) {
+    Presenter.apply(this, arguments);
 
-    // Main task attributes //
-
-    deadline    : function() {
-      return this.model.get('deadline');
-    },
-
-    description : function() {
-      return this.model.get('description');
-    },
-
-    notes       : function() {
-      return this.model.get('deadline'); // alias for description();
-    },
-
-    priority    : function() {
-      return this.model.get('priority');
-    },
-
-    status      : function() {
-      return this.model.get('status');
-    },
-
-    title       : function() {
-      return this.model.get('title');
-    }
-  });
+    this.deadline    = this.model.get('deadline') || '';
+    this.description = this.model.get('description') || '';
+    this.notes       = this.description;
+  };
+  
+  TaskPresenter.prototype = _.extend(TaskPresenter.prototype, Presenter.prototype);
   
   return TaskPresenter;
 });

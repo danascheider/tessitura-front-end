@@ -79,7 +79,8 @@ define([
 
       // Render main dashboard view
       var userPresenter = new UserPresenter({model: this.user});
-      this.$el.html(this.template(userPresenter));
+      console.log(userPresenter);
+      this.$el.html(userPresenter.partial(this.template));
 
       // Render sidebar
       this.$sidebar = new SidebarView({el: this.$('div.sidebar-collapse')});
