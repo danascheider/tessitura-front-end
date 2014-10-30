@@ -54,8 +54,6 @@ define([
 
     initialize: function() {
       this.render();
-
-      this.listenTo(this.collection, 'change', this.render());
     },
 
     render: function() {
