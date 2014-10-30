@@ -1,32 +1,6 @@
 <tr>
   <td style='vertical-align: top'><i class='fa fa-square-o'></i></td>
   <td class='task-listing'>
-    <table class='task-model'>
-      <tr>
-        <td colspan='2'>
-          <a href='' class='task-title'><%= title %></a>
-        </td>
-      </tr>
-      <% if (deadline !== '') { %> 
-        <tr>
-          <td><strong>Deadline:</strong></td>
-          <td><%= deadline %></td>
-        </tr>
-      <% } %>
-      <tr>
-        <td><strong>Priority:</strong></td>
-        <td><%= priority %></td>
-      </tr>
-      <tr>
-        <td><strong>Status:</strong></td>
-        <td><%= status %></td>
-      </tr>
-      <% if (description !== '') { %>
-        <tr>
-          <td style='vertical-align: text-top'><strong>Notes:</strong></td>
-          <td><%= description %></td>
-        </tr>
-      <% } %>
-    </table>
+    <%= modelTemplate(model) %>
   </td>
 </tr>

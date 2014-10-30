@@ -2,9 +2,9 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'models/task-presenter',
+  'text!templates/tasks/model.html',
   'text!templates/tasks/list-entry.html',
-], function($, _, Backbone, TaskPresenter, ListEntryTemplate) {
+], function($, _, Backbone, ModelTemplate, ListEntryTemplate) {
 
   var ListEntryView = Backbone.View.extend({
     tagName  : 'tr',
@@ -12,6 +12,8 @@ define([
     events   : {
       'click .fa-square-o' : 'markComplete'
     },
+
+    modelTemplate: _.template(ModelTemplate),
 
     markComplete: function(e) {
       var target = e.target;
@@ -24,6 +26,7 @@ define([
         },
         success: function(model, response, options) {
           $(target).removeClass('fa-square-o').addClass('fa-check-square-o');
+          $(el).fadeOut();
         },
         error: function(model, response, options) {
           console.log(response);
@@ -33,12 +36,10 @@ define([
 
     initialize: function() {
       this.render();
-      this.listenTo(this.model, 'change', this.render());
     },
 
     render: function() {
-      var presenter = new TaskPresenter({model: this.model});
-      this.$el.html(presenter.partial(this.template));
+      this.$el.html(this.template({modelTemplate: this.modelTemplate, model: this.model}));
       return this;
     }
   });
