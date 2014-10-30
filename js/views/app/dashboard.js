@@ -74,7 +74,7 @@ define([
       $('body').attr('id', 'dashboard');
 
       // Render main dashboard view
-      this.$el.html(this.template({model: this.user}));
+      this.$el.html(this.template(this.user.attributes));
 
       // Render sidebar
       this.$sidebar = new SidebarView({el: this.$('div.sidebar-collapse')});
