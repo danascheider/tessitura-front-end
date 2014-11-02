@@ -22,15 +22,16 @@ define([
 
     // Templates //
 
-    template         : _.template(CollectionTemplate),
-    modelTemplate    : _.template(ModelTemplate),
-    listItemTemplate : _.template(ListEntryTemplate),
+    template           : _.template(CollectionTemplate),
+    modelTemplate      : _.template(ModelTemplate),
+    listItemTemplate   : _.template(ListEntryTemplate),
 
     // Events //
 
     events : {
-      'click .fa-square-o' : 'markComplete',
-      'click a.task-title' : 'toggleTaskDetails'
+      'click .fa-square-o'  : 'markComplete',
+      'click th.task-title' : 'toggleTaskDetails',
+      'click a.create-task' : 'toggleCreateForm'
     },
 
     // Event Handlers //
@@ -48,6 +49,12 @@ define([
           $(target).removeClass('fa-square-o').addClass('fa-check-square-o');
         }
       });
+    },
+
+    toggleCreateForm  : function(e) {
+      e.preventDefault();
+      var form = $(this.el).find('form.task-form');
+      $(form).slideToggle();
     },
 
     toggleTaskDetails : function(e) {
@@ -69,8 +76,7 @@ define([
                                     listItemTemplate: this.listItemTemplate,
                                     modelTemplate: this.modelTemplate
                                   }));
-      this.$createForm = new CreateFormView({el: $(this.el).find('tr.create-task td')});
-      this.$createForm.render();
+      this.$createForm = new CreateFormView({el: $(this.el).find('li.widget-create-form')});
       return this;
     }
   });
