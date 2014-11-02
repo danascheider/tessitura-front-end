@@ -1,26 +1,26 @@
 <table class='task-model'>
   <tr>
-    <td colspan='2'>
-      <a href='' class='task-title'><%= attributes.title %></a>
-    </td>
+    <th colspan='2' class='task-title'>
+      <a href=''><%= attributes.title %></a>
+    </th>
   </tr>
   <% if (attributes.deadline) { %>
-    <tr>
-      <td><strong>Deadline:</strong></td>
+    <tr class='task-details'>
+      <th<strong>Deadline:</strong></th>
       <td><%= attributes.deadline %></td>
     </tr>
   <% } %>
-  <tr>
-    <td><strong>Priority:</strong></td>
+  <tr class='task-details'>
+    <th>Priority:</th>
     <td><%= attributes.priority %></td>
   </tr>
-  <tr>
-    <td><strong>Status:</strong></td>
+  <tr class='task-details'>
+    <th>Status:</th>
     <td><%= attributes.status %></td>
   </tr>
   <% if (attributes.description) { %>
-    <tr>
-      <td style='vertical-align: text-top'><strong>Notes:</strong></td>
+    <tr class='task-details'>
+      <th style='vertical-align: text-top'>Notes:</th>
       <td><%= attributes.description %></td>
     </tr>
   <% } %>
