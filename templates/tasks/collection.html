@@ -1,2 +1,7 @@
 <table class='task-list'>
+  <% collection.each(function(task) { %>
+    <% if (task.get('status') !== 'Complete') { %>
+      <%= listItemTemplate({modelTemplate: modelTemplate, model: task}) %>
+    <% } %>
+  <% }); %>
 </table>

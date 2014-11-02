@@ -2,32 +2,75 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'views/tasks/list-entry',
+  'cookie',
   'views/tasks/create-form',
+  'text!templates/tasks/model.html',
+  'text!templates/tasks/list-entry.html',
   'text!templates/tasks/collection.html',
-  ], function($, _, Backbone, ListEntryView, CreateFormView, TaskCollectionTemplate) {
+], function(
+  $, 
+  _, 
+  Backbone, 
+  Cookie,
+  CreateFormView,
+  ModelTemplate, 
+  ListEntryTemplate, 
+  CollectionTemplate
+) {
   
   var TaskCollectionView = Backbone.View.extend({
-    template : _.template(TaskCollectionTemplate),
 
-    // Core View Functions //
-    initialize: function() {
-      _.bindAll(this, 'renderModel');
-      this.render();
+    // Templates //
+
+    template         : _.template(CollectionTemplate),
+    modelTemplate    : _.template(ModelTemplate),
+    listItemTemplate : _.template(ListEntryTemplate),
+
+    // Events //
+
+    events : {
+      'click .fa-square-o' : 'markComplete',
+      'click a.task-title' : 'toggleTaskDetails'
     },
 
-    renderModel: function(task) {
-      if (task.incomplete()) {
-        var listEntryView = new ListEntryView({model: task});
-        $(this.el).append(listEntryView.el);
-      }
+    // Event Handlers //
+
+    markComplete      : function(e) {
+      var that = this;
+      var target = e.target;
+      var tableRow = $(target).parent('td').parent('tr');
+      var modelID = $(tableRow).attr('id').match(/\d+/)[0];
+      this.collection.get(modelID).save({status: 'Complete'}, {
+        beforeSend: function(xhr) {
+          xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
+        },
+        success: function(model, status, xhr) {
+          $(target).removeClass('fa-square-o').addClass('fa-check-square-o');
+        }
+      });
+    },
+
+    toggleTaskDetails : function(e) {
+      e.preventDefault();
+      var target = e.target;
+      var siblings = $(target).closest('tr').siblings();
+      $(siblings).toggle();
+    },
+
+    // Core View Functions //
+
+    initialize: function() {
+      this.render();
+      this.listenTo(this.collection, 'change', this.render);
     },
 
     render: function() {
+      this.$el.html(this.template({ collection: this.collection,
+                                    listItemTemplate: this.listItemTemplate,
+                                    modelTemplate: this.modelTemplate
+                                  }));
       this.$createForm = new CreateFormView({el: $(this.el).find('tr.create-task td')});
       this.$createForm.render();
-      this.collection.each(this.renderModel);
-
       return this;
     }
   });
