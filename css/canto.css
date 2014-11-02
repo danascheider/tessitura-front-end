@@ -14,8 +14,22 @@
   margin-top: 30px;
 }
 
-.task {
-  list-style: none;
+/* Dashboard Task List Widget */
+
+table.task-list td > .fa-square-o { 
+  padding-right: 0.5em;
+}
+
+a.task-title {
+  font-weight: bold;
+}
+
+table.task-model tr {
+  display: none;
+}
+
+table.task-model tr:first-of-type {
+  display: block;
 }
 
 .task-form {
