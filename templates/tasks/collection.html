@@ -1,7 +1,10 @@
-<table class='task-list'>
+<ul class='task-list'>
+  <li class='widget-create-form'>
+    <a href='' class='create-task'><strong>New Task</strong></a>
+  </li>
   <% collection.each(function(task) { %>
     <% if (task.get('status') !== 'Complete') { %>
       <%= listItemTemplate({modelTemplate: modelTemplate, model: task}) %>
     <% } %>
   <% }); %>
-</table>
+</ul>
