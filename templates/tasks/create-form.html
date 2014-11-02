@@ -1,55 +1,32 @@
 <form class='task-form' role='form'>
   <div class='form-group'>
-    <label>Title (required)</label>
-    <input class='form-control' name='title' placeholder='New task'>
-  </div>
-
-  <div class='form-group'>
-    <label>Deadline</label>
+    <input class='form-control' name='title' placeholder='Title (required)'>
     <input type='date' name='deadline' class='form-control'>
   </div>
 
   <!-- status options -->
   <div class='form-group'>
-    <label>Status</label>
-    <label class='radio-inline'>
-      <input type='radio' name='status' value='New' checked />New</label>
-    <label class='radio-inline'>
-      <input type='radio' name='status' value='In Progress' />In Progress</label>
-    <label class='radio-inline'>
-      <input type='radio' name='status' value='Blocking' />Blocking</label>
-    <label class='radio-inline'>
-      <input type='radio' name='status' value='Complete' />Complete</label>
-  </div>
+    <input list='statuses' name='status' placeholder='Status'>
+    <datalist id='statuses'>
+      <option value='New' />
+      <option value='In Progress' />
+      <option value='Blocking' />
+      <option value='Complete' />
+    </datalist>
 
-  <!-- Priority options -->
-  <div class='form-group'>
-    <label>Priority</label>
-    <label class='radio-inline'>
-      <input type='radio' name='priority' value='urgent'>
-      Urgent
-    </label>
-    <label class='radio-inline'>
-      <input type='radio' name='priority' value='high'>
-      High
-    </label>
-    <label class='radio-inline'>
-      <input type='radio' name='priority' value='normal' checked>
-      Normal
-    </label>
-    <label class='radio-inline'>
-      <input type='radio' name='priority' value='low'>
-      Low
-    </label>
-    <label class='radio-inline'>
-      <input type='radio' name='priority' value='not_important'>
-      Lowest
-    </label>
+    <!-- priority options -->
+    <input list='priorities' name='priority' placeholder='Priority'>
+    <datalist id='priorities'>
+      <option value='Urgent' />
+      <option value='High' />
+      <option value='Normal' />
+      <option value='Low' />
+      <option value='Not Important' />
+    </datalist>
   </div>
 
   <div class='form-group'>
-    <label>Notes</label>
-    <textarea name='description' class='form-control' rows='2'></textarea>
+    <textarea name='description' class='form-control' rows='2' placeholder='Notes'></textarea>
   </div>
 
   <button type='submit' class='btn btn-default'>Create</button>
