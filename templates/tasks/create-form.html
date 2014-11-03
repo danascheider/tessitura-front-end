@@ -2,11 +2,7 @@
   <div class='form-group'>
     <input class='form-control' name='title' placeholder='Title (required)'>
     <input type='date' name='deadline' class='form-control'>
-  </div>
-
-  <!-- status options -->
-  <div class='form-group'>
-    <input list='statuses' name='status' placeholder='Status'>
+    <input list='statuses' class='form-control' name='status' placeholder='Status'>
     <datalist id='statuses'>
       <option value='New' />
       <option value='In Progress' />
@@ -15,7 +11,7 @@
     </datalist>
 
     <!-- priority options -->
-    <input list='priorities' name='priority' placeholder='Priority'>
+    <input list='priorities' class='form-control' name='priority' placeholder='Priority'>
     <datalist id='priorities'>
       <option value='Urgent' />
       <option value='High' />
@@ -23,9 +19,6 @@
       <option value='Low' />
       <option value='Not Important' />
     </datalist>
-  </div>
-
-  <div class='form-group'>
     <textarea name='description' class='form-control' rows='2' placeholder='Notes'></textarea>
   </div>
 
