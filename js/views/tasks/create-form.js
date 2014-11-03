@@ -17,18 +17,20 @@ define([
 
     createTask: function(e) {
       e.preventDefault();
+      var that = this;
       var form  = $(e.target).parent('form');
       var attrs = FormUtils.getAttributes(form);
-      
       var newTask = new TaskModel(attrs);
 
       newTask.save(newTask.attrs, {
-        dataType: 'html',
-        beforeSend: function(xhr) {
+        dataType   : 'html',
+        url        : API.tasks.collection($.cookie('userID')),
+        beforeSend : function(xhr) {
           xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
         },
         success: function(data, status, xhr) {
           $('a.create-task').find('i.fa').toggleClass('fa-caret-down fa-caret-right');
+          that.trigger('ajaxSuccess');
           form[0].reset();
           form.slideUp();
         },
