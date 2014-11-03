@@ -7,12 +7,13 @@ define([
   var DashboardTopWidgetView = Backbone.View.extend({
     template: _.template(Template),
 
-    initialize: function() {
+    initialize: function(opts) {
+      this.data = opts.data
       this.render();
     },
 
     render: function() {
-      this.$el.html(this.template());
+      this.$el.html(this.template({data: this.data}));
     }
   });
 

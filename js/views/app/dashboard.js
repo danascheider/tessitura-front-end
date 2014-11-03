@@ -82,7 +82,14 @@ define([
       this.$sidebar = new SidebarView({el: this.$('div.sidebar-collapse')});
 
       // Render top row of widgets
-      this.$topWidgets = new DashboardTopWidgetView({el: this.$('#dash-heading')});
+      var data = {
+        appointmentCount    : 4,
+        taskCount           : 12,
+        deadlineCount       : 9,
+        recommendationCount : 13
+      }
+      
+      this.$topWidgets = new DashboardTopWidgetView({el: this.$('#dash-heading'), data: data});
 
       // Fetch the user's tasks and render in the task panel
       var that = this;
