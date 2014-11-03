@@ -5,6 +5,7 @@ define([
   'api',
   'models/user',
   'views/app/dashboard-sidebar',
+  'views/app/dashboard-top-widgets',
   'views/tasks/task-panel',
   'text!templates/app/dashboard.html',
   'css!stylesheets/bootstrap.css',
@@ -17,6 +18,7 @@ define([
     API,
     UserModel,
     SidebarView,
+    DashboardTopWidgetView,
     TaskPanelView,
     DashboardTemplate, 
     BootstrapStyles, 
@@ -78,6 +80,9 @@ define([
 
       // Render sidebar
       this.$sidebar = new SidebarView({el: this.$('div.sidebar-collapse')});
+
+      // Render top row of widgets
+      this.$topWidgets = new DashboardTopWidgetView({el: this.$('#dash-heading')});
 
       // Fetch the user's tasks and render in the task panel
       var that = this;
