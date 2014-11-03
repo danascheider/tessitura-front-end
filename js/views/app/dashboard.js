@@ -81,18 +81,13 @@ define([
       // Render sidebar
       this.$sidebar = new SidebarView({el: this.$('div.sidebar-collapse')});
 
-      // Render top row of widgets
+      // Fetch the user's tasks and render in the task panel
+      var that = this;
       var data = {
         appointmentCount    : 4,
-        taskCount           : 12,
         deadlineCount       : 9,
         recommendationCount : 13
       }
-      
-      this.$topWidgets = new DashboardTopWidgetView({el: this.$('#dash-heading'), data: data});
-
-      // Fetch the user's tasks and render in the task panel
-      var that = this;
 
       this.user.tasks.fetch({
         url: API.tasks.collection(this.user.id),
@@ -100,9 +95,14 @@ define([
           xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
         },
         success: function(collection, response, options) {
+          console.log(collection);
           that.$taskPanel = new TaskPanelView({el: that.$('#task-panel'), collection: collection});
+          data.taskCount = collection.length;
+          this.$topWidgets = new DashboardTopWidgetView({el: this.$('#dash-heading'), data: data});
         }
       });
+
+      console.log(data);
 
       // Best practices
       return this;
