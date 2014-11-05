@@ -10,10 +10,13 @@ define([
     
     initialize: function() {
       var id = this.id || $.cookie('userID');
+      var taskFilter = {resource: 'Task', scope: 'incomplete'}
+      var that = this;
 
-      this.tasks = new TaskCollection({url: API.tasks.collection(id)});
+      this.tasks = new TaskCollection;
 
-      this.tasks.fetch({
+      this.fetch({
+        async: false,
         beforeSend: function(xhr) {
           xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
         }
