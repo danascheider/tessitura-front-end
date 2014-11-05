@@ -12,7 +12,7 @@ define([
   'css!stylesheets/dashboard.css',
   'css!stylesheets/canto.css',
   'css!stylesheets/font-awesome.css'
-  ], function(
+], function(
     $, _, 
     Backbone, 
     API,
@@ -63,12 +63,6 @@ define([
 
     initialize: function() {
       this.user = new UserModel({id: $.cookie('userID')});
-      this.user.fetch({
-        async      : false,
-        beforeSend : function(xhr) {
-          xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
-        }
-      });
     },
 
     render: function() {
@@ -90,7 +84,9 @@ define([
       }
 
       this.user.tasks.fetch({
-        url: API.tasks.collection(this.user.id),
+        url: API.users.filter(this.user.id),
+        data: JSON.stringify({resource: 'Task', scope: 'incomplete'}),
+        type: 'POST',
         beforeSend: function(xhr) {
           xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
         },

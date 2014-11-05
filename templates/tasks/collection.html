@@ -3,8 +3,6 @@
     <a href='' class='create-task'><strong>New Task</strong></a>
   </li>
   <% collection.each(function(task) { %>
-    <% if (task.get('status') !== 'Complete') { %>
-      <%= listItemTemplate({modelTemplate: modelTemplate, model: task}) %>
-    <% } %>
+    <%= listItemTemplate({modelTemplate: modelTemplate, model: task}) %>
   <% }); %>
 </ul>
