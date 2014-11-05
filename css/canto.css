@@ -40,7 +40,11 @@
 #dash-heading > .col-lg-3 > .panel-red >  a:focus {
   color: #d9534f;
 }
+
+/* --------------------- */
 /* Dash Widget - General */
+/* --------------------- */
+
 .dash-widget {
   margin-top: 30px;
 }
@@ -51,11 +55,61 @@
   padding-bottom: 0;
 }
 
+.hide-widget {
+  cursor: pointer;
+}
+
+.hide-widget:hover {
+  color: #b4e2df;
+}
+
+/* -------------------------- */
 /* Dashboard Task List Widget */
+/* -------------------------- */
+
+#task-panel .panel-body {
+  padding-top: 0.15em;
+  padding-bottom: 0;
+}
+
 ul.task-list {
   list-style: none;
   padding-left: 0;
+  margin-top: 0;
   margin-bottom: 0;
+}
+
+ul.task-list li {
+  min-height: 2.75em;
+}
+
+ul.task-list li:hover {
+  background-color: #f6f5f9;
+}
+
+ul.task-list li:hover > form {
+  background-color: #fff;
+}
+
+ul.task-list li a {
+  color: #777;
+}
+
+ul.task-list li a:hover {
+  color: #46b4ae;
+  text-decoration: none;
+}
+
+ul.task-list li > table,
+ul.task-list li a {
+  vertical-align: center;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+ul.task-list li:first-child {
+  border-top: none;
+  padding-top: 0.5em;
 }
 
 ul.task-list li:last-child {
@@ -93,8 +147,10 @@ ul.task-list li {
 }
 
 ul.task-list li {
-  border-bottom-style: dotted;
-  border-bottom-width: 1px;
+  border-style: solid none;
+  border-top-color: #efefef;
+  border-bottom-color: #d3d3d3;
+  border-width: 1px;
 }
 
 i.fa-square-o {
@@ -112,4 +168,60 @@ tr.task-details {
 
 .task-form {
   display: none;
+}
+
+/* Animations */
+@-webkit-keyframes shimmy {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  20% {
+    -webkit-transform: rotate(-20deg);
+    transform: rotate(-20deg);
+  }
+  40% {
+    -webkit-transform: rotate(20deg);
+    transform: rotate(20deg);
+  }
+  60% {
+    -webkit-transform: rotate(-20deg);
+    transform: rotate(-20deg);
+  }
+  80% {
+    -webkit-transform: rotate(20deg);
+    transform: rotate(20deg);
+  }
+}
+
+@keyframes shimmy {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  20% {
+    -webkit-transform: rotate(-20deg);
+    transform: rotate(-20deg);
+  }
+  40% {
+    -webkit-transform: rotate(20deg);
+    transform: rotate(20deg);
+  }
+  60% {
+    -webkit-transform: rotate(-20deg);
+    transform: rotate(-20deg);
+  }
+  80% {
+    -webkit-transform: rotate(20deg);
+    transform: rotate(20deg);
+  }
+}
+
+.faa-shake.animated,
+.faa-shake.hide-widget,
+.faa-parent.animated-hover:hover > .hide-widget {
+  -webkit-animation: shimmy 0.3s ease;
+  animation: shimmy 0.3s ease ;
 }
