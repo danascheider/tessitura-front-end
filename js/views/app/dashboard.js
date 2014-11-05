@@ -95,14 +95,11 @@ define([
           xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
         },
         success: function(collection, response, options) {
-          console.log(collection);
           that.$taskPanel = new TaskPanelView({el: that.$('#task-panel'), collection: collection});
           data.taskCount = collection.length;
           this.$topWidgets = new DashboardTopWidgetView({el: this.$('#dash-heading'), data: data});
         }
       });
-
-      console.log(data);
 
       // Best practices
       return this;
