@@ -27,10 +27,21 @@ define([
     el       : $('#task-panel'),
 
     events   : {
-      'click a.create-task' : 'showTaskForm'
+      'click a.create-task' : 'showTaskForm',
+      'mouseenter'          : 'showCloseWidgetIcon',
+      'mouseleave'          : 'hideCloseWidgetIcon',
+      'click .hide-widget'  : 'hideWidget'
     },
 
     template : _.template(TaskPanelTemplate),
+
+    hideCloseWidgetIcon: function(e) {
+      $(e.target).closest('.dash-widget').find('span.hide-widget').fadeOut();
+    },
+
+    hideWidget: function(e) {
+      $(e.target).closest('.dash-widget').fadeOut(100);
+    },
 
     renderContent: function() {
       if(this.collection) {
@@ -41,6 +52,10 @@ define([
         var emptyPanel = new EmptyPanelView({el: $(this.el).find('.panel-body')});
         emptyPanel.render();
       }
+    },
+
+    showCloseWidgetIcon: function(e) {
+      $(e.target).closest('.dash-widget').find('span.hide-widget').show();
     },
 
     showTaskForm: function(e) {
