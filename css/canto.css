@@ -11,9 +11,16 @@
 }
 
 /* Top Dash Widgets */
-.panel-blue > .panel-heading {
+#dash-heading > .col-lg-3 > .panel-blue > .panel-heading {
   color: #fff;
   background-color: #516695;
+  margin: 0;
+}
+
+#dash-heading > .col-lg-3 > .panel-blue,
+#dash-heading > .col-lg-3 > .panel-yellow,
+#dash-heading > .col-lg-3 > .panel-red {
+  border: none;
 }
 
 #dash-heading > .col-lg-3 > .panel, .panel-blue > a:hover, 
