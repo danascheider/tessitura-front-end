@@ -83,18 +83,12 @@ define([
         recommendationCount : 13
       }
 
-      this.user.tasks.fetch({
-        url: API.users.filter(this.user.id),
-        data: JSON.stringify({resource: 'Task', scope: 'incomplete'}),
-        type: 'POST',
-        beforeSend: function(xhr) {
-          xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
-        },
-        success: function(collection, response, options) {
-          that.$taskPanel = new TaskPanelView({el: that.$('#task-panel'), collection: collection});
+      this.user.fetchIncompleteTasks($.cookie('auth')).then(function(collection) {
           data.taskCount = collection.length;
-          this.$topWidgets = new DashboardTopWidgetView({el: this.$('#dash-heading'), data: data});
-        }
+          that.$topWidgets = new DashboardTopWidgetView({el: that.$('#dash-heading'), data: data});
+          that.$taskPanel = new TaskPanelView({el: that.$('#task-panel'), collection: collection});
+      }, function(error) {
+        console.log('Error: ', error);
       });
 
       // Best practices

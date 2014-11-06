@@ -95,6 +95,7 @@ define([
                                              el: $(this.el).find('li.widget-create-form'),
                                              collection: this.collection 
                                            });
+
       return this;
     }
   });

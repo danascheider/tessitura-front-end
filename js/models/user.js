@@ -15,11 +15,35 @@ define([
 
       this.tasks = new TaskCollection;
 
+      console.info(this.tasks);
+
       this.fetch({
         async: false,
         beforeSend: function(xhr) {
           xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
         }
+      });
+    },
+
+    fetchIncompleteTasks: function(auth) {
+      var that = this;
+      var data = JSON.stringify({resource: 'Task', scope: 'incomplete'});
+
+      return new Promise(function(resolve, reject) {
+        that.tasks.fetch({
+          url  : API.users.filter(that.id),
+          type : 'POST',
+          data : data,
+          beforeSend: function(xhr) {
+            xhr.setRequestHeader('Authorization', 'Basic ' + auth);
+          },
+          success: function(collection, response, options) {
+            return resolve(that.tasks);
+          },
+          error: function(error, status, options) { // or something
+            return reject(error);
+          }
+        });
       });
     },
 
