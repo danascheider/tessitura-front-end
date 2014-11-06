@@ -20,9 +20,18 @@ define([
       var that = this;
       var form  = $(e.target).parent('form');
       var attrs = FormUtils.getAttributes(form);
-      var newTask = new TaskModel(attrs);
 
-      newTask.save(newTask.attrs, {
+      var task = new TaskModel;
+
+      // This horrible hack is required because, apparently,
+      // this.collection.create doesn't wait for the server response
+      // to add to the collection, even with {wait: true}. This way,
+      // the view doesn't render until the server has responded with
+      // the task's ID.
+
+      // This should probably be re-implemented using promises
+      
+      task.save(attrs, {
         dataType   : 'html',
         url        : API.tasks.collection($.cookie('userID')),
         beforeSend : function(xhr) {
@@ -30,13 +39,11 @@ define([
         },
         success: function(data, status, xhr) {
           $('a.create-task').find('i.fa').toggleClass('fa-caret-down fa-caret-right');
-          that.trigger('ajaxSuccess');
           form[0].reset();
           form.slideUp();
-        },
-        error: function(model, xhr, options) {
-          console.log('Error: ', model);
         }
+      }).done(function(data, status, xhr) {
+        that.collection.add(data.attributes);
       });
     },
 

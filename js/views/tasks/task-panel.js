@@ -45,9 +45,9 @@ define([
 
     renderContent: function() {
       if(this.collection) {
-        var collectionView = new TaskCollectionView({ el: $(this.el).find('.panel-body'), 
-                                                      collection: this.collection
-                                                    });
+        this.$collectionView = new TaskCollectionView({ el: $(this.el).find('.panel-body'), 
+                                                        collection: this.collection
+                                                     });
       } else {
         var emptyPanel = new EmptyPanelView({el: $(this.el).find('.panel-body')});
         emptyPanel.render();

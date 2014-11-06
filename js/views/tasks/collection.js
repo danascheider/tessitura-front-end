@@ -3,6 +3,8 @@ define([
   'underscore',
   'backbone',
   'cookie',
+  'api',
+  'models/task',
   'views/tasks/create-form',
   'text!templates/tasks/model.html',
   'text!templates/tasks/list-entry.html',
@@ -12,6 +14,8 @@ define([
   _, 
   Backbone, 
   Cookie,
+  API,
+  TaskModel,
   CreateFormView,
   ModelTemplate, 
   ListEntryTemplate, 
@@ -31,22 +35,31 @@ define([
     events : {
       'click .fa-square-o'  : 'markComplete',
       'click th.task-title' : 'toggleTaskDetails',
-      'click a.create-task' : 'toggleCreateForm'
+      'click a.create-task' : 'toggleCreateForm',
     },
 
     // Event Handlers //
-
     markComplete      : function(e) {
       var that = this;
       var target = e.target;
       var tableRow = $(target).parent('td').parent('tr');
       var modelID = $(tableRow).attr('id').match(/\d+/)[0];
+
       this.collection.get(modelID).save({status: 'Complete'}, {
-        beforeSend: function(xhr) {
+        dataType    : 'html',
+        type        : 'PUT',
+        url         : API.tasks.single(modelID),
+        beforeSend  : function(xhr) {
           xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
         },
-        success: function(model, status, xhr) {
+        success     : function(model, status, xhr) {
           $(target).removeClass('fa-square-o').addClass('fa-check-square-o');
+          $(target).closest('li').hide();
+        },
+        error       : function(xhr, status, object) {
+          console.log('Status: ', status.status);
+          console.log('XHR: ', xhr);
+          console.log('Object: ', object);
         }
       });
     },
@@ -68,16 +81,20 @@ define([
 
     initialize: function() {
       this.render();
-      this.listenTo(this.$createForm, 'ajaxSuccess', this.render);
-      this.listenTo(this.collection, 'change', this.render);
+      this.listenTo(this.collection, 'add', this.render);
     },
 
     render: function() {
-      this.$el.html(this.template({ collection: this.collection,
+      this.$el.html(this.template({ 
+                                    collection: this.collection,
                                     listItemTemplate: this.listItemTemplate,
                                     modelTemplate: this.modelTemplate
                                   }));
-      this.$createForm = new CreateFormView({el: $(this.el).find('li.widget-create-form')});
+
+      this.$createForm = new CreateFormView({
+                                             el: $(this.el).find('li.widget-create-form'),
+                                             collection: this.collection 
+                                           });
       return this;
     }
   });
