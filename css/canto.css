@@ -160,7 +160,8 @@ ul.task-list li {
   border-width: 1px;
 }
 
-i.fa-square-o {
+i.fa-square-o,
+i.fa-check-square-o {
   color: #ccc;
   margin-right: 0.5em;
 }
