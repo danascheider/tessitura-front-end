@@ -41,32 +41,42 @@ define([
     // Event Handlers //
     markComplete      : function(e) {
       var that = this;
-      var target = e.target;
-      var tableRow = $(target).parent('td').parent('tr');
-      var modelID = $(tableRow).attr('id').match(/\d+/)[0];
+      var tableRow = $(e.target).closest('tr');
+      var modelID = tableRow.attr('id').match(/\d+/)[0];
 
-      this.collection.get(modelID).save({status: 'Complete'}, {
-        dataType    : 'html',
-        type        : 'PUT',
-        url         : API.tasks.single(modelID),
-        beforeSend  : function(xhr) {
-          xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
-        },
-        success     : function(model, status, xhr) {
-          $(target).removeClass('fa-square-o').addClass('fa-check-square-o');
-          $(target).closest('li').hide();
-        },
-        error       : function(xhr, status, object) {
-          console.log('Status: ', status.status);
-          console.log('XHR: ', xhr);
-          console.log('Object: ', object);
-        }
+      var markComplete = new Promise(function(resolve, reject) {
+        that.collection.get(modelID).save({status: 'Complete'}, {
+          dataType    : 'html',
+          type        : 'PUT',
+          url         : API.tasks.single(modelID),
+          beforeSend  : function(xhr) {
+            xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
+          },
+          success     : function(model, status, xhr) {
+            resolve(that.collection.get(modelID));
+          },
+          error       : function(xhr, status, object) {
+            reject(object);
+          }
+        });
+      });
+
+      markComplete.then(function(task) {
+
+        // Check the checkbox and add strikethrough to the task title
+
+        var li = $('#task-' + modelID).closest('li');
+        li.find('i').removeClass('fa-square-o').addClass('fa-check-square-o');
+        li.find('.task-title > a').css('text-decoration', 'line-through');
+
+        var getRidOfTask = function() { that.collection.remove(task); }
+        window.setTimeout(getRidOfTask, 750);
       });
     },
 
     toggleCreateForm  : function(e) {
       e.preventDefault();
-      var form = $(this.el).find('form.task-form');
+      var form = this.$el.find('form.task-form');
       $(form).slideToggle();
     },
 
@@ -81,7 +91,8 @@ define([
 
     initialize: function() {
       this.render();
-      this.listenTo(this.collection, 'add', this.render);
+      this.listenTo(this.collection, 'sync', this.render);
+      this.listenTo(this.collection, 'remove', this.render);
     },
 
     render: function() {
@@ -92,7 +103,7 @@ define([
                                   }));
 
       this.$createForm = new CreateFormView({
-                                             el: $(this.el).find('li.widget-create-form'),
+                                             el: this.$el.find('li.widget-create-form'),
                                              collection: this.collection 
                                            });
 

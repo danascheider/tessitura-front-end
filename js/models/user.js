@@ -13,9 +13,9 @@ define([
       var taskFilter = {resource: 'Task', scope: 'incomplete'}
       var that = this;
 
-      this.tasks = new TaskCollection;
-
-      console.info(this.tasks);
+      // Main task collection will be scoped, generally to return only
+      // incomplete tasks
+      this.tasks = new TaskCollection({owner: this});
 
       this.fetch({
         async: false,

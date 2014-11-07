@@ -21,29 +21,24 @@ define([
       var form  = $(e.target).parent('form');
       var attrs = FormUtils.getAttributes(form);
 
-      var task = new TaskModel;
-
-      // This horrible hack is required because, apparently,
-      // this.collection.create doesn't wait for the server response
-      // to add to the collection, even with {wait: true}. This way,
-      // the view doesn't render until the server has responded with
-      // the task's ID.
-
-      // This should probably be re-implemented using promises
-      
-      task.save(attrs, {
-        dataType   : 'html',
-        url        : API.tasks.collection($.cookie('userID')),
-        beforeSend : function(xhr) {
-          xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
-        },
-        success: function(data, status, xhr) {
-          $('a.create-task').find('i.fa').toggleClass('fa-caret-down fa-caret-right');
-          form[0].reset();
-          form.slideUp();
-        }
-      }).done(function(data, status, xhr) {
-        that.collection.add(data.attributes);
+      this.collection.promiseCreate(attrs).then(function(model) {
+        console.log('This is running');
+        that.collection.fetch({
+          url  : API.users.filter(that.collection.owner.get('id')),
+          type : 'POST', 
+          data : JSON.stringify({resource: 'Task', scope: 'incomplete'}),
+          beforeSend : function(xhr) {
+            xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
+          }, 
+          success: function(collection, status, xhr) {
+            console.log('Success');
+          },
+          error : function(collection, status, xhr) {
+            console.log('Error');
+          }
+        });
+      }, function(model) {
+        console.log('Error: ', model);
       });
     },
 
