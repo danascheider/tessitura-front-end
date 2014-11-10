@@ -21,6 +21,12 @@ define([
       });
     },
 
+    prettyDeadline: function() {
+      // Without being prettified, deadlines show up in the view like this:
+      // 2014-11-10 00:00:00 -0800. They should instead say 11/10/2014.
+      return this.get('deadline');
+    },
+
     validate  : function(attrs) {
       if (!attrs.title) {
         return 'Title is required';

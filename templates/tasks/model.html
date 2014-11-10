@@ -1,27 +1,27 @@
 <table class='task-model'>
   <tr>
     <th colspan='2' class='task-title'>
-      <a href=''><%= attributes.title %></a>
+      <a href=''><%= model.get('title') %></a>
     </th>
   </tr>
-  <% if (attributes.deadline) { %>
+  <% if (model.get('deadline')) { %>
     <tr class='task-details'>
       <th>Deadline:</th>
-      <td><%= attributes.deadline %></td>
+      <td><%= model.prettyDeadline() %></td>
     </tr>
   <% } %>
   <tr class='task-details'>
     <th>Priority:</th>
-    <td><%= attributes.priority %></td>
+    <td><%= model.get('priority') %></td>
   </tr>
   <tr class='task-details'>
     <th>Status:</th>
-    <td><%= attributes.status %></td>
+    <td><%= model.get('status') %></td>
   </tr>
-  <% if (attributes.description) { %>
+  <% if (model.get('description')) { %>
     <tr class='task-details'>
       <th style='vertical-align: text-top'>Notes:</th>
-      <td><%= attributes.description %></td>
+      <td><%= model.get('description') %></td>
     </tr>
   <% } %>
 </table>

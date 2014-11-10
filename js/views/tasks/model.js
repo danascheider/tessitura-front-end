@@ -12,6 +12,10 @@ define([
       this.model = this.model.task;
     },
 
+    events: {
+      'click': 'showAttributes'
+    },
+
     render: function() {
       return (this.template(this.model));
       return this;
