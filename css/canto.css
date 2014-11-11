@@ -166,6 +166,19 @@ i.fa-check-square-o {
   margin-right: 0.5em;
 }
 
+span.edit-task {
+  float: right;
+}
+
+span.edit-task > i {
+  color: #ccc;
+}
+
+span.edit-task > i:hover,
+span.edit-task > i:focus {
+  color: #777;
+}
+
 a.task-title {
   font-weight: bold;
 }
