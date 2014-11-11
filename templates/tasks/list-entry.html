@@ -1,9 +1,9 @@
-<li>
+<li id='task-<%=model.get('id')%>'>
   <span class='pull-right edit-task' style='position: float-right'>
     <i class='fa fa-pencil fa-fw'></i>  <i class='fa fa-times fa-fw'></i>
   </span>
   <table>
-    <tr id='task-<%= model.get('id') %>'>
+    <tr>
       <td style='vertical-align: top'><i class='fa fa-square-o'></i></td>
       <td class='task-listing'>
         <%= modelTemplate({model: model}) %>

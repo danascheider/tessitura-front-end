@@ -41,8 +41,8 @@ define([
     // Event Handlers //
     markComplete      : function(e) {
       var that = this;
-      var tableRow = $(e.target).closest('tr');
-      var modelID = tableRow.attr('id').match(/\d+/)[0];
+      var li = $(e.target).closest('tr').closest('li');
+      var modelID = li.attr('id').match(/\d+/)[0];
 
       var markComplete = new Promise(function(resolve, reject) {
         that.collection.get(modelID).save({status: 'Complete'}, {
@@ -65,7 +65,7 @@ define([
 
         // Check the checkbox and add strikethrough to the task title
 
-        var li = $('#task-' + modelID).closest('li');
+        var li = $('#task-' + modelID);
         li.find('i').removeClass('fa-square-o').addClass('fa-check-square-o');
         li.find('.task-title > a').css('text-decoration', 'line-through');
 

@@ -167,6 +167,7 @@ i.fa-check-square-o {
 }
 
 span.edit-task {
+  display: none;
   float: right;
 }
 
