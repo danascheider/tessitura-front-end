@@ -6,6 +6,7 @@ define([
   'api',
   'models/task',
   'views/tasks/create-form',
+  'views/tasks/list-entry',
   'text!templates/tasks/model.html',
   'text!templates/tasks/list-entry.html',
   'text!templates/tasks/collection.html',
@@ -17,6 +18,7 @@ define([
   API,
   TaskModel,
   CreateFormView,
+  ListEntryView,
   ModelTemplate, 
   ListEntryTemplate, 
   CollectionTemplate
@@ -106,6 +108,16 @@ define([
                                              el: this.$el.find('li.widget-create-form'),
                                              collection: this.collection 
                                            });
+
+      var that = this;
+
+      this.collection.each(function(task) {
+        var listEntry = new ListEntryView({
+          modelTemplate: that.modelTemplate,
+          el: that.$el.find('li#task-' + task.get('id')),
+          model: task
+        })
+      });
 
       return this;
     }

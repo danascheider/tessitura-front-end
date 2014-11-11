@@ -3,6 +3,6 @@
     <a href='' class='create-task'><strong>New Task</strong></a>
   </li>
   <% collection.each(function(task) { %>
-    <%= listItemTemplate({modelTemplate: modelTemplate, model: task}) %>
+    <li id='task-<%= task.get('id')%>'></li>
   <% }); %>
 </ul>
