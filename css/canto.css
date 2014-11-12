@@ -177,6 +177,7 @@ span.edit-task {
 
 span.edit-task > i {
   color: #ccc;
+  cursor: pointer;
 }
 
 span.edit-task > i:hover,

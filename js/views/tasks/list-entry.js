@@ -10,28 +10,16 @@ define([
   var ListEntryView = Backbone.View.extend({
     tagName  : 'li',
     template : _.template(ListEntryTemplate),
+
     events   : {
-      'click .fa-square-o' : 'markComplete'
+      'click .fa-square-o' : 'markComplete',
+      'mouseenter'         : 'showEditIcons',
+      'mouseleave'         : 'hideEditIcons'
     },
 
     modelTemplate: _.template(TaskModelTemplate),
 
-    markComplete      : function(e) {
-      var that    = this;
-      var li      = this.$el
-      var target  = e.target;
-
-      this.model.save({status: 'Complete'}, {
-        dataType    : 'html',
-        type        : 'PUT',
-        url         : API.tasks.single(this.model.get('id')),
-        beforeSend  : function(xhr) {
-          xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
-        }
-      });
-    },
-
-    crossOff : function() {
+    crossOff          : function() {
       // In this context, `this` apparently refers to the model
       var task = this;
       var collection = task.collection;
@@ -48,11 +36,30 @@ define([
       window.setTimeout(removeFromCollection, 750);
     },
 
-    removeFromCollection: function() {
-      console.log(this);
-      console.log(this.collection);
-      this.collection.remove(this);
+    hideEditIcons     : function() {
+      this.$el.find('span.edit-task').hide();
     },
+
+    markComplete      : function(e) {
+      var that    = this;
+      var li      = this.$el
+      var target  = e.target;
+
+      this.model.save({status: 'Complete'}, {
+        dataType    : 'html',
+        type        : 'PUT',
+        url         : API.tasks.single(this.model.get('id')),
+        beforeSend  : function(xhr) {
+          xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
+        }
+      });
+    },
+
+    showEditIcons     : function() {
+      this.$el.find('span.edit-task').show();
+    },
+
+    // Standard View Functions // 
 
     initialize: function() {
       this.render();
