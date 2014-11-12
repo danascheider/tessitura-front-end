@@ -57,7 +57,6 @@ define([
 
     initialize: function() {
       this.render();
-      this.listenTo(this.collection, 'sync', this.render);
       this.listenTo(this.collection, 'remove', this.render);
     },
 
@@ -80,7 +79,7 @@ define([
           modelTemplate: that.modelTemplate,
           el: that.$el.find('li#task-' + task.get('id')),
           model: task
-        })
+        });
       });
 
       return this;

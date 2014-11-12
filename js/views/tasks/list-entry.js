@@ -8,7 +8,7 @@ define([
 ], function($, _, Backbone, API, TaskModelTemplate, ListEntryTemplate) {
 
   var ListEntryView = Backbone.View.extend({
-    tagName  : 'tr',
+    tagName  : 'li',
     template : _.template(ListEntryTemplate),
     events   : {
       'click .fa-square-o' : 'markComplete'
@@ -17,37 +17,46 @@ define([
     modelTemplate: _.template(TaskModelTemplate),
 
     markComplete      : function(e) {
-      var that = this;
-      var li = this.$el
-      var modelID = li.attr('id').match(/\d+/)[0];
+      var that    = this;
+      var li      = this.$el
+      var target  = e.target;
 
-      var markComplete = new Promise(function(resolve, reject) {
-        that.model.save({status: 'Complete'}, {
-          dataType    : 'html',
-          type        : 'PUT',
-          url         : API.tasks.single(modelID),
-          beforeSend  : function(xhr) {
-            xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
-          },
-          success     : function(model, status, xhr) {
-            resolve(that.model);
-          },
-          error       : function(xhr, status, object) {
-            reject(object);
-          }
-        });
+      this.model.save({status: 'Complete'}, {
+        dataType    : 'html',
+        type        : 'PUT',
+        url         : API.tasks.single(this.model.get('id')),
+        beforeSend  : function(xhr) {
+          xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
+        }
       });
+    },
 
-      markComplete.then(function(task) {
-        // Check the checkbox and add strikethrough to the task title
-        that.$el.find('i').removeClass('fa-square-o').addClass('fa-check-square-o');
-        that.$el.find('.task-title > a').css('text-decoration', 'line-through');
-        task.collection.remove(task);
-      });
+    crossOff : function() {
+      // In this context, `this` apparently refers to the model
+      var task = this;
+      var collection = task.collection;
+      var id = '#task-' + this.get('id');
+      var title = $(id).find('.task-title');
+      var i = $(id).find('i.fa-square-o');
+
+      i.removeClass('fa-square-o').addClass('fa-check-square-o');
+      title.css('text-decoration', 'line-through');
+      var removeFromCollection = function() {
+        collection.remove(task);
+      }
+
+      window.setTimeout(removeFromCollection, 750);
+    },
+
+    removeFromCollection: function() {
+      console.log(this);
+      console.log(this.collection);
+      this.collection.remove(this);
     },
 
     initialize: function() {
       this.render();
+      this.model.on('change:status', this.crossOff);
     },
 
     render: function() {
