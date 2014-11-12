@@ -35,47 +35,11 @@ define([
     // Events //
 
     events : {
-      'click .fa-square-o'  : 'markComplete',
       'click th.task-title' : 'toggleTaskDetails',
       'click a.create-task' : 'toggleCreateForm',
     },
 
     // Event Handlers //
-    markComplete      : function(e) {
-      var that = this;
-      var li = $(e.target).closest('tr').closest('li');
-      var modelID = li.attr('id').match(/\d+/)[0];
-
-      var markComplete = new Promise(function(resolve, reject) {
-        that.collection.get(modelID).save({status: 'Complete'}, {
-          dataType    : 'html',
-          type        : 'PUT',
-          url         : API.tasks.single(modelID),
-          beforeSend  : function(xhr) {
-            xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
-          },
-          success     : function(model, status, xhr) {
-            resolve(that.collection.get(modelID));
-          },
-          error       : function(xhr, status, object) {
-            reject(object);
-          }
-        });
-      });
-
-      markComplete.then(function(task) {
-
-        // Check the checkbox and add strikethrough to the task title
-
-        var li = $('#task-' + modelID);
-        li.find('i').removeClass('fa-square-o').addClass('fa-check-square-o');
-        li.find('.task-title > a').css('text-decoration', 'line-through');
-
-        var getRidOfTask = function() { that.collection.remove(task); }
-        window.setTimeout(getRidOfTask, 750);
-      });
-    },
-
     toggleCreateForm  : function(e) {
       e.preventDefault();
       var form = this.$el.find('form.task-form');

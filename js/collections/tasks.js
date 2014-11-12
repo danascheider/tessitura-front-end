@@ -9,6 +9,7 @@ define([
   
   var TaskCollection = Backbone.Collection.extend({
     model : TaskModel,
+
     url   : function() {
       return API.tasks.collection($.cookie('userID'));
     },

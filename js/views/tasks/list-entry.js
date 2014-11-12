@@ -2,9 +2,10 @@ define([
   'jquery',
   'underscore',
   'backbone',
+  'api',
   'text!templates/tasks/model.html',
   'text!templates/tasks/list-entry.html',
-], function($, _, Backbone, TaskModelTemplate, ListEntryTemplate) {
+], function($, _, Backbone, API, TaskModelTemplate, ListEntryTemplate) {
 
   var ListEntryView = Backbone.View.extend({
     tagName  : 'tr',
@@ -15,22 +16,33 @@ define([
 
     modelTemplate: _.template(TaskModelTemplate),
 
-    markComplete: function(e) {
-      var target = e.target;
-      var el = this.el;
+    markComplete      : function(e) {
+      var that = this;
+      var li = this.$el
+      var modelID = li.attr('id').match(/\d+/)[0];
 
-      this.model.save({status: 'Complete'}, {
-        dataType: 'html',
-        beforeSend: function(xhr) {
-          xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
-        },
-        success: function(model, response, options) {
-          $(target).removeClass('fa-square-o').addClass('fa-check-square-o');
-          $(el).fadeOut();
-        },
-        error: function(model, response, options) {
-          console.log(response);
-        }
+      var markComplete = new Promise(function(resolve, reject) {
+        that.model.save({status: 'Complete'}, {
+          dataType    : 'html',
+          type        : 'PUT',
+          url         : API.tasks.single(modelID),
+          beforeSend  : function(xhr) {
+            xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
+          },
+          success     : function(model, status, xhr) {
+            resolve(that.model);
+          },
+          error       : function(xhr, status, object) {
+            reject(object);
+          }
+        });
+      });
+
+      markComplete.then(function(task) {
+        // Check the checkbox and add strikethrough to the task title
+        that.$el.find('i').removeClass('fa-square-o').addClass('fa-check-square-o');
+        that.$el.find('.task-title > a').css('text-decoration', 'line-through');
+        task.collection.remove(task);
       });
     },
 
