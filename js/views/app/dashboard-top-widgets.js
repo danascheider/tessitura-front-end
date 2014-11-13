@@ -24,8 +24,11 @@ define([
     },
 
     initialize: function(opts) {
-      this.data = opts.data
+      this.data = opts.data;
       this.render();
+
+      this.listenTo(this.data.taskCollection, 'add', this.render);
+      this.listenTo(this.data.taskCollection, 'remove', this.render);
     },
 
     render: function() {

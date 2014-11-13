@@ -7,17 +7,10 @@ define([
 
   var TaskModelView = Backbone.View.extend({
     template: _.template(TaskModelTemplate),
-
-    initialize: function() {
-      this.model = this.model.task;
-    },
-
-    events: {
-      'click': 'showAttributes'
-    },
+    tagName : 'td',
 
     render: function() {
-      return (this.template(this.model));
+      this.$el.html(this.template({model: this.model}));
       return this;
     }
   });

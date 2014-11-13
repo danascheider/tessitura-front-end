@@ -84,8 +84,11 @@ define([
       }
 
       this.user.fetchIncompleteTasks($.cookie('auth')).then(function(collection) {
-          data.taskCount = collection.length;
-          that.$topWidgets = new DashboardTopWidgetView({el: that.$('#dash-heading'), data: data});
+          data.taskCollection = collection;
+          that.$topWidgets = new DashboardTopWidgetView({ 
+                                el: that.$('#dash-heading'), 
+                                data: data
+                              });
           that.$taskPanel = new TaskPanelView({el: that.$('#task-panel'), collection: collection});
       }, function(error) {
         console.log('Error: ', error);

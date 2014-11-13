@@ -50,9 +50,12 @@ define([
       var form = $(e.target);
       var attrs = FormUtils.getAttributes(form);
 
-      var newTask = new TaskModel(attrs);
+      if(!attrs.length) {
+        form.find('div.form-group').addClass('has-error');
+        form.find('input').attr('placeholder', 'Oops! Your new task needs a title!');
+      }
 
-      newTask.save(attrs, {
+      var newTask = (new TaskModel).save(attrs, {
         url        : API.tasks.collection($.cookie('userID')),
         beforeSend : function(xhr) {
           xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
@@ -64,7 +67,7 @@ define([
         error      : function(model, response, xhr) {
           console.log('Error: ', response);
         }
-      });    
+      });
     },
 
     toggleCreateForm  : function(e) {

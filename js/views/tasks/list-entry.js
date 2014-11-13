@@ -3,9 +3,11 @@ define([
   'underscore',
   'backbone',
   'api',
+  'views/tasks/update-form',
+  'views/tasks/model',
   'text!templates/tasks/model.html',
   'text!templates/tasks/list-entry.html',
-], function($, _, Backbone, API, TaskModelTemplate, ListEntryTemplate) {
+], function($, _, Backbone, API, UpdateFormView, ModelView, TaskModelTemplate, ListEntryTemplate) {
 
   var ListEntryView = Backbone.View.extend({
     tagName  : 'li',
@@ -13,8 +15,10 @@ define([
     template : _.template(ListEntryTemplate),
 
     events   : {
+      'click .fa-pencil'   : 'showEditForm',
       'click .fa-square-o' : 'markComplete',
       'click .fa-times'    : 'deleteTask',
+      'click button:reset' : 'hideEditForm',
       'mouseenter'         : 'showEditIcons',
       'mouseleave'         : 'hideEditIcons'
     },
@@ -50,6 +54,15 @@ define([
       });
     },
 
+    hideEditForm      : function() {
+
+      // Make sure edit/delete icons display again as normal once the edit
+      // form is hidden.
+
+      this.$el.find('td.edit-form').removeClass('edit-form').addClass('task-listing');
+      this.$modelView.render();
+    },
+
     hideEditIcons     : function() {
       this.$el.find('span.edit-task').hide();
     },
@@ -69,6 +82,13 @@ define([
       });
     },
 
+    showEditForm      : function() {
+      this.$editForm.render();
+      this.$el.find('span.pull-right').hide();
+      this.$el.find('td.task-listing').removeClass('task-listing').addClass('edit-form');
+      this.$el.find('td.edit-form').html(this.$editForm.el);
+    },
+
     showEditIcons     : function() {
       this.$el.find('span.edit-task').show();
     },
@@ -81,7 +101,13 @@ define([
     },
 
     render: function() {
-      this.$el.html(this.template({modelTemplate: this.modelTemplate, model: this.model}));
+      this.$el.html(this.template);
+
+      var td = this.$el.find('td.task-listing');
+      this.$editForm = new UpdateFormView({model: this.model});
+      this.$modelView = new ModelView({model: this.model, el: td});
+
+      this.$modelView.render({el: this.$el.find('td.task-listing')});
       return this;
     }
   });
