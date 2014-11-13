@@ -9,10 +9,12 @@ define([
 
   var ListEntryView = Backbone.View.extend({
     tagName  : 'li',
+    id       : function() { return 'task-' + this.model.get('id'); },
     template : _.template(ListEntryTemplate),
 
     events   : {
       'click .fa-square-o' : 'markComplete',
+      'click .fa-times'    : 'deleteTask',
       'mouseenter'         : 'showEditIcons',
       'mouseleave'         : 'hideEditIcons'
     },
@@ -34,6 +36,18 @@ define([
       }
 
       window.setTimeout(removeFromCollection, 750);
+    },
+
+    deleteTask        : function() {
+      var model = this.model;
+
+      model.destroy({
+        url: API.tasks.single(model.get('id')),
+        type: 'DELETE',
+        beforeSend: function(xhr) {
+          xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
+        }
+      });
     },
 
     hideEditIcons     : function() {

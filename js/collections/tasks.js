@@ -27,7 +27,7 @@ define([
             resolve(model);
           },
           error      : function(model, response, options) {
-            reject(response);
+            reject(model);
           }
         });
       });

@@ -1,8 +1,7 @@
 <ul class='task-list'>
-  <li class='widget-create-form'>
-    <a href='' class='create-task'><strong>New Task</strong></a>
+  <li class='quick-add'>
+    <form role='form'>
+      <input class='form-control' name='title' placeholder='Add a new task...'>
+    </form>
   </li>
-  <% collection.each(function(task) { %>
-    <li id='task-<%= task.get('id')%>'></li>
-  <% }); %>
 </ul>

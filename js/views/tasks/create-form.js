@@ -21,24 +21,19 @@ define([
       var form  = $(e.target).parent('form');
       var attrs = FormUtils.getAttributes(form);
 
-      this.collection.promiseCreate(attrs).then(function(model) {
-        console.log('This is running');
-        that.collection.fetch({
-          url  : API.users.filter(that.collection.owner.get('id')),
-          type : 'POST', 
-          data : JSON.stringify({resource: 'Task', scope: 'incomplete'}),
-          beforeSend : function(xhr) {
-            xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
-          }, 
-          success: function(collection, status, xhr) {
-            console.log('Success');
-          },
-          error : function(collection, status, xhr) {
-            console.log('Error');
-          }
-        });
-      }, function(model) {
-        console.log('Error: ', model);
+      var newTask = new TaskModel(attrs);
+      newTask.save(newTask.attrs, {
+        url: API.tasks.collection($.cookie('userID')),
+        beforeSend: function(xhr) {
+          xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
+        },
+        success: function(model, response, options) {
+          form.slideUp();
+          that.collection.add(model);
+        },
+        error: function(model, response, options) {
+          console.log('Error: ', response);
+        }
       });
     },
 

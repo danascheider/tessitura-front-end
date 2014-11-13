@@ -4,6 +4,7 @@ define([
   'backbone',
   'cookie',
   'api',
+  'form-utils',
   'models/task',
   'views/tasks/create-form',
   'views/tasks/list-entry',
@@ -16,6 +17,7 @@ define([
   Backbone, 
   Cookie,
   API,
+  FormUtils,
   TaskModel,
   CreateFormView,
   ListEntryView,
@@ -37,9 +39,34 @@ define([
     events : {
       'click th.task-title' : 'toggleTaskDetails',
       'click a.create-task' : 'toggleCreateForm',
+      'submit form'         : 'createTask'
     },
 
     // Event Handlers //
+    createTask: function(e) {
+      e.preventDefault();
+
+      var that = this;
+      var form = $(e.target);
+      var attrs = FormUtils.getAttributes(form);
+
+      var newTask = new TaskModel(attrs);
+
+      newTask.save(attrs, {
+        url        : API.tasks.collection($.cookie('userID')),
+        beforeSend : function(xhr) {
+          xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
+        },
+        success    : function(model, response, xhr) {
+          that.collection.add(model);
+          form.clear;
+        },
+        error      : function(model, response, xhr) {
+          console.log('Error: ', response);
+        }
+      });    
+    },
+
     toggleCreateForm  : function(e) {
       e.preventDefault();
       var form = this.$el.find('form.task-form');
@@ -52,12 +79,13 @@ define([
       var siblings = $(target).closest('tr').siblings();
       $(siblings).toggle();
     },
-
+    
     // Core View Functions //
 
     initialize: function() {
       this.render();
       this.listenTo(this.collection, 'remove', this.render);
+      this.listenTo(this.collection, 'add', this.render);
     },
 
     render: function() {
@@ -67,19 +95,12 @@ define([
                                     modelTemplate: this.modelTemplate
                                   }));
 
-      this.$createForm = new CreateFormView({
-                                             el: this.$el.find('li.widget-create-form'),
-                                             collection: this.collection 
-                                           });
-
       var that = this;
 
       this.collection.each(function(task) {
-        var listEntry = new ListEntryView({
-          modelTemplate: that.modelTemplate,
-          el: that.$el.find('li#task-' + task.get('id')),
-          model: task
-        });
+        var view = new ListEntryView({modelTemplate: that.modelTemplate, model: task});
+        var list = that.$el.find('ul');
+        list.append(view.el);
       });
 
       return this;
