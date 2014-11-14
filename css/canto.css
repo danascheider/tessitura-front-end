@@ -66,11 +66,13 @@
   padding-bottom: 0;
 }
 
-.hide-widget {
+.hide-widget,
+.show-widget {
   cursor: pointer;
 }
 
-.hide-widget:hover {
+.hide-widget:hover,
+.show-widget:hover {
   color: #b4e2df;
 }
 
@@ -204,60 +206,4 @@ tr.task-details {
 
 .task-form {
   display: none;
-}
-
-/* Animations */
-@-webkit-keyframes shimmy {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-
-  20% {
-    -webkit-transform: rotate(-20deg);
-    transform: rotate(-20deg);
-  }
-  40% {
-    -webkit-transform: rotate(20deg);
-    transform: rotate(20deg);
-  }
-  60% {
-    -webkit-transform: rotate(-20deg);
-    transform: rotate(-20deg);
-  }
-  80% {
-    -webkit-transform: rotate(20deg);
-    transform: rotate(20deg);
-  }
-}
-
-@keyframes shimmy {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-
-  20% {
-    -webkit-transform: rotate(-20deg);
-    transform: rotate(-20deg);
-  }
-  40% {
-    -webkit-transform: rotate(20deg);
-    transform: rotate(20deg);
-  }
-  60% {
-    -webkit-transform: rotate(-20deg);
-    transform: rotate(-20deg);
-  }
-  80% {
-    -webkit-transform: rotate(20deg);
-    transform: rotate(20deg);
-  }
-}
-
-.faa-shake.animated,
-.faa-shake.hide-widget,
-.faa-parent.animated-hover:hover > .hide-widget {
-  -webkit-animation: shimmy 0.3s ease;
-  animation: shimmy 0.3s ease ;
 }

@@ -28,19 +28,23 @@ define([
 
     events   : {
       'click a.create-task' : 'showTaskForm',
-      'mouseenter'          : 'showCloseWidgetIcon',
-      'mouseleave'          : 'hideCloseWidgetIcon',
-      'click .hide-widget'  : 'hideWidget'
+      'mouseenter'          : 'showToggleWidgetIcon',
+      'mouseleave'          : 'hideToggleWidgetIcon',
+      'click .hide-widget'  : 'hideWidget',
+      'click .show-widget'  : 'showWidget'
     },
 
     template : _.template(TaskPanelTemplate),
 
-    hideCloseWidgetIcon: function(e) {
-      $(e.target).closest('.dash-widget').find('span.hide-widget').fadeOut();
+    hideToggleWidgetIcon: function(e) {
+      var span = $(e.target).closest('.dash-widget').find('span.hide-widget,span.show-widget').eq(0);
+      span.fadeOut(100);
     },
 
     hideWidget: function(e) {
-      $(e.target).closest('.dash-widget').fadeOut(100);
+      $(e.target).closest('.dash-widget').find('div.panel-body').slideUp();
+      $(e.target).closest('span').removeClass('hide-widget').addClass('show-widget');
+      $(e.target).removeClass('fa-minus').addClass('fa-plus');
     },
 
     renderContent: function() {
@@ -54,8 +58,9 @@ define([
       }
     },
 
-    showCloseWidgetIcon: function(e) {
-      $(e.target).closest('.dash-widget').find('span.hide-widget').show();
+    showToggleWidgetIcon: function(e) {
+      var span = $(e.target).closest('.dash-widget').find('span.hide-widget,span.show-widget').eq(0);
+      span.fadeIn(100);
     },
 
     showTaskForm: function(e) {
@@ -63,6 +68,12 @@ define([
       var target = e.target
       $(target).find('i.fa').toggleClass('fa-caret-right fa-caret-down');
       $(target).siblings('.task-form').slideToggle();
+    },
+
+    showWidget: function(e) {
+      $(e.target).closest('.dash-widget').find('div.panel-body').slideDown();
+      $(e.target).closest('span').removeClass('show-widget').addClass('hide-widget');
+      $(e.target).removeClass('fa-plus').addClass('fa-minus');
     },
 
     // Core View Functions //
