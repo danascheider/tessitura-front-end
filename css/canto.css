@@ -78,7 +78,8 @@
 /* Dashboard Task List Widget */
 /* -------------------------- */
 
-#task-panel .panel-body {
+#task-panel .panel-body,
+#task-panel .panel {
   padding-top: 0.15em;
   padding-bottom: 0;
 }
@@ -126,6 +127,13 @@ ul.task-list li:first-child {
 
 ul.task-list li:last-child {
   border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+ul.task-list li:last-child > table {
+  margin-bottom: 0;
+  padding-bottom: 0;
 }
 
 ul.task-list form {

@@ -84,11 +84,14 @@ define([
     },
 
     showEditForm      : function() {
+      this.$el.find('span.edit-task').fadeOut();
       this.$editForm.render();
     },
 
     showEditIcons     : function() {
-      this.$el.find('span.edit-task').show();
+      if(!this.$el.find('form').is(':visible')) {
+        this.$el.find('span.edit-task').show();
+      }
     },
 
     // Standard View Functions // 

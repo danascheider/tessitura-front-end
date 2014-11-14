@@ -104,11 +104,15 @@ define([
       this.$el.find('li#quick-add-form').html(this.$quickAddForm.el);
 
       var that = this;
+      var i    = 0
 
       this.collection.each(function(task) {
-        var view = new ListEntryView({modelTemplate: that.modelTemplate, model: task});
-        var list = that.$el.find('ul');
-        list.append(view.el);
+        if(i < 10) {
+          var view = new ListEntryView({modelTemplate: that.modelTemplate, model: task});
+          var list = that.$el.find('ul');
+          list.append(view.el);
+          i++
+        }
       });
 
       return this;
