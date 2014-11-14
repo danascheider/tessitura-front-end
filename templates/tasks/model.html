@@ -1,7 +1,7 @@
 <table class='task-model'>
   <tr>
     <th colspan='2' class='task-title'>
-      <a href=''><%= model.get('title') %></a>
+      <a href=''><%= model.displayTitle() %></a>
     </th>
   </tr>
   <% if (model.get('deadline')) { %>

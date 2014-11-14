@@ -11,6 +11,16 @@ define([
       return Boolean(this.get('status') === 'Complete');
     },
 
+    displayTitle: function() {
+      var title = this.get('title');
+
+      if(title.length > 60) {
+        return title.substring(0,59) + ' ...';
+      } else {
+        return title;
+      }
+    },
+
     incomplete: function() {
       return Boolean(this.get('status') !== 'Complete');
     },
