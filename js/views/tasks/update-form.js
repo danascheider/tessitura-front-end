@@ -2,12 +2,42 @@ define([
   'jquery',
   'underscore',
   'backbone',
+  'api',
+  'form-utils',
   'text!templates/tasks/update-form.html'
-  ], function($, _, Backbone, UpdateFormTemplate) {
+  ], function($, _, Backbone, API, FormUtils, UpdateFormTemplate) {
 
   var TaskUpdateFormView = Backbone.View.extend({
-    template : _.template(UpdateFormTemplate),
-    el       : 'form',
+    template   : _.template(UpdateFormTemplate),
+    // FIX: el should be tagName
+    el         : 'form',
+    className  : 'edit-form',
+    events     : {
+      'submit .edit-form' : 'updateTask'
+    }, 
+
+    updateTask : function(e) {
+      e.preventDefault();
+      var form  = $(e.target);
+      var that  = this;
+      var attrs = FormUtils.getAttributes(form);
+
+      this.model.set(attrs);
+
+      this.model.save(attrs, {
+        url        : API.tasks.single(that.model.get('id')),
+        type       : 'PUT',
+        beforeSend : function(xhr) {
+          xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
+        },
+        success    : function(model, response, xhr) {
+          that.trigger('done');
+        },
+        error      : function(model, response, xhr) {
+          console.log('Error: ', model);
+        }
+      });
+    },
 
     render: function() {
       this.$el.html(this.template({model: this.model}));

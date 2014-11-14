@@ -8,6 +8,7 @@ define([
   'models/task',
   'views/tasks/create-form',
   'views/tasks/list-entry',
+  'views/tasks/quick-add-form',
   'text!templates/tasks/model.html',
   'text!templates/tasks/list-entry.html',
   'text!templates/tasks/collection.html',
@@ -21,6 +22,7 @@ define([
   TaskModel,
   CreateFormView,
   ListEntryView,
+  QuickAddFormView,
   ModelTemplate, 
   ListEntryTemplate, 
   CollectionTemplate
@@ -39,15 +41,15 @@ define([
     events : {
       'click th.task-title' : 'toggleTaskDetails',
       'click a.create-task' : 'toggleCreateForm',
-      'submit form'         : 'createTask'
     },
 
     // Event Handlers //
     createTask: function(e) {
       e.preventDefault();
+      console.log('submit #quick-add-form was triggered');
 
       var that = this;
-      var form = $(e.target);
+      var form = $('#quick-add-form');
       var attrs = FormUtils.getAttributes(form);
 
       if(!attrs.length) {
@@ -97,6 +99,9 @@ define([
                                     listItemTemplate: this.listItemTemplate,
                                     modelTemplate: this.modelTemplate
                                   }));
+
+      this.$quickAddForm = new QuickAddFormView({collection: this.collection});
+      this.$el.find('li#quick-add-form').html(this.$quickAddForm.el);
 
       var that = this;
 

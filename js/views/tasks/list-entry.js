@@ -28,18 +28,20 @@ define([
     crossOff          : function() {
       // In this context, `this` apparently refers to the model
       var task = this;
-      var collection = task.collection;
-      var id = '#task-' + this.get('id');
-      var title = $(id).find('.task-title');
-      var i = $(id).find('i.fa-square-o');
 
-      i.removeClass('fa-square-o').addClass('fa-check-square-o');
-      title.css('text-decoration', 'line-through');
-      var removeFromCollection = function() {
-        collection.remove(task);
+      if(this.get('status') === 'Complete') {
+        var collection = task.collection;
+        var id = '#task-' + this.get('id');
+
+        $(id).find('i.fa-square-o').removeClass('fa-square-o').addClass('fa-check-square-o');
+        $(id).find('.task-title').css('text-decoration', 'line-through');
+
+        var removeFromCollection = function() {
+          collection.remove(task);
+        }
+
+        window.setTimeout(removeFromCollection, 750);        
       }
-
-      window.setTimeout(removeFromCollection, 750);
     },
 
     deleteTask        : function() {
@@ -59,7 +61,6 @@ define([
       // Make sure edit/delete icons display again as normal once the edit
       // form is hidden.
 
-      this.$el.find('td.edit-form').removeClass('edit-form').addClass('task-listing');
       this.$modelView.render();
     },
 
@@ -84,9 +85,6 @@ define([
 
     showEditForm      : function() {
       this.$editForm.render();
-      this.$el.find('span.pull-right').hide();
-      this.$el.find('td.task-listing').removeClass('task-listing').addClass('edit-form');
-      this.$el.find('td.edit-form').html(this.$editForm.el);
     },
 
     showEditIcons     : function() {
@@ -98,13 +96,14 @@ define([
     initialize: function() {
       this.render();
       this.model.on('change:status', this.crossOff);
+      this.listenTo(this.$editForm, 'done', this.render);
     },
 
     render: function() {
       this.$el.html(this.template);
 
       var td = this.$el.find('td.task-listing');
-      this.$editForm = new UpdateFormView({model: this.model});
+      this.$editForm = new UpdateFormView({model: this.model, el: td});
       this.$modelView = new ModelView({model: this.model, el: td});
 
       this.$modelView.render({el: this.$el.find('td.task-listing')});
