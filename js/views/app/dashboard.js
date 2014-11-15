@@ -83,7 +83,7 @@ define([
         recommendationCount : 13
       }
 
-      this.user.fetchIncompleteTasks($.cookie('auth')).then(function(collection) {
+      this.user.fetchIncompleteTasks.then(function(collection) {
           data.taskCollection = collection;
           that.$topWidgets = new DashboardTopWidgetView({ 
                                 el: that.$('#dash-heading'), 

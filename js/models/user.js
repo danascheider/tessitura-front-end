@@ -20,7 +20,7 @@ define([
       });
     },
 
-    fetchIncompleteTasks: function(auth) {
+    fetchIncompleteTasks: function() {
       var that = this;
       var data = JSON.stringify({resource: 'Task', scope: 'incomplete'});
 
