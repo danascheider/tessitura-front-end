@@ -64,7 +64,7 @@ define([
     },
 
     hideEditIcons     : function() {
-      this.$el.find('span.edit-task').hide();
+      this.$el.find('span.edit-task').css('visibility', 'hidden');
     },
 
     markComplete      : function(e) {
@@ -87,7 +87,7 @@ define([
 
     showEditIcons     : function() {
       if(!this.$el.find('form').is(':visible')) {
-        this.$el.find('span.edit-task').show();
+        this.$el.find('span.edit-task').css('visibility', 'visible');
       }
     },
 

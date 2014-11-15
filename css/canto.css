@@ -194,7 +194,7 @@ i.fa-check-square-o {
 }
 
 span.edit-task {
-  display: none;
+  visibility: hidden;
   float: right;
   vertical-align: top;
   padding-top: 0.5em;
@@ -225,7 +225,10 @@ tr.task-details {
 /* --------------- */
 /* Task Model View */
 /* --------------- */
+table.task-model {
+  width: 90%;
+}
 
 table.task-model th {
-  width: 15%;
+  width: 20%;
 }
