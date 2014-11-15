@@ -7,17 +7,24 @@ define([
   'text!templates/app/login-form.html',
   'css!stylesheets/bootstrap.css',
   'css!stylesheets/dashboard.css',
+  'css!stylesheets/canto.css',
   'css!fa-styles/font-awesome.min.css'
-  ], function($, _, Backbone, Cookie, Utils, LoginForm, BootstrapStyles, DashStyles, FAStyles) {
+  ], function($, _, Backbone, Cookie, Utils, LoginForm, BootstrapStyles, DashStyles, CantoStyles, FAStyles) {
 
   LoginFormView = Backbone.View.extend({
     el     : $('body'),
 
     events : {
-      'click button:submit': 'logInUser'
+      'click button:submit' : 'logInUser',
+      'click .pull-right a' : 'loginHelp'
+    },
+
+    loginHelp : function(e) {
+      e.preventDefault()
+      console.log('Stay tuned...');
     },
     
-    logInUser: function(e) {
+    logInUser : function(e) {
       e.preventDefault();
       var that = this
       var data = Utils.getAttributes(this.$el.find('form'));
