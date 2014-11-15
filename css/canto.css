@@ -83,11 +83,6 @@
   cursor: pointer;
 }
 
-.hide-widget:hover,
-.show-widget:hover {
-  color: #b4e2df;
-}
-
 /* -------------------------- */
 /* Dashboard Task List Widget */
 /* -------------------------- */
