@@ -48,7 +48,7 @@ define([
                     'October',
                     'November',
                     'December'
-                   ]
+                   ];
       var date = new Date(this.get('deadline'));
       var pretty = days[date.getDay()] + ', ' + months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
       return pretty

@@ -22,11 +22,11 @@ define([
         that.create(attributes, {
           url        : that.url(),
           beforeSend : Utils.authHeader,
-          success    : function(model, response, options) {
+          success    : function(model) {
             resolve(model);
           },
-          error      : function(model, response, options) {
-            reject(model);
+          error      : function(model, response) {
+            reject(response);
           }
         });
       });
