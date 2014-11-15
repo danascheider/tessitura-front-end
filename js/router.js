@@ -42,7 +42,7 @@ define([
     },
 
     displayDashboard: function() {
-      var dashboardView = new DashboardView;
+      var dashboardView = new DashboardView();
       dashboardView.render();
     },
 
@@ -52,7 +52,7 @@ define([
     },
 
     displayLogin: function() {
-      var loginView = new LoginView;
+      var loginView = new LoginView();
       loginView.render();
     },
 
