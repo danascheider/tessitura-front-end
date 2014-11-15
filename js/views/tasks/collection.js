@@ -39,7 +39,6 @@ define([
     // Events //
 
     events : {
-      'click th.task-title' : 'toggleTaskDetails',
       'click a.create-task' : 'toggleCreateForm',
     },
 
@@ -74,13 +73,6 @@ define([
       e.preventDefault();
       var form = this.$el.find('form.task-form');
       $(form).slideToggle();
-    },
-
-    toggleTaskDetails : function(e) {
-      e.preventDefault();
-      var target = e.target;
-      var siblings = $(target).closest('tr').siblings();
-      $(siblings).toggle();
     },
     
     // Core View Functions //
