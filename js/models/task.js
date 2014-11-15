@@ -14,8 +14,8 @@ define([
     displayTitle: function() {
       var title = this.get('title');
 
-      if(title.length > 60) {
-        return title.substring(0,59) + ' ...';
+      if(title.length > 50) {
+        return title.substring(0,49) + ' ...';
       } else {
         return title;
       }
