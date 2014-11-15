@@ -56,11 +56,15 @@ define([
     },
 
     hideEditForm      : function() {
+      var that = this;
 
-      // Make sure edit/delete icons display again as normal once the edit
-      // form is hidden.
+      this.$editForm.$el.find('form').slideUp();
 
-      this.$modelView.render();
+      window.setTimeout(function() {
+        that.$modelView.render();
+        that.$el.find('span.edit-task').show();
+        that.$el.find('span.edit-task').css('visibility', 'hidden');
+      }, 500);
     },
 
     hideEditIcons     : function() {
@@ -81,8 +85,17 @@ define([
     },
 
     showEditForm      : function() {
-      this.$el.find('span.edit-task').fadeOut();
-      this.$editForm.render();
+      this.$el.find('span.edit-task').fadeOut(150);
+      this.$el.find('table.task-model').fadeOut(150);
+
+      var that = this;
+
+      function renderForm() {
+        that.$editForm.render();
+        that.$editForm.$el.find('form').slideDown();
+      }
+
+      window.setTimeout(renderForm, 150);
     },
 
     showEditIcons     : function() {

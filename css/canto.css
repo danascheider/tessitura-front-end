@@ -214,10 +214,7 @@ a.task-title {
   font-weight: bold;
 }
 
-tr.task-details {
-  display: none;
-}
-
+tr.task-details,
 .task-form {
   display: none;
 }

@@ -38,6 +38,8 @@ define([
     },
 
     render: function() {
+      this.$el.closest('td').css('width', '97%');
+      this.$el.closest('td').css('padding-right', '0.75em');
       this.$el.html(this.template({model: this.model}));
       return this;
     }
