@@ -51,7 +51,7 @@ define([
                    ];
       var date = new Date(this.get('deadline'));
       var pretty = days[date.getDay()] + ', ' + months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
-      return pretty
+      return pretty;
     },
 
     validate  : function(attrs) {
@@ -61,5 +61,5 @@ define([
     }
   });
 
-  return TaskModel
+  return TaskModel;
 });
