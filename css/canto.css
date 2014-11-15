@@ -214,6 +214,11 @@ a.task-title {
   font-weight: bold;
 }
 
+td.task-listing {
+  width: 100%;
+  text-align: left;
+}
+
 .task-details,
 .task-form {
   display: none;
@@ -222,10 +227,10 @@ a.task-title {
 /* --------------- */
 /* Task Model View */
 /* --------------- */
-table.task-model {
-  width: 90%;
+.task-details {
+  width: 100%;
 }
 
-table.task-model th {
+.task-details th {
   width: 20%;
 }
