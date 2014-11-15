@@ -230,6 +230,10 @@ td.task-listing {
   width: 100%;
 }
 
+.task-details td {
+  padding-right: 2.5em;
+}
+
 .task-details th {
   width: 20%;
 }
