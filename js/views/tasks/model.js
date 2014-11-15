@@ -6,10 +6,10 @@ define([
   ], function($, _, Backbone, TaskModelTemplate) {
 
   var TaskModelView = Backbone.View.extend({
-    template: _.template(TaskModelTemplate),
-    tagName : 'td',
+    className : 'task-model',
+    template  : _.template(TaskModelTemplate),
 
-    render: function() {
+    render    : function() {
       this.$el.html(this.template({model: this.model}));
       return this;
     }

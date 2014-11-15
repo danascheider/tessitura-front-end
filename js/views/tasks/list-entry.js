@@ -19,6 +19,7 @@ define([
       'click .fa-pencil'   : 'showEditForm',
       'click .fa-square-o' : 'markComplete',
       'click .fa-times'    : 'deleteTask',
+      'click a.task-title' : 'toggleTaskDetails',
       'click button:reset' : 'hideEditForm',
       'mouseenter'         : 'showEditIcons',
       'mouseleave'         : 'hideEditIcons'
@@ -102,6 +103,13 @@ define([
       if(!this.$el.find('form').is(':visible')) {
         this.$el.find('span.edit-task').css('visibility', 'visible');
       }
+    },
+
+    toggleTaskDetails : function(e) {
+      e.preventDefault();
+      var target = $(e.target);
+      var table  = target.siblings('table');
+      $(table).toggle();
     },
 
     // Standard View Functions // 

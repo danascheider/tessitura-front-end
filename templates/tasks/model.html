@@ -1,27 +1,25 @@
-<table class='task-model'>
-  <tr>
-    <th colspan='2' class='task-title'>
-      <a href=''><%= model.displayTitle() %></a>
-    </th>
-  </tr>
-  <% if (model.get('deadline')) { %>
-    <tr class='task-details'>
-      <th>Deadline:</th>
-      <td><%= model.prettyDeadline() %></td>
+<div class='task-model'>
+  <a href='' class='task-title'><%= model.displayTitle() %></a>
+  <table class='task-details'>
+    <% if (model.get('deadline')) { %>
+      <tr>
+        <th>Deadline:</th>
+        <td><%= model.prettyDeadline() %></td>
+      </tr>
+    <% } %>
+    <tr>
+      <th>Priority:</th>
+      <td><%= model.get('priority') %></td>
     </tr>
-  <% } %>
-  <tr class='task-details'>
-    <th>Priority:</th>
-    <td><%= model.get('priority') %></td>
-  </tr>
-  <tr class='task-details'>
-    <th>Status:</th>
-    <td><%= model.get('status') %></td>
-  </tr>
-  <% if (model.get('description')) { %>
-    <tr class='task-details'>
-      <th style='vertical-align: text-top'>Notes:</th>
-      <td><%= model.get('description') %></td>
+    <tr>
+      <th>Status:</th>
+      <td><%= model.get('status') %></td>
     </tr>
-  <% } %>
-</table>
+    <% if (model.get('description')) { %>
+      <tr>
+        <th style='vertical-align: text-top'>Notes:</th>
+        <td><%= model.get('description') %></td>
+      </tr>
+    <% } %>
+  </table>
+</div>
