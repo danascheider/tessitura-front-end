@@ -2,13 +2,28 @@ define(['jquery', 'underscore', 'backbone', 'text!templates/partials/dashboard-s
   function($, _, Backbone, SidebarTemplate) {
   
   var DashboardSidebarView = Backbone.View.extend({
-    events: {
-      'click ul#side-menu li a' : 'toggleSecondLevelNav'
+    template : _.template(SidebarTemplate),
+    events   : {
+      'click ul#side-menu li a'     : 'toggleSecondLevelNav',
+      'click li > a.dashboard-link' : 'goToDashboard',
+      'click li > a.task-page-link' : 'goToTaskPage'
     },
 
-    template: _.template(SidebarTemplate),
+    goToDashboard        : function(e) {
+      e.preventDefault();
+      if(location.hash != '#dashboard') {
+        Backbone.history.navigate('dashboard', {trigger: true});
+      }
+    },
 
-    toggleSecondLevelNav: function(e) {
+    goToDashboard        : function(e) {
+      e.preventDefault();
+      if(location.hash != '#tasks') {
+        Backbone.history.navigate('tasks', {trigger: true});
+      }
+    }
+
+    toggleSecondLevelNav : function(e) {
       e.preventDefault();
       var li = $(e.target).parent('li');
 
@@ -40,6 +55,7 @@ define(['jquery', 'underscore', 'backbone', 'text!templates/partials/dashboard-s
 
     render: function() {
       this.$el.html(this.template);
+      return this;
     }
   });
 
