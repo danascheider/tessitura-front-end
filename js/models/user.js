@@ -10,8 +10,6 @@ define([
     urlRoot: API.users.collection,
     
     initialize: function() {
-      var that = this;
-
       // Main task collection will be scoped, generally to return only
       // incomplete tasks
       this.tasks = new TaskCollection({owner: this});
