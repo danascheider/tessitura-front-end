@@ -30,11 +30,11 @@ define([
           type : 'POST',
           data : data,
           beforeSend: Utils.authHeader,
-          success: function(collection, response, options) {
+          success: function() {
             return resolve(that.tasks);
           },
-          error: function(error, status, options) { // or something
-            return reject(error);
+          error: function(error, response) {
+            return reject(response);
           }
         });
       });
