@@ -1,4 +1,4 @@
-define(['jquery', 'cookie'], function($, Cookie) {
+define(function() {
 
   var BaseURL = 'http://localhost:9292';
 
