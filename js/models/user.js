@@ -10,8 +10,6 @@ define([
     urlRoot: API.users.collection,
     
     initialize: function() {
-      var id = this.id || $.cookie('userID');
-      var taskFilter = {resource: 'Task', scope: 'incomplete'}
       var that = this;
 
       // Main task collection will be scoped, generally to return only
