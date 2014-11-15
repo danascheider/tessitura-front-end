@@ -2,11 +2,11 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'form-utils',
+  'utils',
   'api',
   'models/task',
   'text!templates/tasks/create-form.html'
-  ], function($, _, Backbone, FormUtils, API, TaskModel, CreateFormTemplate) {
+  ], function($, _, Backbone, Utils, API, TaskModel, CreateFormTemplate) {
 
   var TaskCreateFormView = Backbone.View.extend({
     events   : {
@@ -19,14 +19,12 @@ define([
       e.preventDefault();
       var that = this;
       var form  = $(e.target).parent('form');
-      var attrs = FormUtils.getAttributes(form);
+      var attrs = Utils.getAttributes(form);
 
       var newTask = new TaskModel(attrs);
       newTask.save(newTask.attrs, {
         url: API.tasks.collection($.cookie('userID')),
-        beforeSend: function(xhr) {
-          xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
-        },
+        beforeSend: Utils.authHeader,
         success: function(model, response, options) {
           form.slideUp();
           that.collection.add(model);

@@ -24,7 +24,6 @@ requirejs.config({
 
 require(['canto'], function(Canto) {
   Canto.initialize();
-  
   $(function() {
     Canto.start();
   });

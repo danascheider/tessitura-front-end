@@ -4,7 +4,7 @@ define([
   'backbone',
   'cookie',
   'api',
-  'form-utils',
+  'utils',
   'models/task',
   'views/tasks/create-form',
   'views/tasks/list-entry',
@@ -18,7 +18,7 @@ define([
   Backbone, 
   Cookie,
   API,
-  FormUtils,
+  Utils,
   TaskModel,
   CreateFormView,
   ListEntryView,
@@ -50,7 +50,7 @@ define([
 
       var that = this;
       var form = $('#quick-add-form');
-      var attrs = FormUtils.getAttributes(form);
+      var attrs = Utils.getAttributes(form);
 
       if(!attrs.length) {
         form.find('div.form-group').addClass('has-error');
@@ -59,9 +59,7 @@ define([
 
       var newTask = (new TaskModel).save(attrs, {
         url        : API.tasks.collection($.cookie('userID')),
-        beforeSend : function(xhr) {
-          xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
-        },
+        beforeSend : Utils.authHeader,
         success    : function(model, response, xhr) {
           that.collection.add(model);
           form.clear;

@@ -3,12 +3,12 @@ define([
   'underscore',
   'backbone',
   'cookie',
-  'form-utils',
+  'utils',
   'text!templates/app/login-form.html',
   'css!stylesheets/bootstrap.css',
   'css!stylesheets/dashboard.css',
   'css!fa-styles/font-awesome.min.css'
-  ], function($, _, Backbone, Cookie, FormUtils, LoginForm, BootstrapStyles, DashStyles, FAStyles) {
+  ], function($, _, Backbone, Cookie, Utils, LoginForm, BootstrapStyles, DashStyles, FAStyles) {
 
   LoginFormView = Backbone.View.extend({
     el     : $('body'),
@@ -20,7 +20,7 @@ define([
     logInUser: function(e) {
       e.preventDefault();
       var that = this
-      var data = FormUtils.getAttributes(this.$el.find('form'));
+      var data = Utils.getAttributes(this.$el.find('form'));
       var hash = btoa(data['username'] + ':' + data['password']);
 
       $.ajax({
@@ -38,7 +38,7 @@ define([
         },
 
         error      : function(xhr, status, error) {
-          that.$el.find('form').reset();
+          that.$el.find('form').clear;
           console.log('Error: ', error);
         }
       });

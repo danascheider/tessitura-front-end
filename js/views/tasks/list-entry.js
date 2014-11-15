@@ -3,11 +3,12 @@ define([
   'underscore',
   'backbone',
   'api',
+  'utils',
   'views/tasks/update-form',
   'views/tasks/model',
   'text!templates/tasks/model.html',
   'text!templates/tasks/list-entry.html',
-], function($, _, Backbone, API, UpdateFormView, ModelView, TaskModelTemplate, ListEntryTemplate) {
+], function($, _, Backbone, API, Utils, UpdateFormView, ModelView, TaskModelTemplate, ListEntryTemplate) {
 
   var ListEntryView = Backbone.View.extend({
     tagName  : 'li',
@@ -50,9 +51,7 @@ define([
       model.destroy({
         url: API.tasks.single(model.get('id')),
         type: 'DELETE',
-        beforeSend: function(xhr) {
-          xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
-        }
+        beforeSend: Utils.authHeader
       });
     },
 
@@ -77,9 +76,7 @@ define([
         dataType    : 'html',
         type        : 'PUT',
         url         : API.tasks.single(this.model.get('id')),
-        beforeSend  : function(xhr) {
-          xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
-        }
+        beforeSend  : Utils.authHeader
       });
     },
 

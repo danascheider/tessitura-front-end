@@ -2,8 +2,9 @@ define([
   'underscore', 
   'backbone', 
   'api',
+  'utils',
   'collections/tasks'
-  ], function(_, Backbone, API, TaskCollection) {
+  ], function(_, Backbone, API, Utils, TaskCollection) {
 
   var User = Backbone.Model.extend({
     urlRoot: API.users.collection,
@@ -19,9 +20,7 @@ define([
 
       this.fetch({
         async: false,
-        beforeSend: function(xhr) {
-          xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
-        }
+        beforeSend: Utils.authHeader
       });
     },
 
@@ -34,9 +33,7 @@ define([
           url  : API.users.filter(that.id),
           type : 'POST',
           data : data,
-          beforeSend: function(xhr) {
-            xhr.setRequestHeader('Authorization', 'Basic ' + auth);
-          },
+          beforeSend: Utils.authHeader,
           success: function(collection, response, options) {
             return resolve(that.tasks);
           },

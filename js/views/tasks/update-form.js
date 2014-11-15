@@ -3,9 +3,9 @@ define([
   'underscore',
   'backbone',
   'api',
-  'form-utils',
+  'utils',
   'text!templates/tasks/update-form.html'
-  ], function($, _, Backbone, API, FormUtils, UpdateFormTemplate) {
+  ], function($, _, Backbone, API, Utils, UpdateFormTemplate) {
 
   var TaskUpdateFormView = Backbone.View.extend({
     template   : _.template(UpdateFormTemplate),
@@ -20,16 +20,14 @@ define([
       e.preventDefault();
       var form  = $(e.target);
       var that  = this;
-      var attrs = FormUtils.getAttributes(form);
+      var attrs = Utils.getAttributes(form);
 
       this.model.set(attrs);
 
       this.model.save(attrs, {
         url        : API.tasks.single(that.model.get('id')),
         type       : 'PUT',
-        beforeSend : function(xhr) {
-          xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
-        },
+        beforeSend : Utils.authHeader,
         success    : function(model, response, xhr) {
           that.trigger('done');
         },

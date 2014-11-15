@@ -1,6 +1,6 @@
 define(function() {
 
-  var FormUtils = {
+  var Utils = {
 
     // Functions //
 
@@ -16,8 +16,12 @@ define(function() {
       }
 
       return attributes;
+    },
+
+    authHeader: function(xhr) {
+      xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
     }
   };
 
-  return FormUtils;
+  return Utils;
 });

@@ -15,7 +15,7 @@ define([
     start: function() {
       this.Session = new Session;
 
-      if(this.Session.authenticated()) {
+      if(this.Session.authenticated()) {   
         Backbone.history.navigate('dashboard', {trigger: true});
       }
     }

@@ -10,7 +10,10 @@
   background-color: #357ebd;
 }
 
+/* ---------------- */
 /* Top Dash Widgets */
+/* ---------------- */
+
 #dash-heading > .col-lg-3 > .panel-blue > .panel-heading {
   color: #fff;
   background-color: #516695;
@@ -184,6 +187,8 @@ i.fa-check-square-o {
 span.edit-task {
   display: none;
   float: right;
+  vertical-align: top;
+  padding-top: 0.5em;
 }
 
 span.edit-task > i {

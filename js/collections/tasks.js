@@ -4,8 +4,9 @@ define([
   'backbone',
   'cookie',
   'models/task',
-  'api'
-], function($, _, Backbone, Cookie, TaskModel, API) {
+  'api',
+  'utils'
+], function($, _, Backbone, Cookie, TaskModel, API, Utils) {
   
   var TaskCollection = Backbone.Collection.extend({
     model : TaskModel,
@@ -20,9 +21,7 @@ define([
       return new Promise(function(resolve, reject) {
         that.create(attributes, {
           url        : that.url(),
-          beforeSend : function(xhr) {
-            xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
-          },
+          beforeSend : Utils.authHeader,
           success    : function(model, response, options) {
             resolve(model);
           },
