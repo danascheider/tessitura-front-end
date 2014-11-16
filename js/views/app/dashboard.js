@@ -31,14 +31,13 @@ define([
     el       : $('body'),
 
     events   : {
-      'click #wrapper'          : 'hideDropdownMenus',
-      'click a.dropdown-toggle' : 'toggleDropdownMenu'
+      'click #wrapper'             : 'hideDropdownMenus',
+      'click a.dropdown-toggle'    : 'toggleDropdownMenu',
     },
 
     template : _.template(DashboardTemplate),
 
     // Event Callbacks // 
-
     hideDropdownMenus: function(e) {
       var li = $('li.dropdown');
       if(!li.is(e.target) && li.has(e.target).length === 0) {

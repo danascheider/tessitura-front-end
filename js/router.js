@@ -7,15 +7,17 @@ define([
   'filter',
   'views/app/login-form',
   'views/app/dashboard',
-  'views/app/homepage'
-  ], function($, 
-      _, Backbone, 
-      Cookie,
-      Session,
-      Filter,
-      LoginView, 
-      DashboardView,
-      HomepageView) {
+  'views/app/homepage',
+  'views/app/kanban-board'
+], function($, 
+    _, Backbone, 
+    Cookie,
+    Session,
+    Filter,
+    LoginView, 
+    DashboardView,
+    HomepageView,
+    KanbanBoardView) {
   
   var CantoRouter = Backbone.Router.extend({
     routes: {
@@ -23,12 +25,14 @@ define([
       'home(/)'        : 'displayHomepage',
       'login(/)'       : 'displayLogin',
       'dashboard(/)'   : 'displayDashboard',
+      'tasks(/)'       : 'displayKanban',
       'logout(/)'      : 'logOut',
       '*actions'       : 'defaultAction'
     },
 
     before: {
       'dashboard(/)' : 'verifyLoggedIn',
+      'tasks(/)'     : 'verifyLoggedIn',
       '(/)'          : 'rerouteIfLoggedIn',
       'login(/)'     : 'rerouteIfLoggedIn'
     },
@@ -42,8 +46,15 @@ define([
     },
 
     displayDashboard: function() {
+      // FIX: This should really not render the whole dashboard every
+      //      single time.
       var dashboardView = new DashboardView();
       dashboardView.render();
+    },
+
+    displayKanban: function() {
+      var kanbanBoardView = new KanbanBoardView({el: $('#page-wrapper')});
+      kanbanBoardView.render();
     },
 
     displayHomepage: function() {

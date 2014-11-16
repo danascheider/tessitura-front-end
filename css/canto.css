@@ -1,3 +1,19 @@
+/* ------- */
+/* General */
+/* ------- */
+
+.panel-blue,
+.panel-yellow,
+.panel-red {
+  border: none;
+}
+
+.panel-blue .panel-heading {
+  background-color: #516695;
+  color: white;
+  margin: 0;
+}
+
 /* ---------- */
 /* Login Form */
 /* ---------- */
@@ -73,9 +89,7 @@
 }
 
 .dash-widget > .panel-body {
-  padding-left: 0;
-  padding-right: 0;
-  padding-bottom: 0;
+  padding: 0;
 }
 
 .hide-widget,
@@ -231,4 +245,12 @@ td.task-listing {
 
 .task-details th {
   width: 20%;
+}
+
+/* ----------------- */
+/* Kanban Board View */
+/* ----------------- */
+
+.kanban {
+  margin-top: 30px;
 }

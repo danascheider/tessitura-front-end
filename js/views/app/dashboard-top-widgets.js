@@ -33,6 +33,7 @@ define([
 
     render: function() {
       this.$el.html(this.template({data: this.data}));
+      return this;
     }
   });
 

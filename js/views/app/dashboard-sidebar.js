@@ -4,9 +4,9 @@ define(['jquery', 'underscore', 'backbone', 'text!templates/partials/dashboard-s
   var DashboardSidebarView = Backbone.View.extend({
     template : _.template(SidebarTemplate),
     events   : {
-      'click ul#side-menu li a'     : 'toggleSecondLevelNav',
-      'click li > a.dashboard-link' : 'goToDashboard',
-      'click li > a.task-page-link' : 'goToTaskPage'
+      'click ul#side-menu li a'    : 'toggleSecondLevelNav',
+      'click li > .dashboard-link' : 'goToDashboard',
+      'click li > .task-page-link' : 'goToTaskPage'
     },
 
     goToDashboard        : function(e) {
@@ -16,12 +16,12 @@ define(['jquery', 'underscore', 'backbone', 'text!templates/partials/dashboard-s
       }
     },
 
-    goToDashboard        : function(e) {
+    goToTaskPage         : function(e) {
       e.preventDefault();
       if(location.hash != '#tasks') {
         Backbone.history.navigate('tasks', {trigger: true});
       }
-    }
+    },
 
     toggleSecondLevelNav : function(e) {
       e.preventDefault();
