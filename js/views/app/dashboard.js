@@ -5,8 +5,7 @@ define([
   'api',
   'models/user',
   'views/app/dashboard-sidebar',
-  'views/app/dashboard-top-widgets',
-  'views/tasks/task-panel',
+  'views/app/dashboard-home',
   'text!templates/app/dashboard.html',
   'css!stylesheets/bootstrap.css',
   'css!stylesheets/dashboard.css',
@@ -18,8 +17,7 @@ define([
     API,
     UserModel,
     SidebarView,
-    DashboardTopWidgetView,
-    TaskPanelView,
+    HomeView,
     DashboardTemplate, 
     BootstrapStyles, 
     DashStyles, 
@@ -75,24 +73,8 @@ define([
       // Render sidebar
       this.$sidebar = new SidebarView({el: this.$('div.sidebar-collapse')});
 
-      // Fetch the user's tasks and render in the task panel
-      var that = this;
-      var data = {
-        appointmentCount    : 4,
-        deadlineCount       : 9,
-        recommendationCount : 13
-      }
-
-      this.user.fetchIncompleteTasks().then(function(collection) {
-          data.taskCollection = collection;
-          that.$topWidgets = new DashboardTopWidgetView({ 
-                                el: that.$('#dash-heading'), 
-                                data: data
-                              });
-          that.$taskPanel = new TaskPanelView({el: that.$('#task-panel'), collection: collection});
-      }, function(error) {
-        console.log('Error: ', error);
-      });
+      // Render dashboard home view
+      this.$homeView = new HomeView({el: this.$('#page-wrapper'), user: this.user});
 
       // Best practices
       return this;
