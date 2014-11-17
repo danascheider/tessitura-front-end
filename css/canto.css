@@ -1,6 +1,11 @@
 /* ------- */
 /* General */
 /* ------- */
+.page-header {
+  color: #777;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 0;
+}
 
 .panel-blue,
 .panel-yellow,
@@ -251,6 +256,13 @@ td.task-listing {
 /* Kanban Board View */
 /* ----------------- */
 
-.kanban {
-  margin-top: 30px;
+.kanban-board {
+  margin-top: 0;
+}
+
+.kanban-col {
+  position: relative;
+  float: left;
+  padding: 0 1em;
+  width: 25%;
 }

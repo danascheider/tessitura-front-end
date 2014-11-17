@@ -45,7 +45,6 @@ define([
     // Event Handlers //
     createTask: function(e) {
       e.preventDefault();
-      console.log('submit #quick-add-form was triggered');
 
       var that = this;
       var form = $('#quick-add-form');

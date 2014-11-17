@@ -6,6 +6,7 @@ define([
   'models/user',
   'views/app/dashboard-sidebar',
   'views/app/dashboard-home',
+  'views/app/kanban-board',
   'text!templates/app/dashboard.html',
   'css!stylesheets/bootstrap.css',
   'css!stylesheets/dashboard.css',
@@ -18,6 +19,7 @@ define([
     UserModel,
     SidebarView,
     HomeView,
+    KanbanBoardView,
     DashboardTemplate, 
     BootstrapStyles, 
     DashStyles, 
@@ -58,7 +60,8 @@ define([
 
     // Core View Methods //
 
-    initialize: function() {
+    initialize: function(opts) {
+      this.opts = opts || {};
       this.user = new UserModel({id: $.cookie('userID')});
     },
 
@@ -72,8 +75,12 @@ define([
       // Render sidebar
       this.$sidebar = new SidebarView({el: this.$('div.sidebar-collapse')});
 
-      // Render dashboard home view
-      this.$homeView = new HomeView({el: this.$('#page-wrapper'), user: this.user});
+      if(this.opts.kanban === true) {
+        this.$kanbanBoardView = new KanbanBoardView({el: this.$('#page-wrapper'), user: this.user});
+      } else {
+        // Render dashboard home view
+        this.$homeView = new HomeView({el: this.$('#page-wrapper'), user: this.user});
+      }
 
       // Best practices
       return this;

@@ -53,8 +53,8 @@ define([
     },
 
     displayKanban: function() {
-      var kanbanBoardView = new KanbanBoardView({el: $('#page-wrapper')});
-      kanbanBoardView.render();
+      var kanbanBoard = new DashboardView({kanban: true});
+      kanbanBoard.render();
     },
 
     displayHomepage: function() {
