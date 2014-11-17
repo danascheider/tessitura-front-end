@@ -25,18 +25,20 @@ define([
       var attrs = Utils.getAttributes(form);
 
       var newTask = new TaskModel(attrs);
-      
-      newTask.save(newTask.attrs, {
-        url: API.tasks.collection($.cookie('userID')),
-        beforeSend: Utils.authHeader,
-        success: function(model, response, options) {
-          form.clear;
-          that.collection.add(model);
-        },
-        error: function(model, response, options) {
-          console.log('Error: ', response);
-        }
-      });
+
+      if(!!attrs.title) {
+        newTask.save(newTask.attrs, {
+          url: API.tasks.collection($.cookie('userID')),
+          beforeSend: Utils.authHeader,
+          success: function(model, response, options) {
+            form.clear;
+            that.collection.add(model);
+          },
+          error: function(model, response, options) {
+            console.log('Error: ', response);
+          }
+        });
+      }
     },
 
     initialize : function() {
