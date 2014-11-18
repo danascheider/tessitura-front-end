@@ -10,8 +10,6 @@ define([
     urlRoot: API.users.collection,
     
     initialize: function() {
-      // Main task collection will be scoped, generally to return only
-      // incomplete tasks
       this.tasks = new TaskCollection({owner: this});
 
       this.fetch({
@@ -26,8 +24,26 @@ define([
 
       return new Promise(function(resolve, reject) {
         that.tasks.fetch({
-          url  : API.users.filter(that.id),
-          type : 'POST',
+          url  : API.tasks.collection(that.id),
+          data : data,
+          beforeSend: Utils.authHeader,
+          success: function() {
+            return resolve(that.tasks);
+          },
+          error: function(error, response) {
+            return reject(response);
+          }
+        });
+      });
+    },
+
+    fetchAllTasks: function() {
+      var that = this;
+      var data = JSON.stringify({resource: 'Task', scope: 'incomplete'});
+
+      return new Promise(function(resolve, reject) {
+        that.tasks.fetch({
+          url  : API.tasks.fullCollection(that.id),
           data : data,
           beforeSend: Utils.authHeader,
           success: function() {
