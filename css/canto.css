@@ -9,12 +9,19 @@
 
 .panel-blue,
 .panel-yellow,
-.panel-red {
+.panel-red,
+.panel-green {
   border: none;
 }
 
 .panel-blue .panel-heading {
   background-color: #516695;
+  color: white;
+  margin: 0;
+}
+
+.panel-green .panel-heading {
+  background-color: #5cb85c;
   color: white;
   margin: 0;
 }

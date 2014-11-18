@@ -42,7 +42,7 @@ define([
         that.$inProgressColumn = new KanbanColumnView({
           el         : that.$el.find('#in-progress-tasks'),
           collection : new TaskCollection(that.collection.where({status: 'In Progress'})),
-          color      : 'primary',
+          color      : 'green',
           icon       : 'fa-road',
           headline   : 'In Progress'
         });
