@@ -25,7 +25,7 @@ define([
 
         that.$backlogColumn = new KanbanColumnView({
           el         : that.$el.find('#backlog-tasks'),
-          collection : that.collection,
+          collection : new TaskCollection(that.collection.where({backlog: true})),
           color      : 'red',
           icon       : 'fa-exclamation-circle',
           headline   : 'Backlog',
