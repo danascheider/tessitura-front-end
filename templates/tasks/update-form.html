@@ -2,14 +2,6 @@
   <div class='form-group'>
     <input class='form-control' name='title' placeholder='<%= model.get('title') %>'>
     <input type='date' name='deadline' class='form-control'>
-    <input list='statuses' class='form-control' name='status' placeholder='<%= model.get('status') %>'>
-    <datalist id='statuses'>
-      <option value='New' />
-      <option value='In Progress' />
-      <option value='Blocking' />
-      <option value='Complete' />
-    </datalist>
-
     <!-- priority options -->
     <input list='priorities' class='form-control' name='priority' placeholder='<%= model.get('priority') %>'>
     <datalist id='priorities'>
@@ -19,6 +11,16 @@
       <option value='Low' />
       <option value='Not Important' />
     </datalist>
+
+    <!-- status options -->
+    <input list='statuses' class='form-control' name='status' placeholder='<%= model.get('status') %>'>
+    <datalist id='statuses'>
+      <option value='New' />
+      <option value='In Progress' />
+      <option value='Blocking' />
+      <option value='Complete' />
+    </datalist>
+
     <textarea name='description' class='form-control' rows='2' placeholder='<%= model.get('description') %>'></textarea>
   </div>
 
