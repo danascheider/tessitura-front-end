@@ -7,13 +7,13 @@ define(function() {
     login : BaseURL + '/login',
     users : {
       root           : BaseURL + '/users',
-      collection     : BaseURL + '/admin/users',
+      collection     : BaseURL + '/users',
       single         : function(uid) { return BaseURL + '/users/' + uid; },
     },
     tasks : {
       root           : BaseURL + '/tasks',
       collection     : function(uid) { return BaseURL + '/users/' + uid + '/tasks'; },
-      fullCollection : function(uid) { return BaseURL + '/users/' + uid + '/tasks/all' }
+      fullCollection : function(uid) { return BaseURL + '/users/' + uid + '/tasks/all' },
       single         : function(taskID) { return BaseURL + '/tasks/' + taskID; }
     },
   };
