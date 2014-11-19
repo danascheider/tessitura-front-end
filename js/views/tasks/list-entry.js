@@ -135,7 +135,6 @@ define([
 
     render: function() {
       this.$el.html(this.template);
-      this.$el.draggable();
 
       var td = this.$el.find('td.task-listing');
       this.$editForm = new UpdateFormView({model: this.model, el: td});
