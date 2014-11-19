@@ -15,7 +15,9 @@ define([
       var title = this.get('title');
 
       if(title.length > 60) {
-        return title.substring(0,59) + ' ...';
+        var shorter = title.substring(0,59).split(' ');
+        shorter.pop();
+        return shorter.join(' ') + ' ...';
       } else {
         return title;
       }
