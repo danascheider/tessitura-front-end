@@ -3,6 +3,7 @@ define([
   'underscore',
   'backbone',
   'cookie',
+  'jquery-ui',
   'api',
   'utils',
   'models/task',
@@ -17,6 +18,7 @@ define([
   _, 
   Backbone, 
   Cookie,
+  JQueryUI,
   API,
   Utils,
   TaskModel,
@@ -91,6 +93,13 @@ define([
 
       this.$quickAddForm = new QuickAddFormView({collection: this.collection});
       this.$el.find('li#quick-add-form').html(this.$quickAddForm.el);
+
+      this.$el.droppable({
+        accept : '.task-list-item',
+        drop   : function(event, ui) {
+          // Figure out what I want it to do when the thing gets dropped
+        }
+      });
 
       var that = this;
       var i    = 0

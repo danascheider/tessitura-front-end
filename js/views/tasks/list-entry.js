@@ -2,20 +2,33 @@ define([
   'jquery',
   'underscore',
   'backbone',
+  'jquery-ui',
   'api',
   'utils',
   'views/tasks/update-form',
   'views/tasks/model',
   'text!templates/tasks/model.html',
   'text!templates/tasks/list-entry.html',
-], function($, _, Backbone, API, Utils, UpdateFormView, ModelView, TaskModelTemplate, ListEntryTemplate) {
+], function(
+  $, 
+  _, 
+  Backbone, 
+  JQueryUI,
+  API, 
+  Utils, 
+  UpdateFormView, 
+  ModelView, 
+  TaskModelTemplate, 
+  ListEntryTemplate
+) {
 
   var ListEntryView = Backbone.View.extend({
-    tagName  : 'li',
-    id       : function() { return 'task-' + this.model.get('id'); },
-    template : _.template(ListEntryTemplate),
+    tagName   : 'li',
+    id        : function() { return 'task-' + this.model.get('id'); },
+    className : 'ui-widget-content ui-draggable ui-draggable-handle task-list-item',
+    template  : _.template(ListEntryTemplate),
 
-    events   : {
+    events    : {
       'click .fa-pencil'   : 'showEditForm',
       'click .fa-square-o' : 'markComplete',
       'click .fa-times'    : 'deleteTask',
@@ -122,6 +135,7 @@ define([
 
     render: function() {
       this.$el.html(this.template);
+      this.$el.draggable();
 
       var td = this.$el.find('td.task-listing');
       this.$editForm = new UpdateFormView({model: this.model, el: td});
