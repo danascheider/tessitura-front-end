@@ -9,17 +9,25 @@ define([
   var KanbanColumnView = Backbone.View.extend({
     template   : _.template(Template),
 
-    events     : {
-      'ul receive' : 'logEvent'
+    refreshCollection: function() {
+      var headline = this.data.headline;
+
+      var bad = this.collection.filter(function(model) {
+        return headline === 'Backlog' ? !!model.get('backlog') : model.get('status') !== headline;
+      });
+
+      this.collection.remove(bad);
+      this.render();
     },
 
-    logEvent : function() {
-      console.log('Logging event')
-    },
+    // Standard View Methods //
 
     initialize : function(data) {
       this.data = data;
       this.render();
+
+      this.listenTo(this.collection, 'add', this.render);
+      this.listenTo(this.collection, 'change', this.refreshCollection);
     },
 
     render     : function() {
@@ -29,10 +37,7 @@ define([
                                                    });
 
       this.$collectionView.$el.find('ul').sortable({
-        connectWith: '.task-list',
-        receive: function(e, ui) {
-          //
-        }
+        connectWith: '.task-list'
       });
     }
   });

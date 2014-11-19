@@ -142,18 +142,28 @@ define([
 
       this.$modelView.render({el: this.$el.find('td.task-listing')});
 
+      var that = this;
       this.$el.draggable({
         containment: 'parent',
         connectToSortable: '.task-list',
 
         // Start and stop functions should vary depending on what view
         // they are rendered in. 
-        
-        start: function(e, ui) {
-          console.log('Started');
-        },
+
         stop: function(e, ui) {
-          console.log($(this).closest('.kanban-col').attr('id'));
+          var newStatus = $(this).closest('.kanban-col').find('.panel-heading')[0].innerText;
+
+          if (newStatus === 'Backlog') {
+            that.model.set('backlog', true);
+          } else {
+            that.model.set('status', newStatus)
+          }
+
+          that.model.save({}, {
+            dataType: 'html',
+            url : API.tasks.single(that.model.get('id')),
+            beforeSend: Utils.authHeader
+          });
         }
       });
 

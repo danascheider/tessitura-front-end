@@ -20,12 +20,10 @@ define([
 
     fetchIncompleteTasks: function() {
       var that = this;
-      var data = JSON.stringify({resource: 'Task', scope: 'incomplete'});
 
       return new Promise(function(resolve, reject) {
         that.tasks.fetch({
           url  : API.tasks.collection(that.id),
-          data : data,
           beforeSend: Utils.authHeader,
           success: function() {
             return resolve(that.tasks);
