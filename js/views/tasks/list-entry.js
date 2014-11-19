@@ -141,6 +141,26 @@ define([
       this.$modelView = new ModelView({model: this.model, el: td});
 
       this.$modelView.render({el: this.$el.find('td.task-listing')});
+
+      this.$el.draggable({
+        containment: 'parent',
+        connectToSortable: '.task-list',
+
+        // Start and stop functions should vary depending on what view
+        // they are rendered in. 
+        
+        start: function(e, ui) {
+          console.log('Started');
+        },
+        stop: function(e, ui) {
+          console.log($(this).closest('.kanban-col').attr('id'));
+        }
+      });
+
+      // FIX: I don't know what this actually does. It may not be
+      //      necessary.
+      this.$el.disableSelection();
+
       return this;
     }
   });

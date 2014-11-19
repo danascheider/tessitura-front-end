@@ -94,8 +94,6 @@ define([
       this.$quickAddForm = new QuickAddFormView({collection: this.collection});
       this.$el.find('li#quick-add-form').html(this.$quickAddForm.el);
 
-      this.$el.find('ul').sortable();
-
       var that = this;
       var i    = 0
 

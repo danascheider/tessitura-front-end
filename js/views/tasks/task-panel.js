@@ -52,6 +52,13 @@ define([
         this.$collectionView = new TaskCollectionView({ el: $(this.el).find('.panel-body'), 
                                                         collection: this.collection
                                                      });
+
+        this.$collectionView.$el.find('ul').sortable({
+          receive: function(e, ui) {
+            console.log('Received');
+          }
+        });
+
       } else {
         var emptyPanel = new EmptyPanelView({el: $(this.el).find('.panel-body')});
         emptyPanel.render();
@@ -85,6 +92,7 @@ define([
     render: function() {
       this.$el.html(this.template());
       this.renderContent();
+
       return this;
     }
   });
