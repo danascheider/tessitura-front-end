@@ -19,7 +19,6 @@ define([
         that.collection = collection;
         that.render();
         that.listen(that.collection, 'change:status', function() {
-          console.log('Something changed');
         });
       });
     },

@@ -157,20 +157,24 @@ define([
 
           if (!column) {
             // Check the order of the list
-            var sibs = that.$el.prevUntil('li#quick-add-form').get().reverse();
-            var len = sibs.length;
+            var items = that.$el.closest('ul').find('li.task-list-item');
+            var coll  = that.model.collection;
+
+            // Incrementor
             var i = 1
+            
+            $.each(items, function(index) {
+              var modelID = $(items[index]).attr('id').match(/(\d+)/)[0];
 
-            $.each(sibs, function(index) {
-              var modelID = $(sibs[index]).attr('id').match(/(\d+)/)[0];
-              that.model.collection.get(modelID).save({position: i},{
-                url        : API.tasks.single(modelID),
-                beforeSend : Utils.authHeader
-              });
-              i++
+              if (coll.get(modelID).get('position') !== i) {
+                coll.get(modelID).save({position: i}, {
+                  url        : API.tasks.single(modelID),
+                  beforeSend : Utils.authHeader
+                });
+              }
+
+              i++;
             });
-
-            that.model.set('position', sibs.length + 1);
 
           } else if (column.innerText === 'Backlog') {
             that.model.set('backlog', true);

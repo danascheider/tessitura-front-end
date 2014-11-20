@@ -15,7 +15,7 @@ define([
       return API.tasks.collection($.cookie('userID'));
     },
 
-    promiseCreate : function(attributes) {
+    promiseCreate     : function(attributes) {
       var that = this;
 
       return new Promise(function(resolve, reject) {

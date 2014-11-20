@@ -53,11 +53,7 @@ define([
                                                         collection: this.collection
                                                      });
 
-        this.$collectionView.$el.find('ul').sortable({
-          receive: function(e, ui) {
-            console.log('Received');
-          }
-        });
+        this.$collectionView.$el.find('ul').sortable();
 
       } else {
         var emptyPanel = new EmptyPanelView({el: $(this.el).find('.panel-body')});
