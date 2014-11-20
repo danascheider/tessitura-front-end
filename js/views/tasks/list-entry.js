@@ -151,10 +151,12 @@ define([
         // they are rendered in. 
 
         stop: function(e, ui) {
-          // This only works in the Kanban view
-          // This needs to do a different thing on the dashboard view
           var column = $(this).closest('.kanban-col').find('.panel-heading')[0];
 
+          // At this point, sorting only works on the dashboard. On
+          // the Kanban board, tasks change status when dragged and 
+          // dropped, but do not change their list position.
+          
           if (!column) {
             // Check the order of the list
             var items = that.$el.closest('ul').find('li.task-list-item');
