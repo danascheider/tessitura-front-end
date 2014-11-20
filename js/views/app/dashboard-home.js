@@ -31,10 +31,12 @@ define([
 
       this.user.fetchIncompleteTasks().then(function(collection) {
         data.taskCollection = collection;
+        
         that.$topWidgets = new DashboardTopWidgetView({ 
                               el: that.$('#dash-heading'), 
                               data: data
                             });
+
         that.$taskPanel = new TaskPanelView({el: that.$('#task-panel'), collection: collection});
       }, function(error) {
         console.log('Error: ', error);
