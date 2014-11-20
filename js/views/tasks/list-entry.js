@@ -106,7 +106,7 @@ define([
 
       function renderForm() {
         that.$editForm.render();
-        that.$editForm.$el.find('form').slideDown();
+        that.$editForm.$el.find('form').slideDown(50);
       }
 
       window.setTimeout(renderForm, 150);
@@ -151,12 +151,31 @@ define([
         // they are rendered in. 
 
         stop: function(e, ui) {
-          var newStatus = $(this).closest('.kanban-col').find('.panel-heading')[0].innerText;
+          // This only works in the Kanban view
+          // This needs to do a different thing on the dashboard view
+          var column = $(this).closest('.kanban-col').find('.panel-heading')[0];
 
-          if (newStatus === 'Backlog') {
+          if (!column) {
+            // Check the order of the list
+            var sibs = that.$el.prevUntil('li#quick-add-form').get().reverse();
+            var len = sibs.length;
+            var i = 1
+
+            $.each(sibs, function(index) {
+              var modelID = $(sibs[index]).attr('id').match(/(\d+)/)[0];
+              that.model.collection.get(modelID).save({position: i},{
+                url        : API.tasks.single(modelID),
+                beforeSend : Utils.authHeader
+              });
+              i++
+            });
+
+            that.model.set('position', sibs.length + 1);
+
+          } else if (column.innerText === 'Backlog') {
             that.model.set('backlog', true);
           } else {
-            that.model.set('status', newStatus)
+            that.model.set('status', column.innerText);
           }
 
           that.model.save({}, {

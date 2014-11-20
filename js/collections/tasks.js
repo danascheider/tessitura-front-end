@@ -9,9 +9,9 @@ define([
 ], function($, _, Backbone, Cookie, TaskModel, API, Utils) {
   
   var TaskCollection = Backbone.Collection.extend({
-    model : TaskModel,
-
-    url   : function() {
+    model      : TaskModel,
+    comparator : 'position',
+    url        : function() {
       return API.tasks.collection($.cookie('userID'));
     },
 
