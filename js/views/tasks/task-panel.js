@@ -4,7 +4,6 @@ define([
   'backbone',
   'views/tasks/model',
   'views/tasks/collection',
-  'views/tasks/empty-panel',
   'text!templates/partials/task-panel.html',
   'css!stylesheets/bootstrap.css',
   'css!stylesheets/dashboard.css',
@@ -15,7 +14,6 @@ define([
     Backbone,
     TaskModelView,
     TaskCollectionView,
-    EmptyPanelView,
     TaskPanelTemplate,
     CreateFormTemplate,
     BootstrapStyles,
@@ -47,20 +45,6 @@ define([
       $(e.target).removeClass('fa-minus').addClass('fa-plus');
     },
 
-    renderContent: function() {
-      if(this.collection) {
-        this.$collectionView = new TaskCollectionView({ el: $(this.el).find('.panel-body'), 
-                                                        collection: this.collection
-                                                     });
-
-        this.$collectionView.$el.find('ul').sortable();
-
-      } else {
-        var emptyPanel = new EmptyPanelView({el: $(this.el).find('.panel-body')});
-        emptyPanel.render();
-      }
-    },
-
     showToggleWidgetIcon: function(e) {
       var span = $(e.target).closest('.dash-widget').find('span.hide-widget,span.show-widget').eq(0);
       span.fadeIn(100);
@@ -87,7 +71,14 @@ define([
 
     render: function() {
       this.$el.html(this.template());
-      this.renderContent();
+      if(this.collection) {
+        this.$collectionView = new TaskCollectionView({ el: $(this.el).find('.panel-body'), 
+                                                        collection: this.collection
+                                                     });
+
+        this.$collectionView.$el.find('ul').sortable();
+
+      }
 
       return this;
     }
