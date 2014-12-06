@@ -26,6 +26,31 @@ body {
   text-shadow: 0 2px 2px rgba(0,0,0,0.75);
 }
 
+#registration-form {
+  margin-bottom: 15px;
+}
+
+#registration-form > fieldset {
+  passing: 0 10px;
+  margin: 15px 10px 0 0;
+}
+
+#registration-form input {
+  width: 98.8%;
+  margin: 5px;
+}
+
+#registration-form input.half-width,
+#registration-form input.half-width {
+  display: inline-block;
+  width: 48.7%;
+}
+
+#registration-form button {
+  margin: 15px 5px auto 5px;
+  width: 48.7%;
+}
+
 .text-vertical-center {
   display: table-cell;
   text-align: center;
