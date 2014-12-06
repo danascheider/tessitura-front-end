@@ -28,6 +28,7 @@ define([
       e.preventDefault();
       var that = this
       var data = Utils.getAttributes(this.$el.find('form'));
+      var exp  = data['remember'] === 'Remember Me';
       var hash = btoa(data['username'] + ':' + data['password']);
 
       $.ajax({
@@ -39,8 +40,15 @@ define([
 
         success    : function(obj, status, xhr) {
           var obj = JSON.parse(obj)
-          $.cookie('auth', hash);
-          $.cookie('userID', obj['user']['id']);
+
+          if(data['remember'] === 'Remember Me') {
+            $.cookie('auth', hash, {expires: 365});
+            $.cookie('userID', obj['user']['id'], {expires: 365});
+          } else {
+            $.cookie('auth', hash);
+            $.cookie('userID', obj['user']['id']);
+          }
+          
           Backbone.history.navigate('dashboard', {trigger: true});
         },
 
