@@ -66,11 +66,13 @@ define([
     },
 
     render: function() {
+      var that = this;
+
       // Enable dashboard-specific CSS properties
       $('body').attr('id', 'dashboard');
 
       // Render main dashboard view
-      this.$el.html(this.template(this.user.attributes));
+      this.$el.html(this.template({user: this.user}));
 
       // Render sidebar
       this.$sidebar = new SidebarView({el: this.$('div.sidebar-collapse')});
