@@ -1,5 +1,5 @@
 <div class='task-model'>
-  <a href='' class='task-title' title="<%= model.get('title') %>"><%= model.displayTitle() %></a>
+  <a href='' class='task-title' title="<%= model.escape('title') %>"><%= model.displayTitle() %></a>
   <table class='task-details'>
     <% if (model.get('deadline')) { %>
       <tr>
@@ -9,16 +9,16 @@
     <% } %>
     <tr>
       <th>Priority:</th>
-      <td><%= model.get('priority') %></td>
+      <td><%= model.escape('priority') %></td>
     </tr>
     <tr>
       <th>Status:</th>
-      <td><%= model.get('status') %></td>
+      <td><%= model.escape('status') %></td>
     </tr>
-    <% if (model.get('description')) { %>
+    <% if (model.escape('description')) { %>
       <tr>
         <th style='vertical-align: text-top'>Notes:</th>
-        <td><%= model.get('description') %></td>
+        <td><%= model.escape('description') %></td>
       </tr>
     <% } %>
   </table>

@@ -12,7 +12,7 @@ define([
     },
 
     displayTitle: function() {
-      var title = this.get('title');
+      var title = this.escape('title');
 
       if(title.length > 60) {
         var shorter = title.substring(0,59).split(' ');
@@ -51,7 +51,7 @@ define([
                     'November',
                     'December'
                    ];
-      var date = new Date(this.get('deadline'));
+      var date = new Date(this.escape('deadline'));
       var pretty = days[date.getDay()] + ', ' + months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
       return pretty;
     },
