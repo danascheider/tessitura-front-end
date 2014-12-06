@@ -1,5 +1,5 @@
 <div class='task-model'>
-  <a href='' class='task-title'><%= model.displayTitle() %></a>
+  <a href='' class='task-title' title="<%= model.get('title') %>"><%= model.displayTitle() %></a>
   <table class='task-details'>
     <% if (model.get('deadline')) { %>
       <tr>
