@@ -31,7 +31,8 @@ define([
       'mouseenter'          : 'showToggleWidgetIcon',
       'mouseleave'          : 'hideToggleWidgetIcon',
       'click .hide-widget'  : 'hideWidget',
-      'click .show-widget'  : 'showWidget'
+      'click .show-widget'  : 'showWidget',
+      'click .fa-archive'   : 'removeTask'
     },
 
     template : _.template(TaskPanelTemplate),
@@ -45,6 +46,13 @@ define([
       $(e.target).closest('.dash-widget').find('div.panel-body').slideUp();
       $(e.target).closest('span').removeClass('hide-widget').addClass('show-widget');
       $(e.target).removeClass('fa-minus').addClass('fa-plus');
+    },
+
+    removeTask: function(e) {
+      var id = $(e.target).closest('.task-list-item').attr('id').match(/\d+$/)[0];
+      var task = this.collection.findWhere({id: parseInt(id)});
+      console.log(task);
+      this.collection.remove(task);
     },
 
     renderContent: function() {
@@ -83,13 +91,14 @@ define([
     },
 
     render: function() {
+      console.log('render called');
       var that = this;
 
       this.$el.html(this.template());
 
       if(this.collection.length) {
         var tasks = this.collection.filter(function(task) {
-          return task.get('status') !== 'Blocking';
+          return task.get('status') !== 'Blocking' && !task.get('backlog');
         });
 
         this.collection = new TaskCollection(tasks.slice(0,10));

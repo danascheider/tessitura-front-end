@@ -9,17 +9,6 @@ define([
   var KanbanColumnView = Backbone.View.extend({
     template   : _.template(Template),
 
-    refreshCollection: function() {
-      var headline = this.data.headline;
-
-      var bad = this.collection.filter(function(model) {
-        return headline === 'Backlog' ? !!model.get('backlog') : model.get('status') !== headline;
-      });
-
-      this.collection.remove(bad);
-      this.render();
-    },
-
     // Standard View Methods //
 
     initialize : function(data) {
@@ -27,7 +16,9 @@ define([
       this.render();
 
       this.listenTo(this.collection, 'add', this.render);
-      this.listenTo(this.collection, 'change', this.refreshCollection);
+      this.listenTo(this.collection, 'remove', this.logRemoval);
+      this.listenTo(this.collection, 'change:status', this.render);
+      this.listenTo(this.collection, 'change:backlog', this.render);
     },
 
     render     : function() {
@@ -39,6 +30,8 @@ define([
       this.$collectionView.$el.find('ul').sortable({
         connectWith: '.task-list'
       });
+
+      var first = this.collection.at(0);
     }
   });
 

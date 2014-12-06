@@ -18,8 +18,7 @@ define([
       this.user.fetchIncompleteTasks().then(function(collection) {
         that.collection = collection;
         that.render();
-        that.listen(that.collection, 'change:status', function() {
-        });
+        that.listenTo(that.collection, 'remove', that.render);
       });
     },
 
@@ -27,6 +26,7 @@ define([
       this.$el.html(this.template());
 
       var that  = this;
+
       this.$backlogColumn = new KanbanColumnView({
         el         : that.$el.find('#backlog-tasks'),
         collection : new TaskCollection(that.collection.where({backlog: true})),
@@ -35,9 +35,12 @@ define([
         headline   : 'Backlog',
       });
 
+      var nonBacklog = new TaskCollection(this.collection.models);
+      nonBacklog.remove(that.$backlogColumn.collection.models);
+
       this.$newColumn = new KanbanColumnView({
         el         : that.$el.find('#new-tasks'),
-        collection : new TaskCollection(that.collection.where({status: 'New'})),
+        collection : new TaskCollection(nonBacklog.where({status: 'New'})),
         color      : 'blue',
         icon       : 'fa-certificate',
         headline   : 'New'
@@ -45,7 +48,7 @@ define([
 
       this.$inProgressColumn = new KanbanColumnView({
         el         : that.$el.find('#in-progress-tasks'),
-        collection : new TaskCollection(that.collection.where({status: 'In Progress'})),
+        collection : new TaskCollection(nonBacklog.where({status: 'In Progress'})),
         color      : 'green',
         icon       : 'fa-road',
         headline   : 'In Progress'
@@ -53,7 +56,7 @@ define([
 
       this.$blockingColumn = new KanbanColumnView({
         el         : that.$el.find('#blocking-tasks'),
-        collection : new TaskCollection(that.collection.where({status: 'Blocking'})),
+        collection : new TaskCollection(nonBacklog.where({status: 'Blocking'})),
         color      : 'yellow',
         icon       : 'fa-minus-circle',
         headline   : 'Blocking'

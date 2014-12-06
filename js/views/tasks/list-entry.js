@@ -32,6 +32,7 @@ define([
       'click .fa-pencil'   : 'showEditForm',
       'click .fa-square-o' : 'markComplete',
       'click .fa-times'    : 'deleteTask',
+      'click .fa-archive'  : 'backlogTask',
       'click a.task-title' : 'toggleTaskDetails',
       'click button:reset' : 'hideEditForm',
       'mouseenter'         : 'showEditIcons',
@@ -39,6 +40,15 @@ define([
     },
 
     modelTemplate: _.template(TaskModelTemplate),
+
+    backlogTask       : function() {
+      this.model.save({backlog: true}, {
+        dataType    : 'html',
+        type        : 'PUT',
+        url         : API.tasks.single(this.model.get('id')),
+        beforeSend  : Utils.authHeader
+      });
+    },
 
     crossOff          : function() {
       // In this context, `this` apparently refers to the model
