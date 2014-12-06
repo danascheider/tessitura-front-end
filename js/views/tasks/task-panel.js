@@ -51,7 +51,6 @@ define([
     removeTask: function(e) {
       var id = $(e.target).closest('.task-list-item').attr('id').match(/\d+$/)[0];
       var task = this.collection.findWhere({id: parseInt(id)});
-      console.log(task);
       this.collection.remove(task);
     },
 
@@ -91,7 +90,6 @@ define([
     },
 
     render: function() {
-      console.log('render called');
       var that = this;
 
       this.$el.html(this.template());
