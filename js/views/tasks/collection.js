@@ -95,15 +95,11 @@ define([
       this.$el.find('li#quick-add-form').html(this.$quickAddForm.el);
 
       var that = this;
-      var i    = 0
 
       this.collection.each(function(task) {
-        if(i < 10 && task.get('status') !== 'Blocking') {
-          var view = new ListEntryView({modelTemplate: that.modelTemplate, model: task});
-          var list = that.$el.find('ul');
-          list.append(view.el);
-          i++
-        }
+        var view = new ListEntryView({modelTemplate: that.modelTemplate, model: task});
+        var list = that.$el.find('ul');
+        list.append(view.el);
       });
 
       return this;

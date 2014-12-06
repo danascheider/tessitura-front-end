@@ -2,6 +2,7 @@ define([
   'jquery', 
   'underscore', 
   'backbone',
+  'collections/tasks',
   'views/tasks/model',
   'views/tasks/collection',
   'text!templates/partials/task-panel.html',
@@ -12,6 +13,7 @@ define([
   ], function(
     $, _,
     Backbone,
+    TaskCollection,
     TaskModelView,
     TaskCollectionView,
     TaskPanelTemplate,
@@ -45,6 +47,15 @@ define([
       $(e.target).removeClass('fa-minus').addClass('fa-plus');
     },
 
+    renderContent: function() {
+      if(this.collection) {
+
+      } else {
+        var emptyPanel = new EmptyPanelView({el: $(this.el).find('.panel-body')});
+        emptyPanel.render();
+      }
+    },
+
     showToggleWidgetIcon: function(e) {
       var span = $(e.target).closest('.dash-widget').find('span.hide-widget,span.show-widget').eq(0);
       span.fadeIn(100);
@@ -67,17 +78,27 @@ define([
 
     initialize: function() {
       this.render();
+      this.listenTo(this.collection, 'add', this.render);
+      this.listenTo(this.collection, 'remove', this.render);
     },
 
     render: function() {
+      var that = this;
+
       this.$el.html(this.template());
-      if(this.collection) {
+
+      if(this.collection.length) {
+        var tasks = this.collection.filter(function(task) {
+          return task.get('status') !== 'Blocking';
+        });
+
+        this.collection = new TaskCollection(tasks.slice(0,10));
+
         this.$collectionView = new TaskCollectionView({ el: $(this.el).find('.panel-body'), 
-                                                        collection: this.collection
+                                                        collection: that.collection
                                                      });
 
         this.$collectionView.$el.find('ul').sortable();
-
       }
 
       return this;
