@@ -2,6 +2,9 @@ define([
   'jquery', 
   'underscore', 
   'backbone',
+  'utils',
+  'api',
+  'models/task',
   'collections/tasks',
   'views/tasks/model',
   'views/tasks/collection',
@@ -14,6 +17,9 @@ define([
   ], function(
     $, _,
     Backbone,
+    Utils,
+    API,
+    TaskModel,
     TaskCollection,
     TaskModelView,
     TaskCollectionView,
@@ -34,8 +40,7 @@ define([
       'mouseleave'          : 'hideToggleWidgetIcon',
       'click .hide-widget'  : 'hideWidget',
       'click .show-widget'  : 'showWidget',
-      'click .fa-archive'   : 'removeTask',
-      'submit .create-form' : 'quickAdd'
+      'click .fa-archive'   : 'removeTask'
     },
 
     template : _.template(TaskPanelTemplate),
@@ -49,31 +54,6 @@ define([
       $(e.target).closest('.dash-widget').find('div.panel-body').slideUp();
       $(e.target).closest('span').removeClass('hide-widget').addClass('show-widget');
       $(e.target).removeClass('fa-minus').addClass('fa-plus');
-    },
-
-    quickAdd: function(e) {
-      e.preventDefault();
-
-      var that = this;
-      var form = $(e.target).closest('.create-form');
-      var attrs = Utils.getAttributes(form);
-
-      if(!attrs.length) {
-        form.find('div.form-group').addClass('has-error');
-        form.find('input').attr('placeholder', 'Oops! Your new task needs a title!');
-      }
-
-      var newTask = (new TaskModel).save(attrs, {
-        url        : API.tasks.collection($.cookie('userID')),
-        beforeSend : Utils.authHeader,
-        success    : function(model, response, xhr) {
-          that.collection.add(model);
-          form.clear;
-        },
-        error      : function(model, response, xhr) {
-          console.log('Error: ', response);
-        }
-      });
     },
 
     removeTask: function(e) {
@@ -125,7 +105,6 @@ define([
         this.collection = new TaskCollection(tasks.slice(0,10));
 
         this.$collectionView = new TaskCollectionView({ collection: that.collection });
-        console.log(this.$collectionView);
 
         this.$el.find('ul').after(this.$collectionView.el);
         this.$el.find('ul').sortable();

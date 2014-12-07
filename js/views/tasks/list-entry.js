@@ -58,6 +58,8 @@ define([
         var collection = task.collection;
         var id = '#task-' + this.get('id');
 
+        console.log(collection);
+
         $(id).find('i.fa-square-o').removeClass('fa-square-o').addClass('fa-check-square-o');
         $(id).find('.task-title').css('text-decoration', 'line-through');
 

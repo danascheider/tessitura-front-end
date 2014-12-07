@@ -22,7 +22,7 @@ define([
 
     loginHelp : function(e) {
       e.preventDefault()
-      console.log('Stay tuned...');
+      alert("Haha! You're boned!");
     },
     
     logInUser : function(e) {

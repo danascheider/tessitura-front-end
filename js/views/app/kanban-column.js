@@ -4,8 +4,9 @@ define([
   'backbone',
   'jquery-ui',
   'views/tasks/collection',
+  'views/tasks/quick-add-form',
   'text!templates/partials/kanban-column.html'
-], function($, _, Backbone, JQueryUI, TaskCollectionView, Template) {
+], function($, _, Backbone, JQueryUI, TaskCollectionView, QuickAddFormView, Template) {
   var KanbanColumnView = Backbone.View.extend({
     template   : _.template(Template),
 
@@ -16,22 +17,25 @@ define([
       this.render();
 
       this.listenTo(this.collection, 'add', this.render);
-      this.listenTo(this.collection, 'remove', this.logRemoval);
-      this.listenTo(this.collection, 'change:status', this.render);
+      this.listenTo(this.collection, 'remove', this.render);
       this.listenTo(this.collection, 'change:backlog', this.render);
     },
 
     render     : function() {
-      this.$el.html(this.template({data: this.data}));
-      this.$collectionView = new TaskCollectionView({ el: this.$el.find('.panel-body'), 
-                                                      collection: this.collection
-                                                   });
+      var that = this;
 
-      this.$collectionView.$el.find('ul').sortable({
+      this.$el.html(this.template({data: this.data}));
+
+      this.$quickAddForm = new QuickAddFormView({collection: this.collection});
+      this.$el.find('li.quick-add-form').html(this.$quickAddForm.el);
+
+      this.$collectionView = new TaskCollectionView({ collection: this.collection });
+      
+      this.$el.find('ul').after(this.$collectionView.el);
+
+      this.$el.find('ul').sortable({
         connectWith: '.task-list'
       });
-
-      var first = this.collection.at(0);
     }
   });
 

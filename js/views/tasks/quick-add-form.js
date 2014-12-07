@@ -21,7 +21,7 @@ define([
       e.preventDefault();
       
       var that = this;
-      var form  = $(e.target);
+      var form  = $(e.target).closest('form');
       var attrs = Utils.getAttributes(form);
 
       var newTask = new TaskModel(attrs);
@@ -31,7 +31,7 @@ define([
           url: API.tasks.collection($.cookie('userID')),
           beforeSend: Utils.authHeader,
           success: function(model, response, options) {
-            form.clear;
+            form[0].reset();
             that.collection.add(model);
           },
           error: function(model, response, options) {
