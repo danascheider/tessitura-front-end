@@ -22,8 +22,6 @@ define([
     },
 
     render     : function() {
-      var that = this;
-
       this.$el.html(this.template({data: this.data}));
 
       this.$quickAddForm = new QuickAddFormView({collection: this.collection});

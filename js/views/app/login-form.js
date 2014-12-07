@@ -3,16 +3,16 @@ define([
   'underscore',
   'backbone',
   'api',
-  'cookie',
   'utils',
   'text!templates/app/login-form.html',
+  'cookie',
   'css!stylesheets/bootstrap.css',
   'css!stylesheets/dashboard.css',
   'css!stylesheets/canto.css',
   'css!fa-styles/font-awesome.min.css'
-  ], function($, _, Backbone, API, Cookie, Utils, LoginForm, BootstrapStyles, DashStyles, CantoStyles, FAStyles) {
+  ], function($, _, Backbone, API, Utils, LoginFormTemplate) {
 
-  LoginFormView = Backbone.View.extend({
+  var LoginFormView = Backbone.View.extend({
     el     : $('body'),
 
     events : {
@@ -22,12 +22,14 @@ define([
 
     loginHelp : function(e) {
       e.preventDefault();
+
+      // FIX: It should not alert "Haha! You're boned!" in production
       alert("Haha! You're boned!");
     },
     
     logInUser : function(e) {
       e.preventDefault();
-      var that = this
+      var that = this;
       var data = Utils.getAttributes(this.$el.find('form'));
       var exp  = data.remember === 'Remember Me';
       var hash = btoa(data.username + ':' + data.password);
@@ -40,21 +42,21 @@ define([
         },
 
         success    : function(obj, status, xhr) {
-          var obj = JSON.parse(obj)
+          obj = JSON.parse(obj);
 
-          if(data['remember'] === 'Remember Me') {
+          if(data.remember === 'Remember Me') {
             $.cookie('auth', hash, {expires: 365});
-            $.cookie('userID', obj['user']['id'], {expires: 365});
+            $.cookie('userID', obj.user.id, {expires: 365});
           } else {
             $.cookie('auth', hash);
-            $.cookie('userID', obj['user']['id']);
+            $.cookie('userID', obj.user.id);
           }
           
           Backbone.history.navigate('dashboard', {trigger: true});
         },
 
         error      : function(xhr, status, error) {
-          that.$el.find('form').clear;
+          that.$el.find('form')[0].reset();
           console.log('Error: ', error);
         }
       });
@@ -62,7 +64,7 @@ define([
 
     render : function() {
       $('body').attr('id', 'dashboard');
-      this.$el.html(_.template(LoginForm));
+      this.$el.html(_.template(LoginFormTemplate));
       return this;
     }
   });

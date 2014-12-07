@@ -33,25 +33,24 @@ define([
     createUser : function(e) {
       e.preventDefault();
       var form = $(e.target);
-      var that = this;
       var attrs = Utils.getAttributes(form);
-      var hash = btoa(attrs['username'] + ':' + attrs['password']);
+      var hash = btoa(attrs.username + ':' + attrs.password);
 
       var newUser = new UserModel(attrs);
 
       newUser.save(newUser.attrs, {
         url     : API.users.collection,
         type    : 'POST',
-        success : function(model, response, xhr) {
-          $.cookie('userID', model['id']);
+        success : function(model) {
+          $.cookie('userID', model.id);
           $.cookie('auth', hash);
           Backbone.history.navigate('#dashboard', {trigger: true});
         },
 
-        error : function(error, response, xhr) {
+        error : function(error, response) {
           console.log('Error: Model not created: ', response);
         }
-      })
+      });
     },
 
     render : function() {

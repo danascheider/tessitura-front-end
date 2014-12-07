@@ -6,16 +6,14 @@ define([
   'filter',
   'views/app/login-form',
   'views/app/dashboard',
-  'views/app/homepage',
-  'views/app/kanban-board'
+  'views/app/homepage'
 ], function($, 
     _, Backbone, 
     Cookie,
     Filter,
     LoginView, 
     DashboardView,
-    HomepageView,
-    KanbanBoardView) {
+    HomepageView) {
   
   var CantoRouter = Backbone.Router.extend({
     routes: {

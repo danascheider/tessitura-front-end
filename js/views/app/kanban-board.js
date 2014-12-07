@@ -5,9 +5,9 @@ define([
   'api',
   'collections/tasks',
   'views/app/kanban-column',
-  'css!stylesheets/canto.css',
   'text!templates/partials/kanban-board.html'
-], function($, _, Backbone, API, TaskCollection, KanbanColumnView, CantoStyles, Template) {
+  'css!stylesheets/canto.css',
+], function($, _, Backbone, API, TaskCollection, KanbanColumnView, Template) {
   var KanbanBoardView = Backbone.View.extend({
     template   : _.template(Template),
     tagName    : 'div',

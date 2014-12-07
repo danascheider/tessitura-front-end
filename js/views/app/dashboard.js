@@ -62,8 +62,6 @@ define([
     },
 
     render: function() {
-      var that = this;
-
       // Enable dashboard-specific CSS properties
       $('body').attr('id', 'dashboard');
 

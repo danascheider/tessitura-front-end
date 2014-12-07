@@ -1,4 +1,4 @@
-define(['jquery', 'cookie'], function() {
+define(['jquery', 'cookie', 'backbone'], function() {
 
   var Utils = {
 
@@ -8,10 +8,12 @@ define(['jquery', 'cookie'], function() {
       var formData = form.serializeArray();
       var attributes = {};
 
-      for(var key in formData) {
-        var chiave = formData[key].name;
-        if(formData[key].value !== '') {
-          attributes[chiave] = formData[key].value;
+      for(key in formData) {
+        if (formData.hasOwnProperty(key)) {
+          var chiave = formData[key].name;
+          if(formData[key].value !== '') {
+            attributes[chiave] = formData[key].value;
+          }
         }
       }
 
