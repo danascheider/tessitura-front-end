@@ -9,9 +9,7 @@ define([
   'models/task',
   'views/tasks/create-form',
   'views/tasks/list-entry',
-  'text!templates/tasks/model.html',
-  'text!templates/tasks/list-entry.html',
-  'text!templates/tasks/collection.html',
+  'text!templates/tasks/model.html'
 ], function(
   $, 
   _, 
@@ -23,17 +21,13 @@ define([
   TaskModel,
   CreateFormView,
   ListEntryView,
-  ModelTemplate, 
-  ListEntryTemplate, 
-  CollectionTemplate
-) {
+  ModelTemplate) {
   
   var TaskCollectionView = Backbone.View.extend({
 
     // Templates //
     template           : _.template("<ul class='task-list></ul>"),
     modelTemplate      : _.template(ModelTemplate),
-    listItemTemplate   : _.template(ListEntryTemplate),
 
     tagName            : 'ul',
     className          : 'task-list',

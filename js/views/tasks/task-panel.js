@@ -4,9 +4,7 @@ define([
   'backbone',
   'utils',
   'api',
-  'models/task',
   'collections/tasks',
-  'views/tasks/model',
   'views/tasks/collection',
   'views/tasks/quick-add-form',
   'text!templates/partials/task-panel.html',
@@ -19,17 +17,10 @@ define([
     Backbone,
     Utils,
     API,
-    TaskModel,
     TaskCollection,
-    TaskModelView,
     TaskCollectionView,
     QuickAddFormView,
-    TaskPanelTemplate,
-    CreateFormTemplate,
-    BootstrapStyles,
-    DashboardStyles,
-    CantoStyles,
-    FAStyles) {
+    TaskPanelTemplate) {
 
   var TaskPanelView = Backbone.View.extend({
     el       : $('#task-panel'),
@@ -69,7 +60,7 @@ define([
 
     showTaskForm: function(e) {
       e.preventDefault();
-      var target = e.target
+      var target = e.target;
       $(target).find('i.fa').toggleClass('fa-caret-right fa-caret-down');
       $(target).siblings('.task-form').slideToggle();
     },

@@ -28,11 +28,11 @@ define([
         url        : API.tasks.single(that.model.get('id')),
         type       : 'PUT',
         beforeSend : Utils.authHeader,
-        success    : function(model, response, xhr) {
+        success    : function() {
           that.trigger('done');
         },
-        error      : function(model, response, xhr) {
-          console.log('Error: ', model);
+        error      : function(model, response) {
+          console.log('Error: ', response);
         }
       });
     },

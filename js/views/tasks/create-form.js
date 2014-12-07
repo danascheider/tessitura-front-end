@@ -25,11 +25,11 @@ define([
       newTask.save(newTask.attrs, {
         url: API.tasks.collection($.cookie('userID')),
         beforeSend: Utils.authHeader,
-        success: function(model, response, options) {
+        success: function(model) {
           form.slideUp();
           that.collection.add(model);
         },
-        error: function(model, response, options) {
+        error: function(model, response) {
           console.log('Error: ', response);
         }
       });
@@ -45,5 +45,5 @@ define([
     }
   });
 
-  return TaskCreateFormView
+  return TaskCreateFormView;
 });

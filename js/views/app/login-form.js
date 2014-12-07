@@ -41,7 +41,7 @@ define([
           xhr.setRequestHeader('Authorization', 'Basic ' + hash);
         },
 
-        success    : function(obj, status, xhr) {
+        success    : function(obj) {
           obj = JSON.parse(obj);
 
           if(data.remember === 'Remember Me') {

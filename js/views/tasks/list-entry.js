@@ -7,7 +7,6 @@ define([
   'utils',
   'views/tasks/update-form',
   'views/tasks/model',
-  'text!templates/tasks/model.html',
   'text!templates/tasks/list-entry.html',
 ], function(
   $, 
@@ -18,7 +17,6 @@ define([
   Utils, 
   UpdateFormView, 
   ModelView, 
-  TaskModelTemplate, 
   ListEntryTemplate
 ) {
 
@@ -38,8 +36,6 @@ define([
       'mouseenter'         : 'showEditIcons',
       'mouseleave'         : 'hideEditIcons'
     },
-
-    modelTemplate: _.template(TaskModelTemplate),
 
     backlogTask       : function() {
       this.model.save({backlog: true}, {
@@ -63,7 +59,7 @@ define([
 
         var removeFromCollection = function() {
           collection.remove(task);
-        }
+        };
 
         window.setTimeout(removeFromCollection, 750);        
       }
@@ -97,13 +93,12 @@ define([
 
     markComplete      : function(e) {
       var that    = this;
-      var li      = this.$el
-      var target  = e.target;
+      var li      = this.$el;
 
       this.model.save({status: 'Complete'}, {
         dataType    : 'html',
         type        : 'PUT',
-        url         : API.tasks.single(this.model.get('id')),
+        url         : API.tasks.single(that.model.get('id')),
         beforeSend  : Utils.authHeader
       });
     },
@@ -160,7 +155,7 @@ define([
         // Start and stop functions should vary depending on what view
         // they are rendered in. 
 
-        stop: function(e, ui) {
+        stop: function() {
           var column = $(this).closest('.kanban-col').find('.panel-heading')[0];
 
           // At this point, sorting only works on the dashboard. On
@@ -173,7 +168,7 @@ define([
             var coll  = that.model.collection;
 
             // Incrementor
-            var i = 1
+            var i = 1;
             
             $.each(items, function(index) {
               var modelID = $(items[index]).attr('id').match(/(\d+)/)[0];
