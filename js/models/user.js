@@ -12,10 +12,13 @@ define([
     initialize: function() {
       this.tasks = new TaskCollection({owner: this});
 
-      this.fetch({
-        async: false,
-        beforeSend: Utils.authHeader
-      });
+      if(this.get('id')) {
+        this.fetch({
+          async: false,
+          url  : API.users.single(this.get('id')),
+          beforeSend: Utils.authHeader
+        });
+      }
     },
 
     fetchIncompleteTasks: function() {

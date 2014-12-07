@@ -5,6 +5,7 @@ define([
   'collections/tasks',
   'views/tasks/model',
   'views/tasks/collection',
+  'views/tasks/quick-add-form',
   'text!templates/partials/task-panel.html',
   'css!stylesheets/bootstrap.css',
   'css!stylesheets/dashboard.css',
@@ -16,6 +17,7 @@ define([
     TaskCollection,
     TaskModelView,
     TaskCollectionView,
+    QuickAddFormView,
     TaskPanelTemplate,
     CreateFormTemplate,
     BootstrapStyles,
@@ -32,7 +34,8 @@ define([
       'mouseleave'          : 'hideToggleWidgetIcon',
       'click .hide-widget'  : 'hideWidget',
       'click .show-widget'  : 'showWidget',
-      'click .fa-archive'   : 'removeTask'
+      'click .fa-archive'   : 'removeTask',
+      'submit .create-form' : 'quickAdd'
     },
 
     template : _.template(TaskPanelTemplate),
@@ -48,19 +51,35 @@ define([
       $(e.target).removeClass('fa-minus').addClass('fa-plus');
     },
 
+    quickAdd: function(e) {
+      e.preventDefault();
+
+      var that = this;
+      var form = $(e.target).closest('.create-form');
+      var attrs = Utils.getAttributes(form);
+
+      if(!attrs.length) {
+        form.find('div.form-group').addClass('has-error');
+        form.find('input').attr('placeholder', 'Oops! Your new task needs a title!');
+      }
+
+      var newTask = (new TaskModel).save(attrs, {
+        url        : API.tasks.collection($.cookie('userID')),
+        beforeSend : Utils.authHeader,
+        success    : function(model, response, xhr) {
+          that.collection.add(model);
+          form.clear;
+        },
+        error      : function(model, response, xhr) {
+          console.log('Error: ', response);
+        }
+      });
+    },
+
     removeTask: function(e) {
       var id = $(e.target).closest('.task-list-item').attr('id').match(/\d+$/)[0];
       var task = this.collection.findWhere({id: parseInt(id)});
       this.collection.remove(task);
-    },
-
-    renderContent: function() {
-      if(this.collection) {
-
-      } else {
-        var emptyPanel = new EmptyPanelView({el: $(this.el).find('.panel-body')});
-        emptyPanel.render();
-      }
     },
 
     showToggleWidgetIcon: function(e) {
@@ -94,6 +113,10 @@ define([
 
       this.$el.html(this.template());
 
+      this.$quickAddForm = new QuickAddFormView({collection: this.collection});
+      this.$el.find('li.quick-add-form').html(this.$quickAddForm.el);
+
+
       if(this.collection.length) {
         var tasks = this.collection.filter(function(task) {
           return task.get('status') !== 'Blocking' && !task.get('backlog');
@@ -101,11 +124,11 @@ define([
 
         this.collection = new TaskCollection(tasks.slice(0,10));
 
-        this.$collectionView = new TaskCollectionView({ el: $(this.el).find('.panel-body'), 
-                                                        collection: that.collection
-                                                     });
+        this.$collectionView = new TaskCollectionView({ collection: that.collection });
+        console.log(this.$collectionView);
 
-        this.$collectionView.$el.find('ul').sortable();
+        this.$el.find('ul').after(this.$collectionView.el);
+        this.$el.find('ul').sortable();
       }
 
       return this;

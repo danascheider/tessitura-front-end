@@ -2,6 +2,7 @@ define([
   'jquery',
   'underscore',
   'backbone',
+  'api',
   'cookie',
   'utils',
   'text!templates/app/login-form.html',
@@ -9,7 +10,7 @@ define([
   'css!stylesheets/dashboard.css',
   'css!stylesheets/canto.css',
   'css!fa-styles/font-awesome.min.css'
-  ], function($, _, Backbone, Cookie, Utils, LoginForm, BootstrapStyles, DashStyles, CantoStyles, FAStyles) {
+  ], function($, _, Backbone, API, Cookie, Utils, LoginForm, BootstrapStyles, DashStyles, CantoStyles, FAStyles) {
 
   LoginFormView = Backbone.View.extend({
     el     : $('body'),
@@ -32,7 +33,7 @@ define([
       var hash = btoa(data['username'] + ':' + data['password']);
 
       $.ajax({
-        url        : 'http://localhost:9292/login',
+        url        : API.login,
         type       : 'POST',
         beforeSend : function(xhr) {
           xhr.setRequestHeader('Authorization', 'Basic ' + hash);
