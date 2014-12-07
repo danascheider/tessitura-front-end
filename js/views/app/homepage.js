@@ -17,12 +17,9 @@ define([
     API,
     Utils,
     UserModel,
-    HomepageTemplate, 
-    BootstrapStyles, 
-    FAStyles,
-    HomepageStyles){
+    HomepageTemplate){
   
-  HomepageView = Backbone.View.extend({
+  var HomepageView = Backbone.View.extend({
     initialize: function(router) {
       this.router = this.router || router;
     },

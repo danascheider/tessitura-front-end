@@ -21,7 +21,7 @@ define([
     },
 
     loginHelp : function(e) {
-      e.preventDefault()
+      e.preventDefault();
       alert("Haha! You're boned!");
     },
     
@@ -29,8 +29,8 @@ define([
       e.preventDefault();
       var that = this
       var data = Utils.getAttributes(this.$el.find('form'));
-      var exp  = data['remember'] === 'Remember Me';
-      var hash = btoa(data['username'] + ':' + data['password']);
+      var exp  = data.remember === 'Remember Me';
+      var hash = btoa(data.username + ':' + data.password);
 
       $.ajax({
         url        : API.login,

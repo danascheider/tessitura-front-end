@@ -27,7 +27,7 @@ define([
         appointmentCount    : 4,
         deadlineCount       : 9,
         recommendationCount : 13
-      }
+      };
 
       this.user.fetchIncompleteTasks().then(function(collection) {
           data.taskCollection = collection;

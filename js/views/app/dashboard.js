@@ -20,11 +20,7 @@ define([
     SidebarView,
     HomeView,
     KanbanBoardView,
-    DashboardTemplate, 
-    BootstrapStyles, 
-    DashStyles, 
-    CantoStyles, 
-    FAStyles) {
+    DashboardTemplate) {
   
   var DashboardView = Backbone.View.extend({
 

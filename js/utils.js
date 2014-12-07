@@ -10,7 +10,7 @@ define(['jquery', 'cookie'], function() {
 
       for(var key in formData) {
         var chiave = formData[key].name;
-        if(formData[key].value != '') {
+        if(formData[key].value !== '') {
           attributes[chiave] = formData[key].value;
         }
       }

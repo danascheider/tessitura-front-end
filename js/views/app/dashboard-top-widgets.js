@@ -20,7 +20,7 @@ define([
 
     changeLinkColorBack: function(e) {
       var link = $(e.target).closest('.dash-widget').find('.panel-body');
-      link.css('color', '#ccc')
+      link.css('color', '#ccc');
     },
 
     initialize: function(opts) {

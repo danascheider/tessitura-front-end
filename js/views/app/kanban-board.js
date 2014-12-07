@@ -12,7 +12,7 @@ define([
     template   : _.template(Template),
     tagName    : 'div',
     initialize : function(opts) {
-      this.user = opts.user
+      this.user = opts.user;
 
       var that = this;
       this.user.fetchIncompleteTasks().then(function(collection) {

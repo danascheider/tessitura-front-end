@@ -16,14 +16,14 @@ define([
 
     goToDashboard        : function(e) {
       e.preventDefault();
-      if(location.hash != '#dashboard') {
+      if(location.hash !== '#dashboard') {
         Backbone.history.navigate('dashboard', {trigger: true});
       }
     },
 
     goToTaskPage         : function(e) {
       e.preventDefault();
-      if(location.hash != '#tasks') {
+      if(location.hash !== '#tasks') {
         Backbone.history.navigate('tasks', {trigger: true});
       }
     },

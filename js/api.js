@@ -13,7 +13,7 @@ define(function() {
     tasks : {
       root           : BaseURL + '/tasks',
       collection     : function(uid) { return BaseURL + '/users/' + uid + '/tasks'; },
-      fullCollection : function(uid) { return BaseURL + '/users/' + uid + '/tasks/all' },
+      fullCollection : function(uid) { return BaseURL + '/users/' + uid + '/tasks/all'; },
       single         : function(taskID) { return BaseURL + '/tasks/' + taskID; }
     },
   };
