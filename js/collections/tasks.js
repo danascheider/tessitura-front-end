@@ -1,12 +1,10 @@
 define([
-  'jquery',
-  'underscore',
   'backbone',
   'models/task',
   'api',
   'utils',
   'cookie'
-], function($, _, Backbone, TaskModel, API, Utils) {
+], function(Backbone, TaskModel, API, Utils) {
   
   var TaskCollection = Backbone.Collection.extend({
     model      : TaskModel,
