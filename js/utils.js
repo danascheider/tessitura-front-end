@@ -1,4 +1,4 @@
-define(function() {
+define(['jquery', 'cookie'], function() {
 
   var Utils = {
 
@@ -20,6 +20,12 @@ define(function() {
 
     authHeader: function(xhr) {
       xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
+    },
+
+    requireLogin: function() {
+      if (!($.cookie('auth'))) {
+        Backbone.history.navigate('login');
+      }
     }
   };
 

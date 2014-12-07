@@ -23,9 +23,9 @@ requirejs.config({
   }
 });
 
-require(['canto'], function(Canto) {
-  Canto.initialize();
+require(['backbone', 'router'], function(Backbone, Router) {
   $(function() {
-    Canto.start();
+    this.router = new Router();
+    Backbone.history.start();
   });
 });
