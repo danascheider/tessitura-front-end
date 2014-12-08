@@ -15,21 +15,18 @@ define([
     },
 
     goToDashboard        : function(e) {
-      e.preventDefault();
       if(location.hash !== '#dashboard') {
         Backbone.history.navigate('dashboard', {trigger: true});
       }
     },
 
     goToTaskPage         : function(e) {
-      e.preventDefault();
       if(location.hash !== '#tasks') {
         Backbone.history.navigate('tasks', {trigger: true});
       }
     },
 
     toggleSecondLevelNav : function(e) {
-      e.preventDefault();
       var li = $(e.target).parent('li');
 
       li.toggleClass('active');
@@ -49,9 +46,6 @@ define([
       }
 
       li.children('ul.nav').slideToggle();
-
-      // Stop the menu from immediately sliding up again.
-      e.stopPropagation();
     },
 
     initialize: function() {
