@@ -11,55 +11,58 @@ define([
   var KanbanBoardView = Backbone.View.extend({
     template   : _.template(Template),
     tagName    : 'div',
+    id         : 'page-wrapper',
+    
     initialize : function(opts) {
       this.user = opts.user;
+    },
 
-      var that = this;
-      this.user.fetchIncompleteTasks().then(function(collection) {
-        that.collection = collection;
-        that.render();
-        that.listenTo(that.collection, 'remove', that.render);
-      });
+    events : {
+      'click' : 'logClick'
+    },
+
+    logClick: function() {
+      console.log('You clicked the Kanban board');
     },
 
     render     : function() {
       this.$el.html(this.template());
+      var that = this;
 
-      var that  = this;
+      this.user.fetchIncompleteTasks().then(function(collection) {
+        that.$backlogColumn = new KanbanColumnView({
+          el         : that.$('#backlog-tasks'),
+          collection : new TaskCollection(collection.where({backlog: true})),
+          color      : 'red',
+          icon       : 'fa-exclamation-circle',
+          headline   : 'Backlog'
+        });
 
-      this.$backlogColumn = new KanbanColumnView({
-        el         : that.$el.find('#backlog-tasks'),
-        collection : new TaskCollection(that.collection.where({backlog: true})),
-        color      : 'red',
-        icon       : 'fa-exclamation-circle',
-        headline   : 'Backlog',
-      });
+        collection.remove(that.$backlogColumn.collection.models);
 
-      var nonBacklog = new TaskCollection(this.collection.models);
-      nonBacklog.remove(that.$backlogColumn.collection.models);
+        that.$newColumn = new KanbanColumnView({
+          el         : that.$('#new-tasks'),
+          collection : new TaskCollection(collection.where({status: 'New'})),
+          color      : 'blue',
+          icon       : 'fa-certificate',
+          headline   : 'New'
+        });
 
-      this.$newColumn = new KanbanColumnView({
-        el         : that.$el.find('#new-tasks'),
-        collection : new TaskCollection(nonBacklog.where({status: 'New'})),
-        color      : 'blue',
-        icon       : 'fa-certificate',
-        headline   : 'New'
-      });
+        that.$inProgressColumn = new KanbanColumnView({
+          el         : that.$('#in-progress-tasks'),
+          collection : new TaskCollection(collection.where({status: 'In Progress'})),
+          color      : 'green',
+          icon       : 'fa-road',
+          headline   : 'In Progress'
+        });
 
-      this.$inProgressColumn = new KanbanColumnView({
-        el         : that.$el.find('#in-progress-tasks'),
-        collection : new TaskCollection(nonBacklog.where({status: 'In Progress'})),
-        color      : 'green',
-        icon       : 'fa-road',
-        headline   : 'In Progress'
-      });
-
-      this.$blockingColumn = new KanbanColumnView({
-        el         : that.$el.find('#blocking-tasks'),
-        collection : new TaskCollection(nonBacklog.where({status: 'Blocking'})),
-        color      : 'yellow',
-        icon       : 'fa-minus-circle',
-        headline   : 'Blocking'
+        that.$blockingColumn = new KanbanColumnView({
+          el         : that.$('#blocking-tasks'),
+          collection : new TaskCollection(collection.where({status: 'Blocking'})),
+          color      : 'yellow',
+          icon       : 'fa-minus-circle',
+          headline   : 'Blocking'
+        });
       });
 
       return this;

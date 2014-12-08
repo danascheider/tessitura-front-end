@@ -30,7 +30,7 @@ define([
     logInUser : function(e) {
       e.preventDefault();
       var that = this;
-      var data = Utils.getAttributes(this.$el.find('form'));
+      var data = Utils.getAttributes(this.$('form'));
       var exp  = data.remember === 'Remember Me';
       var hash = btoa(data.username + ':' + data.password);
 
@@ -56,7 +56,7 @@ define([
         },
 
         error      : function(xhr, status, error) {
-          that.$el.find('form')[0].reset();
+          that.$('form')[0].reset();
           console.log('Error: ', error);
         }
       });

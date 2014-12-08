@@ -6,16 +6,21 @@ define([
   'filter',
   'views/app/login-form',
   'views/app/dashboard',
-  'views/app/homepage'
+  'views/app/homepage',
 ], function($, 
     _, Backbone, 
     Cookie,
     Filter,
     LoginView, 
     DashboardView,
-    HomepageView) {
+    HomepageView,
+    DashboardHomeView
+) {
   
   var CantoRouter = Backbone.Router.extend({
+    dashboardView: new DashboardView(),
+    homepageView : new HomepageView(this),
+
     routes: {
       '(/)'            : 'displayHomepage',
       'home(/)'        : 'displayHomepage',
@@ -42,20 +47,19 @@ define([
     },
 
     displayDashboard: function() {
-      // FIX: This should really not render the whole dashboard every
-      //      single time.
-      var dashboardView = new DashboardView();
-      dashboardView.render();
+      this.dashboardView.$kanbanBoardView.remove();
+      this.dashboardView.$homeView.render();
+      this.dashboardView.$('nav').after(this.dashboardView.$homeView.el);
     },
 
     displayKanban: function() {
-      var kanbanBoard = new DashboardView({kanban: true});
-      kanbanBoard.render();
+      this.dashboardView.$homeView.remove();
+      this.dashboardView.$kanbanBoardView.render();
+      this.dashboardView.$('nav').after(this.dashboardView.$kanbanBoardView.el);
     },
 
     displayHomepage: function() {
-      var homepageView = new HomepageView(this);
-      homepageView.render();
+      this.homepageView.render();
     },
 
     displayLogin: function() {
@@ -69,8 +73,13 @@ define([
       Backbone.history.navigate('login', {trigger: true});
     },
 
+    renderMainDash: function() {
+      this.dashboardView.render();
+    },
+
     rerouteIfLoggedIn: function(fragment, args, next) {
       if (!$.cookie('auth')) {
+        this.renderMainDash();
         next();
       } else {
         Backbone.history.navigate('dashboard', {trigger: true});
@@ -79,6 +88,7 @@ define([
 
     verifyLoggedIn: function(fragment, args, next) {
       if ($.cookie('auth')) {
+        this.renderMainDash();
         next();
       } else {
         Backbone.history.navigate('login', {trigger: true});

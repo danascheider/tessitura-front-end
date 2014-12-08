@@ -25,13 +25,13 @@ define([
       this.$el.html(this.template({data: this.data}));
 
       this.$quickAddForm = new QuickAddFormView({collection: this.collection});
-      this.$el.find('li.quick-add-form').html(this.$quickAddForm.el);
+      this.$('li.quick-add-form').html(this.$quickAddForm.el);
 
       this.$collectionView = new TaskCollectionView({ collection: this.collection });
       
-      this.$el.find('ul').after(this.$collectionView.el);
+      this.$('ul').after(this.$collectionView.el);
 
-      this.$el.find('ul').sortable({
+      this.$('ul').sortable({
         connectWith: '.task-list'
       });
     }

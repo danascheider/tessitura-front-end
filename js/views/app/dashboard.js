@@ -29,29 +29,26 @@ define([
     el       : $('body'),
 
     events   : {
-      'click #wrapper'             : 'hideDropdownMenus',
-      'click a.dropdown-toggle'    : 'toggleDropdownMenu',
+      'click #wrapper'    : 'hideDropdownMenus',
+      'click li.dropdown' : 'toggleDropdownMenu',
     },
 
     template : _.template(DashboardTemplate),
 
     // Event Callbacks // 
+
     hideDropdownMenus: function(e) {
       var li = $('li.dropdown');
-      if(!li.is(e.target) && li.has(e.target).length === 0) {
+
+      if(!li.is(e.target) && !li.has(e.target).length) {
         li.removeClass('open');
       }
     },
 
     toggleDropdownMenu: function(e) {
-      e.preventDefault();
-      var target = e.target;
-
-      $.each($(target).parent('li').siblings(), function() {
-        $(this).removeClass('open');
-      });
-
-      $(target).parent('li').toggleClass('open');
+      var li = $(e.target).closest('li');
+      li.siblings().removeClass('open');
+      li.toggleClass('open');
     },
 
     // Core View Methods //
@@ -71,12 +68,8 @@ define([
       // Render sidebar
       this.$sidebar = new SidebarView({el: this.$('div.sidebar-collapse')});
 
-      if(this.opts.kanban === true) {
-        this.$kanbanBoardView = new KanbanBoardView({el: this.$('#page-wrapper'), user: this.user});
-      } else {
-        // Render dashboard home view
-        this.$homeView = new HomeView({el: this.$('#page-wrapper'), user: this.user});
-      }
+      this.$kanbanBoardView = new KanbanBoardView({user: this.user});
+      this.$homeView = new HomeView({user: this.user});
 
       // Best practices
       return this;

@@ -10,11 +10,12 @@ define([
 
   var DashboardHomeView = Backbone.View.extend({
     template   : _.template(Template),
+    id         : 'page-wrapper',
 
-    // Core view functions
+    // Core view functions //
+
     initialize : function(opts) {
       this.user = opts.user;
-      this.render();
     },
 
     render     : function() {

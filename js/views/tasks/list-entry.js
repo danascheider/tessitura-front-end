@@ -78,17 +78,17 @@ define([
     hideEditForm      : function() {
       var that = this;
 
-      this.$editForm.$el.find('form').slideUp();
+      this.$editForm.$('form').slideUp();
 
       window.setTimeout(function() {
         that.$modelView.render();
-        that.$el.find('span.edit-task').show();
-        that.$el.find('span.edit-task').css('visibility', 'hidden');
+        that.$('span.edit-task').show();
+        that.$('span.edit-task').css('visibility', 'hidden');
       }, 500);
     },
 
     hideEditIcons     : function() {
-      this.$el.find('span.edit-task').css('visibility', 'hidden');
+      this.$('span.edit-task').css('visibility', 'hidden');
     },
 
     markComplete      : function(e) {
@@ -104,22 +104,22 @@ define([
     },
 
     showEditForm      : function() {
-      this.$el.find('span.edit-task').fadeOut(150);
-      this.$el.find('table.task-model').fadeOut(150);
+      this.$('span.edit-task').fadeOut(150);
+      this.$('table.task-model').fadeOut(150);
 
       var that = this;
 
       function renderForm() {
         that.$editForm.render();
-        that.$editForm.$el.find('form').slideDown(50);
+        that.$editForm.$('form').slideDown(50);
       }
 
       window.setTimeout(renderForm, 150);
     },
 
     showEditIcons     : function() {
-      if(!this.$el.find('form').is(':visible')) {
-        this.$el.find('span.edit-task').css('visibility', 'visible');
+      if(!this.$('form').is(':visible')) {
+        this.$('span.edit-task').css('visibility', 'visible');
       }
     },
 
@@ -141,11 +141,11 @@ define([
     render: function() {
       this.$el.html(this.template);
 
-      var td = this.$el.find('td.task-listing');
+      var td = this.$('td.task-listing');
       this.$editForm = new UpdateFormView({model: this.model, el: td});
       this.$modelView = new ModelView({model: this.model, el: td});
 
-      this.$modelView.render({el: this.$el.find('td.task-listing')});
+      this.$modelView.render({el: this.$('td.task-listing')});
 
       var that = this;
       this.$el.draggable({

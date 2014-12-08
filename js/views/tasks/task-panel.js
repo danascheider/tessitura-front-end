@@ -85,7 +85,7 @@ define([
       this.$el.html(this.template());
 
       this.$quickAddForm = new QuickAddFormView({collection: this.collection});
-      this.$el.find('li.quick-add-form').html(this.$quickAddForm.el);
+      this.$('li.quick-add-form').html(this.$quickAddForm.el);
 
 
       if(this.collection.length) {
@@ -97,8 +97,8 @@ define([
 
         this.$collectionView = new TaskCollectionView({ collection: that.collection });
 
-        this.$el.find('ul').after(this.$collectionView.el);
-        this.$el.find('ul').sortable();
+        this.$('ul').after(this.$collectionView.el);
+        this.$('ul').sortable();
       }
 
       return this;
