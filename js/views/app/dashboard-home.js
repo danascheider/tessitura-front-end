@@ -45,8 +45,7 @@ define([
 
       this.user.fetchIncompleteTasks().then(function(collection) {
           data.taskCollection = collection;
-          that.renderTopWidgets(data);
-          that.renderTaskPanel(collection);
+          that.renderTopWidgets(data).renderTaskPanel(collection);
       }, function(error) {
         console.log('Error: ', error);
       });
