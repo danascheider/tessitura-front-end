@@ -37,6 +37,68 @@ define([
       'mouseleave'         : 'hideEditIcons'
     },
 
+    configureDraggable: function() {
+      var that = this;
+
+      this.$el.draggable({
+        containment: 'parent',
+        connectToSortable: '.task-list',
+
+        // Start and stop functions should vary depending on what view
+        // they are rendered in. 
+
+        stop: function() {
+          var column = $(this).closest('.kanban-col').find('.panel-heading')[0];
+
+          // At this point, sorting only works on the dashboard. On
+          // the Kanban board, tasks change status when dragged and 
+          // dropped, but do not change their list position.
+          
+          if (!column) {
+            // Check the order of the list
+            var items = that.$el.closest('ul').find('li.task-list-item');
+            var coll  = that.model.collection;
+
+            // Incrementor
+            var i = 1;
+            
+            $.each(items, function(index) {
+              var modelID = $(items[index]).attr('id').match(/(\d+)/)[0];
+
+              if (coll.get(modelID).get('position') !== i) {
+                coll.get(modelID).save({position: i}, {
+                  url        : API.tasks.single(modelID),
+                  beforeSend : Utils.authHeader
+                });
+              }
+
+              i++;
+            });
+
+          } else if (column.innerText === 'Backlog') {
+            that.model.set('backlog', true);
+          } else {
+            that.model.set('status', column.innerText);
+          }
+
+          that.model.save({}, {
+            dataType: 'html',
+            url : API.tasks.single(that.model.get('id')),
+            beforeSend: Utils.authHeader
+          });
+        }
+      });
+    },
+
+    renderChildViews: function() {
+      var td = this.$('td.task-listing');
+      this.$editForm = new UpdateFormView({model: this.model, el: td});
+      this.$modelView = new ModelView({model: this.model});
+      this.$modelView.render({el: td});
+    },
+
+    // Event Handlers //
+
     backlogTask       : function() {
       this.model.save({backlog: true}, {
         dataType    : 'html',
@@ -140,62 +202,8 @@ define([
 
     render: function() {
       this.$el.html(this.template);
-
-      var td = this.$('td.task-listing');
-      this.$editForm = new UpdateFormView({model: this.model, el: td});
-      this.$modelView = new ModelView({model: this.model, el: td});
-
-      this.$modelView.render({el: this.$('td.task-listing')});
-
-      var that = this;
-      this.$el.draggable({
-        containment: 'parent',
-        connectToSortable: '.task-list',
-
-        // Start and stop functions should vary depending on what view
-        // they are rendered in. 
-
-        stop: function() {
-          var column = $(this).closest('.kanban-col').find('.panel-heading')[0];
-
-          // At this point, sorting only works on the dashboard. On
-          // the Kanban board, tasks change status when dragged and 
-          // dropped, but do not change their list position.
-          
-          if (!column) {
-            // Check the order of the list
-            var items = that.$el.closest('ul').find('li.task-list-item');
-            var coll  = that.model.collection;
-
-            // Incrementor
-            var i = 1;
-            
-            $.each(items, function(index) {
-              var modelID = $(items[index]).attr('id').match(/(\d+)/)[0];
-
-              if (coll.get(modelID).get('position') !== i) {
-                coll.get(modelID).save({position: i}, {
-                  url        : API.tasks.single(modelID),
-                  beforeSend : Utils.authHeader
-                });
-              }
-
-              i++;
-            });
-
-          } else if (column.innerText === 'Backlog') {
-            that.model.set('backlog', true);
-          } else {
-            that.model.set('status', column.innerText);
-          }
-
-          that.model.save({}, {
-            dataType: 'html',
-            url : API.tasks.single(that.model.get('id')),
-            beforeSend: Utils.authHeader
-          });
-        }
-      });
+      this.renderChildViews();
+      this.configureDraggable();
 
       // FIX: I don't know what this actually does. It may not be
       //      necessary.

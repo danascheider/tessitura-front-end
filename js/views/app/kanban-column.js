@@ -10,7 +10,17 @@ define([
   var KanbanColumnView = Backbone.View.extend({
     template   : _.template(Template),
 
-    // Standard View Methods //
+    renderChildViews : function() {
+      this.$quickAddForm = new QuickAddFormView({collection: this.collection});
+      this.$collectionView = new TaskCollectionView({collection: this.collection});
+
+      this.$('li.quick-add-form').html(this.$quickAddForm.el);
+      this.$('ul').after(this.$collectionView.el);
+
+      this.$('ul').sortable({connectWith: '.task-list'});
+    },
+
+    // Core View Methods //
 
     initialize : function(data) {
       this.data = data;
@@ -23,17 +33,9 @@ define([
 
     render     : function() {
       this.$el.html(this.template({data: this.data}));
-
-      this.$quickAddForm = new QuickAddFormView({collection: this.collection});
-      this.$('li.quick-add-form').html(this.$quickAddForm.el);
-
-      this.$collectionView = new TaskCollectionView({ collection: this.collection });
+      this.renderChildViews();
       
-      this.$('ul').after(this.$collectionView.el);
-
-      this.$('ul').sortable({
-        connectWith: '.task-list'
-      });
+      return this;
     }
   });
 

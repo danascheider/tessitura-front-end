@@ -24,7 +24,7 @@ define([
     renderTaskPanel  : function(collection) {
       this.$taskPanel = new TaskPanelView({el: this.$('#task-panel'), collection: collection});
       return this;
-    }
+    },
 
     // Core view functions //
 
@@ -45,7 +45,8 @@ define([
 
       this.user.fetchIncompleteTasks().then(function(collection) {
           data.taskCollection = collection;
-          that.renderTopWidgets(data).renderTaskPanel(collection);
+          that.renderTopWidgets(data);
+          that.renderTaskPanel(collection);
       }, function(error) {
         console.log('Error: ', error);
       });
