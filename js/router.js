@@ -20,6 +20,7 @@ define([
   var CantoRouter = Backbone.Router.extend({
     dashboardView: new DashboardView(),
     homepageView : new HomepageView(this),
+    loginView    : new LoginView,
 
     routes: {
       '(/)'            : 'displayHomepage',
@@ -63,8 +64,7 @@ define([
     },
 
     displayLogin: function() {
-      var loginView = new LoginView();
-      loginView.render();
+      this.loginView.render();
     },
 
     logOut: function() {
@@ -87,7 +87,7 @@ define([
     },
 
     verifyLoggedIn: function(fragment, args, next) {
-      if ($.cookie('auth')) {
+      if (window.user) {
         this.renderMainDash();
         next();
       } else {

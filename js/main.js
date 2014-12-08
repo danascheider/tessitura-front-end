@@ -23,8 +23,12 @@ requirejs.config({
   }
 });
 
-require(['backbone', 'router'], function(Backbone, Router) {
+require(['backbone', 'router', 'models/user', 'cookie'], function(Backbone, Router, UserModel) {
   $(function() {
+    if($.cookie('auth') && $.cookie('userID')) {
+      window.user = new UserModel({id: $.cookie('userID')});
+    };
+    
     this.router = new Router();
     Backbone.history.start();
   });

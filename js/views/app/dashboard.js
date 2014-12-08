@@ -3,7 +3,6 @@ define([
   'underscore',
   'backbone',
   'api',
-  'models/user',
   'views/app/dashboard-sidebar',
   'views/app/dashboard-home',
   'views/app/kanban-board',
@@ -16,7 +15,6 @@ define([
     $, _, 
     Backbone, 
     API,
-    UserModel,
     SidebarView,
     HomeView,
     KanbanBoardView,
@@ -65,16 +63,15 @@ define([
 
     initialize: function(opts) {
       this.opts = opts || {};
-      this.user = new UserModel({id: $.cookie('userID')});
 
       // Create child views
-      this.$kanbanBoardView = new KanbanBoardView({user: this.user});
-      this.$homeView = new HomeView({user: this.user});
+      this.$kanbanBoardView = new KanbanBoardView();
+      this.$homeView = new HomeView();
     },
 
     render: function() {
       // Render main dashboard view, add ID to body for CSS reasons
-      this.$el.html(this.template({user: this.user}));
+      this.$el.html(this.template({user: window.user}));
       this.$el.attr('id', 'dashboard');
 
       this.renderSidebar();

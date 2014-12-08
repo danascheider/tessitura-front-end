@@ -4,13 +4,14 @@ define([
   'backbone',
   'api',
   'utils',
+  'models/user',
   'text!templates/app/login-form.html',
   'cookie',
   'css!stylesheets/bootstrap.css',
   'css!stylesheets/dashboard.css',
   'css!stylesheets/canto.css',
   'css!fa-styles/font-awesome.min.css'
-  ], function($, _, Backbone, API, Utils, LoginFormTemplate) {
+  ], function($, _, Backbone, API, Utils, UserModel, LoginFormTemplate) {
 
   var LoginFormView = Backbone.View.extend({
     el     : $('body'),
@@ -51,6 +52,8 @@ define([
             $.cookie('auth', hash);
             $.cookie('userID', obj.user.id);
           }
+
+          window.user = new UserModel(obj);
           
           Backbone.history.navigate('dashboard', {trigger: true});
         },

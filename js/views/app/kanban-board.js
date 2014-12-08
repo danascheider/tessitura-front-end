@@ -12,10 +12,6 @@ define([
     template   : _.template(Template),
     tagName    : 'div',
     id         : 'page-wrapper',
-    
-    initialize : function(opts) {
-      this.user = opts.user;
-    },
 
     events : {
       'click' : 'logClick'
@@ -29,7 +25,7 @@ define([
       this.$el.html(this.template());
       var that = this;
 
-      this.user.fetchIncompleteTasks().then(function(collection) {
+      window.user.fetchIncompleteTasks().then(function(collection) {
         that.$backlogColumn = new KanbanColumnView({
           el         : that.$('#backlog-tasks'),
           collection : new TaskCollection(collection.where({backlog: true})),

@@ -2,11 +2,10 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'models/user',
   'views/app/dashboard-top-widgets',
   'views/tasks/task-panel',
   'text!templates/partials/dashboard-home.html'
-], function($, _, Backbone, UserModel, DashboardTopWidgetView, TaskPanelView, Template) {
+], function($, _, Backbone, DashboardTopWidgetView, TaskPanelView, Template) {
 
   var DashboardHomeView = Backbone.View.extend({
     template   : _.template(Template),
@@ -28,10 +27,6 @@ define([
 
     // Core view functions //
 
-    initialize : function(opts) {
-      this.user = opts.user;
-    },
-
     render     : function() {
       this.$el.html(this.template());
 
@@ -43,7 +38,7 @@ define([
         recommendationCount : 13
       };
 
-      this.user.fetchIncompleteTasks().then(function(collection) {
+      window.user.fetchIncompleteTasks().then(function(collection) {
         data.taskCollection = collection;
         that.renderTopWidgets(data).renderTaskPanel(collection);
       }, function(error) {
