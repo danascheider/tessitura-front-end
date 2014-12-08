@@ -51,25 +51,28 @@ define([
       li.toggleClass('open');
     },
 
+    renderSidebar: function() {
+      this.$sidebar = new SidebarView({el: this.$('div.sidebar-collapse')});
+      return this;
+    },
+
     // Core View Methods //
 
     initialize: function(opts) {
       this.opts = opts || {};
       this.user = new UserModel({id: $.cookie('userID')});
+
+      // Create child views
+      this.$kanbanBoardView = new KanbanBoardView({user: this.user});
+      this.$homeView = new HomeView({user: this.user});
     },
 
     render: function() {
       // Enable dashboard-specific CSS properties
-      $('body').attr('id', 'dashboard');
-
-      // Render main dashboard view
       this.$el.html(this.template({user: this.user}));
+      this.$el.attr('id', 'dashboard');
 
-      // Render sidebar
-      this.$sidebar = new SidebarView({el: this.$('div.sidebar-collapse')});
-
-      this.$kanbanBoardView = new KanbanBoardView({user: this.user});
-      this.$homeView = new HomeView({user: this.user});
+      this.renderSidebar();
 
       // Best practices
       return this;

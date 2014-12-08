@@ -12,6 +12,20 @@ define([
     template   : _.template(Template),
     id         : 'page-wrapper',
 
+    renderTopWidgets : function(data) {
+      this.$topWidgets = new DashboardTopWidgetView({
+        el: this.$('#dash-heading'),
+        data: data
+      });
+
+      return this;
+    },
+
+    renderTaskPanel  : function(collection) {
+      this.$taskPanel = new TaskPanelView({el: this.$('#task-panel'), collection: collection});
+      return this;
+    }
+
     // Core view functions //
 
     initialize : function(opts) {
@@ -19,8 +33,7 @@ define([
     },
 
     render     : function() {
-      var html = this.template();
-      this.$el.html(html);
+      this.$el.html(this.template());
 
       // Fetch the user's tasks and render in the task panel
       var that = this;
@@ -32,13 +45,7 @@ define([
 
       this.user.fetchIncompleteTasks().then(function(collection) {
           data.taskCollection = collection;
-          
-          that.$topWidgets = new DashboardTopWidgetView({ 
-                                el: that.$('#dash-heading'), 
-                                data: data
-                              });
-
-          that.$taskPanel = new TaskPanelView({el: that.$('#task-panel'), collection: collection});
+          that.renderTopWidgets(data).renderTaskPanel(collection);
       }, function(error) {
         console.log('Error: ', error);
       });
