@@ -51,12 +51,14 @@ define([
       this.dashboardView.$kanbanBoardView.remove();
       this.dashboardView.$homeView.render();
       this.dashboardView.$('nav').after(this.dashboardView.$homeView.el);
+      $('body').prepend(this.dashboardView.el);
     },
 
     displayKanban: function() {
       this.dashboardView.$homeView.remove();
       this.dashboardView.$kanbanBoardView.render();
       this.dashboardView.$('nav').after(this.dashboardView.$kanbanBoardView.el);
+      $('body').prepend(this.dashboardView.el);
     },
 
     displayHomepage: function() {

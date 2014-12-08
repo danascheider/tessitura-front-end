@@ -29,7 +29,9 @@ define([
 
     // Core View Attributes //
 
-    el       : $('body'),
+    tagName       : 'div',
+    id            : 'wrapper',
+    className     : 'dashboard',
 
     events   : {
       'click #wrapper'    : 'hideDropdownMenus',
@@ -72,7 +74,6 @@ define([
     render: function() {
       // Render main dashboard view, add ID to body for CSS reasons
       this.$el.html(this.template({user: window.user}));
-      this.$el.attr('id', 'dashboard');
 
       this.renderSidebar();
 
