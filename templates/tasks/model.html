@@ -1,25 +1,23 @@
-<div class='task-model'>
-  <a href='' class='task-title' title="<%= model.escape('title') %>"><%= model.displayTitle() %></a>
-  <table class='task-details'>
-    <% if (model.get('deadline')) { %>
-      <tr>
-        <th>Deadline:</th>
-        <td><%= model.prettyDeadline() %></td>
-      </tr>
-    <% } %>
+<a href='' class='task-title' title="<%= model.escape('title') %>"><%= model.displayTitle() %></a>
+<table class='task-details'>
+  <% if (model.get('deadline')) { %>
     <tr>
-      <th>Priority:</th>
-      <td><%= model.escape('priority') %></td>
+      <th>Deadline:</th>
+      <td><%= model.prettyDeadline() %></td>
     </tr>
+  <% } %>
+  <tr>
+    <th>Priority:</th>
+    <td><%= model.escape('priority') %></td>
+  </tr>
+  <tr>
+    <th>Status:</th>
+    <td><%= model.escape('status') %></td>
+  </tr>
+  <% if (model.escape('description')) { %>
     <tr>
-      <th>Status:</th>
-      <td><%= model.escape('status') %></td>
+      <th style='vertical-align: text-top'>Notes:</th>
+      <td><%= model.escape('description') %></td>
     </tr>
-    <% if (model.escape('description')) { %>
-      <tr>
-        <th style='vertical-align: text-top'>Notes:</th>
-        <td><%= model.escape('description') %></td>
-      </tr>
-    <% } %>
-  </table>
-</div>
+  <% } %>
+</table>
