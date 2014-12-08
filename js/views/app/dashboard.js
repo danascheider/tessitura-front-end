@@ -24,6 +24,11 @@ define([
   
   var DashboardView = Backbone.View.extend({
 
+    renderSidebar: function() {
+      this.$sidebar = new SidebarView({el: this.$('div.sidebar-collapse')});
+      return this;
+    },
+
     // Core View Attributes //
 
     el       : $('body'),
@@ -68,7 +73,7 @@ define([
     },
 
     render: function() {
-      // Enable dashboard-specific CSS properties
+      // Render main dashboard view, add ID to body for CSS reasons
       this.$el.html(this.template({user: this.user}));
       this.$el.attr('id', 'dashboard');
 
