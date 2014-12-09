@@ -90,9 +90,11 @@ define([
       });
     },
 
-    createChildViews: function() {
-      this.$editForm = new UpdateFormView({model: this.model});
+    renderChildViews: function() {
+      var td = this.$('td.task-listing');
+      this.$editForm = new UpdateFormView({model: this.model, el: td});
       this.$modelView = new ModelView({model: this.model});
+      this.$modelView.render({el: td});
     },
 
     // Event Handlers //
@@ -138,15 +140,13 @@ define([
     hideEditForm      : function() {
       var that = this;
 
-      this.$editForm.$el.slideUp();
-      this.$editForm.remove();
+      this.$editForm.$('form').slideUp();
 
       window.setTimeout(function() {
         that.$modelView.render();
-        that.$('td.task-listing').html(that.$modelView.el);
         that.$('span.edit-task').show();
         that.$('span.edit-task').css('visibility', 'hidden');
-      }, 50);
+      }, 500);
     },
 
     hideEditIcons     : function() {
@@ -166,19 +166,14 @@ define([
     },
 
     showEditForm      : function() {
-      var td = this.$('td.task-listing');
       this.$('span.edit-task').fadeOut(150);
+      this.$('table.task-model').fadeOut(150);
 
       var that = this;
 
       function renderForm() {
-        that.$modelView.remove();
-
-        td.css('width', '97%');
-        td.css('padding-right', '0.75em');
-
         that.$editForm.render();
-        td.html(that.$editForm.el);
+        that.$editForm.$('form').slideDown(50);
       }
 
       window.setTimeout(renderForm, 150);
@@ -206,13 +201,8 @@ define([
     },
 
     render: function() {
-      this.$el.html(this.template());
-
-      this.createChildViews();
-
-      this.$modelView.render();
-      this.$('td.task-listing').html(this.$modelView.el);
-
+      this.$el.html(this.template);
+      this.renderChildViews();
       this.configureDraggable();
 
       // FIX: I don't know what this actually does. It may not be
