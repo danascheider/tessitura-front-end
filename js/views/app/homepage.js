@@ -28,8 +28,7 @@ define([
       'submit #registration-form' : 'createUser'
     },
 
-    tagName    : 'div',
-    id         : 'homepage',
+    el     : $('body'),
 
     createUser : function(e) {
       e.preventDefault();
@@ -55,6 +54,7 @@ define([
     },
 
     render : function() {
+      $('body').attr('id', 'homepage');
       this.$el.html(_.template(HomepageTemplate));
       return this;
     }

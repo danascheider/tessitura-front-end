@@ -34,7 +34,7 @@ define([
     className     : 'dashboard',
 
     events   : {
-      'click'             : 'hideDropdownMenus',
+      'click #wrapper'    : 'hideDropdownMenus',
       'click li.dropdown' : 'toggleDropdownMenu',
     },
 

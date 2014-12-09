@@ -63,7 +63,6 @@ define([
 
     displayHomepage: function() {
       this.homepageView.render();
-      $('body').prepend(this.homepageView.el);
     },
 
     displayLogin: function() {
