@@ -165,6 +165,10 @@ define([
       });
     },
 
+    removeStyles      : function() {
+      this.$el.removeAttr('style');
+    },
+
     showEditForm      : function() {
       var td = this.$('td.task-listing');
       this.$('span.edit-task').fadeOut(150);
@@ -203,6 +207,7 @@ define([
       this.render();
       this.model.on('change:status', this.crossOff);
       this.listenTo(this.$editForm, 'done', this.render);
+      this.listenTo(this.model, 'change:position', this.removeStyles);
     },
 
     render: function() {
