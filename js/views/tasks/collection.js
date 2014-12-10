@@ -26,7 +26,6 @@ define([
   var TaskCollectionView = Backbone.View.extend({
 
     // Templates //
-    template           : _.template("<ul class='task-list></ul>"),
     modelTemplate      : _.template(ModelTemplate),
 
     tagName            : 'ul',
@@ -42,12 +41,13 @@ define([
 
     render: function() {
       var that = this;
-      this.$el.html(this.template());
 
       this.collection.each(function(task) {
         var view = new ListEntryView({modelTemplate: that.modelTemplate, model: task});
         that.$el.append(view.$el);
       });
+
+      this.$el.sortable({connectWith: '.task-list', dropOnEmpty: true})
 
       return this;
     }

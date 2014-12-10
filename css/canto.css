@@ -119,29 +119,15 @@
   padding-bottom: 0;
 }
 
-ul.quick-add-form {
-  margin-bottom: 0;
-  padding-bottom: 0;
-}
-
 ul.task-list {
   margin-top: 0;
   padding-top: 0;
 }
 
-ul.task-list, 
-ul.quick-add-form {
+ul.task-list {
   list-style: none;
   padding-left: 0;
   color: #777;
-}
-
-ul.quick-add-form li {
-  border-style: solid none;
-  border-top-color: #efefef;
-  border-bottom-color: #d3d3d3;
-  border-width: 1px;
-  padding: 0.5em 0.5em 0 0.5em;
 }
 
 ul.task-list li {
@@ -150,6 +136,10 @@ ul.task-list li {
 
 ul.task-list li:first-child {
   padding-top: 0.5em;
+}
+
+ul.task-list li form {
+  display: block;
 }
 
 ul.task-list li:last-child {

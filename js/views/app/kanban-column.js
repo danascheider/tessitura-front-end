@@ -11,13 +11,10 @@ define([
     template   : _.template(Template),
 
     renderChildViews : function() {
-      this.$quickAddForm = new QuickAddFormView({collection: this.collection});
       this.$collectionView = new TaskCollectionView({collection: this.collection});
-
-      this.$('li.quick-add-form').html(this.$quickAddForm.el);
-      this.$('ul').after(this.$collectionView.el);
-
-      this.$('ul').sortable({connectWith: '.task-list'});
+      this.$quickAddForm = new QuickAddFormView({collection: this.collection});
+      this.$('.panel-body').html(this.$collectionView.el);
+      this.$quickAddForm.$el.prependTo(this.$collectionView.el);
     },
 
     // Core View Methods //

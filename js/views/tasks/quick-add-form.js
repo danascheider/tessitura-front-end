@@ -10,8 +10,8 @@ define([
 ], function($, _, Backbone, Cookie, API, Utils, TaskModel, Template) {
   var QuickAddFormView = Backbone.View.extend({
     template   : _.template(Template),
-    tagName    : 'form',
-    className  : 'create-form',
+    tagName    : 'li',
+    className  : 'quick-add-form not-sortable',
 
     events     : {
       'submit' : 'createTask'

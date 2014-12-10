@@ -36,6 +36,14 @@ define([
 
     template : _.template(TaskPanelTemplate),
 
+    filterCollection: function() {
+      var tasks = this.collection.filter(function(task) {
+        return task.get('status') !== 'Blocking' && !task.get('backlog');
+      });
+
+      return tasks.slice(0,10);
+    },
+
     hideToggleWidgetIcon: function(e) {
       var span = $(e.target).closest('.dash-widget').find('span.hide-widget,span.show-widget').eq(0);
       span.fadeOut(100);
@@ -83,23 +91,13 @@ define([
       var that = this;
 
       this.$el.html(this.template());
-
       this.$quickAddForm = new QuickAddFormView({collection: this.collection});
-      this.$('li.quick-add-form').html(this.$quickAddForm.el);
-
-
-      if(this.collection.length) {
-        var tasks = this.collection.filter(function(task) {
-          return task.get('status') !== 'Blocking' && !task.get('backlog');
-        });
-
-        this.collection = new TaskCollection(tasks.slice(0,10));
-
-        this.$collectionView = new TaskCollectionView({ collection: that.collection });
-
-        this.$('ul').after(this.$collectionView.el);
-        this.$('ul').sortable();
-      }
+      
+      var c = new TaskCollection(that.filterCollection());
+      this.$collectionView = new TaskCollectionView({collection: c});
+      this.$('.panel-body').html(this.$collectionView.el);
+      this.$quickAddForm.$el.prependTo(this.$collectionView.el);
+      this.$collectionView.$el.sortable();
 
       return this;
     }
