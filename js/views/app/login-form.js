@@ -17,7 +17,7 @@ define([
     el     : $('body'),
 
     events : {
-      'click button:submit' : 'logInUser',
+      'submit #login-form'  : 'logInUser',
       'click .pull-right a' : 'loginHelp'
     },
 

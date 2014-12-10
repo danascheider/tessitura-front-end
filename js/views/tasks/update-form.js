@@ -9,16 +9,16 @@ define([
 
   var TaskUpdateFormView = Backbone.View.extend({
     template   : _.template(UpdateFormTemplate),
-    // FIX: el should be tagName
     tagName    : 'form',
     className  : 'edit-form',
     events     : {
-      'submit .edit-form' : 'updateTask'
+      'click button:submit' : 'updateTask',
     }, 
 
     updateTask : function(e) {
       e.preventDefault();
-      var form  = $(e.target);
+      var form  = $(e.target).closest('form');
+      console.log(form);
       var that  = this;
       var attrs = Utils.getAttributes(form);
 

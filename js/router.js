@@ -62,10 +62,14 @@ define([
     },
 
     displayHomepage: function() {
+      this.dashboardView.remove()
+      this.loginView.remove();
       this.homepageView.render();
     },
 
     displayLogin: function() {
+      this.homepageView.remove();
+      this.loginView.remove();
       this.loginView.render();
     },
 
