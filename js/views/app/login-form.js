@@ -14,11 +14,12 @@ define([
   ], function($, _, Backbone, API, Utils, UserModel, LoginFormTemplate) {
 
   var LoginFormView = Backbone.View.extend({
-    el     : $('body'),
+    tagName : 'div',
+    id      : 'login-wrapper',
 
     events : {
-      'submit #login-form'  : 'logInUser',
-      'click .pull-right a' : 'loginHelp'
+      'submit #login-form'              : 'logInUser',
+      'click .pull-right a'             : 'loginHelp'
     },
 
     loginHelp : function(e) {
@@ -43,6 +44,9 @@ define([
         },
 
         success    : function(obj) {
+          // FIX: This object should not need to be fetched a second time
+          //      in the dashboard, but I can't deal with that right now,
+          //      this whole thing is a complete clusterfuck right now.
           obj = JSON.parse(obj);
 
           if(data.remember === 'Remember Me') {
@@ -52,10 +56,8 @@ define([
             $.cookie('auth', hash);
             $.cookie('userID', obj.user.id);
           }
-
-          window.user = new UserModel(obj);
           
-          Backbone.history.navigate('dashboard', {trigger: true});
+          Backbone.history.navigate('dashboard');
         },
 
         error      : function(xhr, status, error) {
@@ -66,7 +68,6 @@ define([
     },  
 
     render : function() {
-      $('body').attr('id', 'dashboard');
       this.$el.html(_.template(LoginFormTemplate));
       return this;
     }

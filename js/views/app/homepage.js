@@ -20,10 +20,6 @@ define([
     HomepageTemplate){
   
   var HomepageView = Backbone.View.extend({
-    initialize: function(router) {
-      this.router = this.router || router;
-    },
-
     events  : {
       'submit #registration-form' : 'createUser'
     },

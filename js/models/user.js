@@ -20,6 +20,17 @@ define([
       }
     },
 
+    defaultFetch: function(successCallback) {
+      this.fetch({
+        url : API.users.single(this.id),
+        beforeSend : Utils.authHeader,
+        success    : successCallback,
+        error      : function(model, response) {
+          console.log('Error: Unable to retrieve user profile: ', response);
+        }
+      });
+    },
+
     fetchIncompleteTasks: function() {
       var that = this;
 
