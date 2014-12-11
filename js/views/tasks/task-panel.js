@@ -26,15 +26,21 @@ define([
     el       : $('#task-panel'),
 
     events   : {
-      'click a.create-task' : 'showTaskForm',
-      'mouseenter'          : 'showToggleWidgetIcon',
-      'mouseleave'          : 'hideToggleWidgetIcon',
-      'click .hide-widget'  : 'hideWidget',
-      'click .show-widget'  : 'showWidget',
-      'click .fa-archive'   : 'removeTask'
+      'click a.create-task'    : 'showTaskForm',
+      'mouseenter'             : 'showToggleWidgetIcon',
+      'mouseleave'             : 'hideToggleWidgetIcon',
+      'click .hide-widget'     : 'hideWidget',
+      'click .show-widget'     : 'showWidget',
+      'click .fa-archive'      : 'removeTask',
+      'submit .quick-add-form' : 'createTask'
     },
 
     template : _.template(TaskPanelTemplate),
+
+    createTask: function(e) {
+      e.preventDefault();
+      confirm('Submitted from task panel');
+    },
 
     filterCollection: function() {
       var tasks = this.collection.filter(function(task) {
@@ -55,6 +61,7 @@ define([
       $(e.target).removeClass('fa-minus').addClass('fa-plus');
     },
 
+    // FIX: Is there a reason this can't be in the collection view?
     removeTask: function(e) {
       var id = $(e.target).closest('.task-list-item').attr('id').match(/\d+$/)[0];
       var task = this.collection.findWhere({id: parseInt(id)});

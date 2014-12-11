@@ -88,7 +88,6 @@ define([
     },
 
     displayKanban: function() {
-      console.log('displayKanban');
       this.renderDashTaskView();
     },
 

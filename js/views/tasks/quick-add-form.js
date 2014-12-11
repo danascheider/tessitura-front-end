@@ -13,16 +13,10 @@ define([
     tagName    : 'li',
     className  : 'quick-add-form not-sortable',
 
-    events     : {
-      'submit' : 'createTask'
-    },
-
-    createTask : function(e) {
-      e.preventDefault();
+    createTask : function(attrs) {
       
       var that = this;
       var form  = $(e.target).closest('form');
-      var attrs = Utils.getAttributes(form);
 
       var newTask = new TaskModel(attrs);
 

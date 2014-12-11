@@ -17,10 +17,7 @@ define([
 
     updateTask : function(e) {
       e.preventDefault();
-      var form  = $(e.target).closest('form');
-      console.log(form);
-      var that  = this;
-      var attrs = Utils.getAttributes(form);
+      var form  = $(e.target).closest('form'), attrs = Utils.getAttributes(form), that = this;
 
       this.model.set(attrs);
 

@@ -13,14 +13,6 @@ define([
     tagName    : 'div',
     id         : 'page-wrapper',
 
-    events : {
-      'click' : 'logClick'
-    },
-
-    logClick: function() {
-      console.log('You clicked the Kanban board');
-    },
-
     render     : function() {
       this.$el.html(this.template());
       var that = this;

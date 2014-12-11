@@ -220,10 +220,6 @@ define([
 
       this.configureDraggable();
 
-      // FIX: I don't know what this actually does. It may not be
-      //      necessary.
-      this.$el.disableSelection();
-
       return this;
     }
   });
