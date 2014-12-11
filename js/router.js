@@ -45,14 +45,14 @@ define([
     },
 
     renderDashTaskView : function() {
-      console.log('renderDashTaskView');
+      this.dashboardView.$homeView ? this.dashboardView.$homeView.remove() : next();
       this.renderMainDashView();
       this.dashboardView.$kanbanBoardView.render();
       this.dashboardView.$('nav').after(this.dashboardView.$kanbanBoardView.el);
     },
 
     renderLoginView    : function() {
-      console.log('renderLoginView');
+      this.clearExistingViews();
       this.loginView = this.loginView || new LoginView();
       this.loginView.render();
       $('body').prepend(this.loginView.el);
@@ -99,7 +99,6 @@ define([
     },
 
     displayLogin: function() {
-      console.log('displayLogin');
       this.renderLoginView();
     },
 
@@ -110,7 +109,6 @@ define([
     },
 
     rerouteIfLoggedIn: function(fragment, args, next) {
-      console.log('rerouteIfLoggedIn');
       if (!$.cookie('auth')) {
         next();
       } else {

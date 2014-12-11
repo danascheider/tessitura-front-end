@@ -57,7 +57,7 @@ define([
             $.cookie('userID', obj.user.id);
           }
           
-          Backbone.history.navigate('dashboard');
+          Backbone.history.navigate('dashboard', {trigger: true});
         },
 
         error      : function(xhr, status, error) {
