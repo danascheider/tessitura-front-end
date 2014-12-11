@@ -48,6 +48,10 @@ define([
         // they are rendered in. 
 
         stop: function() {
+          // FIX: Now that there is a multiple-update route, that can be 
+          //      used more efficiently instead of making individual API
+          //      calls for each task
+
           var column = $(this).closest('.kanban-col').find('.panel-heading')[0];
 
           // At this point, sorting only works on the dashboard. On
@@ -154,8 +158,7 @@ define([
     },
 
     markComplete      : function(e) {
-      var that    = this;
-      var li      = this.$el;
+      var that = this, li = this.$el;
 
       this.model.save({status: 'Complete'}, {
         dataType    : 'html',

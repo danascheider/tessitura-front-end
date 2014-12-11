@@ -12,7 +12,7 @@ define([
     tagName    : 'form',
     className  : 'edit-form',
     events     : {
-      'click button:submit' : 'updateTask',
+      'submit' : 'updateTask',
     }, 
 
     updateTask : function(e) {
