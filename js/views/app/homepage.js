@@ -24,11 +24,12 @@ define([
       this.router = this.router || router;
     },
 
-    events : {
+    events  : {
       'submit #registration-form' : 'createUser'
     },
 
-    el     : $('body'),
+    tagName : 'div',
+    id      : 'homepage-wrapper',
 
     createUser : function(e) {
       e.preventDefault();
@@ -54,7 +55,6 @@ define([
     },
 
     render : function() {
-      $('body').attr('id', 'homepage');
       this.$el.html(_.template(HomepageTemplate));
       return this;
     }
