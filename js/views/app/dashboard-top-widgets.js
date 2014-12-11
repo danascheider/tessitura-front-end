@@ -9,7 +9,8 @@ define([
 
     events: {
       'mouseenter .dash-widget' : 'changeLinkColor',
-      'mouseleave .dash-widget' : 'changeLinkColorBack'
+      'mouseleave .dash-widget' : 'changeLinkColorBack',
+      'click .dash-widget'      : 'followLink'
     },
 
     changeLinkColor: function(e) {
@@ -21,6 +22,13 @@ define([
     changeLinkColorBack: function(e) {
       var link = $(e.target).closest('.dash-widget').find('.panel-body');
       link.css('color', '#ccc');
+    },
+
+    followLink: function(e) {
+      var destination = $(e.target).closest('div.dash-widget').attr('data-target');
+      if (destination) {
+        Backbone.history.navigate(destination, {trigger: true});
+      }
     },
 
     initialize: function(opts) {
