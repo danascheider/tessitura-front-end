@@ -4,6 +4,7 @@ define([
   'backbone',
   'utils',
   'api',
+  'models/task',
   'collections/tasks',
   'views/tasks/collection',
   'views/tasks/quick-add-form',
@@ -17,6 +18,7 @@ define([
     Backbone,
     Utils,
     API,
+    TaskModel,
     TaskCollection,
     TaskCollectionView,
     QuickAddFormView,
@@ -37,9 +39,26 @@ define([
 
     template : _.template(TaskPanelTemplate),
 
-    createTask: function(e) {
+    createTask : function(e) {
       e.preventDefault();
-      confirm('Submitted from task panel');
+      var that = this, form  = $(e.target), attrs = Utils.getAttributes(form);
+
+      var newTask = new TaskModel(attrs);
+
+      if(!!attrs.title) {
+        newTask.save(newTask.attrs, {
+          url: API.tasks.collection($.cookie('userID')),
+          beforeSend: Utils.authHeader,
+          success: function(model) {
+            form[0].reset();
+            that.collection.add(model);
+          },
+          error: function(model, response) {
+            form[0].reset();
+            console.log('Error: ', response);
+          }
+        });
+      }
     },
 
     filterCollection: function() {
