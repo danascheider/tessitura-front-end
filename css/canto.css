@@ -242,13 +242,25 @@ a.task-title {
   font-weight: bold;
 }
 
+.task-details,
+.task-form {
+  display: none;
+}
+
+/* --------------- */
+/* List Entry View */
+/* --------------- */
 td.task-listing {
   width: 100%;
 }
 
-.task-details,
-.task-form {
-  display: none;
+td.task-listing > form {
+  width: 97%;
+  padding-right: 0.75em;
+}
+
+span.edit-task {
+  float: right;
 }
 
 /* --------------- */

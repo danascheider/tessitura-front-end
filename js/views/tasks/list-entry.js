@@ -44,8 +44,8 @@ define([
         containment: 'parent',
         connectToSortable: '.task-list',
 
-        // Start and stop functions should vary depending on what view
-        // they are rendered in. 
+        // FIX: Start and stop functions should vary depending on what view
+        //      they are rendered in. 
 
         stop: function() {
           // FIX: Now that there is a multiple-update route, that can be 
@@ -173,7 +173,6 @@ define([
     },
 
     showEditForm      : function() {
-      var td = this.$('td.task-listing');
       this.$('span.edit-task').fadeOut(150);
 
       var that = this;
@@ -181,11 +180,8 @@ define([
       function renderForm() {
         that.$modelView.remove();
 
-        td.css('width', '97%');
-        td.css('padding-right', '0.75em');
-
-        that.$editForm.render();
-        td.html(that.$editForm.el);
+        that.$editForm.render().$el.removeAttr('style');
+        that.$('td.task-listing').html(that.$editForm.el);
       }
 
       window.setTimeout(renderForm, 150);
