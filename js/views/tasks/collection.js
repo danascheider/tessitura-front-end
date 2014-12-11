@@ -31,12 +31,21 @@ define([
     tagName            : 'ul',
     className          : 'task-list',
 
+    // Event Handlers //
+
+    crossOff : function() {
+      this.collection.remove(this.collection.findWhere({status: 'Complete'}));
+      this.render();
+    },
+
     // Core View Functions //
 
     initialize: function() {
       this.render();
+
       this.listenTo(this.collection, 'remove', this.render);
       this.listenTo(this.collection, 'add', this.render);
+      this.listenTo(this.collection, 'markComplete', this.crossOff);
     },
 
     render: function() {

@@ -111,21 +111,19 @@ define([
     },
 
     crossOff          : function() {
-      // In this context, `this` apparently refers to the model
-      var task = this;
+      var task = this.model;
 
-      if(this.get('status') === 'Complete') {
-        var collection = task.collection;
-        var id = '#task-' + this.get('id');
+      if(task.get('status') === 'Complete') {
+        var collection = task.collection; id = task.get('id');
 
-        $(id).find('i.fa-square-o').removeClass('fa-square-o').addClass('fa-check-square-o');
-        $(id).find('.task-title').css('text-decoration', 'line-through');
+        this.$('i.fa-square-o').removeClass('fa-square-o').addClass('fa-check-square-o');
+        this.$('.task-title').css('text-decoration', 'line-through');
 
-        var removeFromCollection = function() {
-          collection.remove(task);
+        var triggerMarkComplete = function() {
+          task.trigger('markComplete');
         };
 
-        window.setTimeout(removeFromCollection, 750);        
+        window.setTimeout(triggerMarkComplete, 750);        
       }
     },
 
@@ -204,7 +202,7 @@ define([
 
     initialize: function() {
       this.render();
-      this.model.on('change:status', this.crossOff);
+      this.listenTo(this.model, 'change:status', this.crossOff);
       this.listenTo(this.$editForm, 'done', this.render);
       this.listenTo(this.model, 'change:position', this.removeStyles);
     },
