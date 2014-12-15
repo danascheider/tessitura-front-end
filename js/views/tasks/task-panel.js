@@ -28,38 +28,14 @@ define([
     el       : $('#task-panel'),
 
     events   : {
-      'click a.create-task'    : 'showTaskForm',
       'mouseenter'             : 'showToggleWidgetIcon',
       'mouseleave'             : 'hideToggleWidgetIcon',
       'click .hide-widget'     : 'hideWidget',
       'click .show-widget'     : 'showWidget',
       'click .fa-archive'      : 'removeTask',
-      'submit .quick-add-form' : 'createTask'
     },
 
     template : _.template(TaskPanelTemplate),
-
-    createTask : function(e) {
-      e.preventDefault();
-      var that = this, form  = $(e.target), attrs = Utils.getAttributes(form);
-
-      var newTask = new TaskModel(attrs);
-
-      if(!!attrs.title) {
-        newTask.save(newTask.attrs, {
-          url: API.tasks.collection($.cookie('userID')),
-          beforeSend: Utils.authHeader,
-          success: function(model) {
-            form[0].reset();
-            that.collection.add(model);
-          },
-          error: function(model, response) {
-            form[0].reset();
-            console.log('Error: ', response);
-          }
-        });
-      }
-    },
 
     filterCollection: function() {
       var tasks = this.collection.filter(function(task) {
@@ -110,7 +86,6 @@ define([
     initialize: function() {
       this.render();
       this.listenTo(this.collection, 'add', this.render);
-      this.listenTo(this.collection, 'remove', this.render);
     },
 
     render: function() {
