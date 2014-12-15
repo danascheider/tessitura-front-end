@@ -9,4 +9,5 @@ bootstrap/
 /img/iStock*
 
 # Symbolic link
-server
+request-log
+response-log
