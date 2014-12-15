@@ -8,7 +8,8 @@ define([
   'css!stylesheets/bootstrap.css',
   'css!stylesheets/dashboard.css',
   'css!stylesheets/canto.css',
-  'css!stylesheets/font-awesome.css'
+  'css!stylesheets/font-awesome.css',
+  'cookie'
 ], function(
     $, _, 
     Backbone, 
@@ -58,6 +59,7 @@ define([
     },
 
     // Core View Methods //
+
     initialize: function(opts) {
       this.user = opts.user;
     },

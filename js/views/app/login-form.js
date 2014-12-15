@@ -19,7 +19,7 @@ define([
 
     events : {
       'submit #login-form'              : 'logInUser',
-      'click .pull-right a'             : 'loginHelp'
+      'click .pull-right a'             : 'loginHelp',
     },
 
     loginHelp : function(e) {
@@ -31,8 +31,9 @@ define([
     
     logInUser : function(e) {
       e.preventDefault();
-      var that = this;
-      var data = Utils.getAttributes(this.$('form'));
+
+      var that = this
+      var data = Utils.getAttributes(this.$('form'))
       var exp  = data.remember === 'Remember Me';
       var hash = btoa(data.username + ':' + data.password);
 
@@ -47,6 +48,7 @@ define([
           // FIX: This object should not need to be fetched a second time
           //      in the dashboard, but I can't deal with that right now,
           //      this whole thing is a complete clusterfuck right now.
+
           obj = JSON.parse(obj);
 
           if(data.remember === 'Remember Me') {
@@ -56,8 +58,8 @@ define([
             $.cookie('auth', hash);
             $.cookie('userID', obj.user.id);
           }
-          
-          Backbone.history.navigate('dashboard', {trigger: true});
+
+          that.trigger('ajaxSuccess');
         },
 
         error      : function(xhr, status, error) {

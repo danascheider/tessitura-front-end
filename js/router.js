@@ -2,17 +2,21 @@ define([
   'jquery', 
   'underscore', 
   'backbone', 
-  'cookie',
   'filter',
+  'models/app-presenter',
   'models/dashboard-presenter',
+  'models/user',
   'views/app/login-form',
   'views/app/dashboard',
   'views/app/homepage',
-], function($, 
+  'cookie'
+], function(
+    $, 
     _, Backbone, 
-    Cookie,
     Filter,
+    AppPresenter,
     DashboardPresenter,
+    UserModel,
     LoginView, 
     DashboardView,
     HomepageView,
@@ -20,26 +24,16 @@ define([
 ) {
   
   var CantoRouter = Backbone.Router.extend({
-    dashboardPresenter : new DashboardPresenter(),
+    initialize         : function() {
+      if($.cookie('auth')) {
+        var user = new UserModel({id: $.cookie('userID')});
+        this.dashboardPresenter = new DashboardPresenter({user: user});
+      }
 
-    renderMainDashView : function() {
-      $('body').prepend(this.dashboardPresenter.getMain());
+      this.listenTo(this.appPresenter, 'userLoggedIn', this.prepareDashboard);
     },
 
-    renderDashHomeView : function() {
-      this.dashboardPresenter.getHome();
-    },
-
-    renderDashTaskView : function() {
-      this.dashboardPresenter.getKanban();
-    },
-
-    renderLoginView    : function() {
-      this.dashboardPresenter.removeAll();
-      this.loginView = this.loginView || new LoginView();
-      this.loginView.render();
-      $('body').prepend(this.loginView.el);
-    },
+    appPresenter : new AppPresenter(),
 
     routes: {
       '(/)'            : 'displayHomepage',
@@ -67,23 +61,21 @@ define([
     },
 
     displayDashboard: function() {
-      this.renderDashHomeView();
+      this.dashboardPresenter.getHome();
     },
 
     displayKanban: function() {
-      this.renderDashTaskView();
+      this.dashboardPresenter.getKanban();
     },
 
     displayHomepage: function() {
-      this.dashboardPresenter.removeAll();
-      this.homepageView = new HomepageView();
-      this.homepageView.render();
-      $('body').prepend(this.homepageView.el);
+      if(!!this.dashboardPresenter) { this.dashboardPresenter.removeAll(); }
+      $('body').prepend(this.appPresenter.getHomepage());
     },
 
     displayLogin: function() {
-      this.dashboardPresenter.removeAll();
-      this.renderLoginView();
+      if(!!this.dashboardPresenter) { this.dashboardPresenter.removeAll(); }
+      $('body').prepend(this.appPresenter.getLoginPage());
     },
 
     logOut: function() {
@@ -92,17 +84,25 @@ define([
       Backbone.history.navigate('login', {trigger: true});
     },
 
+    prepareDashboard : function() {
+      var user = new UserModel({id: $.cookie('userID')});
+      this.dashboardPresenter = new DashboardPresenter({user: user});
+      this.dashboardPresenter.getMain('body');
+
+      Backbone.history.navigate('dashboard', {trigger: true});
+    },
+
     rerouteIfLoggedIn: function(fragment, args, next) {
       if (!$.cookie('auth')) {
         next();
       } else {
-        Backbone.history.navigate('dashboard', {trigger: true});
+        this.appPresenter.removeAll();
+        this.prepareDashboard();
       }
     },
 
     verifyLoggedIn: function(fragment, args, next) {
       if ($.cookie('auth')) {
-        this.renderMainDashView();
         next();
       } else {
         Backbone.history.navigate('login', {trigger: true});

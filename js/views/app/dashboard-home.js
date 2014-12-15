@@ -27,6 +27,10 @@ define([
 
     // Core view functions //
 
+    initialize : function(opts) {
+      this.user = opts.user;
+    },
+
     render     : function() {
       this.$el.html(this.template());
 
@@ -38,7 +42,7 @@ define([
         recommendationCount : 13
       };
 
-      window.user.fetchIncompleteTasks().then(function(collection) {
+      this.user.fetchIncompleteTasks().then(function(collection) {
         data.taskCollection = collection;
         that.renderTopWidgets(data).renderTaskPanel(collection);
       }, function(error) {
