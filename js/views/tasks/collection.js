@@ -31,11 +31,15 @@ define([
     tagName            : 'ul',
     className          : 'task-list',
 
+    // Helper Functions //
+    clearList      : function() {
+      this.$('li.task-list-item').remove();
+    },
+
     // Event Handlers //
 
-    crossOff : function() {
-      this.collection.remove(this.collection.findWhere({status: 'Complete'}));
-      this.render();
+    removeComplete : function() {
+      this.collection.remove(this.collection.findWhere({status: 'Complete'}););
     },
 
     // Core View Functions //
@@ -45,14 +49,24 @@ define([
 
       this.listenTo(this.collection, 'remove', this.render);
       this.listenTo(this.collection, 'add', this.render);
-      this.listenTo(this.collection, 'markComplete', this.crossOff);
+      this.listenTo(this.collection, 'markComplete', this.removeComplete);
     },
 
     render: function() {
       var that = this;
+      this.listItemViews = this.listItemViews || [];
+
+      // Before re-rendering, clean up list item views so 
+      // list doesn't keep getting longer & so zombies don't 
+      // accumulate
+
+      if(this.listItemViews.length) { 
+        _.each(this.listItemViews, (function(view) { view.remove(); }));
+      }
 
       this.collection.each(function(task) {
         var view = new ListEntryView({modelTemplate: that.modelTemplate, model: task});
+        that.listItemViews.push(view);
         that.$el.append(view.$el);
       });
 
