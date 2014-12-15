@@ -4,6 +4,7 @@ define([
   'backbone', 
   'cookie',
   'filter',
+  'models/dashboard-presenter',
   'views/app/login-form',
   'views/app/dashboard',
   'views/app/homepage',
@@ -11,6 +12,7 @@ define([
     _, Backbone, 
     Cookie,
     Filter,
+    DashboardPresenter,
     LoginView, 
     DashboardView,
     HomepageView,
@@ -18,41 +20,22 @@ define([
 ) {
   
   var CantoRouter = Backbone.Router.extend({
-    clearExistingViews : function(opts) {
-      if (opts && opts.excludeDashboard === true) {
-        _.each([this.homepageView, this.loginView], function(view) {
-          if(view) { view.remove(); }
-        });
-      } else {
-        _.each([this.homepageView, this.loginView, this.dashboardView], function(view) {
-          if(view) { view.remove(); }
-        });
-      }
-    },
+    dashboardPresenter : new DashboardPresenter(),
 
     renderMainDashView : function() {
-      this.clearExistingViews({excludeDashboard: true});
-      this.dashboardView = this.dashboardView || new DashboardView();
-      this.dashboardView.render();
-      $('body').prepend(this.dashboardView.el);
+      $('body').prepend(this.dashboardPresenter.getMain());
     },
 
     renderDashHomeView : function() {
-      this.dashboardView.$kanbanBoardView ? this.dashboardView.$kanbanBoardView.remove() : next();
-      this.renderMainDashView();
-      this.dashboardView.$homeView.render();
-      this.dashboardView.$('nav').after(this.dashboardView.$homeView.el);
+      this.dashboardPresenter.getHome();
     },
 
     renderDashTaskView : function() {
-      this.dashboardView.$homeView ? this.dashboardView.$homeView.remove() : next();
-      this.renderMainDashView();
-      this.dashboardView.$kanbanBoardView.render();
-      this.dashboardView.$('nav').after(this.dashboardView.$kanbanBoardView.el);
+      this.dashboardPresenter.getKanban();
     },
 
     renderLoginView    : function() {
-      this.clearExistingViews();
+      this.dashboardPresenter.removeAll();
       this.loginView = this.loginView || new LoginView();
       this.loginView.render();
       $('body').prepend(this.loginView.el);
@@ -92,12 +75,14 @@ define([
     },
 
     displayHomepage: function() {
+      this.dashboardPresenter.removeAll();
       this.homepageView = new HomepageView();
       this.homepageView.render();
       $('body').prepend(this.homepageView.el);
     },
 
     displayLogin: function() {
+      this.dashboardPresenter.removeAll();
       this.renderLoginView();
     },
 
