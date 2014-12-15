@@ -31,15 +31,10 @@ define([
     tagName            : 'ul',
     className          : 'task-list',
 
-    // Helper Functions //
-    clearList      : function() {
-      this.$('li.task-list-item').remove();
-    },
-
     // Event Handlers //
 
     removeComplete : function() {
-      this.collection.remove(this.collection.findWhere({status: 'Complete'}));
+      this.collection.remove(this.collection.findWhere({status: 'Complete'}));;
     },
 
     // Core View Functions //
