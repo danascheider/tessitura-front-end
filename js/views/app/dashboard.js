@@ -27,7 +27,7 @@ define([
     // Core View Attributes //
 
     tagName       : 'div',
-    id            : 'wrapper',
+    id            : 'dashboard-wrapper',
     className     : 'dashboard',
 
     events   : {

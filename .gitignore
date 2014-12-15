@@ -1,6 +1,9 @@
 # Locally-stored notes and experimental files
 .notes/
 
+# RSpec options
+.rspec
+
 # Bootstrap downloads
 bootstrap/
 
