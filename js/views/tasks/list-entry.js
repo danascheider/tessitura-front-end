@@ -5,6 +5,7 @@ define([
   'jquery-ui',
   'api',
   'utils',
+  'collections/tasks',
   'views/tasks/update-form',
   'views/tasks/model',
   'text!templates/tasks/list-entry.html',
@@ -15,6 +16,7 @@ define([
   JQueryUI,
   API, 
   Utils, 
+  TaskCollection,
   UpdateFormView, 
   ModelView, 
   ListEntryTemplate
@@ -45,7 +47,9 @@ define([
         connectToSortable: '.task-list',
 
         // FIX: Start and stop functions should vary depending on what view
-        //      they are rendered in. 
+        //      they are rendered in. One possibility would be to pass the
+        //      start and stop functions to this view as an option on 
+        //      instantiation.
 
         stop: function() {
           // FIX: Now that there is a multiple-update route, that can be 
@@ -59,21 +63,29 @@ define([
           // dropped, but do not change their list position.
           
           if (!column) {
-            // Check the order of the list
-            var items = that.$el.closest('ul').find('li.task-list-item');
-            var coll  = that.model.collection;
 
-            // Incrementor
-            var i = 1;
+            // Find out the order of the list. The `items` array is the 
+            // array of `li`s in the parent list, and `coll` is the 
+            // collection. Within the `each` loop these lists are compared
+            // to make sure the `position` of the item in the collection at
+            // a given index is the same as the item's actual position in
+            // the list. If the actual position differs from the `position`
+            // attribute of the model, the actual position is changed.
+
+            // The back-end also implements an equivalent sorting algorithm.
+            // Consequently, it is not necessary to sync with the server at
+            // this point, and doing so might even cause problems.
+
+            var items = that.$el.siblings('li.task-list-item'), coll = that.model.collection;
+
+            // Iterator
+            var i = 1
             
             $.each(items, function(index) {
-              var modelID = $(items[index]).attr('id').match(/(\d+)/)[0];
+              var model = coll.get($(items[index]).attr('id').match(/(\d+)/)[0]);
 
-              if (coll.get(modelID).get('position') !== i) {
-                coll.get(modelID).save({position: i}, {
-                  url        : API.tasks.single(modelID),
-                  beforeSend : Utils.authHeader
-                });
+              if (model.get('position') !== i) {
+                model.set({position: i});
               }
 
               i++;
