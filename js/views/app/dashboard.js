@@ -2,11 +2,8 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'api',
   'models/user',
   'views/app/dashboard-sidebar',
-  'views/app/dashboard-home',
-  'views/app/kanban-board',
   'text!templates/app/dashboard.html',
   'css!stylesheets/bootstrap.css',
   'css!stylesheets/dashboard.css',
@@ -15,11 +12,8 @@ define([
 ], function(
     $, _, 
     Backbone, 
-    API,
     UserModel,
     SidebarView,
-    HomeView,
-    KanbanBoardView,
     DashboardTemplate) {
   
   var DashboardView = Backbone.View.extend({
@@ -64,16 +58,10 @@ define([
     },
 
     // Core View Methods //
-
     initialize: function(opts) {
-      this.opts = opts || {};
-      this.user = this.user || new UserModel({id: $.cookie('userID')});
-      this.user.defaultFetch();
-
-      this.$kanbanBoardView = new KanbanBoardView({user: this.user});
-      this.$homeView = new HomeView({user: this.user});
+      this.user = opts.user;
     },
-
+    
     render: function() {
       this.$el.html(this.template({user: this.user}));
       this.renderSidebar();
