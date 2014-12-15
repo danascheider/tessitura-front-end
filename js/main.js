@@ -30,6 +30,6 @@ require(['backbone', 'router', 'models/user', 'cookie'], function(Backbone, Rout
     };
     
     this.router = new Router();
-    Backbone.history.start();
+    Backbone.history.start({root: '.'});
   });
 });
