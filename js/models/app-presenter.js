@@ -15,6 +15,10 @@ define([
       this.listenTo(this.loginPageView, 'ajaxSuccess', this.emitLogin);
     },
 
+    emitLogin   : function() {
+      this.trigger('userLoggedIn');
+    },
+
     getHomepage : function(element) {
       this.loginPageView.remove();
 

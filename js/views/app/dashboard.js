@@ -28,8 +28,7 @@ define([
 
     tagName       : 'div',
     id            : 'dashboard-wrapper',
-    className     : 'dashboard',
-
+    
     events   : {
       'click'             : 'hideDropdownMenus',
       'click li.dropdown' : 'toggleDropdownMenu',

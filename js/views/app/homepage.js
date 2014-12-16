@@ -9,7 +9,8 @@ define([
   'text!templates/app/homepage.html',
   'css!stylesheets/bootstrap.css',
   'css!fa-styles/font-awesome.min.css',
-  'css!stylesheets/homepage.css'], function(
+  'css!stylesheets/homepage.css',
+  'css!stylesheets/canto.css'], function(
     $, 
     _, 
     Backbone, 
