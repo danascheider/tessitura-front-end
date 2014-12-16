@@ -13,6 +13,7 @@ define([
       this.loginPageView = new LoginPageView();
 
       this.listenTo(this.loginPageView, 'ajaxSuccess', this.emitLogin);
+      this.listenTo(this.homepageView, 'ajaxSuccess', this.emitLogin);
     },
 
     emitLogin   : function() {

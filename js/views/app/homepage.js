@@ -30,6 +30,8 @@ define([
 
     createUser : function(e) {
       e.preventDefault();
+
+      var that = this;
       var form = $(e.target);
       var attrs = Utils.getAttributes(form);
       var hash = btoa(attrs.username + ':' + attrs.password);
@@ -42,6 +44,13 @@ define([
         success : function(model) {
           $.cookie('userID', model.id);
           $.cookie('auth', hash);
+
+          that.trigger('ajaxSuccess');
+          
+          // FIX: Is this statement, and others like it, really needed
+          //      given that the router listens to events triggered on
+          //      the presenters?
+
           Backbone.history.navigate('#dashboard', {trigger: true});
         },
 
