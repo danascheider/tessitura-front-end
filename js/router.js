@@ -85,7 +85,6 @@ define([
     },
 
     prepareDashboard : function() {
-      this.appPresenter.removeAll();
       var user = new UserModel({id: $.cookie('userID')});
       this.dashboardPresenter = this.dashboardPresenter || new DashboardPresenter({user: user});
       this.dashboardPresenter.getMain('body');
