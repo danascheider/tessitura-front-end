@@ -5,4 +5,5 @@ group :test do
   gem 'rspec', '~> 3.1'
   gem 'capybara', '~> 2.4.4'
   gem 'capybara-webkit', '~> 1.3.1'
+  gem 'show_me_the_cookies', '~> 2.5'
 end
