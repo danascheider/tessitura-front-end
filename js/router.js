@@ -70,12 +70,12 @@ define([
 
     displayHomepage: function() {
       if(!!this.dashboardPresenter) { this.dashboardPresenter.removeAll(); }
-      $('body').prepend(this.appPresenter.getHomepage());
+      this.appPresenter.getHomepage('body');
     },
 
     displayLogin: function() {
       if(!!this.dashboardPresenter) { this.dashboardPresenter.removeAll(); }
-      $('body').prepend(this.appPresenter.getLoginPage());
+      this.appPresenter.getLoginPage('body');
     },
 
     logOut: function() {
@@ -86,7 +86,7 @@ define([
 
     prepareDashboard : function() {
       var user = new UserModel({id: $.cookie('userID')});
-      this.dashboardPresenter = new DashboardPresenter({user: user});
+      this.dashboardPresenter = this.dashboardPresenter || new DashboardPresenter({user: user});
       this.dashboardPresenter.getMain('body');
 
       Backbone.history.navigate('dashboard', {trigger: true});

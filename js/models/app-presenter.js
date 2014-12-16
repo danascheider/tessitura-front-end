@@ -15,25 +15,21 @@ define([
       this.listenTo(this.loginPageView, 'ajaxSuccess', this.emitLogin);
     },
 
-    emitLogin   : function() {
-      this.trigger('userLoggedIn');
-    },
-
-    getHomepage : function() {
+    getHomepage : function(element) {
       this.loginPageView.remove();
 
       this.homepageView = this.homepageView || new HomepageView();
       this.homepageView.render();
-      return this.homepageView.el;
+      $(element).prepend(this.homepageView.el);
     },
 
-    getLoginPage : function() {
+    getLoginPage : function(element) {
       this.homepageView.remove();
 
       this.loginPageView = this.loginPageView || new LoginPageView();
       this.loginPageView.render();
 
-      return this.loginPageView.el;
+      $(element).prepend(this.loginPageView.el);;
     },
 
     removeAll    : function() {
