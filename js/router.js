@@ -61,6 +61,7 @@ define([
     },
 
     displayDashboard: function() {
+      if(!this.dashboardPresenter) { this.prepareDashboard(); }
       this.dashboardPresenter.getHome();
     },
 
@@ -78,6 +79,7 @@ define([
       this.appPresenter.getLoginPage('body');
     },
 
+    // FIX: This probably belongs in the view that has the logout link
     logOut: function() {
       $.removeCookie('auth');
       $.removeCookie('userID');
@@ -86,6 +88,7 @@ define([
 
     prepareDashboard : function() {
       var user = new UserModel({id: $.cookie('userID')});
+
       this.dashboardPresenter = this.dashboardPresenter || new DashboardPresenter({user: user});
       this.dashboardPresenter.getMain('body');
 
