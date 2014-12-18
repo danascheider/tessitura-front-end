@@ -32,27 +32,6 @@ body {
   margin: 0;
 }
 
-/* ---------- */
-/* Login Form */
-/* ---------- */
-
-#login-form a,
-#login-form label {
-  color: #777;
-}
-
-.btn-login,
-.btn-login:focus {
-  color: #fff;
-  background-color: #46b4ae;
-  border-color: #11afa9;
-}
-
-.btn-login:hover {
-  color: #fff;
-  background-color: #11afa9;
-}
-
 /* ---------------- */
 /* Top Dash Widgets */
 /* ---------------- */

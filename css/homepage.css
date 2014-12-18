@@ -88,7 +88,10 @@
   background-color: rgba(255,255,255,0.8);
 }
 
+/* ------- */
 /* Top nav */
+/* ------- */
+
 #navbar-top ul {
   list-style-type: none;
   position: fixed;
@@ -101,7 +104,108 @@
   display: inline;
 }
 
+#navbar-top li .dropdown-menu {
+  color: #fff;
+  background-color: rgba(0,0,0,0.4);
+  padding: 0.25em;
+  padding-right: 1em;
+}
+
+/* ---------- */
+/* Login Form */
+/* ---------- */
+
+#shade {
+  display: none;
+  z-index: 2;
+  position: fixed;
+  background-color: rgba(0,0,0,0.4);
+}
+
+#login-panel {
+  position: relative;
+  height: 75%;
+  width: 50%;
+  box-sizing: border-box;
+  background-color: rgba(0,0,0,0.7);
+}
+
+#shade {
+  top: 0; 
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+#shade,
+#login-form {
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+#login-form {
+  position: absolute;
+  vertical-align: center;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: table;
+  margin: auto;
+}
+
+#login-form {
+  width: 60%;
+  height: 70%;
+  box-sizing: border-box;
+  padding-left: 10%;
+  padding-right: 10%;
+  background-color: rgba(0,0,0,0.7);
+}
+
+#login-form div.form-elements {
+  position: relative;
+  display: table-cell;
+  vertical-align: middle;
+  margin: auto;
+}
+
+#login-form a,
+#login-form label {
+  color: #fff;
+}
+
+#login-form input,
+#login-form button {
+  margin: 0.25em;
+}
+
+#login-form button {
+  background-color: rgba(116,124,201,0.8);
+}
+
+#login-form button:hover {
+  background-color: rgba(98,107,194,0.8);
+}
+
+#login-form input {
+  background-color: rgba(255,255,255,0.9);
+  border: none;
+  color: #333;
+}
+
+#login-form div.checkbox {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+/* ---------------------- */
 /* Custom Horizontal Rule */
+/* ---------------------- */
 
 hr.small {
   max-width: 100px;

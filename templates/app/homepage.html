@@ -11,10 +11,33 @@
       <a href='#contact' class='btn btn-dark btn-lg toggle' onclick='return false'><i class='fa fa-envelope fa-fw'></i></a>
     </li>
     <li>
-      <a href='/#login' class='btn btn-dark btn-lg toggle login-link'><i class='fa fa-user fa-fw'></i></a>
+      <a href='#' class='btn btn-dark btn-lg toggle login-link'><i class='fa fa-user fa-fw'></i></a>
     </li>
   </ul>
 </nav>
+
+<!-- Login Form -->
+<div id='shade'>
+  <form id='login-form' role='form' method='post'>
+    <div class='form-elements'>
+      <div class='form group'>
+        <input class='form-control' type='text' name='username' placeholder='Username'>
+      </div>
+      <div class='form-group'>
+        <input class='form-control' type='password' name='password' placeholder='Password'>
+      </div>
+      <div class='checkbox'>
+        <label>
+          <input name='remember' type='checkbox' value='Remember Me' checked>Remember Me
+        </label>
+        <span class='pull-right'>
+          <a href='' class='login-help-link'>Need Help?</a>
+        </span>
+      </div>
+      <button type='submit' class='btn btn-dark btn-login btn-lg btn-block'>Login</button>
+    </div>
+  </form>
+</div>
 
 <!-- Header -->
 <header id='top' class='header'>
