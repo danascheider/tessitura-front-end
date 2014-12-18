@@ -22,13 +22,15 @@ define([
   
   var HomepageView = Backbone.View.extend({
     events  : {
-      'submit #registration-form' : 'createUser'
+      'dblclick #shade'           : 'hideLoginForm',
+      'submit #registration-form' : 'createUser',
+      'click nav li .login-link'  : 'toggleLoginForm'
     },
 
     tagName : 'div',
     id      : 'homepage-wrapper',
 
-    createUser : function(e) {
+    createUser   : function(e) {
       e.preventDefault();
 
       var that = this;
@@ -58,6 +60,19 @@ define([
           console.log('Error: Model not created: ', response);
         }
       });
+    },
+
+    hideLoginForm : function(e) {
+      var t = $(e.target);
+      if (t.attr('id') !== 'login-form' && this.$('#login-form').has(t).length === 0) {
+        this.$('#shade').hide();
+        this.$('div.text-vertical-center').children().show();
+      }
+    },
+
+    toggleLoginForm : function(e) {
+      this.$('div.text-vertical-center').children().toggle();
+      this.$('#shade').toggle();
     },
 
     render : function() {
