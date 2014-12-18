@@ -6,7 +6,6 @@ define([
   'models/app-presenter',
   'models/dashboard-presenter',
   'models/user',
-  'views/app/login-form',
   'views/app/dashboard',
   'views/app/homepage',
   'cookie'
@@ -17,7 +16,6 @@ define([
     AppPresenter,
     DashboardPresenter,
     UserModel,
-    LoginView, 
     DashboardView,
     HomepageView,
     DashboardHomeView
@@ -38,7 +36,6 @@ define([
     routes: {
       '(/)'            : 'displayHomepage',
       'home(/)'        : 'displayHomepage',
-      'login(/)'       : 'displayLogin',
       'dashboard(/)'   : 'displayDashboard',
       'tasks(/)'       : 'displayKanban',
       'logout(/)'      : 'logOut',
@@ -49,7 +46,6 @@ define([
       'dashboard(/)' : 'verifyLoggedIn',
       'tasks(/)'     : 'verifyLoggedIn',
       '(/)'          : 'rerouteIfLoggedIn',
-      'login(/)'     : 'rerouteIfLoggedIn'
     },
 
     defaultAction: function(action) {
@@ -61,7 +57,7 @@ define([
     },
 
     displayDashboard: function() {
-      if(!this.dashboardPresenter) { this.prepareDashboard(); }
+      this.prepareDashboard();
       this.dashboardPresenter.getHome();
     },
 
@@ -74,16 +70,11 @@ define([
       this.appPresenter.getHomepage('body');
     },
 
-    displayLogin: function() {
-      if(!!this.dashboardPresenter) { this.dashboardPresenter.removeAll(); }
-      this.appPresenter.getLoginPage('body');
-    },
-
     // FIX: This probably belongs in the view that has the logout link
     logOut: function() {
       $.removeCookie('auth');
       $.removeCookie('userID');
-      Backbone.history.navigate('login', {trigger: true});
+      Backbone.history.navigate('', {trigger: true});
     },
 
     prepareDashboard : function() {
@@ -108,7 +99,8 @@ define([
       if ($.cookie('auth')) {
         next();
       } else {
-        Backbone.history.navigate('login', {trigger: true});
+        alert('Please log in to view your dashboard.');
+        Backbone.history.navigate('', {trigger: true});
       }
     }
   });

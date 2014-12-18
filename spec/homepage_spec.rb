@@ -26,21 +26,16 @@ describe 'Canto homepage', type: :feature do
         end
       end
 
-      it 'redirects to the login page' do 
-        pending('Full implementation of routing functionality')
-        expect(current_path).to eql '/login'
-      end
-
-      it 'clears the homepage view' do 
-        expect(page).not_to have_css('#homepage-wrapper')
+      it 'displays the login form' do 
+        expect(page).to have_css('#login-form');
       end
 
       it 'doesn\'t display the dashboard' do 
         expect(page).not_to have_css('#dashboard-wrapper')
       end
 
-      it 'renders the login page' do 
-        expect(page).to have_css('#login-wrapper')
+      it 'doesn\'t redirect'  do 
+        expect(page).to have_css('#homepage-wrapper')
       end
     end
   end

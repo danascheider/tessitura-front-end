@@ -22,15 +22,17 @@ define([
   
   var HomepageView = Backbone.View.extend({
     events  : {
-      'dblclick #shade'           : 'hideLoginForm',
-      'submit #registration-form' : 'createUser',
-      'click nav li .login-link'  : 'toggleLoginForm'
+      'submit #registration-form'       : 'createUser',
+      'click nav li .login-link'        : 'toggleLoginForm',
+      'dblclick #shade'                 : 'hideLoginForm',
+      'submit #login-form'              : 'loginUser',
+      'click #login-form .pull-right a' : 'loginHelp'
     },
 
     tagName : 'div',
     id      : 'homepage-wrapper',
 
-    createUser   : function(e) {
+    createUser      : function(e) {
       e.preventDefault();
 
       var that = this;
@@ -62,12 +64,44 @@ define([
       });
     },
 
-    hideLoginForm : function(e) {
+    hideLoginForm   : function(e) {
       var t = $(e.target);
       if (t.attr('id') !== 'login-form' && this.$('#login-form').has(t).length === 0) {
         this.$('#shade').hide();
         this.$('div.text-vertical-center').children().show();
       }
+    },
+
+    loginHelp       : function() {
+      console.log('Haha! You\'re boned!');
+    },
+
+    loginUser       : function(e) {
+      e.preventDefault();
+
+      var that = this, form = $(e.target), attrs = Utils.getAttributes(form);
+      var hash = btoa(attrs.username + ':' + attrs.password);
+
+      $.ajax({
+        type: 'POST',
+        url : API.login,
+        beforeSend: function(xhr) {
+          xhr.setRequestHeader('Authorization', 'Basic ' + hash);
+        },
+        success: function(obj) {
+          obj = JSON.parse(obj);
+
+          if(attrs.remember === 'Remember Me') {
+            $.cookie('auth', hash, {expires: 365});
+            $.cookie('userID', obj.user.id, {expires: 365});
+          } else {
+            $.cookie('auth', hash);
+            $.cookie('userID', obj.user.id);
+          }
+
+          that.trigger('ajaxSuccess');
+        }
+      });
     },
 
     toggleLoginForm : function(e) {
