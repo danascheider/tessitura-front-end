@@ -2,11 +2,16 @@ require 'spec_helper'
 
 describe 'Canto homepage', type: :feature do 
   before(:each) do 
-    visit '/'
+    @homepage = HomepageObject.new(DRIVER)
+    visit HomepageObject
   end
 
   it 'shows the homepage' do 
-    expect(page).to have_css('#homepage-wrapper')
+    expect(@homepage.wrapper).to be_true
+  end
+
+  it 'doesn\'t show the login view' do 
+    expect(page).not_to have_css('#shade') # the #shade container has the login form
   end
 
   it 'doesn\'t show the dashboard' do 
@@ -51,10 +56,6 @@ describe 'Canto homepage', type: :feature do
 
     it 'doesn\'t display the dashboard' do 
       expect(page).not_to have_css('#dashboard-wrapper')
-    end
-
-    it 'doesn\'t display the login page' do 
-      expect(page).not_to have_css('#login-wrapper')
     end
   end
 end

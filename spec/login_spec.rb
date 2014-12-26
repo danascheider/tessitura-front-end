@@ -9,7 +9,7 @@ describe 'logging in', type: :feature do
       end
     end
 
-    # NOTE: This data refers to a test user in the development database
+    # NOTE: These data refer to a test user in the development database
     #       currently on a local VM. Its values are:
     #         id: 342,
     #         username: 'testuser',
@@ -22,8 +22,6 @@ describe 'logging in', type: :feature do
 
     context '"remember me" false' do 
       before(:each) do 
-        visit('/#login')
-
         within(:css, '#login-form') do 
           fill_in('Username', with: 'testuser')
           fill_in('Password', with: 'testuser')
@@ -46,10 +44,21 @@ describe 'logging in', type: :feature do
       it 'renders the dashboard' do 
         expect(page).to have_css('#dashboard-wrapper')
       end
+    end
 
+    context 'with WebDriver', selenium: true do 
       it 'shows the dashboard home view' do 
         # FIX: There should be a better way to uniquely identify the home view
-        expect(page).to have_css('#dash-heading')
+        DRIVER.get(BASEPATH)
+        DRIVER.find_element(:css, 'ul.top-nav a.login-link').click
+
+        form = DRIVER.find_element(:id, 'login-form')
+
+        form.find_element(:name, 'username').send_keys 'testuser'
+        form.find_element(:name, 'password').send_keys 'testuser'
+        form.find_element(:tag_name, 'button').click
+
+        expect(DRIVER.find_element(:class_name, 'dashboard-home')).to be_displayed
       end
     end
   end

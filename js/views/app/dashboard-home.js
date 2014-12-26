@@ -10,6 +10,7 @@ define([
   var DashboardHomeView = Backbone.View.extend({
     template   : _.template(Template),
     id         : 'page-wrapper',
+    className  : 'dashboard-home',
 
     renderTopWidgets : function(data) {
       this.$topWidgets = new DashboardTopWidgetView({
