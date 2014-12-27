@@ -105,8 +105,10 @@ define([
     },
 
     toggleLoginForm : function(e) {
-      this.$('div.text-vertical-center').children().toggle();
-      this.$('#shade').toggle();
+      if(!$.cookie('auth')) {
+        this.$('div.text-vertical-center').children().toggle();
+        this.$('#shade').toggle();
+      }
     },
 
     render : function() {
