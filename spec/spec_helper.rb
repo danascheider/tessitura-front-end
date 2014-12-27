@@ -5,8 +5,6 @@ require 'selenium-webdriver'
 require 'show_me_the_cookies'
 require 'base64'
 
-require_relative 'page_objects/homepage'
-
 Capybara.default_driver = :webkit
 Capybara.app_host = 'http://localhost:80'
 Capybara.run_server = false

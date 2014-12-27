@@ -2,8 +2,7 @@ require 'spec_helper'
 
 describe 'Canto homepage', type: :feature do 
   before(:each) do 
-    @homepage = HomepageObject.new(DRIVER)
-    visit HomepageObject
+    DRIVER.get(BASEPATH)
   end
 
   it 'shows the homepage' do 
