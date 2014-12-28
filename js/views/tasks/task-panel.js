@@ -85,16 +85,15 @@ define([
 
     initialize: function() {
       this.render();
-      this.listenTo(this.collection, 'add', this.render);
     },
 
     render: function() {
       var that = this;
 
       this.$el.html(this.template());
-      this.$quickAddForm = new QuickAddFormView({collection: this.collection});
       
-      var c = new TaskCollection(that.filterCollection());
+      var c = new TaskCollection(that.filterCollection(), {comparator: 'position'});
+      this.$quickAddForm = new QuickAddFormView({collection: c});
       this.$collectionView = new TaskCollectionView({collection: c});
       this.$('.panel-body').html(this.$collectionView.el);
       this.$quickAddForm.$el.prependTo(this.$collectionView.el);

@@ -33,6 +33,15 @@ define([
 
     // Event Handlers //
 
+    refreshCollection : function() {
+      this.collection.refreshModels();
+      this.render();
+    },
+
+    removeBacklog  : function() {
+      this.collection.remove(this.collection.findWhere({backlog: true}));
+    },
+
     removeComplete : function() {
       this.collection.remove(this.collection.findWhere({status: 'Complete'}));;
     },
@@ -43,9 +52,10 @@ define([
       this.collection.comparator = 'position';
       this.render();
 
-      this.listenTo(this.collection, 'remove', this.render);
-      this.listenTo(this.collection, 'add', this.render);
+      this.listenTo(this.collection, 'remove', this.refreshCollection);
+      this.listenTo(this.collection, 'add', this.refreshCollection);
       this.listenTo(this.collection, 'markComplete', this.removeComplete);
+      this.listenTo(this.collection, 'change:backlog', this.removeBacklog);
     },
 
     render: function() {
@@ -57,7 +67,9 @@ define([
       // accumulate
 
       if(this.listItemViews.length) { 
-        _.each(this.listItemViews, (function(view) { view.remove(); }));
+        _.each(this.listItemViews, (function(view) { 
+          view.remove(); 
+        }));
       }
 
       this.collection.each(function(task) {
