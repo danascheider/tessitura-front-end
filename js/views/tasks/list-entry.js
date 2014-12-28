@@ -52,15 +52,12 @@ define([
         //      instantiation.
 
         stop: function() {
-          // FIX: Now that there is a multiple-update route, that can be 
-          //      used more efficiently instead of making individual API
-          //      calls for each task
-
           var column = $(this).closest('.kanban-col').find('.panel-heading')[0];
 
           // At this point, sorting only works on the dashboard. On
           // the Kanban board, tasks change status when dragged and 
-          // dropped, but do not change their list position.
+          // dropped, but do not change their list position. I may or
+          // may not want to change this in the future.
           
           if (!column) {
 
@@ -76,14 +73,14 @@ define([
             // Consequently, it is not necessary to sync with the server at
             // this point, and doing so might even cause problems.
 
-            var items = that.$el.siblings('li.task-list-item'), coll = that.model.collection;
+            var items = that.$el.closest('ul').children('li.task-list-item'), coll = that.model.collection;
 
             // Iterator
             var i = 1
             
             $.each(items, function(index) {
               var model = coll.get($(items[index]).attr('id').match(/(\d+)/)[0]);
-
+              console.log('Index: ', index, ', I: ', i, ', Position: ', model.get('position'));
               if (model.get('position') !== i) {
                 model.set({position: i});
               }
@@ -100,7 +97,10 @@ define([
           that.model.save({}, {
             dataType: 'html',
             url : API.tasks.single(that.model.get('id')),
-            beforeSend: Utils.authHeader
+            beforeSend: Utils.authHeader,
+            success: function() {
+              that.changePosition();
+            }
           });
         }
       });
@@ -178,8 +178,9 @@ define([
       });
     },
 
-    removeStyles      : function() {
+    changePosition  : function() {
       this.$el.removeAttr('style');
+      this.render();
     },
 
     showEditForm      : function() {
@@ -216,7 +217,6 @@ define([
       this.render();
       this.listenTo(this.model, 'change:status', this.crossOff);
       this.listenTo(this.$editForm, 'done', this.render);
-      this.listenTo(this.model, 'change:position', this.removeStyles);
     },
 
     render: function() {

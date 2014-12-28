@@ -40,6 +40,7 @@ define([
     // Core View Functions //
 
     initialize: function() {
+      this.collection.comparator = 'position';
       this.render();
 
       this.listenTo(this.collection, 'remove', this.render);
