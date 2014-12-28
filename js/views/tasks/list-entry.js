@@ -80,7 +80,6 @@ define([
             
             $.each(items, function(index) {
               var model = coll.get($(items[index]).attr('id').match(/(\d+)/)[0]);
-              console.log('Index: ', index, ', I: ', i, ', Position: ', model.get('position'));
               if (model.get('position') !== i) {
                 model.set({position: i});
               }
