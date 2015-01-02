@@ -37,10 +37,8 @@ define([
           success    : function(model) {
             form[0].reset();
 
-            // The collection needs to be synced before being re-rendered;
-            // otherwise, the new model won't show up properly. Consequently,
-            // the `add` event is done silently and the collection renders as
-            // each task is `fetch`ed.
+            // The task positions are also set on the server, so no need to
+            // sync the whole collection.
 
             _.each(that.collection.models, function(model) {
               model.set('position', model.get('position' + 1));
