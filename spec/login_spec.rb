@@ -1,6 +1,9 @@
 require 'spec_helper'
 
 describe 'logging in', type: :feature do 
+  after(:each) do 
+    DRIVER.manage.delete_all_cookies
+  end
 
   # NOTE: The data used here refer to a test user in the development database
   #       currently on a local VM. Its values are:
@@ -30,13 +33,9 @@ describe 'logging in', type: :feature do
         @form.find_element(:tag_name, 'button').click
       end
 
-      after(:each) do 
-        DRIVER.manage.delete_all_cookies
-      end
-
       it 'sets \'auth\' cookie to basic auth hash' do 
         cookie = DRIVER.manage.cookie_named('auth')
-        expect(cookie[:value]).to eql Base64.encode64('testuser:testuser')
+        expect(cookie[:value]).to eql CGI.escape(Base64.encode64('testuser:testuser').chomp)
       end
 
       it 'sets \'userID\' cookie to the user\'s ID' do 

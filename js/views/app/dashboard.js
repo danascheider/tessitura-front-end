@@ -30,8 +30,8 @@ define([
     id            : 'dashboard-wrapper',
     
     events   : {
-      'click'             : 'hideDropdownMenus',
-      'click li.dropdown' : 'toggleDropdownMenu',
+      'click'           : 'hideDropdownMenus',
+      'click ul.nav li' : 'toggleDropdownMenu',
     },
 
     template : _.template(DashboardTemplate),
@@ -61,6 +61,7 @@ define([
 
     initialize: function(opts) {
       this.user = opts.user;
+      console.log('EVENTS: ', this.events);
     },
     
     render: function() {
