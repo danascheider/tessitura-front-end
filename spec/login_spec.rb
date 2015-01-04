@@ -56,5 +56,45 @@ describe 'logging in', type: :feature do
         expect(DRIVER.find_element(:class_name, 'dashboard-home')).to be_displayed
       end
     end
+
+    context '"remember me" true' do 
+      before(:each) do 
+        DRIVER.get BASEPATH
+        DRIVER.find_element(:css, 'ul.top-nav a.login-link').click
+
+        form = DRIVER.find_element(:id, 'login-form')
+
+        form.find_element(:name, 'username').send_keys 'testuser'
+        form.find_element(:name, 'password').send_keys 'testuser'
+
+        box = form.find_element(:name, 'remember')
+        box.click unless box.selected?
+
+        form.find_element(:tag_name, 'button').click
+      end
+
+      it 'sets \'auth\' cookie to basic auth hash' do 
+        cookie = DRIVER.manage.cookie_named('auth')
+        expect(cookie[:value]).to eql CGI.escape(Base64.encode64('testuser:testuser').chomp)
+      end
+
+      it 'sets \'userID\' cookie to the user\'s ID' do 
+        cookie = DRIVER.manage.cookie_named('userID')
+        expect(cookie[:value]).to eql '342'
+      end
+
+      it 'sets the cookies to expire in a year' do 
+        expires, expected = DRIVER.manage.cookie_named('auth')[:expires].to_time, Time.now + (365 * 24 * 3600)
+        expect(Time.new(expires.year, expires.month, expires.day)).to eql Time.new(expected.year, expected.month, expected.day)
+      end
+
+      it 'renders the dashboard' do 
+        expect(DRIVER.find_element(:id, 'dashboard-wrapper')).to be_truthy
+      end
+
+      it 'shows the dashboard home view' do 
+        expect(DRIVER.find_element(:class_name, 'dashboard-home')).to be_displayed
+      end
+    end
   end
 end
