@@ -53,8 +53,6 @@ GEM
       multi_json (~> 1.0)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
-    show_me_the_cookies (2.5.0)
-      capybara (~> 2.0)
     watir-webdriver (0.6.11)
       selenium-webdriver (>= 2.18.0)
     websocket (1.2.1)
@@ -71,4 +69,3 @@ DEPENDENCIES
   page-object (~> 1.0)
   rspec (~> 3.1)
   selenium-webdriver (~> 2.44)
-  show_me_the_cookies (~> 2.5)
