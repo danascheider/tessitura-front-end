@@ -1,4 +1,5 @@
 require 'rspec'
+require 'json'
 require 'capybara/rspec'
 require 'capybara/webkit'
 require 'selenium-webdriver'
@@ -14,7 +15,7 @@ RSpec.configure do |config|
 
   config.before(:suite) do 
     DRIVER = Selenium::WebDriver.for :firefox
-    DRIVER.manage.timeouts.implicit_wait = 15
+    DRIVER.manage.timeouts.implicit_wait = 30
     BASEPATH = 'http://localhost'
   end
 
