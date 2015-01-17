@@ -5,6 +5,7 @@ requirejs.config({
     backbone      : './lib/backbone',
     mocha         : './lib/mocha/mocha',
     chai          : './lib/chai/chai',
+    sinon         : './lib/sinon-1.12.1',
     cookie        : './lib/cookie',
     filter        : './lib/backbone-route-filter-min',
     bootstrap     : './lib/bootstrap',
@@ -29,7 +30,6 @@ requirejs.config({
 
 require(['backbone', 'router', 'models/user', 'cookie'], function(Backbone, Router, UserModel) {
   $(function() {
-
     // FIX: Call to window.user is probably not a good idea when using Require.js
     
     if($.cookie('auth') && $.cookie('userID')) {

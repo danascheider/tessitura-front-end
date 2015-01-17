@@ -48,7 +48,7 @@ define([
     before: {
       'dashboard(/)' : 'verifyLoggedIn',
       'tasks(/)'     : 'verifyLoggedIn',
-      '(/)'          : 'rerouteIfLoggedIn',
+      '(/)'          : 'rerouteIfLoggedIn'
     },
 
     defaultAction: function(action) {

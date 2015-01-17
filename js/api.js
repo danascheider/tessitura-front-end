@@ -1,6 +1,6 @@
 define(function() {
 
-  var BaseURL = 'http://localhost:9292';
+  var BaseURL = 'http://private-6f87dc-canto.apiary-mock.com';
 
   var API = {
     base  : BaseURL,

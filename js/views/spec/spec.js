@@ -19,7 +19,7 @@ define([
     },
 
     runSpecs: function() {
-      require(['require', 'chai', 'mocha', 'jquery', 'chai-jquery'], function(require, chai) {
+      require(['require', 'chai', 'mocha', 'jquery', 'chai-jquery', 'sinon'], function(require, chai) {
         var should = chai.should();
         mocha.setup('bdd');
 

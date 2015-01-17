@@ -22,7 +22,7 @@ define([
 
     defaultFetch: function(successCallback) {
       this.fetch({
-        url : API.users.single(this.id),
+        url        : API.users.single(this.get('id')),
         beforeSend : Utils.authHeader,
         success    : successCallback,
         error      : function(model, response) {
@@ -68,7 +68,7 @@ define([
     },
 
     name: function() {
-      return this.firstName + ' ' + this.lastName;
+      return this.get('first_name') + ' ' + this.get('last_name');
     },
   });
   
