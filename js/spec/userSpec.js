@@ -49,7 +49,6 @@ define(function(require) {
     describe('name() function', function() {
       it('concatenates the first and last names', function() {
         var user = new User({first_name: 'Beth', last_name: 'Franco'});
-        console.log(user);
         user.name().should.equal('Beth Franco');
       })
     })
