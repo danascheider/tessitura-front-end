@@ -2,7 +2,7 @@ define([
   'jquery', 
   'underscore',
   'backbone',
-  'css!lib/mocha/mocha.css'
+  'css!lib/mocha/mocha.css',
 ], function($, _, Backbone) {
 
   var SpecRunner = Backbone.View.extend({
@@ -19,11 +19,13 @@ define([
     },
 
     runSpecs: function() {
-      require(['require', 'chai', 'mocha', 'jquery', 'chai-jquery', 'sinon'], function(require, chai) {
+      require(['require', 'chai', 'api', 'mocha', 'jquery', 'chai-jquery', 'sinon'], function(require, chai, API) {
+        if (API.base.match(/localhost/)) { throw 'Connect to test API' }
+
         var should = chai.should();
         mocha.setup('bdd');
 
-        require(['spec/userSpec'], function(require) {
+        require(['spec/userSpec', 'spec/taskSpec'], function(require) {
           mocha.run();
         });
       });

@@ -24,14 +24,10 @@ define([
     },
 
     // The `fetch()` function overrides the default `fetch()` method to include
-    // the HTTP basic auth header. The `fetch()` function should only be used to
-    // retrieve user profile information for admins, because it authorizes the
-    // request using the requested user's credentials, rather than using the 
-    // credentials from the cookie. This could facilitate fetching a user's
-    // data without being logged in as that user (or without being logged in at all).
-    // 
-    // When fetching user data for a non-admin user, the `protectedFetch()` function
-    // should be called.
+    // the HTTP basic auth header. The `fetch()` function differs from the 
+    // `protectedFetch()` function in that it sends the request with the credentials
+    // of the user being requested, whereas `protectedFetch() uses the credentials
+    // of whichever user is logged in. 
 
     fetch: function(options) {
       options = options || {};

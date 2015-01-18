@@ -2,13 +2,30 @@ define([
   'underscore',
   'backbone',
   'api',
-  ], function(_, Backbone, API) {
+  'utils',
+  'cookie'
+  ], function(_, Backbone, API, Utils) {
   
   var TaskModel = Backbone.Model.extend({
-    urlRoot: API.tasks.root,
+    urlRoot: function() {
+      return API.tasks.collection($.cookie('userID'));
+    },
 
     complete: function() {
       return Boolean(this.get('status') === 'Complete');
+    },
+
+    create: function(attributes, options) {
+      attributes = attributes || this.attributes;
+      options = options || {};
+
+      options.url = this.urlRoot();
+      options.type = 'POST',
+      options.beforeSend = (options.beforeSend) || function(xhr) {
+        xhr.setRequestHeader('Authorization', 'Basic ', $.cookie('auth'));
+      }
+
+      return Backbone.Model.prototype.save.call(this, attributes, options);
     },
 
     displayTitle: function() {
@@ -21,6 +38,16 @@ define([
       } else {
         return title;
       }
+    },
+
+    fetch: function(options) {
+      options = options || {};
+      options.url = API.tasks.single(this.get('id'));
+      options.beforeSend = Utils.authHeader;
+
+      console.log(Backbone.Model.prototype.fetch);
+      console.log(options);
+      Backbone.Model.prototype.fetch.call(this, options);
     },
 
     incomplete: function() {

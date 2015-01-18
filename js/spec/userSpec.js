@@ -4,8 +4,6 @@ define(function(require) {
   var API = require('api');
   var cookie = require('cookie');
 
-  if (API.base.match(/localhost/)) { throw 'Connect to test API' }
-
   describe('User', function() {
     it('has default URL root of \'/users\'', function() {
       var user = new User();
@@ -18,35 +16,45 @@ define(function(require) {
         (typeof user.tasks).should.not.equal('undefined');
       });
 
-      describe('when instantiated with an ID', function() {
+      describe('when instantiated with an ID', function() {        
         beforeEach(function() {
+
+          // Since it is not possible to check that the constructor calls
+          // `protectedFetch()` instead of regular `fetch()`, it is necessary to 
+          // determine that (1) the request was made and (2) the request was made
+          // using the credentials of the logged-in user, which differ from those
+          // of the user being created.
+
+          $.cookie('auth', btoa('danascheider:danascheider'));
           sinon.spy($, 'ajax');
         });
 
         afterEach(function() {
+          $.removeCookie('auth');
           $.ajax.restore();
         });
 
-        it('makes a request to the server', function(done) {
-          var user;
-          var spy = sinon.spy((user = new User({id: 1})), 'protectedFetch');
-          user.protectedFetch.calledOnce.should.be.true;
+        it('makes a request to the server', function(done) { 
+          var user = new User({id: 342});
+          $.ajax.calledOnce.should.be.true;
+          done();
+        });
+
+        it('uses the credentials from the cookie', function(done) {
+          var server = sinon.fakeServer.create();
+          var user = new User({id: 342});
+          var expected = 'Basic ' + btoa('danascheider:danascheider');
+          server.requests[0].requestHeaders.Authorization.should.equal(expected);
           done();
         });
       });
 
       describe('when instantiated without an ID', function() {
-        beforeEach(function() {
-          sinon.spy($, 'ajax');
-        });
-
-        afterEach(function() {
-          $.ajax.restore();
-        });
-
         it('doesn\'t make a request to the server', function() {
+          sinon.spy($, 'ajax');
           new User({username: 'testuser22', password: 'usertest81'});
           $.ajax.calledOnce.should.be.false;
+          $.ajax.restore();
         });
       })
     });
