@@ -55,13 +55,15 @@ define([
     // to retrieve another user's data, the response will be a 401 error.
 
     protectedFetch: function(options) {
-      this.fetch({
-        url        : API.users.single(this.get('id')),
-        beforeSend : Utils.authHeader,
-        error      : function(model, response) {
-          console.log('Error: Unable to retrieve user profile: ', response);
+      options = options || {};
+      options.url = options.url || API.users.single(this.get('id'));
+      if (!options.beforeSend) {
+        options.beforeSend = function(xhr) {
+          xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
         }
-      });
+      }
+
+      return Backbone.Model.prototype.fetch.call(this, options);
     },
 
     fetchIncompleteTasks: function() {
