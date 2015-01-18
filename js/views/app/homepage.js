@@ -99,6 +99,8 @@ define([
             $.cookie('userID', obj.user.id);
           }
 
+          window.user = new UserModel(obj.user, {sync: false});
+
           that.trigger('ajaxSuccess');
         }
       });
