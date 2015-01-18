@@ -42,6 +42,18 @@ define(function(require) {
       });
     });
 
+    describe('complete() function', function() {
+      it('is false for an incomplete task', function() {
+        var task = new Task({title: 'Take out the trash', status: 'In Progress'});
+        task.complete().should.be.false;
+      });
+
+      it('is true for a complete task', function() {
+        var task = new Task({title: 'Take out the trash', status: 'Complete'});
+        task.complete().should.be.true;
+      });
+    });
+
     describe('create() function', function() {
       beforeEach(function() {
         $.cookie('auth', btoa('testuser:testuser'));
