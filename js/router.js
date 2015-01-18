@@ -26,8 +26,8 @@ define([
   var CantoRouter = Backbone.Router.extend({
     initialize         : function() {
       if($.cookie('auth')) {
-        var user = new UserModel({id: $.cookie('userID')});
-        this.dashboardPresenter = new DashboardPresenter({user: user});
+        window.user = window.user || new UserModel({id: $.cookie('userID')});
+        this.dashboardPresenter = new DashboardPresenter({user: window.user});
       }
 
       this.listenTo(this.appPresenter, 'userLoggedIn', this.prepareDashboard);
