@@ -1,6 +1,9 @@
 define(function(require) {
   var Backbone = require('backbone');
   var User = require('models/user');
+  var API = require('api');
+
+  if (API.base.match(/localhost/)) { throw 'Connect to test API' }
 
   describe('User', function() {
     it('has default URL root of \'/users\'', function() {
@@ -51,6 +54,33 @@ define(function(require) {
         var user = new User({first_name: 'Beth', last_name: 'Franco'});
         user.name().should.equal('Beth Franco');
       })
-    })
+    });
+
+    describe('fetch() function', function() {
+      var user = new User({id: 342, username: 'testuser', password: 'testuser', email: 'testuser@example.com'});
+
+      it('calls Backbone\'s fetch() function', function(done) {
+
+        // Spy on the Backbone model prototype's `fetch()` method, which should
+        // be called from the User model's `fetch()` method (i.e., should be included
+        // in the function that overrides the model's default `fetch()` method)
+
+        sinon.spy(Backbone.Model.prototype, 'fetch');
+
+        user.fetch();
+        Backbone.Model.prototype.fetch.calledOnce.should.be.true;
+        Backbone.Model.prototype.fetch.restore();
+        done();
+      });
+
+      it('sets the auth header for the user being requested', function() {
+        var authString = 'Basic ' + btoa(user.get('username') + ':' + user.get('password'));
+        var server = sinon.fakeServer.create();
+
+        user.fetch();
+
+        server.requests[0].requestHeaders.Authorization.should.equal(authString);
+      });
+    });
   });
 });
