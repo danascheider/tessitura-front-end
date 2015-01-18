@@ -45,8 +45,6 @@ define([
       options.url = API.tasks.single(this.get('id'));
       options.beforeSend = Utils.authHeader;
 
-      console.log(Backbone.Model.prototype.fetch);
-      console.log(options);
       Backbone.Model.prototype.fetch.call(this, options);
     },
 
