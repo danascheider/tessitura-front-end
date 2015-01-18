@@ -8,6 +8,7 @@ define([
   'models/user',
   'views/app/dashboard',
   'views/app/homepage',
+  'views/spec/spec',
   'cookie'
 ], function(
     $, 
@@ -18,6 +19,7 @@ define([
     UserModel,
     DashboardView,
     HomepageView,
+    SpecRunner,
     DashboardHomeView
 ) {
   
@@ -39,13 +41,14 @@ define([
       'dashboard(/)'   : 'displayDashboard',
       'tasks(/)'       : 'displayKanban',
       'logout(/)'      : 'logOut',
+      'spec(/)'        : 'runSpec',
       '*actions'       : 'defaultAction'
     },
 
     before: {
       'dashboard(/)' : 'verifyLoggedIn',
       'tasks(/)'     : 'verifyLoggedIn',
-      '(/)'          : 'rerouteIfLoggedIn',
+      '(/)'          : 'rerouteIfLoggedIn'
     },
 
     defaultAction: function(action) {
@@ -93,6 +96,12 @@ define([
         this.appPresenter.removeAll();
         this.prepareDashboard();
       }
+    },
+
+    runSpec       : function() {
+      if(!!this.appPresenter) { this.appPresenter.removeAll(); }
+      if(!!this.dashboardPresenter) { this.dashboardPresenter.removeAll(); }
+      this.specRunner = new SpecRunner({el: 'body'});
     },
 
     verifyLoggedIn: function(fragment, args, next) {

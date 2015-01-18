@@ -121,6 +121,8 @@ define([
       });
     },
 
+    // NOTE: Instead of (or in addition to) triggering markComplete on the model,
+    //       the view should simply remove itself.
     crossOff          : function() {
       var task = this.model;
 
