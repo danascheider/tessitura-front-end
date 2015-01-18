@@ -9,15 +9,17 @@ define([
   var User = Backbone.Model.extend({
     urlRoot: API.users.collection,
     
-    initialize: function() {
+    initialize: function(attrs, options) {
+      options = options || {};
+
       this.tasks = new TaskCollection({owner: this});
 
-      if(this.get('id')) {
-        this.fetch({
-          async: false,
-          url  : API.users.single(this.get('id')),
-          beforeSend: Utils.authHeader
-        });
+      // If the model exists on the server, its data should be fetched
+      // on instantiation. This will only work if the user being instantiated
+      // is also the logged-in user.
+
+      if (!(options.sync === false) && this.get('id')) {
+        this.protectedFetch();
       }
     },
 
