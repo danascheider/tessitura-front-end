@@ -73,6 +73,18 @@ define(function(require) {
       });
     });
 
+    describe('displayTitle() function', function() {
+      it('leaves a short title as-is', function() {
+        var task = new Task({title: 'Take out the trash'});
+        task.displayTitle().should.equal('Take out the trash');
+      });
+
+      it('truncates a long title with an ellipsis', function() {
+        var task = new Task({title: 'Find out how much wood a woodchuck would chuck if a woodchuck could chuck wood'});
+        task.displayTitle().should.equal('Find out how much wood a woodchuck would chuck if a ...');
+      });
+    });
+
     describe('fetch() function', function() {
       var auth = 'Basic ' + btoa('testuser:testuser');
       var task = new Task({id: 114, title: 'Take out the trash'});
