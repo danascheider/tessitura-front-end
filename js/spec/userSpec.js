@@ -28,8 +28,9 @@ define(function(require) {
         });
 
         it('makes a request to the server', function(done) {
-          new User({id: 1});
-          $.ajax.calledOnce.should.be.true;
+          var user;
+          var spy = sinon.spy((user = new User({id: 1})), 'protectedFetch');
+          user.protectedFetch.calledOnce.should.be.true;
           done();
         });
       });
