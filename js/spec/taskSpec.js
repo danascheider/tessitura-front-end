@@ -63,6 +63,7 @@ define(function(require) {
 
     describe('fetch() function', function() {
       var auth = 'Basic ' + btoa('testuser:testuser');
+      var task = new Task({id: 114, title: 'Take out the trash'});
 
       beforeEach(function() {
         $.cookie('auth', btoa('testuser:testuser'));
@@ -76,17 +77,15 @@ define(function(require) {
 
       it('makes the request to the individual task endpoint', function() {
         var server = sinon.fakeServer.create(); 
-        var task = new Task({id: 114, title: 'Take out the trash'});
         task.fetch();
         server.requests[0].url.should.equal(API.base + '/tasks/114');
       });
 
       it('includes the correct authorization header', function() {
         var server = sinon.fakeServer.create(); 
-        var task = new Task({id: 114, title: 'Take out the trash'});
         task.fetch();
         server.requests[0].requestHeaders.Authorization.should.equal(auth);
-      })
+      });
     });
   });
 });
