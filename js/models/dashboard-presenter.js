@@ -23,12 +23,22 @@ define([
 
   var DashboardPresenter = Backbone.Model.extend({
     initialize : function(opts) {
+      opts = opts || {};
       this.user = opts.user;
       this.mainView = new MainView({user: this.user});
+
+      this.listenTo(this.user, 'sync', this.refresh);
+    },
+
+    refreshCurrent : function() {
+      if (this.mainView.$homeView) { 
+        return this.getHome();
+      } else if (this.mainView.$kanbanView) {
+        return this.getKanban();
+      }
     },
 
     getHome : function() {
-      console.log('Getting the home view');
       if(!!this.mainView.$kanbanView) { this.mainView.$kanbanView.remove(); }
 
       this.mainView.$homeView = this.mainView.$homeView || new HomeView({user: this.user});
@@ -38,7 +48,6 @@ define([
     },
 
     getKanban : function() {
-      console.log('Getting the kanban view');
       if(!!this.mainView.$homeView) { this.mainView.$homeView.remove(); }
 
       this.mainView.$kanbanView = this.mainView.$kanbanView || new KanbanView({user: this.user});
@@ -48,10 +57,17 @@ define([
     },
 
     getMain   : function(element) {
-      console.log('Rendering the main view');
       this.mainView = this.mainView || new MainView({user: this.user});
       this.mainView.render();
       $(element).html(this.mainView.el);
+    },
+
+    refresh   : function() {
+      if (!!this.mainView) {
+        this.mainView.render();
+        this.refreshCurrent();
+        return this;
+      }
     },
 
     removeAll : function() {
