@@ -60,8 +60,8 @@ define([
     // Core View Methods //
 
     initialize: function(opts) {
+      opts = opts || {};
       this.user = opts.user;
-      console.log('EVENTS: ', this.events);
     },
     
     render: function() {
