@@ -41,5 +41,25 @@ define(function(require) {
         $.prototype.prepend.called.should.be.true
       });
     });
+
+    describe('removeAll() function', function() {
+      var presenter = new AppPresenter();
+
+      beforeEach(function() {
+        sinon.stub(presenter.homepageView, 'remove');
+      });
+
+      afterEach(function() {
+        presenter.homepageView.remove.restore();
+      });
+
+      it('removes the homepage view if it exists', function() {
+        var presenter = new AppPresenter();
+        sinon.spy(presenter.homepageView, 'remove');
+        presenter.removeAll();
+        presenter.homepageView.remove.calledOnce.should.be.true;
+        presenter.homepageView.remove.restore();
+      });
+    });
   });
 });
