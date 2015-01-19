@@ -28,6 +28,10 @@ define([
       return Backbone.Model.prototype.save.call(this, attributes, options);
     },
 
+    // FIX: The displayTitle function would probably be better if it took a 
+    //      `length` argument and adjusted based on that instead of going with
+    //      60 every time
+    
     displayTitle: function() {
       var title = this.escape('title');
 
