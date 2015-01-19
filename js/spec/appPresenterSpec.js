@@ -54,11 +54,8 @@ define(function(require) {
       });
 
       it('removes the homepage view if it exists', function() {
-        var presenter = new AppPresenter();
-        sinon.spy(presenter.homepageView, 'remove');
         presenter.removeAll();
         presenter.homepageView.remove.calledOnce.should.be.true;
-        presenter.homepageView.remove.restore();
       });
     });
   });
