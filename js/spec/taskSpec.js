@@ -18,7 +18,7 @@ define(function(require) {
     describe('constructor', function() {
       it('calls the validation function', function() {
         var task = new Task();
-        sinon.spy(task, 'validate');
+        sinon.stub(task, 'validate');
         task.save();
         task.validate.calledOnce.should.be.true;
       });
@@ -110,6 +110,23 @@ define(function(require) {
         task.fetch();
         server.requests[0].requestHeaders.Authorization.should.equal(auth);
       });
+    });
+
+    describe('incomplete() function', function() {
+      it('returns true for incomplete tasks', function() {
+        var task = new Task({title: 'Take out the trash', status: 'New'});
+        task.incomplete().should.be.true;
+      });
+
+      it('returns false for completed tasks', function() {
+        var task = new Task({title: 'Take out the trash', status: 'Complete'});
+        task.incomplete().should.be.false;
+      });
+    });
+
+    describe('prettyDeadline() function', function() {
+      var task = new Task({title: 'Take out the trash', deadline: new Date('2014-11-10 00:00:00 -0800')});
+      task.prettyDeadline().should.equal('Monday, November 10, 2014');
     });
   });
 });
