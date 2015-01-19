@@ -6,7 +6,7 @@ define([
   'views/app/homepage',
 ], function($, _, Backbone, UserModel, HomepageView, LoginPageView) {
 
-  var AppPresenter = Backbone.View.extend({
+  var AppPresenter = Backbone.Model.extend({
     initialize : function() {
       this.homepageView  = new HomepageView();
       this.listenTo(this.homepageView, 'ajaxSuccess', this.emitLogin);
