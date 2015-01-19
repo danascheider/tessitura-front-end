@@ -13,6 +13,17 @@ define(function(require) {
       });
     });
 
+    describe('emitLogin() function', function() {
+      var presenter = new AppPresenter();
+
+      it('triggers the `userLoggedIn` event', function() {
+        var spy = sinon.spy();
+        presenter.on('userLoggedIn', spy);
+        presenter.emitLogin();
+        spy.calledOnce.should.be.true;
+      });
+    });
+
     describe('getHomepage() function', function() {
       var presenter = new AppPresenter();
 
