@@ -25,7 +25,7 @@ define([
         var should = chai.should();
         mocha.setup('bdd');
 
-        require(['spec/userSpec', 'spec/taskSpec'], function(require) {
+        require(['spec/userSpec', 'spec/taskSpec', 'spec/appPresenterSpec'], function(require) {
           mocha.run();
         });
       });

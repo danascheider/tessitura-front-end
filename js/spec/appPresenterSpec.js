@@ -14,22 +14,31 @@ define(function(require) {
     });
 
     describe('getHomepage() function', function() {
+      var presenter = new AppPresenter();
+
       beforeEach(function() {
-        sinon.stub($).withArgs('body'), 'prepend').returns(sinon.stub({prepend: function() {}}));
+        sinon.stub($.prototype, 'prepend');
+      });
+
+      afterEach(function() {
+        $.prototype.prepend.restore();
       });
 
       it('creates a homepage view if there is none', function() {
-        var presenter = new AppPresenter();
         presenter.set('homepageView', null);
-        presenter.getHomepage(obj);
+        presenter.getHomepage('body');
         presenter.homepageView.should.not.be.null;
       });
 
       it('renders the homepage', function() {
-        var presenter = new AppPresenter();
         sinon.spy(presenter.homepageView, 'render');
         presenter.getHomepage('body');
         presenter.homepageView.render.calledOnce.should.be.true;
+      });
+
+      it('attaches the homepage view to the given element', function() {
+        presenter.getHomepage('body');
+        $.prototype.prepend.called.should.be.true
       });
     });
   });
