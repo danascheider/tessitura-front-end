@@ -66,8 +66,9 @@ define([
       if (!!this.mainView) {
         this.mainView.render();
         this.refreshCurrent();
-        return this;
       }
+
+      return this;
     },
 
     removeAll : function() {
