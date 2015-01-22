@@ -12,20 +12,20 @@ define([
       this.render();
     },
 
-
     render: function() {
       this.runSpecs();
       this.$el.html(this.template());
     },
 
     runSpecs: function() {
-      require(['require', 'chai', 'api', 'mocha', 'jquery', 'chai-jquery', 'sinon'], function(require, chai, API) {
+      require(['require', 'chai', 'sinon-chai', 'api', 'mocha', 'jquery', 'chai-jquery'], function(require, Chai, sinonChai, API) {
         if (API.base.match(/localhost/)) { throw 'Connect to test API' }
 
-        var should = chai.should();
+        var should = Chai.should();
+        Chai.use(sinonChai);
         mocha.setup('bdd');
 
-        require(['spec/userSpec', 'spec/taskSpec', 'spec/appPresenterSpec'], function(require) {
+        require(['spec/userSpec', 'spec/taskSpec', 'spec/appPresenterSpec', 'spec/dashboardPresenterSpec'], function(require) {
           mocha.run();
         });
       });

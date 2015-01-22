@@ -15,7 +15,8 @@ requirejs.config({
     stylesheets   : '../css',
     'fa-styles'   : '../font-awesome/css',
     'jquery-ui'   : './lib/jquery-ui',
-    'chai-jquery' : './lib/chai-jquery'
+    'chai-jquery' : './lib/chai-jquery',
+    'sinon-chai'  : './lib/sinon-chai'
   },
 
   shim: {
@@ -24,7 +25,8 @@ requirejs.config({
       deps     : ['jquery', 'underscore'],
       exports  : 'Backbone'
     },
-    'chai-jquery' : ['jquery', 'chai']
+    'chai-jquery' : ['jquery', 'chai'],
+    'sinon-chai'  : ['chai', 'sinon']
   }
 });
 
