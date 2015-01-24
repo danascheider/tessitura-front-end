@@ -1,9 +1,10 @@
-define(function(require) {
-  var Backbone = require('backbone');
-  var User = require('models/user');
-  var Task = require('models/task');
-  var API = require('api');
-  var cookie = require('cookie');
+define([
+  'backbone',
+  'models/user',
+  'models/task',
+  'api',
+  'cookie'
+], function(Backbone, User, Task, API) {
 
   describe('Task', function() {
     describe('urlRoot', function() {
