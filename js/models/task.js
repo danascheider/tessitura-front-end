@@ -35,9 +35,8 @@ define([
     fetch: function(options) {
       options = options || {};
       options.url = API.tasks.single(this.get('id'));
-      options.beforeSend = Utils.authHeader;
 
-      Backbone.Model.prototype.fetch.call(this, options);
+      ProtectedResource.prototype.fetch.call(this, options);
     },
 
     incomplete: function() {
