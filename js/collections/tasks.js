@@ -37,12 +37,6 @@ define([
       Backbone.Collection.prototype.fetch.call(this, opts);
     },
 
-    refreshModels      : function() {
-      _.each(this.models, function(model) {
-        model.fetch();
-      });
-    },
-
     repositionOnCreate : function() {
       _.each(this.models, function(task) {
         if (!task.isNew()) {

@@ -34,7 +34,7 @@ define([
     // Event Handlers //
 
     refreshCollection : function() {
-      this.collection.refreshModels();
+      this.collection.fetch({add: false});
       this.render();
     },
 

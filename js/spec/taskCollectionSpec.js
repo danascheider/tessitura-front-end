@@ -39,36 +39,6 @@ define([
       });
     });
 
-    describe('refreshModels() method', function() {
-      beforeEach(function() {
-        collection = new TaskCollection([task1, task2, task3]);
-        server = sinon.fakeServer.create();
-      });
-
-      it('fetches each of the models currently in the collection', function() {
-
-        // Stub the fetch() method on each of the models in the collection,
-        // as they are fetched individually and the fetch() method on the Task model
-        // is modified from that on Backbone.Model.prototype
-
-        _.each(collection.models, function(model) { sinon.stub(model, 'fetch') });
-
-        collection.refreshModels();
-
-        // Verify that each model was fetched, then restore its fetch() method
-
-        _.each(collection.models, function(model) {
-          model.fetch.calledOnce.should.equal(true, 'Model ' + model.get('id') + ' was not fetched');
-          model.fetch.restore();
-        });
-      });
-
-      it('doesn\'t fetch the whole default collection', function() {
-        collection.refreshModels();
-        server.requests[0].url.should.not.equal(API.base + '/users/' + $.cookie('userID') + '/tasks');
-      });
-    });
-
     describe('fetch() method', function() {
 
       beforeEach(function() {
