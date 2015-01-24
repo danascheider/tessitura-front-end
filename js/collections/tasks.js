@@ -1,12 +1,13 @@
 define([
   'backbone',
+  'collections/protected-collection',
   'models/task',
   'api',
   'utils',
   'cookie'
-], function(Backbone, TaskModel, API, Utils) {
+], function(Backbone, ProtectedCollection, TaskModel, API, Utils) {
   
-  var TaskCollection = Backbone.Collection.extend({
+  var TaskCollection = ProtectedCollection.extend({
     model      : TaskModel,
     comparator : 'position',
     url        : function() {
@@ -32,9 +33,7 @@ define([
         delete opts.all;
       }
 
-      opts.beforeSend = Utils.authHeader;
-
-      Backbone.Collection.prototype.fetch.call(this, opts);
+      ProtectedCollection.prototype.fetch.call(this, opts);
     },
 
     repositionOnCreate : function() {

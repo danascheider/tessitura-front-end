@@ -1,4 +1,4 @@
-define(['backbone', 'cookie'], function(Backbone, Utils) {
+define(['underscore', 'backbone', 'cookie'], function(_, Backbone, Utils) {
   
   var ProtectedResource = Backbone.Model.extend({
     token: function() {
@@ -27,7 +27,7 @@ define(['backbone', 'cookie'], function(Backbone, Utils) {
         xhr.setRequestHeader('Authorization', that.token());
       }
 
-      Backbone.Model.prototype.fetch.call(this, options);
+      return Backbone.Model.prototype.fetch.call(this, options);
     }
   });
 
