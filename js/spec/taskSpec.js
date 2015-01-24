@@ -54,7 +54,7 @@ define(function(require) {
       });
     });
 
-    describe('create() function', function() {
+    describe('save() function', function() {
       beforeEach(function() {
         $.cookie('auth', btoa('testuser:testuser'));
         $.cookie('userID', 342);
@@ -68,7 +68,7 @@ define(function(require) {
       it('sends the request to the right endpoint', function() {
         var server = sinon.fakeServer.create();
         var task = new Task({title: 'Take out the trash'});
-        task.create();
+        task.save();
         server.requests[0].url.should.equal(API.base + '/users/342/tasks');
       });
     });

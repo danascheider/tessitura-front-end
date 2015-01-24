@@ -1,31 +1,19 @@
 define([
   'underscore',
   'backbone',
+  'models/protected-resource',
   'api',
   'utils',
   'cookie'
-  ], function(_, Backbone, API, Utils) {
+  ], function(_, Backbone, ProtectedResource, API, Utils) {
   
-  var TaskModel = Backbone.Model.extend({
+  var TaskModel = ProtectedResource.extend({
     urlRoot: function() {
       return API.tasks.collection($.cookie('userID'));
     },
 
     complete: function() {
       return Boolean(this.get('status') === 'Complete');
-    },
-
-    create: function(attributes, options) {
-      attributes = attributes || this.attributes;
-      options = options || {};
-
-      options.url = this.urlRoot();
-      options.type = 'POST',
-      options.beforeSend = (options.beforeSend) || function(xhr) {
-        xhr.setRequestHeader('Authorization', 'Basic ', $.cookie('auth'));
-      }
-
-      return Backbone.Model.prototype.save.call(this, attributes, options);
     },
 
     // FIX: The displayTitle function would probably be better if it took a 
