@@ -31,15 +31,14 @@ define([
     },
 
     refreshCurrent : function() {
-      if (this.mainView.$homeView) { 
-        return this.getHome();
-      } else if (this.mainView.$kanbanView) {
-        return this.getKanban();
-      }
+      if(!this.current) { return }
+      return this.current === 'home' ? this.getHome() : this.getKanban();
     },
 
     getHome : function() {
       if(!!this.mainView.$kanbanView) { this.mainView.$kanbanView.remove(); }
+
+      this.current = 'home';
 
       this.mainView.$homeView = this.mainView.$homeView || new HomeView({user: this.user});
       this.mainView.$homeView.render();
@@ -49,6 +48,8 @@ define([
 
     getKanban : function() {
       if(!!this.mainView.$homeView) { this.mainView.$homeView.remove(); }
+
+      this.current = 'kanban';
 
       this.mainView.$kanbanView = this.mainView.$kanbanView || new KanbanView({user: this.user});
       this.mainView.$kanbanView.render();
@@ -63,11 +64,8 @@ define([
     },
 
     refresh   : function() {
-      if (!!this.mainView) {
-        this.mainView.render();
-        this.refreshCurrent();
-      }
-
+      this.getMain();
+      this.refreshCurrent();
       return this;
     },
 
