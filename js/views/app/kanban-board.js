@@ -10,14 +10,24 @@ define([
 ], function($, _, Backbone, API, TaskCollection, KanbanColumnView, Template) {
   var KanbanBoardView = Backbone.View.extend({
     template   : _.template(Template),
+
+    // FIX: I think having using `tagName` and `id` cause a new element to be 
+    //      added to the DOM, when it would be better to have the Kanban board
+    //      attached to the existing div
+
     tagName    : 'div',
     id         : 'page-wrapper',
+
+    initialize : function(opts) {
+      opts = opts || {};
+      this.user = opts.user;
+    },
 
     render     : function() {
       this.$el.html(this.template());
       var that = this;
 
-      window.user.fetchIncompleteTasks().then(function(collection) {
+      this.user.fetchIncompleteTasks().then(function(collection) {
         that.$backlogColumn = new KanbanColumnView({
           el         : that.$('#backlog-tasks'),
           collection : new TaskCollection(collection.where({backlog: true})),
