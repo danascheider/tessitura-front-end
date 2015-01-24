@@ -1,11 +1,10 @@
 define([
-  'backbone',
   'collections/protected-collection',
   'models/task',
   'api',
   'utils',
   'cookie'
-], function(Backbone, ProtectedCollection, TaskModel, API, Utils) {
+], function(ProtectedCollection, TaskModel, API, Utils) {
   
   var TaskCollection = ProtectedCollection.extend({
     model      : TaskModel,
