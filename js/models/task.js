@@ -1,11 +1,9 @@
 define([
-  'underscore',
-  'backbone',
   'models/protected-resource',
   'api',
   'utils',
   'cookie'
-  ], function(_, Backbone, ProtectedResource, API, Utils) {
+  ], function(ProtectedResource, API, Utils) {
   
   var TaskModel = ProtectedResource.extend({
     urlRoot: function() {
