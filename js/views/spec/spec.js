@@ -25,7 +25,7 @@ define([
         Chai.use(sinonChai);
         mocha.setup('bdd');
 
-        require(['spec/userSpec', 'spec/taskSpec', 'spec/appPresenterSpec', 'spec/dashboardPresenterSpec', 'spec/taskCollectionSpec'], function(require) {
+        require(['spec/specHelper'], function(require) {
           mocha.run();
         });
       });
