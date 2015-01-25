@@ -78,7 +78,7 @@ define([
         that.$el.append(view.$el);
       });
 
-      this.$el.sortable({connectWith: '.task-list', dropOnEmpty: true})
+      this.$el.sortable({connectWith: '.task-list', dropOnEmpty: true});
 
       return this;
     }
