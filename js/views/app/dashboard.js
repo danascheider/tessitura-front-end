@@ -52,11 +52,6 @@ define([
       li.toggleClass('open');
     },
 
-    renderSidebar: function() {
-      this.$sidebar = new SidebarView({el: this.$('div.sidebar-collapse')});
-      return this;
-    },
-
     // Core View Methods //
 
     initialize: function(opts) {
