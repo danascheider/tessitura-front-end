@@ -20,7 +20,7 @@ define([
       });
     });
 
-    describe('save', function() {
+    describe('save() method', function() {
       beforeEach(function() {
         resource = new ProtectedResource();
         resource.url = API.base + '/protected-resource';
@@ -39,10 +39,36 @@ define([
       });
 
       it('calls `save` from the Backbone Model prototype', function() {
-        var stub = sinon.stub(Backbone.Model.prototype, 'save');
+        sinon.stub(Backbone.Model.prototype, 'save');
         resource.save();
-        stub.calledOnce.should.be.true;
+        Backbone.Model.prototype.save.calledOnce.should.be.true;
         Backbone.Model.prototype.save.restore();
+      });
+    });
+
+    describe('fetch() method', function() {
+      beforeEach(function() {
+        resource = new ProtectedResource();
+        resource.url = API.base + '/protected-resource';
+        server = sinon.fakeServer.create();
+      });
+
+      it('attaches an authorization header', function() {
+        resource.fetch();
+        server.requests[0].requestHeaders.should.haveOwnProperty('Authorization');
+      });
+
+      it('includes authorization for the logged-in user', function() {
+        resource.fetch();
+        var value = 'Basic ' + $.cookie('auth');
+        server.requests[0].requestHeaders.Authorization.should.equal(value);
+      });
+
+      it('calls `fetch` from the Backbone Model prototype', function() {
+        sinon.stub(Backbone.Model.prototype, 'fetch');
+        resource.fetch();
+        Backbone.Model.prototype.fetch.calledOnce.should.be.true;
+        Backbone.Model.prototype.fetch.restore();
       });
     });
   });
