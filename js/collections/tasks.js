@@ -2,9 +2,8 @@ define([
   'collections/protected-collection',
   'models/task',
   'api',
-  'utils',
   'cookie'
-], function(ProtectedCollection, TaskModel, API, Utils) {
+], function(ProtectedCollection, TaskModel, API) {
   
   var TaskCollection = ProtectedCollection.extend({
     model      : TaskModel,
