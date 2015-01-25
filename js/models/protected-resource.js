@@ -1,4 +1,4 @@
-define(['underscore', 'backbone', 'cookie'], function(_, Backbone, Utils) {
+define(['underscore', 'backbone', 'cookie'], function(_, Backbone) {
   
   var ProtectedResource = Backbone.Model.extend({
     token: function() {
