@@ -1,0 +1,9 @@
+define([
+  'spec/appPresenterSpec',
+  'spec/dashboardPresenterSpec',
+  'spec/protectedCollectionSpec',
+  'spec/protectedResourceSpec',
+  'spec/taskCollectionSpec',
+  'spec/taskSpec',
+  'spec/userSpec'
+]);
