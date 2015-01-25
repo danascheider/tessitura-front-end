@@ -13,7 +13,7 @@ define(['underscore', 'backbone', 'cookie'], function(_, Backbone, Utils) {
 
       options.beforeSend = (options.beforeSend) || function(xhr) {
         xhr.setRequestHeader('Authorization', that.token());
-      }
+      };
 
       return Backbone.Model.prototype.save.call(this, attrs, options);
     },
@@ -25,7 +25,7 @@ define(['underscore', 'backbone', 'cookie'], function(_, Backbone, Utils) {
 
       options.beforeSend = (options.beforeSend) || function(xhr) {
         xhr.setRequestHeader('Authorization', that.token());
-      }
+      };
 
       return Backbone.Model.prototype.fetch.call(this, options);
     }
