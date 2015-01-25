@@ -11,7 +11,7 @@ define(['underscore', 'backbone'], function(_, Backbone) {
 
       opts.beforeSend = (opts.beforeSend) || function(xhr) {
         xhr.setRequestHeader('Authorization', that.token());
-      }
+      };
 
       return Backbone.Collection.prototype.fetch.call(this, opts);
     }
