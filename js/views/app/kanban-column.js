@@ -56,7 +56,7 @@ define([
       task.save({status: this.taskStatus}, {
         beforeSend: Utils.authHeader,
         error     : function(model, response) {
-          console.log('Unable to update task: ', response)
+          console.log('Unable to update task: ', response);
         }
       });
     },
