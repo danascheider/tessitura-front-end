@@ -31,7 +31,7 @@ define([
     },
 
     refreshCurrent : function() {
-      if(!this.current) { return }
+      if(!this.current) { return; }
       return this.current === 'home' ? this.getHome() : this.getKanban();
     },
 
