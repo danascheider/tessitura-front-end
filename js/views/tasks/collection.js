@@ -67,9 +67,9 @@ define([
       // accumulate
 
       if(this.listItemViews.length) { 
-        _.each(this.listItemViews, (function(view) { 
+        _.each(this.listItemViews, function(view) { 
           view.remove(); 
-        }));
+        });
       }
 
       this.collection.each(function(task) {
