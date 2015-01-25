@@ -21,7 +21,7 @@ define([
       e.preventDefault();
       var that = this, form  = $(e.target), attrs = Utils.getAttributes(form);
 
-      _.each(this.groupedBy, function(value,key) { attrs[key] = value });
+      _.each(this.groupedBy, function(value,key) { attrs[key] = value; });
 
       var newTask = new TaskModel(attrs);
 
