@@ -1,39 +1,34 @@
 define([
-  'jquery', 
-  'underscore', 
   'backbone', 
   'filter',
   'models/app-presenter',
   'models/dashboard-presenter',
   'models/user',
-  'views/app/dashboard',
-  'views/app/homepage',
   'views/spec/spec',
   'cookie'
 ], function(
-    $, 
-    _, Backbone, 
+    Backbone, 
     Filter,
     AppPresenter,
     DashboardPresenter,
     UserModel,
-    DashboardView,
-    HomepageView,
-    SpecRunner,
-    DashboardHomeView
+    SpecRunner
 ) {
   
   var CantoRouter = Backbone.Router.extend({
     initialize         : function() {
       if($.cookie('auth')) {
+
+        // FIX: Should avoid using window.user with Require.js
+
         window.user = window.user || new UserModel({id: $.cookie('userID')});
         this.dashboardPresenter = new DashboardPresenter({user: window.user});
       }
 
+      this.appPresenter = new AppPresenter();
+
       this.listenTo(this.appPresenter, 'userLoggedIn', this.prepareDashboard);
     },
-
-    appPresenter : new AppPresenter(),
 
     routes: {
       '(/)'            : 'displayHomepage',
