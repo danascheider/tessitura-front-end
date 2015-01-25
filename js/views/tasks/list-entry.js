@@ -76,7 +76,9 @@ define([
             var items = that.$el.closest('ul').children('li.task-list-item'), coll = that.model.collection;
 
             // Iterator
-            var i = 1
+            var i = 1;
+
+            // FIX: Maybe use _.each instead of $.each?
             
             $.each(items, function(index) {
               var model = coll.get($(items[index]).attr('id').match(/(\d+)/)[0]);
@@ -127,7 +129,7 @@ define([
       var task = this.model;
 
       if(task.get('status') === 'Complete') {
-        var collection = task.collection; id = task.get('id');
+        var id = task.get('id');
 
         this.$('i.fa-square-o').removeClass('fa-square-o').addClass('fa-check-square-o');
         this.$('.task-title').css('text-decoration', 'line-through');
@@ -168,8 +170,8 @@ define([
       this.$('span.edit-task').css('visibility', 'hidden');
     },
 
-    markComplete      : function(e) {
-      var that = this, li = this.$el;
+    markComplete      : function() {
+      var that = this;
 
       this.model.save({status: 'Complete'}, {
         dataType    : 'html',
