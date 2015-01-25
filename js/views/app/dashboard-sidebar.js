@@ -14,13 +14,13 @@ define([
       'click li > .task-page-link' : 'goToTaskPage'
     },
 
-    goToDashboard        : function(e) {
+    goToDashboard        : function() {
       if(location.hash !== '#dashboard') {
         Backbone.history.navigate('dashboard', {trigger: true});
       }
     },
 
-    goToTaskPage         : function(e) {
+    goToTaskPage         : function() {
       if(location.hash !== '#tasks') {
         Backbone.history.navigate('tasks', {trigger: true});
       }
