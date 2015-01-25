@@ -36,7 +36,6 @@ define([
       var hash = btoa(this.get('username') + ':' + this.get('password'));
 
       options.beforeSend = (options.beforeSend) || function(xhr) {
-        var hash = btoa(that.get('username') + ':' + that.get('password'));
         xhr.setRequestHeader('Authorization', 'Basic ' + hash);
       };
 
@@ -51,11 +50,9 @@ define([
     protectedFetch: function(options) {
       options = options || {};
       options.url = options.url || API.users.single(this.get('id'));
-      if (!options.beforeSend) {
-        options.beforeSend = function(xhr) {
-          xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
-        }
-      }
+      options.beforeSend = (options.beforeSend) || function(xhr) {
+        xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
+      };
 
       return Backbone.Model.prototype.fetch.call(this, options);
     },
