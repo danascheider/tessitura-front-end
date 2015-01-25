@@ -1,3 +1,4 @@
 define([
-  'spec/modelAndCollectionSpecs'
+  'spec/modelAndCollectionSpecs',
+  'spec/viewSpecs'
 ]);
