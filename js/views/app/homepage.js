@@ -106,7 +106,7 @@ define([
       });
     },
 
-    toggleLoginForm : function(e) {
+    toggleLoginForm : function() {
       if(!$.cookie('auth')) {
         this.$('div.text-vertical-center').children().toggle();
         this.$('#shade').toggle();
