@@ -33,14 +33,12 @@ define([
       options = options || {};
       options.url = (options.url || API.users.single(this.get('id')));
 
-      if (!options.beforeSend) {
-        var that = this;
+      var hash = btoa(this.get('username') + ':' + this.get('password'));
 
-        options.beforeSend = function(xhr) {
-          var hash = btoa(that.get('username') + ':' + that.get('password'));
-          xhr.setRequestHeader('Authorization', 'Basic ' + hash);
-        }
-      }
+      options.beforeSend = (options.beforeSend) || function(xhr) {
+        var hash = btoa(that.get('username') + ':' + that.get('password'));
+        xhr.setRequestHeader('Authorization', 'Basic ' + hash);
+      };
 
       return Backbone.Model.prototype.fetch.call(this, options);
     },
