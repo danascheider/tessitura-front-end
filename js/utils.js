@@ -1,4 +1,4 @@
-define(['jquery', 'cookie', 'backbone'], function() {
+define(['jquery', 'backbone', 'cookie'], function($, Backbone) {
 
   var Utils = {
 
