@@ -1,9 +1,8 @@
 define([
   'models/protected-resource',
   'api',
-  'utils',
   'cookie'
-  ], function(ProtectedResource, API, Utils) {
+  ], function(ProtectedResource, API) {
   
   var TaskModel = ProtectedResource.extend({
     urlRoot: function() {
