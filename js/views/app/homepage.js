@@ -18,7 +18,7 @@ define([
     API,
     Utils,
     UserModel,
-    HomepageTemplate){
+    HomepageTemplate) {
   
   var HomepageView = Backbone.View.extend({
     events  : {
@@ -99,6 +99,8 @@ define([
             $.cookie('userID', obj.user.id);
           }
 
+          // FIX: Consider not using window.user with Require.js
+
           window.user = new UserModel(obj.user, {sync: false});
 
           that.trigger('ajaxSuccess');
@@ -107,6 +109,10 @@ define([
     },
 
     toggleLoginForm : function() {
+
+      // FIX: Should introduce some sort of different behavior if the user is
+      //      already logged in... maybe a link to the dashboard and/or a logout link?
+
       if(!$.cookie('auth')) {
         this.$('div.text-vertical-center').children().toggle();
         this.$('#shade').toggle();
