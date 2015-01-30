@@ -21,11 +21,11 @@ define(['backbone', 'views/app/homepage', 'cookie'], function(Backbone, Homepage
 
       describe('top nav', function() {
         it('is present', function() {
-          view.$el.find('#navbar-top').length.should.equal(1);
+          view.$('#navbar-top').should.exist();
         });
 
         it('has a link to log in', function() {
-          view.$('#navbar-top').find('.login-link').length.should.equal(1);
+          view.$('#navbar-top').find('.login-link').should.exist();
         });
       });
     });
@@ -33,15 +33,18 @@ define(['backbone', 'views/app/homepage', 'cookie'], function(Backbone, Homepage
     describe('render() function', function() {
       beforeEach(function() {
         view = new HomepageView();
+        view.render();
+      });
+
+      afterEach(function() {
+        view.remove();
       });
 
       it('creates a div', function() {
-        view.render();
         view.$el[0].tagName.should.equal('DIV');
       });
 
       it('assigns the ID #homepage-wrapper', function() {
-        view.render();
         view.$el[0].id.should.equal('homepage-wrapper');
       });
     });
