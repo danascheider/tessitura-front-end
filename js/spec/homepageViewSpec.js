@@ -32,6 +32,17 @@ define(['backbone', 'views/app/homepage', 'cookie'], function(Backbone, Homepage
         });
       });
 
+      describe('login form', function() {
+        it('is hidden initially', function() {
+          view.$('form#login-form').should.not.be.visible;
+        });
+
+        it('is displayed when the link is clicked', function() {
+          view.$('#navbar-top').find('.login-link').trigger('click');
+          view.$('#login-form').should.be.visible;
+        });
+      });
+
       it('has a \'features\' section', function() {
         view.$('section#features').should.exist();
       });
