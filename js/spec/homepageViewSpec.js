@@ -28,6 +28,10 @@ define(['backbone', 'views/app/homepage', 'cookie'], function(Backbone, Homepage
           view.$('#navbar-top').find('.login-link').should.exist();
         });
       });
+
+      it('has a \'features\' section', function() {
+        view.$('section#features').should.exist();
+      });
     });
 
     describe('render() function', function() {
