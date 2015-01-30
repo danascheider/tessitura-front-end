@@ -15,9 +15,17 @@ define(['backbone', 'views/app/homepage', 'cookie'], function(Backbone, Homepage
         view.render();
       });
 
+      afterEach(function() {
+        view.remove();
+      });
+
       describe('top nav', function() {
-        it('has a link to log in', function() {
+        it('is present', function() {
           view.$el.find('#navbar-top').length.should.equal(1);
+        });
+
+        it('has a link to log in', function() {
+          view.$('#navbar-top').find('.login-link').length.should.equal(1);
         });
       });
     });
