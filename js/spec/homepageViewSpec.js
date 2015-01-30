@@ -5,10 +5,7 @@ define(['backbone', 'views/app/homepage', 'cookie'], function(Backbone, Homepage
 
     describe('homepage elements', function() {
       // The homepage needs to have the following elements:
-      // - Top nav with login link
       // - Registration form
-      // - 'Contact us' section
-      // - 'Features' section with links
 
       beforeEach(function() {
         view = new HomepageView();
@@ -29,8 +26,18 @@ define(['backbone', 'views/app/homepage', 'cookie'], function(Backbone, Homepage
         });
       });
 
+      describe('registration form', function() {
+        it('is present', function() {
+          view.$('form#registration-form').should.exist();
+        });
+      });
+
       it('has a \'features\' section', function() {
         view.$('section#features').should.exist();
+      });
+
+      it('has contact information', function() {
+        view.$('#contact-us').should.exist();
       });
     });
 
