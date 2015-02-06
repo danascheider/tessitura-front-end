@@ -6,6 +6,7 @@ define([
   'api',
   'utils',
   'models/user',
+  'views/app/login-form',
   'text!templates/app/homepage.html',
   'css!stylesheets/bootstrap.css',
   'css!fa-styles/font-awesome.min.css',
@@ -18,6 +19,7 @@ define([
     API,
     Utils,
     UserModel,
+    LoginFormView,
     HomepageTemplate) {
   
   var HomepageView = Backbone.View.extend({
@@ -25,8 +27,6 @@ define([
       'submit #registration-form'       : 'createUser',
       'click nav li .login-link'        : 'toggleLoginForm',
       'dblclick #shade'                 : 'hideLoginForm',
-      'submit #login-form'              : 'loginUser',
-      'click #login-form .pull-right a' : 'loginHelp'
     },
 
     tagName : 'div',
@@ -66,46 +66,10 @@ define([
 
     hideLoginForm   : function(e) {
       var t = $(e.target);
-      if (t.attr('id') !== 'login-form' && this.$('#login-form').has(t).length === 0) {
+      if (t.attr('id') !== 'login-form' && this.$loginForm.$el.has(t).length === 0) {
         this.$('#shade').hide();
         this.$('div.text-vertical-center').children().show();
       }
-    },
-
-    loginHelp       : function() {
-      console.log('Haha! You\'re boned!');
-    },
-
-    loginUser       : function(e) {
-      e.preventDefault();
-
-      var that = this, form = $(e.target), attrs = Utils.getAttributes(form);
-      var hash = btoa(attrs.username + ':' + attrs.password);
-
-      $.ajax({
-        type: 'POST',
-        url : API.login,
-        beforeSend: function(xhr) {
-          xhr.setRequestHeader('Authorization', 'Basic ' + hash);
-        },
-        success: function(obj) {
-          obj = JSON.parse(obj);
-
-          if(attrs.remember === 'Remember Me') {
-            $.cookie('auth', hash, {expires: 365});
-            $.cookie('userID', obj.user.id, {expires: 365});
-          } else {
-            $.cookie('auth', hash);
-            $.cookie('userID', obj.user.id);
-          }
-
-          // FIX: Consider not using window.user with Require.js
-
-          window.user = new UserModel(obj.user, {sync: false});
-
-          that.trigger('ajaxSuccess');
-        }
-      });
     },
 
     toggleLoginForm : function() {
@@ -119,8 +83,18 @@ define([
       }
     },
 
+    // ----------------- //
+    // Core View Methods //
+    // ----------------- //
+
     render : function() {
       this.$el.html(_.template(HomepageTemplate));
+
+      // Attach the login form to the `#shade` div
+      this.$loginForm = this.$loginForm || new LoginFormView();
+      this.$loginForm.render();
+      this.$('#shade').html(this.$loginForm.el);
+
       return this;
     }
   });
