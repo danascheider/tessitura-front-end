@@ -1,1 +1,4 @@
-define(['spec/homepageViewSpec']);
+define([
+  'spec/views/homepageViewSpec',
+  'spec/views/loginFormViewSpec'
+  ]);
