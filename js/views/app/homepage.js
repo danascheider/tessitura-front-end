@@ -29,8 +29,9 @@ define([
       'dblclick #shade'                 : 'hideLoginForm',
     },
 
-    tagName : 'div',
-    id      : 'homepage-wrapper',
+    tagName  : 'div',
+    id       : 'homepage-wrapper',
+    template : _.template(HomepageTemplate),
 
     createUser      : function(e) {
       e.preventDefault();
@@ -49,7 +50,7 @@ define([
           $.cookie('userID', model.id);
           $.cookie('auth', hash);
 
-          that.trigger('ajaxSuccess');
+          that.trigger('loginSuccess');
           
           // FIX: Is this statement, and others like it, really needed
           //      given that the router listens to events triggered on
@@ -83,18 +84,20 @@ define([
       }
     },
 
-    // ----------------- //
-    // Core View Methods //
-    // ----------------- //
+    // ------------------- //
+    // Core View Functions //
+    // ------------------- //
 
-    render : function() {
-      this.$el.html(_.template(HomepageTemplate));
+    initialize       : function() {
+      this.$loginForm = new LoginFormView();
 
-      // Attach the login form to the `#shade` div
+      this.listenTo(this.$loginForm, 'loginSuccess', function() { this.trigger('loginSuccess'); });
+    },
+
+    render           : function() {
+      this.$el.html(this.template());
       this.$loginForm = this.$loginForm || new LoginFormView();
-      this.$loginForm.render();
-      this.$('#shade').html(this.$loginForm.el);
-
+      this.$('#shade').html(this.$loginForm.render().el);
       return this;
     }
   });

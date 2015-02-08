@@ -10,7 +10,6 @@ define([
 
   var LoginFormView = Backbone.View.extend({
     template : _.template(LoginFormTemplate),
-
     tagName  : 'form',
     id       : 'login-form',
 
