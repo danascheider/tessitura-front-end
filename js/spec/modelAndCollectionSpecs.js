@@ -3,7 +3,7 @@ define([
   'spec/models/dashboardPresenterSpec',
   'spec/models/protectedResourceSpec',
   'spec/models/taskSpec',
-  'spec/models/userSpec'
+  'spec/models/userSpec',
   'spec/collections/protectedCollectionSpec',
   'spec/collections/taskCollectionSpec'
 ]);
