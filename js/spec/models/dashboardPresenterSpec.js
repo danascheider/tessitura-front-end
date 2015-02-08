@@ -12,22 +12,13 @@ define([
   
   describe('DashboardPresenter', function() {
 
-    // Create user to be passed to the DashboardPresenter constructor
-    // and declare `presenter` variable to be defined in `before` blocks
+    // Create user to be passed to the DashboardPresenter
 
     var user = new User({username: 'testuser', password: 'testuser', email: 'testuser@example.com'}), presenter;
 
     describe('constructor', function() {
       beforeEach(function() {
-        presenter = new DashboardPresenter({user: user});
-      });
-
-      it('is instantiated with a user', function() {
-        presenter.user.should.equal(user);
-      });
-
-      it('creates a main dashboard view', function() {
-        (typeof presenter.mainView).should.not.equal('undefined');
+        presenter = new DashboardPresenter();
       });
     });
 
