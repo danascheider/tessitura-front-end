@@ -1,9 +1,9 @@
 define([
   'spec/models/appPresenterSpec',
   'spec/models/dashboardPresenterSpec',
-  'spec/protectedCollectionSpec',
   'spec/models/protectedResourceSpec',
-  'spec/taskCollectionSpec',
   'spec/models/taskSpec',
   'spec/models/userSpec'
+  'spec/collections/protectedCollectionSpec',
+  'spec/collections/taskCollectionSpec'
 ]);
