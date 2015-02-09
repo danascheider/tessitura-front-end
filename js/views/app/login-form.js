@@ -45,7 +45,6 @@ define([
             $.cookie('userID', obj.user.id);
           }
 
-          // FIX: Consider not using w
           that.trigger('loginSuccess');
         }
       });
