@@ -180,13 +180,12 @@ define([
     });
 
     describe('getMain() method', function() {
-      before(function() { sinon.stub($.prototype, 'html'); });
-      
       beforeEach(function() {
+        sinon.stub($.prototype, 'html');
         presenter = new DashboardPresenter({user: user});
       });
 
-      after(function() { $.prototype.html.restore(); });
+      afterEach(function() { $.prototype.html.restore(); });
 
       describe('when the main view doesn\'t exist', function() {
         it('creates the main view', function() {
@@ -213,7 +212,7 @@ define([
 
       it('sets the HTML of the body', function() {
         presenter.getMain();
-        $.prototype.html.calledOnce.should.be.true;
+        $.prototype.html.called.should.be.true;
       });
     });
     
