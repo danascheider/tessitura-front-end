@@ -97,6 +97,8 @@ define([
       if(!!this.appPresenter) { this.appPresenter.removeAll(); }
       if(!!this.dashboardPresenter) { this.dashboardPresenter.removeAll(); }
       this.specRunner = new SpecRunner({el: 'body'});
+      $.removeCookie('auth');
+      $.removeCookie('userID');
     },
 
     verifyLoggedIn: function(fragment, args, next) {
