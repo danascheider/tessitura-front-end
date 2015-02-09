@@ -52,11 +52,13 @@ define([
     describe('getHome() method', function() {
       beforeEach(function() {
         presenter = new DashboardPresenter({user: user});
+        sinon.stub(user.tasks, 'fetch');
       });
 
-      after(function() {
+      afterEach(function() {
         delete presenter.mainView.$homeView;
         delete presenter.mainView.$kanbanView;
+        user.tasks.fetch.restore();
       });
 
       describe('when the Kanban view is displayed', function() {
