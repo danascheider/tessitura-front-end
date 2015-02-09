@@ -12,25 +12,17 @@ define(['backbone', 'views/app/login-form', 'cookie'], function(Backbone, LoginF
         loginForm.render();
       });
 
-      it('is a form', function() {
-        loginForm.$el[0].tagName.should.equal('FORM');
+      afterEach(function() {
         loginForm.remove();
       });
 
-      it('has ID #login-form', function() {
-        loginForm.$el[0].id.should.equal('login-form');
-        loginForm.remove();
-      });
+      it('is a form', function() { loginForm.$el[0].tagName.should.equal('FORM'); });
 
-      it('has a username field', function() {
-        loginForm.$('input[name="username"]').length.should.equal(1);
-        loginForm.remove();
-      });
+      it('has ID #login-form', function() { loginForm.$el[0].id.should.equal('login-form'); });
 
-      it('has a password field', function() {
-        loginForm.$('input[name="password"]').length.should.equal(1);
-        loginForm.remove();
-      });
+      it('has a username field', function() { loginForm.$('input[name="username"]').length.should.equal(1); });
+
+      it('has a password field', function() { loginForm.$('input[name="password"]').length.should.equal(1); });
 
       // it('has a \'remember me\' checkbox', function() {
       //   // 
