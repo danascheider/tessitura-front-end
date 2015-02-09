@@ -29,9 +29,11 @@ define(['backbone', 'views/app/login-form', 'cookie'], function(Backbone, LoginF
         loginForm.remove();
       });
 
-      // it('has a password field', function() {
-      //   loginForm.$el.find('input[name="password"]').length.should.equal(1);
-      // });
+      it('has a password field', function() {
+        loginForm = new LoginForm();
+        loginForm.render();
+        loginForm.$('input[name="password"]').length.should.equal(1);
+      });
 
       // it('has a \'remember me\' checkbox', function() {
       //   // 
