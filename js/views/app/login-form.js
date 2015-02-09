@@ -4,9 +4,10 @@ define([
   'backbone',
   'models/user',
   'api',
+  'utils',
   'text!templates/partials/login-form.html',
   'cookie'
-], function($, _, Backbone, UserModel, API, LoginFormTemplate) {
+], function($, _, Backbone, UserModel, API, Utils, LoginFormTemplate) {
 
   var LoginFormView = Backbone.View.extend({
     template : _.template(LoginFormTemplate),
