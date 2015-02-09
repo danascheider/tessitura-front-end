@@ -24,9 +24,19 @@ define(['backbone', 'views/app/login-form', 'cookie'], function(Backbone, LoginF
 
       it('has a password field', function() { loginForm.$('input[name="password"]').length.should.equal(1); });
 
-      // it('has a \'remember me\' checkbox', function() {
-      //   // 
-      // });
+      describe('\'remember\' checkbox', function() {
+        it('exists', function() {
+          loginForm.$('input[name="remember"]').length.should.equal(1);
+        });
+
+        it('is a checkbox', function() {
+          loginForm.$('input[name="remember"]')[0].type.should.equal('checkbox');
+        });
+
+        it('is checked by default', function() {
+          loginForm.$('input[name="remember"]')[0].checked.should.equal(true);
+        });
+      });
       
       // it('has a link for login help', function() {
       //   //
