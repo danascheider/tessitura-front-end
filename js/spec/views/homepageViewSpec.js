@@ -17,10 +17,7 @@ define(['backbone', 'views/app/homepage', 'cookie'], function(Backbone, Homepage
       });
 
       afterEach(function() {
-        view.undelegateEvents();
-        view.$el.removeData().unbind();
         view.remove();
-        Backbone.View.prototype.remove.call(view);
       });
 
       describe('top nav', function() {
