@@ -79,6 +79,7 @@ define([
     setUser   : function(user) {
       this.user = user;
       this.listenTo(this.user, 'sync', this.refresh);
+      this.mainView = new MainView({user: this.user});
     } 
   });
 
