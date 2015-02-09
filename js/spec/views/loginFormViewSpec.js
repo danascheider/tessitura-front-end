@@ -26,6 +26,8 @@ define(['backbone', 'views/app/login-form', 'cookie'], function(Backbone, LoginF
 
       it('has a link for login help', function() { loginForm.$('a.login-help-link').length.should.equal(1); });
 
+      it('has a submit button', function() { loginForm.$('button[type="submit"]').length.should.equal(1) });
+      
       describe('\'remember\' checkbox', function() {
         it('exists', function() {
           loginForm.$('input[name="remember"]').length.should.equal(1);
@@ -39,7 +41,6 @@ define(['backbone', 'views/app/login-form', 'cookie'], function(Backbone, LoginF
           loginForm.$('input[name="remember"]')[0].checked.should.equal(true);
         });
       });
-      
     });
   });
 });
