@@ -22,10 +22,10 @@ define([
         // FIX: Should avoid using window.user with Require.js
 
         window.user = window.user || new UserModel({id: $.cookie('userID')});
-        this.dashboardPresenter = new DashboardPresenter({user: window.user});
       }
 
       this.appPresenter = new AppPresenter();
+      this.dashboardPresenter = new DashboardPresenter();
 
       this.listenTo(this.appPresenter, 'userLoggedIn', this.prepareDashboard);
     },
@@ -78,8 +78,8 @@ define([
     prepareDashboard : function() {
       var user = new UserModel({id: $.cookie('userID')});
 
-      this.dashboardPresenter = this.dashboardPresenter || new DashboardPresenter({user: user});
-      this.dashboardPresenter.getMain('body');
+      this.dashboardPresenter.setUser(user);
+      this.dashboardPresenter.getMain();
 
       Backbone.history.navigate('dashboard', {trigger: true});
     },

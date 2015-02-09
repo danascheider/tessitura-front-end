@@ -22,12 +22,13 @@ define([
 ) {
 
   var DashboardPresenter = Backbone.Model.extend({
-    initialize : function(opts) {
+    initialize     : function(opts) {
       opts = opts || {};
-      this.user = opts.user;
-      this.mainView = new MainView({user: this.user});
 
-      this.listenTo(this.user, 'sync', this.refresh);
+      // If a user is passed to the constructor, set `this.user` and 
+      // listen to the user's `sync` event
+
+      if(!!opts.user) { this.setUser(opts.user); }
     },
 
     refreshCurrent : function() {
@@ -57,10 +58,10 @@ define([
       this.mainView.$('nav').after(this.mainView.$kanbanView.el);
     },
 
-    getMain   : function(element) {
+    getMain   : function() {
       this.mainView = this.mainView || new MainView({user: this.user});
       this.mainView.render();
-      $(element).html(this.mainView.el);
+      $('body').html(this.mainView.el);
     },
 
     refresh   : function() {
@@ -71,7 +72,14 @@ define([
 
     removeAll : function() {
       if(!!this.mainView) { this.mainView.remove(); }
-    }
+    },
+
+    // Set `this.user` and listen to the user's `sync` event
+
+    setUser   : function(user) {
+      this.user = user;
+      this.listenTo(this.user, 'sync', this.refresh);
+    } 
   });
 
   return DashboardPresenter;
