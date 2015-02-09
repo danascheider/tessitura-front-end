@@ -52,6 +52,7 @@ define([
 
     render   : function() {
       this.$el.html(this.template());
+      console.log(this.$el.html());
       return this;
     },
   });
