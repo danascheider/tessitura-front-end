@@ -4,7 +4,7 @@ define(['backbone', 'views/app/login-form', 'utils', 'cookie'], function(Backbon
 
     // Instantiate variable to be defined in `beforeEach` block
 
-    var loginForm;
+    var loginForm, server, getAttributes, spy;
 
     describe('elements', function() {
       beforeEach(function() {
@@ -52,8 +52,6 @@ define(['backbone', 'views/app/login-form', 'utils', 'cookie'], function(Backbon
     });
 
     describe('loginUser() method with \'Remember Me\' true', function() {
-      var server, getAttributes;
-
       beforeEach(function() {
         loginForm = new LoginForm();
         loginForm.render();
@@ -86,44 +84,47 @@ define(['backbone', 'views/app/login-form', 'utils', 'cookie'], function(Backbon
 
       describe('setting cookies', function() {
         beforeEach(function() {
+          // Stub jQuery cookie
           sinon.stub($, 'cookie');
+
+          // Spy on loginSuccess event
+          spy = sinon.spy();
+          loginForm.on('loginSuccess', spy);
+
+          // Create mock response
           var obj = JSON.stringify({"user": {"id":342, "username":"testuser", "first_name":"Test", "last_name":"User", "email":"testuser@example.com"}});
           server.respondWith(/\/login$/, function(xhr) {
             xhr.respond(200, {'Content-Type': 'application/json'}, obj);
           });
+
+          // Submit the form
+          loginForm.$el.submit();
+
+          // Send the server response
+          server.respond();
         });
 
         afterEach(function() {
           $.cookie.restore();
           server.restore();
+          loginForm.off('loginSuccess');
         });
 
         it('sets auth cookie to expire in 365 days', function() {
-          loginForm.$el.submit();
-          server.respond();
           $.cookie.calledWithExactly('auth', btoa('testuser:testuser'), {expires: 365}).should.be.true;
         });
 
         it('sets userID cookie to expire in 365 days', function() {
-          loginForm.$el.submit();
-          server.respond();
           $.cookie.calledWithExactly('userID', 342, {expires: 365}).should.be.true;
         });
 
         it('triggers the `loginSuccess` event', function() {
-          var spy = sinon.spy();
-          loginForm.on('loginSuccess', spy)
-          loginForm.$el.submit();
-          server.respond();
           spy.calledOnce.should.be.true;
-          loginForm.off('loginSuccess');
         });
       });
     });
 
     describe('loginUser() method with \'Remember Me\' false', function() {
-      var server, getAttributes;
-
       beforeEach(function() {
         loginForm = new LoginForm();
         loginForm.render();
