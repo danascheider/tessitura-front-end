@@ -51,7 +51,7 @@ define(['backbone', 'views/app/login-form', 'utils', 'cookie'], function(Backbon
       it('does not log \'Haha, you\'re boned!\' to the console');
     });
 
-    describe('loginUser() method', function() {
+    describe('loginUser() method with \'Remember Me\' true', function() {
       var server, getAttributes;
 
       beforeEach(function() {
@@ -101,13 +101,74 @@ define(['backbone', 'views/app/login-form', 'utils', 'cookie'], function(Backbon
         it('sets auth cookie to expire in 365 days', function() {
           loginForm.$el.submit();
           server.respond();
-          $.cookie.withArgs('auth', btoa('testuser:testuser'), {expires: 365}).calledOnce.should.be.true;
+          $.cookie.calledWithExactly('auth', btoa('testuser:testuser'), {expires: 365}).should.be.true;
         });
 
         it('sets userID cookie to expire in 365 days', function() {
           loginForm.$el.submit();
           server.respond();
-          $.cookie.withArgs('userID', 342, {expires: 365}).calledOnce.should.be.true;
+          $.cookie.calledWithExactly('userID', 342, {expires: 365}).should.be.true;
+        });
+      });
+    });
+
+    describe('loginUser() method with \'Remember Me\' false', function() {
+      var server, getAttributes;
+
+      beforeEach(function() {
+        loginForm = new LoginForm();
+        loginForm.render();
+
+        server = sinon.fakeServer.create();
+        getAttributes = sinon.stub(Utils, 'getAttributes');
+        getAttributes.withArgs(loginForm.$el).returns({username: 'testuser', password: 'testuser', remember: null});
+      });
+
+      afterEach(function() {
+        loginForm.remove();
+        Utils.getAttributes.restore();
+      });
+
+      it('makes a POST request', function() {
+        loginForm.$el.submit();
+        server.requests[0].method.should.equal('POST');
+      });
+
+      it('sends request to /login endpoint', function() {
+        loginForm.$el.submit();
+        server.requests[0].url.should.match(/\/login$/);
+      });
+
+      it('includes a basic auth header and hash', function() {
+        loginForm.$el.submit();
+        var str = 'Basic ' + btoa('testuser:testuser');
+        server.requests[0].requestHeaders.Authorization.should.equal(str);
+      });
+
+      describe('setting cookies', function() {
+        beforeEach(function() {
+          sinon.stub($, 'cookie');
+          var obj = JSON.stringify({"user": {"id":342, "username":"testuser", "first_name":"Test", "last_name":"User", "email":"testuser@example.com"}});
+          server.respondWith(/\/login$/, function(xhr) {
+            xhr.respond(200, {'Content-Type': 'application/json'}, obj);
+          });
+        });
+
+        afterEach(function() {
+          $.cookie.restore();
+          server.restore();
+        });
+
+        it('sets auth cookie as session cookie', function() {
+          loginForm.$el.submit();
+          server.respond();
+          $.cookie.calledWithExactly('auth', btoa('testuser:testuser')).should.be.true;
+        });
+
+        it('sets userID cookie as session cookie', function() {
+          loginForm.$el.submit();
+          server.respond();
+          $.cookie.calledWithExactly('userID', 342).should.be.true;
         });
       });
     });
