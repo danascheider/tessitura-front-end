@@ -60,7 +60,7 @@ define(['backbone', 'views/app/login-form', 'utils', 'cookie'], function(Backbon
 
         server = sinon.fakeServer.create();
         getAttributes = sinon.stub(Utils, 'getAttributes');
-        getAttributes.withArgs(loginForm.$el).returns({username: 'testuser', password: 'testuser', remember: true});
+        getAttributes.withArgs(loginForm.$el).returns({username: 'testuser', password: 'testuser', remember: 'Remember Me'});
       });
 
       afterEach(function() {
@@ -98,17 +98,17 @@ define(['backbone', 'views/app/login-form', 'utils', 'cookie'], function(Backbon
           server.restore();
         });
 
-        it('sets auth cookie', function() {
+        it('sets auth cookie to expire in 365 days', function() {
           loginForm.$el.submit();
           server.respond();
-          $.cookie.withArgs('auth', btoa('testuser:testuser')).calledOnce.should.be.true;
+          $.cookie.withArgs('auth', btoa('testuser:testuser'), {expires: 365}).calledOnce.should.be.true;
         });
 
-        it('sets userID cookie', function() {
+        it('sets userID cookie to expire in 365 days', function() {
           loginForm.$el.submit();
           server.respond();
-          $.cookie.withArgs('userID', 342).calledOnce.should.be.true;
-        })
+          $.cookie.withArgs('userID', 342, {expires: 365}).calledOnce.should.be.true;
+        });
       });
     });
 

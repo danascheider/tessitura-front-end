@@ -38,7 +38,6 @@ define([
         success: function(obj) {
           if(attrs.remember === 'Remember Me') {
             $.cookie('auth', hash, {expires: 365});
-            console.log($.cookie('auth'));
             $.cookie('userID', obj.user.id, {expires: 365});
           } else {
             $.cookie('auth', hash);
