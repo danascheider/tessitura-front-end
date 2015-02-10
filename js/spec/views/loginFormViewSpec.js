@@ -109,6 +109,15 @@ define(['backbone', 'views/app/login-form', 'utils', 'cookie'], function(Backbon
           server.respond();
           $.cookie.calledWithExactly('userID', 342, {expires: 365}).should.be.true;
         });
+
+        it('triggers the `loginSuccess` event', function() {
+          var spy = sinon.spy();
+          loginForm.on('loginSuccess', spy)
+          loginForm.$el.submit();
+          server.respond();
+          spy.calledOnce.should.be.true;
+          loginForm.off('loginSuccess');
+        });
       });
     });
 
@@ -170,6 +179,52 @@ define(['backbone', 'views/app/login-form', 'utils', 'cookie'], function(Backbon
           server.respond();
           $.cookie.calledWithExactly('userID', 342).should.be.true;
         });
+
+        it('triggers the `loginSuccess` event', function() {
+          var spy = sinon.spy();
+          loginForm.on('loginSuccess', spy);
+          loginForm.$el.submit();
+          server.respond();
+          spy.calledOnce.should.be.true;
+          loginForm.off('loginSuccess');
+        });
+      });
+    });
+
+    describe('loginUser() method with invalid credentials', function() {
+      var server, getAttributes;
+
+      beforeEach(function() {
+        loginForm = new LoginForm();
+        loginForm.render();
+
+        server = sinon.fakeServer.create();
+        server.respondWith([401, {}, 'Authorization Required\n']);
+        getAttributes = sinon.stub(Utils, 'getAttributes');
+        getAttributes.withArgs(loginForm.$el).returns({username: 'testuser', password: 'testuser', remember: null});
+      });
+
+      afterEach(function() {
+        loginForm.remove();
+        Utils.getAttributes.restore();
+        server.restore();
+      });
+
+      it('does not set cookies', function() {
+        sinon.stub($, 'cookie');
+        loginForm.$el.submit();
+        server.respond();
+        $.cookie.called.should.be.false;
+        $.cookie.restore();
+      });
+
+      it('does not trigger a `loginSuccess` event', function() {
+        var spy = sinon.spy();
+        loginForm.on('loginSuccess', spy)
+        loginForm.$el.submit();
+        server.respond();
+        spy.called.should.be.false;
+        loginForm.off('loginSuccess');
       });
     });
 
