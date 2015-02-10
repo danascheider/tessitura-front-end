@@ -157,75 +157,89 @@ define(['backbone', 'views/app/login-form', 'utils', 'cookie'], function(Backbon
 
       describe('setting cookies', function() {
         beforeEach(function() {
+          // Stub jQuery cookie
           sinon.stub($, 'cookie');
+
+          // Spy on the loginSuccess event
+          spy = sinon.spy();
+          loginForm.on('loginSuccess', spy);
+
+          // Prepare server response to login request
           var obj = JSON.stringify({"user": {"id":342, "username":"testuser", "first_name":"Test", "last_name":"User", "email":"testuser@example.com"}});
           server.respondWith(/\/login$/, function(xhr) {
             xhr.respond(200, {'Content-Type': 'application/json'}, obj);
           });
+
+          // Submit form
+          loginForm.$el.submit();
+
+          // Trigger server response
+          server.respond();
         });
 
         afterEach(function() {
           $.cookie.restore();
           server.restore();
+          loginForm.off('loginSuccess');
         });
 
         it('sets auth cookie as session cookie', function() {
-          loginForm.$el.submit();
-          server.respond();
           $.cookie.calledWithExactly('auth', btoa('testuser:testuser')).should.be.true;
         });
 
         it('sets userID cookie as session cookie', function() {
-          loginForm.$el.submit();
-          server.respond();
           $.cookie.calledWithExactly('userID', 342).should.be.true;
         });
 
         it('triggers the `loginSuccess` event', function() {
-          var spy = sinon.spy();
-          loginForm.on('loginSuccess', spy);
-          loginForm.$el.submit();
-          server.respond();
           spy.calledOnce.should.be.true;
-          loginForm.off('loginSuccess');
         });
       });
     });
 
     describe('loginUser() method with invalid credentials', function() {
-      var server, getAttributes;
-
       beforeEach(function() {
+        // Stub jQuery cookie
+        sinon.stub($, 'cookie');
+
+        // Create and render the LoginForm view
         loginForm = new LoginForm();
         loginForm.render();
 
+        // Spy on the loginSuccess event
+        spy = sinon.spy();
+        loginForm.on('loginSuccess', spy);
+
+        // Create a fake server to respond to the login request, which raises
+        // an authorization error in this test case
         server = sinon.fakeServer.create();
         server.respondWith([401, {}, 'Authorization Required\n']);
+
+        // Stub the getAttributes method that gets the data out of the form
         getAttributes = sinon.stub(Utils, 'getAttributes');
         getAttributes.withArgs(loginForm.$el).returns({username: 'testuser', password: 'testuser', remember: null});
+      
+        // Submit the form
+        loginForm.$el.submit();
+
+        // Trigger the server response
+        server.respond();
       });
 
       afterEach(function() {
+        loginForm.off('loginSuccess');
         loginForm.remove();
         Utils.getAttributes.restore();
+        $.cookie.restore();
         server.restore();
       });
 
       it('does not set cookies', function() {
-        sinon.stub($, 'cookie');
-        loginForm.$el.submit();
-        server.respond();
         $.cookie.called.should.be.false;
-        $.cookie.restore();
       });
 
       it('does not trigger a `loginSuccess` event', function() {
-        var spy = sinon.spy();
-        loginForm.on('loginSuccess', spy)
-        loginForm.$el.submit();
-        server.respond();
         spy.called.should.be.false;
-        loginForm.off('loginSuccess');
       });
     });
 
