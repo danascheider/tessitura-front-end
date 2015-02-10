@@ -73,9 +73,15 @@ define(['backbone', 'views/app/login-form', 'utils', 'cookie'], function(Backbon
         server.requests[0].method.should.equal('POST');
       });
 
-      it('sends request to /login', function() {
+      it('sends request to /login endpoint', function() {
         loginForm.$el.submit();
         server.requests[0].url.should.match(/\/login$/);
+      });
+
+      it('includes a basic auth header and hash', function() {
+        loginForm.$el.submit();
+        var str = 'Basic ' + btoa('testuser:testuser');
+        server.requests[0].requestHeaders.Authorization.should.equal(str);
       });
     });
 
