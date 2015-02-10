@@ -83,6 +83,33 @@ define(['backbone', 'views/app/login-form', 'utils', 'cookie'], function(Backbon
         var str = 'Basic ' + btoa('testuser:testuser');
         server.requests[0].requestHeaders.Authorization.should.equal(str);
       });
+
+      describe('setting cookies', function() {
+        beforeEach(function() {
+          sinon.stub($, 'cookie');
+          var obj = JSON.stringify({"user": {"id":342, "username":"testuser", "first_name":"Test", "last_name":"User", "email":"testuser@example.com"}});
+          server.respondWith(/\/login$/, function(xhr) {
+            xhr.respond(200, {'Content-Type': 'application/json'}, obj);
+          });
+        });
+
+        afterEach(function() {
+          $.cookie.restore();
+          server.restore();
+        });
+
+        it('sets auth cookie', function() {
+          loginForm.$el.submit();
+          server.respond();
+          $.cookie.withArgs('auth', btoa('testuser:testuser')).calledOnce.should.be.true;
+        });
+
+        it('sets userID cookie', function() {
+          loginForm.$el.submit();
+          server.respond();
+          $.cookie.withArgs('userID', 342).calledOnce.should.be.true;
+        })
+      });
     });
 
     describe('render() function', function() {
