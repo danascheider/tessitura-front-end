@@ -1,4 +1,4 @@
-define(['backbone', 'views/app/login-form', 'cookie'], function(Backbone, LoginForm) {
+define(['backbone', 'views/app/login-form', 'utils', 'cookie'], function(Backbone, LoginForm, Utils) {
   
   describe('LoginForm', function() {
 
@@ -40,6 +40,49 @@ define(['backbone', 'views/app/login-form', 'cookie'], function(Backbone, LoginF
         it('is checked by default', function() {
           loginForm.$('input[name="remember"]')[0].checked.should.equal(true);
         });
+      });
+    });
+
+    describe('event handling', function() {
+      //
+    });
+
+    describe('loginHelp() method', function() {
+      it('does not log \'Haha, you\'re boned!\' to the console');
+    });
+
+    describe('loginUser() method', function() {
+      var server, getAttributes;
+
+      beforeEach(function() {
+        loginForm = new LoginForm();
+        loginForm.render();
+
+        server = sinon.fakeServer.create();
+        getAttributes = sinon.stub(Utils, 'getAttributes');
+        getAttributes.withArgs(loginForm.$el).returns({username: 'testuser', password: 'testuser', remember: true});
+      });
+
+      afterEach(function() {
+        loginForm.remove();
+        Utils.getAttributes.restore();
+      });
+
+      it('makes a POST request', function() {
+        loginForm.$el.submit();
+        server.requests[0].method.should.equal('POST');
+      });
+
+      it('sends request to /login', function() {
+        loginForm.$el.submit();
+        server.requests[0].url.should.match(/\/login$/);
+      });
+    });
+
+    describe('render() function', function() {
+      it('returns the form', function() {
+        loginForm = new LoginForm();
+        loginForm.render().should.equal(loginForm);
       });
     });
   });
