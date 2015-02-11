@@ -3,21 +3,23 @@ define(['backbone', 'views/app/homepage', 'cookie'], function(Backbone, Homepage
   describe('HomepageView', function() {
     var view;
 
+    beforeEach(function() {
+      view = new HomepageView();
+    });
+
+    afterEach(function() {
+      view.remove();
+    });
+
     describe('constructor', function() {
       it('instantiates a login form', function() {
-        view = new HomepageView();
         view.$loginForm.should.exist;
       });
     });
 
     describe('homepage elements', function() {
       beforeEach(function() {
-        view = new HomepageView();
         view.render();
-      });
-
-      afterEach(function() {
-        view.remove();
       });
 
       describe('top nav', function() {
@@ -73,12 +75,7 @@ define(['backbone', 'views/app/homepage', 'cookie'], function(Backbone, Homepage
 
     describe('render() function', function() {
       beforeEach(function() {
-        view = new HomepageView();
         view.render();
-      });
-
-      afterEach(function() {
-        view.remove();
       });
 
       it('creates a div', function() {
@@ -94,13 +91,8 @@ define(['backbone', 'views/app/homepage', 'cookie'], function(Backbone, Homepage
       describe('showing the login form', function() {
         describe('when there is no logged-in user', function() {
           beforeEach(function() {
-            view = new HomepageView();
             view.render();
             view.toggleLoginForm();
-          });
-
-          afterEach(function() {
-            view.remove();
           });
 
           it('hides the center text', function() {
@@ -127,14 +119,30 @@ define(['backbone', 'views/app/homepage', 'cookie'], function(Backbone, Homepage
       });
 
       describe('hiding the login form', function() {
-        describe('when there is no logged-in user', function() {
-          //
+        beforeEach(function() {
+          view.render();
+          view.toggleLoginForm(); // show the login form
         });
 
-        describe('when there is a logged-in user', function() {
-          //
+        it('hides the login form', function() {
+          view.toggleLoginForm();
+          view.$loginForm.$el.should.not.be.visible;
         });
-      })
+
+        it('hides the #shade element', function() {
+          view.toggleLoginForm();
+          view.$('#shade').should.not.be.visible;
+        });
+
+        it('shows the center text', function() {
+          view.toggleLoginForm();
+          view.$('div.text-vertical-center').should.be.visible;
+        });
+      });
+    });
+
+    describe('hideLoginForm() method', function() {
+      //
     });
   });
 });
