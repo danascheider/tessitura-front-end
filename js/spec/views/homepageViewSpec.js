@@ -6,7 +6,7 @@ define(['backbone', 'views/app/homepage', 'cookie'], function(Backbone, Homepage
     describe('constructor', function() {
       it('instantiates a login form', function() {
         view = new HomepageView();
-        (typeof view.$loginForm).should.not.equal('undefined');
+        view.$loginForm.should.exist;
       });
     });
 
@@ -88,6 +88,53 @@ define(['backbone', 'views/app/homepage', 'cookie'], function(Backbone, Homepage
       it('assigns the ID #homepage-wrapper', function() {
         view.$el[0].id.should.equal('homepage-wrapper');
       });
+    });
+
+    describe('toggleLoginForm() method', function() {
+      describe('showing the login form', function() {
+        describe('when there is no logged-in user', function() {
+          beforeEach(function() {
+            view = new HomepageView();
+            view.render();
+            view.toggleLoginForm();
+          });
+
+          afterEach(function() {
+            view.remove();
+          });
+
+          it('hides the center text', function() {
+            view.$('div.text-vertical-center').should.not.be.visible;
+          });
+
+          it('displays the #shade element', function() {
+            view.$('#shade').should.be.visible;
+          });
+
+          it('displays the login form', function() {
+            view.$loginForm.$el.should.be.visible;
+          });
+
+          // The page is currently set up to handle the login-form only on
+          // on the top part, where the center text goes away. It should be
+          // tested on other sections of the page as well.
+          it('also works on parts of the page other than the top');
+        });
+
+        describe('when there is a logged-in user', function() {
+          //
+        });
+      });
+
+      describe('hiding the login form', function() {
+        describe('when there is no logged-in user', function() {
+          //
+        });
+
+        describe('when there is a logged-in user', function() {
+          //
+        });
+      })
     });
   });
 });
