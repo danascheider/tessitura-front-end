@@ -56,4 +56,4 @@ define([
   });
 
   return LoginFormView;
-})
+});

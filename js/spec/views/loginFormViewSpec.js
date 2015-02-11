@@ -44,7 +44,37 @@ define(['backbone', 'views/app/login-form', 'utils', 'cookie'], function(Backbon
     });
 
     describe('event handling', function() {
-      //
+      var help;
+
+      beforeEach(function() {
+        sinon.stub(LoginForm.prototype, 'loginHelp');
+        sinon.stub(LoginForm.prototype, 'loginUser');
+        sinon.fakeServer.create();
+        loginForm = new LoginForm();
+        loginForm.render();
+      });
+
+      afterEach(function() { 
+        LoginForm.prototype.loginHelp.restore();
+        LoginForm.prototype.loginUser.restore();
+        loginForm.remove(); 
+      });
+
+      describe('click on the login help link', function() {
+        it('calls the loginHelp() method', function() {
+          loginForm.$('.login-help-link').click();
+          LoginForm.prototype.loginHelp.calledOnce.should.be.true;
+        });
+      });
+
+      describe('submit the login form', function() {
+        it('doesn\'t refresh the page');
+
+        it('calls the loginUser() method', function() {
+          loginForm.$el.submit();
+          LoginForm.prototype.loginUser.calledOnce.should.be.true;
+        });
+      });
     });
 
     describe('loginHelp() method', function() {
