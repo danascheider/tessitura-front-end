@@ -177,6 +177,29 @@ define([
           $.cookie.called.should.be.false;
         });
       });
+
+      describe('unauthorized user creation', function() {
+        beforeEach(function() {
+          sinon.stub($, 'cookie');
+          sinon.stub(console, 'log');
+
+          server.respondWith(/\/users$/, function(xhr) {
+            xhr.respond(401);
+          });
+
+          view.$('#registration-form').submit();
+          server.respond();
+        });
+
+        afterEach(function() {
+          console.log.restore();
+          $.cookie.restore();
+        });
+
+        it('does not create cookies', function() {
+          $.cookie.called.should.be.false;
+        });
+      });
     });
 
     describe('hideLoginForm() method', function() {
