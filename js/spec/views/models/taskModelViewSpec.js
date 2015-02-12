@@ -78,5 +78,11 @@ define([
         task.set('deadline', new Date(2015, 8, 28));
       });
     });
+
+    describe('render() function', function() {
+      it('returns the view', function() {
+        view.render().should.equal(view);
+      });
+    });
   });
 });
