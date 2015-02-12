@@ -154,6 +154,29 @@ define([
           Backbone.history.navigate.calledWithExactly('#dashboard', {trigger: true}).should.be.true;
         });
       });
+
+      describe('unsuccessful user creation', function() {
+        beforeEach(function() {
+          sinon.stub($, 'cookie');
+          sinon.stub(console, 'log');
+
+          server.respondWith(/\/users$/, function(xhr) {
+            xhr.respond(422);
+          });
+
+          view.$('#registration-form').submit();
+          server.respond();
+        });
+
+        afterEach(function() {
+          console.log.restore();
+          $.cookie.restore();
+        });
+
+        it('does not create cookies', function() {
+          $.cookie.called.should.be.false;
+        });
+      });
     });
 
     describe('hideLoginForm() method', function() {
