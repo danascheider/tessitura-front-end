@@ -24,7 +24,7 @@ define([
       title        : 'My Task 1', 
       status       : 'New',
       priority     : 'Low',
-      deadline     : Date.now(),
+      deadline     : new Date(2015, 08, 28),
       description  : "Test Canto's front-end functionality",
       owner_id     : 342,
       task_list_id : 14,
@@ -53,6 +53,11 @@ define([
     describe('view elements', function() {
       it('displays the task\'s title', function() {
         view.$('a.task-title').html().should.equal('My Task 1');
+      });
+
+      it('displays the task\'s deadline', function() {
+        console.log(task.get('deadline'));
+        view.$('table.task-details').html().should.include('Monday, September 28, 2015');
       });
     });
   });
