@@ -1,4 +1,10 @@
-define(['backbone', 'views/app/homepage', 'utils', 'cookie'], function(Backbone, HomepageView, Utils) {
+define([
+  'backbone', 
+  'views/app/homepage', 
+  'models/user',
+  'utils', 
+  'cookie'
+  ], function(Backbone, HomepageView, User, Utils) {
   
   describe('HomepageView', function() {
     var view, server, spy;
@@ -92,7 +98,9 @@ define(['backbone', 'views/app/homepage', 'utils', 'cookie'], function(Backbone,
       });
 
       it('instantiates a user model', function() {
-        //
+        sinon.stub(User.prototype, 'initialize');
+        view.$('#registration-form').submit();
+        User.prototype.initialize.calledOnce.should.be.true();
       });
 
       describe('successful user creation', function() {
