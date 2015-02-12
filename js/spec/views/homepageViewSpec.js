@@ -158,7 +158,6 @@ define([
 
     describe('hideLoginForm() method', function() {
       beforeEach(function() {
-        view.on('foo', view.hideLoginForm);
         view.render();
 
         // show the login form
