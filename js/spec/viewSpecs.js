@@ -1,4 +1,6 @@
 define([
-  'spec/views/homepageViewSpec',
-  'spec/views/loginFormViewSpec'
+  'spec/views/topLevelViewSpecs',
+  'spec/views/modelViewSpecs',
+  'spec/views/collectionViewSpecs',
+  'spec/views/partialViewSpecs'
   ]);
