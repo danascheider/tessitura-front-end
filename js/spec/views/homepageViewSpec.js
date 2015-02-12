@@ -1,7 +1,7 @@
-define(['backbone', 'views/app/homepage', 'cookie'], function(Backbone, HomepageView) {
+define(['backbone', 'views/app/homepage', 'utils', 'cookie'], function(Backbone, HomepageView, Utils) {
   
   describe('HomepageView', function() {
-    var view;
+    var view, server, spy;
 
     beforeEach(function() {
       view = new HomepageView();
@@ -73,6 +73,83 @@ define(['backbone', 'views/app/homepage', 'cookie'], function(Backbone, Homepage
       });
     });
 
+    describe('createUser() method', function() {
+      beforeEach(function() {
+        view.render();
+        sinon.stub(Backbone.history, 'navigate');
+        server = sinon.fakeServer.create();
+        getAttributes = sinon.stub(Utils, 'getAttributes');
+        getAttributes.returns({
+          username: 'testuser245', password: '245usertest', email: 'tu245@example.org',
+          first_name: 'Test', last_name: 'User'
+        });
+      });
+
+      afterEach(function() {
+        Utils.getAttributes.restore();
+        view.remove();
+        Backbone.history.navigate.restore();
+      });
+
+      it('instantiates a user model', function() {
+        //
+      });
+
+      describe('successful user creation', function() {
+        beforeEach(function() {
+          sinon.stub($, 'cookie');
+          spy = sinon.spy();
+          view.on('loginSuccess', spy);
+
+          var obj = JSON.stringify({"id":343, "username":"testuser245", "first_name":"Test", "last_name":"User", "email":"tu245@example.org"});
+          server.respondWith(/\/users$/, function(xhr) {
+            xhr.respond(201, {'Content-Type': 'application/json'}, obj);
+          });
+        });
+
+        afterEach(function() {
+          $.cookie.restore();
+          view.off('loginSuccess');
+        });
+
+        it('sets the auth cookie as a session cookie', function() {
+          var form = view.$('#registration-form');
+          view.$('#registration-form').submit();
+          server.respond();
+          $.cookie.calledWithExactly('auth', btoa('testuser245:245usertest')).should.be.true;
+        });
+      });
+    });
+
+    describe('hideLoginForm() method', function() {
+      beforeEach(function() {
+        view.on('foo', view.hideLoginForm);
+        view.render();
+
+        // show the login form
+        view.$('div.text-vertical-center').children().show();
+        view.$('#shade').show();
+        view.$loginForm.$el.show();
+
+        // The 'dblclick' event on the '#shade' element triggers the
+        // `hideLoginForm()` callback
+
+        view.$('#shade').trigger('dblclick');
+      });
+
+      it('hides the login form', function() {
+        view.$loginForm.$el.should.not.be.visible;
+      });
+
+      it('hides the #shade element', function() {
+        view.$('#shade').should.not.be.visible;
+      });
+
+      it('shows the page text', function() {
+        view.$('div.text-vertical-center').children().should.be.visible;
+      });
+    });
+
     describe('render() function', function() {
       beforeEach(function() {
         view.render();
@@ -139,10 +216,6 @@ define(['backbone', 'views/app/homepage', 'cookie'], function(Backbone, Homepage
           view.$('div.text-vertical-center').should.be.visible;
         });
       });
-    });
-
-    describe('hideLoginForm() method', function() {
-      //
     });
   });
 });
