@@ -56,8 +56,11 @@ define([
       });
 
       it('displays the task\'s deadline', function() {
-        console.log(task.get('deadline'));
         view.$('table.task-details').html().should.include('Monday, September 28, 2015');
+      });
+
+      it('displays the task\'s priority', function() {
+        view.$('table.task-details').html().should.include('Low');
       });
     });
   });
