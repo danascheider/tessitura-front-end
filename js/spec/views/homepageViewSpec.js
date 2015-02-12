@@ -129,6 +129,10 @@ define([
           server.respondWith(/\/users$/, function(xhr) {
             xhr.respond(201, {'Content-Type': 'application/json'}, obj);
           });
+
+          // Submit the form and trigger the server response
+          view.$('#registration-form').submit();
+          server.respond();
         });
 
         afterEach(function() {
@@ -139,15 +143,15 @@ define([
         });
 
         it('sets the auth cookie as a session cookie', function() {
-          view.$('#registration-form').submit();
-          server.respond();
           $.cookie.calledWithExactly('auth', btoa('testuser245:245usertest')).should.be.true;
         });
 
         it('sets the userID cookie as a session cookie', function() {
-          view.$('#registration-form').submit();
-          server.respond();
           $.cookie.calledWithExactly('userID', 343).should.be.true;
+        });
+
+        it('redirects to the dashboard', function() {
+          Backbone.history.navigate.calledWithExactly('#dashboard', {trigger: true}).should.be.true;
         });
       });
     });
