@@ -82,8 +82,19 @@ define([
     describe('createUser() method', function() {
       beforeEach(function() {
         view.render();
+
+        // Make sure it doesn't attempt to redirect to the dashboard
+        // after the user is created successfully
+
         sinon.stub(Backbone.history, 'navigate');
+
+        // Create a fake server to handle the Ajax request
+
         server = sinon.fakeServer.create();
+
+        // Stub the Utils.getAttributes() method, which will provide
+        // the form data used to create the user
+
         getAttributes = sinon.stub(Utils, 'getAttributes');
         getAttributes.returns({
           username: 'testuser245', password: '245usertest', email: 'tu245@example.org',
@@ -93,8 +104,8 @@ define([
 
       afterEach(function() {
         Utils.getAttributes.restore();
-        view.remove();
         Backbone.history.navigate.restore();
+        view.remove();
       });
 
       it('instantiates a user model', function() {
@@ -105,10 +116,15 @@ define([
 
       describe('successful user creation', function() {
         beforeEach(function() {
+
+          // Stub jQuery cookie
           sinon.stub($, 'cookie');
+
+          // Set up spy to listen for the view's 'loginSuccess' event
           spy = sinon.spy();
           view.on('loginSuccess', spy);
 
+          // Mock server response providing user ID to be set in cookie
           var obj = JSON.stringify({"id":343, "username":"testuser245", "first_name":"Test", "last_name":"User", "email":"tu245@example.org"});
           server.respondWith(/\/users$/, function(xhr) {
             xhr.respond(201, {'Content-Type': 'application/json'}, obj);
@@ -117,11 +133,12 @@ define([
 
         afterEach(function() {
           $.cookie.restore();
+
+          // Unbind the spy from the view's 'loginSuccess' event
           view.off('loginSuccess');
         });
 
         it('sets the auth cookie as a session cookie', function() {
-          var form = view.$('#registration-form');
           view.$('#registration-form').submit();
           server.respond();
           $.cookie.calledWithExactly('auth', btoa('testuser245:245usertest')).should.be.true;
