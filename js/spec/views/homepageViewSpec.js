@@ -143,6 +143,12 @@ define([
           server.respond();
           $.cookie.calledWithExactly('auth', btoa('testuser245:245usertest')).should.be.true;
         });
+
+        it('sets the userID cookie as a session cookie', function() {
+          view.$('#registration-form').submit();
+          server.respond();
+          $.cookie.calledWithExactly('userID', 343).should.be.true;
+        });
       });
     });
 
