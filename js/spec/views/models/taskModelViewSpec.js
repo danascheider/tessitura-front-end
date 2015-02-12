@@ -70,6 +70,13 @@ define([
       it('displays the task\'s description', function() {
         view.$('table.task-details').html().should.include("Test Canto's front-end functionality");
       });
+
+      it('does not display blank fields', function() {
+        task.unset('deadline');
+        view.render();
+        view.$('tr.task-deadline-row').length.should.equal(0);
+        task.set('deadline', new Date(2015, 8, 28));
+      });
     });
   });
 });
