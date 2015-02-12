@@ -62,6 +62,10 @@ define([
       it('displays the task\'s priority', function() {
         view.$('table.task-details').html().should.include('Low');
       });
+
+      it('displays the task\'s status', function() {
+        view.$('table.task-details').html().should.include('New');
+      });
     });
   });
 });
