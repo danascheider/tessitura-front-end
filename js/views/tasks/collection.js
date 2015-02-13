@@ -49,7 +49,9 @@ define([
     // Core View Functions //
 
     initialize: function() {
-      this.collection.comparator = 'position';
+
+      // FIX: I don't like rendering things in the initialize function :(
+        
       this.render();
 
       this.listenTo(this.collection, 'remove', this.refreshCollection);
