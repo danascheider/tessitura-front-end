@@ -19,7 +19,7 @@ define([
 
     runSpecs: function() {
       require([
-        'require', 'chai', 'sinon-chai', 'api', 'chai-backbone', 'mocha', 'jquery', 'chai-jquery'
+        'require', 'chai', 'sinon-chai', 'api', 'chai-backbone', 'mocha', 'jquery'
         ], function(require, Chai, sinonChai, API, chaiBackbone) {
 
         if (API.base.match(/localhost/)) { throw 'Connect to test API' }

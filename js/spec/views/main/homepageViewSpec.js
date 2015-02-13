@@ -5,7 +5,7 @@ define([
   'utils', 
   'cookie'
   ], function(Backbone, HomepageView, User, Utils) {
-  
+
   describe('HomepageView', function() {
     var view, server, spy;
 
@@ -30,11 +30,11 @@ define([
 
       describe('top nav', function() {
         it('is present', function() {
-          view.$('#navbar-top').should.exist();
+          view.$('#navbar-top').should.exist;
         });
 
         it('has a link to log in', function() {
-          view.$('#navbar-top').find('.login-link').should.exist();
+          view.$('#navbar-top').find('.login-link').should.exist;
         });
       });
 
@@ -53,12 +53,12 @@ define([
 
       describe('login form', function() {
         it('is hidden initially', function() {
-          view.$('#login-form').should.not.be.visible;
+          view.$loginForm.$el.should.not.be.visible;
         });
 
         it('is displayed when the link is clicked', function() {
           view.$('#navbar-top').find('.login-link').trigger('click');
-          view.$('#login-form').should.be.visible;
+          view.$loginForm.$el.should.be.visible;
         });
 
         it('triggers the loginSuccess event', function() {
@@ -71,11 +71,11 @@ define([
       });
 
       it('has a \'features\' section', function() {
-        view.$('section#features').should.exist();
+        view.$('section#features').should.exist;
       });
 
       it('has contact information', function() {
-        view.$('#contact-us').should.exist();
+        view.$('#contact-us').should.exist;
       });
     });
 
@@ -111,7 +111,7 @@ define([
       it('instantiates a user model', function() {
         sinon.stub(User.prototype, 'initialize');
         view.$('#registration-form').submit();
-        User.prototype.initialize.calledOnce.should.be.true();
+        User.prototype.initialize.calledOnce.should.be.true;
       });
 
       describe('successful user creation', function() {
@@ -226,7 +226,7 @@ define([
       });
 
       it('shows the page text', function() {
-        view.$('div.text-vertical-center').children().should.be.visible;
+        view.$('div.text-vertical-center').should.be.visible;
       });
     });
 
@@ -257,7 +257,7 @@ define([
           });
 
           it('displays the #shade element', function() {
-            view.$('#shade').should.be.visible;
+            view.$('#shade').children().should.be.visible;       
           });
 
           it('displays the login form', function() {
@@ -279,21 +279,19 @@ define([
         beforeEach(function() {
           view.render();
           view.toggleLoginForm(); // show the login form
+          view.toggleLoginForm(); // hide it again
         });
 
         it('hides the login form', function() {
-          view.toggleLoginForm();
           view.$loginForm.$el.should.not.be.visible;
         });
 
         it('hides the #shade element', function() {
-          view.toggleLoginForm();
           view.$('#shade').should.not.be.visible;
         });
 
         it('shows the center text', function() {
-          view.toggleLoginForm();
-          view.$('div.text-vertical-center').should.be.visible;
+          view.$('div.text-vertical-center').children().should.be.visible;      
         });
       });
     });
