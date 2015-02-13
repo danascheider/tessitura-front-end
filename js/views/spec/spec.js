@@ -18,11 +18,14 @@ define([
     },
 
     runSpecs: function() {
-      require(['require', 'chai', 'sinon-chai', 'api', 'mocha', 'jquery', 'chai-jquery'], function(require, Chai, sinonChai, API) {
+      require([
+        'require', 'chai', 'sinon-chai', 'api', 'chai-backbone', 'mocha', 'jquery', 'chai-jquery'
+        ], function(require, Chai, sinonChai, API, chaiBackbone) {
+
         if (API.base.match(/localhost/)) { throw 'Connect to test API' }
 
         var should = Chai.should();
-        Chai.use(sinonChai);
+        Chai.use(chaiBackbone);
         mocha.setup('bdd');
 
         require(['spec/specHelper'], function(require) {
