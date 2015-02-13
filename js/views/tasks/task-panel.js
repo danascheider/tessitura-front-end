@@ -97,6 +97,8 @@ define([
       this.$collectionView = new TaskCollectionView({collection: c});
       this.$('.panel-body').html(this.$collectionView.el);
       this.$quickAddForm.$el.prependTo(this.$collectionView.el);
+
+      this.$collectionView.render();
       
       this.$collectionView.$el.sortable({
         items: ">*:not(.not-sortable)"

@@ -26,10 +26,10 @@ define([
     var collection = new TaskCollection([task1, task2]);
 
     describe('constructor', function() {
-      it('calls the render function', function() {
+      it('does not call the render function', function() {
         var stub = sinon.stub(TaskCollectionView.prototype, 'render');
         view = new TaskCollectionView({collection: collection});
-        stub.calledOnce.should.be.true;
+        stub.called.should.be.false;
         stub.restore();
       });
     });
@@ -38,6 +38,7 @@ define([
       beforeEach(function() {
         sinon.stub($.prototype, 'sortable');
         view = new TaskCollectionView({collection: collection});
+        view.render();
       });
 
       afterEach(function() {

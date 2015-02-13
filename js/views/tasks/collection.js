@@ -46,10 +46,6 @@ define([
 
     initialize: function() {
 
-      // FIX: I don't like rendering things in the initialize function :(
-
-      this.render();
-
       // FIX: Why is the refreshCollection function needed here?
       this.listenTo(this.collection, 'remove', this.refreshCollection);
       this.listenTo(this.collection, 'add', this.refreshCollection);
