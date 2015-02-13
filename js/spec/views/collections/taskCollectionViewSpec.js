@@ -61,6 +61,7 @@ define([
       beforeEach(function() {
         sinon.stub($.prototype, 'sortable');
         view = new TaskCollectionView({collection: collection});
+        sinon.stub(view, 'refreshViews');
         view.render();
       });
 
@@ -70,6 +71,10 @@ define([
 
       it('configures sortable', function() {
         $.prototype.sortable.withArgs({connectWith: '.task-list', dropOnEmpty: true}).calledOnce.should.be.true;
+      });
+
+      it('refreshes the list item views', function() {
+        view.refreshViews.calledOnce.should.be.true;
       });
     });
   });
