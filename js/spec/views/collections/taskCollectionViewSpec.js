@@ -3,7 +3,8 @@ define([
   'collections/tasks',
   'models/user',
   'models/task',
-  'views/tasks/collection'
+  'views/tasks/collection',
+  'jquery-ui'
 ], function(Backbone, TaskCollection, User, Task, TaskCollectionView) {
   
   describe('task collection view', function() {
@@ -20,8 +21,8 @@ define([
       last_name  : 'User'
     });
 
-    var task1 = new Task({title: 'Task 1', owner_id: 342});
-    var task2 = new Task({title: 'Task 2', owner_id: 342});
+    var task1 = new Task({id: 1, title: 'Task 1', owner_id: 342});
+    var task2 = new Task({id: 2, title: 'Task 2', owner_id: 342});
     var collection = new TaskCollection([task1, task2]);
 
     describe('constructor', function() {
@@ -35,15 +36,29 @@ define([
 
     describe('el', function() {
       beforeEach(function() {
+        sinon.stub($.prototype, 'sortable');
         view = new TaskCollectionView({collection: collection});
       });
 
       afterEach(function() {
+        $.prototype.sortable.restore();
         view.remove();
       });
 
       it('creates a ul', function() {
         view.$el[0].tagName.should.equal('UL');
+      });
+
+      it('has class .task-list', function() {
+        view.$el[0].className.should.equal('task-list');
+      });
+
+      it('creates a list item for each task', function() {
+        view.$('li.task-list-item').length.should.equal(2);
+      });
+
+      it('configures sortable', function() {
+        $.prototype.sortable.withArgs({connectWith: '.task-list', dropOnEmpty: true}).calledOnce.should.be.true;
       });
     });
   });

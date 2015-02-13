@@ -20,14 +20,10 @@ define([
   Utils,
   TaskModel,
   CreateFormView,
-  ListEntryView,
+  ListItemView,
   ModelTemplate) {
   
   var TaskCollectionView = Backbone.View.extend({
-
-    // Templates //
-    modelTemplate      : _.template(ModelTemplate),
-
     tagName            : 'ul',
     className          : 'task-list',
 
@@ -51,9 +47,10 @@ define([
     initialize: function() {
 
       // FIX: I don't like rendering things in the initialize function :(
-        
+
       this.render();
 
+      // FIX: Why is the refreshCollection function needed here?
       this.listenTo(this.collection, 'remove', this.refreshCollection);
       this.listenTo(this.collection, 'add', this.refreshCollection);
       this.listenTo(this.collection, 'markComplete', this.removeComplete);
@@ -75,7 +72,7 @@ define([
       }
 
       this.collection.each(function(task) {
-        var view = new ListEntryView({modelTemplate: that.modelTemplate, model: task});
+        var view = new ListItemView({model: task});
         that.listItemViews.push(view);
         that.$el.append(view.$el);
       });

@@ -22,7 +22,7 @@ define([
   ListEntryTemplate
 ) {
 
-  var ListEntryView = Backbone.View.extend({
+  var ListItemView = Backbone.View.extend({
     tagName   : 'li',
     id        : function() { return 'task-' + this.model.get('id'); },
     className : 'ui-widget-content ui-draggable ui-draggable-handle task-list-item',
@@ -236,5 +236,5 @@ define([
     }
   });
 
-  return ListEntryView;
+  return ListItemView;
 });
