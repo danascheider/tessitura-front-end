@@ -53,6 +53,19 @@ define([
       this.listenTo(this.collection, 'change:backlog', this.removeBacklog);
     },
 
+    refreshViews: function() {
+
+      // Remove all the existing list item views before creating new ones
+      // and adding them to the array of child views
+
+      if(this.listItemViews.length) {
+        _.each(this.listItemViews, function(view) {
+          view.remove();
+          this.listItemViews.splice(this.listItemViews.indexOf(view), 1);
+        });
+      } 
+    },
+
     render: function() {
       var that = this;
       this.listItemViews = this.listItemViews || [];
@@ -61,11 +74,7 @@ define([
       // list doesn't keep getting longer & so zombies don't 
       // accumulate
 
-      if(this.listItemViews.length) { 
-        _.each(this.listItemViews, function(view) { 
-          view.remove(); 
-        });
-      }
+      this.refreshViews();
 
       this.collection.each(function(task) {
         var view = new ListItemView({model: task});

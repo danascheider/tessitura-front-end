@@ -36,13 +36,11 @@ define([
 
     describe('el', function() {
       beforeEach(function() {
-        sinon.stub($.prototype, 'sortable');
         view = new TaskCollectionView({collection: collection});
         view.render();
       });
 
       afterEach(function() {
-        $.prototype.sortable.restore();
         view.remove();
       });
 
@@ -51,11 +49,23 @@ define([
       });
 
       it('has class .task-list', function() {
-        view.$el[0].className.should.equal('task-list');
+        view.$el[0].className.should.include('task-list');
       });
 
-      it('creates a list item for each task', function() {
-        view.$('li.task-list-item').length.should.equal(2);
+      it('has a list item for each task', function() {
+        view.$('li.task-list-item').length.should.equal(collection.length);
+      });
+    });
+
+    describe('render function', function() {
+      beforeEach(function() {
+        sinon.stub($.prototype, 'sortable');
+        view = new TaskCollectionView({collection: collection});
+        view.render();
+      });
+
+      afterEach(function() {
+        $.prototype.sortable.restore();
       });
 
       it('configures sortable', function() {
