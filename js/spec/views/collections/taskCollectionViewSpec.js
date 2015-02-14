@@ -53,6 +53,53 @@ define([
       });
     });
 
+    describe('removeComplete method', function() {
+      beforeEach(function() {
+        task1.set('status', 'Complete');
+        view.removeComplete();
+      });
+
+      afterEach(function() {
+        task1.set('status', 'New');
+      });
+
+      it('removes completed tasks', function() {
+        view.collection.models.should.not.include(task1);
+      });
+
+      it('doesn\'t remove incomplete tasks', function() {
+        view.collection.models.should.include(task2);
+      });
+    });
+
+    describe('render function', function() {
+      beforeEach(function() {
+        sinon.stub($.prototype, 'sortable');
+        view.reset().render();
+      });
+
+      afterEach(function() {
+        $.prototype.sortable.restore();
+      });
+
+      describe('when there is no listItemViews array', function() {
+        it('adds a new view for each collection element', function() {
+          view.listItemViews.length.should.equal(2);
+        });
+      });
+
+      describe('on re-render', function() {
+        it('maintains the length of the listItemViews array', function() {
+          view.render();      // render view a second time
+          view.listItemViews.length.should.equal(2);
+        });
+      });
+
+      it('configures sortable', function() {
+        $.prototype.sortable.withArgs({connectWith: '.task-list', dropOnEmpty: true}).calledOnce.should.be.true;
+      });
+    });
+
     describe('reset', function() {
       beforeEach(function() {
         view.render();
@@ -99,38 +146,6 @@ define([
         it('re-establishes listener for collection:change:backlog', function() {
           view.listenTo.calledWithExactly(view.collection, 'change:backlog', view.removeBacklog).should.be.true;
         });
-      });
-    });
-
-    describe('render function', function() {
-      beforeEach(function() {
-        sinon.stub($.prototype, 'sortable');
-        view.reset().render();
-      });
-
-      afterEach(function() {
-        $.prototype.sortable.restore();
-      });
-
-      describe('when there is no listItemViews array', function() {
-        it('adds a new view for each collection element', function() {
-          view.listItemViews.length.should.equal(2);
-        });
-      });
-
-      describe('on re-render', function() {
-        it('maintains the length of the listItemViews array', function() {
-          view.render();      // render view a second time
-          view.listItemViews.length.should.equal(2);
-        });
-      });
-
-      it('configures sortable', function() {
-        $.prototype.sortable.withArgs({connectWith: '.task-list', dropOnEmpty: true}).calledOnce.should.be.true;
-      });
-
-      it('adds the list items to the DOM', function() {
-        view.$()
       });
     });
   });
