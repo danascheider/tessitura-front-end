@@ -55,7 +55,6 @@ define([
 
     describe('reset', function() {
       beforeEach(function() {
-        view = new TaskCollectionView({collection: collection});
         view.render();
       });
 
@@ -106,12 +105,10 @@ define([
     describe('render function', function() {
       beforeEach(function() {
         sinon.stub($.prototype, 'sortable');
-        view = new TaskCollectionView({collection: collection});
-        view.render();
+        view.reset().render();
       });
 
       afterEach(function() {
-        view.remove();
         $.prototype.sortable.restore();
       });
 
@@ -123,13 +120,17 @@ define([
 
       describe('on re-render', function() {
         it('maintains the length of the listItemViews array', function() {
-          view.render();
+          view.render();      // render view a second time
           view.listItemViews.length.should.equal(2);
         });
       });
 
       it('configures sortable', function() {
         $.prototype.sortable.withArgs({connectWith: '.task-list', dropOnEmpty: true}).calledOnce.should.be.true;
+      });
+
+      it('adds the list items to the DOM', function() {
+        view.$()
       });
     });
   });
