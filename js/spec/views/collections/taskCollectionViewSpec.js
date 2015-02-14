@@ -53,6 +53,26 @@ define([
       });
     });
 
+    describe('removeBacklog method', function() {
+      beforeEach(function() {
+        task1.set('backlog', true);
+        view.removeBacklog();
+      });
+
+      afterEach(function() {
+        task1.unset('backlog');
+        view.collection.add(task1);
+      });
+
+      it('removes backlogged tasks', function() {
+        view.collection.models.should.not.include(task1);
+      });
+
+      it('doesn\'t remove non-backlogged tasks', function() {
+        view.collection.models.should.include(task2);
+      });
+    });
+
     describe('removeComplete method', function() {
       beforeEach(function() {
         task1.set('status', 'Complete');
@@ -61,6 +81,7 @@ define([
 
       afterEach(function() {
         task1.set('status', 'New');
+        view.collection.add(task1);
       });
 
       it('removes completed tasks', function() {
