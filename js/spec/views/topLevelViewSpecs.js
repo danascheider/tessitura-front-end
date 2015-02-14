@@ -1,4 +1,4 @@
 define([
   'spec/views/main/homepageViewSpec',
-  'spec/views/main/dashboardViewSpec'
+  'spec/views/main/dashboardViewSpec',
   ]);

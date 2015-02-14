@@ -34,12 +34,33 @@ define([
       this.render();
     },
 
+
+    refreshViews   : function() {
+      var views = this.listItemViews;
+      var that = this;
+
+      // Remove all the existing list item views before creating new ones
+      // and adding them to the array of child views
+
+      if(views.length > 0) {
+        _.each(views, function(view) {
+          view.remove();
+          that.listItemViews.splice(views.indexOf(view), 1);
+        });
+      }
+    },
+
     removeBacklog  : function() {
       this.collection.remove(this.collection.findWhere({backlog: true}));
     },
 
     removeComplete : function() {
       this.collection.remove(this.collection.findWhere({status: 'Complete'}));
+    },
+
+    reset          : function() {
+      this.remove();
+      this.initialize();
     },
 
     // Core View Functions //
@@ -51,19 +72,6 @@ define([
       this.listenTo(this.collection, 'add', this.refreshCollection);
       this.listenTo(this.collection, 'markComplete', this.removeComplete);
       this.listenTo(this.collection, 'change:backlog', this.removeBacklog);
-    },
-
-    refreshViews: function() {
-
-      // Remove all the existing list item views before creating new ones
-      // and adding them to the array of child views
-
-      if(this.listItemViews.length) {
-        _.each(this.listItemViews, function(view) {
-          view.remove();
-          this.listItemViews.splice(this.listItemViews.indexOf(view), 1);
-        });
-      } 
     },
 
     render: function() {
