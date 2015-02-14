@@ -1,10 +1,11 @@
 define([
   'backbone', 
   'views/app/homepage', 
+  'views/app/login-form',
   'models/user',
   'utils', 
   'cookie'
-  ], function(Backbone, HomepageView, User, Utils) {
+  ], function(Backbone, HomepageView, LoginForm, User, Utils) {
 
   describe('HomepageView', function() {
     var view, server, spy;
@@ -19,7 +20,15 @@ define([
 
     describe('constructor', function() {
       it('instantiates a login form', function() {
-        view.$loginForm.should.exist;
+        var newView = new HomepageView();
+        newView.$loginForm.should.exist;
+      });
+
+      it('doesn\'t call render', function() {
+        sinon.stub(HomepageView.prototype, 'render');
+        var newView = new HomepageView();
+        HomepageView.prototype.render.called.should.be.false;
+        HomepageView.prototype.render.restore();
       });
     });
 
@@ -241,6 +250,38 @@ define([
 
       it('assigns the ID #homepage-wrapper', function() {
         view.$el[0].id.should.equal('homepage-wrapper');
+      });
+    });
+
+    describe('reset() method', function() {
+      beforeEach(function() {
+        view = new HomepageView();
+        view.render();
+      });
+
+      afterEach(function() {
+        view.remove();
+      });
+
+      it('removes the view from the DOM', function() {
+        sinon.stub(view, 'remove');
+        view.reset();
+        view.remove.calledOnce.should.be.true;
+        view.remove.restore();
+      });
+
+      it('keeps its login form', function() {
+        sinon.stub(LoginForm.prototype, 'initialize');
+        view.reset();
+        LoginForm.prototype.initialize.called.should.be.false;
+        LoginForm.prototype.initialize.restore();
+      });
+
+      it('re-establishes a listener for the loginSuccess method', function() {
+        sinon.stub(view, 'listenTo');
+        view.reset();
+        view.listenTo.withArgs(view.$loginForm, 'loginSuccess').calledOnce.should.be.true;
+        view.listenTo.restore();
       });
     });
 

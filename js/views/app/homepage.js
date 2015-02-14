@@ -73,6 +73,12 @@ define([
       }
     },
 
+    reset           : function() {
+      this.remove();
+      this.initialize();
+      return this;
+    },
+
     toggleLoginForm : function() {
 
       // FIX: Should introduce some sort of different behavior if the user is
@@ -89,7 +95,7 @@ define([
     // ------------------- //
 
     initialize       : function() {
-      this.$loginForm = new LoginFormView();
+      this.$loginForm = this.$loginForm || new LoginFormView();
 
       this.listenTo(this.$loginForm, 'loginSuccess', function() { this.trigger('loginSuccess'); });
     },
