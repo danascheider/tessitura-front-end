@@ -34,22 +34,6 @@ define([
       this.render();
     },
 
-
-    refreshViews   : function() {
-      var views = this.listItemViews;
-      var that = this;
-
-      // Remove all the existing list item views before creating new ones
-      // and adding them to the array of child views
-
-      if(views.length > 0) {
-        _.each(views, function(view) {
-          view.remove();
-          that.listItemViews.splice(views.indexOf(view), 1);
-        });
-      }
-    },
-
     removeBacklog  : function() {
       this.collection.remove(this.collection.findWhere({backlog: true}));
     },
@@ -58,9 +42,14 @@ define([
       this.collection.remove(this.collection.findWhere({status: 'Complete'}));
     },
 
+    // The reset function resets the view to factory, so to speak, so it removes
+    // the view from the DOM, removes all listeners and event bindings, and 
+    // calls initialize again.
+
     reset          : function() {
       this.remove();
-      this.initialize();
+      this.initialize({collection: this.collection});
+      return this;
     },
 
     // Core View Functions //
@@ -82,14 +71,21 @@ define([
       // list doesn't keep getting longer & so zombies don't 
       // accumulate
 
-      this.refreshViews();
-
-      this.collection.each(function(task) {
-        var view = new ListItemView({model: task});
-        that.listItemViews.push(view);
-        that.$el.append(view.$el);
-      });
-
+      if(this.listItemViews.length) {
+        _.each(this.listItemViews, function(view) {
+          view.remove();
+          view.initialize({model: view.model});
+          view.render();
+          that.$el.append(view.el);
+        });
+      } else {
+        this.collection.each(function(task) {
+          var view = new ListItemView({model: task});
+          that.listItemViews.push(view);
+          that.$el.append(view.el);
+        });
+      }
+  
       this.$el.sortable({connectWith: '.task-list', dropOnEmpty: true});
 
       return this;

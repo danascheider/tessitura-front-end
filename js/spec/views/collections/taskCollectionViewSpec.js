@@ -10,22 +10,20 @@ define([
 ], function(_, Backbone, TaskCollection, User, Task, ListItemView, TaskCollectionView) {
   
   describe('task collection view', function() {
-    before(function() {
-      user = new User({
-        id         : 342,
-        username   : 'testuser',
-        password   : 'testuser',
-        email      : 'testuser@example.com',
-        first_name : 'Test',
-        last_name  : 'User'
-      });
-
-      task1 = new Task({id: 1, title: 'Task 1', owner_id: 342});
-      task2 = new Task({id: 2, title: 'Task 2', owner_id: 342});
-      collection = new TaskCollection([task1, task2]);
-
-      view = new TaskCollectionView({collection: collection});
+    var user = new User({
+      id         : 342,
+      username   : 'testuser',
+      password   : 'testuser',
+      email      : 'testuser@example.com',
+      first_name : 'Test',
+      last_name  : 'User'
     });
+
+    var task1 = new Task({id: 1, title: 'Task 1', owner_id: 342});
+    var task2 = new Task({id: 2, title: 'Task 2', owner_id: 342});
+    var collection = new TaskCollection([task1, task2]);
+
+    var view = new TaskCollectionView({collection: collection});
 
     describe('constructor', function() {
       it('does not call the render function', function() {
@@ -39,12 +37,7 @@ define([
 
     describe('el', function() {
       beforeEach(function() {
-        view = new TaskCollectionView({collection: collection});
-        view.render();
-      });
-
-      afterEach(function() {
-        view.remove();
+        view.reset().render();
       });
 
       it('creates a ul', function() {
@@ -78,6 +71,10 @@ define([
         view.collection.should.equal(collection);
       });
 
+      it('returns itself', function() {
+        view.reset().should.equal(view);
+      });
+
       describe('listeners', function() {
         beforeEach(function() {
           sinon.stub(view, 'listenTo');
@@ -106,65 +103,34 @@ define([
       });
     });
 
-    // describe('refreshViews() method', function() {
-    //   beforeEach(function() {
-    //     that = this;
-    //     view = new TaskCollectionView({collection: collection});
-    //     view.render();
-    //   });
+    describe('render function', function() {
+      beforeEach(function() {
+        sinon.stub($.prototype, 'sortable');
+        view = new TaskCollectionView({collection: collection});
+        view.render();
+      });
 
-    //   afterEach(function() {
-    //     view.remove();
-    //     delete view;
-    //   });
+      afterEach(function() {
+        view.remove();
+        $.prototype.sortable.restore();
+      });
 
-    //   it('calls remove on each view', function() {
-    //     sinon.spy(Backbone.View.prototype, 'remove');
-    //     view.refreshViews();
-    //     Backbone.View.prototype.remove.calledTwice.should.be.true;
-    //     Backbone.View.prototype.remove.restore();
-    //   });
+      describe('when there is no listItemViews array', function() {
+        it('adds a new view for each collection element', function() {
+          view.listItemViews.length.should.equal(2);
+        });
+      });
 
-    //   it('removes the views from the array', function() {
-    //     view.refreshViews();
-    //     view.listItemViews.length.should.equal(0);
-    //   });
-    // });
+      describe('on re-render', function() {
+        it('maintains the length of the listItemViews array', function() {
+          view.render();
+          view.listItemViews.length.should.equal(2);
+        });
+      });
 
-    // describe('render function', function() {
-    //   beforeEach(function() {
-    //     sinon.stub($.prototype, 'sortable');
-    //     view = new TaskCollectionView({collection: collection});
-    //     sinon.spy(view, 'refreshViews');
-    //     view.render();
-    //   });
-
-    //   afterEach(function() {
-    //     view.refreshViews.restore();
-    //     view.remove();
-    //     $.prototype.sortable.restore();
-    //   });
-
-    //   describe('when there is no listItemViews array', function() {
-    //     it('adds a new view for each collection element', function() {
-    //       view.listItemViews.length.should.equal(2);
-    //     });
-    //   });
-
-    //   // describe('on re-render', function() {
-    //   //   it('maintains the length of the listItemViews array', function() {
-    //   //     view.render();
-    //   //     view.listItemViews.length.should.equal(2);
-    //   //   });
-    //   // });
-
-    //   it('configures sortable', function() {
-    //     $.prototype.sortable.withArgs({connectWith: '.task-list', dropOnEmpty: true}).calledOnce.should.be.true;
-    //   });
-
-    //   it('refreshes the list item views', function() {
-    //     view.refreshViews.calledOnce.should.be.true;
-    //   });
-    // });
+      it('configures sortable', function() {
+        $.prototype.sortable.withArgs({connectWith: '.task-list', dropOnEmpty: true}).calledOnce.should.be.true;
+      });
+    });
   });
 });
