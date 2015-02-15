@@ -8,10 +8,12 @@ define([
   ], function(Backbone, HomepageView, LoginForm, User, Utils) {
 
   describe('HomepageView', function() {
-    var view, server, spy, e;
+    var view, tmpView, server, spy, e;
 
     beforeEach(function() {
-      if(typeof view === 'undefined') { view = new HomepageView(); }
+      if(typeof view === 'undefined') { 
+        view = new HomepageView(); 
+      }
     });
 
     describe('constructor', function() {
@@ -61,11 +63,6 @@ define([
           view.$loginForm.$el.should.not.be.visible;
         });
 
-        it('is displayed when the link is clicked', function() {
-          view.$('#navbar-top').find('.login-link').trigger('click');
-          view.$loginForm.$el.should.be.visible;
-        });
-
         it('triggers the loginSuccess event', function() {
           var spy = sinon.spy();
           view.on('loginSuccess', spy);
@@ -82,6 +79,42 @@ define([
       it('has contact information', function() {
         view.$('#contact-us').should.exist;
       });
+    });
+
+    describe('events', function() {
+      beforeEach(function() {
+        sinon.stub(HomepageView.prototype, 'hideLoginForm');
+        sinon.stub(HomepageView.prototype, 'createUser');
+        sinon.stub(HomepageView.prototype, 'toggleLoginForm');
+        tmpView = new HomepageView();
+        tmpView.render();
+      });
+
+      afterEach(function() {
+        HomepageView.prototype.hideLoginForm.restore();
+        HomepageView.prototype.createUser.restore();
+        HomepageView.prototype.toggleLoginForm.restore();
+        tmpView.remove();
+      });
+
+      it('triggers the createUser callback', function() {
+        var e = $.Event('submit', {target: tmpView.$('#registration-form')});
+        e.preventDefault();
+        tmpView.$('#registration-form').trigger(e);
+      });
+
+      it('triggers the toggleLoginForm callback', function() {
+        e = $.Event('click');
+        tmpView.$('nav li .login-link').trigger(e);
+        tmpView.toggleLoginForm.calledOnce.should.be.true;
+      });
+
+      it('triggers the hideLoginForm callback', function() {
+        tmpView.$('#shade').children().show();
+        e = $.Event('dblclick');
+        tmpView.$('#shade').trigger(e);
+        tmpView.hideLoginForm.calledOnce.should.be.true;
+      })
     });
 
     describe('createUser() method', function() {

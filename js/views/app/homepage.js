@@ -24,9 +24,9 @@ define([
   
   var HomepageView = Backbone.View.extend({
     events  : {
-      'submit #registration-form'       : 'createUser',
-      'click nav li .login-link'        : 'toggleLoginForm',
-      'dblclick #shade'                 : 'hideLoginForm',
+      'submit #registration-form' : 'createUser',
+      'click nav li .login-link'  : 'toggleLoginForm',
+      'dblclick #shade'           : 'hideLoginForm'
     },
 
     tagName  : 'div',
