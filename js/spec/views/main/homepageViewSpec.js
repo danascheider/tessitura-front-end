@@ -8,7 +8,7 @@ define([
   ], function(Backbone, HomepageView, LoginForm, User, Utils) {
 
   describe('HomepageView', function() {
-    var view, server, spy;
+    var view, server, spy, e;
 
     beforeEach(function() {
       if(typeof view === 'undefined') { view = new HomepageView(); }
@@ -105,6 +105,8 @@ define([
           username: 'testuser245', password: '245usertest', email: 'tu245@example.org',
           first_name: 'Test', last_name: 'User'
         });
+
+        e = $.Event('submit', {target: view.$('#registration-form')});
       });
 
       afterEach(function() {
@@ -112,10 +114,18 @@ define([
         Backbone.history.navigate.restore();
       });
 
+      it('doesn\'t refresh the page', function() {
+        sinon.spy(e, 'preventDefault');
+        view.createUser(e);
+        e.preventDefault.calledOnce.should.be.true;
+        e.preventDefault.restore();
+      });
+
       it('instantiates a user model', function() {
         sinon.stub(User.prototype, 'initialize');
-        view.$('#registration-form').submit(function() { return false; });
+        view.createUser(e);
         User.prototype.initialize.calledOnce.should.be.true;
+        User.prototype.initialize.restore();
       });
 
       describe('successful user creation', function() {
@@ -135,7 +145,7 @@ define([
           });
 
           // Submit the form and trigger the server response
-          view.$('#registration-form').submit(function() { return false; });
+          view.createUser(e);
           server.respond();
         });
 
