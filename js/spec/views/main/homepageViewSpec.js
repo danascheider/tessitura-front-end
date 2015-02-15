@@ -11,7 +11,7 @@ define([
     var view, server, spy;
 
     beforeEach(function() {
-      if(typeof view === undefined) { view = new HomepageView(); }
+      if(typeof view === 'undefined') { view = new HomepageView(); }
     });
 
     describe('constructor', function() {
@@ -114,7 +114,7 @@ define([
 
       it('instantiates a user model', function() {
         sinon.stub(User.prototype, 'initialize');
-        view.$('#registration-form').submit();
+        view.$('#registration-form').submit(function() { return false; });
         User.prototype.initialize.calledOnce.should.be.true;
       });
 
@@ -135,7 +135,7 @@ define([
           });
 
           // Submit the form and trigger the server response
-          view.$('#registration-form').submit();
+          view.$('#registration-form').submit(function() { return false; });
           server.respond();
         });
 
@@ -168,7 +168,7 @@ define([
             xhr.respond(422);
           });
 
-          view.$('#registration-form').submit();
+          view.$('#registration-form').submit(function() { return false; });
           server.respond();
         });
 
@@ -191,7 +191,7 @@ define([
             xhr.respond(401);
           });
 
-          view.$('#registration-form').submit();
+          view.$('#registration-form').submit(function() { return false; });
           server.respond();
         });
 
