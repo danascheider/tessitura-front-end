@@ -41,7 +41,7 @@ define([
       beforeEach(function() {
         view.reset().render();
       });
-      
+
       it('is a div', function() {
         view.$el[0].tagName.should.equal('DIV');
       });
@@ -52,6 +52,10 @@ define([
     });
 
     describe('view elements', function() {
+      beforeEach(function() {
+        view.reset().render();
+      });
+      
       it('displays the task\'s title', function() {
         view.$('a.task-title').html().should.equal('My Task 1');
       });
