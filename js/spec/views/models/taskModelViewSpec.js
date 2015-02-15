@@ -32,15 +32,16 @@ define([
     });
 
     beforeEach(function() {
-      view = new TaskView({model: task});
-      view.render();
-    });
-
-    afterEach(function() {
-      view.remove();
+      if(typeof view === 'undefined') {
+        view = new TaskView({model: task});
+      }
     });
 
     describe('el', function() {
+      beforeEach(function() {
+        view.reset().render();
+      });
+      
       it('is a div', function() {
         view.$el[0].tagName.should.equal('DIV');
       });
@@ -82,6 +83,20 @@ define([
     describe('render() function', function() {
       it('returns the view', function() {
         view.render().should.equal(view);
+      });
+    });
+
+    describe('reset() function', function() {
+
+      it('removes the view from the DOM', function() {
+        sinon.stub(view, 'remove');
+        view.reset();
+        view.remove.calledOnce.should.be.true;
+        view.remove.restore();
+      });
+
+      it('returns the view', function() {
+        view.reset().should.equal(view);
       });
     });
   });

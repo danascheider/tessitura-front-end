@@ -14,6 +14,11 @@ define([
     render    : function() {
       this.$el.html(this.template({model: this.model}));
       return this;
+    },
+
+    reset     : function() {
+      this.remove();
+      return this;
     }
   });
 
