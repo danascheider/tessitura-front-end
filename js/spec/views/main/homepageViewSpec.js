@@ -227,8 +227,9 @@ define([
 
         // The 'dblclick' event on the '#shade' element triggers the
         // `hideLoginForm()` callback
-
-        view.$('#shade').trigger('dblclick');
+        
+        e = $.Event('dblclick', {target: view.$('#shade')});        
+        view.hideLoginForm(e);
       });
 
       it('hides the login form', function() {
