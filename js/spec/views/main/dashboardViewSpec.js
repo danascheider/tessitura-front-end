@@ -77,6 +77,17 @@ define([
       });
     });
 
+    describe('toggleDropdownMenu() method', function() {
+      beforeEach(function() {
+        dashboard.reset().render();
+        e = $.Event('click', {target: dashboard.$('ul.nav li').last()});
+      });
+
+      it('displays the menu if no menus are visible', function() {
+        dashboard.$('ul.nav li').removeClass('open');
+      });
+    });
+
     describe('reset() method', function() {
       beforeEach(function() {
         dashboard.render();
