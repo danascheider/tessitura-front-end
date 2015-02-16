@@ -50,7 +50,7 @@ define(['backbone', 'views/app/login-form', 'utils', 'cookie'], function(Backbon
         sinon.stub(LoginForm.prototype, 'loginUser');
         sinon.fakeServer.create();
         newLoginForm = new LoginForm();
-        newLoginForm.reset().render();
+        newLoginForm.render();
       });
 
       afterEach(function() { 
@@ -280,6 +280,23 @@ define(['backbone', 'views/app/login-form', 'utils', 'cookie'], function(Backbon
     describe('render() function', function() {
       it('returns the form', function() {
         loginForm.render().should.equal(loginForm);
+      });
+    });
+
+    describe('reset() method', function() {
+      beforeEach(function() {
+        loginForm.render();
+      });
+
+      it('removes the view from the DOM', function() {
+        sinon.spy(loginForm, 'remove');
+        loginForm.reset();
+        loginForm.remove.calledOnce.should.be.true;
+        loginForm.remove.restore();
+      });
+
+      it('returns the view', function() {
+        loginForm.reset().should.equal(loginForm);
       });
     });
   });

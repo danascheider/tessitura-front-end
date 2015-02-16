@@ -55,6 +55,8 @@ define([
     },
 
     reset    : function() {
+      this.remove();
+      this.initialize();
       return this;
     }
   });
