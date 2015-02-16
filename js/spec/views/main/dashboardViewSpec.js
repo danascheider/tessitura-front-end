@@ -67,11 +67,13 @@ define([
     describe('hideDropdownMenus() method', function() {
       beforeEach(function() {
         dashboard.reset().render();
-        e = $.Event('click', {target: dashboard.$('#page-wrapper')});
+        e = $.Event('click', {target: dashboard.$el.not('ul.nav')});
       });
 
       it('hides visible dropdown menus', function() {
-        //
+        dashboard.$('li.dropdown').first().addClass('open');
+        dashboard.hideDropdownMenus(e);
+        dashboard.$('li.dropdown.open').length.should.equal(0);
       });
     });
 

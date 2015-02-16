@@ -34,7 +34,7 @@ define([
     // Event Callbacks // 
 
     hideDropdownMenus: function(e) {
-      var li = $('li.dropdown');
+      var li = this.$('li.dropdown');
 
       if(!li.is(e.target) && !li.has(e.target).length) {
         li.removeClass('open');
@@ -64,16 +64,20 @@ define([
     },
     
     render: function() {
+      var that = this;
       this.$el.html(this.template({user: this.user}));
       this.$('div.sidebar-collapse').html(this.$sidebar.render().el);
-
-      // Best practices
+      this.$sidebar.delegateEvents();
       return this;
     },
 
     reset: function() {
       var user = this.user;
+
+      // Remove the view from the DOM
       this.remove();
+
+      // Call initialize again
       this.initialize({user: user});
       return this;
     }
