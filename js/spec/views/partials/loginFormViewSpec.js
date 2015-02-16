@@ -1,90 +1,95 @@
 define(['backbone', 'views/app/login-form', 'utils', 'cookie'], function(Backbone, LoginForm, Utils) {
   
-  describe('LoginForm', function() {
+  describe('LoginForm View', function() {
 
     // Instantiate variable to be defined in `beforeEach` block
 
     var loginForm, server, getAttributes, spy;
 
-    describe('elements', function() {
-      beforeEach(function() {
-        loginForm = new LoginForm();
-        loginForm.render();
-      });
+    beforeEach(function() {
+      if(typeof loginForm === 'undefined') { loginForm = new LoginForm(); }
+    });
 
-      afterEach(function() {
-        loginForm.remove();
-      });
+    // describe('elements', function() {
+    //   beforeEach(function() {
+    //     loginForm.reset().render();
+    //   });
 
-      it('is a form', function() { loginForm.$el[0].tagName.should.equal('FORM'); });
+    //   it('is a form', function() { loginForm.$el[0].tagName.should.equal('FORM'); });
 
-      it('has ID #login-form', function() { loginForm.$el[0].id.should.equal('login-form'); });
+    //   it('has ID #login-form', function() { loginForm.$el[0].id.should.equal('login-form'); });
 
-      it('has a username field', function() { loginForm.$('input[name="username"]').length.should.equal(1); });
+    //   it('has a username field', function() { loginForm.$('input[name="username"]').length.should.equal(1); });
 
-      it('has a password field', function() { loginForm.$('input[name="password"]').length.should.equal(1); });
+    //   it('has a password field', function() { loginForm.$('input[name="password"]').length.should.equal(1); });
 
-      it('has a link for login help', function() { loginForm.$('a.login-help-link').length.should.equal(1); });
+    //   it('has a link for login help', function() { loginForm.$('a.login-help-link').length.should.equal(1); });
 
-      it('has a submit button', function() { loginForm.$('button[type="submit"]').length.should.equal(1) });
+    //   it('has a submit button', function() { loginForm.$('button[type="submit"]').length.should.equal(1) });
       
-      describe('\'remember\' checkbox', function() {
-        it('exists', function() {
-          loginForm.$('input[name="remember"]').length.should.equal(1);
-        });
+    //   describe('\'remember\' checkbox', function() {
+    //     it('exists', function() {
+    //       loginForm.$('input[name="remember"]').length.should.equal(1);
+    //     });
 
-        it('is a checkbox', function() {
-          loginForm.$('input[name="remember"]')[0].type.should.equal('checkbox');
-        });
+    //     it('is a checkbox', function() {
+    //       loginForm.$('input[name="remember"]')[0].type.should.equal('checkbox');
+    //     });
 
-        it('is checked by default', function() {
-          loginForm.$('input[name="remember"]')[0].checked.should.equal(true);
-        });
-      });
-    });
+    //     it('is checked by default', function() {
+    //       loginForm.$('input[name="remember"]')[0].checked.should.equal(true);
+    //     });
+    //   });
+    // });
 
-    describe('event handling', function() {
-      var help;
+    // describe('events', function() {
+    //   var help;
 
-      beforeEach(function() {
-        sinon.stub(LoginForm.prototype, 'loginHelp');
-        sinon.stub(LoginForm.prototype, 'loginUser');
-        sinon.fakeServer.create();
-        loginForm = new LoginForm();
-        loginForm.render();
-      });
+    //   beforeEach(function() {
+    //     sinon.stub(LoginForm.prototype, 'loginHelp');
+    //     sinon.stub(LoginForm.prototype, 'loginUser');
+    //     sinon.fakeServer.create();
+    //     newLoginForm = new LoginForm();
+    //     newLoginForm.reset().render();
+    //   });
 
-      afterEach(function() { 
-        LoginForm.prototype.loginHelp.restore();
-        LoginForm.prototype.loginUser.restore();
-        loginForm.remove(); 
-      });
+    //   afterEach(function() { 
+    //     LoginForm.prototype.loginHelp.restore();
+    //     LoginForm.prototype.loginUser.restore();
+    //     newLoginForm.remove(); 
+    //   });
 
-      describe('click on the login help link', function() {
-        it('calls the loginHelp() method', function() {
-          loginForm.$('.login-help-link').click();
-          LoginForm.prototype.loginHelp.calledOnce.should.be.true;
-        });
-      });
+    //   describe('click on the login help link', function() {
+    //     it('calls the loginHelp() method', function() {
+    //       newLoginForm.$('.login-help-link').click();
+    //       LoginForm.prototype.loginHelp.calledOnce.should.be.true;
+    //     });
+    //   });
 
-      describe('submit the login form', function() {
-        it('doesn\'t refresh the page');
+    //   describe('submit the login form', function() {
+    //     beforeEach(function() { 
+    //       e = $.Event('submit', {target: newLoginForm.$el});
+    //       sinon.spy(e, 'preventDefault');
+    //       newLoginForm.$el.trigger(e);
+    //     });
 
-        it('calls the loginUser() method', function() {
-          loginForm.$el.submit();
-          LoginForm.prototype.loginUser.calledOnce.should.be.true;
-        });
-      });
-    });
+    //     afterEach(function() { e.preventDefault.restore(); });
 
-    describe('loginHelp() method', function() {
-      it('does not log \'Haha, you\'re boned!\' to the console');
-    });
+    //     it('calls the loginUser() method', function() {
+    //       LoginForm.prototype.loginUser.calledOnce.should.be.true;
+    //     });
+    //   });
+    // });
+
+    // describe('loginHelp() method', function() {
+    //   it('does not log \'Haha, you\'re boned!\' to the console');
+    // });
 
     describe('loginUser() method with \'Remember Me\' true', function() {
       beforeEach(function() {
-        loginForm = new LoginForm();
-        loginForm.render();
+        loginForm.reset().render();
+
+        e = $.Event('submit', {target: loginForm.$el});
 
         server = sinon.fakeServer.create();
         getAttributes = sinon.stub(Utils, 'getAttributes');
@@ -92,22 +97,21 @@ define(['backbone', 'views/app/login-form', 'utils', 'cookie'], function(Backbon
       });
 
       afterEach(function() {
-        loginForm.remove();
         Utils.getAttributes.restore();
       });
 
       it('makes a POST request', function() {
-        loginForm.$el.submit();
+        loginForm.loginUser(e);
         server.requests[0].method.should.equal('POST');
       });
 
       it('sends request to /login endpoint', function() {
-        loginForm.$el.submit();
+        loginForm.loginUser(e);
         server.requests[0].url.should.match(/\/login$/);
       });
 
       it('includes a basic auth header and hash', function() {
-        loginForm.$el.submit();
+        loginForm.loginUser(e);
         var str = 'Basic ' + btoa('testuser:testuser');
         server.requests[0].requestHeaders.Authorization.should.equal(str);
       });
@@ -128,7 +132,7 @@ define(['backbone', 'views/app/login-form', 'utils', 'cookie'], function(Backbon
           });
 
           // Submit the form
-          loginForm.$el.submit();
+          loginForm.loginUser(e);
 
           // Send the server response
           server.respond();
@@ -156,8 +160,9 @@ define(['backbone', 'views/app/login-form', 'utils', 'cookie'], function(Backbon
 
     describe('loginUser() method with \'Remember Me\' false', function() {
       beforeEach(function() {
-        loginForm = new LoginForm();
-        loginForm.render();
+        loginForm.reset().render();
+
+        e = $.Event('submit', {target: loginForm.$el});
 
         server = sinon.fakeServer.create();
         getAttributes = sinon.stub(Utils, 'getAttributes');
@@ -165,23 +170,22 @@ define(['backbone', 'views/app/login-form', 'utils', 'cookie'], function(Backbon
       });
 
       afterEach(function() {
-        loginForm.remove();
         Utils.getAttributes.restore();
       });
 
       it('makes a POST request', function() {
-        loginForm.$el.submit();
+        loginForm.loginUser(e);
         server.requests[0].method.should.equal('POST');
       });
 
       it('sends request to /login endpoint', function() {
-        loginForm.$el.submit();
+        loginForm.loginUser(e);
         server.requests[0].url.should.match(/\/login$/);
       });
 
       it('includes a basic auth header and hash', function() {
-        loginForm.$el.submit();
         var str = 'Basic ' + btoa('testuser:testuser');
+        loginForm.loginUser(e);
         server.requests[0].requestHeaders.Authorization.should.equal(str);
       });
 
@@ -190,20 +194,20 @@ define(['backbone', 'views/app/login-form', 'utils', 'cookie'], function(Backbon
           // Stub jQuery cookie
           sinon.stub($, 'cookie');
 
-          // Spy on the loginSuccess event
+          // Spy on loginSuccess event
           spy = sinon.spy();
           loginForm.on('loginSuccess', spy);
 
-          // Prepare server response to login request
+          // Create mock response
           var obj = JSON.stringify({"user": {"id":342, "username":"testuser", "first_name":"Test", "last_name":"User", "email":"testuser@example.com"}});
           server.respondWith(/\/login$/, function(xhr) {
             xhr.respond(200, {'Content-Type': 'application/json'}, obj);
           });
 
-          // Submit form
-          loginForm.$el.submit();
+          // Submit the form
+          loginForm.loginUser(e);
 
-          // Trigger server response
+          // Send the server response
           server.respond();
         });
 
@@ -233,12 +237,13 @@ define(['backbone', 'views/app/login-form', 'utils', 'cookie'], function(Backbon
         sinon.stub($, 'cookie');
 
         // Create and render the LoginForm view
-        loginForm = new LoginForm();
-        loginForm.render();
+        loginForm.reset().render();
 
         // Spy on the loginSuccess event
         spy = sinon.spy();
         loginForm.on('loginSuccess', spy);
+
+        e = $.Event('submit', {target: loginForm.$el});
 
         // Create a fake server to respond to the login request, which raises
         // an authorization error in this test case
@@ -250,7 +255,7 @@ define(['backbone', 'views/app/login-form', 'utils', 'cookie'], function(Backbon
         getAttributes.withArgs(loginForm.$el).returns({username: 'testuser', password: 'testuser', remember: null});
       
         // Submit the form
-        loginForm.$el.submit();
+        loginForm.loginUser(e);
 
         // Trigger the server response
         server.respond();
@@ -258,7 +263,6 @@ define(['backbone', 'views/app/login-form', 'utils', 'cookie'], function(Backbon
 
       afterEach(function() {
         loginForm.off('loginSuccess');
-        loginForm.remove();
         Utils.getAttributes.restore();
         $.cookie.restore();
         server.restore();
@@ -275,7 +279,6 @@ define(['backbone', 'views/app/login-form', 'utils', 'cookie'], function(Backbon
 
     describe('render() function', function() {
       it('returns the form', function() {
-        loginForm = new LoginForm();
         loginForm.render().should.equal(loginForm);
       });
     });
