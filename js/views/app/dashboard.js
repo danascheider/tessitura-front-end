@@ -44,7 +44,7 @@ define([
     // When the user clicks one of the icons on the top nav, the following
     // things happen:
     //   1) All open dropdowns close
-    //   2) If the li that was clicked was open, nothing else happens
+    //   2) If the li that was clicked was open, it closes
     //   3) If the li that was clicked was closed, it opens
 
     toggleDropdownMenu: function(e) {

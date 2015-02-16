@@ -64,8 +64,40 @@ define([
       });
     });
 
+    describe('events', function() {
+      var newDashboard;
+
+      beforeEach(function() {
+        sinon.spy(DashboardView.prototype, 'toggleDropdownMenu');
+        sinon.spy(DashboardView.prototype, 'hideDropdownMenus');
+        newDashboard = new DashboardView({user: user});
+        newDashboard.render();
+      });
+
+      afterEach(function() { 
+        DashboardView.prototype.toggleDropdownMenu.restore();
+        DashboardView.prototype.hideDropdownMenus.restore(); 
+        newDashboard.remove();
+      });
+
+      describe('click on dropdown li', function() {
+        it('calls toggleDropdownMenu()', function() {
+          newDashboard.$('li.dropdown').first().click();
+          DashboardView.prototype.toggleDropdownMenu.calledOnce.should.be.true;
+        });
+      });
+
+      describe('click on a random point on the dashboard', function() {
+        it('calls hideDropdownMenus()', function() {
+          newDashboard.$el.click();
+          DashboardView.prototype.hideDropdownMenus.calledOnce.should.be.true;
+        });
+      });
+    });
+
     // FIX: This should also check for menu visibility and not for 
     //      class name
+
     describe('hideDropdownMenus() method', function() {
       beforeEach(function() { dashboard.reset().render(); });
 
