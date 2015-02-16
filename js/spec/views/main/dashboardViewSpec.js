@@ -7,7 +7,7 @@ define([
 ], function($, _, Backbone, DashboardView, User) {
 
   describe('Main Dashboard View', function() {
-    var dashboard;
+    var dashboard, e;
     var user = new User({
       username: 'testuser', 
       password: 'testuser', 
@@ -40,11 +40,7 @@ define([
 
     describe('elements', function() {
       beforeEach(function() {
-        dashboard.render();
-      });
-
-      afterEach(function() {
-        dashboard.remove();
+        dashboard.reset().render();
       });
 
       it('is a div', function() {
@@ -59,6 +55,23 @@ define([
         it('is inserted into the div.sidebar-collapse', function() {
           dashboard.$sidebar.$el.parents('div.sidebar-collapse').length.should.be.ok;
         });
+      });
+
+      describe('dropdown menus', function() {
+        it('is hidden by default', function() {
+          dashboard.$('ul.nav li.dropdown').should.not.be.visible;
+        });
+      });
+    });
+
+    describe('hideDropdownMenus() method', function() {
+      beforeEach(function() {
+        dashboard.reset().render();
+        e = $.Event('click', {target: dashboard.$('#page-wrapper')});
+      });
+
+      it('hides visible dropdown menus', function() {
+        //
       });
     });
 
