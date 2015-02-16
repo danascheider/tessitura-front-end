@@ -61,6 +61,13 @@ define([
 
       // Best practices
       return this;
+    },
+
+    reset: function() {
+      var user = this.user;
+      this.remove();
+      this.initialize({user: user});
+      return this;
     }
   });
 

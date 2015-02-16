@@ -61,6 +61,34 @@ define([
         });
       });
     });
+
+    describe('reset() method', function() {
+      beforeEach(function() {
+        dashboard.render();
+      });
+
+      it('removes the view from the DOM', function() {
+        sinon.spy(dashboard, 'remove');
+        dashboard.reset();
+        dashboard.remove.calledOnce.should.be.true;
+        dashboard.remove.restore();
+      });
+
+      it('keeps its user', function() {
+        dashboard.reset();
+        dashboard.user.should.equal(user);
+      });
+
+      it('retains its sidebar', function() {
+        var sidebar = dashboard.$sidebar;
+        dashboard.reset();
+        dashboard.$sidebar.should.equal(sidebar);
+      })
+
+      it('returns the view', function() {
+        dashboard.reset().should.equal(dashboard);
+      });
+    });
   });
 
 });
