@@ -45,6 +45,10 @@ define([
       it('is a div', function() {
         dashboard.$el[0].tagName.should.equal('DIV');
       });
+
+      it('has ID #dashboard-wrapper', function() {
+        dashboard.$el[0].id.should.equal('dashboard-wrapper');
+      });
     });
   });
 
