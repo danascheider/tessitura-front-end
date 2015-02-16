@@ -77,14 +77,48 @@ define([
       });
     });
 
+    // FIX: This should check for menu visibility, not for class name
+
     describe('toggleDropdownMenu() method', function() {
       beforeEach(function() {
         dashboard.reset().render();
-        e = $.Event('click', {target: dashboard.$('ul.nav li').last()});
+        dashboard.$('li.dropdown').removeClass('open');
+        e = $.Event('click', {target: dashboard.$('li.dropdown').last()});
       });
 
-      it('displays the menu if no menus are visible', function() {
-        dashboard.$('ul.nav li').removeClass('open');
+      describe('when no menus are visible', function() {
+        it('displays the menu that was clicked', function() {
+          dashboard.toggleDropdownMenu(e);
+          dashboard.$('li.dropdown').last()[0].className.should.include('open');
+        });
+
+        it('doesn\'t display the other menus', function() {
+          dashboard.toggleDropdownMenu(e);
+          dashboard.$('li.dropdown').first()[0].className.should.not.include('open');
+        });
+      })
+
+      describe('when another menu is visible', function() {
+        beforeEach(function() { dashboard.$('li.dropdown').first().addClass('open'); });
+
+        it('hides the visible menu', function() {
+          dashboard.toggleDropdownMenu(e);
+          dashboard.$('li.dropdown').first()[0].className.should.not.include('open');
+        });
+
+        it('displays the menu that was clicked', function() {
+          dashboard.toggleDropdownMenu(e);
+          dashboard.$('li.dropdown').last()[0].className.should.include('open');
+        });
+      });
+
+      describe('when the clicked menu was visible', function() {
+        beforeEach(function() { dashboard.$('li.dropdown').last().addClass('open'); });
+
+        it('hides the menu', function() {
+          dashboard.toggleDropdownMenu(e);
+          dashboard.$('li.dropdown').last()[0].className.should.not.include('open');
+        });
       });
     });
 

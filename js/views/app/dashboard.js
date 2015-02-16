@@ -25,8 +25,8 @@ define([
     id            : 'dashboard-wrapper',
     
     events   : {
-      'click'           : 'hideDropdownMenus',
-      'click ul.nav li' : 'toggleDropdownMenu',
+      'click'             : 'hideDropdownMenus',
+      'click li.dropdown' : 'toggleDropdownMenu',
     },
 
     template : _.template(DashboardTemplate),
