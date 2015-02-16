@@ -19,11 +19,6 @@ define([
   
   var DashboardView = Backbone.View.extend({
 
-    renderSidebar: function() {
-      this.$('div.sidebar-collapse').html(this.$sidebar.render().el);
-      return this;
-    },
-
     // Core View Attributes //
 
     tagName       : 'div',
@@ -62,7 +57,7 @@ define([
     
     render: function() {
       this.$el.html(this.template({user: this.user}));
-      this.renderSidebar();
+      this.$('div.sidebar-collapse').html(this.$sidebar.render().el);
 
       // Best practices
       return this;
