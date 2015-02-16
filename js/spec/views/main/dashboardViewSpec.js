@@ -54,6 +54,12 @@ define([
       it('has ID #dashboard-wrapper', function() {
         dashboard.$el[0].id.should.equal('dashboard-wrapper');
       });
+
+      describe('sidebar', function() {
+        it('is inserted into the div.sidebar-collapse', function() {
+          dashboard.$sidebar.$el.parents('div.sidebar-collapse').length.should.be.ok;
+        });
+      });
     });
   });
 
