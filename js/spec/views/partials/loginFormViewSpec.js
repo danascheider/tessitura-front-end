@@ -10,80 +10,80 @@ define(['backbone', 'views/app/login-form', 'utils', 'cookie'], function(Backbon
       if(typeof loginForm === 'undefined') { loginForm = new LoginForm(); }
     });
 
-    // describe('elements', function() {
-    //   beforeEach(function() {
-    //     loginForm.reset().render();
-    //   });
+    describe('elements', function() {
+      beforeEach(function() {
+        loginForm.reset().render();
+      });
 
-    //   it('is a form', function() { loginForm.$el[0].tagName.should.equal('FORM'); });
+      it('is a form', function() { loginForm.$el[0].tagName.should.equal('FORM'); });
 
-    //   it('has ID #login-form', function() { loginForm.$el[0].id.should.equal('login-form'); });
+      it('has ID #login-form', function() { loginForm.$el[0].id.should.equal('login-form'); });
 
-    //   it('has a username field', function() { loginForm.$('input[name="username"]').length.should.equal(1); });
+      it('has a username field', function() { loginForm.$('input[name="username"]').length.should.equal(1); });
 
-    //   it('has a password field', function() { loginForm.$('input[name="password"]').length.should.equal(1); });
+      it('has a password field', function() { loginForm.$('input[name="password"]').length.should.equal(1); });
 
-    //   it('has a link for login help', function() { loginForm.$('a.login-help-link').length.should.equal(1); });
+      it('has a link for login help', function() { loginForm.$('a.login-help-link').length.should.equal(1); });
 
-    //   it('has a submit button', function() { loginForm.$('button[type="submit"]').length.should.equal(1) });
+      it('has a submit button', function() { loginForm.$('button[type="submit"]').length.should.equal(1) });
       
-    //   describe('\'remember\' checkbox', function() {
-    //     it('exists', function() {
-    //       loginForm.$('input[name="remember"]').length.should.equal(1);
-    //     });
+      describe('\'remember\' checkbox', function() {
+        it('exists', function() {
+          loginForm.$('input[name="remember"]').length.should.equal(1);
+        });
 
-    //     it('is a checkbox', function() {
-    //       loginForm.$('input[name="remember"]')[0].type.should.equal('checkbox');
-    //     });
+        it('is a checkbox', function() {
+          loginForm.$('input[name="remember"]')[0].type.should.equal('checkbox');
+        });
 
-    //     it('is checked by default', function() {
-    //       loginForm.$('input[name="remember"]')[0].checked.should.equal(true);
-    //     });
-    //   });
-    // });
+        it('is checked by default', function() {
+          loginForm.$('input[name="remember"]')[0].checked.should.equal(true);
+        });
+      });
+    });
 
-    // describe('events', function() {
-    //   var help;
+    describe('events', function() {
+      var help;
 
-    //   beforeEach(function() {
-    //     sinon.stub(LoginForm.prototype, 'loginHelp');
-    //     sinon.stub(LoginForm.prototype, 'loginUser');
-    //     sinon.fakeServer.create();
-    //     newLoginForm = new LoginForm();
-    //     newLoginForm.reset().render();
-    //   });
+      beforeEach(function() {
+        sinon.stub(LoginForm.prototype, 'loginHelp');
+        sinon.stub(LoginForm.prototype, 'loginUser');
+        sinon.fakeServer.create();
+        newLoginForm = new LoginForm();
+        newLoginForm.reset().render();
+      });
 
-    //   afterEach(function() { 
-    //     LoginForm.prototype.loginHelp.restore();
-    //     LoginForm.prototype.loginUser.restore();
-    //     newLoginForm.remove(); 
-    //   });
+      afterEach(function() { 
+        LoginForm.prototype.loginHelp.restore();
+        LoginForm.prototype.loginUser.restore();
+        newLoginForm.remove(); 
+      });
 
-    //   describe('click on the login help link', function() {
-    //     it('calls the loginHelp() method', function() {
-    //       newLoginForm.$('.login-help-link').click();
-    //       LoginForm.prototype.loginHelp.calledOnce.should.be.true;
-    //     });
-    //   });
+      describe('click on the login help link', function() {
+        it('calls the loginHelp() method', function() {
+          newLoginForm.$('.login-help-link').click();
+          LoginForm.prototype.loginHelp.calledOnce.should.be.true;
+        });
+      });
 
-    //   describe('submit the login form', function() {
-    //     beforeEach(function() { 
-    //       e = $.Event('submit', {target: newLoginForm.$el});
-    //       sinon.spy(e, 'preventDefault');
-    //       newLoginForm.$el.trigger(e);
-    //     });
+      describe('submit the login form', function() {
+        beforeEach(function() { 
+          e = $.Event('submit', {target: newLoginForm.$el});
+          sinon.spy(e, 'preventDefault');
+          newLoginForm.$el.trigger(e);
+        });
 
-    //     afterEach(function() { e.preventDefault.restore(); });
+        afterEach(function() { e.preventDefault.restore(); });
 
-    //     it('calls the loginUser() method', function() {
-    //       LoginForm.prototype.loginUser.calledOnce.should.be.true;
-    //     });
-    //   });
-    // });
+        it('calls the loginUser() method', function() {
+          LoginForm.prototype.loginUser.calledOnce.should.be.true;
+        });
+      });
+    });
 
-    // describe('loginHelp() method', function() {
-    //   it('does not log \'Haha, you\'re boned!\' to the console');
-    // });
+    describe('loginHelp() method', function() {
+      it('does not log \'Haha, you\'re boned!\' to the console');
+    });
 
     describe('loginUser() method with \'Remember Me\' true', function() {
       beforeEach(function() {
