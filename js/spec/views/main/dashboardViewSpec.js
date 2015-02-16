@@ -26,6 +26,11 @@ define([
         newDashboard.user.should.equal(user);
       });
 
+      it('instantiates a sidebar', function() {
+        var newDashboard = new DashboardView({user: user});
+        newDashboard.$sidebar.should.exist;
+      });
+
       it('doesn\'t call render', function() {
         sinon.stub(Backbone.View.prototype, 'render');
         var newDashboard = new DashboardView({user: user});

@@ -20,7 +20,7 @@ define([
   var DashboardView = Backbone.View.extend({
 
     renderSidebar: function() {
-      this.$sidebar = new SidebarView({el: this.$('div.sidebar-collapse')});
+      this.$('div.sidebar-collapse').html(this.$sidebar.render().el);
       return this;
     },
 
@@ -57,6 +57,7 @@ define([
     initialize: function(opts) {
       opts = opts || {};
       this.user = opts.user;
+      this.$sidebar = this.$sidebar || new SidebarView();
     },
     
     render: function() {
