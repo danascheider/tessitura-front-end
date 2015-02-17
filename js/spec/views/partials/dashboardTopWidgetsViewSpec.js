@@ -55,6 +55,10 @@ define(['backbone',
     describe('elements', function() {
       beforeEach(function() { view.reset().render(); });
 
+      it('is a div', function() {
+        view.$el[0].tagName.should.equal('DIV');
+      });
+
       describe('task widget', function() {
         it('is visible by default', function() {
           view.$('div.dash-widget[data-target="tasks"]').should.be.visible;
@@ -116,7 +120,7 @@ define(['backbone',
     });
 
     describe('render() function', function() {
-      //
+      it('sets the HTML of the element');
     });
 
     describe('reset() method', function() {
