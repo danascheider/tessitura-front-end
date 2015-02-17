@@ -104,7 +104,27 @@ define(['backbone',
     });
 
     describe('events', function() {
-      //
+      beforeEach(function() { 
+        sinon.stub(WidgetView.prototype, 'changeLinkColor');
+        sinon.stub(WidgetView.prototype, 'changeLinkColorBack');
+        sinon.stub(WidgetView.prototype, 'followLink');
+      });
+
+      afterEach(function() {
+        WidgetView.prototype.changeLinkColor.restore();
+        WidgetView.prototype.changeLinkColorBack.restore();
+        WidgetView.prototype.followLink.restore();
+      });
+
+      describe('mouseenter .dash-widget', function() {
+        it('calls changeLinkColor', function() {
+          var newView = new WidgetView({data: data});
+          newView.render();
+          newView.$('.dash-widget').first().mouseenter();
+          WidgetView.prototype.changeLinkColor.calledOnce.should.be.true;
+          newView.remove();
+        });
+      });
     });
 
     describe('changeLinkColor() method', function() {
