@@ -96,6 +96,19 @@ define(['backbone', 'views/app/dashboard-sidebar'], function(Backbone, SidebarVi
           sidebar.toggleSecondLevelNav(e);
           li.find('ul.nav-second-level').should.not.be.visible;
         });
+
+        it('adds the \'active\' class to its parent', function() {
+          var li = sidebar.$('i.fa-sitemap').closest('li');
+          sidebar.toggleSecondLevelNav(e);
+          li[0].className.should.include('active');
+        });
+
+        it('removes the \'active\' class from other <li>s', function() {
+          var li = sidebar.$('i.fa-files-o').closest('li');
+          li.addClass('active');
+          sidebar.toggleSecondLevelNav(e);
+          li[0].className.should.not.include('active');
+        });
       });
     });
   });

@@ -31,7 +31,7 @@ define([
     },
 
     toggleSecondLevelNav : function(e) {
-      var li = $(e.target).parent('li');
+      var li = $(e.target).closest('li');
 
       li.toggleClass('active');
 
