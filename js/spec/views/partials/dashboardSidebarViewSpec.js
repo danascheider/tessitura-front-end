@@ -49,21 +49,30 @@ define(['backbone', 'views/app/dashboard-sidebar'], function(Backbone, SidebarVi
     });
 
     describe('goToDashboard() method', function() {
-      describe('when on the dashboard', function() {
-        beforeEach(function() {
-          sidebar.reset().render();
-          sinon.stub(Backbone.history, 'navigate');
-          sinon.stub(sidebar, 'getLocationHash').returns('#dashboard');
-        });
+      beforeEach(function() {
+        sidebar.reset().render();
+        sinon.stub(Backbone.history, 'navigate');
+      });
 
-        afterEach(function() {
-          Backbone.history.navigate.restore();
-          sidebar.getLocationHash.restore();
-        });
+      afterEach(function() { Backbone.history.navigate.restore(); });
+
+      describe('when on the dashboard', function() {
+        beforeEach(function() { sinon.stub(sidebar, 'getLocationHash').returns('#dashboard'); });
+        afterEach(function() { sidebar.getLocationHash.restore(); });
 
         it('does not navigate', function() {
           sidebar.goToDashboard();
           Backbone.history.navigate.called.should.be.false;
+        });
+      });
+
+      describe('when not on the dashboard', function() {
+        beforeEach(function() { sinon.stub(sidebar, 'getLocationHash').returns('#tasks'); });
+        afterEach(function() { sidebar.getLocationHash.restore(); });
+
+        it('navigates to the dashboard', function() {
+          sidebar.goToDashboard();
+          Backbone.history.navigate.calledWithExactly('dashboard', {trigger: true}).should.be.true;
         });
       });
     });
