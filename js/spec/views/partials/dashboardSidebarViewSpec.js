@@ -17,7 +17,13 @@ define(['backbone', 'views/app/dashboard-sidebar'], function(Backbone, SidebarVi
     });
 
     describe('elements', function() {
-      //
+      beforeEach(function() {
+        sidebar.reset().render();
+      });
+
+      it('is a ul', function() {
+        sidebar.$el[0].tagName.should.equal('UL');
+      });
     });
 
     describe('events', function() {

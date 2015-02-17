@@ -2,9 +2,8 @@ define([
   'jquery', 
   'underscore', 
   'backbone', 
-  'router', 
   'text!templates/partials/dashboard-sidebar.html'
-], function($, _, Backbone, Router, SidebarTemplate) {
+], function($, _, Backbone, SidebarTemplate) {
   
   var DashboardSidebarView = Backbone.View.extend({
     template  : _.template(SidebarTemplate),
@@ -55,6 +54,10 @@ define([
 
     render: function() {
       this.$el.html(this.template);
+      return this;
+    },
+
+    reset: function() {
       return this;
     }
   });
