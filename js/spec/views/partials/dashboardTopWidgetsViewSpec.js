@@ -108,12 +108,14 @@ define(['backbone',
         sinon.stub(WidgetView.prototype, 'changeLinkColor');
         sinon.stub(WidgetView.prototype, 'changeLinkColorBack');
         sinon.stub(WidgetView.prototype, 'followLink');
+        sinon.stub(Backbone.history, 'navigate');
       });
 
       afterEach(function() {
         WidgetView.prototype.changeLinkColor.restore();
         WidgetView.prototype.changeLinkColorBack.restore();
         WidgetView.prototype.followLink.restore();
+        Backbone.history.navigate.restore();
       });
 
       describe('mouseenter .dash-widget', function() {
@@ -133,6 +135,16 @@ define(['backbone',
           newView.$('.dash-widget').first().mouseleave();
           WidgetView.prototype.changeLinkColorBack.calledOnce.should.be.true;
           newView.remove();
+        });
+      });
+
+      describe('click .dash-widget', function() {
+        it('calls followLink', function() {
+          var newView = new WidgetView({data: data});
+          newView.render();
+          console.log(newView.$('.dash-widget').first());
+          newView.$('.dash-widget').first().click();
+          WidgetView.prototype.followLink.calledOnce.should.be.true;
         });
       });
     });
