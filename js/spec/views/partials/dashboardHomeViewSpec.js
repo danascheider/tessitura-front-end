@@ -24,11 +24,16 @@ define([
     user.tasks = new TaskCollection([task1, task2, task3]);
 
     beforeEach(function() {
-      if(typeof view === 'undefined') { view = new HomeView({user: user}); }
       server = sinon.fakeServer.create();
       server.respondWith(/\/users\/342\/tasks$/, function(xhr) {
         xhr.respond(200, {'Content-Type': 'application/json'}, JSON.stringify(user.tasks.models));
       });
+
+      if(typeof view === 'undefined') { 
+        view = new HomeView({user: user});
+        view.render();
+        server.respond();
+      }
     });
 
     describe('constructor', function() {
@@ -52,7 +57,20 @@ define([
       it('instantiates a top widget view');
     });
 
-    // describe('elements');
+    describe('elements', function() {
+      beforeEach(function() { 
+        view.reset().render(); 
+        server.respond();
+      });
+
+      it('has a task panel', function() {
+        view.$taskPanel.$el.html().should.not.be.empty;
+      });
+
+      it('has a top widget section', function() {
+        view.$topWidgets.$el.html().should.not.be.empty;
+      });
+    });
 
     // describe('events');
 
