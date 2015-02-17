@@ -55,7 +55,13 @@ define(['backbone', 'views/app/dashboard-sidebar'], function(Backbone, SidebarVi
     });
 
     describe('reset() method', function() {
-      //
+      beforeEach(function() { sidebar.render(); });
+
+      it('removes the view from the DOM', function() {
+        sinon.stub(sidebar, 'remove');
+        sidebar.reset();
+        sidebar.remove.calledOnce.should.be.true;
+      });
     });
   });
 });
