@@ -108,7 +108,18 @@ define(['backbone',
     });
 
     describe('changeLinkColor() method', function() {
-      //
+      beforeEach(function() {
+        view.reset().render();
+        e = $.Event('mouseenter', {target: view.$('.dash-widget:contains("Recommendations!")')});
+      });
+
+      it('changes text color to the heading background color', function() {
+        var heading = view.$('.dash-widget:contains("Recommendations!") .panel-heading');
+        var color = heading.css('background-color');
+        var body = heading.closest('.dash-widget').find('.panel-body');
+        view.changeLinkColor(e);
+        body.css('color').should.equal(color);
+      });
     });
 
     describe('changeLinkColorBack() method', function() {
