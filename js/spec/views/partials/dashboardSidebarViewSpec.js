@@ -47,11 +47,13 @@ define(['backbone', 'views/app/dashboard-sidebar'], function(Backbone, SidebarVi
     describe('events', function() {
       beforeEach(function() {
         sinon.stub(SidebarView.prototype, 'toggleSecondLevelNav');
+        sinon.stub(SidebarView.prototype, 'goToDashboard');
         sinon.stub(Backbone.history, 'navigate');
       });
 
       afterEach(function() {
         SidebarView.prototype.toggleSecondLevelNav.restore();
+        SidebarView.prototype.goToDashboard.restore();
         Backbone.history.navigate.restore();
       });
 
@@ -61,7 +63,18 @@ define(['backbone', 'views/app/dashboard-sidebar'], function(Backbone, SidebarVi
           newSidebar.render();
           newSidebar.$('a.sidebar-link').first().click();
           SidebarView.prototype.toggleSecondLevelNav.calledOnce.should.be.true;
+          newSidebar.remove();
         });
+      });
+
+      describe('click dashboard link', function() {
+        it('calls goToDashboard', function() {
+          var newSidebar = new SidebarView();
+          newSidebar.render();
+          newSidebar.$('li > .dashboard-link').first().click();
+          SidebarView.prototype.goToDashboard.calledOnce.should.be.true;
+          newSidebar.remove();
+        })
       });
     });
 
