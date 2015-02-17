@@ -48,6 +48,26 @@ define(['backbone', 'views/app/dashboard-sidebar'], function(Backbone, SidebarVi
       //
     });
 
+    describe('goToDashboard() method', function() {
+      describe('when on the dashboard', function() {
+        beforeEach(function() {
+          sidebar.reset().render();
+          sinon.stub(Backbone.history, 'navigate');
+          sinon.stub(sidebar, 'getLocationHash').returns('#dashboard');
+        });
+
+        afterEach(function() {
+          Backbone.history.navigate.restore();
+          sidebar.getLocationHash.restore();
+        });
+
+        it('does not navigate', function() {
+          sidebar.goToDashboard();
+          Backbone.history.navigate.called.should.be.false;
+        });
+      });
+    });
+
     describe('render() function', function() {
       beforeEach(function() { sidebar.reset(); });
 

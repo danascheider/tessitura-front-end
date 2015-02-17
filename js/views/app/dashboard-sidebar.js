@@ -18,14 +18,22 @@ define([
       'click li > .task-page-link' : 'goToTaskPage'
     },
 
+    // For testing purposes - location.hash can't be stubbed
+    // directly, so this has to be called in the methods that 
+    // require the information.
+
+    getLocationHash      : function() {
+      return location.hash;
+    },
+
     goToDashboard        : function() {
-      if(location.hash !== '#dashboard') {
+      if(this.getLocationHash() !== '#dashboard') {
         Backbone.history.navigate('dashboard', {trigger: true});
       }
     },
 
     goToTaskPage         : function() {
-      if(location.hash !== '#tasks') {
+      if(this.getLocationHash() !== '#tasks') {
         Backbone.history.navigate('tasks', {trigger: true});
       }
     },
