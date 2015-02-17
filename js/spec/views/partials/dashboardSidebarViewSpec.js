@@ -110,6 +110,27 @@ define(['backbone', 'views/app/dashboard-sidebar'], function(Backbone, SidebarVi
           li[0].className.should.not.include('active');
         });
       });
+
+      describe('when the second level nav is visible', function() {
+        beforeEach(function() {
+          var li = sidebar.$('i.fa-sitemap').closest('li');
+          li.addClass('active');
+          li.find('ul.nav-second-level').slideDown();
+          e = $.Event('click', {target: li});
+        });
+
+        it('hides the second-level nav', function() {
+          var li = sidebar.$('i.fa-sitemap').closest('li');
+          sidebar.toggleSecondLevelNav(e);
+          li.find('ul.nav-second-level').should.not.be.visible;
+        });
+
+        it('removes the \'active\' class from the parent', function() {
+          var li = sidebar.$('i.fa-sitemap').closest('li');
+          sidebar.toggleSecondLevelNav(e);
+          li[0].className.should.not.include('active');
+        });
+      });
     });
   });
 });
