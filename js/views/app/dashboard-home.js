@@ -23,7 +23,7 @@ define([
     },
 
     renderTaskPanel  : function(collection) {
-      this.$taskPanel = new TaskPanelView({el: this.$('#task-panel'), collection: collection});
+      this.$taskPanel = this.$taskPanel || new TaskPanelView({el: this.$('#task-panel'), collection: collection});
       return this;
     },
 

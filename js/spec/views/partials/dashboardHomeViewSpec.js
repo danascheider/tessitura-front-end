@@ -26,6 +26,13 @@ define(['backbone', 'views/app/dashboard-home', 'models/user'], function(Backbon
         var newView = new HomeView({user: user});
         newView.user.should.equal(user);
       });
+
+      // FIX: Pending tests need to be addressed in the views referenced; their 
+      //      constructors and render functions cause failures otherwise
+
+      it('instantiates a task panel');
+
+      it('instantiates a top widget view');
     });
 
     // describe('elements');
