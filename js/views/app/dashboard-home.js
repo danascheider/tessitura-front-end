@@ -27,6 +27,18 @@ define([
       return this;
     },
 
+    reset            : function() {
+      this.undelegateEvents();
+      this.$taskPanel.remove();
+      this.$topWidgets.remove();
+      this.remove();
+
+      var user = this.user;
+      this.initialize({user: user});
+
+      return this;
+    },
+
     // Core view functions //
 
     initialize : function(opts) {
