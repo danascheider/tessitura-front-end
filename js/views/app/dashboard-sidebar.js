@@ -7,8 +7,13 @@ define([
 ], function($, _, Backbone, Router, SidebarTemplate) {
   
   var DashboardSidebarView = Backbone.View.extend({
-    template : _.template(SidebarTemplate),
-    events   : {
+    template  : _.template(SidebarTemplate),
+
+    tagName   : 'ul',
+    className : 'nav',
+    id        : 'side-menu',
+
+    events    : {
       'click ul#side-menu li a'    : 'toggleSecondLevelNav',
       'click li > .dashboard-link' : 'goToDashboard',
       'click li > .task-page-link' : 'goToTaskPage'
@@ -46,10 +51,6 @@ define([
       }
 
       li.children('ul.nav').slideToggle();
-    },
-
-    initialize: function() {
-      this.render();
     },
 
     render: function() {
