@@ -56,7 +56,11 @@ define(['backbone', 'views/app/dashboard-sidebar'], function(Backbone, SidebarVi
         sidebar.render();
         $.prototype.html.calledOnce.should.be.true;
         $.prototype.html.restore();
-      })
+      });
+
+      it('returns itself', function() {
+        sidebar.render().should.equal(sidebar);
+      });
     });
 
     describe('reset() method', function() {
