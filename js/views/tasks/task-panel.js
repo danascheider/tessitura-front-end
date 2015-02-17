@@ -83,10 +83,6 @@ define([
 
     // Core View Functions //
 
-    initialize: function() {
-      this.render();
-    },
-
     render: function() {
       var that = this;
 

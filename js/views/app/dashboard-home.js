@@ -19,11 +19,14 @@ define([
         data: data
       });
 
+      this.$topWidgets.render();
+
       return this;
     },
 
     renderTaskPanel  : function(collection) {
       this.$taskPanel = this.$taskPanel || new TaskPanelView({el: this.$('#task-panel'), collection: collection});
+      this.$taskPanel.render();
       return this;
     },
 
