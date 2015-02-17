@@ -40,6 +40,10 @@ define(['backbone', 'views/app/dashboard-sidebar'], function(Backbone, SidebarVi
       it('has a link to the dashboard', function() {
         sidebar.$('li > a[href="#dashboard"]').should.exist;
       });
+
+      it('has a link to the task view', function() {
+        sidebar.$('li > a[href="#tasks"]').should.exist;
+      });
     });
 
     describe('events', function() {
