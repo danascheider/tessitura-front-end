@@ -15,11 +15,10 @@ define([
 
     renderTopWidgets : function(data) {
       this.$topWidgets = new DashboardTopWidgetView({
-        el: this.$('#dash-heading'),
         data: data
       });
 
-      this.$topWidgets.render();
+      this.$('#dash-heading').html(this.$topWidgets.render().el);
 
       return this;
     },
