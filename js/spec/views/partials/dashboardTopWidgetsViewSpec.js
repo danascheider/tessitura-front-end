@@ -65,8 +65,15 @@ define(['backbone',
         });
       });
 
-      it('has a deadline widget', function() {
-        //
+      describe('deadline widget', function() {
+        it('is visible by default', function() {
+          view.$('div.dash-widget:contains("Upcoming Deadlines!")').should.be.visible;
+        });
+
+        it('contains the deadline count', function() {
+          var widget = view.$('div.dash-widget:contains("Upcoming Deadlines!")');
+          widget.html().should.include('14');
+        });
       });
     });
 
