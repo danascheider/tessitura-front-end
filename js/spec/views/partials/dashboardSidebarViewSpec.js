@@ -48,12 +48,14 @@ define(['backbone', 'views/app/dashboard-sidebar'], function(Backbone, SidebarVi
       beforeEach(function() {
         sinon.stub(SidebarView.prototype, 'toggleSecondLevelNav');
         sinon.stub(SidebarView.prototype, 'goToDashboard');
+        sinon.stub(SidebarView.prototype, 'goToTaskPage');
         sinon.stub(Backbone.history, 'navigate');
       });
 
       afterEach(function() {
         SidebarView.prototype.toggleSecondLevelNav.restore();
         SidebarView.prototype.goToDashboard.restore();
+        SidebarView.prototype.goToTaskPage.restore();
         Backbone.history.navigate.restore();
       });
 
@@ -74,7 +76,17 @@ define(['backbone', 'views/app/dashboard-sidebar'], function(Backbone, SidebarVi
           newSidebar.$('li > .dashboard-link').first().click();
           SidebarView.prototype.goToDashboard.calledOnce.should.be.true;
           newSidebar.remove();
-        })
+        });
+      });
+
+      describe('click task page link', function() {
+        it('calls goToTaskPage', function() {
+          var newSidebar = new SidebarView();
+          newSidebar.render();
+          newSidebar.$('li > .task-page-link').first().click();
+          SidebarView.prototype.goToTaskPage.calledOnce.should.be.true;
+          newSidebar.remove();
+        });
       });
     });
 
