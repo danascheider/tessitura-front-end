@@ -138,7 +138,19 @@ define(['backbone',
     });
 
     describe('followLink() method', function() {
-      //
+      beforeEach(function() {
+        e = $.Event('click', {target: view.$('.dash-widget[data-target="tasks"]')});
+        sinon.stub(Backbone.history, 'navigate');
+      });
+
+      afterEach(function() {
+        Backbone.history.navigate.restore();
+      });
+
+      it('navigates to the URL specified in data-target', function() {
+        view.followLink(e);
+        Backbone.history.navigate.calledWithExactly('tasks', {trigger: true}).should.be.true;
+      });
     });
 
     describe('render() function', function() {
