@@ -125,6 +125,16 @@ define(['backbone',
           newView.remove();
         });
       });
+
+      describe('mouseleave .dash-widget', function() {
+        it('calls changeLinkColorBack', function() {
+          var newView = new WidgetView({data: data});
+          newView.render();
+          newView.$('.dash-widget').first().mouseleave();
+          WidgetView.prototype.changeLinkColorBack.calledOnce.should.be.true;
+          newView.remove();
+        });
+      });
     });
 
     describe('changeLinkColor() method', function() {
