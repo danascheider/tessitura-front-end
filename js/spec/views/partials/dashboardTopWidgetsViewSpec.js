@@ -84,6 +84,10 @@ define(['backbone',
         view.remove.calledOnce.should.be.true;
         view.remove.restore();
       });
+
+      it('returns the view', function() {
+        view.reset().should.equal(view);
+      });
     });
   });
 });
