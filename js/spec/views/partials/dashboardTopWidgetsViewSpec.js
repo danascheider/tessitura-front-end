@@ -22,7 +22,7 @@ define(['backbone',
 
     var tasks = new TaskCollection([task1, task2, task3]);
 
-    var data = {taskCollection: tasks, deadlineCount: 14}
+    var data = {taskCollection: tasks, deadlineCount: 14, appointmentCount: 6}
 
     beforeEach(function() {
       if(typeof view === 'undefined') { view = new WidgetView({data: data}); }
@@ -71,8 +71,19 @@ define(['backbone',
         });
 
         it('contains the deadline count', function() {
-          var widget = view.$('div.dash-widget:contains("Upcoming Deadlines!")');
+          var widget = view.$('div.dash-widget:contains("Upcoming Deadlines!") div.huge');
           widget.html().should.include('14');
+        });
+      });
+
+      describe('appointment widget', function() {
+        it('is visible by default', function() {
+          view.$('div.dash-widget:contains("New Appointments!")').should.be.visible;
+        });
+
+        it('contains the appointment count', function() {
+          var widget = view.$('div.dash-widget:contains("New Appointments!") div.huge');
+          widget.html().should.include("6");
         });
       });
     });
