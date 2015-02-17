@@ -22,20 +22,21 @@ define(['backbone',
 
     var tasks = new TaskCollection([task1, task2, task3]);
 
+    var data = {taskCollection: tasks, deadlineCount: 14}
+
     beforeEach(function() {
-      if(typeof view === 'undefined') { view = new WidgetView({data: {taskCollection: tasks}}); }
+      if(typeof view === 'undefined') { view = new WidgetView({data: data}); }
     });
 
     describe('constructor', function() {
       it('doesn\'t call render()', function() {
         sinon.stub(Backbone.View.prototype, 'render');
-        var newView = new WidgetView({data: {taskCollection: tasks}});
+        var newView = new WidgetView({data: data});
         Backbone.View.prototype.render.called.should.be.false;
         Backbone.View.prototype.render.restore();
       });
 
       it('sets a data property', function() {
-        var data = {taskCollection: tasks};
         var newView = new WidgetView({data: data});
         newView.data.should.equal(data);
       });
@@ -54,8 +55,18 @@ define(['backbone',
     describe('elements', function() {
       beforeEach(function() { view.reset().render(); });
 
-      it('has a task widget', function() {
-        view.$('div.dash-widget[data-target="tasks"]').should.exist;
+      describe('task widget', function() {
+        it('is visible by default', function() {
+          view.$('div.dash-widget[data-target="tasks"]').should.be.visible;
+        });
+
+        it('includes the task count', function() {
+          view.$('div.dash-widget[data-target="tasks"] div.huge').html().should.include('3');
+        });
+      });
+
+      it('has a deadline widget', function() {
+        //
       });
     });
 
