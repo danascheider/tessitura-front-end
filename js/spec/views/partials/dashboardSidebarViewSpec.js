@@ -17,9 +17,7 @@ define(['backbone', 'views/app/dashboard-sidebar'], function(Backbone, SidebarVi
     });
 
     describe('elements', function() {
-      beforeEach(function() {
-        sidebar.reset().render();
-      });
+      beforeEach(function() { sidebar.reset().render(); });
 
       it('is a ul', function() {
         sidebar.$el[0].tagName.should.equal('UL');
@@ -51,7 +49,14 @@ define(['backbone', 'views/app/dashboard-sidebar'], function(Backbone, SidebarVi
     });
 
     describe('render() function', function() {
-      //
+      beforeEach(function() { sidebar.reset(); });
+
+      it('sets HTML', function() {
+        sinon.stub($.prototype, 'html');
+        sidebar.render();
+        $.prototype.html.calledOnce.should.be.true;
+        $.prototype.html.restore();
+      })
     });
 
     describe('reset() method', function() {
@@ -61,6 +66,7 @@ define(['backbone', 'views/app/dashboard-sidebar'], function(Backbone, SidebarVi
         sinon.stub(sidebar, 'remove');
         sidebar.reset();
         sidebar.remove.calledOnce.should.be.true;
+        sidebar.remove.restore();
       });
     });
   });
