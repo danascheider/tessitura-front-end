@@ -77,6 +77,35 @@ define(['backbone', 'views/app/dashboard-sidebar'], function(Backbone, SidebarVi
       });
     });
 
+    describe('goToTaskPage() method', function() {
+      beforeEach(function() { 
+        sidebar.reset().render(); 
+        sinon.stub(Backbone.history, 'navigate');
+      });
+
+      afterEach(function() { Backbone.history.navigate.restore(); });
+
+      describe('when on the task page', function() {
+        beforeEach(function() { sinon.stub(sidebar, 'getLocationHash').returns('#tasks'); });
+        afterEach(function() { sidebar.getLocationHash.restore(); });
+
+        it('doesn\'t navigate', function() {
+          sidebar.goToTaskPage();
+          Backbone.history.navigate.called.should.be.false;
+        });
+      });
+
+      describe('when not on the task page', function() {
+        beforeEach(function() { sinon.stub(sidebar, 'getLocationHash').returns('#dashboard'); });
+        afterEach(function() { sidebar.getLocationHash.restore(); });
+
+        it('navigates to the task page', function() {
+          sidebar.goToTaskPage();
+          Backbone.history.navigate.calledWithExactly('tasks', {trigger: true}).should.be.true;
+        });
+      });
+    });
+
     describe('render() function', function() {
       beforeEach(function() { sidebar.reset(); });
 
