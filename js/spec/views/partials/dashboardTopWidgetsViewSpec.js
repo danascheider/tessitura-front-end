@@ -142,7 +142,6 @@ define(['backbone',
         it('calls followLink', function() {
           var newView = new WidgetView({data: data});
           newView.render();
-          console.log(newView.$('.dash-widget').first());
           newView.$('.dash-widget').first().click();
           WidgetView.prototype.followLink.calledOnce.should.be.true;
         });
