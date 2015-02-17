@@ -47,11 +47,16 @@ define(['backbone',
         sinon.stub(Backbone.View.prototype, 'listenTo');
         var newView = new WidgetView({data: {taskCollection: tasks}});
         Backbone.View.prototype.listenTo.withArgs(tasks).called.should.be.true;
+        Backbone.View.prototype.listenTo.restore();
       });
     });
 
     describe('elements', function() {
-      //
+      beforeEach(function() { view.reset().render(); });
+
+      it('has a task widget', function() {
+        view.$('div.dash-widget[data-target="tasks"]').should.exist;
+      });
     });
 
     describe('events', function() {
