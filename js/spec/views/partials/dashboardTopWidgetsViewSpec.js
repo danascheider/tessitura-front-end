@@ -154,7 +154,19 @@ define(['backbone',
     });
 
     describe('render() function', function() {
-      it('sets the HTML of the element');
+      beforeEach(function() { view.reset(); });
+      afterEach(function() { view.remove(); });
+
+      it('sets the HTML of the element', function() {
+        sinon.stub($.prototype, 'html');
+        view.render();
+        $.prototype.html.calledOnce.should.be.true;
+        $.prototype.html.restore();
+      });
+
+      it('returns itself', function() {
+        view.render().should.equal(view);
+      });
     });
 
     describe('reset() method', function() {
