@@ -32,6 +32,14 @@ define(['backbone', 'views/app/dashboard-sidebar'], function(Backbone, SidebarVi
       it('has ID side-menu', function() {
         sidebar.$el[0].id.should.equal('side-menu');
       });
+
+      it('has a search field', function() {
+        sidebar.$('.custom-search-form').should.exist;
+      });
+
+      it('has a link to the dashboard', function() {
+        sidebar.$('li > a[href="#dashboard"]').should.exist;
+      });
     });
 
     describe('events', function() {
