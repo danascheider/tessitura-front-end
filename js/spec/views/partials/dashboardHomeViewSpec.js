@@ -132,7 +132,7 @@ define([
       });
 
       it('calls renderTopWidgets()', function() {
-        sinon.stub(view, 'renderTopWidgets');
+        sinon.spy(view, 'renderTopWidgets');
         view.render();
         server.respond();
         view.renderTopWidgets.calledOnce.should.be.true;
