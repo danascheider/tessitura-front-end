@@ -22,6 +22,10 @@ define(['backbone',
 
     var tasks = new TaskCollection([task1, task2, task3]);
 
+    beforeEach(function() {
+      if(typeof view === 'undefined') { view = new WidgetView({data: {taskCollection: tasks}}); }
+    });
+
     describe('constructor', function() {
       it('doesn\'t call render()', function() {
         sinon.stub(Backbone.View.prototype, 'render');
@@ -35,6 +39,9 @@ define(['backbone',
         var newView = new WidgetView({data: data});
         newView.data.should.equal(data);
       });
+
+      // FIX: This should instead test whether the figures update when 
+      //      the collection does, which would be more robust.
 
       it('listens to its task collection', function() {
         sinon.stub(Backbone.View.prototype, 'listenTo');
@@ -68,7 +75,15 @@ define(['backbone',
     });
 
     describe('reset() method', function() {
-      //
+      beforeEach(function() { view.render(); });
+      afterEach(function() { view.remove(); });
+
+      it('removes the view from the DOM', function() {
+        sinon.stub(view, 'remove');
+        view.reset();
+        view.remove.calledOnce.should.be.true;
+        view.remove.restore();
+      });
     });
   });
 });
