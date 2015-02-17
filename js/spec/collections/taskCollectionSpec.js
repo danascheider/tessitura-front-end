@@ -27,9 +27,7 @@ define([
     var task3 = new TaskModel({id: 3, title: 'Task 3', status: 'Complete', priority: 'Normal', position: 3});
 
     describe('comparator', function() {
-      it('orders tasks by position', function() {
-        //
-      });
+      it('orders tasks by position');
     });
 
     describe('default URL', function() {
