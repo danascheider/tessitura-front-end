@@ -123,7 +123,18 @@ define(['backbone',
     });
 
     describe('changeLinkColorBack() method', function() {
-      //
+      beforeEach(function() { 
+        view.reset().render(); 
+        e = $.Event('mouseleave', {target: view.$('.dash-widget:contains("Upcoming Deadlines!")')});
+        var color = $('.dash-widget:contains("Upcoming Deadlines!") .panel-heading').css('background-color');
+        view.$('.dash-widget:contains("Upcoming Deadlines!") .panel-body').css('color', color);
+      });
+
+      it('changes the text color back to gray', function() {
+        var body = view.$('.dash-widget:contains("Upcoming Deadlines!") .panel-body');
+        view.changeLinkColorBack(e);
+        body.css('color').should.equal('rgb(204, 204, 204)');
+      });
     });
 
     describe('followLink() method', function() {
