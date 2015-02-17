@@ -24,6 +24,14 @@ define(['backbone', 'views/app/dashboard-sidebar'], function(Backbone, SidebarVi
       it('is a ul', function() {
         sidebar.$el[0].tagName.should.equal('UL');
       });
+
+      it('has class nav', function() {
+        sidebar.$el[0].className.should.include('nav');
+      });
+
+      it('has ID side-menu', function() {
+        sidebar.$el[0].id.should.equal('side-menu');
+      });
     });
 
     describe('events', function() {
