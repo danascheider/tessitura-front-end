@@ -29,6 +29,18 @@ define(['backbone',
         Backbone.View.prototype.render.called.should.be.false;
         Backbone.View.prototype.render.restore();
       });
+
+      it('sets a data property', function() {
+        var data = {taskCollection: tasks};
+        var newView = new WidgetView({data: data});
+        newView.data.should.equal(data);
+      });
+
+      it('listens to its task collection', function() {
+        sinon.stub(Backbone.View.prototype, 'listenTo');
+        var newView = new WidgetView({data: {taskCollection: tasks}});
+        Backbone.View.prototype.listenTo.withArgs(tasks).called.should.be.true;
+      });
     });
 
     describe('elements', function() {
