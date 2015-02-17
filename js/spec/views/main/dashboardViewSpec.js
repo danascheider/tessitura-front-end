@@ -35,6 +35,7 @@ define([
         sinon.stub(Backbone.View.prototype, 'render');
         var newDashboard = new DashboardView({user: user});
         Backbone.View.prototype.render.called.should.be.false;
+        Backbone.View.prototype.render.restore();
       });
     });
 
