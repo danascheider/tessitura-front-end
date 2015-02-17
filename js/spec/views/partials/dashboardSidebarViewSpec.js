@@ -68,6 +68,10 @@ define(['backbone', 'views/app/dashboard-sidebar'], function(Backbone, SidebarVi
         sidebar.remove.calledOnce.should.be.true;
         sidebar.remove.restore();
       });
+
+      it('returns itself', function() {
+        sidebar.reset().should.equal(sidebar);
+      });
     });
   });
 });
