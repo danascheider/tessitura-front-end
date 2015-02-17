@@ -1,7 +1,7 @@
 define(['backbone', 'views/app/dashboard-sidebar'], function(Backbone, SidebarView) {
   
   describe('Dashboard Sidebar View', function() {
-    var sidebar;
+    var sidebar, e;
 
     beforeEach(function() {
       if(typeof sidebar === 'undefined') { sidebar = new SidebarView(); }
@@ -75,6 +75,27 @@ define(['backbone', 'views/app/dashboard-sidebar'], function(Backbone, SidebarVi
 
       it('returns itself', function() {
         sidebar.reset().should.equal(sidebar);
+      });
+    });
+
+    describe('toggleSecondLevelNav() method', function() {
+      beforeEach(function() { 
+        sidebar.reset().render(); 
+        e = $.Event('click', {target: sidebar.$('i.fa-sitemap').closest('li')});
+      });
+
+      describe('when the second level nav is hidden', function() {
+        it('expands the second level nav', function() {
+          var li = sidebar.$('i.fa-sitemap').closest('li');
+          sidebar.toggleSecondLevelNav(e);
+          li.find('ul.nav-second-level').should.be.visible;
+        });
+
+        it('hides any other visible second-level navs', function() {
+          var li = sidebar.$('i.fa-files-o').find('ul.nav-second-level').slideDown();
+          sidebar.toggleSecondLevelNav(e);
+          li.find('ul.nav-second-level').should.not.be.visible;
+        });
       });
     });
   });
