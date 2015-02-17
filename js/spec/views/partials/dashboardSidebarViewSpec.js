@@ -45,7 +45,24 @@ define(['backbone', 'views/app/dashboard-sidebar'], function(Backbone, SidebarVi
     });
 
     describe('events', function() {
-      //
+      beforeEach(function() {
+        sinon.stub(SidebarView.prototype, 'toggleSecondLevelNav');
+        sinon.stub(Backbone.history, 'navigate');
+      });
+
+      afterEach(function() {
+        SidebarView.prototype.toggleSecondLevelNav.restore();
+        Backbone.history.navigate.restore();
+      });
+
+      describe('click on <a> in main <li>', function() {
+        it('calls toggleSecondLevelNav', function() {
+          var newSidebar = new SidebarView();
+          newSidebar.render();
+          newSidebar.$('a.sidebar-link').first().click();
+          SidebarView.prototype.toggleSecondLevelNav.calledOnce.should.be.true;
+        });
+      });
     });
 
     describe('goToDashboard() method', function() {

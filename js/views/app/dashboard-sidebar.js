@@ -13,7 +13,7 @@ define([
     id        : 'side-menu',
 
     events    : {
-      'click ul#side-menu li a'    : 'toggleSecondLevelNav',
+      'click a.sidebar-link'       : 'toggleSecondLevelNav',
       'click li > .dashboard-link' : 'goToDashboard',
       'click li > .task-page-link' : 'goToTaskPage'
     },
