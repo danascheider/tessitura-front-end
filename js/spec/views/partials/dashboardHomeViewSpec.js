@@ -17,9 +17,14 @@ define(['backbone', 'views/app/dashboard-home', 'models/user'], function(Backbon
     describe('constructor', function() {
       it('does not call render', function() {
         sinon.stub(Backbone.View.prototype, 'render');
-        newView = new HomeView({user: user});
+        var newView = new HomeView({user: user});
         Backbone.View.prototype.render.called.should.be.false;
         Backbone.View.prototype.render.restore();
+      });
+
+      it('assigns a user', function() {
+        var newView = new HomeView({user: user});
+        newView.user.should.equal(user);
       });
     });
 
