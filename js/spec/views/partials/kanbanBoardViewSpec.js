@@ -88,6 +88,13 @@ define([
         view.reset();
       });
 
+      it('sets the HTML of its own el', function() {
+        sinon.stub($.prototype, 'html');
+        view.render();
+        $.prototype.html.calledOnce.should.be.true;
+        $.prototype.html.restore();
+      })
+
       it('calls the user\'s fetchIncompleteTasks method', function() {
         sinon.spy(user, 'fetchIncompleteTasks');
         view.render();
