@@ -129,7 +129,14 @@ define([
       it('removes itself from the DOM');
       it('keeps its collection');
       it('keeps its data attributes');
-      it('re-initializes itself');
+
+      it('re-initializes itself', function() {
+        sinon.spy(column, 'initialize');
+        column.reset();
+        column.initialize.withArgs(data).calledOnce.should.be.true;
+        column.initialize.restore();
+      });
+
       it('returns itself', function() {
         column.reset().should.equal(column);
       });
