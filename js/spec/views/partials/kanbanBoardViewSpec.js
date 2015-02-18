@@ -79,10 +79,6 @@ define([
       });
     });
 
-    describe('events', function() {
-      //
-    });
-
     describe('render() function', function() {
       beforeEach(function() {
         view.reset();
@@ -116,6 +112,8 @@ define([
         server.respond();
         final.should.equal(view);
       });
+
+      it('calls delegateEvents');
     });
 
     describe('reset() method', function() {
