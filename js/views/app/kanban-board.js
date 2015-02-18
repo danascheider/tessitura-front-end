@@ -73,6 +73,8 @@ define([
       if(this.$newColumn) { this.$newColumn.remove(); }
       if(this.$inProgressColumn) { this.$inProgressColumn.remove(); }
       if(this.$blockingColumn) { this.$blockingColumn.remove(); }
+
+      this.remove();
       return this;
     }
   });

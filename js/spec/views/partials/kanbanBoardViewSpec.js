@@ -84,7 +84,9 @@ define([
     });
 
     describe('render() function', function() {
-      //
+      beforeEach(function() {
+        view.reset();
+      });
     });
 
     describe('reset() method', function() {
@@ -107,18 +109,25 @@ define([
         view.$newColumn.remove.restore();
       });
 
-      it('removes the \'In Progress\' column', function() {
+      it('removes the \'In Progress\' column from the DOM', function() {
         sinon.stub(view.$inProgressColumn, 'remove');
         view.reset();
         view.$inProgressColumn.remove.calledOnce.should.be.true;
         view.$inProgressColumn.remove.restore();
       });
 
-      it('removes the \'Blocking\' column', function() {
+      it('removes the \'Blocking\' column from the DOM', function() {
         sinon.stub(view.$blockingColumn, 'remove');
         view.reset();
         view.$blockingColumn.remove.calledOnce.should.be.true;
         view.$blockingColumn.remove.restore();
+      });
+
+      it('removes itself from the DOM', function() {
+        sinon.stub(view, 'remove');
+        view.reset();
+        view.remove.calledOnce.should.be.true;
+        view.remove.restore();
       });
 
       it('returns itself', function() {
