@@ -87,6 +87,8 @@ define([
       beforeEach(function() {
         view.reset();
       });
+
+      //
     });
 
     describe('reset() method', function() {
@@ -132,6 +134,11 @@ define([
 
       it('returns itself', function() {
         view.reset().should.equal(view);
+      });
+
+      it('keeps its user', function() {
+        view.reset();
+        view.user.should.equal(user);
       });
     });
   });

@@ -10,11 +10,6 @@ define([
 ], function($, _, Backbone, API, TaskCollection, KanbanColumnView, Template) {
   var KanbanBoardView = Backbone.View.extend({
     template   : _.template(Template),
-
-    // FIX: I think having using `tagName` and `id` cause a new element to be 
-    //      added to the DOM, when it would be better to have the Kanban board
-    //      attached to the existing div
-
     tagName    : 'div',
     id         : 'page-wrapper',
 
@@ -75,6 +70,9 @@ define([
       if(this.$blockingColumn) { this.$blockingColumn.remove(); }
 
       this.remove();
+      var user = this.user;
+      this.initialize({user: user});
+      
       return this;
     }
   });
