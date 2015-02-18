@@ -64,6 +64,10 @@ define([
       });
 
       return this;
+    },
+
+    reset      : function() {
+      return this;
     }
   });
 

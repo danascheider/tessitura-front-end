@@ -56,7 +56,14 @@ define([
     });
 
     describe('reset() method', function() {
-      //
+      beforeEach(function() {
+        server = sinon.fakeServer.create(); // stub out Ajax call
+        view.render();
+      });
+
+      it('returns itself', function() {
+        view.reset().should.equal(view);
+      });
     });
   });
 });
