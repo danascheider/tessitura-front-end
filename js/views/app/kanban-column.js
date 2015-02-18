@@ -82,6 +82,8 @@ define([
     },
 
     reset      : function() {
+      this.remove();
+      
       var data = this.data;
       this.initialize(data);
       return this;

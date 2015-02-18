@@ -126,7 +126,13 @@ define([
 
       it('removes the quick-add form view from the DOM');
       it('removes the collection view from the DOM');
-      it('removes itself from the DOM');
+      it('removes itself from the DOM', function() {
+        sinon.stub(column, 'remove');
+        column.reset();
+        column.remove.calledOnce.should.be.true;
+        column.remove.restore();
+      });
+
       it('keeps its collection', function() {
         column.reset();
         column.collection.should.equal(user.tasks);
