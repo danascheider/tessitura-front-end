@@ -3,8 +3,9 @@ define([
   'api',
   'utils',
   'collections/tasks',
+  'collections/protected-collection',
   'cookie'
-  ], function(Backbone, API, Utils, TaskCollection) {
+  ], function(Backbone, API, Utils, TaskCollection, ProtectedCollection) {
 
   var User = Backbone.Model.extend({
     urlRoot: API.users.collection,
@@ -57,21 +58,12 @@ define([
       return Backbone.Model.prototype.fetch.call(this, options);
     },
 
-    fetchIncompleteTasks: function() {
+    fetchIncompleteTasks: function(options) {
       var that = this;
+      options = options || {};
 
-      return new Promise(function(resolve, reject) {
-        that.tasks.fetch({
-          url  : API.tasks.collection(that.id),
-          beforeSend: Utils.authHeader,
-          success: function() {
-            return resolve(that.tasks);
-          },
-          error: function(error, response) {
-            return reject(response);
-          }
-        });
-      });
+      options.url = options.url || API.tasks.collection(that.get('id'));
+      return this.tasks.fetch(options);
     },
 
     fetchTasks: function() {
