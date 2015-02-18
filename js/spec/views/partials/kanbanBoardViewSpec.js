@@ -65,6 +65,18 @@ define([
       it('has a backlog column', function() {
         view.$('#backlog-tasks').should.exist;
       });
+
+      it('has a new column', function() {
+        view.$('#new-tasks').should.exist;
+      });
+
+      it('has an in-progress column', function() {
+        view.$('#in-progress-tasks').should.exist;
+      });
+
+      it('has a blocking column', function() {
+        view.$('#blocking-tasks').should.exist;
+      });
     });
 
     describe('events', function() {
