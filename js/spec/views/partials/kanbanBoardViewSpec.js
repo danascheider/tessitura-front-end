@@ -88,7 +88,12 @@ define([
         view.reset();
       });
 
-      //
+      it('calls the user\'s fetchIncompleteTasks method', function() {
+        sinon.spy(user, 'fetchIncompleteTasks');
+        view.render();
+        server.respond();
+        user.fetchIncompleteTasks.calledOnce.should.be.true;
+      });
     });
 
     describe('reset() method', function() {
