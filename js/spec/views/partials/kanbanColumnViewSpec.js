@@ -37,6 +37,11 @@ define([
         Backbone.View.prototype.render.called.should.be.false;
         Backbone.View.prototype.render.restore();
       });
+
+      it('sets the collection', function() {
+        var newView = new ColumnView(data);
+        newView.collection.should.equal(user.tasks);
+      });
     });
 
     describe('elements', function() {
