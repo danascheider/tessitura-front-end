@@ -30,8 +30,17 @@ define([
     });
 
     describe('constructor', function() {
-      it('doesn\'t call render');
-      it('sets the user property');
+      it('doesn\'t call render', function() {
+        sinon.stub(Backbone.View.prototype, 'render');
+        var newView = new KanbanView({user: user});
+        Backbone.View.prototype.render.called.should.be.false;
+        Backbone.View.prototype.render.restore();
+      });
+
+      it('sets the user property', function() {
+        var newView = new KanbanView({user: user});
+        newView.user.should.equal(user);
+      });
     });
 
     describe('elements', function() {
