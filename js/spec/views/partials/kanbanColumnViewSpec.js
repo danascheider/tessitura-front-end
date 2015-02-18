@@ -42,6 +42,27 @@ define([
         var newView = new ColumnView(data);
         newView.collection.should.equal(user.tasks);
       });
+
+      it('sets the data property', function() {
+        var newView = new ColumnView(data);
+        newView.data.should.equal(data);
+      });
+
+      describe('groupedBy property when backlog', function() {
+        it('groups by backlog', function() {
+          data.headline = 'Backlog';
+          var newView = new ColumnView(data);
+          newView.groupedBy.should.deep.equal({backlog: true});
+          data.headline = 'New' // revert
+        });
+      });
+
+      describe('groupedBy property when not backlog', function() {
+        it('groups by status', function() {
+          var newView = new ColumnView(data);
+          newView.groupedBy.should.deep.equal({status: 'New'});
+        });
+      });
     });
 
     describe('elements', function() {
