@@ -57,8 +57,20 @@ define([
 
     describe('reset() method', function() {
       beforeEach(function() {
-        server = sinon.fakeServer.create(); // stub out Ajax call
+        server = sinon.fakeServer.create();
+        server.respondWith(/\/users\/342\/tasks/, function(xhr) {
+          xhr.respond(200, {'Content-Type': 'application/json'}, JSON.stringify(user.tasks));
+        });
+
         view.render();
+        server.respond();
+      });
+
+      it('removes the backlog column', function() {
+        sinon.stub(view.$backlogColumn, 'remove');
+        view.reset();
+        view.$backlogColumn.remove.calledOnce.should.be.true;
+        view.$backlogColumn.remove.restore();
       });
 
       it('returns itself', function() {
