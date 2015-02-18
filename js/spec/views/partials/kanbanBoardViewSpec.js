@@ -27,6 +27,11 @@ define([
 
     beforeEach(function() {
       if(typeof view === 'undefined') { view = new KanbanView({user: user}) }
+
+      server = sinon.fakeServer.create();
+      server.respondWith(/\/users\/342\/tasks/, function(xhr) {
+        xhr.respond(200, {'Content-Type': 'application/json'}, JSON.stringify(user.tasks));
+      });
     });
 
     describe('constructor', function() {
@@ -44,7 +49,7 @@ define([
     });
 
     describe('elements', function() {
-      //
+      beforeEach(function() { view.reset().render(); });
     });
 
     describe('events', function() {
@@ -57,20 +62,36 @@ define([
 
     describe('reset() method', function() {
       beforeEach(function() {
-        server = sinon.fakeServer.create();
-        server.respondWith(/\/users\/342\/tasks/, function(xhr) {
-          xhr.respond(200, {'Content-Type': 'application/json'}, JSON.stringify(user.tasks));
-        });
-
         view.render();
         server.respond();
       });
 
-      it('removes the backlog column', function() {
+      it('removes the \'backlog\' column', function() {
         sinon.stub(view.$backlogColumn, 'remove');
         view.reset();
         view.$backlogColumn.remove.calledOnce.should.be.true;
         view.$backlogColumn.remove.restore();
+      });
+
+      it('removes the \'New\' column', function() {
+        sinon.stub(view.$newColumn, 'remove');
+        view.reset();
+        view.$newColumn.remove.calledOnce.should.be.true;
+        view.$newColumn.remove.restore();
+      });
+
+      it('removes the \'In Progress\' column', function() {
+        sinon.stub(view.$inProgressColumn, 'remove');
+        view.reset();
+        view.$inProgressColumn.remove.calledOnce.should.be.true;
+        view.$inProgressColumn.remove.restore();
+      });
+
+      it('removes the \'Blocking\' column', function() {
+        sinon.stub(view.$blockingColumn, 'remove');
+        view.reset();
+        view.$blockingColumn.remove.calledOnce.should.be.true;
+        view.$blockingColumn.remove.restore();
       });
 
       it('returns itself', function() {

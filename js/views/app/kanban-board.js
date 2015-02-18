@@ -70,6 +70,9 @@ define([
 
     reset      : function() {
       if(this.$backlogColumn) { this.$backlogColumn.remove(); }
+      if(this.$newColumn) { this.$newColumn.remove(); }
+      if(this.$inProgressColumn) { this.$inProgressColumn.remove(); }
+      if(this.$blockingColumn) { this.$blockingColumn.remove(); }
       return this;
     }
   });
