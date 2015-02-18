@@ -103,16 +103,14 @@ define([
         $.prototype.sortable.restore();
       });
 
-      describe('when there is no listItemViews array', function() {
-        it('adds a new view for each collection element', function() {
-          view.listItemViews.length.should.equal(2);
-        });
+      it('renders the list items', function() {
+        view.$('.task-list-item').length.should.equal(2);
       });
 
       describe('on re-render', function() {
-        it('maintains the length of the listItemViews array', function() {
+        it('maintains the length of the list', function() {
           view.render();      // render view a second time
-          view.listItemViews.length.should.equal(2);
+          view.$('.task-list-item').length.should.equal(2);
         });
       });
 

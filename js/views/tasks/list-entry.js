@@ -107,11 +107,6 @@ define([
       });
     },
 
-    createChildViews: function() {
-      this.$editForm = new UpdateFormView({model: this.model});
-      this.$modelView = new ModelView({model: this.model});
-    },
-
     // Event Handlers //
 
     backlogTask       : function() {
@@ -217,15 +212,17 @@ define([
     // Standard View Functions // 
 
     initialize: function() {
+      this.$editForm = new UpdateFormView({model: this.model});
+      this.$modelView = new ModelView({model: this.model});
+
       this.render();
+
       this.listenTo(this.model, 'change:status', this.crossOff);
       this.listenTo(this.$editForm, 'done', this.render);
     },
 
     render: function() {
       this.$el.html(this.template());
-
-      this.createChildViews();
 
       this.$modelView.render();
       this.$('td.task-listing').html(this.$modelView.el);

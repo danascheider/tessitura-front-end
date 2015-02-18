@@ -48,7 +48,8 @@ define([
 
     reset          : function() {
       this.remove();
-      this.initialize({collection: this.collection});
+      var coll = this.collection;
+      this.initialize({collection: coll});
       return this;
     },
 
@@ -57,6 +58,12 @@ define([
     initialize: function() {
 
       // FIX: Why is the refreshCollection function needed here?
+      //      Will it overwrite changes that have been made client-side
+      //      but not yet synced with the server? 
+
+      // FIX: Why on earth is the quick-add form not included here???
+      //      Why is it defined in the task panel and kanban column views??
+
       this.listenTo(this.collection, 'remove', this.refreshCollection);
       this.listenTo(this.collection, 'add', this.refreshCollection);
       this.listenTo(this.collection, 'markComplete', this.removeComplete);
@@ -65,26 +72,12 @@ define([
 
     render: function() {
       var that = this;
-      this.listItemViews = this.listItemViews || [];
+      this.$el.empty();
 
-      // Before re-rendering, clean up list item views so 
-      // list doesn't keep getting longer & so zombies don't 
-      // accumulate
-
-      if(this.listItemViews.length) {
-        _.each(this.listItemViews, function(view) {
-          view.remove();
-          view.initialize({model: view.model});
-          view.render();
-          that.$el.append(view.el);
-        });
-      } else {
-        this.collection.each(function(task) {
-          var view = new ListItemView({model: task});
-          that.listItemViews.push(view);
-          that.$el.append(view.el);
-        });
-      }
+      this.collection.each(function(task) {
+        var view = new ListItemView({model: task});
+        that.$el.append(view.render().el);
+      });
   
       this.$el.sortable({connectWith: '.task-list', dropOnEmpty: true});
 
