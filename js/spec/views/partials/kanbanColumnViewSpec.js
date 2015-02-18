@@ -128,7 +128,10 @@ define([
       it('removes the collection view from the DOM');
       it('removes itself from the DOM');
       it('keeps its collection');
-      it('keeps its data attributes');
+      it('keeps its data attributes', function() {
+        column.reset();
+        column.data.should.equal(data);
+      });
 
       it('re-initializes itself', function() {
         sinon.spy(column, 'initialize');
