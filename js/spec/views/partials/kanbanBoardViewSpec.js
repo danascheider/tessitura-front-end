@@ -93,6 +93,15 @@ define([
         view.render();
         server.respond();
         user.fetchIncompleteTasks.calledOnce.should.be.true;
+        user.fetchIncompleteTasks.restore();
+      });
+
+      it('creates child views', function() {
+        view.render();
+        server.respond();
+        _.each([view.$backlogColumn, view.$newColumn, view.$inProgressColumn, view.$blockingColumn], function(col) {
+          col.should.exist;
+        });
       });
     });
 
