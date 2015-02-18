@@ -57,6 +57,10 @@ define([
             icon       : 'fa-minus-circle',
             headline   : 'Blocking'
           });
+
+          _.each([that.$backlogColumn, that.$newColumn, that.$inProgressColumn, that.$blockingColumn], function(col) {
+            col.render();
+          });
         }
       });
 

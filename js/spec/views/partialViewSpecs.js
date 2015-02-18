@@ -3,5 +3,6 @@ define([
   'spec/views/partials/dashboardHomeViewSpec',
   'spec/views/partials/dashboardSidebarViewSpec',
   'spec/views/partials/dashboardTopWidgetsViewSpec',
-  'spec/views/partials/kanbanBoardViewSpec'
+  'spec/views/partials/kanbanBoardViewSpec',
+  'spec/views/partials/kanbanColumnViewSpec'
   ]);

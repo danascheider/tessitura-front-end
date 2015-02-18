@@ -42,8 +42,6 @@ define([
     },
 
     renderChildViews : function() {
-      this.$collectionView = new TaskCollectionView({collection: this.collection});
-      this.$quickAddForm = new QuickAddFormView({collection: this.collection});
       this.$('.panel-body').html(this.$collectionView.el);
       this.$quickAddForm.$el.prependTo(this.$collectionView.el);
 
@@ -64,9 +62,11 @@ define([
     // Core View Methods //
 
     initialize : function(data) {
-      this.data = data;
+      this.data = data || {};
       this.groupedBy = this.data.headline === 'Backlog' ?  {backlog: true} : {status: this.data.headline};
-      this.render();
+
+      this.$collectionView = new TaskCollectionView({collection: this.collection});
+      this.$quickAddForm = new QuickAddFormView({collection: this.collection});
 
       this.listenTo(this.collection, 'add', this.updateTask);
       this.listenTo(this.collection, 'remove', this.render);
