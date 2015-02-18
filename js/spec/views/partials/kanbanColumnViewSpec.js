@@ -38,14 +38,21 @@ define([
         Backbone.View.prototype.render.restore();
       });
 
-      it('sets the collection', function() {
-        var newView = new ColumnView(data);
-        newView.collection.should.equal(user.tasks);
-      });
+      describe('properties', function() {
+        var newView;
+        beforeEach(function() { newView = new ColumnView(data); });
 
-      it('sets the data property', function() {
-        var newView = new ColumnView(data);
-        newView.data.should.equal(data);
+        it('sets the collection', function() {
+          newView.collection.should.equal(user.tasks);
+        });
+
+        it('sets the data property', function() {
+          newView.data.should.equal(data);
+        });
+
+        it('creates a quick-add form', function() {
+          newView.$quickAddForm.should.exist;
+        });
       });
 
       describe('groupedBy property when backlog', function() {
