@@ -49,7 +49,22 @@ define([
     });
 
     describe('elements', function() {
-      beforeEach(function() { view.reset().render(); });
+      beforeEach(function() { 
+        view.reset().render(); 
+        server.respond();
+      });
+
+      it('is a div', function() {
+        view.$el[0].tagName.should.equal('DIV');
+      });
+
+      it('has ID #page-wrapper', function() {
+        view.$el[0].id.should.equal('page-wrapper');
+      });
+
+      it('has a backlog column', function() {
+        view.$('#backlog-tasks').should.exist;
+      });
     });
 
     describe('events', function() {
