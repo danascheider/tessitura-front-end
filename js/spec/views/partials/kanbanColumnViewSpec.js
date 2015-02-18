@@ -53,6 +53,10 @@ define([
         it('creates a quick-add form', function() {
           newView.$quickAddForm.should.exist;
         });
+
+        it('creates a collection view', function() {
+          newView.$collectionView.should.exist;
+        });
       });
 
       describe('groupedBy property when backlog', function() {
