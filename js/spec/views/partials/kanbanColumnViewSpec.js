@@ -24,14 +24,19 @@ define([
 
     user.tasks = new TaskCollection([task1, task2, task3]);
 
-    var data = {};
+    var data = {collection: user.tasks, color: 'blue', icon: 'fa-exclamation-circle', headline: 'New'};
 
     beforeEach(function() {
-      if(typeof column === 'undefined') { column = new ColumnView({data: data, collection: user.tasks}); }
+      if(typeof column === 'undefined') { column = new ColumnView(data); }
     });
 
     describe('constructor', function() {
-      //
+      it('doesn\'t call render()', function() {
+        sinon.stub(Backbone.View.prototype, 'render');
+        var newView = new ColumnView(data);
+        Backbone.View.prototype.render.called.should.be.false;
+        Backbone.View.prototype.render.restore();
+      });
     });
 
     describe('elements', function() {
