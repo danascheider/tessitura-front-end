@@ -40,7 +40,14 @@ define([
 
       describe('properties', function() {
         var newView;
-        beforeEach(function() { newView = new ColumnView(data); });
+        beforeEach(function() { 
+          sinon.stub(Backbone.View.prototype, 'listenTo');
+          newView = new ColumnView(data); 
+        });
+
+        afterEach(function() {
+          Backbone.View.prototype.listenTo.restore();
+        });
 
         it('sets the collection', function() {
           newView.collection.should.equal(user.tasks);
@@ -56,6 +63,16 @@ define([
 
         it('creates a collection view', function() {
           newView.$collectionView.should.exist;
+        });
+
+        // FIX: It might be better to test for behavior, not listeners
+
+        it('listens to its collection', function() {
+          Backbone.View.prototype.listenTo.withArgs(newView.collection).called.should.be.true;
+        });
+
+        it('listens to its quick-add form', function() {
+          Backbone.View.prototype.listenTo.withArgs(newView.$quickAddForm, 'submit').calledOnce.should.be.true;
         });
       });
 
