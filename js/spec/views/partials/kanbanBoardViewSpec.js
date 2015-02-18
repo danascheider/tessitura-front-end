@@ -110,6 +110,12 @@ define([
           col.should.exist;
         });
       });
+
+      it('returns itself', function() {
+        var final = view.render();
+        server.respond();
+        final.should.equal(view);
+      });
     });
 
     describe('reset() method', function() {
