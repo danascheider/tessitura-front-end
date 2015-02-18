@@ -122,7 +122,17 @@ define([
     });
 
     describe('reset() method', function() {
-      //
+      beforeEach(function() { column.render(); });
+
+      it('removes the quick-add form view from the DOM');
+      it('removes the collection view from the DOM');
+      it('removes itself from the DOM');
+      it('keeps its collection');
+      it('keeps its data attributes');
+      it('re-initializes itself');
+      it('returns itself', function() {
+        column.reset().should.equal(column);
+      });
     });
   });
 });

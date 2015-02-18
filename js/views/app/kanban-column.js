@@ -79,6 +79,10 @@ define([
       this.renderChildViews();
       
       return this;
+    },
+
+    reset      : function() {
+      return this;
     }
   });
 
