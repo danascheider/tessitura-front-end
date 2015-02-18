@@ -94,7 +94,9 @@ define([
     });
 
     describe('elements', function() {
-      //
+      beforeEach(function() {
+        column.render();
+      });
     });
 
     describe('events', function() {
@@ -119,40 +121,6 @@ define([
 
     describe('render() function', function() {
       //
-    });
-
-    describe('reset() method', function() {
-      beforeEach(function() { column.render(); });
-
-      it('removes the quick-add form view from the DOM');
-      it('removes the collection view from the DOM');
-      it('removes itself from the DOM', function() {
-        sinon.stub(column, 'remove');
-        column.reset();
-        column.remove.calledOnce.should.be.true;
-        column.remove.restore();
-      });
-
-      it('keeps its collection', function() {
-        column.reset();
-        column.collection.should.equal(user.tasks);
-      });
-
-      it('keeps its data attributes', function() {
-        column.reset();
-        column.data.should.equal(data);
-      });
-
-      it('re-initializes itself', function() {
-        sinon.spy(column, 'initialize');
-        column.reset();
-        column.initialize.withArgs(data).calledOnce.should.be.true;
-        column.initialize.restore();
-      });
-
-      it('returns itself', function() {
-        column.reset().should.equal(column);
-      });
     });
   });
 });

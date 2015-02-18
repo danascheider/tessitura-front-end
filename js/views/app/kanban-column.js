@@ -10,12 +10,19 @@ define([
   'views/tasks/quick-add-form',
   'text!templates/partials/kanban-column.html'
 ], function($, _, Backbone, Utils, API, TaskModel, JQueryUI, TaskCollectionView, QuickAddFormView, Template) {
+  
   var KanbanColumnView = Backbone.View.extend({
     template   : _.template(Template),
+
+    tagName    : 'div',
 
     events     : {
       'submit form.quick-add-form' : 'createTask'
     },
+
+    // FIX: This should be moved to the quick-add form itself. Then the 
+    //      column view should listen to the quick add form and add the 
+    //      newly created task to its collection.
 
     createTask : function(e) {
       e.preventDefault();
@@ -41,15 +48,6 @@ define([
       }
     },
 
-    renderChildViews : function() {
-      this.$('.panel-body').html(this.$collectionView.el);
-      this.$quickAddForm.$el.prependTo(this.$collectionView.el);
-
-      this.$collectionView.$el.sortable({
-        items: '>*:not(".not-sortable")',
-      });
-    },
-
     updateTask : function(task) {
       task.save({status: this.taskStatus}, {
         beforeSend: Utils.authHeader,
@@ -63,6 +61,9 @@ define([
 
     initialize : function(data) {
       this.data = data || {};
+
+      this.className = 'panel panel-' + this.data.color + ' dash-widget kanban-column';
+
       this.groupedBy = this.data.headline === 'Backlog' ?  {backlog: true} : {status: this.data.headline};
 
       this.$collectionView = new TaskCollectionView({collection: this.collection});
@@ -76,16 +77,24 @@ define([
 
     render     : function() {
       this.$el.html(this.template({data: this.data}));
-      this.renderChildViews();
+
+      this.$('.panel-body').append(this.$quickAddForm.render().el);
+      this.$('.panel-body').append(this.$collectionView.render().el);
+
+      this.$quickAddForm.delegateEvents();
+
+      this.$collectionView.$el.sortable({
+        items: '>*:not(".not-sortable")',
+      });
       
       return this;
     },
 
     reset      : function() {
+      this.$collectionView.remove();
       this.remove();
-      
-      var data = this.data;
-      this.initialize(data);
+
+      this.initialize();
       return this;
     }
   });

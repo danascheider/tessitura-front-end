@@ -72,7 +72,7 @@ define([
 
     render: function() {
       var that = this;
-      this.$el.empty();
+      this.$el.html('');
 
       this.collection.each(function(task) {
         var view = new ListItemView({model: task});
