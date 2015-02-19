@@ -158,6 +158,12 @@ define([
             spy.calledOnce.should.be.true;
           }, 750);
         });
+
+        it('checks the checkbox', function() {
+          var checkbox = view.$('i[title="Mark complete"]');
+          view.crossOff();
+          checkbox[0].className.should.include('fa-check-square-o');
+        });
       });
     });
 
