@@ -177,6 +177,22 @@ define([
           view.$('.task-title').css('text-decoration').should.equal('line-through');
         });
       });
+
+      describe('when the task is incomplete', function() {
+        beforeEach(function() {
+          view.render();
+        });
+
+        it('doesn\'t trigger markComplete', function() {
+          var spy = sinon.spy();
+          task.on('markComplete', spy);
+          view.crossOff();
+          window.setTimeout(function() {
+            spy.called.should.be.false;
+          }, 750);
+          task.off('markComplete');
+        });
+      });
     });
 
     describe('render() function', function() {
