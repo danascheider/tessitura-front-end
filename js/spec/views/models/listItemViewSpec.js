@@ -157,14 +157,9 @@ define([
           view.remove();
         });
 
-        it('triggers the markComplete event', function() {
-          var spy = sinon.spy();
-          task.on('markComplete', spy);
-          view.crossOff();
-          window.setTimeout(function() {
-            spy.calledOnce.should.be.true;
-          }, 750);
-        });
+        // I am having a hard time testing this because of (I assume)
+        // the window.setTimeout that is called in the view code.
+        it('triggers the markComplete event');
 
         it('checks the checkbox', function() {
           var checkbox = view.$('i[title="Mark complete"]');
@@ -183,18 +178,18 @@ define([
           view.render();
         });
 
-        it('doesn\'t trigger markComplete', function() {
-          var spy = sinon.spy();
-          task.on('markComplete', spy);
-          view.crossOff();
-          window.setTimeout(function() {
-            spy.called.should.be.false;
-          }, 750);
-          task.off('markComplete');
-        });
+        // I am having a hard time testing this because of (I assume)
+        // the window.setTimeout that is called in the view code.
+        it('doesn\'t trigger markComplete');
 
         it('doesn\'t check the checkbox', function() {
+          view.crossOff();
           view.$('.fa-check-square-o').length.should.equal(0);
+        });
+
+        it('doesn\'t cross off the task\'s title', function() {
+          view.crossOff();
+          view.$('.task-title').css('text-decoration').should.not.include('line-through');
         });
       });
     });
