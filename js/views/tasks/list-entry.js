@@ -215,8 +215,6 @@ define([
       this.$editForm = new UpdateFormView({model: this.model});
       this.$modelView = new ModelView({model: this.model});
 
-      this.render();
-
       this.listenTo(this.model, 'change:status', this.crossOff);
       this.listenTo(this.$editForm, 'done', this.render);
     },
