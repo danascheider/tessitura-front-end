@@ -62,6 +62,10 @@ define([
       it('has class task-list-item', function() {
         view.$el[0].className.should.include('task-list-item');
       });
+
+      it('is draggable', function() {
+        view.$el[0].className.should.include('ui-widget-content ui-draggable ui-draggable-handle')
+      });
     });
   });
 });
