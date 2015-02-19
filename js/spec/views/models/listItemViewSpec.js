@@ -49,5 +49,17 @@ define([
         });
       });
     });
+
+    describe('elements', function() {
+      beforeEach(function() {
+        view.render();
+      });
+
+      it('is true', function() {
+        it('is an li', function() {
+          view.$el[0].tagName.should.equal('LI');
+        });
+      });
+    });
   });
 });
