@@ -94,9 +94,13 @@ define([
     });
 
     describe('elements', function() {
-      beforeEach(function() {
-        column.render();
-      });
+      // beforeEach(function() {
+      //   column.render();
+      // });
+
+      // it('has a quick-add form', function() {
+      //   column.$('.quick-add-form').should.exist;
+      // });
     });
 
     describe('events', function() {
