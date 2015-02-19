@@ -7,7 +7,7 @@ define([
   describe('Task List Item View', function() {
     var view, server, e; 
 
-    var task = new Task({title: 'Finish writing test suite'});
+    var task = new Task({title: 'Finish writing test suite', status: 'New', priority: 'Normal'});
 
     beforeEach(function() {
       if(typeof view === 'undefined') { view = new ListItemView({model: task}); }
@@ -138,6 +138,26 @@ define([
         view.backlogTask();
         task.save.calledOnce.should.be.true;
         task.save.restore();
+      });
+    });
+
+    describe('configureDraggable() method', function() {
+      //
+    });
+
+    describe('crossOff() method', function() {
+      describe('when the task is complete', function() {
+        before(function() { task.set('status', 'Complete') });
+        after(function() { task.set('status', 'New') });
+
+        it('triggers the markComplete event', function() {
+          var spy = sinon.spy();
+          task.on('markComplete', spy);
+          view.crossOff();
+          window.setTimeout(function() {
+            spy.calledOnce.should.be.true;
+          }, 750);
+        });
       });
     });
 
