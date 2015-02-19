@@ -71,6 +71,10 @@ define([
         view.$('i[title="Mark complete"]').should.be.visible;
       });
 
+      it('displays the task model', function() {
+        view.$modelView.$el.should.be.visible;
+      });
+
       describe('edit icon', function() {
         it('is present', function() {
           view.$('i[title="Edit"]').should.exist;
