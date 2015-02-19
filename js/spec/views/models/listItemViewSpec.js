@@ -192,6 +192,10 @@ define([
           }, 750);
           task.off('markComplete');
         });
+
+        it('doesn\'t check the checkbox', function() {
+          view.$('.fa-check-square-o').length.should.equal(0);
+        });
       });
     });
 
