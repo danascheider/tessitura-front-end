@@ -81,6 +81,10 @@ define([
         it('is present', function() {
           view.$('i[title="Delete"]').should.exist;
         });
+
+        it('is hidden by default', function() {
+          view.$('i[title="Delete"]').should.not.be.visible;
+        });
       });
     });
   });
