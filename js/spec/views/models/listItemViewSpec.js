@@ -67,6 +67,10 @@ define([
         view.$el[0].className.should.include('ui-widget-content ui-draggable ui-draggable-handle')
       });
 
+      it('has a mark-complete checkbox', function() {
+        view.$('i[title="Mark complete"]').should.be.visible;
+      });
+
       describe('edit icon', function() {
         it('is present', function() {
           view.$('i[title="Edit"]').should.exist;
