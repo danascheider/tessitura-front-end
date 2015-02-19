@@ -32,12 +32,20 @@ define([
       });
 
       describe('listeners', function() {
-        before(function() { sinon.stub(Backbone.View.prototype, 'listenTo'); });
+        before(function() { 
+          sinon.stub(Backbone.View.prototype, 'listenTo'); 
+        });
+
         after(function() { Backbone.View.prototype.listenTo.restore(); });
 
         it('listens to changes in task status', function() {
           var newView = new ListItemView({model: task});
           Backbone.View.prototype.listenTo.withArgs(task, 'change:status').calledOnce.should.be.true;
+        });
+
+        it('listens for when the user is finished updating', function() {
+          var newView = new ListItemView({model: task});
+          Backbone.View.prototype.listenTo.withArgs(newView.$editForm, 'done').calledOnce.should.be.true;
         });
       });
     });
