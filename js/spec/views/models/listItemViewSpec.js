@@ -76,6 +76,12 @@ define([
           view.$('i[title="Edit"]').should.not.be.visible;
         });
       });
+
+      describe('delete icon', function() {
+        it('is present', function() {
+          view.$('i[title="Delete"]').should.exist;
+        });
+      });
     });
   });
 });
