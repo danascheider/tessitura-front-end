@@ -51,14 +51,16 @@ define([
     });
 
     describe('elements', function() {
-      beforeEach(function() {
+      before(function() {
         view.render();
       });
 
-      it('is true', function() {
-        it('is an li', function() {
-          view.$el[0].tagName.should.equal('LI');
-        });
+      it('is an li', function() {
+        view.$el[0].tagName.should.equal('LI');
+      });
+
+      it('has class task-list-item', function() {
+        view.$el[0].className.should.include('task-list-item');
       });
     });
   });
