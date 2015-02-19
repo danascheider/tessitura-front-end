@@ -111,5 +111,22 @@ define([
         });
       });
     });
+
+    describe('render() function', function() {
+      afterEach(function() {
+        view.remove();
+      });
+
+      it('sets the HTML', function() {
+        sinon.stub($.prototype, 'html');
+        view.render();
+        $.prototype.html.called.should.be.true;
+        $.prototype.html.restore();
+      });
+
+      it('returns itself', function() {
+        view.render().should.equal(view);
+      });
+    });
   });
 });
