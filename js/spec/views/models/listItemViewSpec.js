@@ -127,6 +127,20 @@ define([
       it('returns itself', function() {
         view.render().should.equal(view);
       });
+
+      it('configures the draggable property', function() {
+        sinon.stub(view, 'configureDraggable');
+        view.render();
+        view.configureDraggable.calledOnce.should.be.true;
+        view.configureDraggable.restore();
+      });
+
+      it('delegates events', function() {
+        sinon.stub(view, 'delegateEvents');
+        view.render();
+        view.delegateEvents.calledOnce.should.be.true;
+        view.delegateEvents.restore();
+      });
     });
   });
 });

@@ -227,6 +227,8 @@ define([
 
       this.configureDraggable();
 
+      this.delegateEvents();
+
       return this;
     }
   });
