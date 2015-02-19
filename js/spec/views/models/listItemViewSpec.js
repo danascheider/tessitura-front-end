@@ -30,6 +30,16 @@ define([
         var newView = new ListItemView({model: task});
         newView.$editForm.should.exist;
       });
+
+      describe('listeners', function() {
+        before(function() { sinon.stub(Backbone.View.prototype, 'listenTo'); });
+        after(function() { Backbone.View.prototype.listenTo.restore(); });
+
+        it('listens to changes in task status', function() {
+          var newView = new ListItemView({model: task});
+          Backbone.View.prototype.listenTo.withArgs(task, 'change:status').calledOnce.should.be.true;
+        });
+      });
     });
   });
 });
