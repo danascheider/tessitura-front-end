@@ -107,19 +107,20 @@ define([
       });
     },
 
+    // -------------- //
     // Event Handlers //
+    // -------------- //
 
     backlogTask       : function() {
       this.model.save({backlog: true}, {
         dataType    : 'html',
         type        : 'PUT',
         url         : API.tasks.single(this.model.get('id')),
-        beforeSend  : Utils.authHeader
       });
     },
 
-    // NOTE: Instead of (or in addition to) triggering markComplete on the model,
-    //       the view should simply remove itself.
+    // FIX: Instead of (or in addition to) triggering markComplete on the model,
+    //      the view should simply remove itself. (Or should it?)
     crossOff          : function() {
       var task = this.model;
 
@@ -209,7 +210,9 @@ define([
       $(table).toggle();
     },
 
+    // ----------------------- //
     // Standard View Functions // 
+    // ----------------------- //
 
     initialize: function() {
       this.$editForm = new UpdateFormView({model: this.model});

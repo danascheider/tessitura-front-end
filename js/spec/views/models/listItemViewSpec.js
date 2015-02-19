@@ -5,7 +5,7 @@ define([
   ], function(Backbone, ListItemView, Task) {
 
   describe('Task List Item View', function() {
-    var view, e; 
+    var view, server, e; 
 
     var task = new Task({title: 'Finish writing test suite'});
 
@@ -109,6 +109,35 @@ define([
         it('is hidden by default', function() {
           view.$('i[title="Backlog"]').should.not.be.visible;
         });
+      });
+    });
+
+    describe('events', function() {
+      //
+    });
+
+    describe('backlogTask() method', function() {
+      beforeEach(function() {
+        server = sinon.fakeServer.create();
+        server.respondWith(function(xhr) {
+          xhr.respond(200);
+        });
+      });
+
+      after(function() {
+        task.unset('backlog');
+      });
+
+      it('changes the task\'s backlog status to true', function() {
+        view.backlogTask();
+        task.get('backlog').should.be.true;
+      });
+
+      it('saves the task', function() {
+        sinon.stub(task, 'save');
+        view.backlogTask();
+        task.save.calledOnce.should.be.true;
+        task.save.restore();
       });
     });
 
