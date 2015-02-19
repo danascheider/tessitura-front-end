@@ -139,12 +139,10 @@ define([
         //      the collection, though - it could call the setTimeout event from
         //      there, and that way this view wouldn't have to deal with 
         //      stuff that's only relevant to the collection.
-         
-        var triggerMarkComplete = function() {
+        
+        window.setTimeout(function() {
           task.trigger('markComplete');
-        };
-
-        window.setTimeout(triggerMarkComplete, 750);        
+        }, 750);        
       }
     },
 
