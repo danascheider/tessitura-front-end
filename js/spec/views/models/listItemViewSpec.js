@@ -86,6 +86,16 @@ define([
           view.$('i[title="Delete"]').should.not.be.visible;
         });
       });
+
+      describe('backlog icon', function() {
+        it('is present', function() {
+          view.$('i[title="Backlog"]').should.exist;
+        });
+
+        it('is hidden by default', function() {
+          view.$('i[title="Backlog"]').should.not.be.visible;
+        });
+      });
     });
   });
 });
