@@ -55,6 +55,8 @@ define([
         view.render();
       });
 
+      after(function() { view.remove(); });
+
       it('is an li', function() {
         view.$el[0].tagName.should.equal('LI');
       });
@@ -73,6 +75,10 @@ define([
 
       it('displays the task model', function() {
         view.$modelView.$el.should.be.visible;
+      });
+
+      it('doesn\'t show its edit form by default', function() {
+        view.$editForm.$el.should.not.be.visible;
       });
 
       describe('edit icon', function() {
