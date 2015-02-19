@@ -66,6 +66,16 @@ define([
       it('is draggable', function() {
         view.$el[0].className.should.include('ui-widget-content ui-draggable ui-draggable-handle')
       });
+
+      describe('edit icon', function() {
+        it('is present', function() {
+          view.$('i[title="Edit"]').should.exist;
+        });
+
+        it('is hidden by default', function() {
+          view.$('i[title="Edit"]').should.not.be.visible;
+        });
+      });
     });
   });
 });
