@@ -147,8 +147,15 @@ define([
 
     describe('crossOff() method', function() {
       describe('when the task is complete', function() {
-        before(function() { task.set('status', 'Complete') });
-        after(function() { task.set('status', 'New') });
+        before(function() { 
+          view.render();
+          task.set('status', 'Complete') 
+        });
+
+        after(function() { 
+          task.set('status', 'New') 
+          view.remove();
+        });
 
         it('triggers the markComplete event', function() {
           var spy = sinon.spy();
@@ -163,6 +170,11 @@ define([
           var checkbox = view.$('i[title="Mark complete"]');
           view.crossOff();
           checkbox[0].className.should.include('fa-check-square-o');
+        });
+
+        it('crosses out the task title', function() {
+          view.crossOff();
+          view.$('.task-title').css('text-decoration').should.equal('line-through');
         });
       });
     });
