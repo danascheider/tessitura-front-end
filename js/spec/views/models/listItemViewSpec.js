@@ -20,6 +20,16 @@ define([
         Backbone.View.prototype.render.called.should.be.false;
         Backbone.View.prototype.render.restore();
       });
+
+      it('creates a model view', function() {
+        var newView = new ListItemView({model: task});
+        newView.$modelView.should.exist;
+      });
+
+      it('creates an edit form', function() {
+        var newView = new ListItemView({model: task});
+        newView.$editForm.should.exist;
+      });
     });
   });
 });
