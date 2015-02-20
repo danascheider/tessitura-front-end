@@ -12,7 +12,7 @@ define([
     tagName  : 'form',
     className: 'task-form',
     role     : 'form',
-    
+
     events   : {
       'click button:submit' : 'createTask'
     },
@@ -25,13 +25,10 @@ define([
       var form  = $(e.target).parent('form');
       var attrs = Utils.getAttributes(form);
 
-      var newTask = new TaskModel(attrs);
-      newTask.save(newTask.attrs, {
+      this.collection.create(attrs, {
         url: API.tasks.collection($.cookie('userID')),
-        beforeSend: Utils.authHeader,
         success: function(model) {
           form.slideUp();
-          that.collection.add(model);
         },
         error: function(model, response) {
           console.log('Error: ', response);
@@ -40,8 +37,9 @@ define([
     },
 
     render: function() {
-      this.$el.html(this.template);
-      this.delegateEvents();
+      console.log(this.template());
+      // this.$el.html(this.template());
+      // this.delegateEvents();
       return this;
     }
   });
