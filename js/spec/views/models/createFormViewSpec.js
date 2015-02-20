@@ -108,6 +108,13 @@ define([
         $.prototype.html.calledOnce.should.be.true;
         $.prototype.html.restore();
       });
+
+      it('calls delegateEvents', function() {
+        sinon.stub(form, 'delegateEvents');
+        form.render();
+        form.delegateEvents.calledOnce.should.be.true;
+        form.delegateEvents.restore();
+      });
     });
   });
 });
