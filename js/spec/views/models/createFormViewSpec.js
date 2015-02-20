@@ -29,6 +29,10 @@ define([
       if(typeof form === 'undefined') { form = new FormView({collection: user.tasks}); }
     });
 
+    afterEach(function() {
+      form.remove();
+    });
+
     describe('constructor', function() {
       it('doesn\'t call render', function() {
         sinon.stub(FormView.prototype, 'render');
@@ -94,7 +98,16 @@ define([
     });
 
     describe('render() function', function() {
-      //
+      it('returns itself', function() {
+        form.render().should.equal(form);
+      });
+
+      it('sets HTML', function() {
+        sinon.stub($.prototype, 'html');
+        form.render();
+        $.prototype.html.calledOnce.should.be.true;
+        $.prototype.html.restore();
+      });
     });
   });
 });

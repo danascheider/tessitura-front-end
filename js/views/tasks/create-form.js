@@ -5,34 +5,27 @@ define([
   'utils',
   'api',
   'models/task',
-  'text!templates/tasks/create-form.html'
+  'text!templates/tasks/create-form.html',
+  'cookie'
   ], function($, _, Backbone, Utils, API, TaskModel, CreateFormTemplate) {
 
   var TaskCreateFormView = Backbone.View.extend({
-    tagName  : 'form',
-    className: 'task-form',
-    role     : 'form',
+    tagName    : 'form',
+    className  : 'task-form',
 
-    events   : {
-      'submit' : 'createTask'
+    template   : _.template(CreateFormTemplate),
+
+    createTask : function(e) {
+      e.preventDefault();
+
+      var attrs = Utils.getAttributes(this.$el);
+      this.collection.create(attrs, {
+        url : API.tasks.collection($.cookie('userID'))
+      });
     },
 
-    template : _.template(CreateFormTemplate),
-
-    createTask: function(e) {
-      e.preventDefault();
-      var form  = this.$el;
-      var attrs = Utils.getAttributes(form);
-
-      this.collection.create(attrs, {
-        url: API.tasks.collection($.cookie('userID')),
-        success: function(model) {
-          form.slideUp();
-        },
-        error: function(model, response) {
-          console.log('Error: ', response);
-        }
-      });
+    initialize: function() {
+      _.bindAll(this, 'createTask', 'render');
     },
 
     render: function() {
