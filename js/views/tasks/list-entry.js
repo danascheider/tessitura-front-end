@@ -119,6 +119,12 @@ define([
       });
     },
 
+    // FIX: Perhaps this should be a method on the collection? Maybe?
+    changePosition  : function() {
+      this.$el.removeAttr('style');
+      this.render();
+    },
+
     // FIX: Instead of (or in addition to) triggering markComplete on the model,
     //      the view should simply remove itself. (Or should it?)
     crossOff          : function() {
@@ -184,11 +190,6 @@ define([
         type        : 'PUT',
         url         : API.tasks.single(that.model.get('id')),
       });
-    },
-
-    changePosition  : function() {
-      this.$el.removeAttr('style');
-      this.render();
     },
 
     showEditForm      : function() {
