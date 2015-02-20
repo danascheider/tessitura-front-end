@@ -8,7 +8,9 @@ define([
   
   describe('Quick-Add Form View', function() {
     var form, e, server;
-    var collection = new TaskCollection();
+
+    var task = new Task({id: 1, title: 'Increment task positions', position: 1});
+    var collection = new TaskCollection([task]);
 
     beforeEach(function() {
       if(typeof form === 'undefined') { form = new QuickAddForm({collection: collection}); }
@@ -54,12 +56,17 @@ define([
       beforeEach(function() {
         server = sinon.fakeServer.create();
         e = $.Event('submit', {target: form.$('form')});
-        sinon.stub(Utils, 'getAttributes').returns({title: 'Finish writing tests'});
+        sinon.stub(Utils, 'getAttributes').returns({title: 'Finish writing tests', posiiton: 1});
+        server.respondWith(function(xhr) {
+          xhr.respond(201, {'Content-Type': 'application/json'}, JSON.stringify({id: 2, title: 'Finish writing tests', position: 1}));
+        });
         form.render();
       });
 
       afterEach(function() {
         Utils.getAttributes.restore();
+        collection.reset([task]);
+        task.set('position', 1);
       });
 
       it('doesn\'t refresh the browser', function() {
@@ -74,6 +81,14 @@ define([
         form.createTask(e);
         collection.create.calledOnce.should.be.true;
         collection.create.restore();
+      });
+
+      it('increments the position of the other tasks in the collection', function() {
+        sinon.spy(task, 'set');
+        form.createTask(e);
+        server.respond();
+        task.set.withArgs('position', 2).calledOnce.should.be.true;
+        task.set.restore();
       });
     });
 

@@ -37,7 +37,7 @@ define([
             // sync the whole collection.
 
             _.each(that.collection.models, function(model) {
-              model.set('position', model.get('position' + 1));
+              model.set('position', model.get('position') + 1);
             });
           }
 
