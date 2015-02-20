@@ -90,6 +90,14 @@ define([
         task.set.withArgs('position', 2).calledOnce.should.be.true;
         task.set.restore();
       });
+
+      it('resets the form', function() {
+        sinon.stub(form.$('form')[0], 'reset');
+        form.createTask(e);
+        server.respond();
+        form.$('form')[0].reset.calledOnce.should.be.true;
+        form.$('form')[0].reset.restore();
+      });
     });
 
     describe('render() function', function() {
