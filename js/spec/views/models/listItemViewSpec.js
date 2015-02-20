@@ -139,6 +139,16 @@ define([
           stub.calledOnce.should.be.true;
         });
       });
+
+      describe('click delete icon', function() {
+        it('calls deleteTask', function() {
+          stub = sinon.stub(ListItemView.prototype, 'deleteTask');
+          var newView = new ListItemView({model: task});
+          newView.render();
+          newView.$('i[title="Delete"]').click();
+          stub.calledOnce.should.be.true;
+        });
+      });
     });
 
     describe('backlogTask() method', function() {
