@@ -276,6 +276,18 @@ define([
       });
     });
 
+    describe('showEditForm() method', function() {
+      beforeEach(function() {
+        view.render();
+        view.showEditIcons();
+      });
+
+      it('hides edit icons', function() {
+        view.showEditForm();
+        view.$('span.edit-task').should.not.be.visible;
+      });
+    });
+
     describe('render() function', function() {
       afterEach(function() {
         view.remove();
