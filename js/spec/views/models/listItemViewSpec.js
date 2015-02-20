@@ -245,6 +245,11 @@ define([
         view.hideEditIcons();
         view.$('i[title="Backlog"]').should.not.be.visible;
       });
+
+      it('hides the delete icon', function() {
+        view.hideEditIcons();
+        view.$('i[title="Delete"]').should.not.be.visible;
+      });
     });
 
     describe('render() function', function() {
