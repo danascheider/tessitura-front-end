@@ -226,6 +226,22 @@ define([
       });
     });
 
+    describe('hideEditIcons() method', function() {
+      beforeEach(function() {
+        view.render();
+        view.showEditIcons();
+      });
+
+      afterEach(function() {
+        view.remove();
+      });
+
+      it('hides the edit icon', function() {
+        view.hideEditIcons();
+        view.$(['i[title="Edit"]']).should.not.be.visible;
+      });
+    });
+
     describe('render() function', function() {
       afterEach(function() {
         view.remove();
