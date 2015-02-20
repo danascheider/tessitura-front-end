@@ -1,5 +1,5 @@
 define([
-  'backbone', 
+  'backbone',
   'views/tasks/list-entry', 
   'models/task'
   ], function(Backbone, ListItemView, Task) {
@@ -143,6 +143,20 @@ define([
 
     describe('configureDraggable() method', function() {
       //
+    });
+
+    describe('changePosition() method', function() {
+      it('removes inline styles', function() {
+        view.changePosition();
+        view.$el.attr('style').should.be.falsey;
+      });
+
+      it('renders the view', function() {
+        sinon.stub(view, 'render');
+        view.changePosition();
+        view.render.calledOnce.should.be.true;
+        view.render.restore();
+      });
     });
 
     describe('crossOff() method', function() {
