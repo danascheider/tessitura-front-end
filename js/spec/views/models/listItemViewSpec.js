@@ -203,6 +203,29 @@ define([
       });
     });
 
+    describe('hideEditForm() method', function() {
+      beforeEach(function() {
+        view.render();
+        view.showEditForm();
+      });
+
+      afterEach(function() {
+        view.remove();
+      });
+
+      it('hides the edit form', function() {
+        view.hideEditForm();
+        view.$editForm.$el.should.not.be.visible;
+      });
+
+      it('removes the view from the DOM', function() {
+        sinon.stub(view.$editForm, 'remove');
+        view.hideEditForm();
+        view.$editForm.remove.calledOnce.should.be.true;
+        view.$editForm.remove.restore();
+      });
+    });
+
     describe('render() function', function() {
       afterEach(function() {
         view.remove();
