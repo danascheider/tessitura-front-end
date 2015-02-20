@@ -149,6 +149,16 @@ define([
           stub.calledOnce.should.be.true;
         });
       });
+
+      describe('click backlog icon', function() {
+        it('calls backlogTask', function() {
+          stub = sinon.stub(ListItemView.prototype, 'backlogTask');
+          var newView = new ListItemView({model: task});
+          newView.render();
+          newView.$('i[title="Backlog"]').click();
+          stub.calledOnce.should.be.true;
+        });
+      });
     });
 
     describe('backlogTask() method', function() {
