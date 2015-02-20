@@ -68,6 +68,10 @@ define([
     });
 
     describe('events', function() {
+
+      // Create a Sinon sandbox to prevent the form submission from 
+      // refreshing the browser
+      
       sinon.test(function() {
         describe('form submit', function() {
           before(function() {
