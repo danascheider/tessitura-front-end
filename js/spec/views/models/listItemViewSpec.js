@@ -324,6 +324,23 @@ define([
       });
     });
 
+    // FIX: If I am going to keep the list item and model views 
+    //      separate, this would really belong with the model view.
+
+    describe('toggleTaskDetails() method', function() {
+      beforeEach(function() {
+        view.render();
+        e = $.Event('click', {target: view.$('a.task-title')});
+      });
+
+      describe('when the task details are hidden', function() {
+        it('shows the task-details table', function() {
+          view.toggleTaskDetails(e);
+          view.$('table.task-details').should.be.visible;
+        });
+      });
+    });
+
     describe('render() function', function() {
       afterEach(function() {
         view.remove();
