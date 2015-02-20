@@ -159,6 +159,16 @@ define([
           stub.calledOnce.should.be.true;
         });
       });
+
+      describe('click task title', function() {
+        it('calls toggleTaskDetails', function() {
+          stub = sinon.stub(ListItemView.prototype, 'toggleTaskDetails');
+          var newView = new ListItemView({model: task});
+          newView.render();
+          newView.$('.task-title').first().click();
+          stub.calledOnce.should.be.true;
+        });
+      });
     });
 
     describe('backlogTask() method', function() {
