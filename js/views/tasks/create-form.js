@@ -22,7 +22,7 @@ define([
     createTask: function(e) {
       e.preventDefault();
       var form  = this.$el;
-      var attrs = Utils.getAttributes();
+      var attrs = Utils.getAttributes(form);
 
       this.collection.create(attrs, {
         url: API.tasks.collection($.cookie('userID')),
