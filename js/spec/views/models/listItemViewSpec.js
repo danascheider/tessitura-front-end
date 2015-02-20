@@ -145,13 +145,21 @@ define([
     describe('configureDraggable() method', function() {
       beforeEach(function() {
         sinon.stub($.prototype, 'draggable');
+        view.configureDraggable();
       });
 
       afterEach(function() { $.prototype.draggable.restore(); });
 
-      it('makes the view draggable within its parent', function() {
-        view.configureDraggable();
+      it('makes the view draggable', function() {
         $.prototype.draggable.calledOnce.should.be.true;
+      });
+
+      it('confines the view to its parent list', function() {
+        $.prototype.draggable.args[0][0].containment.should.equal('parent');
+      });
+
+      it('connects to the sortable task list', function() {
+        $.prototype.draggable.args[0][0].connectToSortable.should.equal('.task-list');
       });
     });
 
