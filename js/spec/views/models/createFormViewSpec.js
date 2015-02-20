@@ -68,7 +68,27 @@ define([
     });
 
     describe('events', function() {
-      //
+      sinon.test(function() {
+        describe('form submit', function() {
+          before(function() {
+            server = sinon.fakeServer.create();
+            sinon.spy(FormView.prototype, 'createTask');
+          });
+
+          after(function() {
+            FormView.prototype.createTask.restore();
+          })
+
+          it('calls createTask', function() {
+            var view = new FormView({collection: user.tasks});
+            e = $.Event('submit', {target: view.$el, defaultPrevented: true});
+            view.render();
+            view.$el.trigger(e);
+            FormView.prototype.createTask.calledOnce.should.be.true;
+            view.remove();
+          });
+        });
+      });
     });
 
     describe('createTask() method', function() {

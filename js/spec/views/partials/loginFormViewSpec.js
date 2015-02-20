@@ -66,17 +66,19 @@ define(['backbone', 'views/app/login-form', 'utils', 'cookie'], function(Backbon
         });
       });
 
-      describe('submit the login form', function() {
-        beforeEach(function() { 
-          e = $.Event('submit', {target: newLoginForm.$el});
-          sinon.spy(e, 'preventDefault');
-          newLoginForm.$el.trigger(e);
-        });
+      sinon.test(function() {
+        describe('submit the login form', function() {
+          beforeEach(function() { 
+            e = $.Event('submit', {target: newLoginForm.$el});
+            sinon.spy(e, 'preventDefault');
+            newLoginForm.$el.trigger(e);
+          });
 
-        afterEach(function() { e.preventDefault.restore(); });
+          afterEach(function() { e.preventDefault.restore(); });
 
-        it('calls the loginUser() method', function() {
-          LoginForm.prototype.loginUser.calledOnce.should.be.true;
+          it('calls the loginUser() method', function() {
+            LoginForm.prototype.loginUser.calledOnce.should.be.true;
+          });
         });
       });
     });
