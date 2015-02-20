@@ -25,5 +25,16 @@ define([
         QuickAddForm.prototype.render.restore();
       });
     });
+
+    describe('elements', function() {
+      beforeEach(function() { form.render(); });
+
+      // FIX: Currently the tagName of the quick-add form is an `li`, but I
+      //      want it to be a `form`.
+
+      it('is an li', function() {
+        form.$el[0].tagName.should.equal('LI');
+      });
+    });
   });
 });
