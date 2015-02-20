@@ -194,6 +194,15 @@ define([
       });
     });
 
+    describe('deleteTask() method', function() {
+      it('destroys the task', function() {
+        sinon.stub(task, 'destroy');
+        view.deleteTask();
+        task.destroy.calledOnce.should.be.true;
+        task.destroy.restore();
+      });
+    });
+
     describe('render() function', function() {
       afterEach(function() {
         view.remove();
