@@ -68,6 +68,13 @@ define([
         e.preventDefault.calledOnce.should.be.true;
         e.preventDefault.restore();
       });
+
+      it('creates a new task in the collection', function() {
+        sinon.stub(collection, 'create');
+        form.createTask(e);
+        collection.create.calledOnce.should.be.true;
+        collection.create.restore();
+      });
     });
 
     describe('render() function', function() {

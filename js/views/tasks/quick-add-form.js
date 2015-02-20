@@ -28,12 +28,8 @@ define([
       // Tasks are invalid without a title, so any this method 
       // should not run if the title is not included in the attributes.
       if(!!attrs.title) {
-        var newTask = new TaskModel(attrs);
-
-        newTask.save({}, {
-          type       : 'POST',
+        this.collection.create(attrs, {
           url        : API.tasks.collection($.cookie('userID')),
-          beforeSend : Utils.authHeader,
           success    : function(model) {
             form[0].reset();
 
@@ -43,9 +39,8 @@ define([
             _.each(that.collection.models, function(model) {
               model.set('position', model.get('position' + 1));
             });
-
-            that.collection.add(model);
           }
+
         });
       }
     },
