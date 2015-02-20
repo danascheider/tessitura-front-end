@@ -1,7 +1,8 @@
 define([
   'backbone',
   'views/tasks/list-entry', 
-  'models/task'
+  'models/task',
+  'jquery-ui'
   ], function(Backbone, ListItemView, Task) {
 
   describe('Task List Item View', function() {
@@ -142,7 +143,16 @@ define([
     });
 
     describe('configureDraggable() method', function() {
-      //
+      beforeEach(function() {
+        sinon.stub($.prototype, 'draggable');
+      });
+
+      afterEach(function() { $.prototype.draggable.restore(); });
+
+      it('makes the view draggable within its parent', function() {
+        view.configureDraggable();
+        $.prototype.draggable.calledOnce.should.be.true;
+      });
     });
 
     describe('changePosition() method', function() {
@@ -299,9 +309,8 @@ define([
           view.$modelView.remove.calledOnce.should.be.true;
           view.$editForm.$el.should.be.visible;
           view.$editForm.attr('style').should.be.falsey;
+          view.$modelView.remove.restore();
         }, 150);
-
-        view.$modelView.remove.restore();
       });
     });
 
