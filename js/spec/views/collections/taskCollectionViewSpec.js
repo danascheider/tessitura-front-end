@@ -10,6 +10,8 @@ define([
 ], function(_, Backbone, TaskCollection, User, Task, ListItemView, TaskCollectionView) {
   
   describe('task collection view', function() {
+    var view; 
+
     var user = new User({
       id         : 342,
       username   : 'testuser',
@@ -23,7 +25,13 @@ define([
     var task2 = new Task({id: 2, title: 'Task 2', owner_id: 342});
     var collection = new TaskCollection([task1, task2]);
 
-    var view = new TaskCollectionView({collection: collection});
+    beforeEach(function() {
+      if(typeof view === 'undefined') { view = new TaskCollectionView({collection: collection}); }
+    });
+
+    afterEach(function() {
+      view.remove();
+    });
 
     describe('constructor', function() {
       it('does not call the render function', function() {
