@@ -149,6 +149,8 @@ define([
     deleteTask        : function() {
       var model = this.model;
 
+      // FIX: This should probably be defined in Task model, or 
+      //      ProtectedResource, or both
       model.destroy({
         url: API.tasks.single(model.get('id')),
         type: 'DELETE',
