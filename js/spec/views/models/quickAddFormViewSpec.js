@@ -35,6 +35,14 @@ define([
       it('is an li', function() {
         form.$el[0].tagName.should.equal('LI');
       });
+
+      it('has class .quick-add-form', function() {
+        form.$el[0].className.should.include('quick-add-form');
+      });
+
+      it('has class .not-sortable', function() {
+        form.$el[0].className.should.include('not-sortable');
+      });
     });
   });
 });
