@@ -20,6 +20,11 @@ define(['backbone', 'models/task', 'views/tasks/create-form'], function(Backbone
         form.render();
         form.$el[0].tagName.should.equal('FORM');
       });
+
+      it('has class .task-form', function() {
+        form.render();
+        form.$el[0].className.should.include('task-form');
+      });
     });
 
     describe('events', function() {
