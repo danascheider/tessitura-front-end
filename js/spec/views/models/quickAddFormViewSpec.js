@@ -56,48 +56,67 @@ define([
       beforeEach(function() {
         server = sinon.fakeServer.create();
         e = $.Event('submit', {target: form.$('form')});
-        sinon.stub(Utils, 'getAttributes').returns({title: 'Finish writing tests', posiiton: 1});
-        server.respondWith(function(xhr) {
-          xhr.respond(201, {'Content-Type': 'application/json'}, JSON.stringify({id: 2, title: 'Finish writing tests', position: 1}));
-        });
-        form.render();
       });
 
       afterEach(function() {
-        Utils.getAttributes.restore();
         collection.reset([task]);
         task.set('position', 1);
-      });
+      })
 
-      it('doesn\'t refresh the browser', function() {
-        sinon.spy(e, 'preventDefault');
-        form.createTask(e);
-        e.preventDefault.calledOnce.should.be.true;
-        e.preventDefault.restore();
-      });
+      describe('when valid', function() {
+        beforeEach(function() {
+          sinon.stub(Utils, 'getAttributes').returns({title: 'Finish writing tests', posiiton: 1});
+          server.respondWith(function(xhr) {
+            xhr.respond(201, {'Content-Type': 'application/json'}, JSON.stringify({id: 2, title: 'Finish writing tests', position: 1}));
+          });
+          form.render();
+        });
 
-      it('creates a new task in the collection', function() {
-        sinon.stub(collection, 'create');
-        form.createTask(e);
-        collection.create.calledOnce.should.be.true;
-        collection.create.restore();
-      });
+        afterEach(function() {
+          Utils.getAttributes.restore();
+        });
 
-      it('increments the position of the other tasks in the collection', function() {
-        sinon.spy(task, 'set');
-        form.createTask(e);
-        server.respond();
-        task.set.withArgs('position', 2).calledOnce.should.be.true;
-        task.set.restore();
-      });
+        it('doesn\'t refresh the browser', function() {
+          sinon.spy(e, 'preventDefault');
+          form.createTask(e);
+          e.preventDefault.calledOnce.should.be.true;
+          e.preventDefault.restore();
+        });
 
-      it('resets the form', function() {
-        sinon.stub(form.$('form')[0], 'reset');
-        form.createTask(e);
-        server.respond();
-        form.$('form')[0].reset.calledOnce.should.be.true;
-        form.$('form')[0].reset.restore();
-      });
+        it('creates a new task in the collection', function() {
+          sinon.stub(collection, 'create');
+          form.createTask(e);
+          collection.create.calledOnce.should.be.true;
+          collection.create.restore();
+        });
+
+        it('increments the position of the other tasks in the collection', function() {
+          sinon.spy(task, 'set');
+          form.createTask(e);
+          server.respond();
+          task.set.withArgs('position', 2).calledOnce.should.be.true;
+          task.set.restore();
+        });
+
+        it('resets the form', function() {
+          sinon.stub(form.$('form')[0], 'reset');
+          form.createTask(e);
+          server.respond();
+          form.$('form')[0].reset.calledOnce.should.be.true;
+          form.$('form')[0].reset.restore();
+        });
+      })
+
+      describe('without a title', function() {
+        it('doesn\'t submit', function() {
+          sinon.stub(collection, 'create');
+          sinon.stub(Utils, 'getAttributes').returns({title: ''});
+          form.createTask(e);
+          collection.create.called.should.be.false;
+          collection.create.restore();
+          Utils.getAttributes.restore();
+        });
+      })
     });
 
     describe('render() function', function() {
