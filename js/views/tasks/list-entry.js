@@ -183,7 +183,6 @@ define([
         dataType    : 'html',
         type        : 'PUT',
         url         : API.tasks.single(that.model.get('id')),
-        beforeSend  : Utils.authHeader
       });
     },
 
