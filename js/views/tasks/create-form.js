@@ -37,9 +37,8 @@ define([
     },
 
     render: function() {
-      console.log(this.template());
-      // this.$el.html(this.template());
-      // this.delegateEvents();
+      this.$el.html(this.template());
+      this.delegateEvents();
       return this;
     }
   });
