@@ -286,6 +286,42 @@ define([
         view.showEditForm();
         view.$('span.edit-task').should.not.be.visible;
       });
+
+      it('hides the model view and shows the edit form', function() {
+        sinon.spy(view.$modelView, 'remove');
+        view.showEditForm();
+
+        // FIX: In the interest of saving time, I am putting all 3 of these
+        //      assertions into this spec. In the future, I will need to 
+        //      figure out how to make it run this bad boy asynchronously.
+
+        window.setTimeout(function() {
+          view.$modelView.remove.calledOnce.should.be.true;
+          view.$editForm.$el.should.be.visible;
+          view.$editForm.attr('style').should.be.falsey;
+        }, 150);
+
+        view.$modelView.remove.restore();
+      });
+    });
+
+    describe('showEditIcons() method', function() {
+      beforeEach(function() {
+        view.render();
+        view.showEditIcons();
+      });
+
+      it('shows the edit icon', function() {
+        view.$('i[title="Edit"]').should.be.visible;
+      });
+
+      it('shows the backlog icon', function() {
+        view.$('i[title="Backlog"]').should.be.visible;
+      });
+
+      it('shows the delete icon', function() {
+        view.$('i[title="Delete"]').should.be.visible;
+      });
     });
 
     describe('render() function', function() {
