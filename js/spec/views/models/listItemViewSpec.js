@@ -187,6 +187,15 @@ define([
           stub.calledOnce.should.be.true;
         });
       });
+
+      describe('mouseleave', function() {
+        it('calls hideEditIcons', function() {
+          stub = sinon.stub(ListItemView.prototype, 'hideEditIcons');
+          var newView = new ListItemView({model: task});
+          newView.$el.mouseleave();
+          stub.calledOnce.should.be.true;
+        })
+      })
     });
 
     describe('backlogTask() method', function() {
