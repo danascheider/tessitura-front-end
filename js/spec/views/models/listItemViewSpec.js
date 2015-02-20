@@ -339,6 +339,14 @@ define([
           view.$('table.task-details').should.be.visible;
         });
       });
+
+      describe('when the task details are visible', function() {
+        it('hides the task-details table', function() {
+          view.$('table.task-details').show();
+          view.toggleTaskDetails(e);
+          view.$('table.task-details').should.not.be.visible;
+        });
+      });
     });
 
     describe('render() function', function() {
