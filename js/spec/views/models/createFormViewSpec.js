@@ -59,11 +59,11 @@ define([
           form.render();
         });
 
-        // for(var i = 0; i < fields.length - 1; i++) {
-        //   it('has a ' + fields[i] + ' field', function() {
-        //     form.$('input[name="' + fields[i] + '"]').length.should.equal(1);
-        //   });
-        // }
+        for(var i = 0; i < fields.length - 1; i++) {
+          it('has a ' + fields[i] + ' field', function() {
+            form.$('input[name="' + fields[i] + '"]').length.should.equal(1);
+          });
+        }
       });
     });
 
