@@ -96,6 +96,7 @@ define([
     });
 
     describe('createTask() method', function() {
+      // FIX: This does not increment the task positions!
       beforeEach(function() {
         e = $.Event('click', {target: form.$('button[type="submit"]')});
         server = sinon.fakeServer.create();

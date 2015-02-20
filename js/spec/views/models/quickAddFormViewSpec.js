@@ -1,9 +1,10 @@
 define([
   'backbone', 
+  'utils',
   'models/task',
   'collections/tasks',
   'views/tasks/quick-add-form'
-  ], function(Backbone, Task, TaskCollection, QuickAddForm) {
+  ], function(Backbone, Utils, Task, TaskCollection, QuickAddForm) {
   
   describe('Quick-Add Form View', function() {
     var form, e, server;
@@ -43,6 +44,34 @@ define([
       it('has class .not-sortable', function() {
         form.$el[0].className.should.include('not-sortable');
       });
+    });
+
+    describe('events', function() {
+      //
+    });
+
+    describe('createTask() method', function() {
+      beforeEach(function() {
+        server = sinon.fakeServer.create();
+        e = $.Event('submit', {target: form.$('form')});
+        sinon.stub(Utils, 'getAttributes').returns({title: 'Finish writing tests'});
+        form.render();
+      });
+
+      afterEach(function() {
+        Utils.getAttributes.restore();
+      });
+
+      it('doesn\'t refresh the browser', function() {
+        sinon.spy(e, 'preventDefault');
+        form.createTask(e);
+        e.preventDefault.calledOnce.should.be.true;
+        e.preventDefault.restore();
+      });
+    });
+
+    describe('render() function', function() {
+      //
     });
   });
 });
