@@ -252,6 +252,16 @@ define([
       });
     });
 
+    describe('markComplete() method', function() {
+      before(function() { sinon.stub(task, 'save'); });
+      after(function() { task.save.restore(); });
+
+      it('marks the task complete and saves', function() {
+        view.markComplete();
+        task.save.withArgs({status: 'Complete'}).calledOnce.should.be.true;
+      });
+    });
+
     describe('render() function', function() {
       afterEach(function() {
         view.remove();
