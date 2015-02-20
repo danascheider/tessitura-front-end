@@ -114,7 +114,31 @@ define([
     });
 
     describe('events', function() {
-      //
+      var stub;
+
+      afterEach(function() {
+        stub.restore();
+      });
+
+      describe('click edit icon', function() {
+        it('calls showEditForm', function() {
+          stub = sinon.stub(ListItemView.prototype, 'showEditForm');
+          var newView = new ListItemView({model: task});
+          newView.render();
+          newView.$('i[title="Edit"]').click();
+          stub.calledOnce.should.be.true;
+        });
+      });
+
+      describe('click mark complete checkbox', function() {
+        it('calls markComplete', function() {
+          stub = sinon.stub(ListItemView.prototype, 'markComplete');
+          var newView = new ListItemView({model: task});
+          newView.render();
+          newView.$('i[title="Mark complete"]').click();
+          stub.calledOnce.should.be.true;
+        });
+      });
     });
 
     describe('backlogTask() method', function() {
