@@ -15,6 +15,13 @@ define(['backbone', 'models/task', 'views/tasks/create-form'], function(Backbone
       });
     });
 
+    describe('elements', function() {
+      it('is a form', function() {
+        form.render();
+        form.$el[0].tagName.should.equal('FORM');
+      });
+    });
+
     describe('events', function() {
       //
     });
