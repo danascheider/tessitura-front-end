@@ -9,6 +9,10 @@ define([
   ], function($, _, Backbone, Utils, API, TaskModel, CreateFormTemplate) {
 
   var TaskCreateFormView = Backbone.View.extend({
+    tagName  : 'form',
+    className: 'task-form',
+    role     : 'form',
+    
     events   : {
       'click button:submit' : 'createTask'
     },
