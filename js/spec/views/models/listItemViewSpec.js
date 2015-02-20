@@ -171,12 +171,21 @@ define([
       });
 
       describe('click reset button', function() {
-        
+
         // FIX: I am having trouble testing that this works. I believe the 
         //      reason has to do with event delegation between the parent 
         //      view and the child (edit form) view.
 
         it('calls hideEditForm');
+      });
+
+      describe('mouseenter', function() {
+        it('calls showEditIcons', function() {
+          stub = sinon.stub(ListItemView.prototype, 'showEditIcons');
+          var newView = new ListItemView({model: task});
+          newView.$el.mouseenter();
+          stub.calledOnce.should.be.true;
+        });
       });
     });
 
