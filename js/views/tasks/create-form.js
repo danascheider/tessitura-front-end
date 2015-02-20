@@ -14,16 +14,15 @@ define([
     role     : 'form',
 
     events   : {
-      'click button:submit' : 'createTask'
+      'submit' : 'createTask'
     },
 
     template : _.template(CreateFormTemplate),
 
     createTask: function(e) {
       e.preventDefault();
-      var that = this;
-      var form  = $(e.target).parent('form');
-      var attrs = Utils.getAttributes(form);
+      var form  = this.$el;
+      var attrs = Utils.getAttributes();
 
       this.collection.create(attrs, {
         url: API.tasks.collection($.cookie('userID')),
