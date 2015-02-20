@@ -238,7 +238,12 @@ define([
 
       it('hides the edit icon', function() {
         view.hideEditIcons();
-        view.$(['i[title="Edit"]']).should.not.be.visible;
+        view.$('i[title="Edit"]').should.not.be.visible;
+      });
+
+      it('hides the backlog icon', function() {
+        view.hideEditIcons();
+        view.$('i[title="Backlog"]').should.not.be.visible;
       });
     });
 
