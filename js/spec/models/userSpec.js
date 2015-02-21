@@ -1,8 +1,9 @@
-define(function(require) {
-  var Backbone = require('backbone');
-  var User = require('models/user');
-  var API = require('api');
-  var cookie = require('cookie');
+define([
+  'backbone',
+  'models/user',
+  'api',
+  'cookie'
+  ], function(Backbone, User, API) {
 
   describe('User', function() {
     it('has default URL root of \'/users\'', function() {
