@@ -7,10 +7,15 @@ define([
   
   describe('ProtectedResource', function() {
     var resource, server;
+    var sandbox = sinon.sandbox.create();
 
     before(function() {
       $.cookie('userID', 4);
       $.cookie('auth', btoa('user4:user4'));
+    });
+
+    afterEach(function() {
+      sandbox.restore();
     });
 
     describe('token', function() {
@@ -24,7 +29,7 @@ define([
       beforeEach(function() {
         resource = new ProtectedResource();
         resource.url = API.base + '/protected-resource';
-        server = sinon.fakeServer.create();
+        server = sandbox.useFakeServer();
       });
 
       it('attaches an authorization header', function() {
@@ -39,10 +44,9 @@ define([
       });
 
       it('calls `save` from the Backbone Model prototype', function() {
-        sinon.stub(Backbone.Model.prototype, 'save');
+        sandbox.stub(Backbone.Model.prototype, 'save');
         resource.save();
         Backbone.Model.prototype.save.calledOnce.should.be.true;
-        Backbone.Model.prototype.save.restore();
       });
     });
 
@@ -50,7 +54,7 @@ define([
       beforeEach(function() {
         resource = new ProtectedResource();
         resource.url = API.base + '/protected-resource';
-        server = sinon.fakeServer.create();
+        server = sandbox.useFakeServer();
       });
 
       it('attaches an authorization header', function() {
@@ -65,10 +69,9 @@ define([
       });
 
       it('calls `fetch` from the Backbone Model prototype', function() {
-        sinon.stub(Backbone.Model.prototype, 'fetch');
+        sandbox.stub(Backbone.Model.prototype, 'fetch');
         resource.fetch();
         Backbone.Model.prototype.fetch.calledOnce.should.be.true;
-        Backbone.Model.prototype.fetch.restore();
       });
     });
   });
