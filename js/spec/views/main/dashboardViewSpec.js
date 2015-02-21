@@ -8,6 +8,8 @@ define([
 
   describe('Main Dashboard View', function() {
     var dashboard, e;
+    var sandbox = sinon.sandbox.create();
+
     var user = new User({
       username: 'testuser', 
       password: 'testuser', 
@@ -18,6 +20,11 @@ define([
 
     beforeEach(function() {
       if(typeof dashboard === 'undefined') { dashboard = new DashboardView({user: user}); }
+    });
+
+    afterEach(function() { 
+      dashboard.remove();
+      sandbox.restore();
     });
 
     describe('constructor', function() {
@@ -32,10 +39,9 @@ define([
       });
 
       it('doesn\'t call render', function() {
-        sinon.stub(Backbone.View.prototype, 'render');
+        sandbox.stub(Backbone.View.prototype, 'render');
         var newDashboard = new DashboardView({user: user});
         Backbone.View.prototype.render.called.should.be.false;
-        Backbone.View.prototype.render.restore();
       });
     });
 
@@ -69,15 +75,13 @@ define([
       var newDashboard;
 
       beforeEach(function() {
-        sinon.spy(DashboardView.prototype, 'toggleDropdownMenu');
-        sinon.spy(DashboardView.prototype, 'hideDropdownMenus');
+        sandbox.spy(DashboardView.prototype, 'toggleDropdownMenu');
+        sandbox.spy(DashboardView.prototype, 'hideDropdownMenus');
         newDashboard = new DashboardView({user: user});
         newDashboard.render();
       });
 
       afterEach(function() { 
-        DashboardView.prototype.toggleDropdownMenu.restore();
-        DashboardView.prototype.hideDropdownMenus.restore(); 
         newDashboard.remove();
       });
 
@@ -172,10 +176,9 @@ define([
       });
 
       it('removes the view from the DOM', function() {
-        sinon.spy(dashboard, 'remove');
+        sandbox.spy(dashboard, 'remove');
         dashboard.reset();
         dashboard.remove.calledOnce.should.be.true;
-        dashboard.remove.restore();
       });
 
       it('keeps its user', function() {
