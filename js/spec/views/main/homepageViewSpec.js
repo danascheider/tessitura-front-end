@@ -9,11 +9,15 @@ define([
 
   describe('HomepageView', function() {
     var view, tmpView, server, spy, e;
+    var sandbox = sinon.sandbox.create();
 
     beforeEach(function() {
-      if(typeof view === 'undefined') { 
-        view = new HomepageView(); 
-      }
+      if(typeof view === 'undefined') { view = new HomepageView(); }
+    });
+
+    afterEach(function() { 
+      view.remove();
+      sandbox.restore(); 
     });
 
     describe('constructor', function() {
@@ -23,10 +27,9 @@ define([
       });
 
       it('doesn\'t call render', function() {
-        sinon.stub(HomepageView.prototype, 'render');
+        sandbox.stub(HomepageView.prototype, 'render');
         var newView = new HomepageView();
         HomepageView.prototype.render.called.should.be.false;
-        HomepageView.prototype.render.restore();
       });
     });
 
@@ -64,8 +67,8 @@ define([
         });
 
         it('triggers the loginSuccess event', function() {
-          var spy = sinon.spy();
-          view.on('loginSuccess', spy);
+          var spy = sandbox.spy();
+          view.on('loginSuccess');
           view.$loginForm.trigger('loginSuccess');
           spy.calledOnce.should.be.true;
           view.off('loginSuccess');
@@ -83,17 +86,14 @@ define([
 
     describe('events', function() {
       beforeEach(function() {
-        sinon.stub(HomepageView.prototype, 'hideLoginForm');
-        sinon.stub(HomepageView.prototype, 'createUser');
-        sinon.stub(HomepageView.prototype, 'toggleLoginForm');
+        sandbox.stub(HomepageView.prototype, 'hideLoginForm');
+        sandbox.stub(HomepageView.prototype, 'createUser');
+        sandbox.stub(HomepageView.prototype, 'toggleLoginForm');
         tmpView = new HomepageView();
         tmpView.render();
       });
 
       afterEach(function() {
-        HomepageView.prototype.hideLoginForm.restore();
-        HomepageView.prototype.createUser.restore();
-        HomepageView.prototype.toggleLoginForm.restore();
         tmpView.remove();
       });
 
@@ -124,16 +124,16 @@ define([
         // Make sure it doesn't attempt to redirect to the dashboard
         // after the user is created successfully
 
-        sinon.stub(Backbone.history, 'navigate');
+        sandbox.stub(Backbone.history, 'navigate');
 
         // Create a fake server to handle the Ajax request
 
-        server = sinon.fakeServer.create();
+        server = sandbox.useFakeServer();
 
         // Stub the Utils.getAttributes() method, which will provide
         // the form data used to create the user
 
-        getAttributes = sinon.stub(Utils, 'getAttributes');
+        getAttributes = sandbox.stub(Utils, 'getAttributes');
         getAttributes.returns({
           username: 'testuser245', password: '245usertest', email: 'tu245@example.org',
           first_name: 'Test', last_name: 'User'
@@ -142,33 +142,26 @@ define([
         e = $.Event('submit', {target: view.$('#registration-form')});
       });
 
-      afterEach(function() {
-        Utils.getAttributes.restore();
-        Backbone.history.navigate.restore();
-      });
-
       it('doesn\'t refresh the page', function() {
-        sinon.spy(e, 'preventDefault');
+        sandbox.spy(e, 'preventDefault');
         view.createUser(e);
         e.preventDefault.calledOnce.should.be.true;
-        e.preventDefault.restore();
       });
 
       it('instantiates a user model', function() {
-        sinon.stub(User.prototype, 'initialize');
+        sandbox.stub(User.prototype, 'initialize');
         view.createUser(e);
         User.prototype.initialize.calledOnce.should.be.true;
-        User.prototype.initialize.restore();
       });
 
       describe('successful user creation', function() {
         beforeEach(function() {
 
           // Stub jQuery cookie
-          sinon.stub($, 'cookie');
+          sandbox.stub($, 'cookie');
 
           // Set up spy to listen for the view's 'loginSuccess' event
-          spy = sinon.spy();
+          spy = sandbox.spy();
           view.on('loginSuccess', spy);
 
           // Mock server response providing user ID to be set in cookie
@@ -183,8 +176,6 @@ define([
         });
 
         afterEach(function() {
-          $.cookie.restore();
-
           // Unbind the spy from the view's 'loginSuccess' event
           view.off('loginSuccess');
         });
@@ -204,8 +195,8 @@ define([
 
       describe('unsuccessful user creation', function() {
         beforeEach(function() {
-          sinon.stub($, 'cookie');
-          sinon.stub(console, 'log');
+          sandbox.stub($, 'cookie');
+          sandbox.stub(console, 'log');
 
           server.respondWith(/\/users$/, function(xhr) {
             xhr.respond(422);
@@ -215,11 +206,6 @@ define([
           server.respond();
         });
 
-        afterEach(function() {
-          console.log.restore();
-          $.cookie.restore();
-        });
-
         it('does not create cookies', function() {
           $.cookie.called.should.be.false;
         });
@@ -227,8 +213,8 @@ define([
 
       describe('unauthorized user creation', function() {
         beforeEach(function() {
-          sinon.stub($, 'cookie');
-          sinon.stub(console, 'log');
+          sandbox.stub($, 'cookie');
+          sandbox.stub(console, 'log');
 
           server.respondWith(/\/users$/, function(xhr) {
             xhr.respond(401);
@@ -236,11 +222,6 @@ define([
 
           view.$('#registration-form').submit(function() { return false; });
           server.respond();
-        });
-
-        afterEach(function() {
-          console.log.restore();
-          $.cookie.restore();
         });
 
         it('does not create cookies', function() {
@@ -303,24 +284,21 @@ define([
       });
 
       it('removes the view from the DOM', function() {
-        sinon.stub(view, 'remove');
+        sandbox.stub(view, 'remove');
         view.reset();
         view.remove.calledOnce.should.be.true;
-        view.remove.restore();
       });
 
       it('keeps its login form', function() {
-        sinon.stub(LoginForm.prototype, 'initialize');
+        sandbox.stub(LoginForm.prototype, 'initialize');
         view.reset();
         LoginForm.prototype.initialize.called.should.be.false;
-        LoginForm.prototype.initialize.restore();
       });
 
       it('re-establishes a listener for the loginSuccess method', function() {
-        sinon.stub(view, 'listenTo');
+        sandbox.stub(view, 'listenTo');
         view.reset();
         view.listenTo.withArgs(view.$loginForm, 'loginSuccess').calledOnce.should.be.true;
-        view.listenTo.restore();
       });
     });
 
