@@ -6,6 +6,10 @@ define([
   ], function(Backbone, User, API) {
 
   describe('User', function() {
+    var sandbox = sinon.sandbox.create();
+
+    afterEach(function() { sandbox.restore(); });
+
     it('has default URL root of \'/users\'', function() {
       var user = new User();
       user.urlRoot.should.equal('http://private-6f87dc-canto.apiary-mock.com/users');
@@ -27,12 +31,11 @@ define([
           // of the user being created.
 
           $.cookie('auth', btoa('danascheider:danascheider'));
-          sinon.spy($, 'ajax');
+          sandbox.spy($, 'ajax');
         });
 
         afterEach(function() {
           $.removeCookie('auth');
-          $.ajax.restore();
         });
 
         it('makes a request to the server', function(done) { 
@@ -42,7 +45,7 @@ define([
         });
 
         it('uses the credentials from the cookie', function(done) {
-          var server = sinon.fakeServer.create();
+          var server = sandbox.useFakeServer();
           var user = new User({id: 342});
           var expected = 'Basic ' + btoa('danascheider:danascheider');
           server.requests[0].requestHeaders.Authorization.should.equal(expected);
@@ -52,10 +55,9 @@ define([
 
       describe('when instantiated without an ID', function() {
         it('doesn\'t make a request to the server', function() {
-          sinon.spy($, 'ajax');
+          sandbox.spy($, 'ajax');
           new User({username: 'testuser22', password: 'usertest81'});
           $.ajax.calledOnce.should.be.false;
-          $.ajax.restore();
         });
       })
     });
@@ -93,11 +95,10 @@ define([
         // be called from the User model's `fetch()` method (i.e., should be included
         // in the function that overrides the model's default `fetch()` method)
 
-        sinon.spy(Backbone.Model.prototype, 'fetch');
+        sandbox.spy(Backbone.Model.prototype, 'fetch');
 
         user.fetch();
         Backbone.Model.prototype.fetch.calledOnce.should.be.true;
-        Backbone.Model.prototype.fetch.restore();
         done();
       });
 
@@ -107,7 +108,7 @@ define([
         // token, regardless of what user is logged in. 
 
         var authString = 'Basic ' + btoa(user.get('username') + ':' + user.get('password'));
-        var server = sinon.fakeServer.create();
+        var server = sandbox.useFakeServer();
 
         user.fetch();
 
@@ -119,7 +120,7 @@ define([
         // The request should be sent to the endpoint belonging to the user
         // whose data are being requested
 
-        var server = sinon.fakeServer.create();
+        var server = sandbox.useFakeServer();
         user.fetch();
         server.requests[0].url.should.equal(API.base + '/users/342');
       });
@@ -153,11 +154,10 @@ define([
         // be called from the User model's `fetch()` method (i.e., should be included
         // in the function that overrides the model's default `fetch()` method)
 
-        sinon.spy(Backbone.Model.prototype, 'fetch');
+        sandbox.spy(Backbone.Model.prototype, 'fetch');
 
         user.protectedFetch();
         Backbone.Model.prototype.fetch.calledOnce.should.be.true;
-        Backbone.Model.prototype.fetch.restore();
         done();
       });
 
@@ -167,7 +167,7 @@ define([
         // credentials, regardless of which user is being requested.
 
         var authString = 'Basic ' + $.cookie('auth');
-        var server = sinon.fakeServer.create();
+        var server = sandbox.useFakeServer();
 
         user.protectedFetch();
 
@@ -179,7 +179,7 @@ define([
         // The request should be sent to the endpoint belonging to the user
         // whose data are being requested
 
-        var server = sinon.fakeServer.create();
+        var server = sandbox.useFakeServer();
         user.fetch();
         server.requests[0].url.should.equal(API.base + '/users/342');
       });
