@@ -8,6 +8,14 @@ define([
 ], function(Backbone, TaskCollection, TaskModel, UserModel, API) {
 
   describe('TaskCollection', function() {
+    var collection, server, xhr, requests;
+    var sandbox = sinon.sandbox.create();
+
+    // Create models that will be used to populate the collection under test
+
+    var task1 = new TaskModel({id: 1, title: 'Task 1', status: 'New', priority: 'Low', position: 1});
+    var task2 = new TaskModel({id: 2, title: 'Task 2', status: 'New', priority: 'Normal', position: 2});
+    var task3 = new TaskModel({id: 3, title: 'Task 3', status: 'Complete', priority: 'Normal', position: 3});
 
     // Set cookies to establish default collection for Ajax requests
 
@@ -16,16 +24,10 @@ define([
       $.cookie('auth', btoa('user4:user4')); 
     });
 
-    // Declare variables to be defined in before hooks
-
-    var collection, server, xhr, requests;
-
-    // Create models that will be used to populate the collection under test
-
-    var task1 = new TaskModel({id: 1, title: 'Task 1', status: 'New', priority: 'Low', position: 1});
-    var task2 = new TaskModel({id: 2, title: 'Task 2', status: 'New', priority: 'Normal', position: 2});
-    var task3 = new TaskModel({id: 3, title: 'Task 3', status: 'Complete', priority: 'Normal', position: 3});
-
+    afterEach(function() {
+      sandbox.restore();
+    });
+    
     describe('comparator', function() {
       it('orders tasks by position');
     });
@@ -41,7 +43,7 @@ define([
 
       beforeEach(function() {
         collection = new TaskCollection([task1, task2, task3]);
-        server = sinon.fakeServer.create();
+        server = sandbox.useFakeServer();
       });
 
       describe('normal circumstances', function() {
@@ -51,10 +53,9 @@ define([
         });
 
         it('calls the collection prototype fetch method', function() {
-          sinon.stub(Backbone.Collection.prototype, 'fetch');
+          sandbox.stub(Backbone.Collection.prototype, 'fetch');
           collection.fetch();
           Backbone.Collection.prototype.fetch.calledOnce.should.be.true;
-          Backbone.Collection.prototype.fetch.restore();
         });
       });
 
