@@ -386,7 +386,7 @@ define([
         view.$('span.edit-task').should.not.be.visible;
       });
 
-      it('hides the model view and shows the edit form', function() {
+      it('removes the model view from the DOM', function(done) {
         sinon.spy(view.$modelView, 'remove');
         view.showEditForm();
 
@@ -394,12 +394,27 @@ define([
         //      assertions into this spec. In the future, I will need to 
         //      figure out how to make it run this bad boy asynchronously.
 
-        window.setTimeout(function() {
-          view.$modelView.remove.calledOnce.should.be.true;
-          view.$editForm.$el.should.be.visible;
-          view.$editForm.attr('style').should.be.falsey;
-          view.$modelView.remove.restore();
-        }, 150);
+        view.$modelView.remove.calledOnce.should.be.true;
+        done();
+        view.$modelView.remove.restore();
+      });
+
+      it('hides the model view', function(done) {
+        view.showEditForm();
+        view.$modelView.$el.should.not.be.visible;
+        done();
+      });
+
+      it('shows the edit form', function(done) {
+        view.showEditForm();
+        view.$editForm.$el.should.be.visible;
+        done();
+      });
+
+      it('removes inline styles', function(done) {
+        view.showEditForm();
+        view.$editForm.$el.attr('style').should.be.falsey;
+        done();
       });
     });
 
@@ -423,7 +438,7 @@ define([
     });
 
     // FIX: If I am going to keep the list item and model views 
-    //      separate, this would really belong with the model view.
+    //      separate, this wofuld really belong with the model view.
 
     describe('toggleTaskDetails() method', function() {
       beforeEach(function() {
