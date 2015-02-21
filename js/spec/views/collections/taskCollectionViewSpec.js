@@ -11,6 +11,7 @@ define([
   
   describe('task collection view', function() {
     var view; 
+    var sandbox = sinon.sandbox.create();
 
     var user = new User({
       id         : 342,
@@ -31,15 +32,14 @@ define([
 
     afterEach(function() {
       view.remove();
+      sandbox.restore();
     });
 
     describe('constructor', function() {
       it('does not call the render function', function() {
-        var stub = sinon.stub(TaskCollectionView.prototype, 'render');
+        var stub = sandbox.stub(TaskCollectionView.prototype, 'render');
         var newView = new TaskCollectionView({collection: collection});
         stub.called.should.be.false;
-        newView.remove();
-        stub.restore();
       });
     });
 
@@ -103,12 +103,8 @@ define([
 
     describe('render function', function() {
       beforeEach(function() {
-        sinon.stub($.prototype, 'sortable');
+        sandbox.stub($.prototype, 'sortable');
         view.reset().render();
-      });
-
-      afterEach(function() {
-        $.prototype.sortable.restore();
       });
 
       it('renders the list items', function() {
@@ -133,10 +129,9 @@ define([
       });
 
       it('removes the view from the DOM', function() {
-        sinon.stub(view, 'remove');
+        sandbox.stub(view, 'remove');
         view.reset();
         view.remove.calledOnce.should.be.true;
-        view.remove.restore();
       });
 
       it('keeps its collection', function() {
@@ -150,12 +145,8 @@ define([
 
       describe('listeners', function() {
         beforeEach(function() {
-          sinon.stub(view, 'listenTo');
+          sandbox.stub(view, 'listenTo');
           view.reset();
-        });
-
-        afterEach(function() {
-          view.listenTo.restore();
         });
 
         it('re-establishes listener for collection:remove', function() {
