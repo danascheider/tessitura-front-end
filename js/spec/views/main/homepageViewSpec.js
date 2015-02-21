@@ -68,7 +68,7 @@ define([
 
         it('triggers the loginSuccess event', function() {
           var spy = sandbox.spy();
-          view.on('loginSuccess');
+          view.on('loginSuccess', spy);
           view.$loginForm.trigger('loginSuccess');
           spy.calledOnce.should.be.true;
           view.off('loginSuccess');
