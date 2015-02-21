@@ -11,19 +11,21 @@ define([
 ], function(Backbone, DashboardPresenter, API, User, Task, MainView, HomeView, TaskView) {
   
   describe('DashboardPresenter', function() {
+    var sandbox = sinon.sandbox.create();
 
     // Create user to be passed to the DashboardPresenter
 
     var user = new User({username: 'testuser', password: 'testuser', email: 'testuser@example.com'}), presenter;
 
+    afterEach(function() { sandbox.restore(); });
+
     describe('constructor', function() {
       it('doesn\'t require a user');
 
       it('calls `setUser`', function() {
-        sinon.stub(DashboardPresenter.prototype, 'setUser');
+        sandbox.stub(DashboardPresenter.prototype, 'setUser');
         presenter = new DashboardPresenter({user: user});
         DashboardPresenter.prototype.setUser.withArgs(user).calledOnce.should.be.true;
-        DashboardPresenter.prototype.setUser.restore();
       });
     });
 
@@ -38,7 +40,7 @@ define([
       });
 
       it('listens to the user\'s `sync` event', function() {
-        sinon.stub(presenter, 'listenTo');
+        sandbox.stub(presenter, 'listenTo');
         presenter.setUser(user);
         presenter.listenTo.withArgs(user, 'sync', presenter.refresh).calledOnce.should.be.true;
       });
@@ -52,13 +54,12 @@ define([
     describe('getHome() method', function() {
       beforeEach(function() {
         presenter = new DashboardPresenter({user: user});
-        sinon.stub(user.tasks, 'fetch');
+        sandbox.stub(user.tasks, 'fetch');
       });
 
       afterEach(function() {
         delete presenter.mainView.$homeView;
         delete presenter.mainView.$kanbanView;
-        user.tasks.fetch.restore();
       });
 
       describe('when the Kanban view is displayed', function() {
@@ -71,7 +72,7 @@ define([
         });
 
         it('removes the kanban board', function() {
-          sinon.spy(presenter.mainView.$kanbanView, 'remove');
+          sandbox.spy(presenter.mainView.$kanbanView, 'remove');
           presenter.getHome();
           presenter.mainView.$kanbanView.remove.calledOnce.should.be.true;
         });
@@ -96,18 +97,16 @@ define([
 
       it('renders the home view', function() {
         presenter.mainView.$homeView = presenter.mainView.$homeView || new HomeView({user: user});
-        sinon.stub(presenter.mainView.$homeView, 'render');
+        sandbox.stub(presenter.mainView.$homeView, 'render');
         presenter.getHome();
         presenter.mainView.$homeView.render.calledOnce.should.be.true;
-        presenter.mainView.$homeView.render.restore();
       });
 
       it('appends the view to the DOM', function() {
-        sinon.stub($.prototype, 'after');
+        sandbox.stub($.prototype, 'after');
         var el = presenter.mainView.$('nav');
         presenter.getHome();
         el.after.withArgs(presenter.mainView.$homeView.el).calledOnce.should.be.true;
-        $.prototype.after.restore();
       });
 
       it('sets the \'current\' property to \'home\'', function() {
@@ -124,7 +123,7 @@ define([
       describe('when the home view is displayed', function() {
         beforeEach(function() {
           presenter.mainView.$homeView = new HomeView({user: user});
-          sinon.spy(presenter.mainView.$homeView, 'remove');
+          sandbox.spy(presenter.mainView.$homeView, 'remove');
         });
 
         after(function() { delete presenter.mainView.$homeView; });
@@ -157,22 +156,17 @@ define([
         // Create the task view in advance in order to set up the stub/spy
 
         presenter.mainView.$kanbanView = presenter.mainView.$kanbanView || new TaskView({user: user});
-        sinon.stub(presenter.mainView.$kanbanView, 'render');
+        sandbox.stub(presenter.mainView.$kanbanView, 'render');
 
         presenter.getKanban();
         presenter.mainView.$kanbanView.render.calledOnce.should.be.true;
-
-        // Restore the render() method to its original glory
-
-        presenter.mainView.$kanbanView.render.restore();
       });
 
       it('inserts the view into the DOM', function() {
-        sinon.stub($.prototype, 'after');
+        sandbox.stub($.prototype, 'after');
         var el = presenter.mainView.$('nav');
         presenter.getKanban();
         el.after.withArgs(presenter.mainView.$kanbanView.el).calledOnce.should.be.true;
-        $.prototype.after.restore();
       });
 
       it('sets the \'current\' property to \'kanban\'', function() {
@@ -183,11 +177,9 @@ define([
 
     describe('getMain() method', function() {
       beforeEach(function() {
-        sinon.stub($.prototype, 'html');
+        sandbox.stub($.prototype, 'html');
         presenter = new DashboardPresenter({user: user});
       });
-
-      afterEach(function() { $.prototype.html.restore(); });
 
       describe('when the main view doesn\'t exist', function() {
         it('creates the main view', function() {
@@ -206,10 +198,9 @@ define([
       });
 
       it('renders the main view', function() {
-        sinon.stub(presenter.mainView, 'render');
+        sandbox.stub(presenter.mainView, 'render');
         presenter.getMain();
         presenter.mainView.render.calledOnce.should.be.true;
-        presenter.mainView.render.restore();
       });
 
       it('sets the HTML of the body', function() {
@@ -225,7 +216,7 @@ define([
 
       describe('when the home view is current', function() {
         it('calls getHome()', function() {
-          sinon.stub(presenter, 'getHome');
+          sandbox.stub(presenter, 'getHome');
           presenter.current = 'home';
           presenter.refreshCurrent();
           presenter.getHome.calledOnce.should.be.true;
@@ -234,7 +225,7 @@ define([
 
       describe('when the task view is current', function() {
         it('calls getKanban()', function() {
-          sinon.stub(presenter, 'getKanban');
+          sandbox.stub(presenter, 'getKanban');
           presenter.current = 'kanban';
           presenter.refreshCurrent();
           presenter.getKanban.calledOnce.should.be.true;
@@ -249,13 +240,13 @@ define([
         });
 
         it('doesn\'t call getHome()', function() {
-          sinon.stub(presenter, 'getHome');
+          sandbox.stub(presenter, 'getHome');
           presenter.refreshCurrent();
           presenter.getHome.called.should.be.false;
         });
 
         it('doesn\'t call getKanban()', function() {
-          sinon.stub(presenter, 'getKanban');
+          sandbox.stub(presenter, 'getKanban');
           presenter.refreshCurrent();
           presenter.getKanban.called.should.be.false;
         });
@@ -265,14 +256,9 @@ define([
     describe('refresh() method', function() {
       beforeEach(function() {
         presenter = new DashboardPresenter({user: user});
-        sinon.stub(presenter, 'getMain');
-        sinon.stub(presenter, 'refreshCurrent');
+        sandbox.stub(presenter, 'getMain');
+        sandbox.stub(presenter, 'refreshCurrent');
       });
-
-      after(function() {
-        presenter.getMain.restore();
-        presenter.refreshCurrent.restore();
-      })
 
       it('calls getMain()', function() {
         presenter.refresh();
@@ -291,7 +277,7 @@ define([
       });
 
       it('removes the main view', function() {
-        sinon.spy(presenter.mainView, 'remove');
+        sandbox.spy(presenter.mainView, 'remove');
         presenter.removeAll();
         presenter.mainView.remove.calledOnce.should.be.true;
       });
