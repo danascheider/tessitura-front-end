@@ -12,6 +12,8 @@ define([
   describe('ProtectedCollection', function() {
     var collection, server; 
 
+    var sandbox = sinon.sandbox.create();
+
     beforeEach(function() {
       $.cookie('userID', 4);
       $.cookie('auth', btoa('user4:user4'));
@@ -19,8 +21,10 @@ define([
       collection = new ProtectedCollection();
       collection.model = Model;
       collection.url = API.base + '/models';
-      server = sinon.fakeServer.create();
+      server = sandbox.useFakeServer();
     });
+
+    afterEach(function() { sandbox.restore(); });
 
     describe('token', function() {
       it('returns the value of the auth header for the logged-in user', function() {
@@ -41,10 +45,9 @@ define([
       });
 
       it('calls `fetch` on the Backbone collection prototype', function() {
-        sinon.stub(Backbone.Collection.prototype, 'fetch');
+        sandbox.stub(Backbone.Collection.prototype, 'fetch');
         collection.fetch();
         Backbone.Collection.prototype.fetch.calledOnce.should.be.true;
-        Backbone.Collection.prototype.fetch.restore();
       });
     });
   });
