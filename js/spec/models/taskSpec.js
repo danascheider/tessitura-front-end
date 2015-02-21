@@ -7,6 +7,10 @@ define([
 ], function(Backbone, User, Task, API) {
 
   describe('Task', function() {
+    var sandbox = sinon.sandbox.create();
+
+    afterEach(function() { sandbox.restore(); });
+
     describe('urlRoot', function() {
       it('is scoped to the logged in user', function() {
         $.cookie('auth', btoa('testuser:testuser'));
@@ -19,13 +23,13 @@ define([
     describe('constructor', function() {
       it('calls the validation function', function() {
         var task = new Task();
-        sinon.stub(task, 'validate');
+        sandbox.stub(task, 'validate');
         task.save();
         task.validate.calledOnce.should.be.true;
       });
 
       it('does not save the task automatically', function() {
-        sinon.spy(Backbone.Model.prototype, 'sync');
+        sandbox.spy(Backbone.Model.prototype, 'sync');
         var task = new Task({title: 'Take out the trash'});
         Backbone.Model.prototype.sync.called.should.be.false;
       });
@@ -67,7 +71,7 @@ define([
       });
 
       it('sends the request to the right endpoint', function() {
-        var server = sinon.fakeServer.create();
+        var server = sandbox.useFakeServer();
         var task = new Task({title: 'Take out the trash'});
         task.save();
         server.requests[0].url.should.equal(API.base + '/users/342/tasks');
@@ -101,13 +105,13 @@ define([
       });
 
       it('makes the request to the individual task endpoint', function() {
-        var server = sinon.fakeServer.create(); 
+        var server = sandbox.useFakeServer(); 
         task.fetch();
         server.requests[0].url.should.equal(API.base + '/tasks/114');
       });
 
       it('includes the correct authorization header', function() {
-        var server = sinon.fakeServer.create(); 
+        var server = sandbox.useFakeServer(); 
         task.fetch();
         server.requests[0].requestHeaders.Authorization.should.equal(auth);
       });
