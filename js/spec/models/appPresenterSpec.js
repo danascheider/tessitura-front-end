@@ -7,6 +7,13 @@ define([
   ], function(Backbone, AppPresenter, API, HomepageView) {
 
   describe('AppPresenter', function() {
+
+    var sandbox = sinon.sandbox.create();
+
+    afterEach(function() {
+      sandbox.restore();
+    });
+
     describe('constructor', function() {
       it('initializes a homepage view', function() {
         var presenter = new AppPresenter();
@@ -18,7 +25,7 @@ define([
       var presenter = new AppPresenter();
 
       it('triggers the `userLoggedIn` event', function() {
-        var spy = sinon.spy();
+        var spy = sandbox.spy();
         presenter.on('userLoggedIn', spy);
         presenter.emitLogin();
         spy.calledOnce.should.be.true;
@@ -29,11 +36,7 @@ define([
       var presenter = new AppPresenter();
 
       beforeEach(function() {
-        sinon.stub($.prototype, 'prepend');
-      });
-
-      afterEach(function() {
-        $.prototype.prepend.restore();
+        sandbox.stub($.prototype, 'prepend');
       });
 
       it('creates a homepage view if there is none', function() {
@@ -43,7 +46,7 @@ define([
       });
 
       it('renders the homepage', function() {
-        sinon.spy(presenter.homepageView, 'render');
+        sandbox.spy(presenter.homepageView, 'render');
         presenter.getHomepage('body');
         presenter.homepageView.render.calledOnce.should.be.true;
       });
@@ -58,11 +61,7 @@ define([
       var presenter = new AppPresenter();
 
       beforeEach(function() {
-        sinon.stub(presenter.homepageView, 'remove');
-      });
-
-      afterEach(function() {
-        presenter.homepageView.remove.restore();
+        sandbox.stub(presenter.homepageView, 'remove');
       });
 
       it('removes the homepage view if it exists', function() {
