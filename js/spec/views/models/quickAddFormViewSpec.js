@@ -49,7 +49,16 @@ define([
     });
 
     describe('events', function() {
-      //
+      sinon.test(function() {
+        it('calls createTask when submitted', function() {
+          sinon.stub(QuickAddForm.prototype, 'createTask');
+          var form = new QuickAddForm({collection: collection});
+          form.render();
+          form.$('form').submit();
+          QuickAddForm.prototype.createTask.calledOnce.should.be.true;
+          QuickAddForm.prototype.createTask.restore();
+        });
+      });
     });
 
     describe('createTask() method', function() {
@@ -108,7 +117,7 @@ define([
       })
 
       describe('without a title', function() {
-        it('doesn\'t submit', function() {
+        it('doesn\'t create a task', function() {
           sinon.stub(collection, 'create');
           sinon.stub(Utils, 'getAttributes').returns({title: ''});
           form.createTask(e);
