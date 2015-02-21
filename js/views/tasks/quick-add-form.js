@@ -25,8 +25,9 @@ define([
       var that = this;
       var form = this.$('form'), attrs = Utils.getAttributes(form);
 
-      // Tasks are invalid without a title, so any this method 
+      // Tasks are invalid without a title, so this method 
       // should not run if the title is not included in the attributes.
+
       if(!!attrs.title) {
         this.collection.create(attrs, {
           url        : API.tasks.collection($.cookie('userID')),
@@ -40,7 +41,6 @@ define([
               model.set('position', model.get('position') + 1);
             });
           }
-
         });
       }
     },
