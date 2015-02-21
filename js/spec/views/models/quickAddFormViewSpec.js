@@ -120,7 +120,12 @@ define([
     });
 
     describe('render() function', function() {
-      //
+      it('sets its HTML', function() {
+        sinon.stub($.prototype, 'html');
+        form.render();
+        $.prototype.html.calledOnce.should.be.true;
+        $.prototype.html.restore();
+      });
     });
   });
 });
