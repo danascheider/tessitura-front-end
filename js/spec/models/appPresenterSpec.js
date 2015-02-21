@@ -1,9 +1,10 @@
-define(function(require) {
-  var Backbone = require('backbone');
-  var AppPresenter = require('models/app-presenter');
-  var API = require('api');
-  var HomepageView = require('views/app/homepage');
-  var cookie = require('cookie');
+define([
+  'backbone',
+  'models/app-presenter',
+  'api',
+  'views/app/homepage',
+  'cookie'
+  ], function(Backbone, AppPresenter, API, HomepageView) {
 
   describe('AppPresenter', function() {
     describe('constructor', function() {
