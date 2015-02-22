@@ -107,7 +107,16 @@ define([
     });
 
     describe('hideToggleWidgetIcon() method', function() {
-      //
+      beforeEach(function() {
+        view.render();
+        view.showToggleWidgetIcon($.Event('mouseenter', {target: view.$el}));
+        e = $.Event('mouseleave', {target: view.$el});
+      });
+
+      it('hides the toggle widget icon', function() {
+        view.hideToggleWidgetIcon(e);
+        view.$('span .hide-widget').should.not.be.visible;
+      })
     });
 
     describe('hideWidget() method', function() {
