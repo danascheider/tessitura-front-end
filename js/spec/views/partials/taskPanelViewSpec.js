@@ -167,12 +167,17 @@ define([
       });
     });
 
-    describe('showTaskForm() method', function() {
-      //
-    });
-
     describe('showWidget() method', function() {
-      //
+      beforeEach(function() {
+        view.render();
+        view.hideWidget($.Event('click', {target: view.$('.hide-widget')}));
+        e = $.Event('click', {target: view.$('.show-widget')});
+      });
+
+      it('shows the panel body', function() {
+        view.showWidget(e);
+        view.$('div.panel-body').should.be.visible;
+      });
     });
 
     describe('remove() function', function() {

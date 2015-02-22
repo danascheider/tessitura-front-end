@@ -67,16 +67,6 @@ define([
       span.fadeIn(100);
     },
 
-    // FIX: What does this actually do and why? Does it pertain to the 
-    //      now-defunct create form?
-
-    showTaskForm: function(e) {
-      e.preventDefault();
-      var target = e.target;
-      $(target).find('i.fa').toggleClass('fa-caret-right fa-caret-down');
-      $(target).siblings('.task-form').slideToggle();
-    },
-
     showWidget: function(e) {
       $(e.target).closest('.dash-widget').find('div.panel-body').slideDown();
       $(e.target).closest('span').removeClass('show-widget').addClass('hide-widget');
