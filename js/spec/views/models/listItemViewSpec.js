@@ -7,6 +7,7 @@ define([
 
   describe('Task List Item View', function() {
     var view, server, e; 
+    var sandbox = sinon.sandbox.create();
 
     var task = new Task({title: 'Finish writing test suite', status: 'New', priority: 'Normal'});
 
@@ -14,49 +15,47 @@ define([
       if(typeof view === 'undefined') { view = new ListItemView({model: task}); }
     });
 
-    describe('constructor', function() {
-      it('doesn\'t call render', function() {
-        sinon.stub(Backbone.View.prototype, 'render');
-        var newView = new ListItemView({model: task});
-        Backbone.View.prototype.render.called.should.be.false;
-        Backbone.View.prototype.render.restore();
-      });
-
-      it('creates a model view', function() {
-        var newView = new ListItemView({model: task});
-        newView.$modelView.should.exist;
-      });
-
-      it('creates an edit form', function() {
-        var newView = new ListItemView({model: task});
-        newView.$editForm.should.exist;
-      });
-
-      describe('listeners', function() {
-        before(function() { 
-          sinon.stub(Backbone.View.prototype, 'listenTo'); 
-        });
-
-        after(function() { Backbone.View.prototype.listenTo.restore(); });
-
-        it('listens to changes in task status', function() {
-          var newView = new ListItemView({model: task});
-          Backbone.View.prototype.listenTo.withArgs(task, 'change:status').calledOnce.should.be.true;
-        });
-
-        it('listens for when the user is finished updating', function() {
-          var newView = new ListItemView({model: task});
-          Backbone.View.prototype.listenTo.withArgs(newView.$editForm, 'done').calledOnce.should.be.true;
-        });
-      });
+    afterEach(function() {
+      view.remove();
+      sandbox.restore();
     });
 
+    // describe('constructor', function() {
+    //   it('doesn\'t call render', function() {
+    //     sandbox.stub(Backbone.View.prototype, 'render');
+    //     var newView = new ListItemView({model: task});
+    //     Backbone.View.prototype.render.called.should.be.false;
+    //   });
+
+    //   it('creates a model view', function() {
+    //     var newView = new ListItemView({model: task});
+    //     newView.$modelView.should.exist;
+    //   });
+
+    //   it('creates an edit form', function() {
+    //     var newView = new ListItemView({model: task});
+    //     newView.$editForm.should.exist;
+    //   });
+
+    //   describe('listeners', function() {
+    //     it('listens to changes in task status', function() {
+    //       sandbox.stub(Backbone.View.prototype, 'listenTo'); 
+    //       var newView = new ListItemView({model: task});
+    //       Backbone.View.prototype.listenTo.withArgs(task, 'change:status').calledOnce.should.be.true;
+    //     });
+
+    //     it('listens for when the user is finished updating', function() {
+    //       sandbox.stub(Backbone.View.prototype, 'listenTo'); 
+    //       var newView = new ListItemView({model: task});
+    //       Backbone.View.prototype.listenTo.withArgs(newView.$editForm, 'done').calledOnce.should.be.true;
+    //     });
+    //   });
+    // });
+
     describe('elements', function() {
-      before(function() {
+      beforeEach(function() {
         view.render();
       });
-
-      after(function() { view.remove(); });
 
       it('is an li', function() {
         view.$el[0].tagName.should.equal('LI');
@@ -64,10 +63,6 @@ define([
 
       it('has class task-list-item', function() {
         view.$el[0].className.should.include('task-list-item');
-      });
-
-      it('is draggable', function() {
-        view.$el[0].className.should.include('ui-widget-content ui-draggable ui-draggable-handle')
       });
 
       it('has a mark-complete checkbox', function() {
@@ -80,6 +75,20 @@ define([
 
       it('doesn\'t show its edit form by default', function() {
         view.$editForm.$el.should.not.be.visible;
+      });
+
+      describe('draggable', function() {
+        it('has class ui-widget-content', function() {
+          view.$el[0].className.should.include('ui-widget-content');
+        });
+
+        it('has class ui-draggable', function() {
+          view.$el[0].className.should.include('ui-draggable');
+        });
+
+        it('has class ui-draggable-handle', function() {
+          view.$el[0].className.should.include('ui-draggable-handle');
+        });
       });
 
       describe('edit icon', function() {
@@ -114,15 +123,9 @@ define([
     });
 
     describe('events', function() {
-      var stub;
-
-      afterEach(function() {
-        stub.restore();
-      });
-
       describe('click edit icon', function() {
         it('calls showEditForm', function() {
-          stub = sinon.stub(ListItemView.prototype, 'showEditForm');
+          stub = sandbox.stub(ListItemView.prototype, 'showEditForm');
           var newView = new ListItemView({model: task});
           newView.render();
           newView.$('i[title="Edit"]').click();
@@ -132,7 +135,7 @@ define([
 
       describe('click mark complete checkbox', function() {
         it('calls markComplete', function() {
-          stub = sinon.stub(ListItemView.prototype, 'markComplete');
+          stub = sandbox.stub(ListItemView.prototype, 'markComplete');
           var newView = new ListItemView({model: task});
           newView.render();
           newView.$('i[title="Mark complete"]').click();
@@ -142,7 +145,7 @@ define([
 
       describe('click delete icon', function() {
         it('calls deleteTask', function() {
-          stub = sinon.stub(ListItemView.prototype, 'deleteTask');
+          stub = sandbox.stub(ListItemView.prototype, 'deleteTask');
           var newView = new ListItemView({model: task});
           newView.render();
           newView.$('i[title="Delete"]').click();
@@ -152,7 +155,7 @@ define([
 
       describe('click backlog icon', function() {
         it('calls backlogTask', function() {
-          stub = sinon.stub(ListItemView.prototype, 'backlogTask');
+          stub = sandbox.stub(ListItemView.prototype, 'backlogTask');
           var newView = new ListItemView({model: task});
           newView.render();
           newView.$('i[title="Backlog"]').click();
@@ -162,7 +165,7 @@ define([
 
       describe('click task title', function() {
         it('calls toggleTaskDetails', function() {
-          stub = sinon.stub(ListItemView.prototype, 'toggleTaskDetails');
+          stub = sandbox.stub(ListItemView.prototype, 'toggleTaskDetails');
           var newView = new ListItemView({model: task});
           newView.render();
           newView.$('.task-title').first().click();
@@ -181,7 +184,7 @@ define([
 
       describe('mouseenter', function() {
         it('calls showEditIcons', function() {
-          stub = sinon.stub(ListItemView.prototype, 'showEditIcons');
+          stub = sandbox.stub(ListItemView.prototype, 'showEditIcons');
           var newView = new ListItemView({model: task});
           newView.$el.mouseenter();
           stub.calledOnce.should.be.true;
@@ -190,7 +193,7 @@ define([
 
       describe('mouseleave', function() {
         it('calls hideEditIcons', function() {
-          stub = sinon.stub(ListItemView.prototype, 'hideEditIcons');
+          stub = sandbox.stub(ListItemView.prototype, 'hideEditIcons');
           var newView = new ListItemView({model: task});
           newView.$el.mouseleave();
           stub.calledOnce.should.be.true;
@@ -200,7 +203,7 @@ define([
 
     describe('backlogTask() method', function() {
       beforeEach(function() {
-        server = sinon.fakeServer.create();
+        server = sandbox.useFakeServer();
         server.respondWith(function(xhr) {
           xhr.respond(200);
         });
@@ -216,20 +219,17 @@ define([
       });
 
       it('saves the task', function() {
-        sinon.stub(task, 'save');
+        sandbox.stub(task, 'save');
         view.backlogTask();
         task.save.calledOnce.should.be.true;
-        task.save.restore();
       });
     });
 
     describe('configureDraggable() method', function() {
       beforeEach(function() {
-        sinon.stub($.prototype, 'draggable');
+        sandbox.stub($.prototype, 'draggable');
         view.configureDraggable();
       });
-
-      afterEach(function() { $.prototype.draggable.restore(); });
 
       it('makes the view draggable', function() {
         $.prototype.draggable.calledOnce.should.be.true;
@@ -251,10 +251,9 @@ define([
       });
 
       it('renders the view', function() {
-        sinon.stub(view, 'render');
+        sandbox.stub(view, 'render');
         view.changePosition();
         view.render.calledOnce.should.be.true;
-        view.render.restore();
       });
     });
 
@@ -267,11 +266,11 @@ define([
 
         after(function() { 
           task.set('status', 'New') 
-          view.remove();
         });
 
-        // I am having a hard time testing this because of (I assume)
-        // the window.setTimeout that is called in the view code.
+        // FIX: Use Mocha's asynchronous testing to test the delayed
+        //      trigger on this.
+
         it('triggers the markComplete event');
 
         it('checks the checkbox', function() {
@@ -289,19 +288,18 @@ define([
       describe('when the task is incomplete', function() {
         beforeEach(function() {
           view.render();
+          view.crossOff();
         });
 
-        // I am having a hard time testing this because of (I assume)
-        // the window.setTimeout that is called in the view code.
+        // FIX: Use Mocha's asynchronous testing to make this work
+
         it('doesn\'t trigger markComplete');
 
         it('doesn\'t check the checkbox', function() {
-          view.crossOff();
           view.$('.fa-check-square-o').length.should.equal(0);
         });
 
         it('doesn\'t cross off the task\'s title', function() {
-          view.crossOff();
           view.$('.task-title').css('text-decoration').should.not.include('line-through');
         });
       });
@@ -309,10 +307,9 @@ define([
 
     describe('deleteTask() method', function() {
       it('destroys the task', function() {
-        sinon.stub(task, 'destroy');
+        sandbox.stub(task, 'destroy');
         view.deleteTask();
         task.destroy.calledOnce.should.be.true;
-        task.destroy.restore();
       });
     });
 
@@ -322,20 +319,15 @@ define([
         view.showEditForm();
       });
 
-      afterEach(function() {
-        view.remove();
-      });
-
       it('hides the edit form', function() {
         view.hideEditForm();
         view.$editForm.$el.should.not.be.visible;
       });
 
       it('removes the view from the DOM', function() {
-        sinon.stub(view.$editForm, 'remove');
+        sandbox.stub(view.$editForm, 'remove');
         view.hideEditForm();
         view.$editForm.remove.calledOnce.should.be.true;
-        view.$editForm.remove.restore();
       });
     });
 
@@ -343,10 +335,6 @@ define([
       beforeEach(function() {
         view.render();
         view.showEditIcons();
-      });
-
-      afterEach(function() {
-        view.remove();
       });
 
       it('hides the edit icon', function() {
@@ -366,8 +354,7 @@ define([
     });
 
     describe('markComplete() method', function() {
-      before(function() { sinon.stub(task, 'save'); });
-      after(function() { task.save.restore(); });
+      before(function() { sandbox.stub(task, 'save'); });
 
       it('marks the task complete and saves', function() {
         view.markComplete();
@@ -387,7 +374,7 @@ define([
       });
 
       it('removes the model view from the DOM', function(done) {
-        sinon.spy(view.$modelView, 'remove');
+        sandbox.spy(view.$modelView, 'remove');
         view.showEditForm();
 
         // FIX: In the interest of saving time, I am putting all 3 of these
@@ -396,7 +383,6 @@ define([
 
         view.$modelView.remove.calledOnce.should.be.true;
         done();
-        view.$modelView.remove.restore();
       });
 
       it('hides the model view', function(done) {
@@ -463,15 +449,10 @@ define([
     });
 
     describe('render() function', function() {
-      afterEach(function() {
-        view.remove();
-      });
-
       it('sets the HTML', function() {
-        sinon.stub($.prototype, 'html');
+        sandbox.stub($.prototype, 'html');
         view.render();
         $.prototype.html.called.should.be.true;
-        $.prototype.html.restore();
       });
 
       it('returns itself', function() {
@@ -479,17 +460,15 @@ define([
       });
 
       it('configures the draggable property', function() {
-        sinon.stub(view, 'configureDraggable');
+        sandbox.stub(view, 'configureDraggable');
         view.render();
         view.configureDraggable.calledOnce.should.be.true;
-        view.configureDraggable.restore();
       });
 
       it('delegates events', function() {
-        sinon.stub(view, 'delegateEvents');
+        sandbox.stub(view, 'delegateEvents');
         view.render();
         view.delegateEvents.calledOnce.should.be.true;
-        view.delegateEvents.restore();
       });
     });
   });
