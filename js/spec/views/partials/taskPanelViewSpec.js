@@ -151,6 +151,18 @@ define([
         view.render();
         view.$quickAddForm.render.calledOnce.should.be.true;
       });
+
+      it('calls delegateEvents on itself', function() {
+        sandbox.stub(view, 'delegateEvents');
+        view.render();
+        view.delegateEvents.calledOnce.should.be.true;
+      });
+
+      it('calls delegateEvents on the collection view', function() {
+        sandbox.stub(view.$collectionView, 'delegateEvents');
+        view.render();
+        view.$collectionView.delegateEvents.calledOnce.should.be.true;
+      })
     });
   });
 });
