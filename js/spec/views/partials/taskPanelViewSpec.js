@@ -156,7 +156,15 @@ define([
     });
 
     describe('showToggleWidgetIcon() method', function() {
-      //
+      beforeEach(function() {
+        view.render();
+        e = $.Event('mouseenter', {target: view.$el});
+      });
+
+      it('shows the toggle icon', function() {
+        view.showToggleWidgetIcon(e);
+        view.$('span.hide-widget').should.be.visible;
+      });
     });
 
     describe('showTaskForm() method', function() {
