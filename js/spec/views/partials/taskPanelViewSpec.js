@@ -120,7 +120,15 @@ define([
     });
 
     describe('hideWidget() method', function() {
-      //
+      beforeEach(function() {
+        view.render();
+        e = $.Event('click', {target: view.$('.hide-widget')});
+      });
+
+      it('hides the panel body', function() {
+        view.hideWidget(e);
+        view.$('div.panel-body').should.not.be.visible;
+      });
     });
 
     describe('removeTask() method', function() {
