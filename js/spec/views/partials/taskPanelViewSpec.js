@@ -139,6 +139,12 @@ define([
         view.render();
         $.prototype.html.withArgs(view.template()).calledOnce.should.be.true;
       });
+
+      it('renders the collection view', function() {
+        sandbox.stub(view.$collectionView, 'render');
+        view.render();
+        view.$collectionView.render.calledOnce.should.be.true;
+      });
     });
   });
 });
