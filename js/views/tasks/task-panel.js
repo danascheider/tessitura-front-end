@@ -56,7 +56,6 @@ define([
       $(e.target).find('i').removeClass('fa-minus').addClass('fa-plus');
     },
 
-    // FIX: Is there a reason this can't be in the collection view?
     removeTask: function(e) {
       var id = $(e.target).closest('.task-list-item').attr('id').match(/\d+$/)[0];
       var task = this.collection.findWhere({id: parseInt(id)});

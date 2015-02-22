@@ -142,7 +142,17 @@ define([
     });
 
     describe('removeTask() method', function() {
-      //
+      beforeEach(function() {
+        view.collection.reset([task1, task2, task3]);
+        view.render();
+        e = $.Event('click', {target: view.$('#task-1 .fa-archive')});
+      });
+
+      it('removes the specified task from the collection', function() {
+        sandbox.spy(view.collection, 'remove');
+        view.removeTask(e);
+        view.collection.remove.withArgs(task1).called.should.be.true;
+      });
     });
 
     describe('showToggleWidgetIcon() method', function() {
