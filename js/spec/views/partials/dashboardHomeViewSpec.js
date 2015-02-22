@@ -10,6 +10,8 @@ define([
   
   describe('Dashboard Home View', function() {
     var view, e, server;
+    var sandbox = sinon.sandbox.create();
+
     var user = new User({
       id      : 342,
       username: 'testuser', 
@@ -38,12 +40,16 @@ define([
       }
     });
 
+    afterEach(function() {
+      view.remove();
+      sandbox.restore();
+    });
+
     describe('constructor', function() {
       it('does not call render', function() {
-        sinon.stub(Backbone.View.prototype, 'render');
+        sandbox.stub(Backbone.View.prototype, 'render');
         var newView = new HomeView({user: user});
         Backbone.View.prototype.render.called.should.be.false;
-        Backbone.View.prototype.render.restore();
       });
 
       it('assigns a user', function() {
@@ -91,10 +97,9 @@ define([
         // FIX: I cannot figure out why this doesn't work no matter how I 
         //      word the test code or SUT
 
-        // sinon.stub(Backbone.View.prototype, 'render');
+        // sandbox.stub(Backbone.View.prototype, 'render');
         // view.renderTopWidgets({taskCollection: user.tasks});
         // Backbone.View.prototype.render.called.should.be.true;
-        // Backbone.View.prototype.render.restore();
       });
     });
 
@@ -112,10 +117,9 @@ define([
         // FIX: I cannot figure out why this doesn't work no matter how I 
         //      word the test code or SUT
 
-        // sinon.stub(Backbone.View.prototype, 'render');
+        // sandbox.stub(Backbone.View.prototype, 'render');
         // view.renderTaskPanel(user.tasks);
         // Backbone.View.prototype.render.calledOnce.should.be.true;
-        // Backbone.View.prototype.render.restore();
       });
     });
 
@@ -125,26 +129,23 @@ define([
       });
 
       it('fetches the collection', function() {
-        sinon.stub(user.tasks, 'fetch');
+        sandbox.stub(user.tasks, 'fetch');
         view.render();
         user.tasks.fetch.calledOnce.should.be.true;
-        user.tasks.fetch.restore();
       });
 
       it('calls renderTopWidgets()', function() {
-        sinon.spy(view, 'renderTopWidgets');
+        sandbox.spy(view, 'renderTopWidgets');
         view.render();
         server.respond();
         view.renderTopWidgets.calledOnce.should.be.true;
-        view.renderTopWidgets.restore();
       });
 
       it('calls renderTaskPanel()', function() {
-        sinon.stub(view, 'renderTaskPanel');
+        sandbox.stub(view, 'renderTaskPanel');
         view.render();
         server.respond();
         view.renderTaskPanel.calledOnce.should.be.true;
-        view.renderTaskPanel.restore();
       });
     });
 
@@ -155,24 +156,21 @@ define([
       });
 
       it('removes the task panel', function() {
-        sinon.stub(view.$taskPanel, 'remove');
+        sandbox.stub(view.$taskPanel, 'remove');
         view.reset();
         view.$taskPanel.remove.calledOnce.should.be.true;
-        view.$taskPanel.remove.restore();
       });
 
       it('removes the top widgets', function() {
-        sinon.stub(view.$topWidgets, 'remove');
+        sandbox.stub(view.$topWidgets, 'remove');
         view.reset();
         view.$topWidgets.remove.calledOnce.should.be.true;
-        view.$topWidgets.remove.restore();
       });
 
       it('removes itself from the DOM', function() {
-        sinon.stub(view, 'remove');
+        sandbox.stub(view, 'remove');
         view.reset();
         view.remove.calledOnce.should.be.true;
-        view.remove.restore();
       });
 
       it('keeps its user', function() {
@@ -181,10 +179,9 @@ define([
       });
 
       it('undelegates events', function() {
-        sinon.stub(view, 'undelegateEvents');
+        sandbox.stub(view, 'undelegateEvents');
         view.reset();
         view.undelegateEvents.calledOnce.should.be.true;
-        view.undelegateEvents.restore();
       });
 
       it('returns itself', function() {
