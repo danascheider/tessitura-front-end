@@ -23,7 +23,8 @@ define([
     TaskPanelTemplate) {
 
   var TaskPanelView = Backbone.View.extend({
-    el       : $('#task-panel'),
+    tagNme   : 'div',
+    id       : 'task-panel',
 
     events   : {
       'mouseenter'             : 'showToggleWidgetIcon',

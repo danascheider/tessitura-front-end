@@ -48,7 +48,17 @@ define([
     });
 
     describe('elements', function() {
-      //
+      beforeEach(function() {
+        view.render();
+      });
+
+      it('is a div', function() {
+        view.$el[0].tagName.should.equal('DIV');
+      })
+
+      it('has ID #task-panel', function() {
+        view.$el[0].id.should.equal('task-panel');
+      });
     });
 
     describe('events', function() {
