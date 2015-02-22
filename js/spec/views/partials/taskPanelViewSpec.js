@@ -92,6 +92,18 @@ define([
       it('returns ten tasks', function() {
         view.filterCollection(collection).length.should.equal(10);
       });
+
+      it('doesn\'t include complete tasks', function() {
+        task3.set('status', 'Blocking');
+        view.filterCollection(collection).should.not.include(task3);
+        task3.set('status', 'Complete');
+      });
+
+      it('doesn\'t include backlogged tasks', function() {
+        task1.set('backlog', true);
+        view.filterCollection(collection).should.not.include(task1);
+        task1.unset('backlog');
+      });
     });
 
     describe('hideToggleWidgetIcon() method', function() {
