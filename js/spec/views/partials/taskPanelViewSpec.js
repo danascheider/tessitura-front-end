@@ -6,14 +6,14 @@ define([
   ], function(Backbone, TaskCollection, Task, TaskPanelView) {
   
   describe('Task Panel View', function() {
-    var view;
+    var view, e;
     var sandbox = sinon.sandbox.create();
 
     var task1 = new Task({id: 1, title: 'Task 1', status: 'New', priority: 'Low', position: 1});
     var task2 = new Task({id: 2, title: 'Task 2', status: 'New', priority: 'Normal', position: 2});
     var task3 = new Task({id: 3, title: 'Task 3', status: 'Complete', priority: 'Normal', position: 3});
 
-    var collection = new TaskCollection([task1, task2, task3]);
+    var collection = new TaskCollection([task1, task2, task3], {comparator: 'position'});
 
     beforeEach(function() {
       if(typeof view === 'undefined') { view = new TaskPanelView({collection: collection}); }
@@ -32,15 +32,18 @@ define([
       });
 
       it('sets a collection', function() {
-        //
+        var newView = new TaskPanelView({collection: collection});
+        newView.collection.should.exist;
       });
 
       it('instantiates a quick-add form', function() {
-        //
+        var newView = new TaskPanelView({collection: collection});
+        newView.$quickAddForm.should.exist;
       });
 
       it('instantiates a collection view', function() {
-        //
+        var newView = new TaskPanelView({collection: collection});
+        newView.$collectionView.should.exist;
       });
     });
 

@@ -4,11 +4,12 @@ define([
   'api',
   'models/user',
   'models/task',
+  'collections/tasks',
   'views/app/dashboard',
   'views/app/dashboard-home',
   'views/app/kanban-board',
   'cookie'
-], function(Backbone, DashboardPresenter, API, User, Task, MainView, HomeView, TaskView) {
+], function(Backbone, DashboardPresenter, API, User, Task, TaskCollection, MainView, HomeView, TaskView) {
   
   describe('DashboardPresenter', function() {
     var sandbox = sinon.sandbox.create();
@@ -16,6 +17,11 @@ define([
     // Create user to be passed to the DashboardPresenter
 
     var user = new User({username: 'testuser', password: 'testuser', email: 'testuser@example.com'}), presenter;
+    var task1 = new Task({id: 1, title: 'Task 1', status: 'New', priority: 'Low', position: 1});
+    var task2 = new Task({id: 2, title: 'Task 2', status: 'New', priority: 'Normal', position: 2});
+    var task3 = new Task({id: 3, title: 'Task 3', status: 'Complete', priority: 'Normal', position: 3});
+
+    user.tasks = new TaskCollection([task1, task2, task3]);
 
     afterEach(function() { sandbox.restore(); });
 
@@ -96,7 +102,7 @@ define([
       });
 
       it('renders the home view', function() {
-        presenter.mainView.$homeView = presenter.mainView.$homeView || new HomeView({user: user});
+        presenter.mainView.$homeView = presenter.mainView.$homeView || new HomeView({user: user, collection: user.tasks});
         sandbox.stub(presenter.mainView.$homeView, 'render');
         presenter.getHome();
         presenter.mainView.$homeView.render.calledOnce.should.be.true;

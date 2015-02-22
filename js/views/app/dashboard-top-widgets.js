@@ -32,6 +32,7 @@ define([
     },
 
     initialize: function(opts) {
+      opts = opts || {};
       this.data = opts.data;
 
       this.listenTo(this.data.taskCollection, 'add', this.render);

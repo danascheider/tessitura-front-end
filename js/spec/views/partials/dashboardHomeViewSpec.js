@@ -67,12 +67,12 @@ define([
 
     describe('elements', function() {
       beforeEach(function() { 
-        view.reset().render(); 
+        view.render(); 
         server.respond();
       });
 
       it('has a task panel', function() {
-        view.$taskPanel.$el.html().should.not.be.empty;
+        view.$taskPanel.$el.should.be.visible;
       });
 
       it('has a top widget section', function() {
@@ -85,7 +85,7 @@ define([
 
     describe('renderTopWidgets() method', function() {
       beforeEach(function() {
-        view.reset();
+        view.render().$topWidgets.remove();
       });
 
       it('creates a top widget view', function() {
@@ -107,7 +107,7 @@ define([
 
     describe('renderTaskPanel() method', function() {
       beforeEach(function() {
-        view.reset();
+        view.render().$taskPanel.remove();
       });
 
       it('creates a task panel view', function() {
@@ -129,13 +129,7 @@ define([
 
     describe('render() function', function() {
       beforeEach(function() {
-        view.reset();
-      });
-
-      it('fetches the collection', function() {
-        sandbox.stub(user.tasks, 'fetch');
-        view.render();
-        user.tasks.fetch.calledOnce.should.be.true;
+        view.remove();
       });
 
       it('calls renderTopWidgets()', function() {
@@ -153,43 +147,32 @@ define([
       });
     });
 
-    describe('reset() method', function() {
+    describe('remove() method', function() {
       beforeEach(function() { 
         view.render(); 
-        server.respond(); // render function makes Ajax call
       });
 
       it('removes the task panel', function() {
         sandbox.stub(view.$taskPanel, 'remove');
-        view.reset();
+        view.remove();
         view.$taskPanel.remove.calledOnce.should.be.true;
       });
 
       it('removes the top widgets', function() {
         sandbox.stub(view.$topWidgets, 'remove');
-        view.reset();
+        view.remove();
         view.$topWidgets.remove.calledOnce.should.be.true;
       });
 
       it('removes itself from the DOM', function() {
         sandbox.stub(view, 'remove');
-        view.reset();
+        view.remove();
         view.remove.calledOnce.should.be.true;
       });
 
       it('keeps its user', function() {
-        view.reset();
+        view.remove();
         view.user.should.equal(user);
-      });
-
-      it('undelegates events', function() {
-        sandbox.stub(view, 'undelegateEvents');
-        view.reset();
-        view.undelegateEvents.calledOnce.should.be.true;
-      });
-
-      it('returns itself', function() {
-        view.reset().should.equal(view);
       });
     });
   });

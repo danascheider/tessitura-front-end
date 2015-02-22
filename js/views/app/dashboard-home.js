@@ -14,31 +14,22 @@ define([
     className  : 'dashboard-home',
 
     renderTopWidgets : function(data) {
-      this.$topWidgets = new DashboardTopWidgetView({
-        data: data
-      });
-
       this.$('#dash-heading').html(this.$topWidgets.render().el);
+      this.$topWidgets.delegateEvents();
 
       return this;
     },
 
-    renderTaskPanel  : function(collection) {
-      this.$taskPanel = this.$taskPanel || new TaskPanelView({el: this.$('#task-panel'), collection: collection});
+    renderTaskPanel  : function() {
       this.$taskPanel.render();
+      this.$('div.col-lg-6').append(this.$taskPanel.el);
       return this;
     },
 
-    reset            : function() {
-      this.undelegateEvents();
+    remove           : function() {
       this.$taskPanel.remove();
       this.$topWidgets.remove();
-      this.remove();
-
-      var user = this.user;
-      this.initialize({user: user});
-
-      return this;
+      Backbone.View.prototype.remove.call(this);
     },
 
     // Core view functions //
@@ -46,30 +37,27 @@ define([
     initialize : function(opts) {
       opts = opts || {};
       this.user = opts.user;
-    },
+      this.collection = opts.collection || this.user.tasks;
+      this.$taskPanel = new TaskPanelView({collection: this.user.tasks});
 
-    render     : function() {
-      this.$el.html(this.template());
-
-      // Fetch the user's tasks and render in the task panel
       var that = this;
       var data = {
+        taskCollection      : that.user.tasks,
         appointmentCount    : 4,
         deadlineCount       : 9,
         recommendationCount : 13
       };
+      
+      this.$topWidgets = new DashboardTopWidgetView({data: data});
+    },
 
-      this.user.tasks.fetch({
-        url: API.tasks.collection(that.user.get('id')),
-        success : function(collection) {
-          data.taskCollection = collection;
-          that.renderTopWidgets(data).renderTaskPanel(collection);
-        },
-        error   : function(error) {
-          console.log('Error: ', error);
-        }
-      });
+    render     : function() {
+      this.$el.html(this.template());
+      this.renderTopWidgets();
+      this.renderTaskPanel();
 
+      // Fetch the user's tasks and render in the task panel
+      var that = this;
       return this;
     }
   });

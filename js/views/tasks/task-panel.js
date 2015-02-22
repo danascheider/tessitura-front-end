@@ -35,8 +35,8 @@ define([
 
     template : _.template(TaskPanelTemplate),
 
-    filterCollection: function() {
-      var tasks = this.collection.filter(function(task) {
+    filterCollection: function(collection) {
+      var tasks = collection.filter(function(task) {
         return task.get('status') !== 'Blocking' && !task.get('backlog');
       });
 
@@ -84,23 +84,24 @@ define([
 
     // Core View Functions //
 
+    initialize: function(opts) {
+      var that = this;
+      this.collection = new TaskCollection(this.filterCollection(that.collection), {comparator: 'position'});
+      this.$quickAddForm = new QuickAddFormView({collection: this.collection});
+      this.$collectionView = new TaskCollectionView({collection: this.collection});
+    },
+
     render: function() {
       var that = this;
 
       this.$el.html(this.template());
-      
-      var c = new TaskCollection(that.filterCollection(), {comparator: 'position'});
-
-      // FIX: Is there a reason this is being created here? Why can't I
-      //      stick with the one created by the collection view? Or should
-      //      I get rid of that one and just put it here?
-
-      this.$quickAddForm = new QuickAddFormView({collection: c});
-      this.$collectionView = new TaskCollectionView({collection: c});
+      this.$collectionView.render();
+      this.$quickAddForm.render();
       this.$('.panel-body').html(this.$collectionView.el);
       this.$quickAddForm.$el.prependTo(this.$collectionView.el);
-
-      this.$collectionView.render();
+      this.delegateEvents();
+      this.$collectionView.delegateEvents();
+      this.$quickAddForm.delegateEvents();
       
       this.$collectionView.$el.sortable({
         items: ">*:not(.not-sortable)"
