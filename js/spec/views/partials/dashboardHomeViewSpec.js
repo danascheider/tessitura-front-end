@@ -101,6 +101,8 @@ define([
         // view.renderTopWidgets({taskCollection: user.tasks});
         // Backbone.View.prototype.render.called.should.be.true;
       });
+
+      it('inserts the top widget view into the DOM');
     });
 
     describe('renderTaskPanel() method', function() {
@@ -121,6 +123,8 @@ define([
         // view.renderTaskPanel(user.tasks);
         // Backbone.View.prototype.render.calledOnce.should.be.true;
       });
+
+      it('inserts the task panel view into the DOM');
     });
 
     describe('render() function', function() {
