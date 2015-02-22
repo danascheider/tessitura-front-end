@@ -145,6 +145,12 @@ define([
         view.render();
         view.$collectionView.render.calledOnce.should.be.true;
       });
+
+      it('renders the quickAddForm', function() {
+        sandbox.stub(view.$quickAddForm, 'render');
+        view.render();
+        view.$quickAddForm.render.calledOnce.should.be.true;
+      });
     });
   });
 });
