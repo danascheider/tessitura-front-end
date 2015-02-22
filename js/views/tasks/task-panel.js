@@ -108,10 +108,11 @@ define([
       this.$quickAddForm.render();
       this.$('.panel-body').html(this.$collectionView.el);
       this.$quickAddForm.$el.prependTo(this.$collectionView.el);
-      this.delegateEvents();
-      this.$collectionView.delegateEvents();
+
       this.$quickAddForm.delegateEvents();
-      
+      this.$collectionView.delegateEvents();
+      this.delegateEvents();
+
       this.$collectionView.$el.sortable({
         items: ">*:not(.not-sortable)"
       });

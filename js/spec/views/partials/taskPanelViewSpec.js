@@ -161,8 +161,24 @@ define([
       it('calls delegateEvents on the collection view', function() {
         sandbox.stub(view.$collectionView, 'delegateEvents');
         view.render();
-        view.$collectionView.delegateEvents.calledOnce.should.be.true;
-      })
+        view.$collectionView.delegateEvents.called.should.be.true;
+      });
+
+      it('calls delegateEvents on the quick-add form', function() {
+        sandbox.stub(view.$quickAddForm, 'delegateEvents');
+        view.render();
+        view.$quickAddForm.delegateEvents.called.should.be.true;
+      });
+
+      it('configures sortable on the collection', function() {
+        sandbox.stub($.prototype, 'sortable');
+        view.render();
+        $.prototype.sortable.called.should.be.true;
+      });
+
+      it('returns itself', function() {
+        view.render().should.equal(view);
+      });
     });
   });
 });
