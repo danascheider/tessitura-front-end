@@ -78,7 +78,20 @@ define([
     });
 
     describe('filterCollection() method', function() {
-      //
+      before(function() {
+        for(var i = 1; i < 20; i++) {
+          var t = new Task({title: 'My Task ' + i});
+          collection.add([t]);
+        }
+      });
+
+      after(function() {
+        collection.reset([task1, task2, task3]);
+      });
+
+      it('returns ten tasks', function() {
+        view.filterCollection(collection).length.should.equal(10);
+      });
     });
 
     describe('hideToggleWidgetIcon() method', function() {
