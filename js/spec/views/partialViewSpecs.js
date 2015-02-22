@@ -5,4 +5,5 @@ define([
   'spec/views/partials/dashboardTopWidgetsViewSpec',
   'spec/views/partials/kanbanBoardViewSpec',
   'spec/views/partials/kanbanColumnViewSpec',
+  'spec/views/partials/taskPanelViewSpec'
   ]);
