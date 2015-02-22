@@ -23,15 +23,16 @@ define([
     TaskPanelTemplate) {
 
   var TaskPanelView = Backbone.View.extend({
-    tagNme   : 'div',
-    id       : 'task-panel',
+    tagName   : 'div',
+    id        : 'task-panel',
+    className : 'panel panel-primary dash-widget',
 
     events   : {
-      'mouseenter'             : 'showToggleWidgetIcon',
-      'mouseleave'             : 'hideToggleWidgetIcon',
-      'click .hide-widget'     : 'hideWidget',
-      'click .show-widget'     : 'showWidget',
-      'click .fa-archive'      : 'removeTask',
+      'mouseenter'         : 'showToggleWidgetIcon',
+      'mouseleave'         : 'hideToggleWidgetIcon',
+      'click .hide-widget' : 'hideWidget',
+      'click .show-widget' : 'showWidget',
+      'click .fa-archive'  : 'removeTask'
     },
 
     template : _.template(TaskPanelTemplate),

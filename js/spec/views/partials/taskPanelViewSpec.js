@@ -59,6 +59,18 @@ define([
       it('has ID #task-panel', function() {
         view.$el[0].id.should.equal('task-panel');
       });
+
+      it('has classname \'panel panel-primary dash-widget\'', function() {
+        view.$el[0].className.should.equal('panel panel-primary dash-widget');
+      });
+
+      it('has a collection view', function() {
+        view.$collectionView.$el.should.be.visible;
+      });
+
+      it('has a quick-add form', function() {
+        view.$quickAddForm.$el.should.be.visible;
+      });
     });
 
     describe('events', function() {
