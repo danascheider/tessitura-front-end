@@ -105,7 +105,23 @@ define([
       //
     });
 
-    describe('render function', function() {
+    describe('remove() function', function() {
+      beforeEach(function() { view.remove(); });
+
+      it('removes the collection view from the DOM', function() {
+        sandbox.stub(view.$collectionView, 'remove');
+        view.remove();
+        view.$collectionView.remove.calledOnce.should.be.true;
+      });
+
+      it('removes the quick-add form from the DOM', function() {
+        sandbox.stub(view.$quickAddForm, 'remove');
+        view.remove();
+        view.$quickAddForm.remove.calledOnce.should.be.true;
+      });
+    });
+
+    describe('render() function', function() {
       //
     });
   });

@@ -93,6 +93,11 @@ define([
       this.$collectionView = new TaskCollectionView({collection: this.collection});
     },
 
+    remove: function() {
+      this.$collectionView.remove();
+      this.$quickAddForm.remove();
+    },
+
     render: function() {
       var that = this;
 
