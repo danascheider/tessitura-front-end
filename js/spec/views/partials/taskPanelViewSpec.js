@@ -134,7 +134,11 @@ define([
     });
 
     describe('render() function', function() {
-      //
+      it('sets the HTML', function() {
+        sandbox.stub($.prototype, 'html');
+        view.render();
+        $.prototype.html.withArgs(view.template()).calledOnce.should.be.true;
+      });
     });
   });
 });
