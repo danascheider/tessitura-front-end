@@ -200,14 +200,11 @@ define([
 
       var that = this;
 
-      function renderForm() {
+      window.setTimeout(function() {
         that.$modelView.remove();
-
         that.$editForm.render().$el.removeAttr('style');
         that.$('td.task-listing').html(that.$editForm.el);
-      }
-
-      window.setTimeout(renderForm, 150);
+      }, 150);
     },
 
     showEditIcons     : function() {

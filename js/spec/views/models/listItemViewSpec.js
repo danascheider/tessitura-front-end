@@ -20,37 +20,37 @@ define([
       sandbox.restore();
     });
 
-    // describe('constructor', function() {
-    //   it('doesn\'t call render', function() {
-    //     sandbox.stub(Backbone.View.prototype, 'render');
-    //     var newView = new ListItemView({model: task});
-    //     Backbone.View.prototype.render.called.should.be.false;
-    //   });
+    describe('constructor', function() {
+      it('doesn\'t call render', function() {
+        sandbox.stub(Backbone.View.prototype, 'render');
+        var newView = new ListItemView({model: task});
+        Backbone.View.prototype.render.called.should.be.false;
+      });
 
-    //   it('creates a model view', function() {
-    //     var newView = new ListItemView({model: task});
-    //     newView.$modelView.should.exist;
-    //   });
+      it('creates a model view', function() {
+        var newView = new ListItemView({model: task});
+        newView.$modelView.should.exist;
+      });
 
-    //   it('creates an edit form', function() {
-    //     var newView = new ListItemView({model: task});
-    //     newView.$editForm.should.exist;
-    //   });
+      it('creates an edit form', function() {
+        var newView = new ListItemView({model: task});
+        newView.$editForm.should.exist;
+      });
 
-    //   describe('listeners', function() {
-    //     it('listens to changes in task status', function() {
-    //       sandbox.stub(Backbone.View.prototype, 'listenTo'); 
-    //       var newView = new ListItemView({model: task});
-    //       Backbone.View.prototype.listenTo.withArgs(task, 'change:status').calledOnce.should.be.true;
-    //     });
+      describe('listeners', function() {
+        it('listens to changes in task status', function() {
+          sandbox.stub(Backbone.View.prototype, 'listenTo'); 
+          var newView = new ListItemView({model: task});
+          Backbone.View.prototype.listenTo.withArgs(task, 'change:status').calledOnce.should.be.true;
+        });
 
-    //     it('listens for when the user is finished updating', function() {
-    //       sandbox.stub(Backbone.View.prototype, 'listenTo'); 
-    //       var newView = new ListItemView({model: task});
-    //       Backbone.View.prototype.listenTo.withArgs(newView.$editForm, 'done').calledOnce.should.be.true;
-    //     });
-    //   });
-    // });
+        it('listens for when the user is finished updating', function() {
+          sandbox.stub(Backbone.View.prototype, 'listenTo'); 
+          var newView = new ListItemView({model: task});
+          Backbone.View.prototype.listenTo.withArgs(newView.$editForm, 'done').calledOnce.should.be.true;
+        });
+      });
+    });
 
     describe('elements', function() {
       beforeEach(function() {
@@ -374,15 +374,16 @@ define([
       });
 
       it('removes the model view from the DOM', function(done) {
-        sandbox.spy(view.$modelView, 'remove');
+        sandbox.stub(view.$modelView, 'remove');
         view.showEditForm();
-
-        // FIX: In the interest of saving time, I am putting all 3 of these
-        //      assertions into this spec. In the future, I will need to 
-        //      figure out how to make it run this bad boy asynchronously.
-
-        view.$modelView.remove.calledOnce.should.be.true;
-        done();
+        setTimeout(function() {
+          try {
+            view.$modelView.remove.called.should.be.true;
+            done();
+          } catch(e) {
+            done(e);
+          }
+        }, 150);
       });
 
       it('hides the model view', function(done) {
@@ -424,7 +425,7 @@ define([
     });
 
     // FIX: If I am going to keep the list item and model views 
-    //      separate, this wofuld really belong with the model view.
+    //      separate, this would really belong with the model view.
 
     describe('toggleTaskDetails() method', function() {
       beforeEach(function() {
