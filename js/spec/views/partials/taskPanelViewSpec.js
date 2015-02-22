@@ -129,6 +129,11 @@ define([
         view.hideWidget(e);
         view.$('div.panel-body').should.not.be.visible;
       });
+
+      it('changes the icon to show-widget', function() {
+        view.hideWidget(e);
+        view.$('span.pull-right')[0].className.should.include('show-widget');
+      });
     });
 
     describe('removeTask() method', function() {
