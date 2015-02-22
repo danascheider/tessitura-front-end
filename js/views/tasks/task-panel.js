@@ -96,6 +96,8 @@ define([
     remove: function() {
       this.$collectionView.remove();
       this.$quickAddForm.remove();
+      this.undelegateEvents();
+      Backbone.View.prototype.remove.call(this);
     },
 
     render: function() {

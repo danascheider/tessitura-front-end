@@ -119,6 +119,18 @@ define([
         view.remove();
         view.$quickAddForm.remove.calledOnce.should.be.true;
       });
+
+      it('removes itself', function() {
+        sandbox.stub(Backbone.View.prototype.remove, 'call');
+        view.remove();
+        Backbone.View.prototype.remove.call.withArgs(view).calledOnce.should.be.true;
+      });
+
+      it('calls undelegateEvents', function() {
+        sandbox.stub(view, 'undelegateEvents');
+        view.remove();
+        view.undelegateEvents.calledOnce.should.be.true;
+      })
     });
 
     describe('render() function', function() {
