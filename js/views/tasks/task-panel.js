@@ -3,7 +3,6 @@ define([
   'underscore', 
   'backbone',
   'utils',
-  'api',
   'models/task',
   'collections/tasks',
   'views/tasks/collection',
@@ -17,7 +16,6 @@ define([
     $, _,
     Backbone,
     Utils,
-    API,
     TaskModel,
     TaskCollection,
     TaskCollectionView,
@@ -68,6 +66,9 @@ define([
       span.fadeIn(100);
     },
 
+    // FIX: What does this actually do and why? Does it pertain to the 
+    //      now-defunct create form?
+
     showTaskForm: function(e) {
       e.preventDefault();
       var target = e.target;
@@ -89,6 +90,11 @@ define([
       this.$el.html(this.template());
       
       var c = new TaskCollection(that.filterCollection(), {comparator: 'position'});
+
+      // FIX: Is there a reason this is being created here? Why can't I
+      //      stick with the one created by the collection view? Or should
+      //      I get rid of that one and just put it here?
+
       this.$quickAddForm = new QuickAddFormView({collection: c});
       this.$collectionView = new TaskCollectionView({collection: c});
       this.$('.panel-body').html(this.$collectionView.el);
