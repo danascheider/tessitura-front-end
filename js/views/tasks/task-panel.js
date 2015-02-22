@@ -53,7 +53,7 @@ define([
     hideWidget: function(e) {
       $(e.target).closest('.dash-widget').find('div.panel-body').slideUp();
       $(e.target).closest('span').removeClass('hide-widget').addClass('show-widget');
-      $(e.target).removeClass('fa-minus').addClass('fa-plus');
+      $(e.target).find('i').removeClass('fa-minus').addClass('fa-plus');
     },
 
     // FIX: Is there a reason this can't be in the collection view?
