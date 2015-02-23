@@ -78,9 +78,11 @@ define([
     render     : function() {
       this.$el.html(this.template({data: this.data}));
 
-      this.$('.panel-body').append(this.$quickAddForm.render().el);
-      this.$('.panel-body').append(this.$collectionView.render().el);
+      this.$('.panel-body').html(this.$collectionView.render().el);
+      this.$collectionView.$el.prepend(this.$quickAddForm.render().el);
 
+      this.delegateEvents();
+      this.$collectionView.delegateEvents();
       this.$quickAddForm.delegateEvents();
 
       this.$collectionView.$el.sortable({
@@ -90,11 +92,11 @@ define([
       return this;
     },
 
-    reset      : function() {
+    remove      : function() {
       this.$collectionView.remove();
-      this.remove();
+      this.$quickAddForm.remove();
+      Backbone.View.prototype.remove.call(this);
 
-      this.initialize();
       return this;
     }
   });

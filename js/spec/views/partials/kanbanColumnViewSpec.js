@@ -8,6 +8,7 @@ define([
   
   describe('Kanban column view', function() {
     var column, e, server;
+    var sandbox = sinon.sandbox.create();
 
     var user = new User({
       id      : 342,
@@ -30,23 +31,24 @@ define([
       if(typeof column === 'undefined') { column = new ColumnView(data); }
     });
 
+    afterEach(function() {
+      column.remove();
+      sandbox.restore();
+    });
+
     describe('constructor', function() {
       it('doesn\'t call render()', function() {
-        sinon.stub(Backbone.View.prototype, 'render');
+        sandbox.stub(Backbone.View.prototype, 'render');
         var newView = new ColumnView(data);
         Backbone.View.prototype.render.called.should.be.false;
-        Backbone.View.prototype.render.restore();
       });
 
       describe('properties', function() {
         var newView;
-        beforeEach(function() { 
-          sinon.stub(Backbone.View.prototype, 'listenTo');
-          newView = new ColumnView(data); 
-        });
 
-        afterEach(function() {
-          Backbone.View.prototype.listenTo.restore();
+        beforeEach(function() { 
+          sandbox.stub(Backbone.View.prototype, 'listenTo');
+          newView = new ColumnView(data); 
         });
 
         it('sets the collection', function() {
@@ -94,13 +96,13 @@ define([
     });
 
     describe('elements', function() {
-      // beforeEach(function() {
-      //   column.render();
-      // });
+      it('is a div', function() {
+        column.$el[0].tagName.should.equal('DIV');
+      });
 
-      // it('has a quick-add form', function() {
-      //   column.$('.quick-add-form').should.exist;
-      // });
+      it('has a quick-add form', function() {
+        column.$('.quick-add-form').should.exist;
+      });
     });
 
     describe('events', function() {
