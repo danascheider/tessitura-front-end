@@ -138,7 +138,17 @@ define([
     });
 
     describe('render() function', function() {
-      //
+      it('sets the HTML', function() {
+        sandbox.stub($.prototype, 'html');
+        column.render();
+        $.prototype.html.withArgs(column.template({data: data})).calledOnce.should.be.true;
+      });
+
+      it('renders the collection view', function() {
+        sandbox.stub($.prototype, 'html');
+        column.render();
+        $.prototype.html.withArgs(column.$collectionView.el).calledOnce.should.be.true;
+      });
     });
   });
 });

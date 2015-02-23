@@ -11,7 +11,7 @@ define([
   'text!templates/partials/kanban-column.html'
 ], function($, _, Backbone, Utils, API, TaskModel, JQueryUI, TaskCollectionView, QuickAddFormView, Template) {
   
-  var KanbanColumnView = Backbone.View.extend({
+  var KanbanColumnView = Backbone.View.extend({ 
     template   : _.template(Template),
 
     tagName    : 'div',
@@ -65,7 +65,7 @@ define([
       this.data.color = this.data.color || 'primary';
 
       this.$el.addClass('panel-' + this.data.color);
-      
+
       this.groupedBy = this.data.headline === 'Backlog' ?  {backlog: true} : {status: this.data.headline};
 
       this.$collectionView = new TaskCollectionView({collection: this.collection});
@@ -80,8 +80,8 @@ define([
     render     : function() {
       this.$el.html(this.template({data: this.data}));
 
-      this.$('.panel-body').html(this.$collectionView.render().el);
-      this.$collectionView.$el.prepend(this.$quickAddForm.render().el);
+      this.$('.panel-body').html(this.$collectionView.el);
+      this.$collectionView.$el.prepend(this.$quickAddForm.el);
 
       this.delegateEvents();
       this.$collectionView.delegateEvents();
