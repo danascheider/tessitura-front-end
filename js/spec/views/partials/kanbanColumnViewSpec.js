@@ -166,7 +166,19 @@ define([
         sandbox.stub(column.$quickAddForm, 'delegateEvents');
         column.render();
         column.$quickAddForm.delegateEvents.calledOnce.should.be.true;
-      })
+      });
+
+      it('calls delegateEvents on itself', function() {
+        sandbox.stub(column, 'delegateEvents');
+        column.render();
+        column.delegateEvents.calledOnce.should.be.true;
+      });
+
+      it('configures sortable', function() {
+        sandbox.stub($.prototype, 'sortable');
+        column.render();
+        $.prototype.sortable.calledOnce.should.be.true;
+      });
     });
   });
 });
