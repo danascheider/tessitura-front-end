@@ -62,6 +62,20 @@ define([
       });
     });
 
+    describe('events', function() {
+      describe('submit form', function() {
+        it('calls updateTask', function() {
+          sinon.test(function() {
+            sinon.stub(FormView.prototype, 'updateTask');
+            var newView = new FormView({model: task});
+            newView.render();
+            newView.$el.submit();
+            FormView.prototype.updateTask.calledOnce.should.be.true;
+          });
+        });
+      });
+    });
+
     describe('updateTask() method', function() {
       beforeEach(function() {
         view.render();
