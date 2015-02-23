@@ -48,6 +48,10 @@ define([
             view.$('input[name="' + name + '"]').length.should.equal(1);
           });
         });
+
+        it('has a \'description\' field', function() {
+          view.$('textarea[name="description"]').length.should.equal(1);
+        });
       });
     });
   });
