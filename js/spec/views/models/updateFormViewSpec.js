@@ -95,6 +95,10 @@ define([
         view.render();
         view.delegateEvents.calledOnce.should.be.true;
       });
+
+      it('returns itself', function() {
+        view.render().should.equal(view);
+      });
     });
   });
 });
