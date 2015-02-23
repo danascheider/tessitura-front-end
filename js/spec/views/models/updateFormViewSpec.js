@@ -76,10 +76,18 @@ define([
         e.preventDefault.calledOnce.should.be.true;
       });
 
-      it('saves the model', function() {
+      it('saves the model with the new attributes', function() {
         sandbox.stub(task, 'save');
         view.updateTask(e);
         task.save.withArgs({status: 'Blocking'}).calledOnce.should.be.true;
+      });
+    });
+
+    describe('render() function', function() {
+      it('sets the HTML', function() {
+        sandbox.stub($.prototype, 'html');
+        view.render();
+        $.prototype.html.withArgs(view.template({model: task})).calledOnce.should.be.true;
       });
     });
   });
