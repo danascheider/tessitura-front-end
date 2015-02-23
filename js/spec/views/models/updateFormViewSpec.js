@@ -24,6 +24,19 @@ define([
         var newView = new FormView({model: task});
         FormView.prototype.render.called.should.be.false;
       });
+
+      it('sets the model', function() {
+        var newView = new FormView({model: task});
+        newView.model.should.equal(task);
+      });
+    });
+
+    describe('elements', function() {
+      beforeEach(function() { view.render(); });
+
+      it('is a form', function() {
+        view.$el[0].tagName.should.equal('FORM');
+      });
     });
   });
 });

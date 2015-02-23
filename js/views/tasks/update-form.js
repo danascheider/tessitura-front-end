@@ -18,16 +18,8 @@ define([
     updateTask : function(e) {
       e.preventDefault();
       var form  = $(e.target).closest('form'), attrs = Utils.getAttributes(form), that = this;
-
-      this.model.set(attrs);
-
       this.model.save(attrs, {
-        url        : API.tasks.single(that.model.get('id')),
         type       : 'PUT',
-        beforeSend : Utils.authHeader,
-        success    : function() {
-          that.trigger('done');
-        },
         error      : function(model, response) {
           console.log('Error: ', response);
         }
