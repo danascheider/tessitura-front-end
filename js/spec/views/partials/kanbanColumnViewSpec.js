@@ -155,6 +155,12 @@ define([
         column.render();
         $.prototype.prepend.withArgs(column.$quickAddForm.el).calledOnce.should.be.true;
       });
+
+      it('calls delegateEvents on the collection view', function() {
+        sandbox.stub(column.$collectionView, 'delegateEvents');
+        column.render();
+        column.$collectionView.delegateEvents.calledOnce.should.be.true;
+      })
     });
   });
 });
