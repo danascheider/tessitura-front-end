@@ -32,7 +32,7 @@ define([
       'mouseleave'         : 'hideToggleWidgetIcon',
       'click .hide-widget' : 'hideWidget',
       'click .show-widget' : 'showWidget',
-      'click .fa-archive'  : 'removeTask'
+      'click .fa-archive'  : 'removeBacklogged'
     },
 
     template : _.template(TaskPanelTemplate),
@@ -56,9 +56,8 @@ define([
       $(e.target).find('i').removeClass('fa-minus').addClass('fa-plus');
     },
 
-    removeTask: function(e) {
-      var id = $(e.target).closest('.task-list-item').attr('id').match(/\d+$/)[0];
-      var task = this.collection.findWhere({id: parseInt(id)});
+    removeBacklogged: function() {
+      var task = this.collection.findWhere({backlog: true});
       this.collection.remove(task);
     },
 
@@ -80,6 +79,8 @@ define([
       this.collection = new TaskCollection(this.filterCollection(that.collection), {comparator: 'position'});
       this.$quickAddForm = new QuickAddFormView({collection: this.collection});
       this.$collectionView = new TaskCollectionView({collection: this.collection});
+
+      this.listenTo(this.collection, 'change:backlog', this.removeBacklogged);
     },
 
     remove: function() {

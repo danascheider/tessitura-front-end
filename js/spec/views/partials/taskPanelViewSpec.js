@@ -45,6 +45,12 @@ define([
         var newView = new TaskPanelView({collection: collection});
         newView.$collectionView.should.exist;
       });
+
+      it('listens to its collection\'s change:backlog event', function() {
+        sandbox.stub(Backbone.View.prototype, 'listenTo');
+        var newView = new TaskPanelView({collection: collection});
+        Backbone.View.prototype.listenTo.withArgs(newView.collection, 'change:backlog', newView.removeBacklogged).called.should.be.true;
+      });
     });
 
     describe('elements', function() {
@@ -179,16 +185,11 @@ define([
       });
     });
 
-    describe('removeTask() method', function() {
-      beforeEach(function() {
-        view.collection.reset([task1, task2, task3]);
-        view.render();
-        e = $.Event('click', {target: view.$('#task-1 .fa-archive')});
-      });
-
+    describe('removeBacklogged() method', function() {
       it('removes the specified task from the collection', function() {
-        sandbox.spy(view.collection, 'remove');
-        view.removeTask(e);
+        sandbox.stub(view.collection, 'remove');
+        task1.set('backlog', true);
+        view.removeBacklogged();
         view.collection.remove.withArgs(task1).called.should.be.true;
       });
     });
