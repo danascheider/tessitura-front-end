@@ -101,7 +101,7 @@ define([
       });
 
       it('has a quick-add form', function() {
-        column.$('.quick-add-form').should.exist;
+        column.$quickAddForm.$el.should.be.visible;
       });
     });
 
