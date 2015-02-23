@@ -52,6 +52,12 @@ define([
         it('has a \'description\' field', function() {
           view.$('textarea[name="description"]').length.should.equal(1);
         });
+
+        _.each(['submit', 'reset'], function(type) {
+          it('has a \'' + type + '\' button', function() {
+            view.$('button[type="' + type + '"]').length.should.equal(1);
+          });
+        });
       });
     });
   });
