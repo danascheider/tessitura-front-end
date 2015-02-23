@@ -111,6 +111,10 @@ define([
       it('has a quick-add form', function() {
         column.$quickAddForm.$el.should.be.visible;
       });
+
+      it('has a collection view', function() {
+        column.$collectionView.$el.should.be.visible;
+      });
     });
 
     describe('events', function() {
