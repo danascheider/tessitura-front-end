@@ -41,6 +41,14 @@ define([
       it('has class .edit-form', function() {
         view.$el[0].className.should.include('edit-form');
       });
+
+      describe('form fields', function() {
+        _.each(['title', 'deadline', 'priority', 'status'], function(name) {
+          it('has a \'' + name + '\' field', function() {
+            view.$('input[name="' + name + '"]').length.should.equal(1);
+          });
+        });
+      });
     });
   });
 });
