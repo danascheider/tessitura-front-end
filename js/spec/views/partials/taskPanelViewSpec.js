@@ -82,6 +82,16 @@ define([
           TaskPanelView.prototype.showToggleWidgetIcon.calledOnce.should.be.true;
         });
       });
+
+      describe('mouseleave', function() {
+        it('calls hideToggleWidgetIcon', function() {
+          sandbox.stub(TaskPanelView.prototype, 'hideToggleWidgetIcon');
+          var newView = new TaskPanelView({collection: collection});
+          newView.render();
+          newView.$el.mouseleave();
+          TaskPanelView.prototype.hideToggleWidgetIcon.calledOnce.should.be.true;
+        });
+      });
     });
 
     describe('filterCollection() method', function() {
