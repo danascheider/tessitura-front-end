@@ -92,6 +92,27 @@ define([
           TaskPanelView.prototype.hideToggleWidgetIcon.calledOnce.should.be.true;
         });
       });
+
+      describe('click .hide-widget', function() {
+        it('calls hideWidget', function() {
+          sandbox.stub(TaskPanelView.prototype, 'hideWidget');
+          var newView = new TaskPanelView({collection: collection});
+          newView.render();
+          newView.$('.hide-widget').click();
+          TaskPanelView.prototype.hideWidget.calledOnce.should.be.true;
+        });
+      });
+
+      describe('click .showWidget', function() {
+        it('calls showWidget', function() {
+          sandbox.stub(TaskPanelView.prototype, 'showWidget');
+          var newView = new TaskPanelView({collection: collection});
+          newView.render();
+          newView.$('.hide-widget').click();
+          newView.$('.show-widget').click();
+          TaskPanelView.prototype.showWidget.calledOnce.should.be.true;
+        });
+      });
     });
 
     describe('filterCollection() method', function() {
