@@ -70,7 +70,7 @@ define([
     showWidget: function(e) {
       $(e.target).closest('.dash-widget').find('div.panel-body').slideDown();
       $(e.target).closest('span').removeClass('show-widget').addClass('hide-widget');
-      $(e.target).removeClass('fa-plus').addClass('fa-minus');
+      $(e.target).find('i').removeClass('fa-plus').addClass('fa-minus');
     },
 
     // Core View Functions //

@@ -183,6 +183,11 @@ define([
         view.showWidget(e);
         view.$('span.pull-right')[0].className.should.include('hide-widget');
       });
+
+      it('changes the icon to the hide icon', function() {
+        view.showWidget(e);
+        view.$('span.pull-right i')[0].className.should.include('fa-minus');
+      });
     });
 
     describe('remove() function', function() {
