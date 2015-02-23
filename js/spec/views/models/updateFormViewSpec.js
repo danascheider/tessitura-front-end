@@ -89,6 +89,12 @@ define([
         view.render();
         $.prototype.html.withArgs(view.template({model: task})).calledOnce.should.be.true;
       });
+
+      it('calls delegateEvents', function() {
+        sandbox.stub(view, 'delegateEvents');
+        view.render();
+        view.delegateEvents.calledOnce.should.be.true;
+      });
     });
   });
 });
