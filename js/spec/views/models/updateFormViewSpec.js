@@ -37,6 +37,10 @@ define([
       it('is a form', function() {
         view.$el[0].tagName.should.equal('FORM');
       });
+
+      it('has class .edit-form', function() {
+        view.$el[0].className.should.include('edit-form');
+      });
     });
   });
 });
