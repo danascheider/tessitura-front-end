@@ -160,6 +160,12 @@ define([
         sandbox.stub(column.$collectionView, 'delegateEvents');
         column.render();
         column.$collectionView.delegateEvents.calledOnce.should.be.true;
+      });
+
+      it('calls delegateEvents on the quick-add form', function() {
+        sandbox.stub(column.$quickAddForm, 'delegateEvents');
+        column.render();
+        column.$quickAddForm.delegateEvents.calledOnce.should.be.true;
       })
     });
   });
