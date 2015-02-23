@@ -1,8 +1,9 @@
 define([
   'backbone',
   'views/tasks/update-form',
-  'models/task'
-  ], function(Backbone, FormView, Task) {
+  'models/task',
+  'utils'
+  ], function(Backbone, FormView, Task, Utils) {
   
   describe('Task Update Form View', function() {
     var view, server, e;
@@ -58,6 +59,21 @@ define([
             view.$('button[type="' + type + '"]').length.should.equal(1);
           });
         });
+      });
+    });
+
+    describe('updateTask() method', function() {
+      beforeEach(function() {
+        view.render();
+        e = $.Event('submit', {target: view.$el});
+        server = sandbox.useFakeServer();
+        sandbox.stub(Utils, 'getAttributes').returns({status: 'Blocking'});
+      });
+
+      it('doesn\'t refresh the browser', function() {
+        sandbox.stub(e, 'preventDefault');
+        view.updateTask(e);
+        e.preventDefault.calledOnce.should.be.true;
       });
     });
   });
