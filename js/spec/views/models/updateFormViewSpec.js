@@ -75,6 +75,12 @@ define([
         view.updateTask(e);
         e.preventDefault.calledOnce.should.be.true;
       });
+
+      it('saves the model', function() {
+        sandbox.stub(task, 'save');
+        view.updateTask(e);
+        task.save.withArgs({status: 'Blocking'}).calledOnce.should.be.true;
+      });
     });
   });
 });

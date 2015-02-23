@@ -17,7 +17,7 @@ define([
 
     updateTask : function(e) {
       e.preventDefault();
-      var form  = $(e.target).closest('form'), attrs = Utils.getAttributes(form), that = this;
+      var form  = $(e.target).closest('form'), attrs = Utils.getAttributes(form);
       this.model.save(attrs, {
         type       : 'PUT',
         error      : function(model, response) {
