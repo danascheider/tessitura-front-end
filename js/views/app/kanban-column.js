@@ -15,6 +15,7 @@ define([
     template   : _.template(Template),
 
     tagName    : 'div',
+    className  : 'panel dash-widget kanban-column',
 
     events     : {
       'submit form.quick-add-form' : 'createTask'
@@ -61,9 +62,10 @@ define([
 
     initialize : function(data) {
       this.data = data || {};
+      this.data.color = this.data.color || 'primary';
 
-      this.className = 'panel panel-' + this.data.color + ' dash-widget kanban-column';
-
+      this.$el.addClass('panel-' + this.data.color);
+      
       this.groupedBy = this.data.headline === 'Backlog' ?  {backlog: true} : {status: this.data.headline};
 
       this.$collectionView = new TaskCollectionView({collection: this.collection});

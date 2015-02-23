@@ -100,6 +100,14 @@ define([
         column.$el[0].tagName.should.equal('DIV');
       });
 
+      it('has class panel', function() {
+        column.$el[0].className.should.include('panel');
+      });
+
+      it('sets its panel color', function() {
+        column.$el[0].className.should.include('panel-blue');
+      });
+
       it('has a quick-add form', function() {
         column.$quickAddForm.$el.should.be.visible;
       });
