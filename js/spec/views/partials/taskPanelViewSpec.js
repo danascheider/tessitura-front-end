@@ -178,6 +178,11 @@ define([
         view.showWidget(e);
         view.$('div.panel-body').should.be.visible;
       });
+
+      it('changes the class to hide-widget', function() {
+        view.showWidget(e);
+        view.$('span.pull-right')[0].className.should.include('hide-widget');
+      });
     });
 
     describe('remove() function', function() {
