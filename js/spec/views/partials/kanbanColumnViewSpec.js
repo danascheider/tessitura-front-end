@@ -149,6 +149,12 @@ define([
         column.render();
         $.prototype.html.withArgs(column.$collectionView.el).calledOnce.should.be.true;
       });
+
+      it('renders the quick-add form view', function() {
+        sandbox.stub($.prototype, 'prepend');
+        column.render();
+        $.prototype.prepend.withArgs(column.$quickAddForm.el).calledOnce.should.be.true;
+      });
     });
   });
 });
