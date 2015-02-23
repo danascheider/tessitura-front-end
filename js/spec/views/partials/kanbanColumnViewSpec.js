@@ -179,6 +179,10 @@ define([
         column.render();
         $.prototype.sortable.calledOnce.should.be.true;
       });
+
+      it('returns itself', function() {
+        column.render().should.equal(column);
+      });
     });
   });
 });
