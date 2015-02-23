@@ -74,7 +74,14 @@ define([
     });
 
     describe('events', function() {
-      //
+      describe('mouseenter', function() {
+        it('calls showToggleWidgetIcon', function() {
+          sandbox.stub(TaskPanelView.prototype, 'showToggleWidgetIcon');
+          var newView = new TaskPanelView({collection: collection});
+          newView.$el.mouseenter();
+          TaskPanelView.prototype.showToggleWidgetIcon.calledOnce.should.be.true;
+        });
+      });
     });
 
     describe('filterCollection() method', function() {
