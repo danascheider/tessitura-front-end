@@ -47,12 +47,7 @@ define([
     },
 
     updateTask : function(task) {
-      task.save(this.groupedBy, {
-        beforeSend: Utils.authHeader,
-        error     : function(model, response) {
-          console.log('Unable to update task: ', response);
-        }
-      });
+      task.save(this.groupedBy);
     },
 
     // Core View Methods //
