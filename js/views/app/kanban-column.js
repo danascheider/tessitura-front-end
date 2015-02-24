@@ -31,15 +31,12 @@ define([
 
       _.each(this.groupedBy, function(value,key) { attrs[key] = value; });
 
-      var newTask = new TaskModel(attrs);
-
       if(!!attrs.title) {
-        newTask.save(newTask.attrs, {
+        this.collection.create(attrs, {
           url: API.tasks.collection($.cookie('userID')),
           beforeSend: Utils.authHeader,
           success: function(model) {
             form[0].reset();
-            that.collection.add(model);
           },
           error: function(model, response) {
             form[0].reset();
