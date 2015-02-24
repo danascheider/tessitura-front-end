@@ -100,9 +100,6 @@ define([
       });
     });
 
-    // FIX: This should also check for menu visibility and not for 
-    //      class name
-
     describe('hideDropdownMenus() method', function() {
       beforeEach(function() { dashboard.reset().render(); });
 
@@ -111,7 +108,7 @@ define([
           e = $.Event('click', {target: dashboard.$el.not('ul.nav')});
           dashboard.$('li.dropdown').first().addClass('open');
           dashboard.hideDropdownMenus(e);
-          dashboard.$('li.dropdown.open').length.should.equal(0);
+          dashboard.$('li.dropdown').should.not.be.visible;
         });
       });
 
@@ -120,7 +117,7 @@ define([
           dashboard.$('li.dropdown').first().addClass('open');
           e = $.Event('click', {target: dashboard.$('li.dropdown').first().children('ul.dropdown-menu')});
           dashboard.hideDropdownMenus(e);
-          dashboard.$('li.dropdown').first()[0].className.should.include('open');
+          dashboard.$('li.dropdown').first().should.be.visible;
         });
       });
     });
