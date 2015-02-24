@@ -165,6 +165,20 @@ define([
       });
     });
 
+    describe('render() function', function() {
+      it('calls delegateEvents on its sidebar', function() {
+        sandbox.spy(dashboard.$sidebar, 'delegateEvents');
+        dashboard.render();
+        dashboard.$sidebar.delegateEvents.called.should.be.true;
+      });
+
+      it('calls delegateEvents on itself', function() {
+        sandbox.spy(dashboard, 'delegateEvents');
+        dashboard.render();
+        dashboard.delegateEvents.calledOnce.should.be.true;
+      });
+    });
+
     describe('remove() function', function() {
       beforeEach(function() {
         dashboard.render();
