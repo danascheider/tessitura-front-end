@@ -24,9 +24,9 @@ define([
         var shorter = title.substring(0,59).split(' ');
         shorter.pop();
         return shorter.join(' ') + ' ...';
-      } else {
-        return title;
-      }
+      } 
+
+      return title;
     },
 
     fetch: function(options) {
