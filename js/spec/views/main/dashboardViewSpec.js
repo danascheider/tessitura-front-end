@@ -122,8 +122,6 @@ define([
       });
     });
 
-    // FIX: This should check for menu visibility, not for class name
-
     describe('toggleDropdownMenu() method', function() {
       beforeEach(function() {
         dashboard.reset().render();
@@ -134,12 +132,12 @@ define([
       describe('when no menus are visible', function() {
         it('displays the menu that was clicked', function() {
           dashboard.toggleDropdownMenu(e);
-          dashboard.$('li.dropdown').last()[0].className.should.include('open');
+          dashboard.$('li.dropdown').last().should.be.visible;
         });
 
         it('doesn\'t display the other menus', function() {
           dashboard.toggleDropdownMenu(e);
-          dashboard.$('li.dropdown').first()[0].className.should.not.include('open');
+          dashboard.$('li.dropdown').first().should.not.be.visible;
         });
       })
 
@@ -148,12 +146,12 @@ define([
 
         it('hides the visible menu', function() {
           dashboard.toggleDropdownMenu(e);
-          dashboard.$('li.dropdown').first()[0].className.should.not.include('open');
+          dashboard.$('li.dropdown').first().should.not.be.visible;
         });
 
         it('displays the menu that was clicked', function() {
           dashboard.toggleDropdownMenu(e);
-          dashboard.$('li.dropdown').last()[0].className.should.include('open');
+          dashboard.$('li.dropdown').last().should.be.visible;
         });
       });
 
@@ -162,7 +160,7 @@ define([
 
         it('hides the menu', function() {
           dashboard.toggleDropdownMenu(e);
-          dashboard.$('li.dropdown').last()[0].className.should.not.include('open');
+          dashboard.$('li.dropdown').last().should.not.be.visible;
         });
       });
     });
