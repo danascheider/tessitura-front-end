@@ -13,9 +13,11 @@ define([
 
     render    : function() {
       this.$el.html(this.template({model: this.model}));
+      this.delegateEvents();
       return this;
     },
 
+    // FIX: This should not exist
     reset     : function() {
       this.remove();
       return this;

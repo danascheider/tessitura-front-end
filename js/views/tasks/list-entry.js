@@ -234,14 +234,14 @@ define([
 
     render: function() {
       this.$el.html(this.template());
+      this.delegateEvents();
+      this.$modelView.delegateEvents();
 
       this.$modelView.render();
       this.$('td.task-listing').html(this.$modelView.el);
 
       this.configureDraggable();
-
-      this.delegateEvents();
-
+      
       return this;
     }
   });

@@ -23,7 +23,12 @@ define([
 
     // FIX: This should be moved to the quick-add form itself. Then the 
     //      column view should listen to the quick add form and add the 
-    //      newly created task to its collection.
+    //      newly created task to its collection. The reason I hesitate
+    //      to do this already is that I can't think of how to cause the
+    //      quick-add form to create the task with the attribute that 
+    //      constitutes the grouping of the column view. Possibly just let
+    //      it add the task to the collection and live with the 2nd 
+    //      REST request? 
 
     createTask : function(e) {
       e.preventDefault();
@@ -66,16 +71,14 @@ define([
     render     : function() {
       this.$el.html(this.template({data: this.data}));
 
+      this.$quickAddForm.render();
+      this.$collectionView.render();
       this.$('.panel-body').html(this.$collectionView.el);
       this.$collectionView.$el.prepend(this.$quickAddForm.el);
 
       this.delegateEvents();
-      this.$collectionView.delegateEvents();
       this.$quickAddForm.delegateEvents();
-
-      this.$collectionView.$el.sortable({
-        items: '>*:not(".not-sortable")',
-      });
+      this.$collectionView.delegateEvents();
       
       return this;
     },

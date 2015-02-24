@@ -42,9 +42,8 @@ define([
       this.collection.remove(this.collection.findWhere({status: 'Complete'}));
     },
 
-    // The reset function resets the view to factory, so to speak, so it removes
-    // the view from the DOM, removes all listeners and event bindings, and 
-    // calls initialize again.
+    // FIX: This should be replaced by a custom `remove` function that removes
+    //      all the child views before cleaning up the parent.
 
     reset          : function() {
       this.remove();
@@ -73,12 +72,14 @@ define([
     render: function() {
       var that = this;
       this.$el.html('');
-
+      
       this.collection.each(function(task) {
         var view = new ListItemView({model: task});
         that.$el.append(view.render().el);
       });
   
+      this.delegateEvents();
+
       this.$el.sortable({connectWith: '.task-list', dropOnEmpty: true});
 
       return this;

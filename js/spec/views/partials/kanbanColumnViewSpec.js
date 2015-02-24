@@ -4,7 +4,7 @@ define([
   'models/user',
   'models/task',
   'collections/tasks',
-  'utils'], function(Backbone, ColumnView, Task, User, TaskCollection, Utils) {
+  'utils'], function(Backbone, ColumnView, User, Task, TaskCollection, Utils) {
   
   describe('Kanban column view', function() {
     var column, e, server;
@@ -118,7 +118,16 @@ define([
     });
 
     describe('events', function() {
-      //
+      describe('submit quick-add form', function() {
+        it('calls createTask', function() {
+          sandbox.stub(ColumnView.prototype, 'createTask');
+          var newCol = new ColumnView(data);
+          newCol.render();
+          newCol.$quickAddForm.$('form').submit();
+          ColumnView.prototype.createTask.calledOnce.should.be.true;
+          newCol.remove();
+        });
+      });
     });
 
     describe('createTask() method', function() {
@@ -165,13 +174,13 @@ define([
       it('calls delegateEvents on the collection view', function() {
         sandbox.stub(column.$collectionView, 'delegateEvents');
         column.render();
-        column.$collectionView.delegateEvents.calledOnce.should.be.true;
+        column.$collectionView.delegateEvents.called.should.be.true;
       });
 
       it('calls delegateEvents on the quick-add form', function() {
         sandbox.stub(column.$quickAddForm, 'delegateEvents');
         column.render();
-        column.$quickAddForm.delegateEvents.calledOnce.should.be.true;
+        column.$quickAddForm.delegateEvents.called.should.be.true;
       });
 
       it('calls delegateEvents on itself', function() {
@@ -206,6 +215,12 @@ define([
         sandbox.stub(column.$quickAddForm, 'remove');
         column.remove();
         column.$quickAddForm.remove.calledOnce.should.be.true;
+      });
+
+      it('removes itself', function() {
+        sandbox.stub(Backbone.View.prototype.remove, 'call');
+        column.remove();
+        Backbone.View.prototype.remove.call.withArgs(column).calledOnce.should.be.true;
       });
     });
   });
