@@ -47,7 +47,7 @@ define([
 
     describe('elements', function() {
       beforeEach(function() {
-        dashboard.reset().render();
+        dashboard.render();
       });
 
       it('is a div', function() {
@@ -101,7 +101,7 @@ define([
     });
 
     describe('hideDropdownMenus() method', function() {
-      beforeEach(function() { dashboard.reset().render(); });
+      beforeEach(function() { dashboard.render(); });
 
       describe('when not clicking on a menu', function() {
         it('hides visible dropdown menus', function() {
@@ -124,7 +124,7 @@ define([
 
     describe('toggleDropdownMenu() method', function() {
       beforeEach(function() {
-        dashboard.reset().render();
+        dashboard.render();
         dashboard.$('li.dropdown').removeClass('open');
         e = $.Event('click', {target: dashboard.$('li.dropdown').last()});
       });
@@ -165,30 +165,21 @@ define([
       });
     });
 
-    describe('reset() method', function() {
+    describe('remove() function', function() {
       beforeEach(function() {
         dashboard.render();
       });
 
       it('removes the view from the DOM', function() {
-        sandbox.spy(dashboard, 'remove');
-        dashboard.reset();
-        dashboard.remove.calledOnce.should.be.true;
+        sandbox.spy(Backbone.View.prototype.remove, 'call');
+        dashboard.remove();
+        Backbone.View.prototype.remove.call.withArgs(dashboard).calledOnce.should.be.true;;
       });
 
-      it('keeps its user', function() {
-        dashboard.reset();
-        dashboard.user.should.equal(user);
-      });
-
-      it('retains its sidebar', function() {
-        var sidebar = dashboard.$sidebar;
-        dashboard.reset();
-        dashboard.$sidebar.should.equal(sidebar);
-      })
-
-      it('returns the view', function() {
-        dashboard.reset().should.equal(dashboard);
+      it('removes the sidebar from the DOM', function() {
+        sandbox.spy(dashboard.$sidebar, 'remove');
+        dashboard.remove();
+        dashboard.$sidebar.remove.calledOnce.should.be.true;
       });
     });
   });

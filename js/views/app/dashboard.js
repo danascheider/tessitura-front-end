@@ -67,19 +67,14 @@ define([
       var that = this;
       this.$el.html(this.template({user: this.user}));
       this.$('div.sidebar-collapse').html(this.$sidebar.render().el);
+      this.delegateEvents();
       this.$sidebar.delegateEvents();
       return this;
     },
 
-    reset: function() {
-      var user = this.user;
-
-      // Remove the view from the DOM
-      this.remove();
-
-      // Call initialize again
-      this.initialize({user: user});
-      return this;
+    remove: function() {
+      this.$sidebar.remove();
+      Backbone.View.prototype.remove.call(this);
     }
   });
 
