@@ -201,6 +201,12 @@ define([
         column.remove();
         column.$collectionView.remove.calledOnce.should.be.true;
       });
+
+      it('removes the quick-add form', function() {
+        sandbox.stub(column.$quickAddForm, 'remove');
+        column.remove();
+        column.$quickAddForm.remove.calledOnce.should.be.true;
+      });
     });
   });
 });
