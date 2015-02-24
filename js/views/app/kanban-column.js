@@ -47,7 +47,7 @@ define([
     },
 
     updateTask : function(task) {
-      task.save({status: this.taskStatus}, {
+      task.save(this.groupedBy, {
         beforeSend: Utils.authHeader,
         error     : function(model, response) {
           console.log('Unable to update task: ', response);

@@ -134,9 +134,13 @@ define([
         user.tasks.create.calledOnce.should.be.true;
       });
     });
-    
+
     describe('updateTask() method', function() {
-      //
+      it('modifies the task with the column\'s groupedBy attribute', function() {
+        sandbox.stub(task3, 'save');
+        column.updateTask(task3);
+        task3.save.withArgs({status: 'New'}).calledOnce.should.be.true;
+      });
     });
 
     describe('render() function', function() {
