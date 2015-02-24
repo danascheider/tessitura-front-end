@@ -39,8 +39,8 @@ define([
       'mouseleave'         : 'hideEditIcons'
     },
 
-    // FIX: Should consider configuring this in the collection view - it is
-    //      not the model's responsibility.
+    // This needs to be configured here because it is the draggable element,
+    // even though the draggability mainly pertains to the parent list.
 
     configureDraggable: function() {
       var that = this;

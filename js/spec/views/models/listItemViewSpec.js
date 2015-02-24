@@ -174,12 +174,21 @@ define([
       });
 
       describe('click reset button', function() {
-
-        // FIX: I am having trouble testing that this works. I believe the 
-        //      reason has to do with event delegation between the parent 
-        //      view and the child (edit form) view.
-
-        it('calls hideEditForm');
+        it('calls hideEditForm', function(done) {
+          stub = sandbox.stub(ListItemView.prototype, 'hideEditForm');
+          var newView = new ListItemView({model: task});
+          newView.render();
+          newView.showEditForm();
+          setTimeout(function() {
+            try {
+              newView.$editForm.$('button:reset').click();
+              stub.calledOnce.should.be.true;
+              done();
+            } catch(e) {
+              done(e);
+            }
+          }, 150);
+        });
       });
 
       describe('mouseenter', function() {
