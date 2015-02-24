@@ -134,15 +134,7 @@ define([
         user.tasks.create.calledOnce.should.be.true;
       });
     });
-
-    describe('renderChildViews() method', function() {
-      //
-    });
-
-    describe('renderChildViews() method', function() {
-      //
-    });
-
+    
     describe('updateTask() method', function() {
       //
     });
