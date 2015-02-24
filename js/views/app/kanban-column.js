@@ -33,14 +33,8 @@ define([
 
       if(!!attrs.title) {
         this.collection.create(attrs, {
-          url: API.tasks.collection($.cookie('userID')),
-          beforeSend: Utils.authHeader,
           success: function(model) {
             form[0].reset();
-          },
-          error: function(model, response) {
-            form[0].reset();
-            console.log('Error: ', response);
           }
         });
       }
