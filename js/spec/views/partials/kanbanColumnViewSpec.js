@@ -190,5 +190,17 @@ define([
         column.render().should.equal(column);
       });
     });
+
+    describe('remove() function', function() {
+      beforeEach(function() {
+        column.render();
+      });
+
+      it('removes the collection view from the DOM', function() {
+        sandbox.stub(column.$collectionView, 'remove');
+        column.remove();
+        column.$collectionView.remove.calledOnce.should.be.true;
+      });
+    });
   });
 });
