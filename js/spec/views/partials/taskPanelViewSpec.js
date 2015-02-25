@@ -127,6 +127,23 @@ define([
       });
     });
 
+    describe('crossOffComplete() method', function() {
+      beforeEach(function() {
+        task1.set('status', 'Complete', {silent: true});
+        view.render();
+      });
+
+      afterEach(function() {
+        task1.set('status', 'New');
+      });
+
+      it('calls crossOff on the collection view', function() {
+        sandbox.stub(view.$collectionView, 'crossOff');
+        view.crossOffComplete();
+        view.$collectionView.crossOff.calledWithExactly(task1).should.be.true;
+      });
+    });
+
     describe('filterCollection() method', function() {
       before(function() {
         for(var i = 1; i < 20; i++) {

@@ -37,6 +37,11 @@ define([
 
     template : _.template(TaskPanelTemplate),
 
+    crossOffComplete: function() {
+      var task = this.collection.findWhere({status: 'Complete'});
+      this.$collectionView.crossOff(task);
+    },
+
     filterCollection: function(collection) {
       var tasks = collection.filter(function(task) {
         return task.get('status') !== 'Blocking' && !task.get('backlog');
