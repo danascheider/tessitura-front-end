@@ -55,7 +55,7 @@ define([
       it('listens to its collection\'s change:status event', function() {
         sandbox.stub(Backbone.View.prototype, 'listenTo');
         var newView = new TaskPanelView({collection: collection});
-        Backbone.View.prototype.listenTo.withArgs(newView.collection, 'change:status').calledOnce.should.be.true;
+        Backbone.View.prototype.listenTo.calledWithExactly(newView.collection, 'change:status', newView.crossOffComplete).should.be.true;
       });
     });
 

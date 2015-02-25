@@ -39,6 +39,7 @@ define([
 
     crossOffComplete: function() {
       var task = this.collection.findWhere({status: 'Complete'});
+      if(!task) { return }
       this.$collectionView.crossOff(task);
     },
 
@@ -85,7 +86,7 @@ define([
       this.$quickAddForm = new QuickAddFormView({collection: this.collection});
       this.$collectionView = new TaskCollectionView({collection: this.collection});
 
-      this.listenTo(this.collection, 'change:status', this.removeComplete);
+      this.listenTo(this.collection, 'change:status', this.crossOffComplete);
       this.listenTo(this.collection, 'change:backlog', this.removeBacklogged);
     },
 
