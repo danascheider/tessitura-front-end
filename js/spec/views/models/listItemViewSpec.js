@@ -385,9 +385,6 @@ define([
       });
     });
 
-    // FIX: If I am going to keep the list item and model views 
-    //      separate, this would really belong with the model view.
-
     describe('toggleTaskDetails() method', function() {
       beforeEach(function() {
         view.render();
