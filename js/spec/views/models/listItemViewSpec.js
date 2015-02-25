@@ -2,8 +2,9 @@ define([
   'backbone',
   'views/tasks/list-entry', 
   'models/task',
+  'spec/testTools',
   'jquery-ui'
-  ], function(Backbone, ListItemView, Task) {
+  ], function(Backbone, ListItemView, Task, TestTools) {
 
   describe('Task List Item View', function() {
     var view, server, e; 
@@ -179,15 +180,11 @@ define([
           var newView = new ListItemView({model: task});
           newView.render();
           newView.showEditForm();
-          setTimeout(function() {
-            try {
-              newView.$editForm.$('button:reset').click();
-              stub.calledOnce.should.be.true;
-              done();
-            } catch(e) {
-              done(e);
-            }
-          }, 150);
+
+          TestTools.delay(150, done, function() {
+            newView.$editForm.$('button:reset').click();
+            stub.calledOnce.should.be.true;
+          });
         });
       });
 
@@ -280,7 +277,17 @@ define([
         // FIX: Use Mocha's asynchronous testing to test the delayed
         //      trigger on this.
 
-        it('triggers the markComplete event');
+        // it('triggers the markComplete event', function(done) {
+        //   var spy = sandbox.spy();
+        //   task.on('markComplete', spy);
+        //   view.crossOff();
+
+        //   TestTools.delay(750, done, function() {
+        //     spy.calledOnce.should.be.true;
+        //   });
+
+        //   task.off('markComplete');
+        // });
 
         it('checks the checkbox', function() {
           var checkbox = view.$('i[title="Mark complete"]');
@@ -385,14 +392,10 @@ define([
       it('removes the model view from the DOM', function(done) {
         sandbox.stub(view.$modelView, 'remove');
         view.showEditForm();
-        setTimeout(function() {
-          try {
-            view.$modelView.remove.called.should.be.true;
-            done();
-          } catch(e) {
-            done(e);
-          }
-        }, 150);
+
+        TestTools.delay(150, done, function() {
+          view.$modelView.remove.called.should.be.true;
+        });
       });
 
       it('hides the model view', function(done) {
