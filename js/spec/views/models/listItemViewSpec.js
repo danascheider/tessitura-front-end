@@ -257,58 +257,6 @@ define([
       });
     });
 
-    describe('crossOff() method', function() {
-      describe('when the task is complete', function() {
-        before(function() { 
-          view.render();
-          task.set('status', 'Complete') 
-        });
-
-        after(function() { 
-          task.set('status', 'New') 
-        });
-
-        // FIX: Use Mocha's asynchronous testing to test the delayed
-        //      trigger on this.
-
-        // it('triggers the markComplete event', function(done) {
-        //   var spy = sandbox.spy();
-        //   task.on('markComplete', spy);
-        //   view.crossOff();
-
-        //   TestTools.delay(750, done, function() {
-        //     spy.calledOnce.should.be.true;
-        //   });
-
-        //   task.off('markComplete');
-        // });
-
-        it('crosses out the task title', function() {
-          view.crossOff();
-          view.$('.task-title').css('text-decoration').should.equal('line-through');
-        });
-      });
-
-      describe('when the task is incomplete', function() {
-        beforeEach(function() {
-          view.render();
-          view.crossOff();
-        });
-
-        // FIX: Use Mocha's asynchronous testing to make this work
-
-        it('doesn\'t trigger markComplete');
-
-        it('doesn\'t check the checkbox', function() {
-          view.$('.fa-check-square-o').length.should.equal(0);
-        });
-
-        it('doesn\'t cross off the task\'s title', function() {
-          view.$('.task-title').css('text-decoration').should.not.include('line-through');
-        });
-      });
-    });
-
     describe('deleteTask() method', function() {
       it('destroys the task', function() {
         sandbox.stub(task, 'destroy');

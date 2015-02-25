@@ -128,30 +128,6 @@ define([
       this.render();
     },
 
-    crossOff          : function() {
-      var task = this.model;
-
-      if(task.get('status') === 'Complete') {
-        var id = task.get('id');
-
-        this.$('.task-title').css('text-decoration', 'line-through');
-
-        // FIX: Currently I am doing it this way so the collection view can 
-        //      listen for markComplete instead of 'change:status', which would
-        //      result in the task being removed from the list before the 
-        //      animation is complete.
-        // 
-        //      I think it would be better to control this functionality from
-        //      the collection, though - it could call the setTimeout event from
-        //      there, and that way this view wouldn't have to deal with 
-        //      stuff that's only relevant to the collection.
-        
-        window.setTimeout(function() {
-          task.trigger('markComplete');
-        }, 750);        
-      }
-    },
-
     deleteTask        : function() {
       var model = this.model;
 
