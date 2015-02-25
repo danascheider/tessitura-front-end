@@ -80,6 +80,7 @@ define([
       this.$quickAddForm = new QuickAddFormView({collection: this.collection});
       this.$collectionView = new TaskCollectionView({collection: this.collection});
 
+      this.listenTo(this.collection, 'change:status', this.removeComplete);
       this.listenTo(this.collection, 'change:backlog', this.removeBacklogged);
     },
 

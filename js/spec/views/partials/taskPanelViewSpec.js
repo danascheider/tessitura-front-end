@@ -51,6 +51,12 @@ define([
         var newView = new TaskPanelView({collection: collection});
         Backbone.View.prototype.listenTo.withArgs(newView.collection, 'change:backlog', newView.removeBacklogged).called.should.be.true;
       });
+
+      it('listens to its collection\'s change:status event', function() {
+        sandbox.stub(Backbone.View.prototype, 'listenTo');
+        var newView = new TaskPanelView({collection: collection});
+        Backbone.View.prototype.listenTo.withArgs(newView.collection, 'change:status').calledOnce.should.be.true;
+      });
     });
 
     describe('elements', function() {
