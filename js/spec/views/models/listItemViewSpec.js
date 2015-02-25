@@ -289,12 +289,6 @@ define([
         //   task.off('markComplete');
         // });
 
-        it('checks the checkbox', function() {
-          var checkbox = view.$('i[title="Mark complete"]');
-          view.crossOff();
-          checkbox[0].className.should.include('fa-check-square-o');
-        });
-
         it('crosses out the task title', function() {
           view.crossOff();
           view.$('.task-title').css('text-decoration').should.equal('line-through');
@@ -371,6 +365,7 @@ define([
 
     describe('markComplete() method', function() {
       before(function() { 
+        view.render();
         server = sandbox.useFakeServer();
         server.respondWith(function(xhr) {
           xhr.respond(200);

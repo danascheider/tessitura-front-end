@@ -134,7 +134,6 @@ define([
       if(task.get('status') === 'Complete') {
         var id = task.get('id');
 
-        this.$('i.fa-square-o').removeClass('fa-square-o').addClass('fa-check-square-o');
         this.$('.task-title').css('text-decoration', 'line-through');
 
         // FIX: Currently I am doing it this way so the collection view can 
