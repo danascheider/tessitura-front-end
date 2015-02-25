@@ -43,7 +43,7 @@ define([
       });
     });
 
-    describe('el', function() {
+    describe('elements', function() {
       beforeEach(function() {
         view.reset().render();
       });
@@ -58,6 +58,17 @@ define([
 
       it('has a list item for each task', function() {
         view.$('li.task-list-item').length.should.equal(collection.length);
+      });
+    });
+
+    describe('crossOff method', function() {
+      beforeEach(function() {
+        view.render();
+      });
+
+      it('crosses out the task\'s title', function() {
+        view.crossOff(task1);
+        view.$('.task-title').first().css('text-decoration').should.equal('line-through');
       });
     });
 

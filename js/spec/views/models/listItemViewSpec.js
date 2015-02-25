@@ -39,12 +39,6 @@ define([
       });
 
       describe('listeners', function() {
-        it('listens to changes in task status', function() {
-          sandbox.stub(Backbone.View.prototype, 'listenTo'); 
-          var newView = new ListItemView({model: task});
-          Backbone.View.prototype.listenTo.withArgs(task, 'change:status').calledOnce.should.be.true;
-        });
-
         it('listens for when the user is finished updating', function() {
           sandbox.stub(Backbone.View.prototype, 'listenTo'); 
           var newView = new ListItemView({model: task});

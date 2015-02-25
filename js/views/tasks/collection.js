@@ -27,7 +27,17 @@ define([
     tagName            : 'ul',
     className          : 'task-list',
 
+    // ------------------- // 
+    // Custom View Methods //
+    // ------------------- //
+
+    crossOff          : function(task) {
+      this.$('#task-' + task.get('id')).find('.task-title').css('text-decoration', 'line-through');
+    }, 
+
+    // -------------- //
     // Event Handlers //
+    // -------------- //
 
     refreshCollection : function() {
       this.collection.fetch({add: false});
@@ -39,7 +49,8 @@ define([
     },
 
     removeComplete : function() {
-      this.collection.remove(this.collection.findWhere({status: 'Complete'}));
+      var task = this.collection.findWhere({status: 'Complete'});
+      this.collection.remove(task);
     },
 
     // FIX: This should be replaced by a custom `remove` function that removes
