@@ -370,11 +370,23 @@ define([
     });
 
     describe('markComplete() method', function() {
-      before(function() { sandbox.stub(task, 'save'); });
+      before(function() { 
+        server = sandbox.useFakeServer();
+        server.respondWith(function(xhr) {
+          xhr.respond(200);
+        });
+        sandbox.spy(task, 'save');
+      });
 
       it('marks the task complete and saves', function() {
         view.markComplete();
         task.save.withArgs({status: 'Complete'}).calledOnce.should.be.true;
+      });
+
+      it('checks the checkbox', function() {
+        view.markComplete();
+        server.respond();
+        view.$('i.fa-check-square-o').should.be.visible;
       });
     });
 

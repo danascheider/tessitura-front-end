@@ -128,8 +128,6 @@ define([
       this.render();
     },
 
-    // FIX: Instead of (or in addition to) triggering markComplete on the model,
-    //      the view should simply remove itself. (Or should it?)
     crossOff          : function() {
       var task = this.model;
 
@@ -192,6 +190,9 @@ define([
         dataType    : 'html',
         type        : 'PUT',
         url         : API.tasks.single(that.model.get('id')),
+        success     : function() {
+          that.$('.fa-square-o').removeClass('fa-square-o').addClass('fa-check-square-o');
+        }
       });
     },
 
