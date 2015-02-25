@@ -32,7 +32,12 @@ define([
     // ------------------- //
 
     crossOff          : function(task) {
+      var that = this;
+
       this.$('#task-' + task.get('id')).find('.task-title').css('text-decoration', 'line-through');
+      setTimeout(function() {
+        that.collection.remove(task);
+      }, 750);
     }, 
 
     // -------------- //

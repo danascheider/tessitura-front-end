@@ -6,8 +6,9 @@ define([
   'models/task',
   'views/tasks/list-entry',
   'views/tasks/collection',
-  'jquery-ui'
-], function(_, Backbone, TaskCollection, User, Task, ListItemView, TaskCollectionView) {
+  'spec/testTools',
+  'jquery-ui',
+], function(_, Backbone, TaskCollection, User, Task, ListItemView, TaskCollectionView, TestTools) {
   
   describe('task collection view', function() {
     var view; 
@@ -62,13 +63,23 @@ define([
     });
 
     describe('crossOff method', function() {
-      beforeEach(function() {
-        view.render();
+      beforeEach(function() { 
+        view.render(); 
       });
+
+      afterEach(function() { collection.reset([task1, task2]); });
 
       it('crosses out the task\'s title', function() {
         view.crossOff(task1);
         view.$('.task-title').first().css('text-decoration').should.equal('line-through');
+      });
+
+      it('removes the task from the collection', function(done) {
+        view.crossOff(task1);
+
+        TestTools.delay(750, done, function() {
+          view.collection.models.should.not.include(task1);
+        });
       });
     });
 
