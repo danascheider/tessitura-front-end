@@ -27,7 +27,7 @@ define([
     tagName            : 'ul',
     className          : 'task-list',
 
-    template           : _.template('<li class=\'quick-add form not-sortable\'></li>'),
+    template           : _.template('<li class=\'quick-add form not-sortable\'><%= form %></li>'),
 
     // ------------------- // 
     // Custom View Methods //
@@ -90,7 +90,9 @@ define([
 
     render: function() {
       var that = this;
-      this.$el.html('');
+
+      this.$quickAddForm.render();
+      this.$el.html(this.template({form: this.$quickAddForm.$el.html()}));
       
       this.collection.each(function(task) {
         var view = new ListItemView({model: task});
