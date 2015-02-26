@@ -7,9 +7,8 @@ define([
   'models/task',
   'jquery-ui',
   'views/tasks/collection',
-  'views/tasks/quick-add-form',
   'text!templates/partials/kanban-column.html'
-], function($, _, Backbone, Utils, API, TaskModel, JQueryUI, TaskCollectionView, QuickAddFormView, Template) {
+], function($, _, Backbone, Utils, API, TaskModel, JQueryUI, TaskCollectionView, Template) {
   
   var KanbanColumnView = Backbone.View.extend({ 
     template   : _.template(Template),
