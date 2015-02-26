@@ -7,8 +7,8 @@ define([
   'api',
   'utils',
   'models/task',
-  'views/tasks/create-form',
   'views/tasks/list-entry',
+  'views/tasks/quick-add-form',
   'text!templates/tasks/model.html'
 ], function(
   $, 
@@ -19,13 +19,15 @@ define([
   API,
   Utils,
   TaskModel,
-  CreateFormView,
   ListItemView,
+  QuickAddForm, 
   ModelTemplate) {
   
   var TaskCollectionView = Backbone.View.extend({
     tagName            : 'ul',
     className          : 'task-list',
+
+    template           : _.template('<li class=\'quick-add form not-sortable\'></li>'),
 
     // ------------------- // 
     // Custom View Methods //
@@ -70,7 +72,11 @@ define([
 
     // Core View Functions //
 
-    initialize: function() {
+    initialize: function(opts) {
+      opts               = opts || {};
+      this.grouping      = opts.grouping || {};
+      this.childViews    = this.childViews || [];
+      this.$quickAddForm = new QuickAddForm({collection: this.collection, grouping: this.grouping});
 
       // FIX: Why is the refreshCollection function needed here?
       //      Will it overwrite changes that have been made client-side

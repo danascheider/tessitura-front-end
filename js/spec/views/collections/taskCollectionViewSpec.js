@@ -47,7 +47,12 @@ define([
       it('creates an empty childViews array', function() {
         var newView = new TaskCollectionView(data);
         newView.childViews.should.deep.equal([]);
-      })
+      });
+
+      it('creates a quick-add form', function() {
+        var newView = new TaskCollectionView(data);
+        newView.$quickAddForm.should.exist;
+      });
     });
 
     describe('elements', function() {
@@ -61,6 +66,10 @@ define([
 
       it('has class .task-list', function() {
         view.$el[0].className.should.include('task-list');
+      });
+
+      it('has a quick-add form', function() {
+        view.$('.quick-add-form').length.should.equal(1);
       });
 
       it('has a list item for each task', function() {
