@@ -82,9 +82,6 @@ define([
       //      Will it overwrite changes that have been made client-side
       //      but not yet synced with the server? 
 
-      // FIX: Why on earth is the quick-add form not included here???
-      //      Why is it defined in the task panel and kanban column views??
-
       this.listenTo(this.collection, 'remove', this.refreshCollection);
       this.listenTo(this.collection, 'add', this.refreshCollection);
       this.listenTo(this.collection, 'markComplete', this.removeComplete);
