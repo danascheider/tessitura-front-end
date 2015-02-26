@@ -63,10 +63,6 @@ define([
           newView.groupedBy.should.deep.equal({status: 'New'});
         });
 
-        it('creates a quick-add form', function() {
-          newView.$quickAddForm.should.exist;
-        });
-
         it('creates a collection view', function() {
           newView.$collectionView.should.exist;
         });
@@ -75,10 +71,6 @@ define([
 
         it('listens to its collection', function() {
           Backbone.View.prototype.listenTo.withArgs(newView.collection).called.should.be.true;
-        });
-
-        it('listens to its quick-add form', function() {
-          Backbone.View.prototype.listenTo.withArgs(newView.$quickAddForm, 'submit').calledOnce.should.be.true;
         });
       });
 
@@ -123,11 +115,7 @@ define([
       it('sets its panel color', function() {
         column.$el[0].className.should.include('panel-blue');
       });
-
-      it('has a quick-add form', function() {
-        column.$quickAddForm.$el.should.be.visible;
-      });
-
+      
       it('has a collection view', function() {
         column.$collectionView.$el.should.be.visible;
       });
@@ -183,22 +171,10 @@ define([
         $.prototype.html.withArgs(column.$collectionView.el).calledOnce.should.be.true;
       });
 
-      it('renders the quick-add form view', function() {
-        sandbox.stub($.prototype, 'prepend');
-        column.render();
-        $.prototype.prepend.withArgs(column.$quickAddForm.el).calledOnce.should.be.true;
-      });
-
       it('calls delegateEvents on the collection view', function() {
         sandbox.stub(column.$collectionView, 'delegateEvents');
         column.render();
         column.$collectionView.delegateEvents.called.should.be.true;
-      });
-
-      it('calls delegateEvents on the quick-add form', function() {
-        sandbox.stub(column.$quickAddForm, 'delegateEvents');
-        column.render();
-        column.$quickAddForm.delegateEvents.called.should.be.true;
       });
 
       it('calls delegateEvents on itself', function() {
@@ -227,12 +203,6 @@ define([
         sandbox.stub(column.$collectionView, 'remove');
         column.remove();
         column.$collectionView.remove.calledOnce.should.be.true;
-      });
-
-      it('removes the quick-add form', function() {
-        sandbox.stub(column.$quickAddForm, 'remove');
-        column.remove();
-        column.$quickAddForm.remove.calledOnce.should.be.true;
       });
 
       it('removes itself', function() {

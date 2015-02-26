@@ -32,7 +32,9 @@ define([
       }
     },
 
+    // ----------------- //
     // Core View Methods //
+    // ----------------- //
 
     initialize : function(data) {
       this.data = data || {};
@@ -40,27 +42,29 @@ define([
 
       this.$el.addClass('panel-' + this.data.color);
 
+      // FIX: Grouping should be a property of the collection,
+      //      not of any of the views.
+
       this.groupedBy = this.data.headline === 'Backlog' ?  {backlog: true} : {status: this.data.headline};
 
-      this.$collectionView = new TaskCollectionView({collection: this.collection});
-      this.$quickAddForm = new QuickAddFormView({collection: this.collection});
+      this.$collectionView = new TaskCollectionView({collection: this.collection, grouping: this.groupedBy});
+
+      // FIX: When a task is added, the collection should also pop a 
+      //      task off the end of the collection, so it maintains 
+      //      its length.
 
       this.listenTo(this.collection, 'add', this.updateTask);
       this.listenTo(this.collection, 'remove', this.render);
       this.listenTo(this.collection, 'change:backlog', this.render);
-      this.listenTo(this.$quickAddForm, 'submit', this.createTask);
     },
 
     render     : function() {
       this.$el.html(this.template({data: this.data}));
 
-      this.$quickAddForm.render();
       this.$collectionView.render();
       this.$('.panel-body').html(this.$collectionView.el);
-      this.$collectionView.$el.prepend(this.$quickAddForm.el);
 
       this.delegateEvents();
-      this.$quickAddForm.delegateEvents();
       this.$collectionView.delegateEvents();
       
       return this;
@@ -68,7 +72,6 @@ define([
 
     remove      : function() {
       this.$collectionView.remove();
-      this.$quickAddForm.remove();
       Backbone.View.prototype.remove.call(this);
 
       return this;
