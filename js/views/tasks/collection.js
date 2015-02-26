@@ -77,7 +77,17 @@ define([
       return this;
     },
 
+    retrieveViewForModel: function(model) {
+      var view = _.filter(this.childViews, function(view) {
+        return view.model === model;
+      });
+
+      return view[0];
+    },
+
+    // ------------------- //
     // Core View Functions //
+    // ------------------- //
 
     initialize       : function(opts) {
       opts               = opts || {};
@@ -103,12 +113,21 @@ define([
       this.$('li.quick-add-form').html(this.$quickAddForm.el);
       
       this.collection.each(function(task) {
-        var view = new ListItemView({model: task});
-        that.childViews.push(view);
-        that.$el.append(view.render().el);
+        var view = that.retrieveViewForModel(task);
+
+        if(!!view) {
+          that.$el.append(view.render().el);
+        } else {
+          view = new ListItemView({model: task});
+          that.$el.append(view.render().el);
+          that.childViews.push(view);
+        }
+
+        view.delegateEvents();
       });
   
       this.delegateEvents();
+      this.$quickAddForm.delegateEvents();
 
       this.$el.sortable({connectWith: '.task-list', dropOnEmpty: true});
 

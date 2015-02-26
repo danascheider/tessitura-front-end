@@ -69,7 +69,6 @@ define([
       });
 
       it('has a quick-add form', function() {
-        console.log(view.el);
         view.$('form.quick-add-form').length.should.equal(1);
       });
 
@@ -97,10 +96,6 @@ define([
           view.collection.models.should.not.include(task1);
         });
       });
-    });
-
-    describe('retrieveViewForModel', function() {
-      beforeEach(function() { view.render(); });
     });
 
     describe('removeBacklog() method', function() {
@@ -155,6 +150,15 @@ define([
       });
     });
 
+    describe('retrieveViewForModel', function() {
+      beforeEach(function() { view.render(); });
+
+      it('finds a view within the collection', function() {
+        var listItem = view.retrieveViewForModel(task1);
+        listItem.$el[0].id.should.equal('task-1');
+      });
+    });
+
     describe('render function', function() {
       beforeEach(function() {
         sandbox.stub($.prototype, 'sortable');
@@ -169,6 +173,11 @@ define([
         it('maintains the length of the list', function() {
           view.render();      // render view a second time
           view.$('.task-list-item').length.should.equal(2);
+        });
+
+        it('maintains the length of the child view array', function() {
+          view.render();
+          view.childViews.length.should.equal(2);
         });
       });
 
