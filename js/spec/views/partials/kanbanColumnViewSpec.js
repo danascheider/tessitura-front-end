@@ -150,6 +150,14 @@ define([
         column.updateTask(task3);
         task3.save.withArgs({status: 'New'}).calledOnce.should.be.true;
       });
+
+      describe('when the task attributes already match', function() {
+        it('doesn\'t call save', function() {
+          sandbox.stub(task1, 'save');
+          column.updateTask(task1);
+          task1.save.called.should.be.false;
+        });
+      });
     });
 
     describe('render() function', function() {

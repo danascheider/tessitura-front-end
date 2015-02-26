@@ -46,7 +46,15 @@ define([
     },
 
     updateTask : function(task) {
-      task.save(this.groupedBy);
+      var needsUpdate;
+
+      _.each(this.groupedBy, function(value, attr) {
+        if(task.get(attr) != value) {
+          needsUpdate = needsUpdate || true;
+        }
+      });
+
+      if(needsUpdate) { task.save(this.groupedBy); }
     },
 
     // Core View Methods //
