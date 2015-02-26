@@ -99,6 +99,18 @@ define([
       });
     });
 
+    describe('events', function() {
+      describe('add event on collection', function() {
+        it('calls updateTask', function() {
+          var task = new Task({title: 'Foo'});
+          sandbox.stub(ColumnView.prototype, 'updateTask');
+          var newView = new ColumnView(data);
+          newView.collection.add(task);
+          ColumnView.prototype.updateTask.withArgs(task).calledOnce.should.be.true;
+        });
+      });
+    });
+
     describe('elements', function() {
       it('is a div', function() {
         column.$el[0].tagName.should.equal('DIV');
