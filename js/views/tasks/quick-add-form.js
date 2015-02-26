@@ -25,6 +25,13 @@ define([
       var that = this;
       var form = this.$('form'), attrs = Utils.getAttributes(form);
 
+      // Make sure the task being created has the attribute(s) common to
+      // this form's collection
+
+      _.each(this.grouping, function(value, key) {
+        attrs[key] = value;
+      });
+
       // Tasks are invalid without a title, so this method 
       // should not run if the title is not included in the attributes.
 

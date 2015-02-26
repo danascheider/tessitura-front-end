@@ -15,7 +15,7 @@ define([
     var data = {collection: collection, grouping: {status: 'Blocking'}};
 
     beforeEach(function() {
-      if(typeof form === 'undefined') { form = new QuickAddForm({collection: collection}); }
+      if(typeof form === 'undefined') { form = new QuickAddForm(data); }
     });
 
     afterEach(function() {
@@ -80,7 +80,7 @@ define([
 
       describe('when valid', function() {
         beforeEach(function() {
-          sandbox.stub(Utils, 'getAttributes').returns({title: 'Finish writing tests', posiiton: 1});
+          sandbox.stub(Utils, 'getAttributes').returns({title: 'Finish writing tests', position: 1});
           server.respondWith(function(xhr) {
             xhr.respond(201, {'Content-Type': 'application/json'}, JSON.stringify({id: 2, title: 'Finish writing tests', position: 1}));
           });
@@ -95,13 +95,19 @@ define([
           sandbox.spy(e, 'preventDefault');
           form.createTask(e);
           e.preventDefault.calledOnce.should.be.true;
-          e.preventDefault.restore();
         });
 
         it('creates a new task in the collection', function() {
           sandbox.stub(collection, 'create');
           form.createTask(e);
           collection.create.calledOnce.should.be.true;
+        });
+
+        it('sets the new task\'s attributes according to its grouping', function() {
+          sandbox.stub(collection, 'create');
+          form.createTask(e);
+          console.log(collection.create.args[0]);
+          collection.create.args[0][0].status.should.equal('Blocking');
         });
 
         it('increments the position of the other tasks in the collection', function() {
