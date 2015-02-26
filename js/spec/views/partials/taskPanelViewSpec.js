@@ -15,8 +15,18 @@ define([
 
     var collection = new TaskCollection([task1, task2, task3], {comparator: 'position'});
 
+    // FIX: Figure out a way to make a grouping encompassing all 
+    //      values of `status` except 'Complete'
+
+    var data = {
+      collection : collection,
+      grouping   : {
+        backlog : false
+      }
+    };
+
     beforeEach(function() {
-      if(typeof view === 'undefined') { view = new TaskPanelView({collection: collection}); }
+      if(typeof view === 'undefined') { view = new TaskPanelView(data); }
     });
 
     afterEach(function() {
@@ -27,34 +37,29 @@ define([
     describe('constructor', function() {
       it('doesn\'t call render', function() {
         sandbox.stub(TaskPanelView.prototype, 'render');
-        var newView = new TaskPanelView({collection: collection});
+        var newView = new TaskPanelView(data);
         TaskPanelView.prototype.render.calledOnce.should.be.false;
       });
 
       it('sets a collection', function() {
-        var newView = new TaskPanelView({collection: collection});
+        var newView = new TaskPanelView(data);
         newView.collection.should.exist;
       });
 
-      it('instantiates a quick-add form', function() {
-        var newView = new TaskPanelView({collection: collection});
-        newView.$quickAddForm.should.exist;
-      });
-
       it('instantiates a collection view', function() {
-        var newView = new TaskPanelView({collection: collection});
+        var newView = new TaskPanelView(data);
         newView.$collectionView.should.exist;
       });
 
       it('listens to its collection\'s change:backlog event', function() {
         sandbox.stub(Backbone.View.prototype, 'listenTo');
-        var newView = new TaskPanelView({collection: collection});
+        var newView = new TaskPanelView(data);
         Backbone.View.prototype.listenTo.withArgs(newView.collection, 'change:backlog', newView.removeBacklogged).called.should.be.true;
       });
 
       it('listens to its collection\'s change:status event', function() {
         sandbox.stub(Backbone.View.prototype, 'listenTo');
-        var newView = new TaskPanelView({collection: collection});
+        var newView = new TaskPanelView(data);
         Backbone.View.prototype.listenTo.calledWithExactly(newView.collection, 'change:status', newView.crossOffComplete).should.be.true;
       });
     });
@@ -89,7 +94,7 @@ define([
       describe('mouseenter', function() {
         it('calls showToggleWidgetIcon', function() {
           sandbox.stub(TaskPanelView.prototype, 'showToggleWidgetIcon');
-          var newView = new TaskPanelView({collection: collection});
+          var newView = new TaskPanelView(data);
           newView.$el.mouseenter();
           TaskPanelView.prototype.showToggleWidgetIcon.calledOnce.should.be.true;
         });
@@ -98,7 +103,7 @@ define([
       describe('mouseleave', function() {
         it('calls hideToggleWidgetIcon', function() {
           sandbox.stub(TaskPanelView.prototype, 'hideToggleWidgetIcon');
-          var newView = new TaskPanelView({collection: collection});
+          var newView = new TaskPanelView(data);
           newView.render();
           newView.$el.mouseleave();
           TaskPanelView.prototype.hideToggleWidgetIcon.calledOnce.should.be.true;
@@ -108,7 +113,7 @@ define([
       describe('click .hide-widget', function() {
         it('calls hideWidget', function() {
           sandbox.stub(TaskPanelView.prototype, 'hideWidget');
-          var newView = new TaskPanelView({collection: collection});
+          var newView = new TaskPanelView(data);
           newView.render();
           newView.$('.hide-widget').click();
           TaskPanelView.prototype.hideWidget.calledOnce.should.be.true;
@@ -118,7 +123,7 @@ define([
       describe('click .showWidget', function() {
         it('calls showWidget', function() {
           sandbox.stub(TaskPanelView.prototype, 'showWidget');
-          var newView = new TaskPanelView({collection: collection});
+          var newView = new TaskPanelView(data);
           newView.render();
           newView.$('.hide-widget').click();
           newView.$('.show-widget').click();
