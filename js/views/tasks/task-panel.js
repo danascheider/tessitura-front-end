@@ -6,7 +6,6 @@ define([
   'models/task',
   'collections/tasks',
   'views/tasks/collection',
-  'views/tasks/quick-add-form',
   'text!templates/partials/task-panel.html',
   'css!stylesheets/bootstrap.css',
   'css!stylesheets/dashboard.css',
@@ -19,7 +18,6 @@ define([
     TaskModel,
     TaskCollection,
     TaskCollectionView,
-    QuickAddFormView,
     TaskPanelTemplate) {
 
   var TaskPanelView = Backbone.View.extend({
@@ -83,7 +81,6 @@ define([
     initialize: function(opts) {
       var that = this;
       this.collection = new TaskCollection(this.filterCollection(that.collection), {comparator: 'position'});
-      this.$quickAddForm = new QuickAddFormView({collection: this.collection});
       this.$collectionView = new TaskCollectionView({collection: this.collection});
 
       this.listenTo(this.collection, 'change:status', this.crossOffComplete);
@@ -92,7 +89,6 @@ define([
 
     remove: function() {
       this.$collectionView.remove();
-      this.$quickAddForm.remove();
       this.undelegateEvents();
       Backbone.View.prototype.remove.call(this);
     },
@@ -102,11 +98,8 @@ define([
 
       this.$el.html(this.template());
       this.$collectionView.render();
-      this.$quickAddForm.render();
       this.$('.panel-body').html(this.$collectionView.el);
-      this.$quickAddForm.$el.prependTo(this.$collectionView.el);
 
-      this.$quickAddForm.delegateEvents();
       this.$collectionView.delegateEvents();
       this.delegateEvents();
 
