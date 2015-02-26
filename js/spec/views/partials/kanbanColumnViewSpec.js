@@ -117,33 +117,6 @@ define([
       });
     });
 
-    describe('events', function() {
-      describe('submit quick-add form', function() {
-        it('calls createTask', function() {
-          sandbox.stub(ColumnView.prototype, 'createTask');
-          var newCol = new ColumnView(data);
-          newCol.render();
-          newCol.$quickAddForm.$('form').submit();
-          ColumnView.prototype.createTask.calledOnce.should.be.true;
-          newCol.remove();
-        });
-      });
-    });
-
-    describe('createTask() method', function() {
-      beforeEach(function() {
-        e = $.Event('submit', {target: column.$quickAddForm.$el});
-        server = sandbox.useFakeServer();
-        sandbox.stub(Utils, 'getAttributes').returns({title: 'My New Task'});
-      });
-
-      it('adds a task to the collection', function() {
-        sandbox.stub(user.tasks, 'create');
-        column.createTask(e);
-        user.tasks.create.calledOnce.should.be.true;
-      });
-    });
-
     describe('updateTask() method', function() {
       it('modifies the task with the column\'s groupedBy attribute', function() {
         sandbox.stub(task3, 'save');

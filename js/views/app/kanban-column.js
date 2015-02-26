@@ -17,40 +17,12 @@ define([
     tagName    : 'div',
     className  : 'panel dash-widget kanban-column',
 
-    events     : {
-      'submit form.quick-add-form' : 'createTask'
-    },
-
-    // FIX: This should be moved to the quick-add form itself. Then the 
-    //      column view should listen to the quick add form and add the 
-    //      newly created task to its collection. The reason I hesitate
-    //      to do this already is that I can't think of how to cause the
-    //      quick-add form to create the task with the attribute that 
-    //      constitutes the grouping of the column view. Possibly just let
-    //      it add the task to the collection and live with the 2nd 
-    //      REST request? 
-
-    createTask : function(e) {
-      e.preventDefault();
-      var that = this, form  = $(e.target), attrs = Utils.getAttributes(form);
-
-      _.each(this.groupedBy, function(value,key) { attrs[key] = value; });
-
-      if(!!attrs.title) {
-        this.collection.create(attrs, {
-          success: function(model) {
-            form[0].reset();
-          }
-        });
-      }
-    },
-
     updateTask : function(task) {
-      var needsUpdate;
+      var needsUpdate = false;
 
       _.each(this.groupedBy, function(value, attr) {
         if(task.get(attr) != value) {
-          needsUpdate = needsUpdate || true;
+          needsUpdate = true;
         }
       });
 
