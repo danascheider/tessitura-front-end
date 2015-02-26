@@ -43,6 +43,11 @@ define([
         var newView = new TaskCollectionView(data);
         stub.called.should.be.false;
       });
+
+      it('creates an empty childViews array', function() {
+        var newView = new TaskCollectionView(data);
+        newView.childViews.should.deep.equal([]);
+      })
     });
 
     describe('elements', function() {
