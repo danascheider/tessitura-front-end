@@ -134,15 +134,24 @@ define([
     });
 
     describe('updateTask() method', function() {
+      beforeEach(function() {
+        sandbox.stub(task3, 'save'); // so save operations don't go through
+        sandbox.stub(task1, 'save'); // ditto
+      });
+
       it('modifies the task with the column\'s groupedBy attribute', function() {
-        sandbox.stub(task3, 'save');
         column.updateTask(task3);
         task3.save.withArgs({status: 'New'}).calledOnce.should.be.true;
       });
 
+      it('calls render', function() {
+        sandbox.stub(column, 'render');
+        column.updateTask(task3);
+        column.render.calledOnce.should.be.true;
+      });
+
       describe('when the task attributes already match', function() {
         it('doesn\'t call save', function() {
-          sandbox.stub(task1, 'save');
           column.updateTask(task1);
           task1.save.called.should.be.false;
         });
@@ -151,6 +160,12 @@ define([
           sandbox.stub(task1, 'set');
           column.updateTask(task1);
           task1.set.called.should.be.false;
+        });
+
+        it('doesn\'t call render', function() {
+          sandbox.stub(column, 'render');
+          column.updateTask(task1);
+          column.render.called.should.be.false;
         });
       });
     });

@@ -26,7 +26,11 @@ define([
         }
       });
 
-      if(needsUpdate) { task.save(this.groupedBy); }
+      if(needsUpdate) { 
+        task.save(this.groupedBy); 
+        this.render();
+      }
+
     },
 
     // Core View Methods //
