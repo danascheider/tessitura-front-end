@@ -23,12 +23,13 @@ define([
       last_name  : 'User'
     });
 
-    var task1 = new Task({id: 1, title: 'Task 1', owner_id: 342});
-    var task2 = new Task({id: 2, title: 'Task 2', owner_id: 342});
+    var task1 = new Task({id: 1, title: 'Task 1', status: 'In Progress', owner_id: 342});
+    var task2 = new Task({id: 2, title: 'Task 2', status: 'In Progress', owner_id: 342});
     var collection = new TaskCollection([task1, task2]);
+    var data = {collection: collection, grouping: {status: 'In Progress'}};
 
     beforeEach(function() {
-      if(typeof view === 'undefined') { view = new TaskCollectionView({collection: collection}); }
+      if(typeof view === 'undefined') { view = new TaskCollectionView(data); }
     });
 
     afterEach(function() {
@@ -39,7 +40,7 @@ define([
     describe('constructor', function() {
       it('does not call the render function', function() {
         var stub = sandbox.stub(TaskCollectionView.prototype, 'render');
-        var newView = new TaskCollectionView({collection: collection});
+        var newView = new TaskCollectionView(data);
         stub.called.should.be.false;
       });
     });
