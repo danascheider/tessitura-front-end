@@ -45,6 +45,15 @@ define([
       }
     },
 
+    // ------------------- //
+    // Core View Functions //
+    // ------------------- //
+
+    initialize : function(opts) {
+      opts = opts || {};
+      this.grouping = opts.grouping;
+    },
+
     render     : function() {
       this.$el.html(this.template());
       this.delegateEvents();

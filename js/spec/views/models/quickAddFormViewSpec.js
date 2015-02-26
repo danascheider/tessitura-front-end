@@ -32,7 +32,7 @@ define([
 
       it('sets the `grouping` property', function() {
         var newForm = new QuickAddForm(data);
-        newForm.grouping.should.equal({status: 'Blocking'});
+        newForm.grouping.should.deep.equal({status: 'Blocking'});
       });
     });
 
