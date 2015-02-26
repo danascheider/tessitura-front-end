@@ -30,7 +30,6 @@ define([
         task.save(this.groupedBy); 
         this.render();
       }
-
     },
 
     // Core View Methods //
