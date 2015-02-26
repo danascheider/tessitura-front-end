@@ -84,10 +84,6 @@ define([
       it('has a collection view', function() {
         view.$collectionView.$el.should.be.visible;
       });
-
-      it('has a quick-add form', function() {
-        view.$quickAddForm.$el.should.be.visible;
-      });
     });
 
     describe('events', function() {
@@ -266,12 +262,6 @@ define([
         view.$collectionView.remove.calledOnce.should.be.true;
       });
 
-      it('removes the quick-add form from the DOM', function() {
-        sandbox.stub(view.$quickAddForm, 'remove');
-        view.remove();
-        view.$quickAddForm.remove.calledOnce.should.be.true;
-      });
-
       it('removes itself', function() {
         sandbox.stub(Backbone.View.prototype.remove, 'call');
         view.remove();
@@ -314,12 +304,6 @@ define([
         sandbox.stub(view.$collectionView, 'delegateEvents');
         view.render();
         view.$collectionView.delegateEvents.called.should.be.true;
-      });
-
-      it('calls delegateEvents on the quick-add form', function() {
-        sandbox.stub(view.$quickAddForm, 'delegateEvents');
-        view.render();
-        view.$quickAddForm.delegateEvents.called.should.be.true;
       });
 
       it('configures sortable on the collection', function() {
