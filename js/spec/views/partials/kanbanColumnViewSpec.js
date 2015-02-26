@@ -157,6 +157,12 @@ define([
           column.updateTask(task1);
           task1.save.called.should.be.false;
         });
+
+        it('doesn\'t set the task\'s attributes', function() {
+          sandbox.stub(task1, 'set');
+          column.updateTask(task1);
+          task1.set.called.should.be.false;
+        });
       });
     });
 
