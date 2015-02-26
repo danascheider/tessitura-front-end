@@ -69,7 +69,8 @@ define([
       });
 
       it('has a quick-add form', function() {
-        view.$('.quick-add-form').length.should.equal(1);
+        console.log(view.el);
+        view.$('form.quick-add-form').length.should.equal(1);
       });
 
       it('has a list item for each task', function() {
@@ -77,7 +78,7 @@ define([
       });
     });
 
-    describe('crossOff method', function() {
+    describe('crossOff() method', function() {
       beforeEach(function() { 
         view.render(); 
       });
@@ -98,7 +99,11 @@ define([
       });
     });
 
-    describe('removeBacklog method', function() {
+    describe('retrieveViewForModel', function() {
+      beforeEach(function() { view.render(); });
+    });
+
+    describe('removeBacklog() method', function() {
       beforeEach(function() {
         task1.set('backlog', true);
         view.removeBacklog();
@@ -115,6 +120,18 @@ define([
 
       it('doesn\'t remove non-backlogged tasks', function() {
         view.collection.models.should.include(task2);
+      });
+    });
+
+    describe('removeChildViews() method', function() {
+      beforeEach(function() {
+        view.render();
+      });
+
+      it('removes all the child views from the DOM', function() {
+        view.removeChildViews();
+        var form = view.$quickAddForm.el.toString();
+        view.$('li').length.should.equal(1);
       });
     });
 

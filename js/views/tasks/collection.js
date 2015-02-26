@@ -27,7 +27,7 @@ define([
     tagName            : 'ul',
     className          : 'task-list',
 
-    template           : _.template('<li class=\'quick-add form not-sortable\'><%= form %></li>'),
+    template           : _.template('<li class=\'quick-add-form not-sortable\'></li>'),
 
     // ------------------- // 
     // Custom View Methods //
@@ -51,11 +51,18 @@ define([
       this.render();
     },
 
-    removeBacklog  : function() {
+    removeBacklog    : function() {
       this.collection.remove(this.collection.findWhere({backlog: true}));
     },
 
-    removeComplete : function() {
+    removeChildViews : function() {
+      _.each(this.childViews, function(view) {
+        view.remove();
+        view.unbind();
+      });
+    },
+
+    removeComplete   : function() {
       var task = this.collection.findWhere({status: 'Complete'});
       this.collection.remove(task);
     },
@@ -63,7 +70,7 @@ define([
     // FIX: This should be replaced by a custom `remove` function that removes
     //      all the child views before cleaning up the parent.
 
-    reset          : function() {
+    reset            : function() {
       this.remove();
       var coll = this.collection;
       this.initialize({collection: coll});
@@ -72,7 +79,7 @@ define([
 
     // Core View Functions //
 
-    initialize: function(opts) {
+    initialize       : function(opts) {
       opts               = opts || {};
       this.grouping      = opts.grouping || {};
       this.childViews    = this.childViews || [];
@@ -92,10 +99,12 @@ define([
       var that = this;
 
       this.$quickAddForm.render();
-      this.$el.html(this.template({form: this.$quickAddForm.$el.html()}));
+      this.$el.html(this.template());
+      this.$('li.quick-add-form').html(this.$quickAddForm.el);
       
       this.collection.each(function(task) {
         var view = new ListItemView({model: task});
+        that.childViews.push(view);
         that.$el.append(view.render().el);
       });
   

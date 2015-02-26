@@ -10,8 +10,8 @@ define([
 ], function($, _, Backbone, Cookie, API, Utils, TaskModel, Template) {
   var QuickAddFormView = Backbone.View.extend({
     template   : _.template(Template),
-    tagName    : 'li',
-    className  : 'quick-add-form not-sortable',
+    tagName    : 'form',
+    className  : 'task-form create-form quick-add-form',
 
     events     : {
       'submit' : 'createTask'
@@ -23,7 +23,7 @@ define([
 
       // Declare variable `that` for use inside the Ajax code
       var that = this;
-      var form = this.$('form'), attrs = Utils.getAttributes(form);
+      var attrs = Utils.getAttributes(this.$el);
 
       // Make sure the task being created has the attribute(s) common to
       // this form's collection
@@ -39,7 +39,7 @@ define([
         this.collection.create(attrs, {
           url        : API.tasks.collection($.cookie('userID')),
           success    : function(model) {
-            form[0].reset();
+            that.$el[0].reset();
 
             // The task positions are also set on the server, so no need to
             // sync the whole collection.

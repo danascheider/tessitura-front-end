@@ -43,15 +43,19 @@ define([
       //      want it to be a `form`.
 
       it('is a form', function() {
-        form.$el[0].tagName.should.equal('LI');
+        form.$el[0].tagName.should.equal('FORM');
       });
+
+      it('has class .task-form', function() {
+        form.$el[0].className.should.include('task-form');
+      });
+
+      it('has class .create-form', function() {
+        form.$el[0].className.should.include('create-form');
+      })
 
       it('has class .quick-add-form', function() {
         form.$el[0].className.should.include('quick-add-form');
-      });
-
-      it('has class .not-sortable', function() {
-        form.$el[0].className.should.include('not-sortable');
       });
     });
 
@@ -70,7 +74,7 @@ define([
     describe('createTask() method', function() {
       beforeEach(function() {
         server = sandbox.useFakeServer();
-        e = $.Event('submit', {target: form.$('form')});
+        e = $.Event('submit', {target: form.$el});
       });
 
       afterEach(function() {
@@ -117,10 +121,10 @@ define([
         });
 
         it('resets the form', function() {
-          sandbox.stub(form.$('form')[0], 'reset');
+          sandbox.stub(form.$el[0], 'reset');
           form.createTask(e);
           server.respond();
-          form.$('form')[0].reset.calledOnce.should.be.true;
+          form.$el[0].reset.calledOnce.should.be.true;
         });
       });
 
