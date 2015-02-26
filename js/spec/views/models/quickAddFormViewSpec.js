@@ -106,7 +106,6 @@ define([
         it('sets the new task\'s attributes according to its grouping', function() {
           sandbox.stub(collection, 'create');
           form.createTask(e);
-          console.log(collection.create.args[0]);
           collection.create.args[0][0].status.should.equal('Blocking');
         });
 

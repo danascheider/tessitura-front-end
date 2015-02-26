@@ -59,6 +59,10 @@ define([
           newView.data.should.equal(data);
         });
 
+        it('sets the groupedBy property', function() {
+          newView.groupedBy.should.deep.equal({status: 'New'});
+        });
+
         it('creates a quick-add form', function() {
           newView.$quickAddForm.should.exist;
         });
