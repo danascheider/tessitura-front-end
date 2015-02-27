@@ -179,6 +179,12 @@ define([
           view.render();
           view.childViews.length.should.equal(2);
         });
+
+        it('keeps existing child views', function() {
+          var child = view.retrieveViewForModel(task1);
+          view.render();
+          view.childViews.should.include(child);
+        });
       });
 
       it('configures sortable', function() {
