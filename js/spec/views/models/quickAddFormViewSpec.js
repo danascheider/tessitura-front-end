@@ -39,9 +39,6 @@ define([
     describe('elements', function() {
       beforeEach(function() { form.render(); });
 
-      // FIX: Currently the tagName of the quick-add form is an `li`, but I
-      //      want it to be a `form`.
-
       it('is a form', function() {
         form.$el[0].tagName.should.equal('FORM');
       });
