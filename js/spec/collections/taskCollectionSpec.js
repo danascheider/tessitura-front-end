@@ -13,7 +13,7 @@ define([
 
     // Create models that will be used to populate the collection under test
 
-    var task1 = new TaskModel({id: 1, title: 'Task 1', status: 'New', priority: 'Low', position: 1});
+    var task1 = new TaskModel({id: 1, title: 'Task 1', status: 'New', priority: 'Normal', position: 1});
     var task2 = new TaskModel({id: 2, title: 'Task 2', status: 'New', priority: 'Normal', position: 2});
     var task3 = new TaskModel({id: 3, title: 'Task 3', status: 'Complete', priority: 'Normal', position: 3});
 
@@ -26,6 +26,13 @@ define([
 
     afterEach(function() {
       sandbox.restore();
+    });
+
+    describe('constructor', function() {
+      it('sets the models', function() {
+        collection = new TaskCollection([task1, task2, task3], {grouping: {priority: 'Normal'}});
+        collection.models.should.deep.equal([task1, task2, task3]);
+      });
     });
     
     describe('comparator', function() {
