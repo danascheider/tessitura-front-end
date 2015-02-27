@@ -17,6 +17,11 @@ define([
       this.grouping = opts.grouping;
     },
 
+    addGrouping: function(grouping) {
+      var that = this;
+      for(attr in grouping) { that.grouping[attr] = grouping[attr]; }
+    },
+
     // There are two routes for fetching a task collection: One to fetch only
     // the incomplete tasks (which is the default) and one for fetching all the
     // tasks. The fetch() method is being overridden here to do two things beyond

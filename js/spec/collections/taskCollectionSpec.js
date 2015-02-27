@@ -51,6 +51,26 @@ define([
       });
     });
 
+    describe('addGrouping() method', function() {
+      beforeEach(function() {
+        collection = new TaskCollection([task1, task2, task3], {grouping: {priority: 'Normal'}});
+      })
+      describe('when all tasks fulfill the new criterion', function() {
+        it('adds the new grouping', function() {
+          collection.addGrouping({backlog: false});
+          collection.grouping.should.deep.equal({priority: 'Normal', backlog: false});
+        });
+      });
+
+      describe('when some tasks don\'t fulfill the new criterion', function() {
+        //
+      });
+
+      describe('when the new criterion conflicts with the old', function() {
+        //
+      });
+    });
+
     describe('fetch() method', function() {
 
       beforeEach(function() {
