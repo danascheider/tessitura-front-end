@@ -26,7 +26,10 @@ define([
     afterEach(function() { sandbox.restore(); });
 
     describe('constructor', function() {
-      it('doesn\'t require a user');
+      it('doesn\'t require a user', function() {
+        presenter = new DashboardPresenter();
+        (typeof presenter.user).should.equal('undefined');
+      });
 
       it('calls `setUser`', function() {
         sandbox.stub(DashboardPresenter.prototype, 'setUser');
