@@ -192,47 +192,21 @@ define([
       });
     });
 
-    describe('reset', function() {
+    describe('remove() function', function() {
       beforeEach(function() {
         view.render();
       });
 
+      it('removes the child views', function() {
+        sandbox.stub(view, 'removeChildViews');
+        view.remove();
+        view.removeChildViews.calledOnce.should.be.true;
+      });
+
       it('removes the view from the DOM', function() {
-        sandbox.stub(view, 'remove');
-        view.reset();
-        view.remove.calledOnce.should.be.true;
-      });
-
-      it('keeps its collection', function() {
-        view.reset();
-        view.collection.should.equal(collection);
-      });
-
-      it('returns itself', function() {
-        view.reset().should.equal(view);
-      });
-
-      describe('listeners', function() {
-        beforeEach(function() {
-          sandbox.stub(view, 'listenTo');
-          view.reset();
-        });
-
-        it('re-establishes listener for collection:remove', function() {
-          view.listenTo.calledWithExactly(view.collection, 'remove', view.refreshCollection).should.be.true;
-        });
-
-        it('re-establishes listener for collection:add', function() {
-          view.listenTo.calledWithExactly(view.collection, 'add', view.refreshCollection).should.be.true;
-        });
-
-        it('re-establishes listener for collection:markComplete', function() {
-          view.listenTo.calledWithExactly(view.collection, 'markComplete', view.removeComplete).should.be.true;
-        });
-
-        it('re-establishes listener for collection:change:backlog', function() {
-          view.listenTo.calledWithExactly(view.collection, 'change:backlog', view.removeBacklog).should.be.true;
-        });
+        sandbox.stub(Backbone.View.prototype.remove, 'call');
+        view.remove();
+        Backbone.View.prototype.remove.call.withArgs(view).calledOnce.should.be.true;
       });
     });
   });

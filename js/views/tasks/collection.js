@@ -105,7 +105,12 @@ define([
       this.listenTo(this.collection, 'change:backlog', this.removeBacklog);
     },
 
-    render: function() {
+    remove           : function() {
+      this.removeChildViews();
+      Backbone.View.prototype.remove.call(this);
+    },
+
+    render           : function() {
       var that = this;
 
       this.$quickAddForm.render();
