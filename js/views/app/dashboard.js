@@ -19,7 +19,9 @@ define([
   
   var DashboardView = Backbone.View.extend({
 
+    // -------------------- //
     // Core View Attributes //
+    // -------------------- //
 
     tagName       : 'div',
     id            : 'dashboard-wrapper',
@@ -31,7 +33,9 @@ define([
 
     template : _.template(DashboardTemplate),
 
+    // --------------- //
     // Event Callbacks // 
+    // --------------- //
 
     hideDropdownMenus: function(e) {
       var li = this.$('li.dropdown');
@@ -53,9 +57,9 @@ define([
       li.toggleClass('open');
     },
 
-    // ----------------- //
-    // Core View Methods //
-    // ----------------- //
+    // ------------------- //
+    // Core View Functions //
+    // ------------------- //
 
     initialize: function(opts) {
       opts = opts || {};
