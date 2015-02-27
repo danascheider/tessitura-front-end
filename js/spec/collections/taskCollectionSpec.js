@@ -63,7 +63,10 @@ define([
       });
 
       describe('when some tasks don\'t fulfill the new criterion', function() {
-        //
+        it('kicks them out of the collection', function() {
+          collection.addGrouping({status: 'New'});
+          collection.models.should.not.include(task3);
+        });
       });
 
       describe('when the new criterion conflicts with the old', function() {

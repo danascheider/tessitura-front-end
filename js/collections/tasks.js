@@ -19,7 +19,15 @@ define([
 
     addGrouping: function(grouping) {
       var that = this;
-      for(attr in grouping) { that.grouping[attr] = grouping[attr]; }
+      for(attr in grouping) { 
+        that.grouping[attr] = grouping[attr]; 
+
+        badModels = that.filter(function(task) {
+          return task.get(attr) != grouping[attr];
+        });
+        
+        that.remove(badModels);
+      }
     },
 
     // There are two routes for fetching a task collection: One to fetch only
