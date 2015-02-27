@@ -55,9 +55,6 @@ define([
       this.$el.html(this.template());
       this.renderTopWidgets();
       this.renderTaskPanel();
-
-      // Fetch the user's tasks and render in the task panel
-      var that = this;
       return this;
     }
   });
