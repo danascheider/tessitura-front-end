@@ -33,6 +33,11 @@ define([
         collection = new TaskCollection([task1, task2, task3], {grouping: {priority: 'Normal'}});
         collection.models.should.deep.equal([task1, task2, task3]);
       });
+
+      it('sets the grouping', function() {
+        collection = new TaskCollection([task1, task2, task3], {grouping: {priority: 'Normal'}});
+        collection.grouping.should.deep.equal({priority: 'Normal'});
+      });
     });
     
     describe('comparator', function() {
