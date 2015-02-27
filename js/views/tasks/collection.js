@@ -67,16 +67,6 @@ define([
       this.collection.remove(task);
     },
 
-    // FIX: This should be replaced by a custom `remove` function that removes
-    //      all the child views before cleaning up the parent.
-
-    reset            : function() {
-      this.remove();
-      var coll = this.collection;
-      this.initialize({collection: coll});
-      return this;
-    },
-
     retrieveViewForModel: function(model) {
       var view = _.filter(this.childViews, function(view) {
         return view.model === model;

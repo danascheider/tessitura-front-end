@@ -57,7 +57,7 @@ define([
 
     describe('elements', function() {
       beforeEach(function() {
-        view.reset().render();
+        view.render();
       });
 
       it('creates a ul', function() {
@@ -162,7 +162,7 @@ define([
     describe('render function', function() {
       beforeEach(function() {
         sandbox.stub($.prototype, 'sortable');
-        view.reset().render();
+        view.render();
       });
 
       it('renders the list items', function() {
