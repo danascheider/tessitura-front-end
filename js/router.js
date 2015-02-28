@@ -2,7 +2,7 @@ define([
   'backbone', 
   'filter',
   'models/appPresenter',
-  'models/dashboard-presenter',
+  'models/dashboardPresenter',
   'models/user',
   'views/spec/spec',
   'cookie'

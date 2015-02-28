@@ -1,6 +1,6 @@
 define([
   'backbone',
-  'models/dashboard-presenter',
+  'models/dashboardPresenter',
   'api',
   'models/user',
   'models/task',
