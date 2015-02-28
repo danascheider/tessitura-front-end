@@ -1,8 +1,8 @@
 define([
   'backbone', 
-  'views/partials/dashboard-home', 
-  'views/partials/dashboard-top-widgets',
-  'views/tasks/task-panel',
+  'views/partials/dashboardHome', 
+  'views/partials/dashboardTopWidgets',
+  'views/partials/taskPanel',
   'models/user',
   'models/task',
   'collections/tasks'

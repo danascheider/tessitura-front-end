@@ -1,6 +1,6 @@
 define([
   'backbone',
-  'views/tasks/list-entry', 
+  'views/models/task/listEntry', 
   'models/task',
   'spec/testTools',
   'jquery-ui'

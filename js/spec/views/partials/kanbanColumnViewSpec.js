@@ -1,6 +1,6 @@
 define([
   'backbone',
-  'views/partials/kanban-column',
+  'views/partials/kanbanColumn',
   'models/user',
   'models/task',
   'collections/tasks',

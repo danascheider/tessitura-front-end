@@ -6,7 +6,7 @@ define([
   'api',
   'models/task',
   'jquery-ui',
-  'views/tasks/collection',
+  'views/collections/taskCollection',
   'text!templates/partials/kanban-column.html'
 ], function($, _, Backbone, Utils, API, TaskModel, JQueryUI, TaskCollectionView, Template) {
   

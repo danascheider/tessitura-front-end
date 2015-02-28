@@ -1,6 +1,6 @@
 define([
   'backbone',
-  'views/tasks/update-form',
+  'views/models/task/updateForm',
   'models/task',
   'utils'
   ], function(Backbone, FormView, Task, Utils) {

@@ -7,8 +7,8 @@ define([
   'api',
   'utils',
   'models/task',
-  'views/tasks/list-entry',
-  'views/tasks/quick-add-form',
+  'views/models/task/listEntry',
+  'views/models/task/quickAddForm',
   'text!templates/tasks/model.html'
 ], function(
   $, 

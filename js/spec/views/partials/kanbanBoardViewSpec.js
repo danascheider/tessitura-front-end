@@ -1,9 +1,10 @@
 define([
   'backbone', 
-  'views/partials/kanban-board', 
+  'views/partials/kanbanBoard', 
   'models/task', 
   'models/user',
-  'collections/tasks'], function(Backbone, KanbanView, Task, User, TaskCollection) {
+  'collections/tasks'
+  ], function(Backbone, KanbanView, Task, User, TaskCollection) {
   
   describe('Kanban Board View', function() {
     var view, e, server;

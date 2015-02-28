@@ -2,7 +2,7 @@ define([
   'backbone',
   'collections/tasks',
   'models/task',
-  'views/tasks/task-panel'
+  'views/partials/taskPanel'
   ], function(Backbone, TaskCollection, Task, TaskPanelView) {
   
   describe('Task Panel View', function() {

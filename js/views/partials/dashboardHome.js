@@ -3,8 +3,8 @@ define([
   'underscore',
   'backbone',
   'api',
-  'views/partials/dashboard-top-widgets',
-  'views/tasks/task-panel',
+  'views/partials/dashboardTopWidgets',
+  'views/partials/taskPanel',
   'text!templates/partials/dashboard-home.html'
 ], function($, _, Backbone, API, DashboardTopWidgetView, TaskPanelView, Template) {
 

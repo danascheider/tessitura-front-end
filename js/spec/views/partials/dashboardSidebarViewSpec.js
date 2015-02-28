@@ -1,4 +1,4 @@
-define(['backbone', 'views/partials/dashboard-sidebar'], function(Backbone, SidebarView) {
+define(['backbone', 'views/partials/dashboardSidebar'], function(Backbone, SidebarView) {
   
   describe('Dashboard Sidebar View', function() {
     var sidebar, e;

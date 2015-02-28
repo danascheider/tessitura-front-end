@@ -3,7 +3,7 @@ define([
   'utils',
   'models/task',
   'collections/tasks',
-  'views/tasks/quick-add-form'
+  'views/models/task/quickAddForm'
   ], function(Backbone, Utils, Task, TaskCollection, QuickAddForm) {
   
   describe('Quick-Add Form View', function() {

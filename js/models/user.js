@@ -5,6 +5,8 @@ define([
   'collections/tasks',
   'collections/protected-collection',
   'cookie'
+
+  // FIX: Does ProtectedCollection really need to be included here?
   ], function(Backbone, API, Utils, TaskCollection, ProtectedCollection) {
 
   var User = Backbone.Model.extend({

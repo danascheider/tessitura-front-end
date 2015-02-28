@@ -6,7 +6,7 @@ define([
   'api',
   'utils',
   'models/user',
-  'views/partials/login-form',
+  'views/partials/loginForm',
   'text!templates/app/homepage.html',
   'css!stylesheets/bootstrap.css',
   'css!fa-styles/font-awesome.min.css',

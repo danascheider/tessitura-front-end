@@ -6,8 +6,8 @@ define([
   'api',
   'utils',
   'collections/tasks',
-  'views/tasks/update-form',
-  'views/tasks/model',
+  'views/models/task/updateForm',
+  'views/models/task/model',
   'text!templates/tasks/list-entry.html',
 ], function(
   $, 

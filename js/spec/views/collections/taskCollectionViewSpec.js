@@ -4,8 +4,8 @@ define([
   'collections/tasks',
   'models/user',
   'models/task',
-  'views/tasks/list-entry',
-  'views/tasks/collection',
+  'views/models/task/listEntry',
+  'views/collections/taskCollection',
   'spec/testTools',
   'jquery-ui',
 ], function(_, Backbone, TaskCollection, User, Task, ListItemView, TaskCollectionView, TestTools) {

@@ -4,7 +4,7 @@ define([
   'backbone',
   'api',
   'collections/tasks',
-  'views/partials/kanban-column',
+  'views/partials/kanbanColumn',
   'text!templates/partials/kanban-board.html',
   'css!stylesheets/canto.css',
 ], function($, _, Backbone, API, TaskCollection, KanbanColumnView, Template) {

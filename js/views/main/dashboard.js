@@ -3,7 +3,7 @@ define([
   'underscore',
   'backbone',
   'models/user',
-  'views/partials/dashboard-sidebar',
+  'views/partials/dashboardSidebar',
   'text!templates/app/dashboard.html',
   'css!stylesheets/bootstrap.css',
   'css!stylesheets/dashboard.css',

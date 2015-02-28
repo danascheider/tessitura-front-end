@@ -5,7 +5,7 @@ define([
   'utils',
   'models/task',
   'collections/tasks',
-  'views/tasks/collection',
+  'views/collections/taskCollection',
   'text!templates/partials/task-panel.html',
   'css!stylesheets/bootstrap.css',
   'css!stylesheets/dashboard.css',

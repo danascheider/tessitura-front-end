@@ -6,8 +6,8 @@ define([
   'models/task',
   'collections/tasks',
   'views/main/dashboard',
-  'views/partials/dashboard-home',
-  'views/partials/kanban-board',
+  'views/partials/dashboardHome',
+  'views/partials/kanbanBoard',
   'cookie'
 
 ], function(

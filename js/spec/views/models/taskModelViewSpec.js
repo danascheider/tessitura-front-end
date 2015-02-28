@@ -1,6 +1,6 @@
 define([
   'backbone',
-  'views/tasks/model',
+  'views/models/task/model',
   'models/task',
   'models/user',
   'cookie'
