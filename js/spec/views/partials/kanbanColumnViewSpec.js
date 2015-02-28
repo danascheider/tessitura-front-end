@@ -67,12 +67,6 @@ define([
         it('creates a collection view', function() {
           newView.$collectionView.should.exist;
         });
-
-        // FIX: It might be better to test for behavior, not listeners
-
-        it('listens to its collection', function() {
-          Backbone.View.prototype.listenTo.withArgs(newView.collection).called.should.be.true;
-        });
       });
 
       describe('groupedBy property when backlog', function() {
@@ -93,13 +87,23 @@ define([
     });
 
     describe('events', function() {
-      describe('add event on collection', function() {
+      describe('add task to collection', function() {
         it('calls updateTask', function() {
           var task = new Task({title: 'Foo'});
           sandbox.stub(ColumnView.prototype, 'updateTask');
           var newView = new ColumnView(data);
           newView.collection.add(task);
           ColumnView.prototype.updateTask.withArgs(task).calledOnce.should.be.true;
+        });
+      });
+
+      describe('remove task from collection', function() {
+        it('calls render', function() {
+          sandbox.stub(ColumnView.prototype, 'render');
+          var newView = new ColumnView(data);
+          newView.collection.remove(task3);
+          ColumnView.prototype.render.calledOnce.should.be.true;
+          newView.collection.reset([task1, task2, task3]);
         });
       });
     });
