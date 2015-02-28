@@ -17,9 +17,14 @@ define([
 
     describe('constructor', function() {
       it('sets the `parent` attribute', function() {
-        var subset = new Subset([task1, task2], {model: Task, parent: parent, grouping: {status: 'New'}});
-        subset.parent.should.equal(parent);
+        var newSubset = new Subset([task1, task2], {model: Task, parent: parent, grouping: {status: 'New'}});
+        newSubset.parent.should.equal(parent);
       });
+
+      it('sets the models', function() {
+        var newSubset = new Subset([task1, task2], {model: Task, parent: parent, grouping: {status: 'New'}});
+        newSubset.models.should.deep.equal([task1, task2]);
+      })
     });
   });
 });
