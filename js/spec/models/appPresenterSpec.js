@@ -1,6 +1,6 @@
 define([
   'backbone',
-  'models/app-presenter',
+  'models/appPresenter',
   'api',
   'views/main/homepage',
   'cookie'
