@@ -1,6 +1,6 @@
 define([
   'backbone', 
-  'collections/protected-collection',
+  'collections/protectedCollection',
   'api',
   'cookie'
 ], function(Backbone, ProtectedCollection, API) {

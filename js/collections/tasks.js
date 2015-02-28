@@ -1,5 +1,5 @@
 define([
-  'collections/protected-collection',
+  'collections/protectedCollection',
   'models/task',
   'api',
   'cookie'
@@ -22,7 +22,7 @@ define([
     //      Kanban columns, etc.) can add their own groupings while
     //      maintaining the collection membership of the tasks 
     //      inside them.
-    
+
     addGrouping: function(grouping) {
       var that = this;
       for(attr in grouping) { 

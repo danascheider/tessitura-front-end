@@ -3,11 +3,9 @@ define([
   'api',
   'utils',
   'collections/tasks',
-  'collections/protected-collection',
   'cookie'
 
-  // FIX: Does ProtectedCollection really need to be included here?
-  ], function(Backbone, API, Utils, TaskCollection, ProtectedCollection) {
+  ], function(Backbone, API, Utils, TaskCollection) {
 
   var User = Backbone.Model.extend({
     urlRoot: API.users.collection,
