@@ -1,5 +1,5 @@
 define([
-  'models/protected-resource',
+  'models/protectedResource',
   'api',
   'cookie'
   ], function(ProtectedResource, API) {

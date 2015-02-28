@@ -1,6 +1,6 @@
 define([
   'backbone', 
-  'models/protected-resource', 
+  'models/protectedResource', 
   'api', 
   'cookie'
 ], function(Backbone, ProtectedResource, API) {
