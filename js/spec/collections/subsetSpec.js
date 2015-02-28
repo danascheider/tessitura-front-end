@@ -30,6 +30,11 @@ define([
         var newSubset = new Subset([task1, task2], {parent: parent, grouping: {status: 'New'}});
         newSubset.grouping.should.deep.equal({status: 'New'});
       });
+
+      it('inherits the model of its parent', function() {
+        var newSubset = new Subset([task1, task2], {parent: parent, grouping: {status: 'New'}});
+        newSubset.model.should.equal(Task);
+      });
     });
   });
 });
