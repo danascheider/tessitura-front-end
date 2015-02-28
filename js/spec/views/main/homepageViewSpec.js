@@ -1,7 +1,7 @@
 define([
   'backbone', 
-  'views/app/homepage', 
-  'views/app/login-form',
+  'views/main/homepage', 
+  'views/partials/login-form',
   'models/user',
   'utils', 
   'cookie'

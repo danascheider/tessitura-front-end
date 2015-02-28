@@ -5,9 +5,9 @@ define([
   'models/user',
   'models/task',
   'collections/tasks',
-  'views/app/dashboard',
-  'views/app/dashboard-home',
-  'views/app/kanban-board',
+  'views/main/dashboard',
+  'views/partials/dashboard-home',
+  'views/partials/kanban-board',
   'cookie'
 
 ], function(

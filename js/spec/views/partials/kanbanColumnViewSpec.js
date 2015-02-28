@@ -1,10 +1,11 @@
 define([
   'backbone',
-  'views/app/kanban-column',
+  'views/partials/kanban-column',
   'models/user',
   'models/task',
   'collections/tasks',
-  'utils'], function(Backbone, ColumnView, User, Task, TaskCollection, Utils) {
+  'utils'
+  ], function(Backbone, ColumnView, User, Task, TaskCollection, Utils) {
   
   describe('Kanban column view', function() {
     var column, e, server;

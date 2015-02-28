@@ -3,7 +3,7 @@ define([
   'underscore',
   'backbone',
   'models/user',
-  'views/app/homepage',
+  'views/main/homepage',
 ], function($, _, Backbone, UserModel, HomepageView) {
 
   var AppPresenter = Backbone.Model.extend({

@@ -1,4 +1,4 @@
-define(['backbone', 'views/app/login-form', 'utils', 'cookie'], function(Backbone, LoginForm, Utils) {
+define(['backbone', 'views/partials/login-form', 'utils', 'cookie'], function(Backbone, LoginForm, Utils) {
   
   describe('LoginForm View', function() {
 

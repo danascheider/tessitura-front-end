@@ -1,5 +1,5 @@
 define(['backbone', 
-  'views/app/dashboard-top-widgets',
+  'views/partials/dashboard-top-widgets',
   'models/task',
   'collections/tasks'
   ], function(Backbone, WidgetView, Task, TaskCollection) {

@@ -2,7 +2,7 @@ define([
   'backbone',
   'models/app-presenter',
   'api',
-  'views/app/homepage',
+  'views/main/homepage',
   'cookie'
   ], function(Backbone, AppPresenter, API, HomepageView) {
 

@@ -2,7 +2,7 @@ define([
   'jquery',
   'underscore', 
   'backbone', 
-  'views/app/dashboard',
+  'views/main/dashboard',
   'models/user'
 ], function($, _, Backbone, DashboardView, User) {
 

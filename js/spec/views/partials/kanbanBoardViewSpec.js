@@ -1,6 +1,6 @@
 define([
   'backbone', 
-  'views/app/kanban-board', 
+  'views/partials/kanban-board', 
   'models/task', 
   'models/user',
   'collections/tasks'], function(Backbone, KanbanView, Task, User, TaskCollection) {
