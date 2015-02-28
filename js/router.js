@@ -17,13 +17,6 @@ define([
   
   var CantoRouter = Backbone.Router.extend({
     initialize         : function() {
-      if($.cookie('auth')) {
-
-        // FIX: Should avoid using window.user with Require.js
-
-        window.user = window.user || new UserModel({id: $.cookie('userID')});
-      }
-
       this.appPresenter = new AppPresenter();
       this.dashboardPresenter = new DashboardPresenter();
 

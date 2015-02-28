@@ -33,14 +33,7 @@ requirejs.config({
 });
 
 require(['backbone', 'router', 'models/user', 'cookie'], function(Backbone, Router, UserModel) {
-  $(function() {
-
-    // FIX: Call to window.user is probably not a good idea when using Require.js
-    
-    if($.cookie('auth') && $.cookie('userID')) {
-      window.user = new UserModel({id: $.cookie('userID')});
-    }
-    
+  $(function() {    
     this.router = new Router();
     Backbone.history.start({root: '.'});
   });
