@@ -106,6 +106,15 @@ define([
           newView.collection.reset([task1, task2, task3]);
         });
       });
+
+      describe('backlog task in collection', function() {
+        it('calls render', function() {
+          sandbox.stub(ColumnView.prototype, 'render');
+          var newView = new ColumnView(data);
+          task3.set('backlog', false); // why this is true at this point, I am afraid to ask
+          ColumnView.prototype.render.calledOnce.should.be.true;
+        });
+      });
     });
 
     describe('elements', function() {
