@@ -14,7 +14,8 @@ define([
     className  : 'dashboard-home',
 
     renderTopWidgets : function(data) {
-      this.$('#dash-heading').html(this.$topWidgets.render().el);
+      this.$topWidgets.render();
+      this.$('#dash-heading').html(this.$topWidgets.el);
       this.$topWidgets.delegateEvents();
 
       return this;
@@ -32,7 +33,9 @@ define([
       Backbone.View.prototype.remove.call(this);
     },
 
+    // ------------------- //
     // Core view functions //
+    // ------------------- //
 
     initialize : function(opts) {
       opts = opts || {};

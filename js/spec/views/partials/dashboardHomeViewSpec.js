@@ -90,16 +90,13 @@ define([
 
       it('creates a top widget view', function() {
         view.renderTopWidgets({taskCollection: user.tasks});
-        view.$topWidgets.should.exist;
+        (typeof view.$topWidgets).should.not.equal('undefined');
       });
 
       it('renders the top widget view', function() {
-        // FIX: I cannot figure out why this doesn't work no matter how I 
-        //      word the test code or SUT
-
-        // sandbox.stub(Backbone.View.prototype, 'render');
-        // view.renderTopWidgets({taskCollection: user.tasks});
-        // Backbone.View.prototype.render.called.should.be.true;
+        sandbox.stub(view.$topWidgets, 'render');
+        view.renderTopWidgets({taskCollection: user.tasks});
+        view.$topWidgets.render.called.should.be.true;
       });
 
       it('inserts the top widget view into the DOM');
