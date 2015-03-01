@@ -28,9 +28,10 @@ define([
     });
 
     describe('constructor', function() {
-      it('sets this.user', function() {
+      it('calls setUser', function() {
+        sandbox.stub(DashboardView.prototype, 'setUser');
         var newDashboard = new DashboardView({user: user});
-        newDashboard.user.should.equal(user);
+        DashboardView.prototype.setUser.withArgs(user).calledOnce.should.be.true;
       });
 
       it('instantiates a sidebar', function() {
@@ -42,6 +43,11 @@ define([
         sandbox.stub(Backbone.View.prototype, 'render');
         var newDashboard = new DashboardView({user: user});
         Backbone.View.prototype.render.called.should.be.false;
+      });
+
+      it('can be instantiated without a user', function() {
+        var newDashboard = new DashboardView();
+        (typeof newDashboard.user).should.equal('undefined');
       });
     });
 
@@ -119,6 +125,14 @@ define([
           dashboard.hideDropdownMenus(e);
           dashboard.$('li.dropdown').first().should.be.visible;
         });
+      });
+    });
+
+    describe('setUser() method', function() {
+      it('sets this.user', function() {
+        var newDashboard = new DashboardView();
+        newDashboard.setUser(user);
+        newDashboard.user.should.equal(user);
       });
     });
 

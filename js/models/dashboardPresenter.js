@@ -25,6 +25,8 @@ define([
     initialize     : function(opts) {
       opts = opts || {};
 
+      this.$homeView = new HomeView();
+
       // If a user is passed to the constructor, set `this.user` and 
       // listen to the user's `sync` event
 

@@ -45,6 +45,10 @@ define([
       }
     },
 
+    setUser           : function(user) {
+      this.user = user;
+    },
+
     // When the user clicks one of the icons on the top nav, the following
     // things happen:
     //   1) All open dropdowns close
@@ -63,8 +67,8 @@ define([
 
     initialize: function(opts) {
       opts = opts || {};
-      this.user = opts.user;
-      this.$sidebar = this.$sidebar || new SidebarView();
+      if(!!opts.user) { this.setUser(opts.user); }
+      this.$sidebar = new SidebarView();
     },
     
     render: function() {

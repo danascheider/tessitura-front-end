@@ -31,6 +31,11 @@ define([
         (typeof presenter.user).should.equal('undefined');
       });
 
+      it('creates a home view', function() {
+        presenter = new DashboardPresenter();
+        (typeof presenter.$homeView).should.not.equal('undefined');
+      })
+
       it('calls `setUser`', function() {
         sandbox.stub(DashboardPresenter.prototype, 'setUser');
         presenter = new DashboardPresenter({user: user});
