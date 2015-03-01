@@ -113,12 +113,9 @@ define([
       });
 
       it('renders the task panel', function() {
-        // FIX: I cannot figure out why this doesn't work no matter how I 
-        //      word the test code or SUT
-
-        // sandbox.stub(Backbone.View.prototype, 'render');
-        // view.renderTaskPanel(user.tasks);
-        // Backbone.View.prototype.render.calledOnce.should.be.true;
+        sandbox.stub(view.$taskPanel, 'render');
+        view.renderTaskPanel(user.tasks);
+        view.$taskPanel.render.calledOnce.should.be.true;
       });
 
       it('inserts the task panel view into the DOM');
