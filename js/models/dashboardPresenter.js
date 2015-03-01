@@ -71,7 +71,11 @@ define([
     },
 
     removeAll : function() {
-      if(!!this.mainView) { this.mainView.remove(); }
+      if(!!this.mainView) { 
+        if(!!this.mainView.$homeView) { this.mainView.$homeView.remove(); }
+        if(!!this.mainView.$kanbanView) { this.mainView.$kanbanView.remove(); }
+        this.mainView.remove(); 
+      }
     },
 
     // Set `this.user` and listen to the user's `sync` event
