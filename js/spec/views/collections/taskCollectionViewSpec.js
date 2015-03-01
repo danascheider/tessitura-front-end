@@ -84,7 +84,17 @@ define([
           var newView = new TaskCollectionView(data);
           newView.collection.remove(task1);
           TaskCollectionView.prototype.render.calledOnce.should.be.true;
-          collection.reset([task1, task2, task3]);
+          collection.reset([task1, task2]);
+        });
+      });
+
+      describe('add task to collection', function() {
+        it('calls render', function() {
+          sandbox.stub(TaskCollectionView.prototype, 'render');
+          var newView = new TaskCollectionView(data);
+          newView.collection.add(new Task({title: 'Wash the dishes'}));
+          TaskCollectionView.prototype.render.calledOnce.should.be.true;
+          collection.reset([task1, task2]);
         });
       });
     });
