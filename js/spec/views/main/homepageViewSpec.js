@@ -67,7 +67,7 @@ define([
         });
 
         it('triggers the loginSuccess event', function() {
-          var spy = sandbox.spy();
+          spy = sandbox.spy();
           view.on('loginSuccess', spy);
           view.$loginForm.trigger('loginSuccess');
           spy.calledOnce.should.be.true;
@@ -117,7 +117,7 @@ define([
       });
 
       it('emits loginSuccess event', function() {
-        var spy = sandbox.spy();
+        spy = sandbox.spy();
         tmpView.on('loginSuccess', spy);
         tmpView.$loginForm.trigger('loginSuccess');
         spy.calledOnce.should.be.true;
@@ -196,8 +196,8 @@ define([
           $.cookie.calledWithExactly('userID', 343).should.be.true;
         });
 
-        it('redirects to the dashboard', function() {
-          Backbone.history.navigate.calledWithExactly('#dashboard', {trigger: true}).should.be.true;
+        it('triggers loginSuccess', function() {
+          spy.calledOnce.should.be.true;
         });
       });
 

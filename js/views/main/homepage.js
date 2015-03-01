@@ -51,7 +51,6 @@ define([
           $.cookie('auth', hash);
 
           that.trigger('loginSuccess');
-          Backbone.history.navigate('#dashboard', {trigger: true});
         },
 
         error : function(error, response) {
