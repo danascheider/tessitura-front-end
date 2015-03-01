@@ -38,6 +38,20 @@ define([
       });
     });
 
+    describe('events', function() {
+      describe('sync user', function() {
+        beforeEach(function() {
+          sandbox.stub(DashboardPresenter.prototype, 'refresh');
+          presenter = new DashboardPresenter({user: user});
+        });
+
+        it('calls refresh', function() {
+          user.trigger('sync');
+          DashboardPresenter.prototype.refresh.calledOnce.should.be.true;
+        });
+      });
+    });
+
     describe('setUser() method', function() {
       beforeEach(function() {
         presenter = new DashboardPresenter();
