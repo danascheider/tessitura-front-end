@@ -39,7 +39,12 @@ define([
       it('creates a home view', function() {
         presenter = new DashboardPresenter();
         (typeof presenter.$mainView.$homeView).should.not.equal('undefined');
-      })
+      });
+
+      it('creates a kanban view', function() {
+        presenter = new DashboardPresenter();
+        (typeof presenter.$mainView.$kanbanView).should.not.equal('undefined');
+      });
 
       it('calls `setUser`', function() {
         sandbox.stub(DashboardPresenter.prototype, 'setUser');
@@ -88,6 +93,12 @@ define([
         sandbox.stub(presenter.$mainView.$homeView, 'setUser');
         presenter.setUser(user);
         presenter.$mainView.$homeView.setUser.calledOnce.should.be.true;
+      });
+
+      it('calls setUser on the task view', function() {
+        sandbox.stub(presenter.$mainView.$kanbanView, 'setUser');
+        presenter.setUser(user);
+        presenter.$mainView.$kanbanView.setUser.calledOnce.should.be.true;
       });
     });
 
@@ -174,28 +185,7 @@ define([
         });
       });
 
-      describe('when there is no task view', function() {
-        it('creates the task view', function() {
-          delete presenter.$mainView.$kanbanView;
-          presenter.getKanban();
-          (typeof presenter.$mainView.$kanbanView).should.not.equal('undefined');
-        });
-      });
-
-      describe('when there is a task view', function() {
-        it('keeps the same task view', function() {
-          presenter.$mainView.$kanbanView = new TaskView({user: user});
-          var orig = presenter.$mainView.$kanbanView;
-          presenter.getKanban();
-          presenter.$mainView.$kanbanView.should.equal(orig);
-        });
-      });
-
       it('renders the task view', function() {
-
-        // Create the task view in advance in order to set up the stub/spy
-
-        presenter.$mainView.$kanbanView = presenter.$mainView.$kanbanView || new TaskView({user: user});
         sandbox.stub(presenter.$mainView.$kanbanView, 'render');
 
         presenter.getKanban();
@@ -219,22 +209,6 @@ define([
       beforeEach(function() {
         sandbox.stub($.prototype, 'html');
         presenter = new DashboardPresenter({user: user});
-      });
-
-      describe('when the main view doesn\'t exist', function() {
-        it('creates the main view', function() {
-          delete presenter.$mainView;
-          presenter.getMain();
-          (typeof presenter.$mainView).should.not.equal('undefined');
-        });
-      });
-
-      describe('when the main view exists', function() {
-        it('keeps the same main view', function() {
-          var orig = presenter.$mainView;
-          presenter.getMain();
-          presenter.$mainView.should.equal(orig);
-        });
       });
 
       it('renders the main view', function() {

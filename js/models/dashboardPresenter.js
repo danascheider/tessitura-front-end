@@ -27,6 +27,7 @@ define([
 
       this.$mainView = new MainView();
       this.$mainView.$homeView = new HomeView();
+      this.$mainView.$kanbanView = new KanbanView();
 
       // If a user is passed to the constructor, set `this.user` and 
       // listen to the user's `sync` event
@@ -51,18 +52,14 @@ define([
     },
 
     getKanban : function() {
-      if(!!this.$mainView.$homeView) { this.$mainView.$homeView.remove(); }
-
+      this.$mainView.$homeView.remove();
       this.current = 'kanban';
 
-      this.$mainView.$kanbanView = this.$mainView.$kanbanView || new KanbanView({user: this.user});
       this.$mainView.$kanbanView.render();
-
       this.$mainView.$('nav').after(this.$mainView.$kanbanView.el);
     },
 
     getMain   : function() {
-      this.$mainView = this.$mainView || new MainView({user: this.user});
       this.$mainView.render();
       $('body').html(this.$mainView.el);
     },
@@ -85,9 +82,11 @@ define([
 
     setUser   : function(user) {
       this.user = user;
+
       this.$mainView.setUser(user);
       this.$mainView.$homeView.setUser(user);
-      
+      this.$mainView.$kanbanView.setUser(user);
+
       this.listenTo(this.user, 'sync', this.refresh);
     } 
   });
