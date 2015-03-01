@@ -26,7 +26,7 @@ define([
     var task1 = new Task({id: 1, title: 'Task 1', status: 'In Progress', owner_id: 342});
     var task2 = new Task({id: 2, title: 'Task 2', status: 'In Progress', owner_id: 342});
     var collection = new TaskCollection([task1, task2]);
-    var data = {collection: collection, grouping: {status: 'In Progress'}};
+    var data = {collection: collection};
 
     beforeEach(function() {
       if(typeof view === 'undefined') { view = new TaskCollectionView(data); }
