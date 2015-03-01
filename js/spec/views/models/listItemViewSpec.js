@@ -128,6 +128,15 @@ define([
         });
       });
 
+      describe('trigger done event on edit form', function() {
+        it('calls render', function() {
+          stub = sandbox.stub(ListItemView.prototype, 'render');
+          var newView = new ListItemView({model: task});
+          newView.$editForm.trigger('done');
+          stub.calledOnce.should.be.true;
+        });
+      });
+
       describe('click mark complete checkbox', function() {
         it('calls markComplete', function() {
           stub = sandbox.stub(ListItemView.prototype, 'markComplete');
