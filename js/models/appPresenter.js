@@ -10,10 +10,15 @@ define([
     initialize : function() {
       this.homepageView  = new HomepageView();
       this.listenTo(this.homepageView, 'loginSuccess', this.emitLogin);
+      this.listenTo(this.homepageView, 'redirect:dashboard', this.emitRedirectDashboard);
     },
 
     emitLogin   : function() {
       this.trigger('loginSuccess');
+    },
+
+    emitRedirectDashboard: function() {
+      this.trigger('redirect:dashboard');
     },
 
     getHomepage : function(element) {

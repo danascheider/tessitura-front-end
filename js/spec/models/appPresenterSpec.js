@@ -30,6 +30,15 @@ define([
           AppPresenter.prototype.emitLogin.calledOnce.should.be.true;
         });
       });
+
+      describe('redirect:dashboard', function() {
+        it('calls emitRedirectDashboard', function() {
+          sandbox.stub(AppPresenter.prototype, 'emitRedirectDashboard');
+          var presenter = new AppPresenter();
+          presenter.homepageView.trigger('redirect:dashboard');
+          AppPresenter.prototype.emitRedirectDashboard.calledOnce.should.be.true;
+        });
+      });
     });
 
     describe('emitLogin() function', function() {
@@ -40,6 +49,17 @@ define([
         presenter.on('loginSuccess', spy);
         presenter.emitLogin();
         spy.calledOnce.should.be.true;
+      });
+    });
+
+    describe('emitRedirectDashboard() method', function() {
+      it('emits the redirect:dashboard event', function() {
+        spy = sandbox.spy();
+        var presenter = new AppPresenter();
+        presenter.on('redirect:dashboard', spy);
+        presenter.emitRedirectDashboard();
+        spy.calledOnce.should.be.true;
+        presenter.off('redirect:dashboard');
       });
     });
 
