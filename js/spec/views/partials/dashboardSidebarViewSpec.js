@@ -2,22 +2,27 @@ define(['backbone', 'views/partials/dashboardSidebar'], function(Backbone, Sideb
   
   describe('Dashboard Sidebar View', function() {
     var sidebar, e;
+    var sandbox = sinon.sandbox.create();
 
     beforeEach(function() {
       if(typeof sidebar === 'undefined') { sidebar = new SidebarView(); }
     });
 
+    afterEach(function() {
+      sidebar.remove();
+      sandbox.restore();
+    });
+
     describe('constructor', function() {
       it('doesn\'t call render', function() {
-        sinon.stub(Backbone.View.prototype, 'render');
+        sandbox.stub(SidebarView.prototype, 'render');
         var newSidebar = new SidebarView();
-        Backbone.View.prototype.render.called.should.be.false;
-        Backbone.View.prototype.render.restore();
+        SidebarView.prototype.render.called.should.be.false;
       });
     });
 
     describe('elements', function() {
-      beforeEach(function() { sidebar.reset().render(); });
+      beforeEach(function() { sidebar.render(); });
 
       it('is a ul', function() {
         sidebar.$el[0].tagName.should.equal('UL');
@@ -46,17 +51,10 @@ define(['backbone', 'views/partials/dashboardSidebar'], function(Backbone, Sideb
 
     describe('events', function() {
       beforeEach(function() {
-        sinon.stub(SidebarView.prototype, 'toggleSecondLevelNav');
-        sinon.stub(SidebarView.prototype, 'goToDashboard');
-        sinon.stub(SidebarView.prototype, 'goToTaskPage');
-        sinon.stub(Backbone.history, 'navigate');
-      });
-
-      afterEach(function() {
-        SidebarView.prototype.toggleSecondLevelNav.restore();
-        SidebarView.prototype.goToDashboard.restore();
-        SidebarView.prototype.goToTaskPage.restore();
-        Backbone.history.navigate.restore();
+        sandbox.stub(SidebarView.prototype, 'toggleSecondLevelNav');
+        sandbox.stub(SidebarView.prototype, 'goToDashboard');
+        sandbox.stub(SidebarView.prototype, 'goToTaskPage');
+        sandbox.stub(Backbone.history, 'navigate');
       });
 
       describe('click on <a> in main <li>', function() {
@@ -92,15 +90,12 @@ define(['backbone', 'views/partials/dashboardSidebar'], function(Backbone, Sideb
 
     describe('goToDashboard() method', function() {
       beforeEach(function() {
-        sidebar.reset().render();
-        sinon.stub(Backbone.history, 'navigate');
+        sidebar.render();
+        sandbox.stub(Backbone.history, 'navigate');
       });
 
-      afterEach(function() { Backbone.history.navigate.restore(); });
-
       describe('when on the dashboard', function() {
-        beforeEach(function() { sinon.stub(sidebar, 'getLocationHash').returns('#dashboard'); });
-        afterEach(function() { sidebar.getLocationHash.restore(); });
+        beforeEach(function() { sandbox.stub(sidebar, 'getLocationHash').returns('#dashboard'); });
 
         it('does not navigate', function() {
           sidebar.goToDashboard();
@@ -109,8 +104,7 @@ define(['backbone', 'views/partials/dashboardSidebar'], function(Backbone, Sideb
       });
 
       describe('when not on the dashboard', function() {
-        beforeEach(function() { sinon.stub(sidebar, 'getLocationHash').returns('#tasks'); });
-        afterEach(function() { sidebar.getLocationHash.restore(); });
+        beforeEach(function() { sandbox.stub(sidebar, 'getLocationHash').returns('#tasks'); });
 
         it('navigates to the dashboard', function() {
           sidebar.goToDashboard();
@@ -121,15 +115,12 @@ define(['backbone', 'views/partials/dashboardSidebar'], function(Backbone, Sideb
 
     describe('goToTaskPage() method', function() {
       beforeEach(function() { 
-        sidebar.reset().render(); 
-        sinon.stub(Backbone.history, 'navigate');
+        sidebar.render(); 
+        sandbox.stub(Backbone.history, 'navigate');
       });
 
-      afterEach(function() { Backbone.history.navigate.restore(); });
-
       describe('when on the task page', function() {
-        beforeEach(function() { sinon.stub(sidebar, 'getLocationHash').returns('#tasks'); });
-        afterEach(function() { sidebar.getLocationHash.restore(); });
+        beforeEach(function() { sandbox.stub(sidebar, 'getLocationHash').returns('#tasks'); });
 
         it('doesn\'t navigate', function() {
           sidebar.goToTaskPage();
@@ -138,8 +129,7 @@ define(['backbone', 'views/partials/dashboardSidebar'], function(Backbone, Sideb
       });
 
       describe('when not on the task page', function() {
-        beforeEach(function() { sinon.stub(sidebar, 'getLocationHash').returns('#dashboard'); });
-        afterEach(function() { sidebar.getLocationHash.restore(); });
+        beforeEach(function() { sandbox.stub(sidebar, 'getLocationHash').returns('#dashboard'); });
 
         it('navigates to the task page', function() {
           sidebar.goToTaskPage();
@@ -149,13 +139,10 @@ define(['backbone', 'views/partials/dashboardSidebar'], function(Backbone, Sideb
     });
 
     describe('render() function', function() {
-      beforeEach(function() { sidebar.reset(); });
-
       it('sets HTML', function() {
-        sinon.stub($.prototype, 'html');
+        sandbox.stub($.prototype, 'html');
         sidebar.render();
         $.prototype.html.calledOnce.should.be.true;
-        $.prototype.html.restore();
       });
 
       it('returns itself', function() {
@@ -163,24 +150,9 @@ define(['backbone', 'views/partials/dashboardSidebar'], function(Backbone, Sideb
       });
     });
 
-    describe('reset() method', function() {
-      beforeEach(function() { sidebar.render(); });
-
-      it('removes the view from the DOM', function() {
-        sinon.stub(sidebar, 'remove');
-        sidebar.reset();
-        sidebar.remove.calledOnce.should.be.true;
-        sidebar.remove.restore();
-      });
-
-      it('returns itself', function() {
-        sidebar.reset().should.equal(sidebar);
-      });
-    });
-
     describe('toggleSecondLevelNav() method', function() {
       beforeEach(function() { 
-        sidebar.reset().render(); 
+        sidebar.render(); 
         e = $.Event('click', {target: sidebar.$('i.fa-sitemap').closest('li')});
       });
 
