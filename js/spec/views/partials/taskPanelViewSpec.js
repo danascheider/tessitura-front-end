@@ -126,6 +126,15 @@ define([
           TaskPanelView.prototype.showWidget.calledOnce.should.be.true;
         });
       });
+
+      describe('change task status', function() {
+        it('calls crossOffComplete', function() {
+          sandbox.stub(TaskPanelView.prototype, 'crossOffComplete');
+          var panel = new TaskPanelView({collection: collection});
+          task1.set('status', 'Blocking');
+          TaskPanelView.prototype.crossOffComplete.calledOnce.should.be.true;
+        });
+      });
     });
 
     describe('crossOffComplete() method', function() {

@@ -76,7 +76,9 @@ define([
       $(e.target).find('i').removeClass('fa-plus').addClass('fa-minus');
     },
 
+    // ------------------- //
     // Core View Functions //
+    // ------------------- //
 
     initialize: function(opts) {
       var that = this;
