@@ -83,9 +83,6 @@ define([
       });
     });
 
-    // FIX: This should be set up such that the widget view can be 
-    //      instantiated without data in the home view's constructor
-
     describe('renderTopWidgets() method', function() {
       beforeEach(function() {
         view.render().$topWidgets.remove();
