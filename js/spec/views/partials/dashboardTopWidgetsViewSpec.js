@@ -141,6 +141,17 @@ define(['backbone',
           var newView = new WidgetView({data: data});
           newView.data.taskCollection.add(new Task({title: 'Wash the dishes'}));
           WidgetView.prototype.render.calledOnce.should.be.true;
+          tasks.reset([task1, task2, task3]);
+        });
+      });
+
+      describe('remove task from taskCollection', function() {
+        it('calls render', function() {
+          sandbox.stub(WidgetView.prototype, 'render');
+          var newView = new WidgetView({data: data});
+          newView.data.taskCollection.remove(task2);
+          WidgetView.prototype.render.calledOnce.should.be.true;
+          tasks.reset([task1, task2, task3]);
         });
       });
     });
