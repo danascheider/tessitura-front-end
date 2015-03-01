@@ -20,7 +20,7 @@ define([
       this.appPresenter = new AppPresenter();
       this.dashboardPresenter = new DashboardPresenter();
 
-      this.listenTo(this.appPresenter, 'userLoggedIn', this.prepareDashboard);
+      this.listenTo(this.appPresenter, 'loginSuccess', this.prepareDashboard);
     },
 
     routes: {
