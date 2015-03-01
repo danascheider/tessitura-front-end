@@ -43,11 +43,6 @@ define([
       this.$el.html(this.template({data: this.data}));
       return this;
     },
-
-    reset: function() {
-      this.remove();
-      return this;
-    }
   });
 
   return DashboardTopWidgetView;

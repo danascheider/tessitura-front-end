@@ -48,7 +48,7 @@ define(['backbone',
     });
 
     describe('elements', function() {
-      beforeEach(function() { view.reset().render(); });
+      beforeEach(function() { view.render(); });
 
       it('is a div', function() {
         view.$el[0].tagName.should.equal('DIV');
@@ -158,7 +158,7 @@ define(['backbone',
 
     describe('changeLinkColor() method', function() {
       beforeEach(function() {
-        view.reset().render();
+        view.render();
         e = $.Event('mouseenter', {target: view.$('.dash-widget:contains("Recommendations!")')});
       });
 
@@ -173,7 +173,7 @@ define(['backbone',
 
     describe('changeLinkColorBack() method', function() {
       beforeEach(function() { 
-        view.reset().render(); 
+        view.render(); 
         e = $.Event('mouseleave', {target: view.$('.dash-widget:contains("Upcoming Deadlines!")')});
         var color = $('.dash-widget:contains("Upcoming Deadlines!") .panel-heading').css('background-color');
         view.$('.dash-widget:contains("Upcoming Deadlines!") .panel-body').css('color', color);
@@ -189,11 +189,7 @@ define(['backbone',
     describe('followLink() method', function() {
       beforeEach(function() {
         e = $.Event('click', {target: view.$('.dash-widget[data-target="tasks"]')});
-        sinon.stub(Backbone.history, 'navigate');
-      });
-
-      afterEach(function() {
-        Backbone.history.navigate.restore();
+        sandbox.stub(Backbone.history, 'navigate');
       });
 
       it('navigates to the URL specified in data-target', function() {
@@ -203,34 +199,14 @@ define(['backbone',
     });
 
     describe('render() function', function() {
-      beforeEach(function() { view.reset(); });
-      afterEach(function() { view.remove(); });
-
       it('sets the HTML of the element', function() {
-        sinon.stub($.prototype, 'html');
+        sandbox.stub($.prototype, 'html');
         view.render();
         $.prototype.html.calledOnce.should.be.true;
-        $.prototype.html.restore();
       });
 
       it('returns itself', function() {
         view.render().should.equal(view);
-      });
-    });
-
-    describe('reset() method', function() {
-      beforeEach(function() { view.render(); });
-      afterEach(function() { view.remove(); });
-
-      it('removes the view from the DOM', function() {
-        sinon.stub(view, 'remove');
-        view.reset();
-        view.remove.calledOnce.should.be.true;
-        view.remove.restore();
-      });
-
-      it('returns the view', function() {
-        view.reset().should.equal(view);
       });
     });
   });
