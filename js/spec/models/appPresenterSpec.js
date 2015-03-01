@@ -21,6 +21,17 @@ define([
       });
     });
 
+    describe('events', function() {
+      describe('login user', function() {
+        it('calls emitLogin()', function() {
+          sandbox.stub(AppPresenter.prototype, 'emitLogin');
+          var presenter = new AppPresenter();
+          presenter.homepageView.trigger('ajaxSuccess');
+          AppPresenter.prototype.emitLogin.calledOnce.should.be.true;
+        });
+      });
+    });
+
     describe('emitLogin() function', function() {
       var presenter = new AppPresenter();
 

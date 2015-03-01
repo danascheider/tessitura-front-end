@@ -23,13 +23,6 @@ define([
     },
 
     removeAll    : function() {
-
-      // FIX: I'm unsure if it is necessary to destroy the homepage view
-      //      here, undelegating all events, unbinding listeners, etc., or
-      //      if removing it from the DOM is enough. I'm not sure if rendering
-      //      it again would create a second instance of the view or simply 
-      //      revive the old one.
-
       if (this.hasOwnProperty('homepageView')) { 
         this.homepageView.remove(); 
       }
