@@ -51,11 +51,6 @@ define([
           $.cookie('auth', hash);
 
           that.trigger('loginSuccess');
-          
-          // FIX: Is this statement, and others like it, really needed
-          //      given that the router listens to events triggered on
-          //      the presenters?
-
           Backbone.history.navigate('#dashboard', {trigger: true});
         },
 

@@ -143,6 +143,10 @@ define([
           task1.set('backlog', false);
         });
       });
+
+      describe('markComplete on collection', function() {
+        //
+      });
     });
 
     describe('crossOffComplete() method', function() {

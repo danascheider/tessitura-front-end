@@ -26,7 +26,7 @@ define([
         it('calls emitLogin()', function() {
           sandbox.stub(AppPresenter.prototype, 'emitLogin');
           var presenter = new AppPresenter();
-          presenter.homepageView.trigger('ajaxSuccess');
+          presenter.homepageView.trigger('loginSuccess');
           AppPresenter.prototype.emitLogin.calledOnce.should.be.true;
         });
       });
@@ -35,9 +35,9 @@ define([
     describe('emitLogin() function', function() {
       var presenter = new AppPresenter();
 
-      it('triggers the `userLoggedIn` event', function() {
+      it('triggers the `loginSuccess` event', function() {
         var spy = sandbox.spy();
-        presenter.on('userLoggedIn', spy);
+        presenter.on('loginSuccess', spy);
         presenter.emitLogin();
         spy.calledOnce.should.be.true;
       });
