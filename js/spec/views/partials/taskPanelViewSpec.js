@@ -133,6 +133,17 @@ define([
           var panel = new TaskPanelView({collection: collection});
           task1.set('status', 'Blocking');
           TaskPanelView.prototype.crossOffComplete.calledOnce.should.be.true;
+          task1.set('status', 'New');
+        });
+      });
+
+      describe('backlog task', function() {
+        it('calls removeBacklogged', function() {
+          sandbox.stub(TaskPanelView.prototype, 'removeBacklogged');
+          var panel = new TaskPanelView({collection: collection});
+          task1.set('backlog', true);
+          TaskPanelView.prototype.removeBacklogged.calledOnce.should.be.true;
+          task1.set('backlog', false);
         });
       });
     });
