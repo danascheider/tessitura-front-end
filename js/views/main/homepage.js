@@ -75,13 +75,11 @@ define([
     },
 
     toggleLoginForm : function() {
-
-      // FIX: Should introduce some sort of different behavior if the user is
-      //      already logged in... maybe a link to the dashboard and/or a logout link?
-
       if(!$.cookie('auth')) {
         this.$('div.text-vertical-center').children().toggle();
         this.$('#shade').toggle();
+      } else {
+        Backbone.history.navigate('#dashboard');
       }
     },
 
