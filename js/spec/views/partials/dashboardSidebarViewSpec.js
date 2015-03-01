@@ -54,7 +54,6 @@ define(['backbone', 'views/partials/dashboardSidebar'], function(Backbone, Sideb
         sandbox.stub(SidebarView.prototype, 'toggleSecondLevelNav');
         sandbox.stub(SidebarView.prototype, 'goToDashboard');
         sandbox.stub(SidebarView.prototype, 'goToTaskPage');
-        sandbox.stub(Backbone.history, 'navigate');
       });
 
       describe('click on <a> in main <li>', function() {
@@ -104,7 +103,6 @@ define(['backbone', 'views/partials/dashboardSidebar'], function(Backbone, Sideb
     describe('goToTaskPage() method', function() {
       beforeEach(function() { 
         sidebar.render(); 
-        sandbox.stub(Backbone.history, 'navigate');
       });
 
       it('triggers the redirect:tasks:main event', function() {
