@@ -57,15 +57,15 @@ define([
         newView.user.should.equal(user);
       });
 
-      // FIX: Pending tests need to be addressed in the views referenced; their 
-      //      constructors and render functions cause failures otherwise
-
       it('instantiates a task panel', function() {
         var newView = new HomeView({user: user});
         (typeof newView.$taskPanel).should.not.equal('undefined');
       });
 
-      it('instantiates a top widget view');
+      it('instantiates a top widget view', function() {
+        var newView = new HomeView({user: user});
+        (typeof newView.$topWidgets).should.not.equal('undefined');
+      });
     });
 
     describe('elements', function() {
