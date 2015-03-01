@@ -107,22 +107,11 @@ define(['backbone', 'views/partials/dashboardSidebar'], function(Backbone, Sideb
         sandbox.stub(Backbone.history, 'navigate');
       });
 
-      describe('when on the task page', function() {
-        beforeEach(function() { sandbox.stub(sidebar, 'getLocationHash').returns('#tasks'); });
-
-        it('doesn\'t navigate', function() {
-          sidebar.goToTaskPage();
-          Backbone.history.navigate.called.should.be.false;
-        });
-      });
-
-      describe('when not on the task page', function() {
-        beforeEach(function() { sandbox.stub(sidebar, 'getLocationHash').returns('#dashboard'); });
-
-        it('navigates to the task page', function() {
-          sidebar.goToTaskPage();
-          Backbone.history.navigate.calledWithExactly('tasks', {trigger: true}).should.be.true;
-        });
+      it('triggers the redirect:tasks:main event', function() {
+        var spy = sandbox.spy();
+        sidebar.on('redirect:tasks:main', spy);
+        sidebar.goToTaskPage();
+        spy.calledOnce.should.be.true;
       });
     });
 

@@ -31,9 +31,7 @@ define([
     },
 
     goToTaskPage         : function() {
-      if(this.getLocationHash() !== '#tasks') {
-        Backbone.history.navigate('tasks', {trigger: true});
-      }
+      this.trigger('redirect:tasks:main');
     },
 
     toggleSecondLevelNav : function(e) {
