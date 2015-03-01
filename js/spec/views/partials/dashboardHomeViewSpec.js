@@ -52,19 +52,15 @@ define([
         Backbone.View.prototype.render.called.should.be.false;
       });
 
-      it('assigns a user', function() {
+      it('calls setUser()', function() {
+        sandbox.stub(HomeView.prototype, 'setUser');
         var newView = new HomeView({user: user});
-        newView.user.should.equal(user);
+        HomeView.prototype.setUser.withArgs(user).calledOnce.should.be.true;
       });
 
-      it('instantiates a task panel', function() {
-        var newView = new HomeView({user: user});
-        (typeof newView.$taskPanel).should.not.equal('undefined');
-      });
-
-      it('instantiates a top widget view', function() {
-        var newView = new HomeView({user: user});
-        (typeof newView.$topWidgets).should.not.equal('undefined');
+      it('can be instantiated without a user', function() {
+        var newView = new HomeView();
+        (typeof newView.user).should.equal('undefined');
       });
     });
 
@@ -80,6 +76,15 @@ define([
 
       it('has a top widget section', function() {
         view.$topWidgets.$el.html().should.not.be.empty;
+      });
+    });
+
+    describe('createTopWidgets() method', function() {
+      it('creates a top widget view', function() {
+        var newView = new HomeView();
+        newView.collection = user.tasks;
+        newView.createTopWidgets();
+        (typeof newView.$topWidgets).should.not.equal('undefined');
       });
     });
 
@@ -167,6 +172,32 @@ define([
       it('keeps its user', function() {
         view.remove();
         view.user.should.equal(user);
+      });
+    });
+
+    describe('setUser() method', function() {
+      var newView;
+
+      beforeEach(function() {
+        sandbox.stub(HomeView.prototype, 'createTopWidgets');
+        newView = new HomeView();
+        newView.setUser(user);
+      });
+
+      it('sets the user', function() {
+        newView.user.should.equal(user);
+      });
+
+      it('sets the collection', function() {
+        newView.collection.should.equal(user.tasks);
+      });
+
+      it('creates the task panel', function() {
+        (typeof newView.$taskPanel).should.not.equal('undefined');
+      });
+
+      it('calls createTopWidgets', function() {
+        HomeView.prototype.createTopWidgets.calledOnce.should.be.true;
       });
     });
   });

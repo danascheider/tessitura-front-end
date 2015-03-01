@@ -13,6 +13,18 @@ define([
     id         : 'page-wrapper',
     className  : 'dashboard-home',
 
+    createTopWidgets : function() {
+      var that = this;
+      var data = {
+        taskCollection      : that.collection,
+        appointmentCount    : 4,
+        deadlineCount       : 9,
+        recommendationCount : 13
+      };
+      
+      this.$topWidgets = new DashboardTopWidgetView({data: data});
+    },
+
     renderTopWidgets : function(data) {
       this.$topWidgets.render();
       this.$('#dash-heading').html(this.$topWidgets.el);
@@ -33,25 +45,24 @@ define([
       Backbone.View.prototype.remove.call(this);
     },
 
+    setUser          : function(user) {
+      this.user = user;
+      this.collection = this.collection || this.user.tasks;
+
+      this.$taskPanel = new TaskPanelView({collection: this.collection});
+
+      // FIX: Add tests for this method
+      this.createTopWidgets();
+    },
+
     // ------------------- //
     // Core view functions //
     // ------------------- //
 
     initialize : function(opts) {
       opts = opts || {};
-      this.user = opts.user;
-      this.collection = opts.collection || this.user.tasks;
-      this.$taskPanel = new TaskPanelView({collection: this.user.tasks});
-
-      var that = this;
-      var data = {
-        taskCollection      : that.user.tasks,
-        appointmentCount    : 4,
-        deadlineCount       : 9,
-        recommendationCount : 13
-      };
-      
-      this.$topWidgets = new DashboardTopWidgetView({data: data});
+      this.collection = opts.collection;
+      if(!!opts.user) { this.setUser(opts.user); }
     },
 
     render     : function() {
