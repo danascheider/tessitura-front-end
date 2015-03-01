@@ -26,9 +26,7 @@ define([
 
     followLink: function(e) {
       var destination = $(e.target).closest('div.dash-widget').attr('data-target');
-      if (destination) {
-        Backbone.history.navigate(destination, {trigger: true});
-      }
+      this.trigger('redirect:' + destination);
     },
 
     initialize: function(opts) {

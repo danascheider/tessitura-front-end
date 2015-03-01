@@ -8,15 +8,6 @@ define(['backbone',
     var view, e;
     var sandbox = sinon.sandbox.create();
 
-    // var user = new User({
-    //   id      : 342,
-    //   username: 'testuser', 
-    //   password: 'testuser', 
-    //   email: 'testuser@example.com',
-    //   first_name: 'Test',
-    //   last_name: 'User'
-    // });
-
     var task1 = new Task({id: 1, title: 'Task 1', status: 'New', priority: 'Low', position: 1});
     var task2 = new Task({id: 2, title: 'Task 2', status: 'New', priority: 'Normal', position: 2});
     var task3 = new Task({id: 3, title: 'Task 3', status: 'Complete', priority: 'Normal', position: 3});
@@ -60,7 +51,7 @@ define(['backbone',
         });
 
         it('includes the task count', function() {
-          view.$('div.dash-widget[data-target="tasks"] div.huge').html().should.include('3');
+          view.$('div.dash-widget[data-target="tasks:main"] div.huge').html().should.include('3');
         });
       });
 
@@ -188,13 +179,15 @@ define(['backbone',
 
     describe('followLink() method', function() {
       beforeEach(function() {
-        e = $.Event('click', {target: view.$('.dash-widget[data-target="tasks"]')});
-        sandbox.stub(Backbone.history, 'navigate');
+        e = $.Event('click', {target: view.$('.dash-widget[data-target="tasks:main"]')});
       });
 
-      it('navigates to the URL specified in data-target', function() {
+      it('triggers the relevant redirect event', function() {
+        var spy = sandbox.spy();
+        view.on('redirect:tasks:main', spy);
         view.followLink(e);
-        Backbone.history.navigate.calledWithExactly('tasks', {trigger: true}).should.be.true;
+        spy.calledOnce.should.be.true;
+        view.off('redirect:tasks:main');
       });
     });
 
