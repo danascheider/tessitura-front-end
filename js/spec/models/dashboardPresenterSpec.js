@@ -48,10 +48,10 @@ define([
         presenter.user.should.equal(user);
       });
 
-      it('listens to the user\'s `sync` event', function() {
+      it('sets up a listener', function() {
         sandbox.stub(presenter, 'listenTo');
         presenter.setUser(user);
-        presenter.listenTo.withArgs(user, 'sync', presenter.refresh).calledOnce.should.be.true;
+        presenter.listenTo.withArgs(user).calledOnce.should.be.true;
       });
 
       it('creates a main view', function() {
