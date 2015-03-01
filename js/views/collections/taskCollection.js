@@ -84,7 +84,7 @@ define([
       this.listenTo(this.collection, 'add', this.render);
 
       // FIX: Not sure this should apply to the collection view, since the
-      //      given collection might include complete tasks... 
+      //      given collection might include complete or backlogged tasks... 
       
       this.listenTo(this.collection, 'markComplete', this.removeComplete);
       this.listenTo(this.collection, 'change:backlog', this.removeBacklog);

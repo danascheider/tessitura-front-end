@@ -114,7 +114,15 @@ define([
         e = $.Event('dblclick');
         tmpView.$('#shade').trigger(e);
         tmpView.hideLoginForm.calledOnce.should.be.true;
-      })
+      });
+
+      it('emits loginSuccess event', function() {
+        var spy = sandbox.spy();
+        tmpView.on('loginSuccess', spy);
+        tmpView.$loginForm.trigger('loginSuccess');
+        spy.calledOnce.should.be.true;
+        tmpView.off('loginSuccess');
+      });
     });
 
     describe('createUser() method', function() {
