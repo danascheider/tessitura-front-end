@@ -331,19 +331,18 @@ define([
           });
 
           // FIX: The page is currently set up to handle the login-form only on
-          // on the top part, where the center text goes away. It should be
-          // tested on other sections of the page as well.
+          //      on the top part, where the center text goes away. It should be
+          //      tested on other sections of the page as well.
           it('also works on parts of the page other than the top');
         });
 
         describe('when there is a logged-in user', function() {
-          it('redirects to the dashboard', function() {
-            sinon.test(function() {
-              $.cookie('auth', 'foobar');
-              sandbox.stub(Backbone.history, 'navigate');
-              view.toggleLoginForm();
-              Backbone.history.navigate.withArgs('#dashboard').calledOnce.should.be.true;
-            });
+          it('triggers redirect:dashboard on the view', function() {
+            sandbox.stub($, 'cookie').returns('foobar');
+            var spy = sandbox.spy();
+            view.on('redirect:dashboard', spy)
+            view.toggleLoginForm();
+            spy.calledOnce.should.be.true;
           });
         });
       });

@@ -79,7 +79,7 @@ define([
         this.$('div.text-vertical-center').children().toggle();
         this.$('#shade').toggle();
       } else {
-        Backbone.history.navigate('#dashboard');
+        this.trigger('redirect:dashboard');
       }
     },
 

@@ -91,7 +91,6 @@ define([
     });
 
     describe('reset() function', function() {
-
       it('removes the view from the DOM', function() {
         sinon.stub(view, 'remove');
         view.reset();
