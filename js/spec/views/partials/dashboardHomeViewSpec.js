@@ -60,7 +60,10 @@ define([
       // FIX: Pending tests need to be addressed in the views referenced; their 
       //      constructors and render functions cause failures otherwise
 
-      it('instantiates a task panel');
+      it('instantiates a task panel', function() {
+        var newView = new HomeView({user: user});
+        (typeof newView.$taskPanel).should.not.equal('undefined');
+      });
 
       it('instantiates a top widget view');
     });
