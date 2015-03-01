@@ -15,7 +15,8 @@ define([
 
     initialize : function(opts) {
       opts = opts || {};
-      this.user = opts.user;
+      
+      if(!!opts.user) { this.setUser(opts.user); }
     },
 
     render     : function() {
@@ -67,17 +68,17 @@ define([
       return this;
     },
 
-    reset      : function() {
+    setUser    : function(user) {
+      this.user = user;
+    },
+
+    remove     : function() {
       if(this.$backlogColumn) { this.$backlogColumn.remove(); }
       if(this.$newColumn) { this.$newColumn.remove(); }
       if(this.$inProgressColumn) { this.$inProgressColumn.remove(); }
       if(this.$blockingColumn) { this.$blockingColumn.remove(); }
 
-      this.remove();
-      var user = this.user;
-      this.initialize({user: user});
-      
-      return this;
+      Backbone.View.prototype.remove.call(this);
     }
   });
 

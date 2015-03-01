@@ -8,6 +8,7 @@ define([
   
   describe('Kanban Board View', function() {
     var view, e, server;
+    var sandbox = sinon.sandbox.create();
 
     // Define resources that will be used in testing
 
@@ -29,29 +30,39 @@ define([
     beforeEach(function() {
       if(typeof view === 'undefined') { view = new KanbanView({user: user}) }
 
-      server = sinon.fakeServer.create();
+      server = sandbox.useFakeServer();
       server.respondWith(/\/users\/342\/tasks/, function(xhr) {
         xhr.respond(200, {'Content-Type': 'application/json'}, JSON.stringify(user.tasks));
       });
     });
 
+    afterEach(function() {
+      view.remove();
+      sandbox.restore();
+    });
+
     describe('constructor', function() {
       it('doesn\'t call render', function() {
-        sinon.stub(Backbone.View.prototype, 'render');
+        sandbox.stub(KanbanView.prototype, 'render');
         var newView = new KanbanView({user: user});
-        Backbone.View.prototype.render.called.should.be.false;
-        Backbone.View.prototype.render.restore();
+        KanbanView.prototype.render.called.should.be.false;
       });
 
-      it('sets the user property', function() {
+      it('calls setUser', function() {
+        sandbox.stub(KanbanView.prototype, 'setUser');
         var newView = new KanbanView({user: user});
-        newView.user.should.equal(user);
+        KanbanView.prototype.setUser.withArgs(user).calledOnce.should.be.true;
+      });
+      
+      it('can be instantiated without a user', function() {
+        var newView = new KanbanView();
+        (typeof newView.user).should.equal('undefined');
       });
     });
 
     describe('elements', function() {
       beforeEach(function() { 
-        view.reset().render(); 
+        view.render(); 
         server.respond();
       });
 
@@ -80,24 +91,26 @@ define([
       });
     });
 
-    describe('render() function', function() {
-      beforeEach(function() {
-        view.reset();
+    describe('setUser() method', function() {
+      it('sets the user', function() {
+        var newView = new KanbanView();
+        newView.setUser(user);
+        newView.user.should.equal(user);
       });
+    });
 
+    describe('render() function', function() {
       it('sets the HTML of its own el', function() {
-        sinon.stub($.prototype, 'html');
+        sandbox.stub($.prototype, 'html');
         view.render();
         $.prototype.html.calledOnce.should.be.true;
-        $.prototype.html.restore();
       })
 
       it('calls the user\'s fetchIncompleteTasks method', function() {
-        sinon.spy(user, 'fetchIncompleteTasks');
+        sandbox.spy(user, 'fetchIncompleteTasks');
         view.render();
         server.respond();
         user.fetchIncompleteTasks.calledOnce.should.be.true;
-        user.fetchIncompleteTasks.restore();
       });
 
       it('creates child views', function() {
@@ -117,54 +130,39 @@ define([
       it('calls delegateEvents');
     });
 
-    describe('reset() method', function() {
+    describe('remove() function', function() {
       beforeEach(function() {
         view.render();
-        server.respond();
       });
 
-      it('removes the \'backlog\' column', function() {
-        sinon.stub(view.$backlogColumn, 'remove');
-        view.reset();
+      it('removes the backlog column', function() {
+        sandbox.stub(view.$backlogColumn, 'remove');
+        view.remove();
         view.$backlogColumn.remove.calledOnce.should.be.true;
-        view.$backlogColumn.remove.restore();
       });
 
-      it('removes the \'New\' column', function() {
-        sinon.stub(view.$newColumn, 'remove');
-        view.reset();
+      it('removes the new column', function() {
+        sandbox.stub(view.$newColumn, 'remove');
+        view.remove();
         view.$newColumn.remove.calledOnce.should.be.true;
-        view.$newColumn.remove.restore();
       });
 
-      it('removes the \'In Progress\' column from the DOM', function() {
-        sinon.stub(view.$inProgressColumn, 'remove');
-        view.reset();
+      it('removes the in-progress column', function() {
+        sandbox.stub(view.$inProgressColumn, 'remove');
+        view.remove();
         view.$inProgressColumn.remove.calledOnce.should.be.true;
-        view.$inProgressColumn.remove.restore();
       });
 
-      it('removes the \'Blocking\' column from the DOM', function() {
-        sinon.stub(view.$blockingColumn, 'remove');
-        view.reset();
+      it('removes the blocking column', function() {
+        sandbox.stub(view.$blockingColumn, 'remove');
+        view.remove();
         view.$blockingColumn.remove.calledOnce.should.be.true;
-        view.$blockingColumn.remove.restore();
       });
 
       it('removes itself from the DOM', function() {
-        sinon.stub(view, 'remove');
-        view.reset();
-        view.remove.calledOnce.should.be.true;
-        view.remove.restore();
-      });
-
-      it('returns itself', function() {
-        view.reset().should.equal(view);
-      });
-
-      it('keeps its user', function() {
-        view.reset();
-        view.user.should.equal(user);
+        sandbox.stub(Backbone.View.prototype.remove, 'call');
+        view.remove();
+        Backbone.View.prototype.remove.call.withArgs(view).calledOnce.should.be.true;
       });
     });
   });

@@ -40,8 +40,8 @@ define([
     },
 
     remove           : function() {
-      this.$taskPanel.remove();
-      this.$topWidgets.remove();
+      if(!!this.$taskPanel) { this.$taskPanel.remove(); }
+      if(!!this.$topWidgets) { this.$topWidgets.remove(); }
       Backbone.View.prototype.remove.call(this);
     },
 
@@ -50,8 +50,6 @@ define([
       this.collection = this.collection || this.user.tasks;
 
       this.$taskPanel = new TaskPanelView({collection: this.collection});
-
-      // FIX: Add tests for this method
       this.createTopWidgets();
     },
 

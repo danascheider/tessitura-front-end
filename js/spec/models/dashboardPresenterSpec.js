@@ -31,9 +31,14 @@ define([
         (typeof presenter.user).should.equal('undefined');
       });
 
+      it('creates a main view', function() {
+        presenter = new DashboardPresenter();
+        (typeof presenter.$mainView).should.not.equal('undefined');
+      });
+
       it('creates a home view', function() {
         presenter = new DashboardPresenter();
-        (typeof presenter.$homeView).should.not.equal('undefined');
+        (typeof presenter.$mainView.$homeView).should.not.equal('undefined');
       })
 
       it('calls `setUser`', function() {
@@ -73,9 +78,16 @@ define([
         presenter.listenTo.withArgs(user).calledOnce.should.be.true;
       });
 
-      it('creates a main view', function() {
+      it('calls setUser on the main view', function() {
+        sandbox.stub(presenter.$mainView, 'setUser');
         presenter.setUser(user);
-        (typeof presenter.mainView).should.not.equal('undefined');
+        presenter.$mainView.setUser.calledOnce.should.be.true;
+      });
+
+      it('calls setUser on the home view', function() {
+        sandbox.stub(presenter.$mainView.$homeView, 'setUser');
+        presenter.setUser(user);
+        presenter.$mainView.$homeView.setUser.calledOnce.should.be.true;
       });
     });
 
@@ -86,55 +98,55 @@ define([
       });
 
       afterEach(function() {
-        delete presenter.mainView.$homeView;
-        delete presenter.mainView.$kanbanView;
+        delete presenter.$mainView.$homeView;
+        delete presenter.$mainView.$kanbanView;
       });
 
       describe('when the Kanban view is displayed', function() {
         beforeEach(function() {
-          presenter.mainView.$kanbanView = new TaskView({user: user});
+          presenter.$mainView.$kanbanView = new TaskView({user: user});
         });
 
         after(function() {
-          delete presenter.mainView.$kanbanView;
+          delete presenter.$mainView.$kanbanView;
         });
 
         it('removes the kanban board', function() {
-          sandbox.spy(presenter.mainView.$kanbanView, 'remove');
+          sandbox.spy(presenter.$mainView.$kanbanView, 'remove');
           presenter.getHome();
-          presenter.mainView.$kanbanView.remove.calledOnce.should.be.true;
+          presenter.$mainView.$kanbanView.remove.calledOnce.should.be.true;
         });
       });
 
       describe('when there is no home view', function() {
         it('creates the home view', function() {
-          delete presenter.mainView.$homeView;
+          delete presenter.$mainView.$homeView;
           presenter.getHome();
-          (typeof presenter.mainView.$homeView).should.not.equal('undefined');
+          (typeof presenter.$mainView.$homeView).should.not.equal('undefined');
         });
       });
 
       describe('when there is a home view', function() {
         it('keeps the same home view', function() {
-          presenter.mainView.$homeView = new HomeView({user: user});
-          var orig = presenter.mainView.$homeView;
+          presenter.$mainView.$homeView = new HomeView({user: user});
+          var orig = presenter.$mainView.$homeView;
           presenter.getHome();
-          presenter.mainView.$homeView.should.equal(orig);
+          presenter.$mainView.$homeView.should.equal(orig);
         });
       });
 
       it('renders the home view', function() {
-        presenter.mainView.$homeView = presenter.mainView.$homeView || new HomeView({user: user, collection: user.tasks});
-        sandbox.stub(presenter.mainView.$homeView, 'render');
+        presenter.$mainView.$homeView = presenter.$mainView.$homeView || new HomeView({user: user, collection: user.tasks});
+        sandbox.stub(presenter.$mainView.$homeView, 'render');
         presenter.getHome();
-        presenter.mainView.$homeView.render.calledOnce.should.be.true;
+        presenter.$mainView.$homeView.render.calledOnce.should.be.true;
       });
 
       it('appends the view to the DOM', function() {
         sandbox.stub($.prototype, 'after');
-        var el = presenter.mainView.$('nav');
+        var el = presenter.$mainView.$('nav');
         presenter.getHome();
-        el.after.withArgs(presenter.mainView.$homeView.el).calledOnce.should.be.true;
+        el.after.withArgs(presenter.$mainView.$homeView.el).calledOnce.should.be.true;
       });
 
       it('sets the \'current\' property to \'home\'', function() {
@@ -150,32 +162,32 @@ define([
 
       describe('when the home view is displayed', function() {
         beforeEach(function() {
-          presenter.mainView.$homeView = new HomeView({user: user});
-          sandbox.spy(presenter.mainView.$homeView, 'remove');
+          presenter.$mainView.$homeView = new HomeView({user: user});
+          sandbox.spy(presenter.$mainView.$homeView, 'remove');
         });
 
-        after(function() { delete presenter.mainView.$homeView; });
+        after(function() { delete presenter.$mainView.$homeView; });
 
         it('removes the home view', function() {
           presenter.getKanban();
-          presenter.mainView.$homeView.remove.calledOnce.should.be.true;
+          presenter.$mainView.$homeView.remove.calledOnce.should.be.true;
         });
       });
 
       describe('when there is no task view', function() {
         it('creates the task view', function() {
-          delete presenter.mainView.$kanbanView;
+          delete presenter.$mainView.$kanbanView;
           presenter.getKanban();
-          (typeof presenter.mainView.$kanbanView).should.not.equal('undefined');
+          (typeof presenter.$mainView.$kanbanView).should.not.equal('undefined');
         });
       });
 
       describe('when there is a task view', function() {
         it('keeps the same task view', function() {
-          presenter.mainView.$kanbanView = new TaskView({user: user});
-          var orig = presenter.mainView.$kanbanView;
+          presenter.$mainView.$kanbanView = new TaskView({user: user});
+          var orig = presenter.$mainView.$kanbanView;
           presenter.getKanban();
-          presenter.mainView.$kanbanView.should.equal(orig);
+          presenter.$mainView.$kanbanView.should.equal(orig);
         });
       });
 
@@ -183,18 +195,18 @@ define([
 
         // Create the task view in advance in order to set up the stub/spy
 
-        presenter.mainView.$kanbanView = presenter.mainView.$kanbanView || new TaskView({user: user});
-        sandbox.stub(presenter.mainView.$kanbanView, 'render');
+        presenter.$mainView.$kanbanView = presenter.$mainView.$kanbanView || new TaskView({user: user});
+        sandbox.stub(presenter.$mainView.$kanbanView, 'render');
 
         presenter.getKanban();
-        presenter.mainView.$kanbanView.render.calledOnce.should.be.true;
+        presenter.$mainView.$kanbanView.render.calledOnce.should.be.true;
       });
 
       it('inserts the view into the DOM', function() {
         sandbox.stub($.prototype, 'after');
-        var el = presenter.mainView.$('nav');
+        var el = presenter.$mainView.$('nav');
         presenter.getKanban();
-        el.after.withArgs(presenter.mainView.$kanbanView.el).calledOnce.should.be.true;
+        el.after.withArgs(presenter.$mainView.$kanbanView.el).calledOnce.should.be.true;
       });
 
       it('sets the \'current\' property to \'kanban\'', function() {
@@ -211,24 +223,24 @@ define([
 
       describe('when the main view doesn\'t exist', function() {
         it('creates the main view', function() {
-          delete presenter.mainView;
+          delete presenter.$mainView;
           presenter.getMain();
-          (typeof presenter.mainView).should.not.equal('undefined');
+          (typeof presenter.$mainView).should.not.equal('undefined');
         });
       });
 
       describe('when the main view exists', function() {
         it('keeps the same main view', function() {
-          var orig = presenter.mainView;
+          var orig = presenter.$mainView;
           presenter.getMain();
-          presenter.mainView.should.equal(orig);
+          presenter.$mainView.should.equal(orig);
         });
       });
 
       it('renders the main view', function() {
-        sandbox.stub(presenter.mainView, 'render');
+        sandbox.stub(presenter.$mainView, 'render');
         presenter.getMain();
-        presenter.mainView.render.calledOnce.should.be.true;
+        presenter.$mainView.render.calledOnce.should.be.true;
       });
 
       it('sets the HTML of the body', function() {
@@ -305,9 +317,9 @@ define([
       });
 
       it('removes the main view', function() {
-        sandbox.spy(presenter.mainView, 'remove');
+        sandbox.spy(presenter.$mainView, 'remove');
         presenter.removeAll();
-        presenter.mainView.remove.calledOnce.should.be.true;
+        presenter.$mainView.remove.calledOnce.should.be.true;
       });
     });
   });
