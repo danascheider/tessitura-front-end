@@ -314,7 +314,7 @@ define([
       describe('showing the login form', function() {
         describe('when there is no logged-in user', function() {
           beforeEach(function() {
-            view.reset().render();
+            view.render();
             view.toggleLoginForm();
           });
 
@@ -330,14 +330,21 @@ define([
             view.$loginForm.$el.should.be.visible;
           });
 
-          // The page is currently set up to handle the login-form only on
+          // FIX: The page is currently set up to handle the login-form only on
           // on the top part, where the center text goes away. It should be
           // tested on other sections of the page as well.
           it('also works on parts of the page other than the top');
         });
 
         describe('when there is a logged-in user', function() {
-          //
+          it('redirects to the dashboard', function() {
+            sinon.test(function() {
+              $.cookie('auth', 'foobar');
+              sandbox.stub(Backbone.history, 'navigate');
+              view.toggleLoginForm();
+              Backbone.history.navigate.withArgs('#dashboard').calledOnce.should.be.true;
+            });
+          });
         });
       });
 
