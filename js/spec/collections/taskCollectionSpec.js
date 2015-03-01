@@ -30,13 +30,8 @@ define([
 
     describe('constructor', function() {
       it('sets the models', function() {
-        collection = new TaskCollection([task1, task2, task3], {grouping: {priority: 'Normal'}});
+        collection = new TaskCollection([task1, task2, task3]);
         collection.models.should.deep.equal([task1, task2, task3]);
-      });
-
-      it('sets the grouping', function() {
-        collection = new TaskCollection([task1, task2, task3], {grouping: {priority: 'Normal'}});
-        collection.grouping.should.deep.equal({priority: 'Normal'});
       });
     });
     
@@ -48,29 +43,6 @@ define([
       it('gets the URL for the logged-in user', function() {
         collection = new TaskCollection();
         collection.url().should.equal(API.base + '/users/4/tasks');
-      });
-    });
-
-    describe('addGrouping() method', function() {
-      beforeEach(function() {
-        collection = new TaskCollection([task1, task2, task3], {grouping: {priority: 'Normal'}});
-      })
-      describe('when all tasks fulfill the new criterion', function() {
-        it('adds the new grouping', function() {
-          collection.addGrouping({backlog: false});
-          collection.grouping.should.deep.equal({priority: 'Normal', backlog: false});
-        });
-      });
-
-      describe('when some tasks don\'t fulfill the new criterion', function() {
-        it('kicks them out of the collection', function() {
-          collection.addGrouping({status: 'New'});
-          collection.models.should.not.include(task3);
-        });
-      });
-
-      describe('when the new criterion conflicts with the old', function() {
-        //
       });
     });
 

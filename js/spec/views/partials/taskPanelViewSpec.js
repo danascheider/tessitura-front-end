@@ -15,9 +15,6 @@ define([
 
     var collection = new TaskCollection([task1, task2, task3], {comparator: 'position'});
 
-    // FIX: Figure out a way to make a grouping encompassing all 
-    //      values of `status` except 'Complete'
-
     var data = {
       collection : collection,
       grouping   : {

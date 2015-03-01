@@ -11,31 +11,7 @@ define([
     url        : function() {
       return API.tasks.collection($.cookie('userID'));
     },
-
-    initialize : function(models, opts) {
-      opts = opts || {};
-      this.grouping = opts.grouping;
-    },
-
-    // FIX: We need to find a way to add groupings so that
-    //      views representing subsets of the tasks (e.g. panels,
-    //      Kanban columns, etc.) can add their own groupings while
-    //      maintaining the collection membership of the tasks 
-    //      inside them.
-
-    addGrouping: function(grouping) {
-      var that = this;
-      for(attr in grouping) { 
-        that.grouping[attr] = grouping[attr]; 
-
-        badModels = that.filter(function(task) {
-          return task.get(attr) != grouping[attr];
-        });
-
-        that.remove(badModels);
-      }
-    },
-
+    
     // There are two routes for fetching a task collection: One to fetch only
     // the incomplete tasks (which is the default) and one for fetching all the
     // tasks. The fetch() method is being overridden here to do two things beyond
