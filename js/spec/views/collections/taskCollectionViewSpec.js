@@ -77,6 +77,18 @@ define([
       });
     });
 
+    describe('events', function() {
+      describe('remove task from collection', function() {
+        it('calls render', function() {
+          sandbox.stub(TaskCollectionView.prototype, 'render');
+          var newView = new TaskCollectionView(data);
+          newView.collection.remove(task1);
+          TaskCollectionView.prototype.render.calledOnce.should.be.true;
+          collection.reset([task1, task2, task3]);
+        });
+      });
+    });
+
     describe('crossOff() method', function() {
       beforeEach(function() { 
         view.render(); 
