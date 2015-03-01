@@ -88,6 +88,11 @@ define([
         var task = new Task({title: 'Find out how much wood a woodchuck would chuck if a woodchuck could chuck wood'});
         task.displayTitle().should.equal('Find out how much wood a woodchuck would chuck if a ...');
       });
+
+      it('takes an argument into consideration', function() {
+        var task = new Task({title: 'Find out how much wood a woodchuck would chuck if a woodchuck could chuck wood'});
+        task.displayTitle(35).should.equal('Find out how much wood a ...');
+      });
     });
 
     describe('fetch() function', function() {

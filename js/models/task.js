@@ -12,16 +12,13 @@ define([
     complete: function() {
       return Boolean(this.get('status') === 'Complete');
     },
-
-    // FIX: The displayTitle function would probably be better if it took a 
-    //      `length` argument and adjusted based on that instead of going with
-    //      60 every time
     
-    displayTitle: function() {
+    displayTitle: function(chars) {
+      chars = chars || 60;
       var title = this.escape('title');
 
-      if(title.length > 60) {
-        var shorter = title.substring(0,59).split(' ');
+      if(title.length > chars) {
+        var shorter = title.substring(0,chars - 1).split(' ');
         shorter.pop();
         return shorter.join(' ') + ' ...';
       } 
