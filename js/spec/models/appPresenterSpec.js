@@ -23,11 +23,11 @@ define([
 
     describe('events', function() {
       describe('login user', function() {
-        it('calls emitLogin()', function() {
-          sandbox.stub(AppPresenter.prototype, 'emitLogin');
+        it('calls emitRedirectDashboard()', function() {
+          sandbox.stub(AppPresenter.prototype, 'emitRedirectDashboard');
           var presenter = new AppPresenter();
           presenter.homepageView.trigger('loginSuccess');
-          AppPresenter.prototype.emitLogin.calledOnce.should.be.true;
+          AppPresenter.prototype.emitRedirectDashboard.calledOnce.should.be.true;
         });
       });
 
@@ -38,17 +38,6 @@ define([
           presenter.homepageView.trigger('redirect:dashboard');
           AppPresenter.prototype.emitRedirectDashboard.calledOnce.should.be.true;
         });
-      });
-    });
-
-    describe('emitLogin() function', function() {
-      var presenter = new AppPresenter();
-
-      it('triggers the `loginSuccess` event', function() {
-        var spy = sandbox.spy();
-        presenter.on('loginSuccess', spy);
-        presenter.emitLogin();
-        spy.calledOnce.should.be.true;
       });
     });
 
