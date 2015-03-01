@@ -27,9 +27,7 @@ define([
     },
 
     goToDashboard        : function() {
-      if(this.getLocationHash() !== '#dashboard') {
-        Backbone.history.navigate('dashboard', {trigger: true});
-      }
+      this.trigger('redirect:dashboard');
     },
 
     goToTaskPage         : function() {

@@ -91,25 +91,13 @@ define(['backbone', 'views/partials/dashboardSidebar'], function(Backbone, Sideb
     describe('goToDashboard() method', function() {
       beforeEach(function() {
         sidebar.render();
-        sandbox.stub(Backbone.history, 'navigate');
       });
 
-      describe('when on the dashboard', function() {
-        beforeEach(function() { sandbox.stub(sidebar, 'getLocationHash').returns('#dashboard'); });
-
-        it('does not navigate', function() {
-          sidebar.goToDashboard();
-          Backbone.history.navigate.called.should.be.false;
-        });
-      });
-
-      describe('when not on the dashboard', function() {
-        beforeEach(function() { sandbox.stub(sidebar, 'getLocationHash').returns('#tasks'); });
-
-        it('navigates to the dashboard', function() {
-          sidebar.goToDashboard();
-          Backbone.history.navigate.calledWithExactly('dashboard', {trigger: true}).should.be.true;
-        });
+      it('triggers the redirect:dashboard event on the view', function() {
+        var spy = sandbox.spy();
+        sidebar.on('redirect:dashboard', spy);
+        sidebar.goToDashboard();
+        spy.calledOnce.should.be.true;
       });
     });
 
