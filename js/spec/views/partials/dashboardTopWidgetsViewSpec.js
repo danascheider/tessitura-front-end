@@ -6,6 +6,7 @@ define(['backbone',
   
   describe('Dashboard Top Widget View', function() {
     var view, e;
+    var sandbox = sinon.sandbox.create();
 
     // var user = new User({
     //   id      : 342,
@@ -28,27 +29,21 @@ define(['backbone',
       if(typeof view === 'undefined') { view = new WidgetView({data: data}); }
     });
 
+    afterEach(function() {
+      view.remove();
+      sandbox.restore();
+    });
+
     describe('constructor', function() {
       it('doesn\'t call render()', function() {
-        sinon.stub(Backbone.View.prototype, 'render');
+        sandbox.stub(Backbone.View.prototype, 'render');
         var newView = new WidgetView({data: data});
         Backbone.View.prototype.render.called.should.be.false;
-        Backbone.View.prototype.render.restore();
       });
 
       it('sets a data property', function() {
         var newView = new WidgetView({data: data});
         newView.data.should.equal(data);
-      });
-
-      // FIX: This should instead test whether the figures update when 
-      //      the collection does, which would be more robust.
-
-      it('listens to its task collection', function() {
-        sinon.stub(Backbone.View.prototype, 'listenTo');
-        var newView = new WidgetView({data: {taskCollection: tasks}});
-        Backbone.View.prototype.listenTo.withArgs(tasks).called.should.be.true;
-        Backbone.View.prototype.listenTo.restore();
       });
     });
 
@@ -105,17 +100,10 @@ define(['backbone',
 
     describe('events', function() {
       beforeEach(function() { 
-        sinon.stub(WidgetView.prototype, 'changeLinkColor');
-        sinon.stub(WidgetView.prototype, 'changeLinkColorBack');
-        sinon.stub(WidgetView.prototype, 'followLink');
-        sinon.stub(Backbone.history, 'navigate');
-      });
-
-      afterEach(function() {
-        WidgetView.prototype.changeLinkColor.restore();
-        WidgetView.prototype.changeLinkColorBack.restore();
-        WidgetView.prototype.followLink.restore();
-        Backbone.history.navigate.restore();
+        sandbox.stub(WidgetView.prototype, 'changeLinkColor');
+        sandbox.stub(WidgetView.prototype, 'changeLinkColorBack');
+        sandbox.stub(WidgetView.prototype, 'followLink');
+        sandbox.stub(Backbone.history, 'navigate');
       });
 
       describe('mouseenter .dash-widget', function() {
@@ -144,6 +132,15 @@ define(['backbone',
           newView.render();
           newView.$('.dash-widget').first().click();
           WidgetView.prototype.followLink.calledOnce.should.be.true;
+        });
+      });
+
+      describe('add task to taskCollection', function() {
+        it('calls render', function() {
+          sandbox.stub(WidgetView.prototype, 'render');
+          var newView = new WidgetView({data: data});
+          newView.data.taskCollection.add(new Task({title: 'Wash the dishes'}));
+          WidgetView.prototype.render.calledOnce.should.be.true;
         });
       });
     });
