@@ -81,10 +81,11 @@ define([
             // Iterator
             var i = 1;
 
-            // FIX: Maybe use _.each instead of $.each?
+            // FIX: This should trigger an event rather than changing the 
+            //      positions of the models itself
             
-            $.each(items, function(index) {
-              var model = coll.get($(items[index]).attr('id').match(/(\d+)/)[0]);
+            _.each(items, function(item) {
+              var model = coll.get($(item).attr('id').match(/(\d+)/)[0]);
               if (model.get('position') !== i) {
                 model.set({position: i});
               }
