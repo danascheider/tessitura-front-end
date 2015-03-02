@@ -36,18 +36,20 @@ define([
       describe('redirect on appPresenter', function() {
         it('navigates to the given route', function() {
           sinon.test(function() {
-            sandbox.stub(Router.prototype, 'navigate');
+            sandbox.stub(Router.prototype, 'navigateTo');
             router.appPresenter.trigger('redirect', {destination: '#dashboard'});
-            router.navigate.withArgs('#dashboard').calledOnce.should.be.true;
+            router.navigateTo.withArgs('#dashboard').calledOnce.should.be.true;
           });
         });
       });
 
       describe('redirect on dashboardPresenter', function() {
         it('redirects to the given route', function() {
-          sandbox.stub(router, 'navigate');
-          router.dashboardPresenter.trigger('redirect', {destination: '#tasks'});
-          router.navigate.withArgs('#tasks').calledOnce.should.be.true;
+          sinon.test(function() {
+            sandbox.stub(router, 'navigateTo');
+            router.dashboardPresenter.trigger('redirect', {destination: '#tasks'});
+            router.navigateTo.calledOnce.should.be.true;
+          });
         });
       });
     });

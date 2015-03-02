@@ -20,15 +20,15 @@ define([
       this.appPresenter = new AppPresenter();
       this.dashboardPresenter = new DashboardPresenter();
 
-      this.listenTo(this.appPresenter, 'redirect', this.navigate);
-      this.listenTo(this.dashboardPresenter, 'redirect', this.navigate);
+      this.listenTo(this.appPresenter, 'redirect', this.navigateTo);
+      this.listenTo(this.dashboardPresenter, 'redirect', this.navigateTo);
     },
 
     // --------------------------- //
     // Event Callbacks (Non-Route) //
     // --------------------------- //
 
-    navigate           : function(obj) {
+    navigateTo         : function(obj) {
       this.navigate(obj.destination);
     },
 

@@ -25,7 +25,7 @@ define([
 
     loginUser       : function(e) {
       e.preventDefault();
-
+      
       var that = this, attrs = Utils.getAttributes(this.$el);
       var hash = btoa(attrs.username + ':' + attrs.password);
 
@@ -36,6 +36,14 @@ define([
           xhr.setRequestHeader('Authorization', 'Basic ' + hash);
         },
         success: function(obj) {
+
+          // Sometimes the object is returned already parsed.
+          // (This seems to happen in testing but not when I 
+          // run the app in development.) If it is returned 
+          // already parsed, JSON.parse() will throw an error.
+
+          try { obj = JSON.parse(obj) } catch(e) { obj = obj; }
+
           if(attrs.remember === 'Remember Me') {
             $.cookie('auth', hash, {expires: 365});
             $.cookie('userID', obj.user.id, {expires: 365});
@@ -44,19 +52,13 @@ define([
             $.cookie('userID', obj.user.id);
           }
 
-          that.trigger('loginSuccess');
+          that.trigger('redirect', {destination: 'dashboard'});
         }
       });
     },
 
     render   : function() {
       this.$el.html(this.template());
-      return this;
-    },
-
-    reset    : function() {
-      this.remove();
-      this.initialize();
       return this;
     }
   });

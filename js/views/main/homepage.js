@@ -50,7 +50,7 @@ define([
           $.cookie('userID', model.id);
           $.cookie('auth', hash);
 
-          that.trigger('loginSuccess');
+          that.trigger('redirect', {destination: 'dashboard'});
         },
 
         error : function(error, response) {
@@ -65,12 +65,6 @@ define([
         this.$('#shade').hide();
         this.$('div.text-vertical-center').children().show();
       }
-    },
-
-    reset           : function() {
-      this.remove();
-      this.initialize();
-      return this;
     },
 
     toggleLoginForm : function() {
@@ -88,8 +82,7 @@ define([
 
     initialize       : function() {
       this.$loginForm = this.$loginForm || new LoginFormView();
-
-      this.listenTo(this.$loginForm, 'loginSuccess', function() { this.trigger('loginSuccess'); });
+      this.listenTo(this.$loginForm, 'redirect', function(e) { this.trigger('redirect', e); });
     },
 
     render           : function() {
@@ -97,6 +90,11 @@ define([
       this.$loginForm = this.$loginForm || new LoginFormView();
       this.$('#shade').html(this.$loginForm.render().el);
       return this;
+    },
+
+    remove           : function() {
+      this.$loginForm.remove();
+      Backbone.View.prototype.remove.call(this);
     }
   });
 

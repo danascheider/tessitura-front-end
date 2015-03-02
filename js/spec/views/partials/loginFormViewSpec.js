@@ -5,14 +5,20 @@ define(['backbone', 'views/partials/loginForm', 'utils', 'cookie'], function(Bac
     // Instantiate variable to be defined in `beforeEach` block
 
     var loginForm, server, getAttributes, spy;
+    var sandbox = sinon.sandbox.create();
 
     beforeEach(function() {
       if(typeof loginForm === 'undefined') { loginForm = new LoginForm(); }
     });
 
+    afterEach(function() {
+      loginForm.remove();
+      sandbox.restore();
+    });
+
     describe('elements', function() {
       beforeEach(function() {
-        loginForm.reset().render();
+        loginForm.render();
       });
 
       it('is a form', function() { loginForm.$el[0].tagName.should.equal('FORM'); });
@@ -46,16 +52,14 @@ define(['backbone', 'views/partials/loginForm', 'utils', 'cookie'], function(Bac
       var help;
 
       beforeEach(function() {
-        sinon.stub(LoginForm.prototype, 'loginHelp');
-        sinon.stub(LoginForm.prototype, 'loginUser');
-        sinon.fakeServer.create();
+        sandbox.stub(LoginForm.prototype, 'loginHelp');
+        sandbox.stub(LoginForm.prototype, 'loginUser');
+        sandbox.useFakeServer();
         newLoginForm = new LoginForm();
         newLoginForm.render();
       });
 
       afterEach(function() { 
-        LoginForm.prototype.loginHelp.restore();
-        LoginForm.prototype.loginUser.restore();
         newLoginForm.remove(); 
       });
 
@@ -70,11 +74,9 @@ define(['backbone', 'views/partials/loginForm', 'utils', 'cookie'], function(Bac
         describe('submit the login form', function() {
           beforeEach(function() { 
             e = $.Event('submit', {target: newLoginForm.$el});
-            sinon.spy(e, 'preventDefault');
+            sandbox.spy(e, 'preventDefault');
             newLoginForm.$el.trigger(e);
           });
-
-          afterEach(function() { e.preventDefault.restore(); });
 
           it('calls the loginUser() method', function() {
             LoginForm.prototype.loginUser.calledOnce.should.be.true;
@@ -89,17 +91,13 @@ define(['backbone', 'views/partials/loginForm', 'utils', 'cookie'], function(Bac
 
     describe('loginUser() method with \'Remember Me\' true', function() {
       beforeEach(function() {
-        loginForm.reset().render();
+        loginForm.render();
 
         e = $.Event('submit', {target: loginForm.$el});
 
-        server = sinon.fakeServer.create();
-        getAttributes = sinon.stub(Utils, 'getAttributes');
+        server = sandbox.useFakeServer();
+        getAttributes = sandbox.stub(Utils, 'getAttributes');
         getAttributes.withArgs(loginForm.$el).returns({username: 'testuser', password: 'testuser', remember: 'Remember Me'});
-      });
-
-      afterEach(function() {
-        Utils.getAttributes.restore();
       });
 
       it('makes a POST request', function() {
@@ -121,11 +119,11 @@ define(['backbone', 'views/partials/loginForm', 'utils', 'cookie'], function(Bac
       describe('setting cookies', function() {
         beforeEach(function() {
           // Stub jQuery cookie
-          sinon.stub($, 'cookie');
+          sandbox.stub($, 'cookie');
 
-          // Spy on loginSuccess event
-          spy = sinon.spy();
-          loginForm.on('loginSuccess', spy);
+          // Spy on redirect event
+          spy = sandbox.spy();
+          loginForm.on('redirect', spy);
 
           // Create mock response
           var obj = JSON.stringify({"user": {"id":342, "username":"testuser", "first_name":"Test", "last_name":"User", "email":"testuser@example.com"}});
@@ -143,7 +141,7 @@ define(['backbone', 'views/partials/loginForm', 'utils', 'cookie'], function(Bac
         afterEach(function() {
           $.cookie.restore();
           server.restore();
-          loginForm.off('loginSuccess');
+          loginForm.off('redirect');
         });
 
         it('sets auth cookie to expire in 365 days', function() {
@@ -154,25 +152,21 @@ define(['backbone', 'views/partials/loginForm', 'utils', 'cookie'], function(Bac
           $.cookie.calledWithExactly('userID', 342, {expires: 365}).should.be.true;
         });
 
-        it('triggers the `loginSuccess` event', function() {
-          spy.calledOnce.should.be.true;
+        it('triggers the `redirect` event', function() {
+          spy.withArgs({destination: 'dashboard'}).calledOnce.should.be.true;
         });
       });
     });
 
     describe('loginUser() method with \'Remember Me\' false', function() {
       beforeEach(function() {
-        loginForm.reset().render();
+        loginForm.render();
 
         e = $.Event('submit', {target: loginForm.$el});
 
-        server = sinon.fakeServer.create();
-        getAttributes = sinon.stub(Utils, 'getAttributes');
+        server = sandbox.useFakeServer();
+        getAttributes = sandbox.stub(Utils, 'getAttributes');
         getAttributes.withArgs(loginForm.$el).returns({username: 'testuser', password: 'testuser', remember: null});
-      });
-
-      afterEach(function() {
-        Utils.getAttributes.restore();
       });
 
       it('makes a POST request', function() {
@@ -194,11 +188,11 @@ define(['backbone', 'views/partials/loginForm', 'utils', 'cookie'], function(Bac
       describe('setting cookies', function() {
         beforeEach(function() {
           // Stub jQuery cookie
-          sinon.stub($, 'cookie');
+          sandbox.stub($, 'cookie');
 
-          // Spy on loginSuccess event
-          spy = sinon.spy();
-          loginForm.on('loginSuccess', spy);
+          // Spy on redirect event
+          spy = sandbox.spy();
+          loginForm.on('redirect', spy);
 
           // Create mock response
           var obj = JSON.stringify({"user": {"id":342, "username":"testuser", "first_name":"Test", "last_name":"User", "email":"testuser@example.com"}});
@@ -214,9 +208,7 @@ define(['backbone', 'views/partials/loginForm', 'utils', 'cookie'], function(Bac
         });
 
         afterEach(function() {
-          $.cookie.restore();
-          server.restore();
-          loginForm.off('loginSuccess');
+          loginForm.off();
         });
 
         it('sets auth cookie as session cookie', function() {
@@ -227,8 +219,8 @@ define(['backbone', 'views/partials/loginForm', 'utils', 'cookie'], function(Bac
           $.cookie.calledWithExactly('userID', 342).should.be.true;
         });
 
-        it('triggers the `loginSuccess` event', function() {
-          spy.calledOnce.should.be.true;
+        it('triggers the `redirect` event', function() {
+          spy.withArgs({destination: 'dashboard'}).calledOnce.should.be.true;
         });
       });
     });
@@ -236,24 +228,24 @@ define(['backbone', 'views/partials/loginForm', 'utils', 'cookie'], function(Bac
     describe('loginUser() method with invalid credentials', function() {
       beforeEach(function() {
         // Stub jQuery cookie
-        sinon.stub($, 'cookie');
+        sandbox.stub($, 'cookie');
 
         // Create and render the LoginForm view
-        loginForm.reset().render();
+        loginForm.render();
 
-        // Spy on the loginSuccess event
-        spy = sinon.spy();
-        loginForm.on('loginSuccess', spy);
+        // Spy on the redirect event
+        spy = sandbox.spy();
+        loginForm.on('redirect', spy);
 
         e = $.Event('submit', {target: loginForm.$el});
 
         // Create a fake server to respond to the login request, which raises
         // an authorization error in this test case
-        server = sinon.fakeServer.create();
+        server = sandbox.useFakeServer();
         server.respondWith([401, {}, 'Authorization Required\n']);
 
         // Stub the getAttributes method that gets the data out of the form
-        getAttributes = sinon.stub(Utils, 'getAttributes');
+        getAttributes = sandbox.stub(Utils, 'getAttributes');
         getAttributes.withArgs(loginForm.$el).returns({username: 'testuser', password: 'testuser', remember: null});
       
         // Submit the form
@@ -263,18 +255,13 @@ define(['backbone', 'views/partials/loginForm', 'utils', 'cookie'], function(Bac
         server.respond();
       });
 
-      afterEach(function() {
-        loginForm.off('loginSuccess');
-        Utils.getAttributes.restore();
-        $.cookie.restore();
-        server.restore();
-      });
+      afterEach(function() { loginForm.off(); });
 
       it('does not set cookies', function() {
         $.cookie.called.should.be.false;
       });
 
-      it('does not trigger a `loginSuccess` event', function() {
+      it('does not trigger a `redirect` event', function() {
         spy.called.should.be.false;
       });
     });
@@ -282,23 +269,6 @@ define(['backbone', 'views/partials/loginForm', 'utils', 'cookie'], function(Bac
     describe('render() function', function() {
       it('returns the form', function() {
         loginForm.render().should.equal(loginForm);
-      });
-    });
-
-    describe('reset() method', function() {
-      beforeEach(function() {
-        loginForm.render();
-      });
-
-      it('removes the view from the DOM', function() {
-        sinon.spy(loginForm, 'remove');
-        loginForm.reset();
-        loginForm.remove.calledOnce.should.be.true;
-        loginForm.remove.restore();
-      });
-
-      it('returns the view', function() {
-        loginForm.reset().should.equal(loginForm);
       });
     });
   });

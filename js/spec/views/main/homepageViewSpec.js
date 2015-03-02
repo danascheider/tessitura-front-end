@@ -35,7 +35,7 @@ define([
 
     describe('homepage elements', function() {
       beforeEach(function() {
-        view.reset().render();
+        view.render();
       });
 
       describe('top nav', function() {
@@ -57,21 +57,22 @@ define([
       // The view homepage view has a child login form view, `view.$loginForm`.
       // The homepage view controls the appearance of the login form, which is 
       // attached to its #shade div and remains invisible until a link is clicked.
-      // When the login form is submitted, it emits a `loginSuccess` event, which
-      // should then trigger a `loginSuccess` event on the homepage itself. 
-      // The router listens for the loginSuccess event.
+      // When the login form is submitted, it emits a `redirect` event, which
+      // should then trigger a `redirect` event on the homepage itself. 
+      // The presenter listens for the redirect event.
 
       describe('login form', function() {
         it('is hidden initially', function() {
           view.$loginForm.$el.should.not.be.visible;
         });
 
-        it('triggers the loginSuccess event', function() {
+        it('triggers the redirect event', function() {
+          var newView = new HomepageView();
           spy = sandbox.spy();
-          view.on('loginSuccess', spy);
-          view.$loginForm.trigger('loginSuccess');
-          spy.calledOnce.should.be.true;
-          view.off('loginSuccess');
+          newView.on('redirect', spy);
+          newView.$loginForm.trigger('redirect', {destination: 'dashboard'});
+          spy.withArgs({destination: 'dashboard'}).calledOnce.should.be.true;
+          newView.off()
         });
       });
 
@@ -116,12 +117,12 @@ define([
         tmpView.hideLoginForm.calledOnce.should.be.true;
       });
 
-      it('emits loginSuccess event', function() {
+      it('emits redirect event', function() {
         spy = sandbox.spy();
-        tmpView.on('loginSuccess', spy);
-        tmpView.$loginForm.trigger('loginSuccess');
-        spy.calledOnce.should.be.true;
-        tmpView.off('loginSuccess');
+        tmpView.on('redirect', spy);
+        tmpView.$loginForm.trigger('redirect', {destination: 'dashboard'});
+        spy.withArgs({destination: 'dashboard'}).calledOnce.should.be.true;
+        tmpView.off();
       });
     });
 
@@ -163,9 +164,9 @@ define([
           // Stub jQuery cookie
           sandbox.stub($, 'cookie');
 
-          // Set up spy to listen for the view's 'loginSuccess' event
+          // Set up spy to listen for the view's 'redirect' event
           spy = sandbox.spy();
-          view.on('loginSuccess', spy);
+          view.on('redirect', spy);
 
           // Mock server response providing user ID to be set in cookie
           var obj = JSON.stringify({"id":343, "username":"testuser245", "first_name":"Test", "last_name":"User", "email":"tu245@example.org"});
@@ -179,8 +180,8 @@ define([
         });
 
         afterEach(function() {
-          // Unbind the spy from the view's 'loginSuccess' event
-          view.off('loginSuccess');
+          // Unbind the spy from the view's 'redirect' event
+          view.off('redirect');
         });
 
         it('sets the auth cookie as a session cookie', function() {
@@ -191,8 +192,8 @@ define([
           $.cookie.calledWithExactly('userID', 343).should.be.true;
         });
 
-        it('triggers loginSuccess', function() {
-          spy.calledOnce.should.be.true;
+        it('triggers redirect', function() {
+          spy.withArgs({destination: 'dashboard'}).calledOnce.should.be.true;
         });
       });
 
@@ -235,7 +236,7 @@ define([
 
     describe('hideLoginForm() method', function() {
       beforeEach(function() {
-        view.reset().render();
+        view.render();
 
         // show the login form
         view.$('div.text-vertical-center').children().show();
@@ -273,35 +274,6 @@ define([
 
       it('assigns the ID #homepage-wrapper', function() {
         view.$el[0].id.should.equal('homepage-wrapper');
-      });
-    });
-
-    describe('reset() method', function() {
-      beforeEach(function() {
-        view = new HomepageView();
-        view.render();
-      });
-
-      afterEach(function() {
-        view.remove();
-      });
-
-      it('removes the view from the DOM', function() {
-        sandbox.stub(view, 'remove');
-        view.reset();
-        view.remove.calledOnce.should.be.true;
-      });
-
-      it('keeps its login form', function() {
-        sandbox.stub(LoginForm.prototype, 'initialize');
-        view.reset();
-        LoginForm.prototype.initialize.called.should.be.false;
-      });
-
-      it('re-establishes a listener for the loginSuccess method', function() {
-        sandbox.stub(view, 'listenTo');
-        view.reset();
-        view.listenTo.withArgs(view.$loginForm, 'loginSuccess').calledOnce.should.be.true;
       });
     });
 
@@ -344,7 +316,7 @@ define([
 
       describe('hiding the login form', function() {
         beforeEach(function() {
-          view.reset().render();
+          view.render();
           view.toggleLoginForm(); // show the login form
           view.toggleLoginForm(); // hide it again
         });

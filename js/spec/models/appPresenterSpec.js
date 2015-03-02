@@ -22,16 +22,7 @@ define([
     });
 
     describe('events', function() {
-      describe('login user', function() {
-        it('calls emitRedirect()', function() {
-          sandbox.stub(AppPresenter.prototype, 'emitRedirect');
-          var presenter = new AppPresenter();
-          presenter.homepageView.trigger('loginSuccess');
-          AppPresenter.prototype.emitRedirect.calledOnce.should.be.true;
-        });
-      });
-
-      describe('redirect - dashboard', function() {
+      describe('redirect:dashboard', function() {
         it('calls emitRedirect', function() {
           sandbox.stub(AppPresenter.prototype, 'emitRedirect');
           var presenter = new AppPresenter();
