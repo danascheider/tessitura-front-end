@@ -27,11 +27,11 @@ define([
     },
 
     goToDashboard        : function() {
-      this.trigger('redirect:dashboard');
+      this.trigger('redirect', {destination: 'dashboard'});
     },
 
     goToTaskPage         : function() {
-      this.trigger('redirect:tasks:main');
+      this.trigger('redirect', {destination: 'tasks'});
     },
 
     toggleSecondLevelNav : function(e) {

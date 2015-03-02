@@ -127,12 +127,7 @@ define([
 
     describe('createUser() method', function() {
       beforeEach(function() {
-        view.reset().render();
-
-        // Make sure it doesn't attempt to redirect to the dashboard
-        // after the user is created successfully
-
-        sandbox.stub(Backbone.history, 'navigate');
+        view.render();
 
         // Create a fake server to handle the Ajax request
 
@@ -337,10 +332,10 @@ define([
         });
 
         describe('when there is a logged-in user', function() {
-          it('triggers redirect:dashboard on the view', function() {
+          it('triggers redirect on the view', function() {
             sandbox.stub($, 'cookie').returns('foobar');
             var spy = sandbox.spy();
-            view.on('redirect:dashboard', spy)
+            view.on('redirect', spy)
             view.toggleLoginForm();
             spy.calledOnce.should.be.true;
           });

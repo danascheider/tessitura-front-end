@@ -42,7 +42,7 @@ define([
     });
 
     describe('emitRedirect() method', function() {
-      it('emits the redirect:dashboard event', function() {
+      it('emits the redirect event', function() {
         spy = sandbox.spy();
         var presenter = new AppPresenter();
         presenter.on('redirect', spy);

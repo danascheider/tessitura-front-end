@@ -13,7 +13,8 @@ define([
       this.listenTo(this.homepageView, 'redirect', this.emitRedirect);
     },
 
-    emitRedirect: function() {
+    emitRedirect: function(e) {
+      console.log(e);
       this.trigger('redirect', {destination: 'dashboard'});
     },
 

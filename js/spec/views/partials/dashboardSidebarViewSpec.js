@@ -94,9 +94,9 @@ define(['backbone', 'views/partials/dashboardSidebar'], function(Backbone, Sideb
 
       it('triggers the redirect:dashboard event on the view', function() {
         var spy = sandbox.spy();
-        sidebar.on('redirect:dashboard', spy);
+        sidebar.on('redirect', spy);
         sidebar.goToDashboard();
-        spy.calledOnce.should.be.true;
+        spy.withArgs({destination: 'dashboard'}).calledOnce.should.be.true;
       });
     });
 
@@ -105,11 +105,11 @@ define(['backbone', 'views/partials/dashboardSidebar'], function(Backbone, Sideb
         sidebar.render(); 
       });
 
-      it('triggers the redirect:tasks:main event', function() {
+      it('triggers the redirect:tasks event', function() {
         var spy = sandbox.spy();
-        sidebar.on('redirect:tasks:main', spy);
+        sidebar.on('redirect', spy);
         sidebar.goToTaskPage();
-        spy.calledOnce.should.be.true;
+        spy.withArgs({destination: 'tasks'}).calledOnce.should.be.true;
       });
     });
 

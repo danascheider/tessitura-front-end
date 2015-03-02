@@ -67,18 +67,18 @@ define([
         describe('redirect:dashboard on dashboard view', function() {
           it('emits the redirect:dashboard event', function() {
             spy = sandbox.spy();
-            presenter.on('redirect:dashboard', spy);
-            presenter.$dashboard.trigger('redirect:dashboard');
-            spy.calledOnce.should.be.true;
+            presenter.on('redirect', spy);
+            presenter.$dashboard.trigger('redirect', {destination: 'dashboard'});
+            spy.withArgs({destination: 'dashboard'}).calledOnce.should.be.true;
           });
         });
 
-        describe('redirect:tasks:main on dashboard view', function() {
-          it('emits the redirect:tasks:main event', function() {
+        describe('redirect:tasks on dashboard view', function() {
+          it('emits the redirect:tasks event', function() {
             spy = sandbox.spy();
-            presenter.on('redirect:tasks:main', spy);
-            presenter.$dashboard.trigger('redirect:tasks:main');
-            spy.calledOnce.should.be.true;
+            presenter.on('redirect', spy);
+            presenter.$dashboard.trigger('redirect', {destination: 'tasks'});
+            spy.withArgs({destination: 'tasks'}).calledOnce.should.be.true;
           });
         });
       });
@@ -89,23 +89,23 @@ define([
         presenter = new DashboardPresenter({user: user});
       });
 
+      afterEach(function() { presenter.off(); });
+
       describe('to dashboard', function() {
         it('emits the redirect:dashboard event', function() {
           spy = sandbox.spy();
-          presenter.on('redirect:dashboard', spy);
-          presenter.redirect('redirect:dashboard');
-          spy.calledOnce.should.be.true;
-          presenter.off('redirect:dashboard');
+          presenter.on('redirect', spy);
+          presenter.redirect({destination: 'dashboard'});
+          spy.withArgs({destination: 'dashboard'}).calledOnce.should.be.true;
         });
       });
 
       describe('to main task view', function() {
-        it('emits the redirect:tasks:main event', function() {
+        it('emits the redirect:tasks event', function() {
           spy = sandbox.spy();
-          presenter.on('redirect:tasks:main', spy);
-          presenter.redirect('redirect:tasks:main');
-          spy.calledOnce.should.be.true;
-          presenter.off('redirect:tasks:main');
+          presenter.on('redirect', spy);
+          presenter.redirect({destination: 'tasks'});
+          spy.withArgs({destination: 'tasks'}).calledOnce.should.be.true;
         });
       })
     });

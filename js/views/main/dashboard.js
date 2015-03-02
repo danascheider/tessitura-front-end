@@ -50,7 +50,7 @@ define([
     },
 
     redirect          : function(e) {
-      if(typeof e === 'string' && e.match(/redirect\:/)) { this.trigger(e); }
+      this.trigger('redirect', {destination: e.destination});
     },
 
     setUser           : function(user) {
@@ -104,7 +104,9 @@ define([
 
       if(!!opts.user) { this.setUser(opts.user); }
 
-      this.listenTo(this.$sidebar, 'all', this.redirect);
+      this.listenTo(this.$sidebar, 'redirect', this.redirect);
+      this.listenTo(this.$homeView, 'redirect', this.redirect);
+      this.listenTo(this.$taskView, 'redirect', this.redirect);
     },
     
     render: function() {

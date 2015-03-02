@@ -78,7 +78,7 @@ define([
         this.$('div.text-vertical-center').children().toggle();
         this.$('#shade').toggle();
       } else {
-        this.trigger('redirect:dashboard');
+        this.trigger('redirect', {destination: 'dashboard'});
       }
     },
 

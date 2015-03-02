@@ -115,13 +115,56 @@ define([
         });
       });
 
-      describe('redirect:dashboard in sidebar', function() {
-        it('triggers the redirect:dashboard event', function() {
-          spy = sandbox.spy();
-          newDashboard.on('redirect:dashboard', spy);
-          newDashboard.$sidebar.trigger('redirect:dashboard');
-          spy.calledOnce.should.be.true;
-          newDashboard.off('redirect:dashboard');
+      describe('listeners', function() {
+        beforeEach(function() {
+          spy = sandbox.spy(DashboardView.prototype, 'redirect');
+          dashboard = new DashboardView({user: user});
+        });
+
+        describe('redirect:dashboard', function() {
+          describe('in sidebar', function() {
+            it('calls redirect()', function() {
+              dashboard.$sidebar.trigger('redirect', {destination: 'dashboard'});
+              dashboard.redirect.withArgs({destination: 'dashboard'}).calledOnce.should.be.true;
+            });
+          });
+
+          describe('in home view', function() {
+            it('calls redirect()', function() {
+              dashboard.$homeView.trigger('redirect', {destination: 'dashboard'});
+              dashboard.redirect.withArgs({destination: 'dashboard'}).calledOnce.should.be.true;
+            });
+          });
+
+          describe('in task view', function() {
+            it('calls redirect()', function() {
+              dashboard.$taskView.trigger('redirect', {destination: 'dashboard'});
+              dashboard.redirect.withArgs({destination: 'dashboard'}).calledOnce.should.be.true;
+            });
+          });
+        });
+
+        describe('redirect:tasks', function() {
+          describe('in sidebar', function() {
+            it('calls redirect()', function() {
+              dashboard.$sidebar.trigger('redirect', {destination: 'tasks'});
+              dashboard.redirect.withArgs({destination: 'tasks'}).calledOnce.should.be.true;
+            });
+          });
+
+          describe('in home view', function() {
+            it('calls redirect()', function() {
+              dashboard.$homeView.trigger('redirect', {destination: 'tasks'});
+              dashboard.redirect.withArgs({destination: 'tasks'}).calledOnce.should.be.true;
+            });
+          });
+
+          describe('in task view', function() {
+            it('calls redirect()', function() {
+              dashboard.$homeView.trigger('redirect', {destination: 'tasks'});
+              dashboard.redirect.withArgs({destination: 'tasks'}).calledOnce.should.be.true;
+            });
+          });
         });
       });
     });
