@@ -40,7 +40,6 @@ define([
       it('calls destroy on the Backbone model prototype', function() {
         sandbox.stub(Backbone.Model.prototype, 'destroy');
         resource.destroy();
-        console.log(Backbone.Model.prototype.destroy.args);
         Backbone.Model.prototype.destroy.calledOnce.should.be.true;
       });
     });
