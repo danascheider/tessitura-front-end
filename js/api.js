@@ -1,6 +1,6 @@
-define(function() {
+define(['apiOptions'], function(Options) {
 
-  var BaseURL = 'http://private-6f87dc-canto.apiary-mock.com';
+  var BaseURL = Options.test === true ? 'http://private-6f87dc-canto.apiary-mock.com' : 'http://localhost:9292';
 
   var API = {
     base  : BaseURL,
