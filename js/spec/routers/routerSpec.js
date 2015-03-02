@@ -32,6 +32,18 @@ define([
       });
     });
 
+    describe('events', function() {
+      describe('redirect on appPresenter', function() {
+        it('navigates to the given route', function() {
+          sinon.test(function() {
+            sandbox.stub(Router.prototype, 'navigate');
+            router.appPresenter.trigger('redirect', {destination: '#dashboard'});
+            router.navigate.withArgs('#dashboard').calledOnce.should.be.true;
+          });
+        });
+      });
+    });
+
     describe('routes', function() {
       describe('/', function() {
         it('calls rerouteIfLoggedIn', function() {
