@@ -98,6 +98,16 @@ define(['backbone', 'router', 'cookie'], function(Backbone, Router) {
           });
         });
       });
+
+      describe('tasks', function() {
+        it('calls verifyLoggedIn', function() {
+          sinon.test(function() {
+            sandbox.spy(router, 'verifyLoggedIn');
+            router.navigate('tasks');
+            router.verifyLoggedIn.calledOnce.should.be.true;
+          });
+        });
+      });
     });
   });
 });

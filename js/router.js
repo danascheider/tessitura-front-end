@@ -29,7 +29,7 @@ define([
     // --------------------------- //
 
     navigate           : function(obj) {
-      Backbone.history.navigate(obj.destination);
+      this.navigate(obj.destination);
     },
 
     routes: {
@@ -78,7 +78,7 @@ define([
     logOut: function() {
       $.removeCookie('auth');
       $.removeCookie('userID');
-      Backbone.history.navigate('', {trigger: true});
+      this.navigate('', {trigger: true});
     },
 
     rerouteIfLoggedIn: function(fragment, args, next) {
