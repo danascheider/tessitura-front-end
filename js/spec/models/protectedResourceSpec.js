@@ -18,6 +18,26 @@ define([
       sandbox.restore();
     });
 
+    describe('destroy() method', function() {
+      beforeEach(function() {
+        resource = new ProtectedResource();
+        resource.url = API.base + '/protected-resource';
+        sandbox.stub(resource, 'isNew').returns(false);
+        server = sandbox.useFakeServer();
+      });
+
+      it('attaches an authorization header', function() {
+        resource.destroy();
+        server.requests[0].requestHeaders.should.haveOwnProperty('Authorization');
+      });
+
+      it('includes authorization for the logged-in user', function() {
+        resource.destroy();
+        var value = 'Basic ' + $.cookie('auth');
+        server.requests[0].requestHeaders.Authorization.should.equal(value);
+      });
+    });
+
     describe('token', function() {
       it('returns the value of the Authorization header', function() {
         resource = new ProtectedResource();

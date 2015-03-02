@@ -5,6 +5,18 @@ define(['underscore', 'backbone', 'cookie'], function(_, Backbone) {
       return 'Basic ' + $.cookie('auth');
     },
 
+    destroy: function(options) {
+      options = options || {};
+
+      var that = this;
+
+      options.beforeSend = (options.beforeSend) || function(xhr) {
+        xhr.setRequestHeader('Authorization', that.token());
+      };
+
+      return Backbone.Model.prototype.destroy.call(this, options);
+    },
+
     save: function(attrs, options) {
       attrs = attrs || this.attributes;
       options = options || {};
