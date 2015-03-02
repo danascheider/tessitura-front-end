@@ -184,5 +184,43 @@ define([
         });
       });
     });
+
+    describe('displayTaskView', function() {
+      it('calls getTask on the dashboard presenter', function() {
+        sinon.test(function() {
+          // It needs a cookie to set the user
+          sandbox.stub($, 'cookie').withArgs('userID').returns(342);
+          sandbox.stub(router.dashboardPresenter, 'getTask');
+          router.displayTaskView();
+          router.dashboardPresenter.getTask.calledOnce.should.be.true;
+        });
+      });
+
+      describe('when presenter has a user', function() {
+        beforeEach(function() { router.dashboardPresenter.setUser(user); });
+
+        it('doesn\'t call setUser', function() {
+          sinon.test(function() {
+            sandbox.stub(router.dashboardPresenter, 'setUser');
+            router.displayTaskView();
+            router.dashboardPresenter.setUser.called.should.be.false;
+          });
+        });
+      });
+
+      describe('when presenter has no user', function() {
+        beforeEach(function() { delete router.dashboardPresenter.user; });
+
+        it('calls setUser', function() {
+          sinon.test(function() {
+            sandbox.stub($, 'cookie').withArgs('userID').returns(342);
+            sandbox.stub(router.dashboardPresenter, 'setUser');
+            console.log('inside test');
+            router.displayTaskView();
+            router.dashboardPresenter.setUser.withArgs(user).calledOnce.should.be.true;
+          });
+        });
+      });
+    });
   });
 });
