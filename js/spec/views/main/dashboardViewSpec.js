@@ -39,6 +39,16 @@ define([
         newDashboard.$sidebar.should.exist;
       });
 
+      it('instantiates a home view', function() {
+        var newDashboard = new DashboardView();
+        (typeof newDashboard.$homeView).should.not.equal('undefined');
+      });
+
+      it('instantiates a task view', function() {
+        var newDashboard = new DashboardView();
+        (typeof newDashboard.$taskView).should.not.equal('undefined');
+      });
+
       it('doesn\'t call render', function() {
         sandbox.stub(Backbone.View.prototype, 'render');
         var newDashboard = new DashboardView({user: user});
@@ -143,6 +153,88 @@ define([
         var newDashboard = new DashboardView();
         newDashboard.setUser(user);
         newDashboard.user.should.equal(user);
+      });
+    });
+
+    describe('showHomeView() method', function() {
+      describe('when main dashboard is visible', function() {
+        beforeEach(function() { 
+          sandbox.stub(dashboard.$el, 'is').withArgs(':visible').returns(true);
+        });
+
+        it('removes the task view', function() {
+          sandbox.stub(dashboard.$taskView, 'remove');
+          dashboard.showHomeView();
+          dashboard.$taskView.remove.calledOnce.should.be.true;
+        });
+
+        it('renders the home view', function() {
+          sandbox.stub(dashboard.$homeView, 'render');
+          dashboard.showHomeView();
+          dashboard.$homeView.render.calledOnce.should.be.true;
+        });
+
+        it('attaches the home view to the DOM', function() {
+          dashboard.showHomeView();
+          dashboard.$homeView.$el.should.be.visible;
+        });
+
+        it('doesn\'t re-render the main dash', function() {
+          sandbox.stub(dashboard, 'render');
+          dashboard.showHomeView();
+          dashboard.render.called.should.be.false;
+        });
+      });
+
+      describe('when main dashboard is not visible', function() {
+        beforeEach(function() { dashboard.remove(); });
+
+        it('renders the main dash', function() {
+          sandbox.stub(dashboard, 'render');
+          dashboard.showHomeView();
+          dashboard.render.calledOnce.should.be.true;
+        });
+      });
+    });
+
+    describe('showTaskView() method', function() {
+      describe('when main dashboard is visible', function() {
+        beforeEach(function() { 
+          sandbox.stub(dashboard.$el, 'is').withArgs(':visible').returns(true);
+        });
+
+        it('removes the home view', function() {
+          sandbox.stub(dashboard.$homeView, 'remove');
+          dashboard.showTaskView();
+          dashboard.$homeView.remove.calledOnce.should.be.true;
+        });
+
+        it('renders the task view', function() {
+          sandbox.stub(dashboard.$taskView, 'render');
+          dashboard.showTaskView();
+          dashboard.$taskView.render.calledOnce.should.be.true;
+        });
+
+        it('attaches the task view to the DOM', function() {
+          dashboard.showTaskView();
+          dashboard.$taskView.$el.should.be.visible;
+        });
+
+        it('doesn\'t re-render the main dashboard', function() {
+          sandbox.stub(dashboard, 'render');
+          dashboard.showTaskView();
+          dashboard.render.called.should.be.false;
+        });
+      });
+
+      describe('when main dashboard is not visible', function() {
+        beforeEach(function() { dashboard.remove(); });
+
+        it('renders the main dashboard', function() {
+          sandbox.stub(dashboard, 'render');
+          dashboard.showTaskView();
+          dashboard.render.calledOnce.should.be.true;
+        });
       });
     });
 

@@ -25,9 +25,7 @@ define([
     initialize     : function(opts) {
       opts = opts || {};
 
-      this.$mainView = new MainView();
-      this.$mainView.$homeView = new HomeView();
-      this.$mainView.$kanbanView = new KanbanView();
+      this.$dashboard = new MainView();
 
       // If a user is passed to the constructor, set `this.user` and 
       // listen to the user's `sync` event
@@ -35,7 +33,7 @@ define([
       if(!!opts.user) { this.setUser(opts.user); }
 
       // Set up listeners for view events
-      this.listenTo(this.$mainView, 'all', this.redirect);
+      this.listenTo(this.$dashboard, 'all', this.redirect);
     },
 
     redirect       : function(e) {
@@ -46,29 +44,20 @@ define([
 
     refreshCurrent : function() {
       if(!this.current) { return; }
-      return this.current === 'home' ? this.getHome() : this.getKanban();
+      return this.current === 'home' ? this.getHome() : this.getTask();
     },
 
     getHome : function() {
-      if(!!this.$mainView.$kanbanView) { this.$mainView.$kanbanView.remove(); }
-
       this.current = 'home';
-
-      this.$mainView.$homeView = this.$mainView.$homeView || new HomeView({user: this.user});
-      this.$mainView.$homeView.render();
-
-      this.$mainView.$('nav').after(this.$mainView.$homeView.el);
+      this.$dashboard.showHomeView();
     },
 
-    getKanban : function() {
-      this.$mainView.$homeView.remove();
-      this.current = 'kanban';
-
-      this.$mainView.$kanbanView.render();
-      this.$mainView.$('nav').after(this.$mainView.$kanbanView.el);
+    getTask : function() {
+      this.current = 'task';
+      this.$dashboard.showTaskView();
     },
 
-    getMain   : function() {
+    getMain : function() {
       this.$mainView.render();
       $('body').html(this.$mainView.el);
     },
@@ -80,22 +69,14 @@ define([
     },
 
     removeAll : function() {
-      if(!!this.$mainView) { 
-        if(!!this.$mainView.$homeView) { this.$mainView.$homeView.remove(); }
-        if(!!this.$mainView.$kanbanView) { this.$mainView.$kanbanView.remove(); }
-        this.$mainView.remove(); 
-      }
+      this.$dashboard.remove();
     },
 
     // Set `this.user` and listen to the user's `sync` event
 
     setUser   : function(user) {
       this.user = user;
-
-      this.$mainView.setUser(user);
-      this.$mainView.$homeView.setUser(user);
-      this.$mainView.$kanbanView.setUser(user);
-
+      this.$dashboard.setUser(user);
       this.listenTo(this.user, 'sync', this.refresh);
     } 
   });

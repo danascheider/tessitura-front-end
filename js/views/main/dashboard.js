@@ -4,6 +4,8 @@ define([
   'backbone',
   'models/user',
   'views/partials/dashboardSidebar',
+  'views/partials/dashboardHome',
+  'views/partials/kanbanBoard',
   'text!templates/app/dashboard.html',
   'css!stylesheets/bootstrap.css',
   'css!stylesheets/dashboard.css',
@@ -15,6 +17,8 @@ define([
     Backbone, 
     UserModel,
     SidebarView,
+    HomeView,
+    TaskView,
     DashboardTemplate) {
   
   var DashboardView = Backbone.View.extend({
@@ -51,6 +55,8 @@ define([
 
     setUser           : function(user) {
       this.user = user;
+      this.$homeView.setUser(user);
+      this.$taskView.setUser(user);
     },
 
     // When the user clicks one of the icons on the top nav, the following
@@ -65,14 +71,38 @@ define([
       li.toggleClass('open');
     },
 
+    // --------------- //
+    // Other Functions //
+    // --------------- //
+
+    showHomeView: function() {
+      if(!this.$el.is(':visible')) { this.render(); }
+
+      this.$taskView.remove();
+      this.$homeView.render();
+      this.$('nav').after(this.$homeView.el);
+    },
+
+    showTaskView: function() {
+      if(!this.$el.is(':visible')) { this.render(); }
+
+      this.$homeView.remove();
+      this.$taskView.render();
+      this.$('nav').after(this.$taskView.el);
+    },
+
     // ------------------- //
     // Core View Functions //
     // ------------------- //
 
     initialize: function(opts) {
       opts = opts || {};
-      if(!!opts.user) { this.setUser(opts.user); }
+
       this.$sidebar = new SidebarView();
+      this.$homeView = new HomeView();
+      this.$taskView = new TaskView();
+
+      if(!!opts.user) { this.setUser(opts.user); }
 
       this.listenTo(this.$sidebar, 'all', this.redirect);
     },

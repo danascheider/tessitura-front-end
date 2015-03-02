@@ -65,6 +65,7 @@ define([
 
     render     : function() {
       this.$el.html(this.template());
+      this.delegateEvents();
       this.renderTopWidgets();
       this.renderTaskPanel();
       return this;

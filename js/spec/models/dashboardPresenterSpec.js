@@ -32,19 +32,9 @@ define([
         (typeof presenter.user).should.equal('undefined');
       });
 
-      it('creates a main view', function() {
+      it('creates a dashboard', function() {
         presenter = new DashboardPresenter();
-        (typeof presenter.$mainView).should.not.equal('undefined');
-      });
-
-      it('creates a home view', function() {
-        presenter = new DashboardPresenter();
-        (typeof presenter.$mainView.$homeView).should.not.equal('undefined');
-      });
-
-      it('creates a kanban view', function() {
-        presenter = new DashboardPresenter();
-        (typeof presenter.$mainView.$kanbanView).should.not.equal('undefined');
+        (typeof presenter.$dashboard).should.not.equal('undefined');
       });
 
       it('calls `setUser`', function() {
@@ -67,25 +57,29 @@ define([
         });
       });
 
-      describe('redirect:dashboard on main view', function() {
-        it('emits the redirect:dashboard event', function() {
-          spy = sandbox.spy();
+      describe('listeners', function() {
+        beforeEach(function() {
           presenter = new DashboardPresenter({user: user});
-          presenter.on('redirect:dashboard', spy);
-          presenter.$mainView.$sidebar.trigger('redirect:dashboard');
-          spy.calledOnce.should.be.true;
-          presenter.off('redirect:dashboard');
         });
-      });
 
-      describe('redirect:tasks:main on main view', function() {
-        it('emits the redirect:tasks:main event', function() {
-          spy = sandbox.spy();
-          presenter = new DashboardPresenter({user: user});
-          presenter.on('redirect:tasks:main', spy);
-          presenter.$mainView.$sidebar.trigger('redirect:tasks:main');
-          spy.calledOnce.should.be.true;
-          presenter.off('redirect:tasks:main');
+        afterEach(function() { presenter.off(); })
+
+        describe('redirect:dashboard on dashboard view', function() {
+          it('emits the redirect:dashboard event', function() {
+            spy = sandbox.spy();
+            presenter.on('redirect:dashboard', spy);
+            presenter.$dashboard.trigger('redirect:dashboard');
+            spy.calledOnce.should.be.true;
+          });
+        });
+
+        describe('redirect:tasks:main on dashboard view', function() {
+          it('emits the redirect:tasks:main event', function() {
+            spy = sandbox.spy();
+            presenter.on('redirect:tasks:main', spy);
+            presenter.$dashboard.trigger('redirect:tasks:main');
+            spy.calledOnce.should.be.true;
+          });
         });
       });
     });
@@ -132,22 +126,10 @@ define([
         presenter.listenTo.withArgs(user).calledOnce.should.be.true;
       });
 
-      it('calls setUser on the main view', function() {
-        sandbox.stub(presenter.$mainView, 'setUser');
+      it('calls setUser on the dashboard', function() {
+        sandbox.stub(presenter.$dashboard, 'setUser');
         presenter.setUser(user);
-        presenter.$mainView.setUser.calledOnce.should.be.true;
-      });
-
-      it('calls setUser on the home view', function() {
-        sandbox.stub(presenter.$mainView.$homeView, 'setUser');
-        presenter.setUser(user);
-        presenter.$mainView.$homeView.setUser.calledOnce.should.be.true;
-      });
-
-      it('calls setUser on the task view', function() {
-        sandbox.stub(presenter.$mainView.$kanbanView, 'setUser');
-        presenter.setUser(user);
-        presenter.$mainView.$kanbanView.setUser.calledOnce.should.be.true;
+        presenter.$dashboard.setUser.calledOnce.should.be.true;
       });
     });
 
@@ -157,56 +139,10 @@ define([
         sandbox.stub(user.tasks, 'fetch');
       });
 
-      afterEach(function() {
-        delete presenter.$mainView.$homeView;
-        delete presenter.$mainView.$kanbanView;
-      });
-
-      describe('when the Kanban view is displayed', function() {
-        beforeEach(function() {
-          presenter.$mainView.$kanbanView = new TaskView({user: user});
-        });
-
-        after(function() {
-          delete presenter.$mainView.$kanbanView;
-        });
-
-        it('removes the kanban board', function() {
-          sandbox.spy(presenter.$mainView.$kanbanView, 'remove');
-          presenter.getHome();
-          presenter.$mainView.$kanbanView.remove.calledOnce.should.be.true;
-        });
-      });
-
-      describe('when there is no home view', function() {
-        it('creates the home view', function() {
-          delete presenter.$mainView.$homeView;
-          presenter.getHome();
-          (typeof presenter.$mainView.$homeView).should.not.equal('undefined');
-        });
-      });
-
-      describe('when there is a home view', function() {
-        it('keeps the same home view', function() {
-          presenter.$mainView.$homeView = new HomeView({user: user});
-          var orig = presenter.$mainView.$homeView;
-          presenter.getHome();
-          presenter.$mainView.$homeView.should.equal(orig);
-        });
-      });
-
-      it('renders the home view', function() {
-        presenter.$mainView.$homeView = presenter.$mainView.$homeView || new HomeView({user: user, collection: user.tasks});
-        sandbox.stub(presenter.$mainView.$homeView, 'render');
+      it('calls the dashboard\'s showHomeView() function', function() {
+        sandbox.stub(presenter.$dashboard, 'showHomeView');
         presenter.getHome();
-        presenter.$mainView.$homeView.render.calledOnce.should.be.true;
-      });
-
-      it('appends the view to the DOM', function() {
-        sandbox.stub($.prototype, 'after');
-        var el = presenter.$mainView.$('nav');
-        presenter.getHome();
-        el.after.withArgs(presenter.$mainView.$homeView.el).calledOnce.should.be.true;
+        presenter.$dashboard.showHomeView.calledOnce.should.be.true;
       });
 
       it('sets the \'current\' property to \'home\'', function() {
@@ -215,63 +151,23 @@ define([
       });
     });
 
-    describe('getKanban() method', function() {
+    describe('getTask() method', function() {
       beforeEach(function() {
         presenter = new DashboardPresenter({user: user});
       });
 
-      describe('when the home view is displayed', function() {
-        beforeEach(function() {
-          presenter.$mainView.$homeView = new HomeView({user: user});
-          sandbox.spy(presenter.$mainView.$homeView, 'remove');
-        });
-
-        after(function() { delete presenter.$mainView.$homeView; });
-
-        it('removes the home view', function() {
-          presenter.getKanban();
-          presenter.$mainView.$homeView.remove.calledOnce.should.be.true;
-        });
+      it('calls the dashboard\'s showTaskView() method', function() {
+        sandbox.stub(presenter.$dashboard, 'showTaskView');
+        presenter.getTask();
+        presenter.$dashboard.showTaskView.calledOnce.should.be.true;
       });
 
-      it('renders the task view', function() {
-        sandbox.stub(presenter.$mainView.$kanbanView, 'render');
-
-        presenter.getKanban();
-        presenter.$mainView.$kanbanView.render.calledOnce.should.be.true;
-      });
-
-      it('inserts the view into the DOM', function() {
-        sandbox.stub($.prototype, 'after');
-        var el = presenter.$mainView.$('nav');
-        presenter.getKanban();
-        el.after.withArgs(presenter.$mainView.$kanbanView.el).calledOnce.should.be.true;
-      });
-
-      it('sets the \'current\' property to \'kanban\'', function() {
-        presenter.getKanban();
-        presenter.current.should.equal('kanban');
+      it('sets the \'current\' property to \'task\'', function() {
+        presenter.getTask();
+        presenter.current.should.equal('task');
       });
     });
 
-    describe('getMain() method', function() {
-      beforeEach(function() {
-        sandbox.stub($.prototype, 'html');
-        presenter = new DashboardPresenter({user: user});
-      });
-
-      it('renders the main view', function() {
-        sandbox.stub(presenter.$mainView, 'render');
-        presenter.getMain();
-        presenter.$mainView.render.calledOnce.should.be.true;
-      });
-
-      it('sets the HTML of the body', function() {
-        presenter.getMain();
-        $.prototype.html.called.should.be.true;
-      });
-    });
-    
     describe('refreshCurrent() method', function() {
       beforeEach(function() {
         presenter = new DashboardPresenter({user: user});
@@ -287,11 +183,11 @@ define([
       });
 
       describe('when the task view is current', function() {
-        it('calls getKanban()', function() {
-          sandbox.stub(presenter, 'getKanban');
-          presenter.current = 'kanban';
+        it('calls getTask()', function() {
+          sandbox.stub(presenter, 'getTask');
+          presenter.current = 'task';
           presenter.refreshCurrent();
-          presenter.getKanban.calledOnce.should.be.true;
+          presenter.getTask.calledOnce.should.be.true;
         });
       });
 
@@ -308,10 +204,10 @@ define([
           presenter.getHome.called.should.be.false;
         });
 
-        it('doesn\'t call getKanban()', function() {
-          sandbox.stub(presenter, 'getKanban');
+        it('doesn\'t call getTask()', function() {
+          sandbox.stub(presenter, 'getTask');
           presenter.refreshCurrent();
-          presenter.getKanban.called.should.be.false;
+          presenter.getTask.called.should.be.false;
         });
       });
     });
@@ -339,10 +235,10 @@ define([
         presenter = new DashboardPresenter({user: user});
       });
 
-      it('removes the main view', function() {
-        sandbox.spy(presenter.$mainView, 'remove');
+      it('removes the dashboard view', function() {
+        sandbox.spy(presenter.$dashboard, 'remove');
         presenter.removeAll();
-        presenter.$mainView.remove.calledOnce.should.be.true;
+        presenter.$dashboard.remove.calledOnce.should.be.true;
       });
     });
   });
