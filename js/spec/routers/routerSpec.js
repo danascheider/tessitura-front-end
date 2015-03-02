@@ -240,5 +240,15 @@ define([
         });
       });
     });
+
+    describe('logOut', function() {
+      it('removes the auth cookie', function() {
+        sinon.test(function() {
+          sandbox.stub($, 'removeCookie');
+          router.logOut();
+          $.removeCookie.withArgs('auth').calledOnce.should.be.true;
+        });
+      });
+    });
   });
 });
