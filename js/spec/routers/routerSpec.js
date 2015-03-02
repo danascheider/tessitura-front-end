@@ -242,11 +242,13 @@ define([
     });
 
     describe('logOut', function() {
-      it('removes the auth cookie', function() {
-        sinon.test(function() {
-          sandbox.stub($, 'removeCookie');
-          router.logOut();
-          $.removeCookie.withArgs('auth').calledOnce.should.be.true;
+      _.each(['auth', 'userID'], function(cookie) {
+        it('removes the ' + cookie + ' cookie', function() {
+          sinon.test(function() {
+            sandbox.stub($, 'removeCookie');
+            router.logOut();
+            $.removeCookie.withArgs(cookie).calledOnce.should.be.true;
+          });
         });
       });
     });
