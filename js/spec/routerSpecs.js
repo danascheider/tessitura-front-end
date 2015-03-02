@@ -1,0 +1,3 @@
+define([
+  'spec/routers/routerSpec'
+  ]);
