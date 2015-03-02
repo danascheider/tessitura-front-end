@@ -35,6 +35,26 @@ define(['backbone', 'router', 'cookie'], function(Backbone, Router) {
             router.rerouteIfLoggedIn.calledOnce.should.be.true;
           });
         });
+
+        describe('when logged in', function() {
+          sinon.test(function() {
+            sandbox.stub($, 'cookie').withArgs('auth').returns('foobar');
+            sandbox.stub(router, 'displayDashboardHome')
+            router.navigate('');
+            router.displayDashboardHome.calledOnce.should.be.true;
+          });
+        });
+
+        describe('when not logged in', function() {
+          it('calls displayHomepage', function() {
+            sinon.test(function() {
+              sandbox.stub($, 'cookie').withArgs('auth').returns(null);
+              sandbox.stub(router, 'displayHomepage');
+              router.navigate('');
+              router.displayHomepage.calledOnce.should.be.true;
+            });
+          });
+        });
       });
 
       describe('home', function() {
