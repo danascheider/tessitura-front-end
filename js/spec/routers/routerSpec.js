@@ -107,6 +107,17 @@ define(['backbone', 'router', 'cookie'], function(Backbone, Router) {
             router.verifyLoggedIn.calledOnce.should.be.true;
           });
         });
+
+        describe('when logged in', function() {
+          it('calls displayTaskView', function() {
+            sinon.test(function() {
+              sandbox.stub($, 'cookie').withArgs('auth').returns('foobar');
+              sandbox.stub(router, 'displayTaskView');
+              router.navigate('tasks');
+              router.displayTaskView.calledOnce.should.be.true;
+            });
+          });
+        });
       });
     });
   });
