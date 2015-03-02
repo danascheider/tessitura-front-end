@@ -7,7 +7,7 @@ define([
 ], function($, _, Backbone, DashboardView, User) {
 
   describe('Main Dashboard View', function() {
-    var dashboard, e;
+    var dashboard, e, spy;
     var sandbox = sinon.sandbox.create();
 
     var user = new User({
@@ -102,6 +102,16 @@ define([
         it('calls hideDropdownMenus()', function() {
           newDashboard.$el.click();
           DashboardView.prototype.hideDropdownMenus.calledOnce.should.be.true;
+        });
+      });
+
+      describe('redirect:dashboard in sidebar', function() {
+        it('triggers the redirect:dashboard event', function() {
+          spy = sandbox.spy();
+          newDashboard.on('redirect:dashboard', spy);
+          newDashboard.$sidebar.trigger('redirect:dashboard');
+          spy.calledOnce.should.be.true;
+          newDashboard.off('redirect:dashboard');
         });
       });
     });

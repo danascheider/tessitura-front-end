@@ -72,7 +72,7 @@ define([
           spy = sandbox.spy();
           presenter = new DashboardPresenter({user: user});
           presenter.on('redirect:dashboard', spy);
-          presenter.$mainView.trigger('redirect:dashboard');
+          presenter.$mainView.$sidebar.trigger('redirect:dashboard');
           spy.calledOnce.should.be.true;
           presenter.off('redirect:dashboard');
         });
@@ -83,7 +83,7 @@ define([
           spy = sandbox.spy();
           presenter = new DashboardPresenter({user: user});
           presenter.on('redirect:tasks:main', spy);
-          presenter.$mainView.trigger('redirect:tasks:main');
+          presenter.$mainView.$sidebar.trigger('redirect:tasks:main');
           spy.calledOnce.should.be.true;
           presenter.off('redirect:tasks:main');
         });

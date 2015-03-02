@@ -45,6 +45,10 @@ define([
       }
     },
 
+    redirect          : function(e) {
+      if(typeof e === 'string' && e.match(/redirect\:/)) { this.trigger(e); }
+    },
+
     setUser           : function(user) {
       this.user = user;
     },
@@ -69,6 +73,8 @@ define([
       opts = opts || {};
       if(!!opts.user) { this.setUser(opts.user); }
       this.$sidebar = new SidebarView();
+
+      this.listenTo(this.$sidebar, 'all', this.redirect);
     },
     
     render: function() {
