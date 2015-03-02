@@ -1,10 +1,16 @@
-define(['backbone', 'router', 'cookie'], function(Backbone, Router) {
+define([
+  'backbone', 
+  'router', 
+  'models/user',
+  'cookie'], function(Backbone, Router, User) {
   
   describe('Canto Router', function() {
     var router, e, spy;
 
     var sandbox = sinon.sandbox.create();
     var server = sandbox.useFakeServer();
+
+    var user = new User({id: 342, username: 'testuser', password: 'testuser'});
 
     beforeEach(function() {
       if(typeof router === 'undefined') { router = new Router(); }
@@ -137,6 +143,43 @@ define(['backbone', 'router', 'cookie'], function(Backbone, Router) {
             sandbox.stub(router, 'logOut');
             router.navigate('logout');
             router.logOut.calledOnce.should.be.true;
+          });
+        });
+      });
+    });
+
+    describe('displayDashboardHome', function() {
+      it('calls getHome on the dashboard presenter', function() {
+        // It needs a cookie to set the user
+        sandbox.stub($, 'cookie').withArgs('userID').returns(342);
+        sandbox.stub(router.dashboardPresenter, 'getHome');
+        router.displayDashboardHome();
+        router.dashboardPresenter.getHome.calledOnce.should.be.true;
+        delete router.dashboardPresenter.user;
+      });
+
+      describe('when presenter has a user', function() {
+        beforeEach(function() { router.dashboardPresenter.setUser(user); });
+
+        it('doesn\'t call setUser', function() {
+          sinon.test(function() {
+            sandbox.stub(router.dashboardPresenter, 'setUser');
+            router.displayDashboardHome();
+            router.dashboardPresenter.setUser.called.should.be.false;
+          });
+        });
+      });
+
+      describe('when presenter has no user', function() {
+        beforeEach(function() { delete router.dashboardPresenter.user; });
+
+        it('calls setUser', function() {
+          sinon.test(function() {
+            sandbox.stub($, 'cookie').withArgs('userID').returns(342);
+            sandbox.stub(router.dashboardPresenter, 'setUser');
+            console.log('inside test');
+            router.displayDashboardHome();
+            router.dashboardPresenter.setUser.withArgs(user).calledOnce.should.be.true;
           });
         });
       });
