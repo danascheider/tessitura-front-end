@@ -251,6 +251,12 @@ define([
           });
         });
       });
+
+      it('navigates to the homepage', function() {
+        sinon.stub(router, 'navigate');
+        router.logOut();
+        router.navigate.calledWithExactly('', {trigger: true}).should.be.true;
+      });
     });
   });
 });
