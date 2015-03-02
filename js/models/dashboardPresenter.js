@@ -33,6 +33,15 @@ define([
       // listen to the user's `sync` event
 
       if(!!opts.user) { this.setUser(opts.user); }
+
+      // Set up listeners for view events
+      this.listenTo(this.$mainView, 'all', this.redirect);
+    },
+
+    redirect       : function(e) {
+      if(typeof e == 'string' && !!e.match(/redirect\:/)) { 
+        this.trigger(e); 
+      }
     },
 
     refreshCurrent : function() {

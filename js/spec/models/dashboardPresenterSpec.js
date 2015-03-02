@@ -12,6 +12,7 @@ define([
 ], function(Backbone, DashboardPresenter, API, User, Task, TaskCollection, MainView, HomeView, TaskView) {
   
   describe('DashboardPresenter', function() {
+    var spy;
     var sandbox = sinon.sandbox.create();
 
     // Create user to be passed to the DashboardPresenter
@@ -65,6 +66,54 @@ define([
           DashboardPresenter.prototype.refresh.calledOnce.should.be.true;
         });
       });
+
+      describe('redirect:dashboard on main view', function() {
+        it('emits the redirect:dashboard event', function() {
+          spy = sandbox.spy();
+          presenter = new DashboardPresenter({user: user});
+          presenter.on('redirect:dashboard', spy);
+          presenter.$mainView.trigger('redirect:dashboard');
+          spy.calledOnce.should.be.true;
+          presenter.off('redirect:dashboard');
+        });
+      });
+
+      describe('redirect:tasks:main on main view', function() {
+        it('emits the redirect:tasks:main event', function() {
+          spy = sandbox.spy();
+          presenter = new DashboardPresenter({user: user});
+          presenter.on('redirect:tasks:main', spy);
+          presenter.$mainView.trigger('redirect:tasks:main');
+          spy.calledOnce.should.be.true;
+          presenter.off('redirect:tasks:main');
+        });
+      });
+    });
+
+    describe('redirect() method', function() {
+      before(function() {
+        presenter = new DashboardPresenter({user: user});
+      });
+
+      describe('to dashboard', function() {
+        it('emits the redirect:dashboard event', function() {
+          spy = sandbox.spy();
+          presenter.on('redirect:dashboard', spy);
+          presenter.redirect('redirect:dashboard');
+          spy.calledOnce.should.be.true;
+          presenter.off('redirect:dashboard');
+        });
+      });
+
+      describe('to main task view', function() {
+        it('emits the redirect:tasks:main event', function() {
+          spy = sandbox.spy();
+          presenter.on('redirect:tasks:main', spy);
+          presenter.redirect('redirect:tasks:main');
+          spy.calledOnce.should.be.true;
+          presenter.off('redirect:tasks:main');
+        });
+      })
     });
 
     describe('setUser() method', function() {
