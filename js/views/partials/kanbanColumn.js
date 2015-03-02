@@ -41,16 +41,9 @@ define([
 
       this.$el.addClass('panel-' + this.data.color);
 
-      // FIX: Grouping should be a property of the collection,
-      //      not of any of the views.
-
       this.groupedBy = this.data.headline === 'Backlog' ?  {backlog: true} : {status: this.data.headline};
 
-      this.$collectionView = new TaskCollectionView({collection: this.collection, grouping: this.groupedBy});
-
-      // FIX: When a task is added, the collection should also pop a 
-      //      task off the end of the collection, so it maintains 
-      //      its length.
+      this.$collectionView = new TaskCollectionView({collection: this.collection});
 
       this.listenTo(this.collection, 'add', this.updateTask);
       this.listenTo(this.collection, 'remove', this.render);
