@@ -35,14 +35,14 @@ define(['backbone', 'router', 'cookie'], function(Backbone, Router) {
             router.rerouteIfLoggedIn.calledOnce.should.be.true;
           });
         });
+      });
 
-        describe('when not logged in', function() {
-          it('calls displayHomepage()', function() {
-            sinon.test(function() {
-              sandbox.spy(router, 'displayHomepage');
-              router.navigate('');
-              router.displayHomepage.calledOnce.should.be.true;
-            });
+      describe('home', function() {
+        it('calls displayHomepage', function() {
+          sinon.test(function() {
+            sandbox.spy(router, 'displayHomepage');
+            router.navigate('home');
+            router.displayHomepage.calledOnce.should.be.true;
           });
         });
       });

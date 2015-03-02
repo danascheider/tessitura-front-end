@@ -14,7 +14,6 @@ define([
     },
 
     emitRedirect: function(e) {
-      console.log(e);
       this.trigger('redirect', {destination: 'dashboard'});
     },
 
