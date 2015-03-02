@@ -130,6 +130,16 @@ define(['backbone', 'router', 'cookie'], function(Backbone, Router) {
           });
         });
       });
+
+      describe('logout', function() {
+        it('calls logOut', function() {
+          sinon.test(function() {
+            sandbox.stub(router, 'logOut');
+            router.navigate('logout');
+            router.logOut.calledOnce.should.be.true;
+          });
+        });
+      });
     });
   });
 });
