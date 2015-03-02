@@ -269,6 +269,15 @@ define([
             router.appPresenter.removeAll.calledOnce.should.be.true;
           });
         });
+
+        it('navigates to the dashboard', function() {
+          sinon.test(function() {
+            sandbox.stub(router, 'navigate');
+            sandbox.stub($, 'cookie').withArgs('auth').returns('foobar');
+            router.rerouteIfLoggedIn();
+            router.navigate.calledWithExactly('dashboard', {trigger: true}).should.be.true;
+          });
+        });
       });
     });
   });
