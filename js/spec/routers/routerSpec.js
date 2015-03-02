@@ -42,6 +42,14 @@ define([
           });
         });
       });
+
+      describe('redirect on dashboardPresenter', function() {
+        it('redirects to the given route', function() {
+          sandbox.stub(router, 'navigate');
+          router.dashboardPresenter.trigger('redirect', {destination: '#tasks'});
+          router.navigate.withArgs('#tasks').calledOnce.should.be.true;
+        });
+      });
     });
 
     describe('routes', function() {
