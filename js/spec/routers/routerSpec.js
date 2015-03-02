@@ -222,5 +222,15 @@ define([
         });
       });
     });
+
+    describe('displayHomepage', function() {
+      it('calls getHomepage on the app presenter', function() {
+        sinon.test(function() {
+          sandbox.stub(router.appPresenter, 'getHomepage');
+          router.displayHomepage();
+          router.appPresenter.getHomepage.calledOnce.should.be.true;
+        });
+      });
+    });
   });
 });
