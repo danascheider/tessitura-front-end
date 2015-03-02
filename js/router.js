@@ -20,14 +20,23 @@ define([
       this.appPresenter = new AppPresenter();
       this.dashboardPresenter = new DashboardPresenter();
 
-      this.listenTo(this.appPresenter, 'loginSuccess', this.prepareDashboard);
+      this.listenTo(this.appPresenter, 'redirect', this.navigate);
+      this.listenTo(this.dashboardPresenter, 'redirect', this.navigate);
+    },
+
+    // --------------------------- //
+    // Event Callbacks (Non-Route) //
+    // --------------------------- //
+
+    navigate           : function(obj) {
+      Backbone.history.navigate(obj.destination);
     },
 
     routes: {
       '(/)'            : 'displayHomepage',
       'home(/)'        : 'displayHomepage',
-      'dashboard(/)'   : 'displayDashboard',
-      'tasks(/)'       : 'displayKanban',
+      'dashboard(/)'   : 'displayDashboardHome',
+      'tasks(/)'       : 'displayTaskView',
       'logout(/)'      : 'logOut',
       'spec(/)'        : 'runSpec',
       '*actions'       : 'defaultAction'
@@ -39,6 +48,10 @@ define([
       '(/)'          : 'rerouteIfLoggedIn'
     },
 
+    // --------------- //
+    // Route Callbacks //
+    // --------------- //
+
     defaultAction: function(action) {
       // FIX: In production this should render some sort of a 'missing
       //      resource' view since opera singers have an inexplicable
@@ -47,13 +60,14 @@ define([
       console.log('No route for ', action);
     },
 
-    displayDashboard: function() {
-      this.prepareDashboard();
+    displayDashboardHome: function() {
+      if(!this.dashboardPresenter.user) { this.dashboardPresenter.setUser(new UserModel({id: $.cookie('userID')})); }
       this.dashboardPresenter.getHome();
     },
 
-    displayKanban: function() {
-      this.dashboardPresenter.getKanban();
+    displayTaskView: function() {
+      if(!this.dashboardPresenter.user) { this.dashboardPresenter.setUser(new UserModel({id: $.cookie('userID')})); }
+      this.dashboardPresenter.getTask();
     },
 
     displayHomepage: function() {
@@ -61,20 +75,10 @@ define([
       this.appPresenter.getHomepage('body');
     },
 
-    // FIX: This probably belongs in the view that has the logout link
     logOut: function() {
       $.removeCookie('auth');
       $.removeCookie('userID');
       Backbone.history.navigate('', {trigger: true});
-    },
-
-    prepareDashboard : function() {
-      var user = new UserModel({id: $.cookie('userID')});
-
-      this.dashboardPresenter.setUser(user);
-      this.dashboardPresenter.getMain();
-
-      Backbone.history.navigate('dashboard', {trigger: true});
     },
 
     rerouteIfLoggedIn: function(fragment, args, next) {
@@ -82,7 +86,7 @@ define([
         next();
       } else {
         this.appPresenter.removeAll();
-        this.prepareDashboard();
+        this.navigate('#dashboard', {trigger: true});
       }
     },
 

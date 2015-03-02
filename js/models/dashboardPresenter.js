@@ -55,13 +55,7 @@ define([
       this.$dashboard.showTaskView();
     },
 
-    getMain : function() {
-      this.$mainView.render();
-      $('body').html(this.$mainView.el);
-    },
-
     refresh   : function() {
-      this.getMain();
       this.refreshCurrent();
       return this;
     },

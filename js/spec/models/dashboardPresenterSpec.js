@@ -215,15 +215,9 @@ define([
     describe('refresh() method', function() {
       beforeEach(function() {
         presenter = new DashboardPresenter({user: user});
-        sandbox.stub(presenter, 'getMain');
         sandbox.stub(presenter, 'refreshCurrent');
       });
-
-      it('calls getMain()', function() {
-        presenter.refresh();
-        presenter.getMain.calledOnce.should.be.true;
-      });
-
+      
       it('calls refreshCurrent()', function() {
         presenter.refresh();
         presenter.refreshCurrent.calledOnce.should.be.true;

@@ -1,4 +1,4 @@
-define(['backbone', 'router'], function(Backbone, Router) {
+define(['backbone', 'router', 'cookie'], function(Backbone, Router) {
   
   describe('Canto Router', function() {
     var router, e, spy;
@@ -23,6 +23,28 @@ define(['backbone', 'router'], function(Backbone, Router) {
       it('creates a dashboard presenter', function() {
         var newRouter = new Router();
         (typeof newRouter.dashboardPresenter).should.not.equal('undefined');
+      });
+    });
+
+    describe('routes', function() {
+      describe('/', function() {
+        it('calls rerouteIfLoggedIn', function() {
+          sinon.test(function() {
+            sandbox.spy(router, 'rerouteIfLoggedIn');
+            router.navigate('');
+            router.rerouteIfLoggedIn.calledOnce.should.be.true;
+          });
+        });
+
+        describe('when not logged in', function() {
+          it('calls displayHomepage()', function() {
+            sinon.test(function() {
+              sandbox.spy(router, 'displayHomepage');
+              router.navigate('');
+              router.displayHomepage.calledOnce.should.be.true;
+            });
+          });
+        });
       });
     });
   });
