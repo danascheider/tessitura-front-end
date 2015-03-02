@@ -118,6 +118,17 @@ define(['backbone', 'router', 'cookie'], function(Backbone, Router) {
             });
           });
         });
+
+        describe('when not logged in', function() {
+          it('goes back to the homepage', function() {
+            sinon.test(function() {
+              sandbox.stub($, 'cookie').withArgs('auth').returns(null);
+              sandbox.stub(router, 'displayHomepage');
+              router.navigate('tasks');
+              router.displayHomepage.calledOnce.should.be.true;
+            });
+          });
+        });
       });
     });
   });
