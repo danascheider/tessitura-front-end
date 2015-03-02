@@ -258,5 +258,18 @@ define([
         router.navigate.calledWithExactly('', {trigger: true}).should.be.true;
       });
     });
+
+    describe('rerouteIfLoggedIn', function() {
+      describe('when logged in', function() {
+        it('calls removeAll on the app presenter', function() {
+          sinon.test(function() {
+            sandbox.stub($, 'cookie').withArgs('auth').returns('foobar');
+            sandbox.stub(router.appPresenter, 'removeAll');
+            router.rerouteIfLoggedIn();
+            router.appPresenter.removeAll.calledOnce.should.be.true;
+          });
+        });
+      });
+    });
   });
 });
