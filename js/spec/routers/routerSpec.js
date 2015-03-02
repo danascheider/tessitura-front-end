@@ -310,6 +310,16 @@ define([
           });
         });
       });
+
+      describe('when not logged in', function() {
+        it('returns to the homepage', function() {
+          sinon.test(function() {
+            sandbox.stub(router, 'navigate');
+            router.verifyLoggedIn();
+            router.navigate.withArgs('').calledOnce.should.be.true;
+          });
+        });
+      });
     });
   });
 });
