@@ -295,5 +295,21 @@ define([
         });
       });
     });
+
+    describe('verifyLoggedIn', function() {
+      describe('when logged in', function() {
+        beforeEach(function() {
+          sandbox.stub($, 'cookie').withArgs('auth').returns('foobar');
+        });
+
+        it('doesn\'t reroute', function() {
+          sinon.test(function() {
+            sandbox.stub(router, 'navigate');
+            router.verifyLoggedIn();
+            router.navigate.called.should.be.false;
+          });
+        });
+      });
+    });
   });
 });
