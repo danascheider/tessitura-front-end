@@ -10,6 +10,7 @@ define([
 
     // Define variables for use in before blocks
     var view;
+    var sandbox = sinon.sandbox.create();
 
     var user = new User({
       id: 342, 
@@ -37,9 +38,14 @@ define([
       }
     });
 
+    afterEach(function() {
+      view.remove();
+      sandbox.restore();
+    });
+
     describe('el', function() {
       beforeEach(function() {
-        view.reset().render();
+        view.render();
       });
 
       it('is a div', function() {
@@ -53,7 +59,7 @@ define([
 
     describe('view elements', function() {
       beforeEach(function() {
-        view.reset().render();
+        view.render();
       });
       
       it('displays the task\'s title', function() {
@@ -84,22 +90,20 @@ define([
       });
     });
 
-    describe('render() function', function() {
-      it('returns the view', function() {
-        view.render().should.equal(view);
+    describe('events', function() {
+      describe('save model', function() {
+        it('calls render', function() {
+          sandbox.stub(TaskView.prototype, 'render');
+          var newView = new TaskView({model: task});
+          task.trigger('sync');
+          TaskView.prototype.render.calledOnce.should.be.true;
+        });
       });
     });
 
-    describe('reset() function', function() {
-      it('removes the view from the DOM', function() {
-        sinon.stub(view, 'remove');
-        view.reset();
-        view.remove.calledOnce.should.be.true;
-        view.remove.restore();
-      });
-
+    describe('render() function', function() {
       it('returns the view', function() {
-        view.reset().should.equal(view);
+        view.render().should.equal(view);
       });
     });
   });

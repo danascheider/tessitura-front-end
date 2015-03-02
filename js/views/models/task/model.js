@@ -8,18 +8,20 @@ define([
   // FIX: This should probably listen to its model, dontcha think?
 
   var TaskModelView = Backbone.View.extend({
-    className : 'task-model',
-    template  : _.template(TaskModelTemplate),
+    className  : 'task-model',
+    template   : _.template(TaskModelTemplate),
 
-    render    : function() {
-      this.$el.html(this.template({model: this.model}));
-      this.delegateEvents();
-      return this;
+    // ------------------- //
+    // Core View Functions //
+    // ------------------- //
+
+    initialize : function() {
+      this.listenTo(this.model, 'sync', this.render);
     },
 
-    // FIX: This should not exist
-    reset     : function() {
-      this.remove();
+    render     : function() {
+      this.$el.html(this.template({model: this.model}));
+      this.delegateEvents();
       return this;
     }
   });
