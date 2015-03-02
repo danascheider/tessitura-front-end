@@ -231,6 +231,14 @@ define([
           router.appPresenter.getHomepage.calledOnce.should.be.true;
         });
       });
+
+      it('calls removeAll on the dashboard presenter', function() {
+        sinon.test(function() {
+          sandbox.stub(router.dashboardPresenter, 'removeAll');
+          router.displayHomepage();
+          router.dashboardPresenter.removeAll.calledOnce.should.be.true;
+        });
+      });
     });
   });
 });

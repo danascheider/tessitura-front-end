@@ -71,7 +71,7 @@ define([
     },
 
     displayHomepage: function() {
-      if(!!this.dashboardPresenter) { this.dashboardPresenter.removeAll(); }
+      this.dashboardPresenter.removeAll();
       this.appPresenter.getHomepage('body');
     },
 
