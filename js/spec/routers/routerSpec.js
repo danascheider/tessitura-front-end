@@ -279,6 +279,21 @@ define([
           });
         });
       });
+
+      describe('when not logged in', function() {
+        beforeEach(function() {
+          $.removeCookie('auth');
+          $.removeCookie('userID');
+        });
+
+        it('doesn\'t redirect', function() {
+          sinon.test(function() {
+            sandbox.stub(router, 'navigate');
+            router.rerouteIfLoggedIn();
+            router.navigate.called.should.be.false;
+          });
+        });
+      });
     });
   });
 });
