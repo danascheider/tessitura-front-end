@@ -8,8 +8,9 @@ define([
   'views/main/dashboard',
   'views/partials/dashboardHome',
   'views/partials/kanbanBoard',
+  'spec/testTools',
   'cookie'
-], function(Backbone, DashboardPresenter, API, User, Task, TaskCollection, MainView, HomeView, TaskView) {
+], function(Backbone, DashboardPresenter, API, User, Task, TaskCollection, MainView, HomeView, TaskView, TestTools) {
   
   describe('DashboardPresenter', function() {
     var spy;
@@ -126,10 +127,23 @@ define([
         presenter.listenTo.withArgs(user).calledOnce.should.be.true;
       });
 
-      it('calls setUser on the dashboard', function() {
-        sandbox.stub(presenter.$dashboard, 'setUser');
+      it('calls setUser on the dashboard', function(done) {
+        server = sandbox.useFakeServer();
+        server.respondWith(function(xhr) {
+          xhr.respond(200, {'Content-Type': 'application/json'}, JSON.stringify([{user: {id: 342, username: 'testuser', password: 'testuser', email: 'testuser@example.com'}}]))
+        });
+        sandbox.spy(presenter.$dashboard, 'setUser');
         presenter.setUser(user);
-        presenter.$dashboard.setUser.calledOnce.should.be.true;
+        server.respond(function() {
+          presenter.$dashboard.setUser.calledOnce.should.be.true;
+          done();
+        });
+      });
+
+      it('fetches the user data', function() {
+        sandbox.stub(user, 'fetch');
+        presenter.setUser(user);
+        user.fetch.calledOnce.should.be.true;
       });
     });
 
@@ -139,10 +153,11 @@ define([
         sandbox.stub(user.tasks, 'fetch');
       });
 
-      it('calls the dashboard\'s showHomeView() function', function() {
+      it('calls the dashboard\'s showHomeView() function', function(done) {
         sandbox.stub(presenter.$dashboard, 'showHomeView');
         presenter.getHome();
         presenter.$dashboard.showHomeView.calledOnce.should.be.true;
+        done();
       });
 
       it('sets the \'current\' property to \'home\'', function() {

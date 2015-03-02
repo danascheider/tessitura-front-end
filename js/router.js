@@ -29,7 +29,7 @@ define([
     // --------------------------- //
 
     navigateTo         : function(obj) {
-      this.navigate(obj.destination);
+      this.navigate(obj.destination, {trigger: true});
     },
 
     routes: {
@@ -86,7 +86,7 @@ define([
         next();
       } else {
         this.appPresenter.removeAll();
-        this.navigate('#dashboard', {trigger: true});
+        this.navigate('dashboard', {trigger: true});
       }
     },
 

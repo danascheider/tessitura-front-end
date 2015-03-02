@@ -67,8 +67,12 @@ define([
     // Set `this.user` and listen to the user's `sync` event
 
     setUser   : function(user) {
+      var that = this;
       this.user = user;
+
+      this.user.fetch();
       this.$dashboard.setUser(user);
+
       this.listenTo(this.user, 'sync', this.refresh);
     } 
   });

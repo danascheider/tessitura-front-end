@@ -95,7 +95,7 @@ define([
         // be called from the User model's `fetch()` method (i.e., should be included
         // in the function that overrides the model's default `fetch()` method)
 
-        sandbox.spy(Backbone.Model.prototype, 'fetch');
+        sandbox.stub(Backbone.Model.prototype, 'fetch');
 
         user.fetch();
         Backbone.Model.prototype.fetch.calledOnce.should.be.true;
