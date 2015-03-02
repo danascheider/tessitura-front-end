@@ -102,8 +102,7 @@ define([
       if ($.cookie('auth')) {
         next();
       } else {
-        alert('Please log in to view your dashboard.');
-        Backbone.history.navigate('', {trigger: true});
+        this.navigate('', {trigger: true});
       }
     }
   });

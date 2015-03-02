@@ -46,6 +46,38 @@ define(['backbone', 'router', 'cookie'], function(Backbone, Router) {
           });
         });
       });
+
+      describe('dashboard', function() {
+        it('calls verifyLoggedIn', function() {
+          sinon.test(function() {
+            sandbox.stub(router, 'verifyLoggedIn');
+            router.navigate('dashboard');
+            router.verifyLoggedIn.calledOnce.should.be.true;
+          });
+        });
+
+        describe('when logged in', function() {
+          it('calls displayDashboardHome', function() {
+            sinon.test(function() {
+              sandbox.stub($, 'cookie').withArgs('auth').returns('foobar');
+              sandbox.stub(router, 'displayDashboardHome');
+              router.navigate('dashboard');
+              router.displayDashboardHome.calledOnce.should.be.true;
+            });
+          });
+        });
+
+        describe('when not logged in', function() {
+          it('goes back to the homepage', function() {
+            sinon.test(function() {
+              sandbox.stub($, 'cookie').withArgs('auth').returns(null);
+              sandbox.stub(router, 'displayHomepage');
+              router.navigate('dashboard');
+              router.displayHomepage.calledOnce.should.be.true;
+            });
+          });
+        });
+      });
     });
   });
 });
