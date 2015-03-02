@@ -84,8 +84,8 @@ define([
             // FIX: This should trigger an event rather than changing the 
             //      positions of the models itself
             
-            _.each(items, function(item) {
-              var model = coll.get($(item).attr('id').match(/(\d+)/)[0]);
+            $.each(items, function(index) {
+              var model = coll.get($(items[index]).attr('id').match(/(\d+)/)[0]);
               if (model.get('position') !== i) {
                 model.set({position: i});
               }
