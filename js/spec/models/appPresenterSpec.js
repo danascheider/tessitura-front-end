@@ -23,32 +23,32 @@ define([
 
     describe('events', function() {
       describe('login user', function() {
-        it('calls emitRedirectDashboard()', function() {
-          sandbox.stub(AppPresenter.prototype, 'emitRedirectDashboard');
+        it('calls emitRedirect()', function() {
+          sandbox.stub(AppPresenter.prototype, 'emitRedirect');
           var presenter = new AppPresenter();
           presenter.homepageView.trigger('loginSuccess');
-          AppPresenter.prototype.emitRedirectDashboard.calledOnce.should.be.true;
+          AppPresenter.prototype.emitRedirect.calledOnce.should.be.true;
         });
       });
 
-      describe('redirect:dashboard', function() {
-        it('calls emitRedirectDashboard', function() {
-          sandbox.stub(AppPresenter.prototype, 'emitRedirectDashboard');
+      describe('redirect - dashboard', function() {
+        it('calls emitRedirect', function() {
+          sandbox.stub(AppPresenter.prototype, 'emitRedirect');
           var presenter = new AppPresenter();
-          presenter.homepageView.trigger('redirect:dashboard');
-          AppPresenter.prototype.emitRedirectDashboard.calledOnce.should.be.true;
+          presenter.homepageView.trigger('redirect', {destination: 'dashboard'});
+          AppPresenter.prototype.emitRedirect.calledOnce.should.be.true;
         });
       });
     });
 
-    describe('emitRedirectDashboard() method', function() {
+    describe('emitRedirect() method', function() {
       it('emits the redirect:dashboard event', function() {
         spy = sandbox.spy();
         var presenter = new AppPresenter();
-        presenter.on('redirect:dashboard', spy);
-        presenter.emitRedirectDashboard();
+        presenter.on('redirect', spy);
+        presenter.emitRedirect();
         spy.calledOnce.should.be.true;
-        presenter.off('redirect:dashboard');
+        presenter.off();
       });
     });
 

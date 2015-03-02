@@ -9,16 +9,12 @@ define([
   var AppPresenter = Backbone.Model.extend({
     initialize : function() {
       this.homepageView  = new HomepageView();
-      this.listenTo(this.homepageView, 'loginSuccess', this.emitRedirectDashboard);
-      this.listenTo(this.homepageView, 'redirect:dashboard', this.emitRedirectDashboard);
+      this.listenTo(this.homepageView, 'loginSuccess', this.emitRedirect);
+      this.listenTo(this.homepageView, 'redirect', this.emitRedirect);
     },
 
-    emitLogin   : function() {
-      this.trigger('loginSuccess');
-    },
-
-    emitRedirectDashboard: function() {
-      this.trigger('redirect:dashboard');
+    emitRedirect: function() {
+      this.trigger('redirect', {destination: 'dashboard'});
     },
 
     getHomepage : function(element) {
