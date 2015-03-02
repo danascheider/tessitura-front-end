@@ -19,6 +19,11 @@ define(['backbone', 'router'], function(Backbone, Router) {
         var newRouter = new Router();
         (typeof newRouter.appPresenter).should.not.equal('undefined');
       });
+
+      it('creates a dashboard presenter', function() {
+        var newRouter = new Router();
+        (typeof newRouter.dashboardPresenter).should.not.equal('undefined');
+      });
     });
   });
 });
