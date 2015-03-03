@@ -32,6 +32,9 @@ define([
         attrs[key] = value;
       });
 
+      // Set the position of the task to 1 by default and trigger
+      // changePosition
+
       // Tasks are invalid without a title, so this method 
       // should not run if the title is not included in the attributes.
 
@@ -40,13 +43,6 @@ define([
           url        : API.tasks.collection($.cookie('userID')),
           success    : function(model) {
             that.$el[0].reset();
-
-            // The task positions are also set on the server, so no need to
-            // sync the whole collection.
-
-            _.each(that.collection.models, function(model) {
-              model.set('position', model.get('position') + 1);
-            });
           }
         });
       }

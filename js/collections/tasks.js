@@ -32,6 +32,22 @@ define([
       }
 
       ProtectedCollection.prototype.fetch.call(this, opts);
+    },
+
+    incrementPositions: function(task) {   
+      var that = this;
+
+      this.each(function(model) {
+        if((model !== task) && (model.get('position') >= task.get('position'))) {
+          model.set('position', model.get('position') + 1);
+        }
+      });
+
+      this.sync('update', this);
+    },
+
+    initialize: function() {
+      this.on('add', this.incrementPositions, this);
     }
   });
 

@@ -100,9 +100,6 @@ define([
           }
 
           that.model.save({}, {
-            dataType: 'html',
-            url : API.tasks.single(that.model.get('id')),
-            beforeSend: Utils.authHeader,
             success: function() {
               that.changePosition();
             }
@@ -116,14 +113,13 @@ define([
     // --------------- //
 
     backlogTask       : function() {
-      this.model.save({backlog: true}, {
-        dataType    : 'html',
-        type        : 'PUT',
-        url         : API.tasks.single(this.model.get('id')),
-      });
+      this.model.save({backlog: true});
     },
 
-    // FIX: Perhaps this should be a method on the collection? Maybe?
+    // When the list item is dragged and dropped, by default an
+    // inline style is placed that causes problems with the 
+    // rest of my UI. This method takes it away and renders the
+    // list item without the inline style.
     changePosition  : function() {
       this.$el.removeAttr('style');
       this.render();
