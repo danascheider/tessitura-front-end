@@ -23,7 +23,8 @@ define([
     var task2 = new Task({id: 2, title: 'Task 2', status: 'New', priority: 'Normal', position: 2});
     var task3 = new Task({id: 3, title: 'Task 3', status: 'Complete', priority: 'Normal', position: 3});
 
-    user.tasks = new TaskCollection([task1, task2, task3]);
+    var collection = new TaskCollection([task1, task2, task3]);
+    user.tasks = collection;
 
     afterEach(function() { sandbox.restore(); });
 
@@ -143,6 +144,13 @@ define([
         sandbox.stub(user, 'protectedFetch');
         presenter.setUser(user);
         user.protectedFetch.calledOnce.should.be.true;
+      });
+
+      it('instantiates a task collection', function() {
+        delete user.tasks;
+        presenter.setUser(user);
+        (typeof user.tasks).should.not.equal('undefined');
+        user.tasks = collection; // reset for other tests
       });
     });
 
