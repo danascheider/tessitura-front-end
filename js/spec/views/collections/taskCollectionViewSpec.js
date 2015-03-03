@@ -78,23 +78,33 @@ define([
     });
 
     describe('events', function() {
+      beforeEach(function() {
+        sandbox.stub(TaskCollectionView.prototype, 'render');
+        newView = new TaskCollectionView(data);
+      });
+
+      afterEach(function() {
+        collection.reset([task1, task2]);
+      });
+
       describe('remove task from collection', function() {
         it('calls render', function() {
-          sandbox.stub(TaskCollectionView.prototype, 'render');
-          var newView = new TaskCollectionView(data);
           newView.collection.remove(task1);
           TaskCollectionView.prototype.render.calledOnce.should.be.true;
-          collection.reset([task1, task2]);
         });
       });
 
       describe('add task to collection', function() {
         it('calls render', function() {
-          sandbox.stub(TaskCollectionView.prototype, 'render');
-          var newView = new TaskCollectionView(data);
           newView.collection.add(new Task({title: 'Wash the dishes'}));
           TaskCollectionView.prototype.render.calledOnce.should.be.true;
-          collection.reset([task1, task2]);
+        });
+      });
+
+      describe('sync collection', function() {
+        it('calls render', function() {
+          newView.collection.trigger('sync');
+          TaskCollectionView.prototype.render.calledOnce.should.be.true;
         });
       });
     });

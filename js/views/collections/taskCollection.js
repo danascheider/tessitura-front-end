@@ -80,8 +80,7 @@ define([
       this.childViews    = this.childViews || [];
       this.$quickAddForm = new QuickAddForm({collection: this.collection, grouping: this.grouping});
 
-      this.listenTo(this.collection, 'remove', this.render);
-      this.listenTo(this.collection, 'add', this.render);
+      this.listenTo(this.collection, 'add remove sync', this.render);
     },
 
     remove           : function() {
