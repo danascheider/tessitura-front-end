@@ -92,11 +92,35 @@ define([
 
     describe('events', function() {
       describe('save model', function() {
-        it('calls render', function() {
-          sandbox.stub(TaskView.prototype, 'render');
+        it('calls renderOnSync', function() {
+          sandbox.stub(TaskView.prototype, 'renderOnSync');
           var newView = new TaskView({model: task});
           task.trigger('sync');
-          TaskView.prototype.render.calledOnce.should.be.true;
+          TaskView.prototype.renderOnSync.calledOnce.should.be.true;
+        });
+      });
+    });
+
+    describe('renderOnSync() method', function() {
+      beforeEach(function() { 
+        sandbox.stub(view, 'render'); 
+      });
+
+      describe('when not marked complete', function() {
+        it('calls the render function', function() {
+          task.set('priority', 'Urgent');
+          view.renderOnSync();
+          view.render.calledOnce.should.be.true;
+          task.set('priority', 'Low');
+        });
+      });
+
+      describe('when marked complete', function() {
+        it('does not call the render function', function() {
+          task.set('status', 'Complete');
+          view.renderOnSync();
+          view.render.called.should.be.false;
+          task.set('status', 'New');
         });
       });
     });

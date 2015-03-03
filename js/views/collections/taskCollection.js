@@ -35,11 +35,16 @@ define([
 
     crossOff          : function(task) {
       var that = this;
-
-      this.$('#task-' + task.get('id')).find('.task-title').css('text-decoration', 'line-through');
-      setTimeout(function() {
-        that.collection.remove(task);
-      }, 750);
+      if(task.get('status') === 'Complete') {
+        console.log('This is running');
+        this.$('#task-' + task.get('id')).find('.task-title').css('text-decoration', 'line-through');
+       
+        setTimeout(function() {
+          var index = that.childViews.indexOf(that.retrieveViewForModel(task));
+          that.collection.remove(task);
+          that.childViews.splice(index, 1);
+        }, 750);
+      }
     }, 
 
     // -------------- //
@@ -80,7 +85,8 @@ define([
       this.childViews    = this.childViews || [];
       this.$quickAddForm = new QuickAddForm({collection: this.collection, grouping: this.grouping});
 
-      this.listenTo(this.collection, 'add remove sync', this.render);
+      this.listenTo(this.collection, 'add remove', this.render);
+      this.listenTo(this.collection, 'change:status', this.crossOff);
     },
 
     remove           : function() {

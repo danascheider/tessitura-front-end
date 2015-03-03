@@ -152,16 +152,8 @@ define([
     },
 
     markComplete      : function() {
-      var that = this;
-
-      this.model.save({status: 'Complete'}, {
-        dataType    : 'html',
-        type        : 'PUT',
-        url         : API.tasks.single(that.model.get('id')),
-        success     : function() {
-          that.$('.fa-square-o').removeClass('fa-square-o').addClass('fa-check-square-o');
-        }
-      });
+      this.$('.fa-square-o').removeClass('fa-square-o').addClass('fa-check-square-o');
+      this.model.save({status: 'Complete'});
     },
 
     showEditForm      : function() {

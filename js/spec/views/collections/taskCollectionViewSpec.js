@@ -100,13 +100,6 @@ define([
           TaskCollectionView.prototype.render.calledOnce.should.be.true;
         });
       });
-
-      describe('sync collection', function() {
-        it('calls render', function() {
-          newView.collection.trigger('sync');
-          TaskCollectionView.prototype.render.calledOnce.should.be.true;
-        });
-      });
     });
 
     describe('crossOff() method', function() {
@@ -116,16 +109,36 @@ define([
 
       afterEach(function() { collection.reset([task1, task2]); });
 
-      it('crosses out the task\'s title', function() {
-        view.crossOff(task1);
-        view.$('.task-title').first().css('text-decoration').should.equal('line-through');
+      describe('when the task is complete', function() {
+        beforeEach(function() { 
+          task1.set('status', 'Complete'); 
+          view.crossOff(task1);
+        });
+
+        afterEach(function() { task1.set('status', 'In Progress'); });
+
+        it('crosses out the task\'s title', function() {
+          view.$('.task-title').first().css('text-decoration').should.equal('line-through');
+        });
+
+        it('removes the task from the collection', function(done) {
+          TestTools.delay(750, done, function() {
+            view.collection.models.should.not.include(task1);
+          });
+        });
       });
 
-      it('removes the task from the collection', function(done) {
-        view.crossOff(task1);
+      describe('when the task is incomplete', function() {
+        beforeEach(function() { view.crossOff(task1); });
 
-        TestTools.delay(750, done, function() {
-          view.collection.models.should.not.include(task1);
+        it('doesn\'t cross the title off', function() {
+          view.$('.task-title').first().css('text-decoration').should.not.equal('line-through');
+        });
+
+        it('removes the task from the collection', function(done) {
+          TestTools.delay(750, done, function() {
+            view.collection.models.should.include(task1);
+          });
         });
       });
     });
