@@ -98,23 +98,22 @@ define([
           e.preventDefault.calledOnce.should.be.true;
         });
 
-        it('creates a new task in the collection', function() {
-          sandbox.stub(collection, 'create');
+        it('creates a new task', function() {
+          sandbox.stub(Task.prototype, 'initialize');
           form.createTask(e);
-          collection.create.calledOnce.should.be.true;
+          Task.prototype.initialize.calledOnce.should.be.true;
         });
 
         it('sets the new task\'s attributes according to its grouping', function() {
-          sandbox.stub(collection, 'create');
+          sandbox.stub(Task.prototype, 'save');
           form.createTask(e);
-          collection.create.args[0][0].status.should.equal('Blocking');
+          Task.prototype.save.args[0][0].status.should.equal('Blocking');
         });
 
-        it('increments the position of the other tasks in the collection', function() {
-          sandbox.spy(task, 'set');
+        it('adds the new task to the beginning of the collection', function() {
+          sandbox.stub(collection, 'unshift');
           form.createTask(e);
-          server.respond();
-          task.set.withArgs('position', 2).calledOnce.should.be.true;
+          collection.unshift.calledOnce.should.be.true;
         });
 
         it('resets the form', function() {
@@ -122,6 +121,15 @@ define([
           form.createTask(e);
           server.respond();
           form.$el[0].reset.calledOnce.should.be.true;
+        });
+
+        it('triggers the newTask event', function() {
+          var spy = sandbox.spy();
+          form.on('newTask', spy);
+          form.createTask(e);
+          server.respond();
+          spy.calledOnce.should.be.true;
+          form.off();
         });
       });
 

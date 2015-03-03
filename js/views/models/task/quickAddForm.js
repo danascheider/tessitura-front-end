@@ -43,6 +43,7 @@ define([
         newTask.save(attrs, {
           success    : function(model) {
             that.$el[0].reset();
+            that.trigger('newTask');
           }
         });
 
