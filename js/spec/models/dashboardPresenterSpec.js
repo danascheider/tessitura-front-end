@@ -218,23 +218,23 @@ define([
         });
       });
 
-      // describe('when current is not set', function() {
-      //   beforeEach(function() { delete presenter.current; });
+      describe('when current is not set', function() {
+        beforeEach(function() { delete presenter.current; });
 
-      //   it('doesn\'t raise an error', function() {
-      //     presenter.refreshCurrent.should.not.throw(Error);
-      //   });
+        it('doesn\'t raise an error', function() {
+          presenter.refreshCurrent.should.not.throw(Error);
+        });
 
-      //   it('doesn\'t call getHome()', function() {
-      //     presenter.refreshCurrent();
-      //     presenter.getHome.called.should.be.false;
-      //   });
+        it('doesn\'t call getHome()', function() {
+          presenter.refreshCurrent();
+          presenter.getHome.called.should.be.false;
+        });
 
-      //   it('doesn\'t call getTask()', function() {
-      //     presenter.refreshCurrent();
-      //     presenter.getTask.called.should.be.false;
-      //   });
-      // });
+        it('doesn\'t call getTask()', function() {
+          presenter.refreshCurrent();
+          presenter.getTask.called.should.be.false;
+        });
+      });
     });
 
     // describe('refresh() method', function() {
