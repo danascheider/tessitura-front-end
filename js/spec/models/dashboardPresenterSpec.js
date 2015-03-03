@@ -200,19 +200,23 @@ define([
 
       describe('when the home view is current', function() {
         it('calls getHome()', function() {
-          presenter.current = 'home';
-          presenter.refreshCurrent();
-          presenter.getHome.calledOnce.should.be.true;
+          sinon.test(function() {
+            presenter.current = 'home';
+            presenter.refreshCurrent();
+            presenter.getHome.calledOnce.should.be.true;
+          });
         });
       });
 
-      // describe('when the task view is current', function() {
-      //   it('calls getTask()', function() {
-      //     presenter.current = 'task';
-      //     presenter.refreshCurrent();
-      //     presenter.getTask.calledOnce.should.be.true;
-      //   });
-      // });
+      describe('when the task view is current', function() {
+        it('calls getTask()', function() {
+          sinon.test(function() {
+            presenter.current = 'task';
+            presenter.refreshCurrent();
+            presenter.getTask.calledOnce.should.be.true;
+          });
+        });
+      });
 
       // describe('when current is not set', function() {
       //   beforeEach(function() { delete presenter.current; });
