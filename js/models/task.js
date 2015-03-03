@@ -5,8 +5,12 @@ define([
   ], function(ProtectedResource, API) {
   
   var TaskModel = ProtectedResource.extend({
-    urlRoot: function() {
+    urlRoot : function() {
       return API.tasks.collection($.cookie('userID'));
+    },
+
+    url     : function() {
+      return API.tasks.single(this.get('id'));
     },
 
     complete: function() {
@@ -64,6 +68,13 @@ define([
       var date = new Date(this.escape('deadline'));
       var pretty = days[date.getDay()] + ', ' + months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
       return pretty;
+    },
+
+    save      : function(attrs, options) {
+      attrs = attrs || {};
+      options = options || {};
+      options.url = this.isNew() ? this.urlRoot() : this.url();
+      return ProtectedResource.prototype.save.call(this, attrs, options);
     },
 
     validate  : function(attrs) {

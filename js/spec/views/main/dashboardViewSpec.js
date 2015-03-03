@@ -244,6 +244,7 @@ define([
       describe('when main dashboard is visible', function() {
         beforeEach(function() { 
           sandbox.stub(dashboard.$el, 'is').withArgs(':visible').returns(true);
+          sandbox.useFakeServer();
         });
 
         it('removes the home view', function() {

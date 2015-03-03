@@ -181,7 +181,7 @@ define([
       });
 
       describe('when presenter has a user', function() {
-        beforeEach(function() { router.dashboardPresenter.setUser(user); });
+        beforeEach(function() { router.dashboardPresenter.user = user; });
 
         it('doesn\'t call setUser', function() {
           sinon.test(function() {
