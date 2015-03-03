@@ -36,7 +36,6 @@ define([
     crossOff          : function(task) {
       var that = this;
       if(task.get('status') === 'Complete') {
-        console.log('This is running');
         this.$('#task-' + task.get('id')).find('.task-title').css('text-decoration', 'line-through');
        
         setTimeout(function() {

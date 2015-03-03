@@ -1,4 +1,4 @@
 define(function() {
-  var apiOptions = {test: true};
+  var apiOptions = {test: false};
   return apiOptions;
 });
