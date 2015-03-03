@@ -48,7 +48,6 @@ define([
     setUser          : function(user) {
       this.user = user;
       this.collection = this.user.tasks;
-
       this.$taskPanel = new TaskPanelView({collection: this.collection});
       this.createTopWidgets();
     },

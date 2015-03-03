@@ -83,7 +83,7 @@ define([
 
       this.user.protectedFetch({async: false});
       this.user.tasks = new TaskCollection();
-      this.user.tasks.fetch();
+      this.user.tasks.fetch({async: false});
       
       this.$dashboard.setUser(user);
 
