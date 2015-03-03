@@ -84,7 +84,7 @@ define([
       this.childViews    = this.childViews || [];
       this.$quickAddForm = new QuickAddForm({collection: this.collection, grouping: this.grouping});
 
-      this.listenTo(this.collection, 'add remove sync', this.render);
+      this.listenTo(this.collection, 'add remove', this.render);
       this.listenTo(this.collection, 'change:status', this.crossOff);
     },
 

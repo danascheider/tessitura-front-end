@@ -32,19 +32,21 @@ define([
         attrs[key] = value;
       });
 
-      // Set the position of the task to 1 by default and trigger
-      // changePosition
+      // Set the position of the task to 1 by default
+      attrs['position'] = attrs['position'] || 1;
 
       // Tasks are invalid without a title, so this method 
       // should not run if the title is not included in the attributes.
 
       if(!!attrs.title) {
-        this.collection.create(attrs, {
-          url        : API.tasks.collection($.cookie('userID')),
+        var newTask = new TaskModel();
+        newTask.save(attrs, {
           success    : function(model) {
             that.$el[0].reset();
           }
         });
+
+        this.collection.unshift(newTask);
       }
     },
 

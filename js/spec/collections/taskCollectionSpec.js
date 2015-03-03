@@ -39,18 +39,6 @@ define([
       it('orders tasks by position');
     });
 
-    describe('events', function() {
-      after(function() { collection.reset([task1, task2, task3]); });
-
-      it('calls incrementPositions when a new task is added', function() {
-        sandbox.stub(TaskCollection.prototype, 'incrementPositions');
-        collection = new TaskCollection([task1, task2, task3]);
-        var newTask = new TaskModel({title: 'Hello' });
-        collection.add(newTask);
-        TaskCollection.prototype.incrementPositions.calledOnce.should.be.true;
-      });
-    });
-
     describe('default URL', function() {
       it('gets the URL for the logged-in user', function() {
         collection = new TaskCollection();
@@ -89,43 +77,6 @@ define([
           Backbone.Collection.prototype.fetch.calledOnce.should.be.true;
           Backbone.Collection.prototype.fetch.restore();
         });
-      });
-    });
-
-    describe('incrementPositions() method', function() {
-      afterEach(function() { 
-        task1.set('position', 1);
-        task2.set('position', 2);
-        task3.set('position', 3);
-        collection.reset([task1, task2, task3]); 
-      });
-
-      it('increases all the positions by 1', function(done) {
-        var newTask = new TaskModel({id: 4, title: 'Task 4', status: 'New', priority: 'Normal', position: 1});
-        collection.incrementPositions(newTask);
-        collection.pluck('position').should.deep.equal([2, 3, 4]);
-        done();
-      });
-
-      it('doesn\'t affect the model passed as a parameter', function(done) {
-        var newTask = new TaskModel({id: 4, title: 'Task 4', status: 'New', priority: 'Normal', position: 1});
-        collection.add(newTask, {silent: true});
-        collection.incrementPositions(newTask)
-        newTask.get('position').should.equal(1);
-        done();
-      });
-
-      it('doesn\'t affect models with lower indices', function(done) {
-        var newTask = new TaskModel({id: 4, title: 'Task 4', status: 'New', priority: 'Normal', position: 2});
-        collection.incrementPositions(newTask);
-        task1.get('position').should.equal(1);
-        done();
-      });
-
-      it('calls sync on the collection', function() {
-        sandbox.stub(collection, 'sync');
-        collection.incrementPositions(task1);
-        collection.sync.calledOnce.should.be.true;
       });
     });
   });
