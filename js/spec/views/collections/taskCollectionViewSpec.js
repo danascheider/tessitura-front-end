@@ -100,6 +100,13 @@ define([
           TaskCollectionView.prototype.render.calledOnce.should.be.true;
         });
       });
+
+      describe('sync collection', function() {
+        it('calls render', function() {
+          newView.collection.trigger('sync');
+          TaskCollectionView.prototype.render.calledOnce.should.be.true;
+        });
+      });
     });
 
     describe('crossOff() method', function() {
