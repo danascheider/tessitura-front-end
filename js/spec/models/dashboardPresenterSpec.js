@@ -249,16 +249,16 @@ define([
       });
     });
 
-    // describe('removeAll() method', function() {
-    //   beforeEach(function() {
-    //     presenter = new DashboardPresenter({user: user});
-    //   });
+    describe('removeAll() method', function() {
+      beforeEach(function() {
+        presenter = new DashboardPresenter({user: user});
+      });
 
-    //   it('removes the dashboard view', function() {
-    //     sandbox.spy(presenter.$dashboard, 'remove');
-    //     presenter.removeAll();
-    //     presenter.$dashboard.remove.calledOnce.should.be.true;
-    //   });
-    // });
+      it('removes the dashboard view', function() {
+        sandbox.spy(presenter.$dashboard, 'remove');
+        presenter.removeAll();
+        presenter.$dashboard.remove.calledOnce.should.be.true;
+      });
+    });
   });
 });
