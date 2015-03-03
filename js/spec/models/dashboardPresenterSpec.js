@@ -152,6 +152,14 @@ define([
         (typeof user.tasks).should.not.equal('undefined');
         user.tasks = collection; // reset for other tests
       });
+
+      it('fetches the task collection', function() {
+        sinon.test(function() {
+          sandbox.stub(TaskCollection.prototype, 'fetch');
+          presenter.setUser(user);
+          TaskCollection.prototype.fetch.calledOnce.should.be.true;
+        });
+      });
     });
 
     describe('getHome() method', function() {
