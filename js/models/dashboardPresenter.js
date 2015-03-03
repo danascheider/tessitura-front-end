@@ -47,12 +47,23 @@ define([
 
     getHome : function() {
       this.current = 'home';
+
+      var that = this;
       this.$dashboard.showHomeView();
+
+      if(!this.$dashboard.$el.is(':visible')) {
+        $('body').html(that.$dashboard.el);
+      };
     },
 
     getTask : function() {
       this.current = 'task';
+
+      var that = this;
       this.$dashboard.showTaskView();
+      if(!this.$dashboard.$el.is(':visible')) {
+        $('body').html(that.$dashboard.el);
+      };
     },
 
     refresh   : function() {
@@ -70,7 +81,7 @@ define([
       var that = this;
       this.user = user;
 
-      this.user.fetch();
+      this.user.protectedFetch({async: false});
       this.$dashboard.setUser(user);
 
       this.listenTo(this.user, 'sync', this.refresh);
