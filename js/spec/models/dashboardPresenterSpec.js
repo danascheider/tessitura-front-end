@@ -237,17 +237,17 @@ define([
       });
     });
 
-    // describe('refresh() method', function() {
-    //   beforeEach(function() {
-    //     presenter = new DashboardPresenter({user: user});
-    //     sandbox.stub(presenter, 'refreshCurrent');
-    //   });
+    describe('refresh() method', function() {
+      beforeEach(function() {
+        presenter = new DashboardPresenter({user: user});
+        sandbox.stub(presenter, 'refreshCurrent');
+      });
       
-    //   it('calls refreshCurrent()', function() {
-    //     presenter.refresh();
-    //     presenter.refreshCurrent.calledOnce.should.be.true;
-    //   });
-    // });
+      it('calls refreshCurrent()', function() {
+        presenter.refresh();
+        presenter.refreshCurrent.calledOnce.should.be.true;
+      });
+    });
 
     // describe('removeAll() method', function() {
     //   beforeEach(function() {
