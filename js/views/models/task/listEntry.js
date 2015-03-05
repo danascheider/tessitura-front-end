@@ -89,6 +89,8 @@ define([
               if (model.get('position') !== i) {
                 model.set({position: i});
               }
+
+              i++;
             });
           } else if (column.innerText === 'Backlog') {
             that.model.set('backlog', true);
@@ -98,7 +100,7 @@ define([
 
           that.model.collection.updateAll({
             success: function() {
-              that.changePosition();
+              that.removeStyles();
             }
           });
         }
@@ -117,9 +119,8 @@ define([
     // inline style is placed that causes problems with the 
     // rest of my UI. This method takes it away and renders the
     // list item without the inline style.
-    changePosition  : function() {
+    removeStyles      : function() {
       this.$el.removeAttr('style');
-      this.render();
     },
 
     deleteTask        : function() {
@@ -181,7 +182,9 @@ define([
     initialize: function() {
       this.$editForm = new UpdateFormView({model: this.model});
       this.$modelView = new ModelView({model: this.model});
+
       this.listenTo(this.$editForm, 'done', this.render);
+      this.listenTo(this.model, 'change:position', this.removeStyles);
     },
 
     render: function() {

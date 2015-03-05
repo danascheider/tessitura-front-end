@@ -206,8 +206,17 @@ define([
           var newView = new ListItemView({model: task});
           newView.$el.mouseleave();
           stub.calledOnce.should.be.true;
-        })
-      })
+        });
+      });
+
+      describe('change:position on model', function() {
+        it('calls removeStyles', function() {
+          stub = sandbox.stub(ListItemView.prototype, 'removeStyles');
+          var newView = new ListItemView({model: task});
+          newView.model.trigger('change:position');
+          stub.calledOnce.should.be.true;
+        });
+      });
     });
 
     describe('backlogTask() method', function() {
@@ -253,16 +262,10 @@ define([
       });
     });
 
-    describe('changePosition() method', function() {
+    describe('removeStyles() method', function() {
       it('removes inline styles', function() {
-        view.changePosition();
+        view.removeStyles();
         view.$el.attr('style').should.be.falsey;
-      });
-
-      it('renders the view', function() {
-        sandbox.stub(view, 'render');
-        view.changePosition();
-        view.render.calledOnce.should.be.true;
       });
     });
 
