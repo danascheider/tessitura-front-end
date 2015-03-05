@@ -2,31 +2,36 @@ define([
   'backbone',
   'models/dashboardPresenter',
   'api',
-  'models/user',
-  'models/task',
-  'collections/tasks',
+  'spec/tools/fakeUser',
+  'spec/tools/fakeTask',
+  'spec/tools/fakeTaskCollection',
   'views/main/dashboard',
   'views/partials/dashboardHome',
   'views/partials/kanbanBoard',
   'spec/testTools',
   'cookie'
-], function(Backbone, DashboardPresenter, API, User, Task, TaskCollection, MainView, HomeView, TaskView, TestTools) {
+], function(Backbone, DashboardPresenter, API, FakeUser, FakeTask, FakeTaskCollection, MainView, HomeView, TaskView, TestTools) {
   
   describe('DashboardPresenter', function() {
     var spy;
     var sandbox = sinon.sandbox.create();
 
-    // Create user to be passed to the DashboardPresenter
-
-    var user = new User({username: 'testuser', password: 'testuser', email: 'testuser@example.com'}), presenter;
-    var task1 = new Task({id: 1, title: 'Task 1', status: 'New', priority: 'Low', position: 1});
-    var task2 = new Task({id: 2, title: 'Task 2', status: 'New', priority: 'Normal', position: 2});
-    var task3 = new Task({id: 3, title: 'Task 3', status: 'Complete', priority: 'Normal', position: 3});
-
-    var collection = new TaskCollection([task1, task2, task3]);
+    // Create fake user to be passed to the DashboardPresenter
+    var user = new FakeUser(), presenter;
+    var collection = new FakeTaskCollection();
     user.tasks = collection;
 
-    afterEach(function() { sandbox.restore(); });
+    afterEach(function() { 
+      user.reset();
+      collection.restoreToFactory();
+      user.tasks = collection;
+      sandbox.restore(); 
+    });
+
+    after(function() {
+      user.destroy();
+      collection.destroy();
+    });
 
     describe('constructor', function() {
       beforeEach(function() { 
@@ -162,13 +167,12 @@ define([
         delete user.tasks;
         presenter.setUser(user);
         (typeof user.tasks).should.not.equal('undefined');
-        user.tasks = collection; // reset for other tests
       });
 
       it('fetches the task collection', function(done) {
-        sandbox.stub(TaskCollection.prototype, 'fetch');
+        sandbox.stub(Backbone.Collection.prototype, 'fetch');
         presenter.setUser(user);
-        TaskCollection.prototype.fetch.calledOnce.should.be.true;
+        Backbone.Collection.prototype.fetch.calledOnce.should.be.true;
         done();
       });
     });
