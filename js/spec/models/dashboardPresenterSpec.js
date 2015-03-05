@@ -176,7 +176,7 @@ define([
     describe('getHome() method', function() {
       beforeEach(function() {
         presenter = new DashboardPresenter({user: user});
-        sandbox.stub(user.tasks, 'fetch');
+        sandbox.stub($, 'ajax').yieldsTo('success', user.tasks.toJSON());
         sandbox.stub(presenter.$dashboard, 'showHomeView');
         sandbox.stub($.prototype, 'html');
       });

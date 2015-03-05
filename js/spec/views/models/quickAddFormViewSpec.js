@@ -82,14 +82,8 @@ define([
       describe('when valid', function() {
         beforeEach(function() {
           sandbox.stub(Utils, 'getAttributes').returns({title: 'Finish writing tests', position: 1});
-          server.respondWith(function(xhr) {
-            xhr.respond(201, {'Content-Type': 'application/json'}, JSON.stringify({id: 2, title: 'Finish writing tests', position: 1}));
-          });
+          sandbox.stub($, 'ajax').yieldsTo('success', JSON.stringify({id: 2, title: 'Finish writing tests', position: 1}));
           form.render();
-        });
-
-        afterEach(function() {
-          Utils.getAttributes.restore();
         });
 
         it('doesn\'t refresh the browser', function() {
@@ -110,16 +104,16 @@ define([
           Task.prototype.save.args[0][0].status.should.equal('Blocking');
         });
 
-        it('adds the new task to the beginning of the collection', function() {
+        it('adds the new task to the beginning of the collection', function(done) {
           sandbox.stub(collection, 'unshift');
           form.createTask(e);
-          collection.unshift.calledOnce.should.be.true;
+          collection.unshift.called.should.be.true;
+          done();
         });
 
         it('resets the form', function() {
           sandbox.stub(form.$el[0], 'reset');
           form.createTask(e);
-          server.respond();
           form.$el[0].reset.calledOnce.should.be.true;
         });
 
@@ -127,7 +121,6 @@ define([
           var spy = sandbox.spy();
           form.on('newTask', spy);
           form.createTask(e);
-          server.respond();
           spy.calledOnce.should.be.true;
           form.off();
         });
