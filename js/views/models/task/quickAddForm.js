@@ -43,11 +43,10 @@ define([
         newTask.save(attrs, {
           success    : function(model) {
             that.$el[0].reset();
+            that.collection.unshift(model);
             that.trigger('newTask');
           }
         });
-
-        this.collection.unshift(newTask);
       }
     },
 

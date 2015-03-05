@@ -29,66 +29,81 @@ define([
     afterEach(function() { sandbox.restore(); });
 
     describe('constructor', function() {
-      it('doesn\'t require a user', function() {
+      beforeEach(function() { 
+        sandbox.stub($, 'ajax').yieldsTo('success', user.toJSON());
+      });
+
+      it('doesn\'t require a user', function(done) {
         presenter = new DashboardPresenter();
         (typeof presenter.user).should.equal('undefined');
+        done();
       });
 
-      it('creates a dashboard', function() {
+      it('creates a dashboard', function(done) {
         presenter = new DashboardPresenter();
         (typeof presenter.$dashboard).should.not.equal('undefined');
+        done();
       });
 
-      it('calls `setUser`', function() {
+      it('calls `setUser`', function(done) {
         sandbox.stub(DashboardPresenter.prototype, 'setUser');
         presenter = new DashboardPresenter({user: user});
         DashboardPresenter.prototype.setUser.withArgs(user).calledOnce.should.be.true;
+        done();
       });
     });
 
     describe('events', function() {
       describe('sync user', function() {
-        beforeEach(function() {
+        beforeEach(function(done) {
+          sandbox.stub($, 'ajax').yieldsTo('success', user.toJSON());
           sandbox.stub(DashboardPresenter.prototype, 'refresh');
           presenter = new DashboardPresenter({user: user});
+          done();
         });
 
-        it('calls refresh', function() {
+        it('calls refresh', function(done) {
           user.trigger('sync');
           DashboardPresenter.prototype.refresh.calledOnce.should.be.true;
+          done();
         });
       });
 
       describe('listeners', function() {
         beforeEach(function() {
+          sandbox.stub($, 'ajax').yieldsTo('success', user.toJSON());
           presenter = new DashboardPresenter({user: user});
         });
 
         afterEach(function() { presenter.off(); })
 
         describe('redirect:dashboard on dashboard view', function() {
-          it('emits the redirect:dashboard event', function() {
+          it('emits the redirect:dashboard event', function(done) {
             spy = sandbox.spy();
             presenter.on('redirect', spy);
             presenter.$dashboard.trigger('redirect', {destination: 'dashboard'});
             spy.withArgs({destination: 'dashboard'}).calledOnce.should.be.true;
+            done();
           });
         });
 
         describe('redirect:tasks on dashboard view', function() {
-          it('emits the redirect:tasks event', function() {
+          it('emits the redirect:tasks event', function(done) {
             spy = sandbox.spy();
             presenter.on('redirect', spy);
             presenter.$dashboard.trigger('redirect', {destination: 'tasks'});
             spy.withArgs({destination: 'tasks'}).calledOnce.should.be.true;
+            done();
           });
         });
       });
     });
 
-    describe('redirect() method', function() {
-      before(function() {
+    describe('redirect() method', function(done) {
+      before(function(done) {
+        sandbox.stub($, 'ajax').yieldsTo('success', user.toJSON());
         presenter = new DashboardPresenter({user: user});
+        done();
       });
 
       afterEach(function() { presenter.off(); });
@@ -114,6 +129,7 @@ define([
 
     describe('setUser() method', function() {
       beforeEach(function() {
+        sandbox.stub($, 'ajax').yieldsTo('success', user.toJSON());
         presenter = new DashboardPresenter();
       });
 
@@ -128,22 +144,18 @@ define([
         presenter.listenTo.withArgs(user).calledOnce.should.be.true;
       });
 
-      it('calls setUser on the dashboard', function() {
-        server = sandbox.useFakeServer();
-        server.respondWith(function(xhr) {
-          xhr.respond(200, {'Content-Type': 'application/json'}, JSON.stringify([{user: {id: 342, username: 'testuser', password: 'testuser', email: 'testuser@example.com'}}]))
-        });
-
+      it('calls setUser on the dashboard', function(done) {
         sandbox.spy(presenter.$dashboard, 'setUser');
         presenter.setUser(user);
-        server.respond();
         presenter.$dashboard.setUser.calledOnce.should.be.true;
+        done();
       });
 
-      it('fetches the user data', function() {
+      it('fetches the user data', function(done) {
         sandbox.stub(user, 'protectedFetch');
         presenter.setUser(user);
         user.protectedFetch.calledOnce.should.be.true;
+        done();
       });
 
       it('instantiates a task collection', function() {
@@ -153,12 +165,11 @@ define([
         user.tasks = collection; // reset for other tests
       });
 
-      it('fetches the task collection', function() {
-        sinon.test(function() {
-          sandbox.stub(TaskCollection.prototype, 'fetch');
-          presenter.setUser(user);
-          TaskCollection.prototype.fetch.calledOnce.should.be.true;
-        });
+      it('fetches the task collection', function(done) {
+        sandbox.stub(TaskCollection.prototype, 'fetch');
+        presenter.setUser(user);
+        TaskCollection.prototype.fetch.calledOnce.should.be.true;
+        done();
       });
     });
 
@@ -187,6 +198,7 @@ define([
 
     describe('getTask() method', function() {
       beforeEach(function() {
+        sandbox.stub($, 'ajax').yieldsTo('success', user.toJSON());
         presenter = new DashboardPresenter({user: user});
         sandbox.stub(presenter.$dashboard, 'showTaskView');
         sandbox.stub($.prototype, 'html');

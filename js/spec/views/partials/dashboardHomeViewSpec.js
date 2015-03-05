@@ -9,7 +9,7 @@ define([
   ], function(Backbone, HomeView, TopView, PanelView, User, Task, TaskCollection) {
   
   describe('Dashboard Home View', function() {
-    var view, e, server;
+    var view, e;
     var sandbox = sinon.sandbox.create();
 
     var user = new User({
@@ -28,15 +28,11 @@ define([
     user.tasks = new TaskCollection([task1, task2, task3]);
 
     beforeEach(function() {
-      server = sinon.fakeServer.create();
-      server.respondWith(/\/users\/342\/tasks$/, function(xhr) {
-        xhr.respond(200, {'Content-Type': 'application/json'}, JSON.stringify(user.tasks.models));
-      });
+      sandbox.stub($, 'ajax').yieldsTo('success', JSON.stringify(user.tasks.models));
 
       if(typeof view === 'undefined') { 
         view = new HomeView({user: user});
         view.render();
-        server.respond();
       }
     });
 
@@ -67,7 +63,6 @@ define([
     describe('elements', function() {
       beforeEach(function() { 
         view.render(); 
-        server.respond();
       });
 
       it('has a task panel', function() {
@@ -134,14 +129,12 @@ define([
       it('calls renderTopWidgets()', function() {
         sandbox.spy(view, 'renderTopWidgets');
         view.render();
-        server.respond();
         view.renderTopWidgets.calledOnce.should.be.true;
       });
 
       it('calls renderTaskPanel()', function() {
         sandbox.stub(view, 'renderTaskPanel');
         view.render();
-        server.respond();
         view.renderTaskPanel.calledOnce.should.be.true;
       });
     });

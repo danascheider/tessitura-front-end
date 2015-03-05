@@ -101,9 +101,9 @@ define([
         });
       });
 
-      describe('sync collection', function() {
+      describe('collectionSynced on collection', function() {
         it('calls render', function() {
-          newView.collection.trigger('sync');
+          newView.collection.trigger('collectionSynced');
           TaskCollectionView.prototype.render.calledOnce.should.be.true;
         });
       });

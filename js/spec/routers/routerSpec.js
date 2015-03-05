@@ -8,11 +8,11 @@ define([
     var router, e, spy;
 
     var sandbox = sinon.sandbox.create();
-    var server = sandbox.useFakeServer();
 
     var user = new User({id: 342, username: 'testuser', password: 'testuser'});
 
     beforeEach(function() {
+      sandbox.stub($, 'ajax'); // no need for that to be running around
       if(typeof router === 'undefined') { router = new Router(); }
     });
 
@@ -181,7 +181,9 @@ define([
       });
 
       describe('when presenter has a user', function() {
-        beforeEach(function() { router.dashboardPresenter.user = user; });
+        beforeEach(function() { 
+          router.dashboardPresenter.setUser(user); 
+        });
 
         it('doesn\'t call setUser', function() {
           sinon.test(function() {

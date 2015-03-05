@@ -50,6 +50,21 @@ define([
     // Event Handlers //
     // -------------- //
 
+    // FIX: This needs to be done in a more systematic way.
+    //      Since it turns out there is no Backbone Collection fetch
+    //      method, I got screwed up dealing with sync and don't have
+    //      time to fix it better today. But I want to avoid having
+    //      functions like this defined in the views. 
+    
+    fetchCollection  : function() {
+      this.collection.sync('read', this, {
+        url        : API.tasks.collection($.cookie('userID')),
+        beforeSend : function(xhr) {
+          xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
+        }
+      });
+    },
+
     removeBacklog    : function() {
       this.collection.remove(this.collection.findWhere({backlog: true}));
     },
@@ -84,7 +99,8 @@ define([
       this.childViews    = this.childViews || [];
       this.$quickAddForm = new QuickAddForm({collection: this.collection, grouping: this.grouping});
 
-      this.listenTo(this.collection, 'add remove sync', this.render);
+      this.listenTo(this.$quickAddForm, 'newTask', this.fetchCollection);
+      this.listenTo(this.collection, 'add remove collectionSynced', this.render);
       this.listenTo(this.collection, 'change:status', this.crossOff);
     },
 
