@@ -22,7 +22,7 @@ define(['underscore', 'backbone', 'cookie'], function(_, Backbone) {
       var that = this;
       var callback = opts.success;
 
-      opts.url  = opts.url || this.url;
+      opts.url  = opts.url || this.url();
       opts.beforeSend = (opts.beforeSend) || function(xhr) {
         xhr.setRequestHeader('Authorization', that.token());
       };
@@ -36,7 +36,6 @@ define(['underscore', 'backbone', 'cookie'], function(_, Backbone) {
       });
 
       toSync = new Backbone.Collection(changedModels, {url: opts.url});
-
       Backbone.sync('update', toSync, opts);
     }
   });

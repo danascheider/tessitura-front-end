@@ -20,7 +20,7 @@ define([
 
       collection = new ProtectedCollection();
       collection.model = Model;
-      collection.url = API.base + '/models';
+      collection.url = function() { return API.base + '/models'; };
       server = sandbox.useFakeServer();
     });
 
@@ -76,7 +76,7 @@ define([
       });
 
       it('sends a request to the collection\'s main URL', function() {
-        ajaxOptions.url.should.equal(collection.url);
+        ajaxOptions.url.should.equal(collection.url());
       });
 
       it('sends a PUT request', function() {
