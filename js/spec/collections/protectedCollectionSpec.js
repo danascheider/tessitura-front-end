@@ -10,7 +10,7 @@ define([
   var Model = Backbone.Model.extend({});
 
   describe('ProtectedCollection', function() {
-    var collection, server; 
+    var collection, server, model1, model2, model3; 
 
     var sandbox = sinon.sandbox.create();
 
@@ -48,6 +48,59 @@ define([
         sandbox.stub(Backbone.Collection.prototype, 'fetch');
         collection.fetch();
         Backbone.Collection.prototype.fetch.calledOnce.should.be.true;
+      });
+    });
+
+    describe('updateAll() method', function() {
+      var ajaxOptions;
+
+      beforeEach(function() {
+        model1 = new Model({foo: 'bar'}), model2 = new Model({foo: 'baz'}), model3 = new Model({foo: 'qux'});
+        collection.reset([model1, model2, model3]);
+        
+        sandbox.stub($, 'ajax').yieldsTo('success');
+
+        // Only 2 of the 3 models have been modified in this example, so only
+        // those should be sent in the request.
+
+        sandbox.stub(model1, 'hasChanged').returns(true);
+        sandbox.stub(model2, 'hasChanged').returns(false);
+        sandbox.stub(model3, 'hasChanged').returns(true);
+
+        collection.updateAll();
+        ajaxOptions = $.ajax.args[0][0];
+      });
+
+      afterEach(function() {
+        collection.reset();
+      });
+
+      it('sends a request to the collection\'s main URL', function() {
+        ajaxOptions.url.should.equal(collection.url);
+      });
+
+      it('sends a PUT request', function() {
+        ajaxOptions.type.should.equal('PUT');
+      });
+
+      it('includes all changed models', function() {
+        var expected = [JSON.parse(JSON.stringify(model1)), JSON.parse(JSON.stringify(model3))];
+        JSON.parse(ajaxOptions.data).should.deep.equal(expected);
+      });
+
+      it('triggers the collectionSynced event', function(done) {
+        var spy = sandbox.spy();
+        collection.on('collectionSynced', spy);
+        collection.updateAll();
+        spy.calledOnce.should.be.true;
+        done();
+        collection.off();
+      });
+
+      it('includes the auth header', function() {
+        $.ajax.restore();
+        collection.updateAll();
+        (typeof server.requests[0].requestHeaders.Authorization).should.not.be.undefined;
       });
     });
   });
