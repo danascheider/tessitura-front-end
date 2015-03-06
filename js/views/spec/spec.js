@@ -26,6 +26,7 @@ define([
 
         var should = Chai.should();
         Chai.use(chaiBackbone);
+        Chai.config.includeStack = true;
         mocha.setup('bdd');
 
         require(['spec/specHelper'], function(require) {
