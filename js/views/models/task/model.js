@@ -9,6 +9,10 @@ define([
     className  : 'task-model',
     template   : _.template(TaskModelTemplate),
 
+    events     : {
+      'dblclick td[data-fieldname]' : 'showInput'
+    },
+
     // --------------- //
     // Event Callbacks //
     // --------------- //
@@ -16,6 +20,14 @@ define([
     renderOnSync : function() {
       if(this.model.get('status') === 'Complete') { return; }
       this.render();
+    },
+
+    showInput    : function(e) {
+      var target = $(e.target).closest('td');
+      var form   = target.find('span:has(input.quick-edit)');
+      target.find('span.task-data').hide();
+      form.children().show();
+      form.find('input').focus();
     },
 
     // ------------------- //
