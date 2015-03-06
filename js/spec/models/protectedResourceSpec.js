@@ -10,8 +10,9 @@ define([
     var sandbox = sinon.sandbox.create();
 
     before(function() {
-      $.cookie('userID', 4);
-      $.cookie('auth', btoa('user4:user4'));
+      var cookie = sandbox.stub($, 'cookie');
+      cookie.withArgs('userID').returns(4);
+      cookie.withArgs('auth').returns(btoa('user4:user4'));
     });
 
     afterEach(function() {
@@ -23,15 +24,10 @@ define([
         resource = new ProtectedResource();
         resource.url = API.base + '/protected-resource';
         sandbox.stub(resource, 'isNew').returns(false);
-        server = sandbox.useFakeServer();
-      });
-
-      it('attaches an authorization header', function() {
-        resource.destroy();
-        server.requests[0].requestHeaders.should.haveOwnProperty('Authorization');
       });
 
       it('includes authorization for the logged-in user', function() {
+        server = sandbox.useFakeServer();
         resource.destroy();
         var value = 'Basic ' + $.cookie('auth');
         server.requests[0].requestHeaders.Authorization.should.equal(value);
@@ -55,15 +51,10 @@ define([
       beforeEach(function() {
         resource = new ProtectedResource();
         resource.url = API.base + '/protected-resource';
-        server = sandbox.useFakeServer();
-      });
-
-      it('attaches an authorization header', function() {
-        resource.save();
-        server.requests[0].requestHeaders.should.haveOwnProperty('Authorization');
       });
 
       it('includes authorization for the logged-in user', function() {
+        server = sandbox.useFakeServer();
         resource.save();
         var value = 'Basic ' + $.cookie('auth');
         server.requests[0].requestHeaders.Authorization.should.equal(value);
@@ -80,15 +71,10 @@ define([
       beforeEach(function() {
         resource = new ProtectedResource();
         resource.url = API.base + '/protected-resource';
-        server = sandbox.useFakeServer();
-      });
-
-      it('attaches an authorization header', function() {
-        resource.fetch();
-        server.requests[0].requestHeaders.should.haveOwnProperty('Authorization');
       });
 
       it('includes authorization for the logged-in user', function() {
+        server = sandbox.useFakeServer();
         resource.fetch();
         var value = 'Basic ' + $.cookie('auth');
         server.requests[0].requestHeaders.Authorization.should.equal(value);
