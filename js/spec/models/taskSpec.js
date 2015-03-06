@@ -72,27 +72,25 @@ define([
         var cookie = sandbox.stub($, 'cookie');
         cookie.withArgs('auth').returns(btoa('testuser:testuser'))
         cookie.withArgs('userID').returns(342);
+
+        sandbox.stub($, 'ajax');
       });
 
       describe('when the task is new', function() {
         it('sends the request to the create endpoint', function() {
           task = new Task({id: 14, title: 'Take out the trash'});
-          server = sandbox.useFakeServer();
           sandbox.stub(task, 'isNew').returns(true);
           task.save();
-          server.requests[0].url.should.equal(API.base + '/users/342/tasks');
+          $.ajax.args[0][0].url.should.equal(API.base + '/users/342/tasks');
         });      
       });
 
-      describe('when the task is not new', function() {
-        beforeEach(function() { server = sandbox.useFakeServer(); });
-        
+      describe('when the task is not new', function() {       
         it('sends the request to the update endpoint', function() {
           task = new Task({id: 14, title: 'Take out the trash'});
-          server = sandbox.useFakeServer();
           sandbox.stub(task, 'isNew').returns(false);
           task.save();
-          server.requests[0].url.should.equal(API.base + '/tasks/14');
+          $.ajax.args[0][0].url.should.equal(API.base + '/tasks/14');
         });
       });
     });
@@ -120,15 +118,17 @@ define([
         cookie.withArgs('auth').returns(btoa('testuser:testuser'));
         cookie.withArgs('userID').returns(342);
         task = new Task({id: 114, title: 'Take out the trash'});
-        server = sandbox.useFakeServer();
-        task.fetch();
       });
 
       it('makes the request to the individual task endpoint', function() {
-        server.requests[0].url.should.equal(API.base + '/tasks/114');
+        sandbox.stub($, 'ajax');
+        task.fetch();
+        $.ajax.args[0][0].url.should.equal(API.base + '/tasks/114');
       });
 
       it('includes the correct authorization header', function() {
+        server = sandbox.useFakeServer();
+        task.fetch();
         var auth = 'Basic ' + btoa('testuser:testuser');
         server.requests[0].requestHeaders.Authorization.should.equal(auth);
       });
