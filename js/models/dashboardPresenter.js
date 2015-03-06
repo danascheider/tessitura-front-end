@@ -41,12 +41,12 @@ define([
     },
 
     refreshCurrent : function() {
-      if(!this.current) { return; }
-      return this.current === 'home' ? this.getHome() : this.getTask();
+      if(!this.get('current')) { return; }
+      return this.get('current') === 'home' ? this.getHome() : this.getTask();
     },
 
     getHome : function() {
-      this.current = 'home';
+      this.set('current', 'home');
 
       var that = this;
       this.$dashboard.showHomeView();
@@ -57,10 +57,11 @@ define([
     },
 
     getTask : function() {
-      this.current = 'task';
+      this.set('current', 'task');
 
       var that = this;
       this.$dashboard.showTaskView();
+
       if(!this.$dashboard.$el.is(':visible')) {
         $('body').html(that.$dashboard.el);
       };
