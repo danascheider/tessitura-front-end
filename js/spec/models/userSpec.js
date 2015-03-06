@@ -23,41 +23,20 @@ define([
 
       describe('when instantiated with an ID', function() {        
         beforeEach(function() {
-
-          // Since it is not possible to check that the constructor calls
-          // `protectedFetch()` instead of regular `fetch()`, it is necessary to 
-          // determine that (1) the request was made and (2) the request was made
-          // using the credentials of the logged-in user, which differ from those
-          // of the user being created.
-
-          $.cookie('auth', btoa('danascheider:danascheider'));
-          sandbox.spy($, 'ajax');
+          sandbox.stub(User.prototype, 'protectedFetch');
         });
 
-        afterEach(function() {
-          $.removeCookie('auth');
-        });
-
-        it('makes a request to the server', function(done) { 
+        it('calls protectedFetch()', function() { 
           var user = new User({id: 342});
-          $.ajax.calledOnce.should.be.true;
-          done();
-        });
-
-        it('uses the credentials from the cookie', function(done) {
-          var server = sandbox.useFakeServer();
-          var user = new User({id: 342});
-          var expected = 'Basic ' + btoa('danascheider:danascheider');
-          server.requests[0].requestHeaders.Authorization.should.equal(expected);
-          done();
+          User.prototype.protectedFetch.calledOnce.should.be.true;;
         });
       });
 
       describe('when instantiated without an ID', function() {
-        it('doesn\'t make a request to the server', function() {
-          sandbox.spy($, 'ajax');
+        it('doesn\'t fetch the tasks', function() {
+          sandbox.stub(User.prototype, 'protectedFetch');
           new User({username: 'testuser22', password: 'usertest81'});
-          $.ajax.calledOnce.should.be.false;
+          User.prototype.protectedFetch.called.should.be.false;
         });
       })
     });
@@ -69,6 +48,8 @@ define([
       })
     });
 
+    // FIX: It's time for the fetch/protectedFetch dichotomy to end
+
     describe('fetch() function', function() {
       var user = new User({id: 342, username: 'testuser', password: 'testuser', email: 'testuser@example.com'});
 
@@ -77,52 +58,28 @@ define([
         // The `fetch()` function fetches the requested user regardless of whether
         // that user is the same as the logged-in user.
 
-        $.cookie('auth', btoa('danascheider:danascheider'));
-        $.cookie('userID', 1);
+        var cookie = sandbox.stub($, 'cookie');
+        cookie.withArgs('auth').returns(btoa('danascheider:danascheider'));
+        cookie.withArgs('userID').returns(1);
       });
 
-      after(function() {
-
-        // Log out before moving on to other tests
-
-        $.removeCookie('auth');
-        $.removeCookie('userID');
-      });
-
-      it('calls Backbone\'s fetch() function', function(done) {
-
-        // Spy on the Backbone model prototype's `fetch()` method, which should
-        // be called from the User model's `fetch()` method (i.e., should be included
-        // in the function that overrides the model's default `fetch()` method)
-
+      it('calls Backbone.Model\'s fetch() function', function() {
         sandbox.stub(Backbone.Model.prototype, 'fetch');
-
         user.fetch();
         Backbone.Model.prototype.fetch.calledOnce.should.be.true;
-        done();
       });
 
       it('sets the auth header for the user being requested', function() {
-
-        // The `fetch()` method has to include the requested user's authorization
-        // token, regardless of what user is logged in. 
-
         var authString = 'Basic ' + btoa(user.get('username') + ':' + user.get('password'));
         var server = sandbox.useFakeServer();
-
         user.fetch();
-
         server.requests[0].requestHeaders.Authorization.should.equal(authString);
       });
 
       it('sends the request to the appropriate URI', function() {
-        
-        // The request should be sent to the endpoint belonging to the user
-        // whose data are being requested
-
-        var server = sandbox.useFakeServer();
+        sandbox.stub($, 'ajax');
         user.fetch();
-        server.requests[0].url.should.equal(API.base + '/users/342');
+        $.ajax.args[0][0].url.should.equal(API.base + '/users/342');
       });
     });
 
@@ -131,41 +88,19 @@ define([
       var user = new User({id: 342, username: 'testuser', password: 'testuser', email: 'testuser@example.com'});
 
       before(function() {
+        var cookie = sandbox.stub($, 'cookie');
 
-        // The `protectedFetch()` function always uses the logged-in user's
-        // credentials in the request, regardless of which user is being 
-        // requested.
-
-        $.cookie('auth', btoa('danascheider:danascheider'));
-        $.cookie('userID', 1);
+        cookie.withArgs('auth').returns(btoa('danascheider:danascheider'));
+        cookie.withArgs('userID').returns(1);
       });
 
-      after(function() {
-
-        // Log out before moving on to other tests
-
-        $.removeCookie('auth');
-        $.removeCookie('userID');
-      });
-
-      it('calls Backbone\'s fetch() function', function(done) {
-
-        // Spy on the Backbone model prototype's `fetch()` method, which should
-        // be called from the User model's `fetch()` method (i.e., should be included
-        // in the function that overrides the model's default `fetch()` method)
-
+      it('calls Backbone\'s fetch() function', function() {
         sandbox.spy(Backbone.Model.prototype, 'fetch');
-
         user.protectedFetch();
         Backbone.Model.prototype.fetch.calledOnce.should.be.true;
-        done();
       });
 
       it('sets the auth header for the logged-in user', function() {
-
-        // The `protectedFetch()` method has to includes the logged-in user's
-        // credentials, regardless of which user is being requested.
-
         var authString = 'Basic ' + $.cookie('auth');
         var server = sandbox.useFakeServer();
 
@@ -175,13 +110,10 @@ define([
       });
 
       it('sends the request to the appropriate URI', function() {
-        
-        // The request should be sent to the endpoint belonging to the user
-        // whose data are being requested
+        sandbox.stub($, 'ajax');
 
-        var server = sandbox.useFakeServer();
         user.fetch();
-        server.requests[0].url.should.equal(API.base + '/users/342');
+        $.ajax.args[0][0].url.should.equal(API.base + '/users/342');
       });
     });
   });
