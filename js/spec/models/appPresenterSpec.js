@@ -7,16 +7,14 @@ define([
   ], function(Backbone, AppPresenter, API, HomepageView) {
 
   describe('AppPresenter', function() {
-
+    var presenter, spy;
     var sandbox = sinon.sandbox.create();
 
-    afterEach(function() {
-      sandbox.restore();
-    });
+    afterEach(function() { sandbox.restore(); });
 
     describe('constructor', function() {
       it('initializes a homepage view', function() {
-        var presenter = new AppPresenter();
+        presenter = new AppPresenter();
         (typeof presenter.homepageView).should.not.equal('undefined');
       });
     });
@@ -25,7 +23,7 @@ define([
       describe('redirect:dashboard', function() {
         it('calls emitRedirect', function() {
           sandbox.stub(AppPresenter.prototype, 'emitRedirect');
-          var presenter = new AppPresenter();
+          presenter = new AppPresenter();
           presenter.homepageView.trigger('redirect', {destination: 'dashboard'});
           AppPresenter.prototype.emitRedirect.calledOnce.should.be.true;
         });
@@ -35,7 +33,7 @@ define([
     describe('emitRedirect() method', function() {
       it('emits the redirect event', function() {
         spy = sandbox.spy();
-        var presenter = new AppPresenter();
+        presenter = new AppPresenter();
         presenter.on('redirect', spy);
         presenter.emitRedirect();
         spy.calledOnce.should.be.true;
@@ -44,7 +42,7 @@ define([
     });
 
     describe('getHomepage() function', function() {
-      var presenter = new AppPresenter();
+      presenter = new AppPresenter();
 
       beforeEach(function() {
         sandbox.stub($.prototype, 'prepend');
@@ -69,7 +67,7 @@ define([
     });
 
     describe('removeAll() function', function() {
-      var presenter = new AppPresenter();
+      presenter = new AppPresenter();
 
       beforeEach(function() {
         sandbox.stub(presenter.homepageView, 'remove');

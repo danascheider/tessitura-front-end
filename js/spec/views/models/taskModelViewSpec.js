@@ -1,15 +1,16 @@
 define([
+  'jquery',
   'backbone',
   'views/models/task/model',
   'models/task',
   'models/user',
   'cookie'
-], function(Backbone, TaskView, Task, User) {
+], function($, Backbone, TaskView, Task, User) {
 
   describe('Task model view', function() {
 
     // Define variables for use in before blocks
-    var view;
+    var view, e;
     var sandbox = sinon.sandbox.create();
 
     var user = new User({
@@ -88,9 +89,25 @@ define([
         view.$('tr.task-deadline-row').length.should.equal(0);
         task.set('deadline', new Date(2015, 8, 28));
       });
+
+      describe('hidden quick-edit element', function() {
+        it('is hidden by default', function() {
+          view.$('input.quick-edit').should.not.be.visible;
+        });
+      });
     });
 
     describe('events', function() {
+      describe('dblclick data field', function() {
+        it('calls showInput', function() {
+          sandbox.stub(TaskView.prototype, 'showInput');
+          var newView = new TaskView({model: task});
+          newView.render();
+          newView.$('td[data-fieldname="status"]').dblclick();
+          TaskView.prototype.showInput.calledOnce.should.be.true;
+        });
+      });
+
       describe('save model', function() {
         it('calls renderOnSync', function() {
           sandbox.stub(TaskView.prototype, 'renderOnSync');
@@ -121,6 +138,32 @@ define([
           view.renderOnSync();
           view.render.called.should.be.false;
           task.set('status', 'New');
+        });
+      });
+    });
+
+    describe('showInput() method', function() {
+      beforeEach(function() {
+        e = $.Event('dblclick', {target: view.$('td[data-fieldname="status"]')});
+        view.render();
+      });
+
+      it('hides the task data', function() {
+        view.showInput(e);
+        console.log(view.$('td:visible'));
+        view.$('td[data-fieldname="status"] .task-data').should.not.be.visible;
+      });
+
+      it('shows the input field', function() {
+        view.showInput(e);
+        view.$('input.quick-edit').should.be.visible;
+      });
+
+      it('puts the focus on the input field', function() {
+        sinon.test(function() {
+          $('body').html(view.el);
+          view.showInput(e);
+          view.$('input.quick-edit:focus').length.should.not.equal(1);
         });
       });
     });

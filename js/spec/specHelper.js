@@ -1,6 +1,6 @@
 define([
   'spec/modelSpecs',
-  'spec/collectionSpecs',
-  'spec/viewSpecs',
-  'spec/routerSpecs'
+  // 'spec/collectionSpecs',
+  // 'spec/viewSpecs',
+  // 'spec/routerSpecs'
 ]);
