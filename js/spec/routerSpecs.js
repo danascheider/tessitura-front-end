@@ -1,3 +1,0 @@
-define([
-  'spec/routers/routerSpec'
-  ]);

@@ -1,16 +1,3 @@
-# Locally-stored notes and experimental files
-.notes/
-
-# RSpec options
-.rspec
-
-# Bootstrap downloads
-bootstrap/
-
-# Images downloaded for comparison
-/img/Shutterstock*
-/img/iStock*
-
-# Symbolic link
-request-log
-response-log
+.sass-cache
+*.log
+.notes/*
