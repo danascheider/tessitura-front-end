@@ -1,6 +1,41 @@
 /* Global Styles
 /*****************************************************************************************/
 
+button,
+input[type='button'],
+input[type='reset'],
+input[type='submit']
+  overflow          : visible
+  text-transform    : none
+  -webkit-appearance: button
+  cursor            : pointer
+
+input,
+button
+  margin     : 0
+  font       : inherit
+  color      : inherit
+  font-family: inherit
+  font-size  : inherit
+  line-height: normal
+
+  &::-moz-focus-inner
+    padding: 0
+    border : 0
+
+  &[type='checkbox'],
+  &[type='radio']
+    box-sizing : border-box
+    padding    : 0
+    margin     : 4px 0 0
+    margin-top : 1px \9
+    line-height: normal /* IE 8-9 */
+
+label
+  display      : inline-block
+  margin-bottom: 5px
+  font-weight  : bold
+
 .btn 
   vertical-align     : middle
   margin-bottom      : 0
@@ -41,6 +76,12 @@
     font-size    : 18px
     line-height  : 1.33em
     border-radius: 2px
+
+  &-block
+    display      : block 
+    width        : 100%
+    padding-right: 0
+    padding-left : 0
 
 .form-control
   display           : block
@@ -100,6 +141,30 @@
         text-decoration : none
         background-color: #282828
 
+.pull-right
+  float: right !important
+
+.radio,
+.checkbox 
+  display      : block
+  min-height   : 20px
+  padding-left : 20px
+  margin-top   : 10px
+  margin-bottom: 10px
+
+  & label
+    display    : inline
+    font-weight: normal
+    cursor     : pointer
+
+  & input[type=checkbox],
+  & input[type=radio],
+  &-inline input[type=checkbox],
+  &-inline input[type=radio]
+    float      : left
+    margin-left: -20px
+
+
 ul.top-nav
   list-style: none
 
@@ -108,7 +173,7 @@ ul.top-nav
 
 #homepage-wrapper
   background-color: #fff
-  
+
   #navbar-top 
     ul
       list-style-type: none
