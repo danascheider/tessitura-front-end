@@ -146,6 +146,25 @@ describe('Canto Router', function() {
     });
   });
 
+  /* Route Callbacks
+  /****************************************************************************/
+
+  describe('route callbacks', function() {
+    describe('displayHomepage', function() {
+      it('calls removeAll on the dashboard presenter', function() {
+        spyOn(router.DashboardPresenter, 'removeAll');
+        router.displayHomepage();
+        expect(router.DashboardPresenter.removeAll).toHaveBeenCalled();
+      });
+
+      it('calls getHomepage on the App Presenter', function() {
+        spyOn(router.AppPresenter, 'getHomepage');
+        router.displayHomepage();
+        expect(router.AppPresenter.getHomepage).toHaveBeenCalled();
+      });
+    });
+  });
+
   /* Special Functions
   /****************************************************************************/
 
