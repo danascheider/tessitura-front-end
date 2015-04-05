@@ -1,13 +1,13 @@
-Canto = Canto || require('../../js/dependencies.js');
+Canto = Canto || require('../dependencies.js');
 
-var HomepageView         = require('../../js/views/specViews/homepageSpecView.js'),
-    ListItemView         = require('../../js/views/specViews/taskListItemSpecView.js'),
-    DashboardHomeView    = require('../../js/views/specViews/dashboardHomeSpecView.js'),
-    DashboardView        = require('../../js/views/specViews/dashboardSpecView.js'),
-    DashboardSidebarView = require('../../js/views/specViews/dashboardSidebarSpecView.js'),
-    TaskCollectionView   = require('../../js/views/specViews/taskCollectionSpecView.js'),
-    TaskPanelView        = require('../../js/views/specViews/taskPanelSpecView.js'),
-    TopWidgetView        = require('../../js/views/specViews/dashboardTopWidgetSpecView.js');
+var HomepageView         = require('../views/specViews/homepageSpecView.js'),
+    ListItemView         = require('../views/specViews/taskListItemSpecView.js'),
+    DashboardHomeView    = require('../views/specViews/dashboardHomeSpecView.js'),
+    DashboardView        = require('../views/specViews/dashboardSpecView.js'),
+    DashboardSidebarView = require('../views/specViews/dashboardSidebarSpecView.js'),
+    TaskCollectionView   = require('../views/specViews/taskCollectionSpecView.js'),
+    TaskPanelView        = require('../views/specViews/taskPanelSpecView.js'),
+    TopWidgetView        = require('../views/specViews/dashboardTopWidgetSpecView.js');
 
 var TestRouter = Backbone.Router.extend({
   routes : {

@@ -1,9 +1,0 @@
-#!/bin/bash
-
-# Use Browserify and Minifyify to package the app into the
-# canto.min.js and css/canto.min.css files
-package
-
-# Move copies of canto.min.js and canto.min.js.map to the web server
-cp js/canto.min.{js,js.map} /var/www/js
-cp css/{canto.min.css,canto.min.css.map,google-fonts-chrome.min.css,google-fonts-chrome.min.css.map} /var/www/css

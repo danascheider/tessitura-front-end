@@ -32,7 +32,7 @@ var matchers       = require('jasmine-jquery-matchers'),
 /* Module-Specific Requires
 /******************************************************************************/
 
-Canto.Router = require(process.cwd() + '/js/router.js');
+Canto.Router = require(process.cwd() + '/js/routers/cantoRouter.js');
 
 /******************************************************************************
  * CANTO ROUTER SPEC                                                          *

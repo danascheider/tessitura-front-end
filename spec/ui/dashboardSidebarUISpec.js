@@ -39,8 +39,7 @@ describe('Dashboard Sidebar View #ui', function() {
       });
 
       it('expands the second-level nav #dashboardSidebar', function(done) {
-          client.isVisible('#side-menu li:nth-child(7)', function(err, isVisible) {
-                
+        client.isVisible('#side-menu li:nth-child(7)', function(err, isVisible) {
           expect(isVisible).toBe(true);
           done();
         });

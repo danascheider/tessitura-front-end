@@ -1,15 +1,15 @@
 /* Core Requires
 /******************************************************************************/
 
-Canto = Canto || require('./dependencies.js');
+Canto = Canto || require('../dependencies.js');
 
 /* Module-Specific Requires
 /******************************************************************************/
 
-require('../vendor/backbone-route-filter.js');
+require('../../vendor/backbone-route-filter.js');
 
-var AppPresenter       = require('./presenters/appPresenter.js'),
-    DashboardPresenter = require('./presenters/dashboardPresenter.js');
+var AppPresenter       = require('../presenters/appPresenter.js'),
+    DashboardPresenter = require('../presenters/dashboardPresenter.js');
 
 /******************************************************************************
  * CANTO ROUTER SPEC                                                          *

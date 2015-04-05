@@ -36,6 +36,9 @@ require('./presenters/appPresenter.js');
 require('./presenters/dashboardPresenter.js');
 
 // Require router
-Canto.Router = Canto.Router || require('./router.js'); // require('../spec/support/testRouter.js');
-global.Router = new Canto.Router();
+Canto.Router     = Canto.Router || require('./routers/cantoRouter.js'); // require('../spec/support/testRouter.js');
+Canto.TestRouter = require('./routers/testRouter.js');
+
+global.Router = new Canto.TestRouter();
+// global.Router     = new Canto.Router();
 Backbone.history.start();
