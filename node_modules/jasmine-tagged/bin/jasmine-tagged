@@ -1,0 +1,4 @@
+#!/usr/bin/env node
+
+require('jasmine-tagged');
+require('jasmine-focused/bin/jasmine-focused');

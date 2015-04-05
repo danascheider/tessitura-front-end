@@ -1,4 +1,5 @@
-define(function() {
-  var apiOptions = {test: true};
-  return apiOptions;
-});
+var opts = {
+  test: true
+};
+
+module.exports = opts;

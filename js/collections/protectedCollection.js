@@ -1,44 +1,66 @@
-define(['underscore', 'backbone', 'cookie'], function(_, Backbone) {
+/* Protected Collection 
+/****************************************************************************************/
 
-  var ProtectedCollection = Backbone.Collection.extend({
-    token: function() {
-      return 'Basic ' + $.cookie('auth');
-    },
+Canto = Canto || require('../dependencies.js');
 
-    fetch: function(opts) {
-      opts = opts || {};
+/* Protected Collection
+/****************************************************************************************/
 
-      var that = this;
+var ProtectedCollection = Backbone.Collection.extend({
+  token     : function() {
+    return 'Basic ' + $.cookie('auth');
+  },
 
-      opts.beforeSend = (opts.beforeSend) || function(xhr) {
-        xhr.setRequestHeader('Authorization', that.token());
-      };
+  /* Special Functions
+  /**************************************************************************************/
 
-      return Backbone.Collection.prototype.fetch.call(this, opts);
-    },
+  isA       : function(type) {
+    return ['Backbone.Collection', 'ProtectedCollection'].indexOf(type) > -1 ? true : false;
+  },
 
-    updateAll: function(opts) {
-      opts = opts || {};
-      var that = this;
-      var callback = opts.success;
+  updateAll : function(opts) {
+    opts         = opts || {};
 
-      opts.url  = opts.url || this.url();
-      opts.beforeSend = (opts.beforeSend) || function(xhr) {
-        xhr.setRequestHeader('Authorization', that.token());
-      };
-      opts.success = function(obj, response, xhr) {
-        if(callback) { callback.call(obj, response, xhr); }
-        that.trigger('collectionSynced');
-      }
+    var that          = this;
+    var callback      = opts.success;
+    var changedModels = this.filter(function(model) {
+      return model.hasChanged();
+    });
+    var toSync        = new Backbone.Collection(changedModels, {url: opts.url});
 
-      var changedModels = this.filter(function(model) {
-        return model.hasChanged();
-      });
-
-      toSync = new Backbone.Collection(changedModels, {url: opts.url});
-      Backbone.sync('update', toSync, opts);
+    opts.url        = opts.url || this.url;
+    opts.beforeSend = (opts.beforeSend) || function(xhr) {
+      xhr.setRequestHeader('Authorization', that.token());
+    };
+    opts.success    = function(obj, response, xhr) {
+      if(callback) { callback.call(obj, response, xhr); }
+      that.trigger('collectionSynced');
     }
-  });
 
-  return ProtectedCollection;
+    Backbone.sync('update', toSync, opts);
+  },
+
+  /* Core Collection Functions
+  /**************************************************************************************/
+
+  fetch     : function(opts) {
+    opts = opts || {};
+
+    var that = this;
+
+    var callback = opts.success;
+
+    opts.beforeSend = (opts.beforeSend) || function(xhr) {
+      xhr.setRequestHeader('Authorization', that.token());
+    };
+
+    opts.success = function(model, response, xhr) {
+      that.trigger('fetch');
+      if(!!callback) { callback.call(model, response, xhr); }
+    },
+
+    Backbone.sync('read', this, opts);
+  }
 });
+
+module.exports = ProtectedCollection;
