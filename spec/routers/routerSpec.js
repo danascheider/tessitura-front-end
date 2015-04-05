@@ -38,7 +38,7 @@ Canto.Router = require(process.cwd() + '/js/routers/cantoRouter.js');
  * CANTO ROUTER SPEC                                                          *
 /******************************************************************************/
 
-xdescribe('Canto Router', function() {
+describe('Canto Router', function() {
 
   var router, spy;
 
@@ -52,11 +52,6 @@ xdescribe('Canto Router', function() {
 
   beforeEach(function() {
     router = new Canto.Router();
-    try {
-      Backbone.history.start();
-    } catch(e) {
-      return;
-    }
   });
 
   afterEach(function() {
@@ -93,31 +88,21 @@ xdescribe('Canto Router', function() {
   /* Routes
   /****************************************************************************/
 
-  describe('routes', function() {
-    var newRouter; 
+  describe('before filters', function() {
+    describe('rerouteifLoggedIn', function() {
+      context('when logged in', function() {
+        beforeEach(function() { spyOn($, 'cookie').and.returnValue(btoa('testuser:testuser')); });
 
-    beforeEach(function() {
-      spyOn(Backbone.history, 'navigate');
-      newRouter = new Canto.Router();
-    })
-
-    describe('(/)', function() {
-      context('when logged in is true', function() {
-        beforeEach(function() {
-          spyOn(Canto.Router.prototype, 'rerouteIfLoggedIn').and.callThrough();
-          spyOn(Canto.Router.prototype, 'displayHomepage');
-          spyOn($, 'cookie').and.returnValue(true);
-          newRouter = new Canto.Router();
-          newRouter.navigate('');
-          spyOn(Canto.Router.prototype, 'navigate');
-        });
-
-        it('calls rerouteIfLoggedIn', function() {
-          expect(Canto.Router.prototype.rerouteIfLoggedIn).toHaveBeenCalled();
+        it('calls remove on the app presenter', function() {
+          spyOn(router.AppPresenter, 'removeAll');
+          router.rerouteIfLoggedIn();
+          expect(router.AppPresenter.removeAll).toHaveBeenCalled();
         });
 
         it('navigates to the dashboard', function() {
-          expect(Canto.Router.prototype.navigate).toHaveBeenCalledWith('dashboard');
+          spyOn(router, 'navigate');
+          router.rerouteIfLoggedIn();
+          expect(router.navigate).toHaveBeenCalledWith('dashboard', {trigger: true});
         });
       });
     });
