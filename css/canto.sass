@@ -1,101 +1,144 @@
-#shade
-  display: none
-  position: fixed
-  z-index: 2
-  background-color: rgba(0,0,0,0.4)
-  width: 100%
-  
+/* Global Styles
+/*****************************************************************************************/
+.nav
+  padding-left: 0
+  margin-bottom: 0
+  list-style: none
+
+  & > li 
+    position: relative
+    display: block
+
+    & > a
+      position: relative
+      display: block
+      padding: 10px 15px
+
+      & > img 
+        max-width: none
+
+      &:hover
+        color: #7DCCC8
+        text-decoration: none
+        background-color: #282828
+
 ul.top-nav
   list-style: none
 
-.task-details
-  display: none
+/* Homepage Styles
+/*****************************************************************************************/
 
-li.task-list-item
-  list-style: none 
-  
-span.edit-task
-  display: none
+#homepage-wrapper
+  #navbar-top 
+    ul
+      list-style-type: none
+      position: fixed
+      right: 10px
+      z-index: 1
+      padding: 0
 
-#dash-top-widgets
-  .dash-widget
-    cursor: pointer
+    li 
+      display: inline
 
-.dash-widget
-  span.pull-left,
-  span.pull-right
-    color: #ccc
+  #shade
+    display: none
+    position: fixed
+    z-index: 2
+    background-color: rgba(0,0,0,0.4)
+    width: 100%
 
-.panel-primary,
-.panel-blue,
-.panel-yellow,
-.panel-red,
-.panel-green
-  border: none,
-  margin: none
+/* Dashboard Styles
+/*****************************************************************************************/
 
-.panel-green,
-.panel-red,
-.panel-primary,
-.panel-blue,
-.panel-yellow,
-  .panel-heading
-    color: #fff 
-    margin: 0
-  .panel-body span.pull-left,
-  .panel-body span.pull-right
-    color: #ccc
-
-.panel-blue
-  .panel-heading
-    background-color: #516695
-
-.panel-green
-  .panel-heading
-    background-color: #5cb85c
-  .panel-body span.pull-left:hover,
-  .panel-body span.pull-right:hover
-    color: #5cb85c
-
-.panel-yellow
-  .panel-heading
-    background-color: #f0ad4e
-
-.panel-red
-  .panel-heading
-    background-color: #d9534f
-
-#dashboard-top-widgets
-  .dash-widget
-    cursor: pointer
-
-  .panel-primary:hover
-    span.pull-left,
-    span.pull-right
-      color: #428bca
-
-  .panel-blue:hover
-    span.pull-left,
-    span.pull-right
-      color: #516695
-
-  .panel-yellow:hover
-    span.pull-left,
-    span.pull-right
-      color: #f0ad4e
-
-  .panel-red:hover
-    span.pull-left,
-    span.pull-right
-      color: #d9534f
-
-#task-panel 
-  span.show-widget,
-  span.hide-widget
+#dashboard-wrapper
+  .task-details
     display: none
 
-    i
-      color: #fff
+  li.task-list-item
+    list-style: none 
+    
+  span.edit-task
+    display: none
+
+  #dash-top-widgets
+    .dash-widget
+      cursor: pointer
+
+  .dash-widget
+    span.pull-left,
+    span.pull-right
+      color: #ccc
+
+  .panel-primary,
+  .panel-blue,
+  .panel-yellow,
+  .panel-red,
+  .panel-green
+    border: none,
+    margin: none
+
+  .panel-green,
+  .panel-red,
+  .panel-primary,
+  .panel-blue,
+  .panel-yellow,
+    .panel-heading
+      color: #fff 
+      margin: 0
+    .panel-body span.pull-left,
+    .panel-body span.pull-right
+      color: #ccc
+
+  .panel-blue
+    .panel-heading
+      background-color: #516695
+
+  .panel-green
+    .panel-heading
+      background-color: #5cb85c
+    .panel-body span.pull-left:hover,
+    .panel-body span.pull-right:hover
+      color: #5cb85c
+
+  .panel-yellow
+    .panel-heading
+      background-color: #f0ad4e
+
+  .panel-red
+    .panel-heading
+      background-color: #d9534f
+
+  #dashboard-top-widgets
+    .dash-widget
+      cursor: pointer
+
+    .panel-primary:hover
+      span.pull-left,
+      span.pull-right
+        color: #428bca
+
+    .panel-blue:hover
+      span.pull-left,
+      span.pull-right
+        color: #516695
+
+    .panel-yellow:hover
+      span.pull-left,
+      span.pull-right
+        color: #f0ad4e
+
+    .panel-red:hover
+      span.pull-left,
+      span.pull-right
+        color: #d9534f
+
+  #task-panel 
+    span.show-widget,
+    span.hide-widget
+      display: none
+
+      i
+        color: #fff
 
 /* Test Views */
 body.test
