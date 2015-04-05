@@ -34,11 +34,13 @@ var matchers       = require('jasmine-jquery-matchers'),
 
 Canto.Router = require(process.cwd() + '/js/routers/cantoRouter.js');
 
+var DashboardPresenter = require(process.cwd() + '/js/presenters/dashboardPresenter.js');
+
 /******************************************************************************
  * CANTO ROUTER SPEC                                                          *
 /******************************************************************************/
 
-describe('Canto Router', function() {
+describe('Canto Router #travis', function() {
 
   var router, spy;
 
@@ -150,6 +152,22 @@ describe('Canto Router', function() {
   /****************************************************************************/
 
   describe('route callbacks', function() {
+    describe('displayDashboardHome', function() {
+      beforeEach(function() { spyOn($, 'cookie').and.returnValue(user.get('id')); });
+
+      it('sets the user', function() {
+        spyOn(router.DashboardPresenter, 'setUser').and.callThrough();
+        router.displayDashboardHome();
+        expect(router.DashboardPresenter.setUser).toHaveBeenCalled();
+      });
+
+      it('calls getHome on the DashboardPresenter', function() {
+        spyOn(router.DashboardPresenter, 'getHome');
+        router.displayDashboardHome();
+        expect(router.DashboardPresenter.getHome).toHaveBeenCalled();
+      });
+    });
+
     describe('displayHomepage', function() {
       it('calls removeAll on the dashboard presenter', function() {
         spyOn(router.DashboardPresenter, 'removeAll');

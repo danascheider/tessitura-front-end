@@ -9,7 +9,8 @@ Canto = Canto || require('../dependencies.js');
 require('../../vendor/backbone-route-filter.js');
 
 var AppPresenter       = require('../presenters/appPresenter.js'),
-    DashboardPresenter = require('../presenters/dashboardPresenter.js');
+    DashboardPresenter = require('../presenters/dashboardPresenter.js'),
+    UserModel          = require('../models/userModel.js');
 
 /******************************************************************************
  * CANTO ROUTER SPEC                                                          *
