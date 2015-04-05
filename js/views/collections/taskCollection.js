@@ -46,9 +46,9 @@ define([
       }
     }, 
 
-    // -------------- //
-    // Event Handlers //
-    // -------------- //
+    // --------------- //
+    // Event Callbacks //
+    // --------------- //
 
     // FIX: This needs to be done in a more systematic way.
     //      Since it turns out there is no Backbone Collection fetch

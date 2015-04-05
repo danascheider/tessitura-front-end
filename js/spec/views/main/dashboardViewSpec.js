@@ -299,7 +299,7 @@ define([
           dashboard.toggleDropdownMenu(e);
           dashboard.$('li.dropdown').first().should.not.be.visible;
         });
-      })
+      });
 
       describe('when another menu is visible', function() {
         beforeEach(function() { dashboard.$('li.dropdown').first().addClass('open'); });
@@ -351,9 +351,9 @@ define([
       });
 
       it('removes the sidebar from the DOM', function() {
-        sandbox.spy(dashboard.$sidebar, 'remove');
+        sandbox.spy(dashboard.$sidebar.remove, 'call');
         dashboard.remove();
-        dashboard.$sidebar.remove.calledOnce.should.be.true;
+        dashboard.$sidebar.remove.call.calledOnce.should.be.true;
       });
     });
   });

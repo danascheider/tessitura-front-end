@@ -39,7 +39,7 @@ define([
       });
 
       describe('listeners', function() {
-        it('listens for when the user is finished updating', function() {
+        it('listens for when the task is finished updating', function() {
           sandbox.stub(Backbone.View.prototype, 'listenTo'); 
           var newView = new ListItemView({model: task});
           Backbone.View.prototype.listenTo.withArgs(newView.$editForm, 'done').calledOnce.should.be.true;

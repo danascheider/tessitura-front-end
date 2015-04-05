@@ -315,12 +315,6 @@ define([
         view.delegateEvents.calledOnce.should.be.true;
       });
 
-      it('calls delegateEvents on the collection view', function() {
-        sandbox.stub(view.$collectionView, 'delegateEvents');
-        view.render();
-        view.$collectionView.delegateEvents.called.should.be.true;
-      });
-
       it('configures sortable on the collection', function() {
         sandbox.stub($.prototype, 'sortable');
         view.render();

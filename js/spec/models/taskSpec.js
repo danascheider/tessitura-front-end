@@ -14,8 +14,9 @@ define([
 
     describe('urlRoot', function() {
       it('is scoped to the logged in user', function() {
-        $.cookie('auth', btoa('testuser:testuser'));
-        $.cookie('userID', 342);
+        var cookie = sandbox.stub($, 'cookie');
+        cookie.withArgs('auth').returns(btoa('testuser:testuser'));
+        cookie.withArgs('userID').returns(342);
         task = new Task();
         task.urlRoot().should.equal(API.base + '/users/342/tasks');
       });
@@ -147,8 +148,10 @@ define([
     });
 
     describe('prettyDeadline() function', function() {
-      task = new Task({title: 'Take out the trash', deadline: new Date('2014-11-10 00:00:00 -0800')});
-      task.prettyDeadline().should.equal('Monday, November 10, 2014');
+      it('presents its deadline in a human-friendly format', function() {
+        task = new Task({title: 'Take out the trash', deadline: new Date('2014-11-10 00:00:00 -0800')});
+        task.prettyDeadline().should.equal('Monday, November 10, 2014');
+      });
     });
   });
 });

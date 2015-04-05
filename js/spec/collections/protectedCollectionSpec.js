@@ -15,8 +15,9 @@ define([
     var sandbox = sinon.sandbox.create();
 
     beforeEach(function() {
-      $.cookie('userID', 4);
-      $.cookie('auth', btoa('user4:user4'));
+      var cookie = sandbox.stub($, 'cookie');
+      cookie.withArgs('userID').returns(4);
+      cookie.withArgs('auth').returns(btoa('user4:user4'));
 
       collection = new ProtectedCollection();
       collection.model = Model;

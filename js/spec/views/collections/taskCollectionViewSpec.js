@@ -28,6 +28,10 @@ define([
     var collection = new TaskCollection([task1, task2]);
     var data = {collection: collection};
 
+    var childViews = collection.map(function(task) {
+      new 
+    });
+
     beforeEach(function() {
       if(typeof view === 'undefined') { view = new TaskCollectionView(data); }
     });
