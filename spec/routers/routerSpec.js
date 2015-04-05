@@ -89,7 +89,7 @@ describe('Canto Router', function() {
   /****************************************************************************/
 
   describe('before filters', function() {
-    describe('rerouteifLoggedIn', function() {
+    describe('rerouteIfLoggedIn', function() {
       context('when logged in', function() {
         beforeEach(function() { spyOn($, 'cookie').and.returnValue(btoa('testuser:testuser')); });
 
@@ -103,6 +103,22 @@ describe('Canto Router', function() {
           spyOn(router, 'navigate');
           router.rerouteIfLoggedIn();
           expect(router.navigate).toHaveBeenCalledWith('dashboard', {trigger: true});
+        });
+      });
+
+      context('when not logged in', function() {
+        beforeEach(function() { spyOn($, 'cookie').and.returnValue(null); });
+
+        it('doesn\'t reroute', function() {
+          spyOn(router, 'navigate');
+          router.rerouteIfLoggedIn();
+          expect(router.navigate).not.toHaveBeenCalled();
+        });
+
+        it('doesn\'t remove app views', function() {
+          spyOn(router.AppPresenter, 'removeAll');
+          router.rerouteIfLoggedIn();
+          expect(router.AppPresenter.removeAll).not.toHaveBeenCalled();
         });
       });
     });

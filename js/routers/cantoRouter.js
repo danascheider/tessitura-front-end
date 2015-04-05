@@ -98,9 +98,7 @@ Canto.Router = Backbone.Router.extend({
   },
 
   rerouteIfLoggedIn: function(fragment, args, next) {
-    if (!$.cookie('auth')) {
-      next();
-    } else {
+    if ($.cookie('auth')) {
       this.AppPresenter.removeAll();
       this.navigate('dashboard', {trigger: true});
     }
