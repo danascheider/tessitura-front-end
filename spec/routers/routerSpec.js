@@ -148,6 +148,43 @@ describe('Canto Router #travis', function() {
     });
   });
 
+  /* Non-Route Events
+  /****************************************************************************/
+
+  describe('non-route events', function() {
+    it('listens to its app presenter', function(done) {
+      spyOn(Canto.Router.prototype, 'navigateTo');
+      var newRouter = new Canto.Router();
+      var e = $.Event('redirect', {destination: 'dashboard'});
+      newRouter.AppPresenter.trigger(e);
+      done();
+      expect(Canto.Router.prototype.navigateTo).toHaveBeenCalledWith(e);
+    });
+
+    it('listens to its dashboard presenter', function(done) {
+      spyOn(Canto.Router.prototype, 'navigateTo');
+      var newRouter = new Canto.Router();
+      var e = $.Event('redirect', {destination: 'homepage'});
+      newRouter.DashboardPresenter.trigger(e);
+      done();
+      expect(Canto.Router.prototype.navigateTo).toHaveBeenCalledWith(e);
+    });
+  });
+
+  /* Event Callbacks
+  /****************************************************************************/
+
+  describe('event callbacks', function() {
+    describe('navigateTo()', function() {
+      it('navigates to the given route', function() {
+        var e = $.Event('redirect', {destination: 'tasks'});
+        spyOn(router, 'navigate');
+        router.navigateTo(e);
+        expect(router.navigate).toHaveBeenCalledWith('tasks', {trigger: true});
+      });
+    });
+  });
+
   /* Route Callbacks
   /****************************************************************************/
 
