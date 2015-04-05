@@ -152,7 +152,7 @@ describe('Canto Router #travis', function() {
   /****************************************************************************/
 
   describe('route callbacks', function() {
-    describe('displayDashboardHome', function() {
+    describe('displayDashboardHome()', function() {
       beforeEach(function() { spyOn($, 'cookie').and.returnValue(user.get('id')); });
 
       it('sets the user', function() {
@@ -168,7 +168,23 @@ describe('Canto Router #travis', function() {
       });
     });
 
-    describe('displayHomepage', function() {
+    describe('displayDashboardTaskView()', function() {
+      beforeEach(function() { spyOn($, 'cookie').and.returnValue(user.get('id')); });
+
+      it('calls setUser on the DashboardPresenter', function() {
+        spyOn(router.DashboardPresenter, 'setUser').and.callThrough();
+        router.displayDashboardTaskView();
+        expect(router.DashboardPresenter.setUser).toHaveBeenCalled();
+      });
+
+      it('calls getTask on the DashboardPresenter', function() {
+        spyOn(router.DashboardPresenter, 'getTask');
+        router.displayDashboardTaskView();
+        expect(router.DashboardPresenter.getTask).toHaveBeenCalled();
+      });
+    });
+
+    describe('displayHomepage()', function() {
       it('calls removeAll on the dashboard presenter', function() {
         spyOn(router.DashboardPresenter, 'removeAll');
         router.displayHomepage();
