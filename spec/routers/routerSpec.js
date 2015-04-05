@@ -85,13 +85,13 @@ describe('Canto Router', function() {
     });
   });
 
-  /* Routes
+  /* Before Route Filters
   /****************************************************************************/
 
   describe('before filters', function() {
-    describe('rerouteIfLoggedIn', function() {
+    describe('rerouteIfLoggedIn()', function() {
       context('when logged in', function() {
-        beforeEach(function() { spyOn($, 'cookie').and.returnValue(btoa('testuser:testuser')); });
+        beforeEach(function() { spyOn($, 'cookie').and.returnValue('Basic ' + btoa('testuser:testuser')); });
 
         it('calls remove on the app presenter', function() {
           spyOn(router.AppPresenter, 'removeAll');
@@ -119,6 +119,28 @@ describe('Canto Router', function() {
           spyOn(router.AppPresenter, 'removeAll');
           router.rerouteIfLoggedIn();
           expect(router.AppPresenter.removeAll).not.toHaveBeenCalled();
+        });
+      });
+    });
+
+    describe('verifyLoggedIn()', function() {
+      context('when not logged in', function() {
+        beforeEach(function() { spyOn($, 'cookie').and.returnValue(null); });
+
+        it('redirects to the homepage', function() {
+          spyOn(router, 'navigate');
+          router.verifyLoggedIn();
+          expect(router.navigate).toHaveBeenCalledWith('');
+        });
+      });
+
+      context('when logged in', function() {
+        beforeEach(function() { spyOn($, 'cookie').and.returnValue('Basic ' + btoa('testuser:testuser')); });
+        
+        it('doesn\'t redirect', function() {
+          spyOn(router, 'navigate');
+          router.verifyLoggedIn();
+          expect(router.navigate).not.toHaveBeenCalled();
         });
       });
     });

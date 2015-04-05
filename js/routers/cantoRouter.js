@@ -105,10 +105,8 @@ Canto.Router = Backbone.Router.extend({
   },
 
   verifyLoggedIn: function(fragment, args, next) {
-    if ($.cookie('auth')) {
-      next();
-    } else {
-      this.navigate('', {trigger: true});
+    if (!$.cookie('auth')) {
+      this.navigate('');
     }
   }
 });
