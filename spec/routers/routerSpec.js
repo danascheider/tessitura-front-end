@@ -197,6 +197,21 @@ describe('Canto Router #travis', function() {
         expect(router.AppPresenter.getHomepage).toHaveBeenCalled();
       });
     });
+
+    describe('logOut()', function() {
+      it('removes cookies', function() {
+        spyOn($, 'removeCookie');
+        router.logOut();
+        expect($.removeCookie).toHaveBeenCalledWith('auth');
+        expect($.removeCookie).toHaveBeenCalledWith('userID');
+      });
+
+      it('navigates to the homepage', function() {
+        spyOn(router, 'navigate');
+        router.logOut();
+        expect(router.navigate).toHaveBeenCalledWith('', {trigger: true});
+      });
+    });
   });
 
   /* Special Functions
