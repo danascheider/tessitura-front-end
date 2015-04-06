@@ -95,6 +95,18 @@ describe('Registration Form View #travis', function() {
     it('is a form', function() {
       expect(form.$el).toHaveTag('form');
     });
+
+    it('has ID #registration-form', function() {
+      expect(form.$el).toHaveId('registrationForm');
+    });
+
+    describe('form fields', function() {
+      _.each(['username', 'password', 'email', 'first_name', 'last_name', 'birthdate', 'fach', 'city', 'country'], function(field) {
+        it('has a ' + field + ' field', function() {
+          expect(form.$('input[name=' + field + ']')).toHaveLength(1);
+        });
+      });
+    });
   });
 
   /* Special Functions
