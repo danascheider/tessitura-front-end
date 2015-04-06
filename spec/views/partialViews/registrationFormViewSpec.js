@@ -107,6 +107,14 @@ describe('Registration Form View #travis', function() {
         });
       });
 
+      it('has a password confirmation field', function() {
+        pending('Figure out how to fit the password confirmation field into the design');
+      });
+
+      it('has a captcha', function() {
+        pending('Figure out how to fit the captcha into the design');
+      });
+
       it('has a submit button', function() {
         expect(form.$('button[type=submit]')).toHaveLength(1);
       });
