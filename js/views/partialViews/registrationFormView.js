@@ -28,8 +28,27 @@ var RegistrationFormView = Canto.View.extend({
   createUser  : function(e) {
     e.preventDefault();
 
-    var user = new UserModel();
-    this.trigger('userCreated');
+    var data = Canto.Utils.getAttributes(this.$el);
+    if(!this.validateForm(data)) { return; }
+
+    var user = new UserModel(),
+        hash = btoa(data.username + ':' + data.password),
+        that = this;
+
+    user.save(data, {
+      success: function(model) {
+        $.cookie('auth', hash);
+        $.cookie('userID', model.id);
+        that.trigger('userCreated');
+      }
+    });
+  },
+
+  /* Special Functions
+  /**************************************************************************/
+
+  validateForm: function(data) {
+    return true;
   },
 
   /* Core View Functions

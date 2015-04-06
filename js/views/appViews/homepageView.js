@@ -46,7 +46,6 @@ var HomepageView = Canto.View.extend({
   id          : 'homepage-wrapper',
 
   events      : {
-    'submit #registration-form' : 'createUser',
     'click nav li .login-link'  : 'toggleLoginForm',
     'dblclick #shade'           : 'hideLoginForm'
   },
@@ -63,24 +62,6 @@ var HomepageView = Canto.View.extend({
 
   /* Event Callbacks
   /**************************************************************************/
-
-  createUser  : function(e) {
-    e.preventDefault();
-    var that  = this,
-        form  = $(e.target),
-        attrs = Canto.Utils.getAttributes(form),
-        hash  = btoa(attrs.username + ':' + attrs.password),
-        user  = new User();
-
-    user.save(attrs,  {
-      url     : Canto.API.users.root,
-      success : function(model) {
-        $.cookie('userID', model.id);
-        $.cookie('auth', hash);
-        that.trigger('redirect', {destination: 'dashboard'});
-      }
-    });
-  },
 
   hideLoginForm: function(e) {
     var t = $(e.target);

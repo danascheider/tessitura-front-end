@@ -129,14 +129,7 @@ describe('Canto Homepage View #travis', function() {
       newView.remove(); 
       newView.off('redirect');
     });
-
-    describe('submit registration form', function() {
-      it('calls createUser', function() {
-        newView.$('#registration-form').submit();
-        expect(SUT.prototype.createUser).toHaveBeenCalled();
-      });
-    });
-
+    
     describe('registration form creates user', function() {
       it('emits redirect:dashboard', function() {
         newView.registrationForm.trigger('createUser');
@@ -163,86 +156,6 @@ describe('Canto Homepage View #travis', function() {
   /**************************************************************************/
 
   describe('event callbacks', function() {
-    describe('createUser()', function() {
-      beforeEach(function() {
-        spyOn(Canto.Utils, 'getAttributes').and.returnValue({
-          username: 'testuser245', password: '245usertest', email: 'tu245@example.org',
-          first_name: 'Test', last_name: 'User'
-        });      
-
-        e = $.Event('submit', {target: view.$('#registration-form')});
-      });
-
-      it('doesn\'t refresh the page', function() {
-        spyOn($, 'ajax');
-        spyOn(e, 'preventDefault').and.callThrough();
-        view.createUser(e);
-        expect(e.preventDefault).toHaveBeenCalled();
-      });
-
-      it('instantiates a user model', function() {
-        spyOn($, 'ajax');
-        spyOn(User.prototype, 'initialize');
-        view.createUser(e);
-        expect(User.prototype.initialize).toHaveBeenCalled();
-      });
-
-      context('success', function() {
-        beforeEach(function() {
-          spyOn($, 'cookie');
-          spy = jasmine.createSpy();
-          view.on('redirect', spy);
-
-          spyOn($, 'ajax').and.callFake(function(args) {
-            args.success({
-              id: 245, username: 'testuser245', password: '245usertest', 
-              email: 'tu245@example.org', first_name: 'Test', last_name: 'User'
-            });
-          });
-
-          view.createUser(e);
-        });
-
-        afterEach(function() { view.off('redirect'); });
-
-        it('sets the auth cookie as a session cookie', function() {
-          expect($.cookie).toHaveBeenCalledWith('auth', btoa('testuser245:245usertest'));
-        });
-
-        it('sets the userID cookie as a session cookie', function() {
-          expect($.cookie).toHaveBeenCalledWith('userID', 245);
-        });
-
-        it('triggers the redirect event', function() {
-          expect(spy).toHaveBeenCalledWith({destination: 'dashboard'});
-        });
-      });
-      
-      context('error', function() {
-        beforeEach(function() {
-          spyOn($, 'cookie');
-          spy = jasmine.createSpy();
-          view.on('redirect', spy);
-
-          spyOn($, 'ajax').and.callFake(function(args) {
-            args.error();
-          });
-
-          view.createUser(e);
-        });
-
-        afterEach(function() { view.off('redirect'); });
-
-        it('does not set cookies', function() {
-          expect($.cookie).not.toHaveBeenCalled();
-        });
-
-        it('does not redirect', function() {
-          expect(spy).not.toHaveBeenCalled();
-        });
-      });
-    });
-
     describe('hideLoginForm()', function() {
       it('hides the login form', function() {
         pending('Need to implement the login form view');

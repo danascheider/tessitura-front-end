@@ -30,8 +30,7 @@ require(process.cwd() + '/js/dependencies.js');
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/spec/support/env.js');
 
-var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
-    matchers       = _.extend(require('jasmine-jquery-matchers')),
+var matchers       = _.extend(require('jasmine-jquery-matchers')),
     fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     context        = describe,
     fcontext       = fdescribe;
@@ -44,7 +43,7 @@ var RegistrationForm = require(process.cwd() + '/js/views/partialViews/registrat
 /****************************************************************************/
 
 describe('Registration Form View #travis', function() {
-  var form, e, spy, xhr;
+  var form, e, spy, obj;
 
   /* Filters
   /**************************************************************************/
@@ -138,13 +137,12 @@ describe('Registration Form View #travis', function() {
   describe('event callbacks', function() {
     describe('createUser', function() {
       beforeEach(function() {
-        spy = jasmine.createSpy();
-        form.on('userCreated', spy);
-
-        spyOn(Canto.Utils, 'getAttributes').and.returnValue({
+        obj = {
           username: 'testuser245', password: '245usertest', email: 'tu245@example.org',
-          first_name: 'Test', last_name: 'User'
-        });      
+          first_name: 'Test', last_name: 'User', acceptTerms: true
+        };
+
+        spyOn(Canto.Utils, 'getAttributes').and.returnValue(obj);      
 
         e = $.Event('submit', {target: form.$el});
       });
@@ -152,7 +150,7 @@ describe('Registration Form View #travis', function() {
       afterEach(function() { form.off('userCreated'); });
 
       it('doesn\'t refresh the page', function() {
-        spyOn(e, 'preventDefault');
+        spyOn(e, 'preventDefault').and.callThrough();
         form.createUser(e);
         expect(e.preventDefault).toHaveBeenCalled();
       });
@@ -163,12 +161,103 @@ describe('Registration Form View #travis', function() {
         expect(UserModel.prototype.initialize).toHaveBeenCalled();
       });
 
+      it('calls validateForm', function() {
+        spyOn(form, 'validateForm');
+        form.createUser(e);
+        expect(form.validateForm).toHaveBeenCalled();
+      });
+
+      it('calls save on the user', function() {
+        spyOn(UserModel.prototype, 'save');
+        form.createUser(e);
+        expect(UserModel.prototype.save).toHaveBeenCalled();
+      });
+
+      it('uses the attributes from the form', function() {
+        spyOn(UserModel.prototype, 'save');
+        form.createUser(e);
+        expect(UserModel.prototype.save.calls.argsFor(0)).toContain(obj)
+      });
+
+      context('invalid form', function() {
+        beforeEach(function() {
+          spyOn(form, 'validateForm').and.returnValue(false);
+        });
+
+        it('doesn\'t create a user', function() {
+          spyOn(UserModel.prototype, 'initialize');
+          form.createUser(e);
+          expect(UserModel.prototype.initialize).not.toHaveBeenCalled();
+        });
+
+        it('doesn\'t trigger userCreated', function() {
+          spy = jasmine.createSpy();
+          form.on('userCreated', spy);
+          form.createUser(e);
+          expect(spy).not.toHaveBeenCalled();
+          form.off('userCreated');
+        });
+      });
+
       context('success', function() {
-        it('emits the userCreated event', function() {
+        beforeEach(function() {
+          spyOn($, 'cookie');
+          spy = jasmine.createSpy();
+          form.on('userCreated', spy);
+
+          spyOn($, 'ajax').and.callFake(function(args) {
+            args.success({
+              id: 245, username: 'testuser245', password: '245usertest', 
+              email: 'tu245@example.org', first_name: 'Test', last_name: 'User'
+            });
+          });
+
+          form.createUser(e);
+        });
+
+        afterEach(function() { form.off('userCreated'); });
+
+        it('sets the auth cookie as a session cookie', function(done) {
+          expect($.cookie).toHaveBeenCalledWith('auth', btoa('testuser245:245usertest'));
+          done();
+        });
+
+        it('sets the userID cookie as a session cookie', function(done) {
+          expect($.cookie).toHaveBeenCalledWith('userID', 245);
+          done();
+        });
+
+        it('emits the userCreated event', function(done) {
           spy = jasmine.createSpy();
           form.on('userCreated', spy);
           form.createUser(e);
           expect(spy).toHaveBeenCalled();
+          done();
+        });
+      });
+
+      context('failure', function() {
+        beforeEach(function() {
+          spyOn($, 'ajax').and.callFake(function(args) {
+            args.error();
+          });
+
+          spyOn($, 'cookie');
+          spy = jasmine.createSpy();
+          form.on('userCreated', spy);
+          form.createUser(e);
+        });
+
+        afterEach(function() { form.off('userCreated'); });
+
+        it('doesn\'t set cookies', function(done) {
+          expect($.cookie).not.toHaveBeenCalled();
+          done();
+        });
+
+        it('doesn\'t trigger \'userCreated\'', function(done) {
+          expect(spy).not.toHaveBeenCalled();
+          done();
         });
       });
     });
