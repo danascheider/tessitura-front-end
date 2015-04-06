@@ -83,4 +83,31 @@ describe('Registration Form View #travis', function() {
       expect(form.superFamily).toBe('Backbone.View');
     });
   });
+
+  /* Special Functions
+  /**************************************************************************/
+
+  describe('special functions', function() {
+    describe('isA', function() {
+      it('returns true with argument \'RegistrationFormView\'', function() {
+        expect(form.isA('RegistrationFormView')).toBe(true);
+      });
+
+      it('returns true with argument \'RegistrationForm\'', function() {
+        expect(form.isA('RegistrationForm')).toBe(true);
+      });
+
+      it('returns true with argument \'FormView\'', function() {
+        expect(form.isA('FormView')).toBe(true);
+      });
+
+      it('returns true with argument \'PartialView\'', function() {
+        expect(form.isA('PartialView')).toBe(true);
+      });
+
+      it('returns false with another argument', function() {
+        expect(form.isA('very model of a modern major general')).toBe(false);
+      });
+    });
+  });
 });
