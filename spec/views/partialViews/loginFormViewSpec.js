@@ -41,7 +41,7 @@ var SUT = require(process.cwd() + '/js/views/partialViews/loginFormView.js');
  * BEGIN SUITE                                                              *
 /****************************************************************************/
 
-describe('Login Form View', function() {
+describe('Login Form View #travis', function() {
   var view, e, spy, xhr;
 
   /* Filters
