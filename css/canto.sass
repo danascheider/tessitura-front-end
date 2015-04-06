@@ -20,6 +20,10 @@ a
     outline       : 5px auto -webkit-focus-ring-color
     outline-offset: -2px
 
+b,
+strong
+  font-weight: bold
+
 button,
 input[type="button"],
 input[type="reset"],
@@ -129,6 +133,8 @@ label
   background-image   : none
   border             : 1px solid transparent
   border-radius      : 2px
+  padding            : 6px 12px
+  font-size          : 14px
 
   &:focus 
     outline        : thin dotted
@@ -295,6 +301,8 @@ ul.top-nav
 #homepage-wrapper
   background-color: #fff
   margin          : 0
+  width           : 100%
+  height          : 100%
   font-family     : "Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif
 
   #login-form 
@@ -390,6 +398,17 @@ ul.top-nav
     &:active
       color           : #fff
       background-color: rgba(0,0,0,0.7)
+
+  .btn-light 
+    border-radius   : 0
+    color           : #333
+    background-color: rgb(255,255,255)
+
+    &:hover,
+    &:focus,
+    &:active
+      color           : #333
+      background-color: rgba(255,255,255,0.8)
 
   .header 
     display                : table
