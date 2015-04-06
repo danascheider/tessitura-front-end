@@ -52,7 +52,8 @@ var RegistrationFormView = Canto.View.extend({
   /**************************************************************************/
 
   validateForm: function(data) {
-    return this.validCreds(data.username, data.password, data.email);
+    if(!data.acceptTerms) { return false; }
+    return this.validCreds(data.username, data.password, data.email) && this.validName(data.first_name, data.last_name);
   },
 
   /* Form Validations
@@ -64,6 +65,10 @@ var RegistrationFormView = Canto.View.extend({
 
   validEmail   : function(email) {
     return !!email.match(/(\S+)@(\S+)\.(\S+)/);
+  },
+
+  validName    : function(first, last) {
+    return !!first.match(/^[A-Za-z\' -]$/) && !!last.match(/^[A-Za-z\' -]$/);
   },
 
   validPassword: function(password) {

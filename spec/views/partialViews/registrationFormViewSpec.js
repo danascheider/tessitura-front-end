@@ -333,54 +333,136 @@ describe('Registration Form View #travis', function() {
         });
       });
 
-      describe('criteria', function() {
-        afterEach(function() {
-          expect(form.validateForm(formData)).toBe(false);
+      describe('criteria', function() {     
+        context('prohibited', function() {
+          afterEach(function() {
+            expect(form.validateForm(formData)).toBe(false);
+          });
+
+          describe('username', function() {
+            it('must exist', function() {
+              formData.username = null;
+            });
+
+            it('must be at least 6 characters', function() {
+              formData.username = 'testu';
+            });
+          });
+
+          describe('password', function() {
+            it('must be present', function() {
+              formData.password = null;
+            });
+
+            it('must be at least 8 characters', function() {
+              formData.password = 'te5tu5r'
+            });
+
+            it('must contain letters', function() {
+              formData.password = '82795777';
+            });
+
+            it('must contain numbers', function() {
+              formData.password = 'testuser';
+            });
+
+            it('cannot match the username', function() {
+              formData.password = formData.username
+            });
+          });
+
+          describe('email', function() {
+            it('has to contain @', function() {
+              formData.email = '';
+            });
+
+            it('has to contain something before the @', function() {
+              formData.email = '@foo.io';
+            });
+
+            it('has to contain a domain after the @', function() {
+              formData.email = 'foo@bar';
+            });
+          });
+
+          _.each(['first_name', 'last_name'], function(field) {
+            describe(field, function() {
+              it('must be longer than 1 character', function() {
+                formData[field] = 'C';
+              });
+
+              it('can\'t contain numbers', function() {
+                formData[field] = 'Ca77'
+              });
+
+              it('can\'t contain special characters', function() {
+                formData[field] = 'Mary!'
+              });
+            });
+          });
         });
 
-        describe('username', function() {
-          it('must exist', function() {
-            formData.username = null;
+        context('allowed', function() {
+          afterEach(function() {
+            expect(form.validateForm(formData)).toBe(false);
+          });
+          
+          describe('username', function() {
+            it('can contain special characters', function() {
+              formData.username = '8!!#%5ajouuk';
+            });
+
+            it('can contain only letters', function() {
+              formData.username = 'testus';
+            });
+
+            it('can contain only numbers', function() {
+              formData.username = 81135800;
+            });
+
+            it('can contain spaces', function() {
+              formData.username = 'Mary Sue';
+            });
           });
 
-          it('must be at least 6 characters', function() {
-            formData.username = 'testu';
-          });
-        });
+          describe('password', function() {
+            it('can contain special characters', function() {
+              formData.password = '8!!#%5aj';
+            });
 
-        describe('password', function() {
-          it('must be present', function() {
-            formData.password = null;
-          });
+            it('can contain only alphanumeric characters', function() {
+              formData.password = '8113XAB00';
+            });
 
-          it('must be at least 8 characters', function() {
-            formData.password = 'te5tu5r'
-          });
-
-          it('must contain letters', function() {
-            formData.password = '82795777';
+            it('can contain spaces', function() {
+              formData.password = 'Mary Sue';
+            });          
           });
 
-          it('must contain numbers', function() {
-            formData.password = 'testuser';
+          describe('email', function() {
+            it('can contain periods', function() {
+              formData.email = 'dana.scheider@gmail.com';
+            });
+
+            it('can contain subdomains', function() {
+              formData.email = 'dana@admin.canto.si';
+            });
           });
 
-          it('cannot match the username', function() {
-            formData.password = formData.username
-          });
-        });
+          _.each(['first_name', 'last_name'], function(field) {
+            describe(field, function() {
+              it('can include spaces', function() {
+                formData[field] = 'Mary Sue'
+              });
 
-        describe('email', function() {
-          it('has to contain @', function() {
-            formData.email = '';
-          });
+              it('can include hyphens', function() {
+                formData[field] = 'Mary-Sue'
+              });
 
-          it('has to contain something before the @', function() {
-            formData.email = '@foo.io';
-          });
-
-          it('has to contain a domain after the @', function() {
-            formData.email = 'foo@bar';
+              it('can include apostrophes', function() {
+                formData[field] = "O'Brien";
+              });
+            });
           });
         });
       });
