@@ -1,6 +1,8 @@
 Canto      = Canto || require('../../dependencies.js');
 Canto.View = Canto.View || require('../appViews/cantoView.js');
 
+var UserModel = require('../../models/userModel.js');
+
 var RegistrationFormView = Canto.View.extend({
 
   /* Backbone View Properties
@@ -25,6 +27,8 @@ var RegistrationFormView = Canto.View.extend({
 
   createUser  : function(e) {
     e.preventDefault();
+
+    var user = new UserModel();
     this.trigger('userCreated');
   },
 

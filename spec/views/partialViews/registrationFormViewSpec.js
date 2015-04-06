@@ -36,7 +36,8 @@ var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
     context        = describe,
     fcontext       = fdescribe;
 
-var RegistrationForm = require(process.cwd() + '/js/views/partialViews/registrationFormView.js');
+var RegistrationForm = require(process.cwd() + '/js/views/partialViews/registrationFormView.js'),
+    UserModel        = require(process.cwd() + '/js/models/userModel.js');
 
 /****************************************************************************
  * BEGIN SUITE                                                              *
@@ -154,6 +155,12 @@ describe('Registration Form View #travis', function() {
         spyOn(e, 'preventDefault');
         form.createUser(e);
         expect(e.preventDefault).toHaveBeenCalled();
+      });
+
+      it('instantiates a user model', function() {
+        spyOn(UserModel.prototype, 'initialize');
+        form.createUser(e);
+        expect(UserModel.prototype.initialize).toHaveBeenCalled();
       });
 
       context('success', function() {
