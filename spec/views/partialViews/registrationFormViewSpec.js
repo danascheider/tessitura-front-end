@@ -302,7 +302,93 @@ describe('Registration Form View #travis', function() {
         expect(form.isA('very model of a modern major general')).toBe(false);
       });
     });
+
+    describe('validateForm', function() {
+      var formData;
+
+      beforeEach(function() {
+        formData = {
+          username: 'testuser245', password: '245usertest', email: 'tu245@example.org',
+          first_name: 'Test', last_name: 'User', acceptTerms: true
+        }
+      });
+
+      describe('return value', function() {
+        context('when valid', function() {
+          it('returns true', function() {
+            obj = {
+              username: 'testuser245', password: '245usertest', email: 'tu245@example.org',
+              first_name: 'Test', last_name: 'User', acceptTerms: true
+            };
+
+            expect(form.validateForm(obj)).toBe(true);
+          });
+        });
+
+        context('when invalid', function() {
+          it('returns false', function() {
+            obj = {username: '', password: ''};
+            expect(form.validateForm(obj)).toBe(false);
+          });
+        });
+      });
+
+      describe('criteria', function() {
+        afterEach(function() {
+          expect(form.validateForm(formData)).toBe(false);
+        });
+
+        describe('username', function() {
+          it('must exist', function() {
+            formData.username = null;
+          });
+
+          it('must be at least 6 characters', function() {
+            formData.username = 'testu';
+          });
+        });
+
+        describe('password', function() {
+          it('must be present', function() {
+            formData.password = null;
+          });
+
+          it('must be at least 8 characters', function() {
+            formData.password = 'te5tu5r'
+          });
+
+          it('must contain letters', function() {
+            formData.password = '82795777';
+          });
+
+          it('must contain numbers', function() {
+            formData.password = 'testuser';
+          });
+
+          it('cannot match the username', function() {
+            formData.password = formData.username
+          });
+        });
+
+        describe('email', function() {
+          it('has to contain @', function() {
+            formData.email = '';
+          });
+
+          it('has to contain something before the @', function() {
+            formData.email = '@foo.io';
+          });
+
+          it('has to contain a domain after the @', function() {
+            formData.email = 'foo@bar';
+          });
+        });
+      });
+    });
   });
+
+  /* Core View Functions
+  /**************************************************************************/
 
   describe('core view functions', function() {
     describe('render()', function() {
