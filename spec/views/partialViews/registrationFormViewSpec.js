@@ -78,5 +78,9 @@ describe('Registration Form View #travis', function() {
     it('has family Canto.View', function() {
       expect(form.family).toBe('Canto.View');
     });
+
+    it('has superFamily Backbone.View', function() {
+      expect(form.superFamily).toBe('Backbone.View');
+    });
   });
 });

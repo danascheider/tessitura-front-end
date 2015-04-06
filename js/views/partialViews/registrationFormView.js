@@ -11,6 +11,7 @@ var RegistrationFormView = Canto.View.extend({
 
   klass: 'RegistrationFormView',
   family: 'Canto.View',
+  superFamily: 'Backbone.View'
 });
 
 module.exports = RegistrationFormView;
