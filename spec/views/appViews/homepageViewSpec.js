@@ -116,19 +116,31 @@ describe('Canto Homepage View #travis', function() {
 
   describe('events', function() {
     beforeEach(function() {
+      spy = jasmine.createSpy();
       spyOn(SUT.prototype, 'hideLoginForm');
       spyOn(SUT.prototype, 'createUser');
       spyOn(SUT.prototype, 'toggleLoginForm');
       newView = new SUT();
       newView.render();
+      newView.on('redirect', spy);
     });
 
-    afterEach(function() { newView.remove(); });
+    afterEach(function() { 
+      newView.remove(); 
+      newView.off('redirect');
+    });
 
     describe('submit registration form', function() {
       it('calls createUser', function() {
         newView.$('#registration-form').submit();
         expect(SUT.prototype.createUser).toHaveBeenCalled();
+      });
+    });
+
+    describe('registration form creates user', function() {
+      it('emits redirect:dashboard', function() {
+        newView.registrationForm.trigger('createUser');
+        expect(spy).toHaveBeenCalledWith({destination: 'dashboard'});
       });
     });
 
