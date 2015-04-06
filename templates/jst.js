@@ -9,6 +9,7 @@ var JST = {
   'partials/kanbanCol' : _.template(require('./partialTemplates/kanbanColumnTemplate.js')),
   'partials/loginForm' : _.template(require('./partialTemplates/loginFormTemplate.js')),
   'partials/sidebar'   : _.template(require('./partialTemplates/dashboardSidebarTemplate.js')),
+  'partials/regForm'   : _.template(require('./partialTemplates/registrationFormTemplate.js')),
   'partials/taskPanel' : _.template(require('./partialTemplates/taskPanelTemplate.js')),
   'partials/topWidgets': _.template(require('./partialTemplates/dashboardTopWidgetTemplate.js')),
   'tasks/model'        : _.template(require('./modelTemplates/taskTemplates/modelTemplate.js')),

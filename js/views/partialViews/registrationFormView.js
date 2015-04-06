@@ -6,6 +6,8 @@ var RegistrationFormView = Canto.View.extend({
   /* Backbone View Properties
   /**************************************************************************/
 
+  template    : JST['partials/regForm'],
+
   /* Canto View Properties
   /**************************************************************************/
 
@@ -14,6 +16,13 @@ var RegistrationFormView = Canto.View.extend({
   superFamily : 'Backbone.View',
   types       : function() {
     return Canto.View.prototype.types().concat(['RegistrationFormView', 'RegistrationForm', 'FormView', 'PartialView']);
+  },
+
+  /* Core View Functions
+  /**************************************************************************/
+
+  render      : function() {
+    return Canto.View.prototype.render.call(this, this.template());
   }
 });
 

@@ -84,6 +84,15 @@ describe('Registration Form View #travis', function() {
     });
   });
 
+  /* View Elements
+  /**************************************************************************/
+
+  describe('view elements', function() {
+    beforeEach(function() {
+      view.render();
+    });
+  });
+
   /* Special Functions
   /**************************************************************************/
 
@@ -107,6 +116,17 @@ describe('Registration Form View #travis', function() {
 
       it('returns false with another argument', function() {
         expect(form.isA('very model of a modern major general')).toBe(false);
+      });
+    });
+  });
+
+  describe('core view functions', function() {
+    describe('render()', function() {
+      it('calls render on the Canto View prototype', function() {
+        spyOn(Canto.View.prototype.render, 'call');
+        form.render();
+        expect(Canto.View.prototype.render.call).toHaveBeenCalled();
+        expect(Canto.View.prototype.render.call.calls.argsFor(0)).toContain(form);
       });
     });
   });

@@ -1,0 +1,43 @@
+<fieldset>
+  <legend>Login Information</legend>
+  <input class='form-control half-width' name='username' title='Username' placeholder='Username (required)'>
+  <input class='form-control half-width' type='password' name='password' title='Password' placeholder='Password (required)'>
+  <input class='form-control' type='email' name='email' title='E-mail Address' placeholder='E-mail (required)'>
+</fieldset>
+<fieldset>
+  <legend>Profile Information:</legend>
+  <input class='form-control half-width' name='first_name' title='First Name' placeholder='First Name'>
+  <input class='form-control half-width' name='last_name' title='Last Name' placeholder='Last Name'>
+  <input class='form-control half-width' name='birthdate' type='date' title='Date of Birth'>
+  <input class='form-control half-width' name='fach' list='fachs' title='Fach' placeholder='Fach'>
+
+  <datalist id='fachs'>
+    <option value='Soprano - lyric coloratura' />
+    <option value='Soprano - dramatic coloratura' />
+    <option value='Soprano - lyric' />
+    <option value='Soprano - spinto' />
+    <option value='Soprano - dramatic' />
+    <option value='Mezzo-soprano - Rossini' />
+    <option value='Mezzo-soprano - lyric' />
+    <option value='Mezzo-soprano - dramatic' />
+    <option value='Contralto' />
+    <option value='Countertenor' />
+    <option value='Tenor leggiero' />
+    <option value='Tenor - lyric' />
+    <option value='Tenor - spinto' />
+    <option value='Heldentenor' />
+    <option value='Lyric baritone' />
+    <option value='Dramatic baritone' />
+    <option value='Lyric bass' />
+    <option value='Basso buffo' />
+    <option value='Basso profondo' />
+    <option value='Other' />
+  </datalist>
+
+  <input class='form-control half-width' name='country' title='Country' placeholder='Country'>
+  <input class='form-control half-width' name='city' title='City' placeholder='City'>
+</fieldset>
+<fieldset>
+  <button type='submit' class='btn btn-dark'>Create Account</button>
+  <button type='reset' class='btn btn-dark'>Clear Form</button>
+</fieldset>
