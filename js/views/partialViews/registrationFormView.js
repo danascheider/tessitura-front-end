@@ -12,6 +12,10 @@ var RegistrationFormView = Canto.View.extend({
   tagName     : 'form',
   id          : 'registration-form',
 
+  events      : {
+    'submit' : 'createUser'
+  },
+
   /* Canto View Properties
   /**************************************************************************/
 

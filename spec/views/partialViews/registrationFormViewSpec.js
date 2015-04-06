@@ -131,6 +131,20 @@ describe('Registration Form View #travis', function() {
     });
   });
 
+  /* View Events
+  /**************************************************************************/
+
+  describe('view events', function() {
+    describe('submit', function() {
+      it('calls createUser', function() {
+        spyOn(RegistrationForm.prototype, 'createUser');
+        var newForm = new RegistrationForm();
+        newForm.$el.submit();
+        expect(RegistrationForm.prototype.createUser).toHaveBeenCalled();
+      });
+    });
+  });
+
   /* Event Callbacks
   /**************************************************************************/
 
