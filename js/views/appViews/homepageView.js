@@ -103,8 +103,8 @@ var HomepageView = Canto.View.extend({
   /**************************************************************************/
 
   initialize  : function() {
-    this.loginForm            = new LoginFormView();
-    this.registrationFormView = new RegistrationFormView();
+    this.loginForm        = new LoginFormView();
+    this.registrationForm = new RegistrationFormView();
   },
 
   remove      : function() {

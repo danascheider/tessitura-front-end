@@ -78,7 +78,7 @@ describe('Canto Homepage View #travis', function() {
   /* View Constructor
   /**************************************************************************/
 
-  fdescribe('constructor', function() {
+  describe('constructor', function() {
     it('does not call render', function() {
       spyOn(SUT.prototype, 'render');
       var newView = new SUT();
