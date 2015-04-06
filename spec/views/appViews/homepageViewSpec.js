@@ -32,6 +32,7 @@ var matchers       = _.extend(require('jasmine-jquery-matchers')),
     fcontext       = fdescribe;
 
 var User = require(process.cwd() + '/js/models/userModel.js'),
+    RegistrationFormView = require(process.cwd() + '/js/views/partialViews/registrationFormView.js');
     SUT  = require(process.cwd() + '/js/views/appViews/homepageView.js');
 
 /****************************************************************************
@@ -77,7 +78,7 @@ describe('Canto Homepage View #travis', function() {
   /* View Constructor
   /**************************************************************************/
 
-  describe('constructor', function() {
+  fdescribe('constructor', function() {
     it('does not call render', function() {
       spyOn(SUT.prototype, 'render');
       var newView = new SUT();
@@ -86,6 +87,10 @@ describe('Canto Homepage View #travis', function() {
 
     it('creates a login form', function() {
       expect(view.loginForm).toExist();
+    });
+
+    it('creates a registration form', function() {
+      expect(view.registrationForm).toExist();
     });
   });
 

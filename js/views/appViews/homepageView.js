@@ -29,8 +29,9 @@ Canto.View = Canto.View || require('./cantoView.js');
 /* Module-Specific Requires
 /****************************************************************************/
 
-var User = require('../../models/userModel.js'),
-    LoginFormView = require('../partialViews/loginFormView.js');
+var User                 = require('../../models/userModel.js'),
+    LoginFormView        = require('../partialViews/loginFormView.js'),
+    RegistrationFormView = require('../partialViews/registrationFormView.js');
 
 /****************************************************************************
  * BEGIN MODULE                                                             *
@@ -102,7 +103,8 @@ var HomepageView = Canto.View.extend({
   /**************************************************************************/
 
   initialize  : function() {
-    this.loginForm = new LoginFormView();
+    this.loginForm            = new LoginFormView();
+    this.registrationFormView = new RegistrationFormView();
   },
 
   remove      : function() {
