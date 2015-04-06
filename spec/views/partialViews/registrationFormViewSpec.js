@@ -42,7 +42,7 @@ var RegistrationForm = require(process.cwd() + '/js/views/partialViews/registrat
  * BEGIN SUITE                                                              *
 /****************************************************************************/
 
-fdescribe('Registration Form View #travis', function() {
+describe('Registration Form View #travis', function() {
   var form, e, spy, xhr;
 
   /* Filters
@@ -73,6 +73,10 @@ fdescribe('Registration Form View #travis', function() {
   describe('static properties', function() {
     it('has klass RegistrationFormView', function() {
       expect(form.klass).toBe('RegistrationFormView');
+    });
+
+    it('has family Canto.View', function() {
+      expect(form.family).toBe('Canto.View');
     });
   });
 });

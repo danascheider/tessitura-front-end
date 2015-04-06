@@ -10,6 +10,7 @@ var RegistrationFormView = Canto.View.extend({
   /**************************************************************************/
 
   klass: 'RegistrationFormView',
+  family: 'Canto.View',
 });
 
 module.exports = RegistrationFormView;
