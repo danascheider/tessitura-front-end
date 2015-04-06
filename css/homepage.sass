@@ -1,0 +1,173 @@
+#homepage-wrapper
+  background-color: #fff
+  margin          : 0
+  width           : 100%
+  height          : 100%
+  font-family     : "Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif
+
+  #login-form 
+    position        : absolute
+    vertical-align  : center
+    top             : 0
+    bottom          : 0
+    left            : 0
+    right           : 0
+    display         : table
+    margin          : auto
+    width           : 60%
+    height          : 70%
+    box-sizing      : border-box
+    padding-left    : 10%
+    padding-right   : 10%
+    background-color: rgba(0,0,0,0.7)
+
+    & div.form-elements
+      position      : relative
+      display       : table-cell
+      vertical-align: middle
+      margin        : auto
+
+    & .form-group
+      margin-bottom: 15px
+
+    & a, & label
+      color: #fff
+
+    & input, & button
+      margin: 0.25em
+
+    & input
+      background-color: rgba(255,255,255,0.9)
+      border          : none
+      color           : #333
+
+    & div.checkbox
+      width:   100%
+      padding: 0
+      margin : 0
+
+    & button
+      background-color: rgba(116,124,201,0.8)
+
+      &:hover
+        background-color: rgba(98,107,194,0.8)
+
+  #navbar-top 
+    ul
+      list-style-type: none
+      position       : fixed
+      right          : 10px
+      z-index        : 1
+      padding        : 0
+
+    li 
+      display: inline
+
+  #registration-form
+    margin-bottom: 15px
+
+    & > fieldset
+      passing: 0 10px
+      margin : 15px 10px 0 0
+
+    & input
+      width : 98.8%
+      margin: 5px
+
+      &.half-width
+        display: inline-block
+        width  : 48.7%
+
+  #shade
+    display         : none
+    position        : fixed
+    z-index         : 2
+    background-color: rgba(0,0,0,0.4)
+    top             : 0
+    bottom          : 0
+    left            : 0 
+    right           : 0
+    margin          : auto
+
+  #shade, #login-form
+    user-select        : none
+    -moz-user-select   : none
+    -webkit-user-select: none
+    -ms-user-select    : none
+
+  #top h1,
+  #top h3
+    color: #fff
+    text-shadow: 0 2px 2px rgba(0,0,0,0.75)
+
+  .about 
+    padding: 50px 0
+
+  .btn-dark
+    border-radius   : 0
+    color           : #fff
+    background-color: rgba(0,0,0,0.4)
+
+    &:hover,
+    &:focus,
+    &:active
+      color           : #fff
+      background-color: rgba(0,0,0,0.7)
+
+  .btn-light 
+    border-radius   : 0
+    color           : #333
+    background-color: rgb(255,255,255)
+
+    &:hover,
+    &:focus,
+    &:active
+      color           : #333
+      background-color: rgba(255,255,255,0.8)
+
+  .header 
+    display                : table
+    position               : relative
+    width                  : 100%
+    height                 : 100%
+    background             : url(../vendor/img/homepage.jpg) no-repeat top center fixed
+    -webkit-background-size: cover
+    -moz-background-size   : cover
+    background-size        : cover
+    -o-background-size     : cover
+
+  .lead
+    margin-bottom: 20px
+    font-size    : 16px
+    font-weight  : 200
+    line-height  : 1.4
+
+  @media (min-width: 768px)
+    .lead 
+      font-size: 21px
+
+  .service-item
+    margin-bottom: 30px
+
+  .services
+    padding: 50px 0
+
+  .text-primary
+    color: #74ABCC /* Previously #428bca */
+
+  .text-vertical-center
+    display       : table-cell
+    text-align    : center
+    vertical-align: middle
+
+    & h1
+      font-weight: 700
+      margin     : 0
+      padding    : 0
+      font-size  : 4.5em
+
+  .toggle
+    margin: 5px 5px 0 0
+
+  hr.small
+    max-width: 100px
