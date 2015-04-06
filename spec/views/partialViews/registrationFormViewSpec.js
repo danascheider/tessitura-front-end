@@ -106,6 +106,20 @@ describe('Registration Form View #travis', function() {
           expect(form.$('input[name=' + field + ']')).toHaveLength(1);
         });
       });
+
+      it('has a submit button', function() {
+        expect(form.$('button[type=submit]')).toHaveLength(1);
+      });
+
+      describe('TOU checkbox', function() {
+        it('exists', function() {
+          expect(form.$('input[name="acceptTerms"]')).toExist();
+        });
+
+        it('is not checked by default', function() {
+          expect(form.$('input[name="acceptTerms"]')).not.toBeChecked();
+        });
+      });
     });
   });
 
