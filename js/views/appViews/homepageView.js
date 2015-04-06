@@ -109,6 +109,7 @@ var HomepageView = Canto.View.extend({
 
   remove      : function() {
     this.loginForm.remove();
+    this.registrationForm.remove();
     Canto.View.prototype.remove.call(this);
   },
 
@@ -116,6 +117,9 @@ var HomepageView = Canto.View.extend({
     var that = this;
 
     return Canto.View.prototype.render.call(this, this.template(), function() {
+      that.registrationForm.render();
+      that.$('section#register div.col-md-12').html(that.registrationForm.$el);
+
       that.loginForm.render();
       that.$('#shade').html(that.loginForm.$el);
     });

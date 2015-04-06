@@ -8,6 +8,7 @@ var RegistrationFormView = Canto.View.extend({
 
   template    : JST['partials/regForm'],
   tagName     : 'form',
+  id          : 'registration-form',
 
   /* Canto View Properties
   /**************************************************************************/

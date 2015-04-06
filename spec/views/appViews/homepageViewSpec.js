@@ -274,6 +274,12 @@ describe('Canto Homepage View #travis', function() {
         expect(view.loginForm.remove).toHaveBeenCalled();
       });
 
+      it('removes its registration form', function() {
+        spyOn(view.registrationForm, 'remove');
+        view.remove();
+        expect(view.registrationForm.remove).toHaveBeenCalled();
+      });
+
       it('removes itself using the Backbone view prototype', function() {
         spyOn(Backbone.View.prototype.remove, 'call');
         view.remove();

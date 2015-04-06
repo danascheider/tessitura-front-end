@@ -11,7 +11,7 @@ var HomepageView         = require('../views/specViews/homepageSpecView.js'),
     TopWidgetView        = require('../views/specViews/dashboardTopWidgetSpecView.js');
 
 var TestRouter = Canto.Router.extend({
-  routes : _.extend(Canto.Router.prototype.routes, {
+  routes : {
     'listItemViewSpec(/)'           : 'displayListItemView',
     'dashboardHomeViewSpec(/)'      : 'displayDashboardHomeView',
     'dashboardSidebarViewSpec(/)'   : 'displayDashboardSidebarView',
@@ -20,7 +20,7 @@ var TestRouter = Canto.Router.extend({
     'homepageViewSpec(/)'           : 'displayHomepageView',
     'taskCollectionViewSpec(/)'     : 'displayTaskCollectionView',
     'taskPanelViewSpec(/)'          : 'displayTaskPanelView',
-  }),
+  },
 
   displayListItemView         : function() {
     view = new ListItemView();
