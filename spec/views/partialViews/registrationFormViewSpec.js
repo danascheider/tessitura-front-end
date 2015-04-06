@@ -89,7 +89,11 @@ describe('Registration Form View #travis', function() {
 
   describe('view elements', function() {
     beforeEach(function() {
-      view.render();
+      form.render();
+    });
+
+    it('is a form', function() {
+      expect(form.$el).toHaveTag('form');
     });
   });
 
