@@ -20,6 +20,14 @@ var RegistrationFormView = Canto.View.extend({
     return Canto.View.prototype.types().concat(['RegistrationFormView', 'RegistrationForm', 'FormView', 'PartialView']);
   },
 
+  /* Event Callbacks
+  /**************************************************************************/
+
+  createUser  : function(e) {
+    e.preventDefault();
+    this.trigger('userCreated');
+  },
+
   /* Core View Functions
   /**************************************************************************/
 

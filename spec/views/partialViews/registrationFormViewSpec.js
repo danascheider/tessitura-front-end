@@ -131,6 +131,42 @@ describe('Registration Form View #travis', function() {
     });
   });
 
+  /* Event Callbacks
+  /**************************************************************************/
+
+  describe('event callbacks', function() {
+    describe('createUser', function() {
+      beforeEach(function() {
+        spy = jasmine.createSpy();
+        form.on('userCreated', spy);
+
+        spyOn(Canto.Utils, 'getAttributes').and.returnValue({
+          username: 'testuser245', password: '245usertest', email: 'tu245@example.org',
+          first_name: 'Test', last_name: 'User'
+        });      
+
+        e = $.Event('submit', {target: form.$el});
+      });
+
+      afterEach(function() { form.off('userCreated'); });
+
+      it('doesn\'t refresh the page', function() {
+        spyOn(e, 'preventDefault');
+        form.createUser(e);
+        expect(e.preventDefault).toHaveBeenCalled();
+      });
+
+      context('success', function() {
+        it('emits the userCreated event', function() {
+          spy = jasmine.createSpy();
+          form.on('userCreated', spy);
+          form.createUser(e);
+          expect(spy).toHaveBeenCalled();
+        });
+      });
+    });
+  });
+
   /* Special Functions
   /**************************************************************************/
 
