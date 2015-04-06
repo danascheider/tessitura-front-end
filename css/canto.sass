@@ -6,6 +6,20 @@ html
   margin : 0
   padding: 0
 
+a 
+  color          : #bbb
+  text-decoration: none
+
+  &:hover,
+  &:focus
+    color          : #327F7B
+    text-decoration: underline
+
+  &:focus 
+    outline       : thin dotted
+    outline       : 5px auto -webkit-focus-ring-color
+    outline-offset: -2px
+
 button,
 input[type='button'],
 input[type='reset'],
@@ -31,7 +45,24 @@ h1, h2, h3,
   margin-bottom: 10px
   margin-top   : 20px
 
-header
+h1, .h1 
+  font-size: 36px
+
+h2, .h2
+  font-size: 30px
+
+h2, h3, p
+  orphans: 3
+  widows : 3
+
+h2, h3
+  page-break-after: avoid
+
+h3, .h3
+  font-size: 24px
+
+header,
+section
   display: block
 
 input,
@@ -107,6 +138,42 @@ label
     padding-right: 0
     padding-left : 0
 
+.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12
+  position     : relative
+  min-height   : 1px
+  padding-right: 15px
+  padding-left : 15px
+  float        : left
+
+.container 
+  padding-right: 15px
+  padding-left : 15px
+  margin-right : auto
+  margin-left  : auto
+
+@media (min-width: 768px)
+  .container
+    width: 750px
+
+@media (min-width: 992px)
+  .container 
+    width: 970px
+
+@media (min-width: 1200px)
+  .container 
+    width: 1170px
+
+.container:before, .container:after,
+.row:before, .row:after,
+.nav:before, .nav:after
+  display: table
+  content: " "
+
+.container:after,
+.row:after,
+.nav:after 
+  clear: both
+
 .form-control
   display           : block
   width             : 100%
@@ -142,6 +209,16 @@ label
 
   &::-webkit-input-placeholder
     color: #999
+
+.lead 
+  margin-bottom: 20px
+  font-size    : 16px
+  font-weight  : 200
+  line-height  : 1.4
+
+@media (min-width: 768px)
+  .lead 
+    font-size: 21px
 
 .nav
   padding-left : 0
@@ -188,6 +265,12 @@ label
     float      : left
     margin-left: -20px
 
+.row 
+  margin-right: -15px
+  margin-left : -15px
+
+.text-center
+  text-align: center
 
 ul.top-nav
   list-style: none
@@ -278,6 +361,9 @@ ul.top-nav
   #top h3
     color: #fff
     text-shadow: 0 2px 2px rgba(0,0,0,0.75)
+
+  .about 
+    padding: 50px 0
 
   .btn-dark
     border-radius   : 0
