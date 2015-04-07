@@ -82,13 +82,11 @@
 /***************************************************************************/
 
 Canto      = Canto      || require('../../dependencies.js');
-Canto.View = Canto.View || require('../appViews/cantoView.js');
 
 /* Module-Specific Requires
 /***************************************************************************/
 
-var KanbanColumnView = require('./kanbanColumnView.js'),
-    TaskCollection   = require('../../collections/taskCollection.js');
+var KanbanColumnView = require('./kanbanColumnView.js');
 
 /****************************************************************************
  * BEGIN MODULE                                                             *
@@ -142,11 +140,11 @@ var DashboardTaskView = Canto.View.extend({
 
     this.user.tasks.fetch({
       success: function(collection) {
-        collection = new TaskCollection(collection);
+        collection = new Canto.TaskCollection(collection);
 
         that.backlogColumnView = new KanbanColumnView({
           el         : that.$('#backlog-tasks'),
-          collection : new TaskCollection(collection.where({backlog: true})),
+          collection : new Canto.TaskCollection(collection.where({backlog: true})),
           color      : 'red',
           icon       : 'fa-exclamation-circle',
           headline   : 'Backlog'
@@ -156,7 +154,7 @@ var DashboardTaskView = Canto.View.extend({
 
         that.newColumnView = new KanbanColumnView({
           el         : that.$('#new-tasks'),
-          collection : new TaskCollection(collection.where({status: 'New'})),
+          collection : new Canto.TaskCollection(collection.where({status: 'New'})),
           color      : 'blue',
           icon       : 'fa-certificate',
           headline   : 'New'
@@ -164,7 +162,7 @@ var DashboardTaskView = Canto.View.extend({
 
         that.inProgressColumnView = new KanbanColumnView({
           el         : that.$('#in-progress-tasks'),
-          collection : new TaskCollection(collection.where({status: 'In Progress'})),
+          collection : new Canto.TaskCollection(collection.where({status: 'In Progress'})),
           color      : 'green',
           icon       : 'fa-road',
           headline   : 'In Progress'
@@ -172,7 +170,7 @@ var DashboardTaskView = Canto.View.extend({
 
         that.blockingColumnView = new KanbanColumnView({
           el         : that.$('#blocking-tasks'),
-          collection : new TaskCollection(collection.where({status: 'Blocking'})),
+          collection : new Canto.TaskCollection(collection.where({status: 'Blocking'})),
           color      : 'yellow',
           icon       : 'fa-minus-circle',
           headline   : 'Blocking'

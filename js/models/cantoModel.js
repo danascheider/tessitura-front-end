@@ -1,6 +1,4 @@
-Canto = Canto || require('../dependencies.js');
-
-Canto.Model = Backbone.Model.extend({
+var CantoModel = Backbone.Model.extend({
   klass       : 'Canto.Model',
   family      : 'Canto.Model',
   superFamily : 'Backbone.Model',
@@ -14,4 +12,4 @@ Canto.Model = Backbone.Model.extend({
   }
 });
 
-module.exports = Canto.Model;
+module.exports = CantoModel;

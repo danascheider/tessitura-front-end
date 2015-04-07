@@ -1,8 +1,6 @@
 Canto      = Canto || require('../../../dependencies.js');
-Canto.View = Canto.View || ('../../appViews/cantoView.js');
 
-var TaskModel = require('../../../models/taskModel.js'),
-    ModelView = require('./taskModelView.js');
+var ModelView = require('./taskModelView.js');
 
 var ListItemView = Canto.View.extend({
   tagName    : 'li',

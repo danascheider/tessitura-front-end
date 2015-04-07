@@ -24,13 +24,11 @@
 /****************************************************************************/
 
 Canto      = Canto || require('../../dependencies.js');
-Canto.View = Canto.View || require('./cantoView.js');
 
 /* Module-Specific Requires
 /****************************************************************************/
 
-var User                 = require('../../models/userModel.js'),
-    LoginFormView        = require('../partialViews/loginFormView.js'),
+var LoginFormView        = require('../partialViews/loginFormView.js'),
     RegistrationFormView = require('../partialViews/registrationFormView.js');
 
 /****************************************************************************

@@ -31,13 +31,11 @@
 /****************************************************************************/
 
 Canto      = Canto || require('../../dependencies.js');
-Canto.View = Canto.View || require('../appViews/cantoView.js');
 
 /* Module-Specific Requires
 /****************************************************************************/
 
-var User          = require('../../models/userModel.js'),
-    TopWidgetView = require('./dashboardTopWidgetView.js'),
+var TopWidgetView = require('./dashboardTopWidgetView.js'),
     TaskPanelView = require('./taskPanelView.js');
 
 /****************************************************************************

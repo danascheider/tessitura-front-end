@@ -1,4 +1,3 @@
-Canto       = Canto || require('../dependencies.js');
 Canto.Model = Canto.Model || require('./cantoModel');
 
 var ProtectedResource = Canto.Model.extend({

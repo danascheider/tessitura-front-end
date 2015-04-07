@@ -1,10 +1,7 @@
 Canto = Canto || require('../dependencies.js');
 
-var Task                = require('../models/taskModel.js');
-var ProtectedCollection = require('./protectedCollection.js');
-
-var TaskCollection = ProtectedCollection.extend({
-  model      : Task,
+var TaskCollection = Canto.ProtectedCollection.extend({
+  model      : Canto.Task,
   comparator : 'position',
   url        : function() {
     return Canto.API.tasks.collection($.cookie('userID'));
@@ -46,7 +43,7 @@ var TaskCollection = ProtectedCollection.extend({
 
     delete opts.all;
 
-    ProtectedCollection.prototype.fetch.call(this, opts);
+    Canto.ProtectedCollection.prototype.fetch.call(this, opts);
   }
 });
 

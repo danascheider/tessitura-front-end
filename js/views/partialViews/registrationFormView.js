@@ -1,7 +1,4 @@
 Canto      = Canto || require('../../dependencies.js');
-Canto.View = Canto.View || require('../appViews/cantoView.js');
-
-var UserModel = require('../../models/userModel.js');
 
 var RegistrationFormView = Canto.View.extend({
 
@@ -35,7 +32,7 @@ var RegistrationFormView = Canto.View.extend({
     var data = Canto.Utils.getAttributes(this.$el);
     if(!this.validateForm(data)) { return; }
 
-    var user = new UserModel(),
+    var user = new Canto.UserModel(),
         hash = btoa(data.username + ':' + data.password),
         that = this;
 

@@ -1,20 +1,19 @@
-require('./dependencies.js');
-require('./utils.js');
+Canto = require('./dependencies.js');
 
 // Require models
-require('./models/cantoModel.js');
-require('./models/protectedResourceModel.js');
-require('./models/taskModel.js');
-require('./models/userModel.js');
+Canto.Model                  = require('./models/cantoModel.js');
+Canto.ProtectedResourceModel = require('./models/protectedResourceModel.js');
+Canto.TaskModel              = require('./models/taskModel.js');
+Canto.UserModel              = require('./models/userModel.js');
 
 // Require collections
-require('./collections/protectedCollection.js');
-require('./collections/taskCollection.js');
+Canto.ProtectedCollection = require('./collections/protectedCollection.js');
+Canto.TaskCollection      = require('./collections/taskCollection.js');
 
 // Require top-level views
-require('./views/appViews/cantoView.js');
-require('./views/appViews/dashboardView.js');
-require('./views/appViews/homepageView.js');
+Canto.View                = require('./views/appViews/cantoView.js');
+Canto.DashboardView       = require('./views/appViews/dashboardView.js');
+Canto.HomepageView        = require('./views/appViews/homepageView.js');
 
 // Require model and collection views
 require('./views/modelViews/taskViews/taskListItemView.js');

@@ -1,13 +1,4 @@
-/* Core Requires
-/*****************************************************************************************/
-
-Canto       = Canto || require('../dependencies.js');
-Canto.Model = Canto.Model || require('../models/cantoModel.js');
-
-/* Module-Specific Requires
-/*****************************************************************************************/
-
-var HomepageView = require('../views/appViews/homepageView.js');
+Canto = Canto || require('../dependencies.js');
 
 /*****************************************************************************************
 /* APP PRESENTER                                                                         *
@@ -53,7 +44,7 @@ var AppPresenter = Canto.Model.extend({
   /***************************************************************************************/
 
   initialize : function() {
-    this.homepageView = new HomepageView();
+    this.homepageView = new Canto.HomepageView();
 
     this.listenTo(this.homepageView, 'redirect', this.emitRedirect);
   }

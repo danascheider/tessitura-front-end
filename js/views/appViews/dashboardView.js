@@ -35,13 +35,11 @@
 /****************************************************************************/
 
 Canto      = Canto || require('../../dependencies.js');
-Canto.View = Canto.View || require('./cantoView.js');
 
 /* Module-Specific Requires
 /****************************************************************************/
 
-var userModel   = require('../../models/userModel.js'),
-    SidebarView = require('../partialViews/dashboardSidebarView.js'),
+var SidebarView = require('../partialViews/dashboardSidebarView.js'),
     HomeView    = require('../partialViews/dashboardHomeView.js'),
     TaskView    = require('../partialViews/dashboardTaskView.js');
 
@@ -98,10 +96,11 @@ var DashboardView = Canto.View.extend({
     this.homeView.setUser(user);
     this.taskView.setUser(user);
 
-    this.listenTo(this.user, 'sync', this.render);
+    this.listenTo(this.user, 'change:first_name change:last_name', this.render);
   },
 
   showHomeView       : function() {
+    console.log('Calling showHomeView');
     if(this.taskView.$el.is(':visible')) { this.taskView.remove(); }
     this.homeView.render();
 
@@ -138,6 +137,7 @@ var DashboardView = Canto.View.extend({
 
   render             : function() {
     var that = this;
+
     return Canto.View.prototype.render.call(this, this.template({user: this.user}), function() {
       that.sidebarView.render();
       that.$('div.sidebar-collapse').html(that.sidebarView.$el);

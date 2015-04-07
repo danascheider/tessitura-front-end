@@ -1,5 +1,4 @@
 Canto      = Canto || require('../../dependencies.js');
-Canto.View = Canto.View || require('../appViews/cantoView.js');
 
 var QuickAddForm = require('../modelViews/taskViews/quickAddFormView.js');
 var ListItemView = require('../modelViews/taskViews/taskListItemView.js');

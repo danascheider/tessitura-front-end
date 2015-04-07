@@ -1,8 +1,6 @@
 Canto = Canto || require('../dependencies.js');
 
-var ProtectedResource = require('./protectedResourceModel');
-
-var TaskModel = ProtectedResource.extend({
+var TaskModel = Canto.ProtectedResourceModel.extend({
   urlRoot : function() {
     return Canto.API.tasks.collection($.cookie('userID'));
   },
@@ -18,7 +16,7 @@ var TaskModel = ProtectedResource.extend({
   klass   : 'TaskModel',
   parent  : 'ProtectedResourceModel',
   types   : function() {
-    return ProtectedResource.prototype.types().concat(['TaskModel', 'Task']);
+    return Canto.ProtectedResourceModel.prototype.types().concat(['TaskModel', 'Task']);
   },
 
   // ----------------- //
@@ -76,7 +74,7 @@ var TaskModel = ProtectedResource.extend({
   fetch      : function(opts) {
     opts = opts || {};
     opts.url = opts.url || this.url();
-    return ProtectedResource.prototype.fetch.call(this, opts);
+    return Canto.ProtectedResource.prototype.fetch.call(this, opts);
   },
 
   initialize : function() {
@@ -89,7 +87,7 @@ var TaskModel = ProtectedResource.extend({
 
     opts.url = this.isNew() ? this.urlRoot() : this.url();
 
-    return ProtectedResource.prototype.save.call(this, attrs, opts);
+    return Canto.ProtectedResource.prototype.save.call(this, attrs, opts);
   },
 
   validate   : function(attrs) {

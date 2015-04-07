@@ -9,8 +9,7 @@ Canto = Canto || require('../dependencies.js');
 require('../../vendor/backbone-route-filter.js');
 
 var AppPresenter       = require('../presenters/appPresenter.js'),
-    DashboardPresenter = require('../presenters/dashboardPresenter.js'),
-    UserModel          = require('../models/userModel.js');
+    DashboardPresenter = require('../presenters/dashboardPresenter.js');
 
 /******************************************************************************
  * CANTO ROUTER SPEC                                                          *
@@ -78,12 +77,12 @@ Canto.Router = Backbone.Router.extend({
   },
 
   displayDashboardHome: function() {
-    if(!this.DashboardPresenter.user) { this.DashboardPresenter.setUser(new UserModel({id: $.cookie('userID')})); }
+    if(!this.DashboardPresenter.user) { this.DashboardPresenter.setUser(new Canto.UserModel({id: $.cookie('userID')})); }
     this.DashboardPresenter.getHome();
   },
 
   displayDashboardTaskView: function() {
-    if(!this.DashboardPresenter.user) { this.DashboardPresenter.setUser(new UserModel({id: $.cookie('userID')})); }
+    if(!this.DashboardPresenter.user) { this.DashboardPresenter.setUser(new Canto.UserModel({id: $.cookie('userID')})); }
     this.DashboardPresenter.getTask();
   },
 

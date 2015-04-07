@@ -1,7 +1,4 @@
 Canto = Canto || require('../dependencies.js');
-Canto.Model = Canto.Model || require('./cantoModel.js');
-
-var Collection = require('../collections/taskCollection.js');
 
 var UserModel = Canto.Model.extend({
   urlRoot: Canto.API.users.collection,
@@ -47,7 +44,7 @@ var UserModel = Canto.Model.extend({
   initialize     : function(attrs, opts) {
     opts = opts || {};
 
-    this.tasks = new Collection();
+    this.tasks = new Canto.TaskCollection();
 
     if(this.get('id') && !(opts.sync === false)) { this.protectedFetch(); }
   }
