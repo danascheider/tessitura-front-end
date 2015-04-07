@@ -63,6 +63,10 @@ var HomepageView = Canto.View.extend({
   /* Event Callbacks
   /**************************************************************************/
 
+  goToDashboard: function(e) {
+    this.trigger('redirect', {destination: 'dashboard'});
+  },
+
   hideLoginForm: function(e) {
     var t = $(e.target);
     if (t.attr('id') !== 'login-form' && this.loginForm.$el.has(t).length === 0) {
@@ -87,9 +91,13 @@ var HomepageView = Canto.View.extend({
     this.loginForm        = new LoginFormView();
     this.registrationForm = new RegistrationFormView();
 
+    var that = this;
+
     this.listenTo(this.registrationForm, 'createUser', function() {
       this.trigger('redirect', {destination: 'dashboard'});
     });
+
+    this.listenTo(this.loginForm, 'userLoggedIn', this.goToDashboard);
   },
 
   remove      : function() {

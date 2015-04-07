@@ -48,6 +48,7 @@ Canto.Router = Backbone.Router.extend({
   /****************************************************************************/
 
   navigateTo         : function(obj) {
+    console.log('navigating');
     this.navigate(obj.destination, {trigger: true});
   },
 

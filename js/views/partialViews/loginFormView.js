@@ -81,8 +81,8 @@ var LoginFormView = Canto.View.extend({
       },
       success    : function(user) {
         loginInfo.remember ? $.cookie('auth', hash, {expires: 365}) : $.cookie('auth', hash);
-        loginInfo.remember ? $.cookie('userID', user.get('id'), {expires: 365}) : $. cookie('userID', user.get('id'));
-        that.trigger('redirect', {destination: 'dashboard'});
+        loginInfo.remember ? $.cookie('userID', user.id, {expires: 365}) : $. cookie('userID', user.id);
+        that.trigger('userLoggedIn');
       }
     });
   },

@@ -45,6 +45,8 @@ var AppPresenter = Canto.Model.extend({
 
   removeAll   : function() {
     this.homepageView.remove();
+
+    var that = this;
   },
 
   /* Core Model Functions
@@ -52,6 +54,8 @@ var AppPresenter = Canto.Model.extend({
 
   initialize : function() {
     this.homepageView = new HomepageView();
+
+    this.listenTo(this.homepageView, 'redirect', this.redirect);
   }
 });
 
