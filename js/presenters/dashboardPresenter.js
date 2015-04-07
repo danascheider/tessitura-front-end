@@ -28,19 +28,15 @@ var DashboardPresenter = Canto.Model.extend({
   /***************************************************************************************/
 
   getHome    : function() {
+    this.showDash();
     this.dashboardView.showHomeView();
     this.current = 'home';
-    if(!this.dashboardView.$el.is(':visible')) {
-      $('body').html(this.dashboardView.$el);
-    }
   },
 
   getTask    : function() {
+    this.showDash();
     this.dashboardView.showTaskView();
     this.current = 'task';
-    if(!this.dashboardView.$el.is(':visible')) {
-      $('body').html(this.dashboardView.$el);
-    }
   },
 
   redirect   : function(opts) {
@@ -60,6 +56,13 @@ var DashboardPresenter = Canto.Model.extend({
     this.user.protectedFetch();
     this.user.tasks.fetch();
     this.dashboardView.setUser(user);
+  },
+
+  showDash   : function() {
+    if(!this.dashboardView.$el.is(':visible')) {
+      this.dashboardView.render();
+      $('body').html(this.dashboardView.$el);
+    }
   },
 
   /* Core Model Functions

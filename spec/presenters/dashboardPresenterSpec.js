@@ -145,6 +145,10 @@ describe('Dashboard Presenter #travis', function() {
           presenter.getHome();
         });
 
+        it('renders the dashboard view', function() {
+          expect(presenter.dashboardView.render).toHaveBeenCalled();
+        });
+
         it('attaches the dashboard view to the DOM', function() {
           expect(presenter.dashboardView.$el).toBeInDom();
         });
@@ -173,6 +177,10 @@ describe('Dashboard Presenter #travis', function() {
           spyOn(presenter.dashboardView.$el, 'is').and.returnValue(false);
           spyOn(presenter.dashboardView, 'render').and.callThrough();
           presenter.getTask();
+        });
+
+        it('renders the dashboard', function() {
+          expect(presenter.dashboardView.render).toHaveBeenCalled();
         });
 
         it('attaches the dashboard view to the DOM', function() {
@@ -213,7 +221,7 @@ describe('Dashboard Presenter #travis', function() {
   /***************************************************************************************/
 
   describe('special functions', function() {
-    describe('isA', function() {
+    describe('isA()', function() {
       it('returns true with argument `Presenter`', function() {
         expect(presenter.isA('Presenter')).toBe(true);
       });
@@ -227,7 +235,7 @@ describe('Dashboard Presenter #travis', function() {
       });
     });
 
-    describe('setUser', function() {
+    describe('setUser()', function() {
       var newPresenter;
       
       beforeEach(function() {
@@ -267,6 +275,39 @@ describe('Dashboard Presenter #travis', function() {
         spyOn(TaskCollection.prototype, 'fetch');
         newPresenter.setUser(user);
         expect(TaskCollection.prototype.fetch).toHaveBeenCalled();
+      });
+    });
+
+    describe('showDash()', function() {
+      context('when the dash view is not in the DOM', function() {
+        beforeEach(function() { spyOn(presenter.dashboardView.$el, 'is').and.returnValue(false); });
+
+        it('calls render on the dashboard view', function() {
+          spyOn(presenter.dashboardView, 'render');
+          presenter.showDash();
+          expect(presenter.dashboardView.render).toHaveBeenCalled();
+        });
+
+        it('sets the HTML of the body element', function() {
+          presenter.showDash();
+          expect($('body').html()).toContain(presenter.dashboardView.$el.html());
+        });
+      });
+
+      context('when the dash view is in the DOM already', function() {
+        beforeEach(function() { spyOn(presenter.dashboardView.$el, 'is').and.returnValue(true); });
+
+        it('doesn\'t call render', function() {
+          spyOn(presenter.dashboardView, 'render');
+          presenter.showDash();
+          expect(presenter.dashboardView.render).not.toHaveBeenCalled();
+        });
+
+        it('doesn\'t attach anything to the DOM', function() {
+          spyOn($.prototype, 'html');
+          presenter.showDash();
+          expect($.prototype.html).not.toHaveBeenCalled();
+        });
       });
     });
   });
