@@ -102,13 +102,9 @@ var DashboardView = Canto.View.extend({
   },
 
   showHomeView       : function() {
-    if(!this.$el.is(':visible')) { this.render(); }
-    
     if(this.taskView.$el.is(':visible')) { this.taskView.remove(); }
-
     this.homeView.render();
 
-    console.log('Appending the home view');
     this.$('nav').after(this.homeView.$el);
   },
 
@@ -141,7 +137,6 @@ var DashboardView = Canto.View.extend({
   },
 
   render             : function() {
-    console.log('    Calling render');
     var that = this;
     return Canto.View.prototype.render.call(this, this.template({user: this.user}), function() {
       that.sidebarView.render();

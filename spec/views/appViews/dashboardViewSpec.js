@@ -341,17 +341,11 @@ describe('Main Dashboard View #travis', function() {
     });
 
     describe('showHomeView()', function() {
-      context('when the main dash and home view are visible', function() {
+      context('when the home view is visible', function() {
         beforeEach(function() {
-          spyOn(dashboard.$el, 'is').and.returnValue(true);
+          spyOn(dashboard.homeView.$el, 'is').and.returnValue(true);
           dashboard.render();
           $('body').html(dashboard.$el);
-        });
-
-        it('doesn\'t re-render the main dash', function() {
-          spyOn(dashboard, 'render');
-          dashboard.showHomeView();
-          expect(dashboard.render).not.toHaveBeenCalled();
         });
 
         it('renders the home view', function() {
@@ -366,9 +360,8 @@ describe('Main Dashboard View #travis', function() {
         });
       });
 
-      context('when the main dash and task view are visible', function() {
+      context('when the task view is visible', function() {
         beforeEach(function() {
-          spyOn(dashboard.$el, 'is').and.returnValue(true);
           spyOn(dashboard.taskView.$el, 'is').and.returnValue(true);
         });
 
@@ -398,46 +391,15 @@ describe('Main Dashboard View #travis', function() {
           expect(dashboard.homeView.$el).toBeInDom();
         });
       });
-
-      context('when the main dash isn\'t visible', function() {
-        beforeEach(function() {
-          spyOn(dashboard.$el, 'is').and.returnValue(false);
-        });
-
-        it('renders the main dash', function() {
-          spyOn(dashboard, 'render');
-          dashboard.showHomeView();
-          expect(dashboard.render).toHaveBeenCalled();
-        });
-
-        it('renders the home view', function() {
-          spyOn(dashboard.homeView, 'render');
-          dashboard.showHomeView();
-          expect(dashboard.homeView.render).toHaveBeenCalled();
-        });
-
-        it('attaches the home view to the DOM', function() {
-          dashboard.showHomeView();
-          $('body').html(dashboard.$el);
-          expect(dashboard.homeView.$el).toBeInDom();
-        });
-      });
     });
 
     describe('showTaskView', function() {
-      context('when the main dash and home view are visible', function() {
+      context('when the home view is visible', function() {
         beforeEach(function() {
-          spyOn(dashboard.$el, 'is').and.returnValue(true);
           spyOn(dashboard.homeView.$el, 'is').and.returnValue(true);
           spyOn(dashboard.taskView.$el, 'is').and.returnValue(false);
           dashboard.render();
           $('body').html(dashboard.$el);
-        });
-
-        it('doesn\'t re-render the main dash', function() {
-          spyOn(dashboard, 'render');
-          dashboard.showTaskView();
-          expect(dashboard.render).not.toHaveBeenCalled();
         });
 
         it('removes the home view', function() {
@@ -458,20 +420,13 @@ describe('Main Dashboard View #travis', function() {
         });
       });
 
-      context('when the main dash and task view are visible', function() {
+      context('when the task view is visible', function() {
         beforeEach(function() {
-          spyOn(dashboard.$el, 'is').and.returnValue(true);
           spyOn(dashboard.taskView.$el, 'is').and.returnValue(true);
           dashboard.render();
           $('body').html(dashboard.$el);
         });
 
-        it('doesn\'t re-render the main dash', function() {
-          spyOn(dashboard, 'render');
-          dashboard.showTaskView();
-          expect(dashboard.render).not.toHaveBeenCalled();
-        });
-
         it('renders the task view', function() {
           spyOn(dashboard.taskView, 'render');
           dashboard.showTaskView();
@@ -480,30 +435,6 @@ describe('Main Dashboard View #travis', function() {
 
         it('attaches the task view to the DOM', function() {
           dashboard.showTaskView();
-          expect(dashboard.taskView.$el).toBeInDom();
-        });
-      });
-
-      context('when the main dash isn\'t visible', function() {
-        beforeEach(function() {
-          spyOn(dashboard.$el, 'is').and.returnValue(false);
-        });
-
-        it('renders the main dash', function() {
-          spyOn(dashboard, 'render');
-          dashboard.showTaskView();
-          expect(dashboard.render).toHaveBeenCalled();
-        });
-
-        it('renders the task view', function() {
-          spyOn(dashboard.taskView, 'render');
-          dashboard.showTaskView();
-          expect(dashboard.taskView.render).toHaveBeenCalled();
-        });
-
-        it('attaches the task view to the DOM', function() {
-          dashboard.showTaskView();
-          $('body').html(dashboard.$el);
           expect(dashboard.taskView.$el).toBeInDom();
         });
       });
