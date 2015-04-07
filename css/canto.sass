@@ -194,7 +194,9 @@ label
 
 .container:before, .container:after,
 .row:before, .row:after,
-.nav:before, .nav:after
+.nav:before, .nav:after,
+.navbar:before, .navbar:after,
+.navbar-header:before, .navbar-header:after
   display: table
   content: " "
 
@@ -202,6 +204,32 @@ label
 .row:after,
 .nav:after 
   clear: both
+
+.dropdown 
+  position: relative
+
+.dropdown-menu
+  position          : absolute
+  background-color  : #fff
+  background-clip   : padding-box
+  top               : 100%
+  left              : 0
+  z-index           : 1000
+  display           : none
+  float             : left
+  min-width         : 160px
+  padding           : 5px 0
+  margin            : 2px 0 0
+  font-size         : 14px
+  list-style        : none
+  border            : 1px solid #ccc
+  border            : 1px solid rgba(0, 0, 0, .15)
+  border-radius     : 2px
+  -webkit-box-shadow: 0 6px 12px rgba(0,0,0, 0.175)
+  box-shadow        : 0 6px 12px rgba(0,0,0, 0.175)
+
+.dropdown-toggle:focus
+  outline: 0
 
 .form-control
   display           : block
@@ -290,11 +318,6 @@ label
 
   .navbar-header
     float: left
-
-.navbar:before, .navbar:after,
-.navbar-header:before, .navbar-header:after
-  display: table
-  content: " "
 
 .navbar:after,
 .navbar-header:after
