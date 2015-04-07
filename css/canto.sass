@@ -228,6 +228,29 @@ label
   -webkit-box-shadow: 0 6px 12px rgba(0,0,0, 0.175)
   box-shadow        : 0 6px 12px rgba(0,0,0, 0.175)
 
+  & > li > a
+    white-space: nowrap
+    display    : block 
+    padding    : 3px 20px
+    clear      : both
+    font-weight: normal 
+    line-height: 1.428571429
+    color      : #333
+
+    &:hover,
+    &:focus
+      text-decoration: none 
+      color          : #262626
+
+@media (min-width: 768px) 
+  .navbar-right .dropdown-menu 
+    right: 0
+    left : auto
+  
+  .navbar-right .dropdown-menu-left
+    right: auto
+    left : 0
+
 .dropdown-toggle:focus
   outline: 0
 
@@ -323,9 +346,27 @@ label
 .navbar-header:after
   clear: both
 
+.navbar-brand 
+  float      : left
+  height     : 20px
+  padding    : 15px 15px
+  font-size  : 18px
+  line-height: 20px
+
+  &:hover,
+  &:focus
+    text-decoration: none
+
 .navbar-default
   background-color: #333
   border-color    : #282828
+
+  & .navbar-branc
+    color: #ccc
+
+    &:hover,
+    &:focus 
+      color: #7dccc8
 
   & .navbar-toggle
     border-color: #ddd
