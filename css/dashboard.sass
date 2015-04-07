@@ -4,16 +4,19 @@
 
   .navbar-top-links
     display: block
+    -webkit-margin-before: 0
+    -webkit-margin-after : 0
+    -webkit-padding-start: 0
 
     & li
       display: inline-block
+      padding-bottom: 0
 
       &:last-child
         margin-right: 15px
 
       & a
         text-decoration: none
-        min-height     : 50px
         color          : #ccc
         padding        : 15px
 
@@ -108,8 +111,18 @@
       max-height: 200px
       overflow-y: scroll
 
-  nav.navbar-top
+  .navbar-fixed-top
     margin-bottom: 0
+    box-sizing   : border-box
+
+  .navbar-static-side
+    margin-top: 0
+
+  .nav .open > a,
+  .nav .open > a:hover,
+  .nav .open > a:focus
+    background-color: #282828
+    border-color    : #428bca
 
   .task-details
     display: none
