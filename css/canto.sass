@@ -278,15 +278,76 @@ label
         text-decoration : none
         background-color: #282828
 
+.navbar
+  position     : relative
+  min-height   : 50px
+  margin-bottom: 20px
+  border       : 1px solid transparent
+
+@media (min-width: 768px)
+  .navbar 
+    border-radius: 2px
+
+  .navbar-header
+    float: left
+
+.navbar:before, .navbar:after,
+.navbar-header:before, .navbar-header:after
+  display: table
+  content: " "
+
+.navbar:after,
+.navbar-header:after
+  clear: both
+
 .navbar-default
   background-color: #333
   border-color    : #282828
 
+  & .navbar-toggle
+    border-color: #ddd
+
+    &:hover,
+    &:focus
+      background-color: #ddd
+
 .navbar-fixed-top
-  position: fixed
-  right   : 0
-  left    : 0
-  z-index : 1030
+  position    : fixed
+  right       : 0
+  left        : 0
+  top         : 0
+  border-width: 0 0 1px
+  z-index     : 1030
+
+@media (min-width: 768px)
+  .navbar-fixed-top,
+  .navbar-fixed-bottom
+    border-radius: 0
+
+.navbar-toggle
+  background-color: transparent
+  background-image: none
+  position        : relative
+  float           : right
+  padding         : 9px 10px
+  margin-top      : 8px
+  margin-right    : 15px
+  margin-bottom   : 8px
+  border          : 1px solid transparent
+  border-radius   : 2px
+
+  &:focus 
+    outline: none
+
+  & .icon-bar
+    border-radius: 1px
+    width        : 22px
+    height       : 2px
+    display      : block
+
+@media (min-width: 768px)
+  .navbar-toggle
+    display: none
 
 .pull-right
   float: right !important
@@ -315,11 +376,28 @@ label
   margin-right: -15px
   margin-left : -15px
 
+.sr-only
+  position: absolute 
+  width   : 1px
+  height  : 1px
+  padding : 0
+  margin  : -1px
+  overflow: hidden
+  clip    : rect(0,0,0,0)
+  border  : 0
+
 .text-center
   text-align: center
 
 ul.top-nav
   list-style: none
+
+/* Media Queries
+/*****************************************************************************************/
+
+@media print
+  .navbar
+    display: none
 
 /* Canto View-Specific Styles
 /*****************************************************************************************/
