@@ -165,6 +165,23 @@ label
     padding-right: 0
     padding-left : 0
 
+  &-default 
+    background-color: #fff
+    color           : #333
+    border-color    : #ccc
+
+    &:active,
+    &.active
+      background-image: none
+
+    &:hover,
+    &:focus,
+    &:active,
+    &.active
+      background-color: #ebebeb
+      color           : #333
+      border-color    : #adadad
+
 .col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12, 
 .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12, 
 .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12, 
@@ -307,12 +324,6 @@ label
     margin-bottom: 0
     display      : table-cell
 
-  &-btn
-    display: table-cell
-    width         : 1%
-    white-space   : nowrap
-    vertical-align: middle
-
     &:first-child
       border-bottom-right-radius: 0
       border-top-right-radius   : 0
@@ -320,6 +331,33 @@ label
     &:last-child
       border-bottom-left-radius: 0
       border-top-left-radius   : 0
+
+  &-btn
+    display       : table-cell
+    width         : 1%
+    white-space   : nowrap
+    vertical-align: middle
+    position      : relative
+    font-size     : 0
+    white-space   : nowrap
+
+    & > .btn
+      position: relative 
+
+      &:focus,
+      &:hover,
+      &:active
+        z-index: 2
+
+    &:first-child > .btn
+      border-bottom-right-radius: 0
+      border-top-right-radius   : 0
+      margin-right              : -1px
+
+    &:last-child > .btn 
+      border-bottom-left-radius: 0
+      border-top-left-radius   : 0 
+      margin-left              : -1px
 
   & .form-control:not(:first-child):not(:last-child),
   &-btn:not(:first-child):not(:last-child)
