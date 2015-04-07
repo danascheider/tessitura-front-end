@@ -296,6 +296,35 @@ label
   &::-webkit-input-placeholder
     color: #999
 
+.input-group
+  position       : relative
+  display        : table 
+  border-collapse: separate
+
+  & .form-control
+    float        : left
+    width        : 100%
+    margin-bottom: 0
+    display      : table-cell
+
+  &-btn
+    display: table-cell
+    width         : 1%
+    white-space   : nowrap
+    vertical-align: middle
+
+    &:first-child
+      border-bottom-right-radius: 0
+      border-top-right-radius   : 0
+
+    &:last-child
+      border-bottom-left-radius: 0
+      border-top-left-radius   : 0
+
+  & .form-control:not(:first-child):not(:last-child),
+  &-btn:not(:first-child):not(:last-child)
+    border-radius: 0
+
 .list-inline
   padding-left: 0
   list-style: none
