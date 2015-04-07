@@ -79,7 +79,10 @@ describe('App Presenter', function() {
   describe('events', function() {
     describe('redirect:dashboard', function() {
       it('calls emitRedirect #travis', function() {
-        pending('fuller implementation of the app as a whole');
+        spyOn(AppPresenter.prototype, 'emitRedirect');
+        var newPresenter = new AppPresenter();
+        newPresenter.homepageView.trigger('redirect', {destination: 'dashboard'});
+        expect(AppPresenter.prototype.emitRedirect).toHaveBeenCalledWith({destination: 'dashboard'});
       });
     });
   });

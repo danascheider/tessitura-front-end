@@ -31,7 +31,7 @@ var AppPresenter = Canto.Model.extend({
   /* Event Callbacks
   /***************************************************************************************/
 
-  redirect   : function(opts) {
+  emitRedirect   : function(opts) {
     this.trigger('redirect', opts);
   },
 
@@ -55,7 +55,7 @@ var AppPresenter = Canto.Model.extend({
   initialize : function() {
     this.homepageView = new HomepageView();
 
-    this.listenTo(this.homepageView, 'redirect', this.redirect);
+    this.listenTo(this.homepageView, 'redirect', this.emitRedirect);
   }
 });
 
