@@ -88,7 +88,6 @@ var DashboardView = Canto.View.extend({
   },
 
   showHomeView       : function() {
-    console.log('Calling showHomeView');
     if(this.taskView.$el.is(':visible')) { this.taskView.remove(); }
     this.homeView.render();
 
@@ -126,11 +125,13 @@ var DashboardView = Canto.View.extend({
   render             : function() {
     var that = this;
 
+    console.log('Rendering the dashboard view');
+
     // FIX: This is for some reason being called 2 times *after* the Dashboard Presenter
     //      calls showHomeView when the page loads. Need to figure out why this is so 
     //      we can save some time. It doesn't appear to be a result of event callbacks
     //      (e.g. on user sync).
-     
+
     return Canto.View.prototype.render.call(this, this.template({user: this.user}), function() {
       that.sidebarView.render();
       that.$('div.sidebar-collapse').html(that.sidebarView.$el);

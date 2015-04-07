@@ -38,12 +38,20 @@ var DashboardPresenter = Canto.Model.extend({
     this.dashboardView.remove();
   },
 
-  setUser    : function(user) {
-    this.user = user;
-    this.user.tasks = new Canto.TaskCollection();
-    this.user.protectedFetch();
-    this.user.tasks.fetch();
-    this.dashboardView.setUser(user);
+  setUser    : function(user, callback) {
+    var that = this;
+
+    if(this.user !== user) {
+      this.user = user;
+      this.user.tasks = new Canto.TaskCollection();
+      this.user.protectedFetch({
+        success: function(model) {
+          that.dashboardView.setUser(model);
+          that.user.tasks.fetch();
+          callback();
+        }
+      });
+    }
   },
 
   showDash   : function() {
@@ -62,6 +70,7 @@ var DashboardPresenter = Canto.Model.extend({
     
     if(!!opts.user) { this.setUser(opts.user) }
 
+    _.bindAll(this, 'showDash', 'getHome', 'getTask', 'setUser', 'redirect', 'removeAll');
     this.listenTo(this.dashboardView, 'redirect', this.redirect);
   }
 });

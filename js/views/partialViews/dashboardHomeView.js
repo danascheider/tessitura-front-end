@@ -108,6 +108,7 @@ var DashboardHomeView = Canto.View.extend({
 
   render              : function() {
     var that = this;
+    console.log('Rendering the dashboard home view');
 
     return Canto.View.prototype.render.call(this, this.template(), function() {
       that.renderTaskPanelView();
