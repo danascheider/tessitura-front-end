@@ -1,5 +1,3 @@
-Canto      = Canto || require('../../dependencies.js');
-
 var DashboardSidebarView = Canto.View.extend({
   tagName              : 'ul',
   className            : 'nav',

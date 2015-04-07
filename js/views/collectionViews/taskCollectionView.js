@@ -1,8 +1,3 @@
-Canto      = Canto || require('../../dependencies.js');
-
-var QuickAddForm = require('../modelViews/taskViews/quickAddFormView.js');
-var ListItemView = require('../modelViews/taskViews/taskListItemView.js');
-
 var TaskCollectionView = Canto.View.extend({
   tagName              : 'ul',
   className            : 'task-list',
@@ -68,7 +63,7 @@ var TaskCollectionView = Canto.View.extend({
     var that = this;
 
     this.collection.each(function(task) {
-      var view = that.retrieveViewForModel(task) || new ListItemView({model: task});
+      var view = that.retrieveViewForModel(task) || new Canto.TaskListItemView({model: task});
 
       if (that.childViews.indexOf(view) <= -1) {
         that.childViews.push(view);
@@ -98,7 +93,7 @@ var TaskCollectionView = Canto.View.extend({
 
     this.grouping     = opts.grouping;
     this.childViews   = [];
-    this.quickAddForm = new QuickAddForm({collection: this.collection, grouping: this.grouping});
+    this.quickAddForm = new Canto.QuickAddFormView({collection: this.collection, grouping: this.grouping});
 
     this.listenTo(this.collection, 'add fetch', this.render);
     this.listenTo(this.collection, 'remove', this.removeChildAndRender);

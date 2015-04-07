@@ -31,18 +31,6 @@
  *                                                                         *
 /***************************************************************************/
 
-/* Core Requires
-/****************************************************************************/
-
-Canto      = Canto || require('../../dependencies.js');
-
-/* Module-Specific Requires
-/****************************************************************************/
-
-var SidebarView = require('../partialViews/dashboardSidebarView.js'),
-    HomeView    = require('../partialViews/dashboardHomeView.js'),
-    TaskView    = require('../partialViews/dashboardTaskView.js');
-
 /****************************************************************************
  * BEGIN MODULE                                                             *
 /****************************************************************************/
@@ -121,16 +109,16 @@ var DashboardView = Canto.View.extend({
   initialize         : function(opts) {
     opts = opts || {};
 
-    this.sidebarView = new SidebarView();
-    this.homeView    = new HomeView();
-    this.taskView    = new TaskView();
+    this.sidebarView = new Canto.DashboardSidebarView();
+    this.homeView    = new Canto.DashboardHomeView();
+    this.taskView    = new Canto.DashboardTaskView();
 
     if(opts.user) { this.setUser(opts.user); }
   },
 
   remove             : function() {
     this.sidebarView.remove();
-    Backbone.View.prototype.remove.call(this);
+    Canto.View.prototype.remove.call(this);
     this.homeView.remove();
     this.taskView.remove();
   },

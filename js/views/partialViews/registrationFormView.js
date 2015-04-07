@@ -1,5 +1,3 @@
-Canto      = Canto || require('../../dependencies.js');
-
 var RegistrationFormView = Canto.View.extend({
 
   /* Backbone View Properties

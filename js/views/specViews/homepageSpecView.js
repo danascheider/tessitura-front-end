@@ -1,8 +1,3 @@
-Canto      = Canto || require('../../dependencies.js');
-Canto.View = Canto.View || require('../appViews/cantoView.js');
-
-var HomepageView = require('../appViews/homepageView.js');
-
 var SpecWrapper = Canto.View.extend({
   el         : 'body',
   template   : JST['spec/homepage'],
@@ -40,7 +35,7 @@ var SpecWrapper = Canto.View.extend({
   /***************************************************************************/
 
   initialize : function() {
-    this.view = new HomepageView();
+    this.view = new Canto.HomepageView();
     this.render();
   },
 

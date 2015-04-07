@@ -20,17 +20,6 @@
  *                                                                         *
 /****************************************************************************/
 
-/* Core Requires
-/****************************************************************************/
-
-Canto      = Canto || require('../../dependencies.js');
-
-/* Module-Specific Requires
-/****************************************************************************/
-
-var LoginFormView        = require('../partialViews/loginFormView.js'),
-    RegistrationFormView = require('../partialViews/registrationFormView.js');
-
 /****************************************************************************
  * BEGIN MODULE                                                             *
 /****************************************************************************/
@@ -86,8 +75,8 @@ var HomepageView = Canto.View.extend({
   /**************************************************************************/
 
   initialize  : function() {
-    this.loginForm        = new LoginFormView();
-    this.registrationForm = new RegistrationFormView();
+    this.loginForm        = new Canto.LoginFormView();
+    this.registrationForm = new Canto.RegistrationFormView();
 
     var that = this;
 

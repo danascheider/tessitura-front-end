@@ -1,10 +1,5 @@
-Canto = Canto || require('../../dependencies.js');
-
-var Dashboard = require('../appViews/dashboardView.js'),
-    User      = require('../../models/userModel.js');
-
-var user1 = new User({id: 1, username: 'user1', password: 'user1', email: 'user1@example.com', first_name: 'User', last_name: 'One'});
-var user2 = new User({id: 2, username: 'user2', password: 'user2', email: 'user2@example.com', first_name: 'User', last_name: 'Two'});
+var user1 = new Canto.UserModel({id: 1, username: 'user1', password: 'user1', email: 'user1@example.com', first_name: 'User', last_name: 'One'});
+var user2 = new Canto.UserModel({id: 2, username: 'user2', password: 'user2', email: 'user2@example.com', first_name: 'User', last_name: 'Two'});
 
 var SpecWrapper = Backbone.View.extend({
   el        : 'body',
@@ -44,7 +39,7 @@ var SpecWrapper = Backbone.View.extend({
   // ------------------- //
 
   initialize: function() {
-    this.view = new Dashboard({user: user1});
+    this.view = new Canto.Dashboard({user: user1});
   },
 
   render    : function() {

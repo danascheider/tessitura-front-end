@@ -78,16 +78,6 @@
  *                                                                         *
 /***************************************************************************/
 
-/* Core Requires
-/***************************************************************************/
-
-Canto      = Canto      || require('../../dependencies.js');
-
-/* Module-Specific Requires
-/***************************************************************************/
-
-var KanbanColumnView = require('./kanbanColumnView.js');
-
 /****************************************************************************
  * BEGIN MODULE                                                             *
 /****************************************************************************/
@@ -142,7 +132,7 @@ var DashboardTaskView = Canto.View.extend({
       success: function(collection) {
         collection = new Canto.TaskCollection(collection);
 
-        that.backlogColumnView = new KanbanColumnView({
+        that.backlogColumnView = new Canto.KanbanColumnView({
           el         : that.$('#backlog-tasks'),
           collection : new Canto.TaskCollection(collection.where({backlog: true})),
           color      : 'red',
@@ -152,7 +142,7 @@ var DashboardTaskView = Canto.View.extend({
 
         collection.remove(that.backlogColumnView.collection.models);
 
-        that.newColumnView = new KanbanColumnView({
+        that.newColumnView = new Canto.KanbanColumnView({
           el         : that.$('#new-tasks'),
           collection : new Canto.TaskCollection(collection.where({status: 'New'})),
           color      : 'blue',
@@ -160,7 +150,7 @@ var DashboardTaskView = Canto.View.extend({
           headline   : 'New'
         });
 
-        that.inProgressColumnView = new KanbanColumnView({
+        that.inProgressColumnView = new Canto.KanbanColumnView({
           el         : that.$('#in-progress-tasks'),
           collection : new Canto.TaskCollection(collection.where({status: 'In Progress'})),
           color      : 'green',
@@ -168,7 +158,7 @@ var DashboardTaskView = Canto.View.extend({
           headline   : 'In Progress'
         });
 
-        that.blockingColumnView = new KanbanColumnView({
+        that.blockingColumnView = new Canto.KanbanColumnView({
           el         : that.$('#blocking-tasks'),
           collection : new Canto.TaskCollection(collection.where({status: 'Blocking'})),
           color      : 'yellow',

@@ -1,5 +1,3 @@
-Canto = Canto || require('../dependencies.js');
-
 var TaskModel = Canto.ProtectedResourceModel.extend({
   urlRoot : function() {
     return Canto.API.tasks.collection($.cookie('userID'));

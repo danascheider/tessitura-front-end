@@ -1,15 +1,3 @@
-Canto = Canto || require('../dependencies.js');
-Canto.Router = Canto.Router || require('./cantoRouter.js');
-
-var HomepageView         = require('../views/specViews/homepageSpecView.js'),
-    ListItemView         = require('../views/specViews/taskListItemSpecView.js'),
-    DashboardHomeView    = require('../views/specViews/dashboardHomeSpecView.js'),
-    DashboardView        = require('../views/specViews/dashboardSpecView.js'),
-    DashboardSidebarView = require('../views/specViews/dashboardSidebarSpecView.js'),
-    TaskCollectionView   = require('../views/specViews/taskCollectionSpecView.js'),
-    TaskPanelView        = require('../views/specViews/taskPanelSpecView.js'),
-    TopWidgetView        = require('../views/specViews/dashboardTopWidgetSpecView.js');
-
 var TestRouter = Canto.Router.extend({
   routes : {
     'listItemViewSpec(/)'           : 'displayListItemView',
@@ -23,40 +11,40 @@ var TestRouter = Canto.Router.extend({
   },
 
   displayListItemView         : function() {
-    view = new ListItemView();
+    view = new Canto.TaskListItemView();
     view.render();
   },
 
   displayDashboardHomeView    : function() {
-    view = new DashboardHomeView();
+    view = new Canto.DashboardHomeView();
   },
 
   displayDashboardSidebarView : function() {
-    view = new DashboardSidebarView();
+    view = new Canto.DashboardSidebarView();
     view.render();
   },
 
   displayDashboardTopWidgetView: function() {
-    view = new TopWidgetView();
+    view = new Canto.DashboardTopWidgetView();
   },
 
   displayDashboardView        : function() {
-    view = new DashboardView();
+    view = new Canto.DashboardView();
     view.render();
   },
 
   displayHomepageView         : function() {
-    view = new HomepageView();
+    view = new Canto.HomepageView();
     view.render();
   },
 
   displayTaskCollectionView   : function() {
-    view = new TaskCollectionView();
+    view = new Canto.TaskCollectionView();
     view.render();
   },
 
   displayTaskPanelView        : function() {
-    view = new TaskPanelView();
+    view = new Canto.TaskPanelView();
     view.render();
   }
 });

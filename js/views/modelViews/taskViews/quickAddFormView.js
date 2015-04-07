@@ -1,5 +1,3 @@
-Canto      = Canto || require('../../../dependencies.js');
-
 var QuickAddFormView = Canto.View.extend({
   tagName    : 'form',
   className  : 'task-form create-form quick-add-form',

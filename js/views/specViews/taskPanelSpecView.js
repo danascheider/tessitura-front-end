@@ -1,10 +1,4 @@
-Canto = Canto || require('../../dependencies.js');
-
 var Fixtures = require('../../../spec/support/fixtures/fixtures.js');
-
-var TaskModel      = require('../../models/taskModel.js'),
-    Collection     = require('../../collections/taskCollection.js');
-    TaskPanel      = require('../partialViews/taskPanelView.js');
 
 var SpecWrapper = Backbone.View.extend({
   el         : 'body',
@@ -45,7 +39,7 @@ var SpecWrapper = Backbone.View.extend({
   },
 
   initialize : function() {
-    this.view = new TaskPanel({collection: Fixtures.collection});
+    this.view = new Canto.TaskPanelView({collection: Fixtures.collection});
     this.render();
   },
 

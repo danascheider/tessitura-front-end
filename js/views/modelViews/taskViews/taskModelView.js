@@ -1,5 +1,3 @@
-Canto      = Canto || require('../../../dependencies.js');
-
 var TaskModelView = Canto.View.extend({
   tagName      : 'div',
   className    : 'task-model',

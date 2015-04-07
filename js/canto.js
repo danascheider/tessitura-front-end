@@ -16,24 +16,24 @@ Canto.DashboardView       = require('./views/appViews/dashboardView.js');
 Canto.HomepageView        = require('./views/appViews/homepageView.js');
 
 // Require model and collection views
-require('./views/modelViews/taskViews/taskListItemView.js');
-require('./views/modelViews/taskViews/taskModelView.js');
-require('./views/modelViews/taskViews/quickAddFormView.js');
-require('./views/collectionViews/taskCollectionView.js');
+Canto.TaskModelView       = require('./views/modelViews/taskViews/taskModelView.js');
+Canto.QuickAddFormView    = require('./views/modelViews/taskViews/quickAddFormView.js');
+Canto.TaskListItemView    = require('./views/modelViews/taskViews/taskListItemView.js');
+Canto.TaskCollectionView  = require('./views/collectionViews/taskCollectionView.js');
 
 // Require partial views
-require('./views/partialViews/dashboardHomeView.js');
-require('./views/partialViews/dashboardSidebarView.js');
-require('./views/partialViews/dashboardTopWidgetView.js');
-require('./views/partialViews/dashboardTaskView.js');
-require('./views/partialViews/kanbanColumnView.js');
-require('./views/partialViews/loginFormView.js');
-require('./views/partialViews/registrationFormView.js');
-require('./views/partialViews/taskPanelView.js');
+Canto.DashboardHomeView      = require('./views/partialViews/dashboardHomeView.js');
+Canto.DashboardSidebarView   = require('./views/partialViews/dashboardSidebarView.js');
+Canto.DashboardTopWidgetView = require('./views/partialViews/dashboardTopWidgetView.js');
+Canto.DashboardTaskView      = require('./views/partialViews/dashboardTaskView.js');
+Canto.KanbanColumnView       = require('./views/partialViews/kanbanColumnView.js');
+Canto.LoginFormView          = require('./views/partialViews/loginFormView.js');
+Canto.RegistrationFormView   = require('./views/partialViews/registrationFormView.js');
+Canto.TaskPanelView          = require('./views/partialViews/taskPanelView.js');
 
 // Require presenters
-require('./presenters/appPresenter.js');
-require('./presenters/dashboardPresenter.js');
+Canto.AppPresenter         = require('./presenters/appPresenter.js');
+Canto.DashboardPresenter   = require('./presenters/dashboardPresenter.js');
 
 // Require router
 Canto.Router     = Canto.Router || require('./routers/cantoRouter.js'); // require('../spec/support/testRouter.js');

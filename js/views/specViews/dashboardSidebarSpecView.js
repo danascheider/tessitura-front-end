@@ -1,7 +1,3 @@
-Canto = Canto || require('../../dependencies.js');
-
-var Sidebar = require('../partialViews/dashboardSidebarView.js');
-
 var SpecWrapper = Backbone.View.extend({
   el        : 'body',
   template  : JST['spec/sidebar'],
@@ -49,7 +45,7 @@ var SpecWrapper = Backbone.View.extend({
   // ------------------- //
 
   initialize: function() {
-    this.view = new Sidebar();
+    this.view = new Canto.DashboardSidebarView();
   },
 
   render    : function() {

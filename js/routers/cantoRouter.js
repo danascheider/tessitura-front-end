@@ -1,15 +1,7 @@
-/* Core Requires
-/******************************************************************************/
-
-Canto = Canto || require('../dependencies.js');
-
 /* Module-Specific Requires
 /******************************************************************************/
 
 require('../../vendor/backbone-route-filter.js');
-
-var AppPresenter       = require('../presenters/appPresenter.js'),
-    DashboardPresenter = require('../presenters/dashboardPresenter.js');
 
 /******************************************************************************
  * CANTO ROUTER SPEC                                                          *
@@ -36,8 +28,8 @@ Canto.Router = Backbone.Router.extend({
   /****************************************************************************/
 
   initialize : function() {
-    this.AppPresenter = new AppPresenter();
-    this.DashboardPresenter = new DashboardPresenter();
+    this.AppPresenter = new Canto.AppPresenter();
+    this.DashboardPresenter = new Canto.DashboardPresenter();
 
     this.listenTo(this.AppPresenter, 'redirect', this.navigateTo);
     this.listenTo(this.DashboardPresenter, 'redirect', this.navigateTo);

@@ -26,16 +26,6 @@
  *                                                                         *
 /***************************************************************************/
 
-/* Core Requires
-/****************************************************************************/
-
-Canto      = Canto || require('../../dependencies.js');
-
-/* Module-Specific Requires
-/****************************************************************************/
-
-var CollectionView = require('../collectionViews/taskCollectionView.js');
-
 /****************************************************************************
  * BEGIN MODULE                                                             *
 /****************************************************************************/
@@ -91,7 +81,7 @@ var KanbanColumnView = Canto.View.extend({
 
   setCollection : function(collection) {
     this.collection = collection;
-    this.collectionView = new CollectionView({collection: this.collection});
+    this.collectionView = new Canto.TaskCollectionView({collection: this.collection});
 
     this.listenTo(this.collection, 'add', this.updateTask);
     this.listenTo(this.collection, 'change:backlog', this.removeTask);

@@ -1,16 +1,9 @@
-Canto = Canto || require('../../dependencies');
-
-var TaskModel      = require('../../models/taskModel.js'),
-    Collection     = require('../../collections/taskCollection.js'),
-    TaskPanel      = require('../partialViews/taskPanelView.js'),
-    CollectionView = require('../collectionViews/taskCollectionView.js');
-
 // Instantiate tasks to be displayed in view
 
-var task1      = new TaskModel({id: 1, title: 'Task 1', status: 'New', priority: 'Normal', position: 1}),
-    task2      = new TaskModel({id: 2, title: 'Task 2', status: 'New', priority: 'Normal', position: 2}),
-    task3      = new TaskModel({id: 3, title: 'Task 3', status: 'Complete', priority: 'Normal', position: 3}),
-    collection = new Collection([task1, task2, task3]);
+var task1      = new Canto.TaskModel({id: 1, title: 'Task 1', status: 'New', priority: 'Normal', position: 1}),
+    task2      = new Canto.TaskModel({id: 2, title: 'Task 2', status: 'New', priority: 'Normal', position: 2}),
+    task3      = new Canto.TaskModel({id: 3, title: 'Task 3', status: 'Complete', priority: 'Normal', position: 3}),
+    collection = new Canto.TaskCollection([task1, task2, task3]);
 
 var SpecWrapper = Backbone.View.extend({
   el                     : 'body',
@@ -41,7 +34,7 @@ var SpecWrapper = Backbone.View.extend({
   },
 
   initialize             : function() {
-    this.view = new CollectionView({collection: collection});
+    this.view = new Canto.TaskCollectionView({collection: collection});
     this.render();
   },
 

@@ -1,9 +1,4 @@
-Canto = Canto || require('../../dependencies.js');
-
-var View = require('../modelViews/taskViews/taskListItemView.js');
-var Task = require('../../models/taskModel.js');
-
-var task = new Task({id: 1, title: 'Make tests for the SpecWrapper views'});
+var task = new Canto.TaskModel({id: 1, title: 'Make tests for the SpecWrapper views'});
 
 var SpecWrapper = Backbone.View.extend({
   el         : 'body',
@@ -19,7 +14,7 @@ var SpecWrapper = Backbone.View.extend({
   },
 
   initialize : function() {
-    this.view = new View({model: task});
+    this.view = new Canto.TaskListItemView({model: task});
   },
 
   render     : function() {

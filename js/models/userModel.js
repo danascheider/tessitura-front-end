@@ -1,5 +1,3 @@
-Canto = Canto || require('../dependencies.js');
-
 var UserModel = Canto.Model.extend({
   urlRoot: Canto.API.users.collection,
   klass  : 'UserModel',

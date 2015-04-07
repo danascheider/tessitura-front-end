@@ -1,5 +1,3 @@
-Canto = Canto || require('../dependencies.js');
-
 var TaskCollection = Canto.ProtectedCollection.extend({
   model      : Canto.Task,
   comparator : 'position',

@@ -27,17 +27,6 @@
  *                                                                         *
 /***************************************************************************/
 
-/* Core Requires
-/****************************************************************************/
-
-Canto      = Canto || require('../../dependencies.js');
-
-/* Module-Specific Requires
-/****************************************************************************/
-
-var TopWidgetView = require('./dashboardTopWidgetView.js'),
-    TaskPanelView = require('./taskPanelView.js');
-
 /****************************************************************************
  * BEGIN MODULE                                                             *
 /****************************************************************************/
@@ -87,8 +76,8 @@ var DashboardHomeView = Canto.View.extend({
     // Create view elements
     var that = this;
 
-    this.taskPanelView = new TaskPanelView({collection: this.collection});
-    this.topWidgetView    = new TopWidgetView({
+    this.taskPanelView = new Canto.TaskPanelView({collection: this.collection});
+    this.topWidgetView    = new Canto.DashboardTopWidgetView({
       taskCollection: that.user.tasks,
       deadlineCount: 7,
       appointmentCount: 4,

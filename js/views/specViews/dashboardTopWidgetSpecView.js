@@ -1,8 +1,4 @@
-Canto      = Canto || require('../../dependencies.js');
-Canto.View = Canto.View || require('../appViews/cantoView.js');
-
 var Fixtures      = require('../../../spec/support/fixtures/fixtures.js');
-var TopWidgetView = require('../partialViews/dashboardTopWidgetView.js');
 
 var SpecWrapper = Backbone.View.extend({
   el         : 'body',
@@ -69,7 +65,7 @@ var SpecWrapper = Backbone.View.extend({
       recommendationCount : 12
     };
 
-    this.view = new TopWidgetView(data);
+    this.view = new Canto.DashboardTopWidgetView(data);
     this.render();
   },
 

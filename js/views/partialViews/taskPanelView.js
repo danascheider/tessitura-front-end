@@ -1,7 +1,3 @@
-Canto      = Canto || require('../../dependencies.js');
-
-var CollectionView = require('../collectionViews/taskCollectionView.js');
-
 var TaskPanelView = Canto.View.extend({
   id                   : 'task-panel',
   className            : 'panel panel-primary dash-widget',
@@ -85,7 +81,7 @@ var TaskPanelView = Canto.View.extend({
 
     _.extend(this, opts);
 
-    this.collectionView = new CollectionView({collection: opts.collection});
+    this.collectionView = new Canto.TaskCollectionView({collection: opts.collection});
 
     this.listenTo(this.collection, 'change:status', this.crossOffComplete);
     this.listenTo(this.collection, 'change:backlog', this.removeBacklogged);

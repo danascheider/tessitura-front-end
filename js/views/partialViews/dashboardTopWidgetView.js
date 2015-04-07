@@ -1,5 +1,3 @@
-Canto      = Canto || require('../../dependencies.js');
-
 var DashboardTopWidgetView = Canto.View.extend({
   id                  : 'dashboard-top-widgets',
   template            : JST['partials/topWidgets'],

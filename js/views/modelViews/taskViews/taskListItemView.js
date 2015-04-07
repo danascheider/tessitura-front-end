@@ -1,7 +1,3 @@
-Canto      = Canto || require('../../../dependencies.js');
-
-var ModelView = require('./taskModelView.js');
-
 var ListItemView = Canto.View.extend({
   tagName    : 'li',
   className  : 'task-list-item ui-widget-content ui-draggable',
@@ -143,7 +139,7 @@ var ListItemView = Canto.View.extend({
   // ------------------- //
 
   initialize         : function() {
-    this.modelView = new ModelView({model: this.model});
+    this.modelView = new Canto.TaskModelView({model: this.model});
   },
 
   remove             : function() {

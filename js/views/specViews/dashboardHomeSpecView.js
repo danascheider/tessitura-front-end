@@ -1,8 +1,4 @@
-Canto      = Canto || require('../../dependencies.js');
-Canto.View = Canto.View || require('../appViews/cantoView.js');
-
 var fixtures = require('../../../spec/support/fixtures/fixtures.js');
-var DashboardHomeView = require('../partialViews/dashboardHomeView.js');
 
 var SpecWrapper = Canto.View.extend({
   template: JST['spec/dashHome'],
@@ -12,7 +8,7 @@ var SpecWrapper = Canto.View.extend({
   /***************************************************************************/
 
   initialize : function() {
-    this.view = new DashboardHomeView({user: fixtures.user});
+    this.view = new Canto.DashboardHomeView({user: fixtures.user});
     this.render();
   },
 

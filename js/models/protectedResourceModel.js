@@ -1,5 +1,3 @@
-Canto.Model = Canto.Model || require('./cantoModel');
-
 var ProtectedResource = Canto.Model.extend({
   token   : function() {
     return 'Basic ' + $.cookie('auth');
