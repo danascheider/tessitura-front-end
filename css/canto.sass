@@ -191,6 +191,20 @@ label
   padding-right: 15px
   padding-left : 15px
 
+.col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12
+  float: left
+
+.col-xs-3
+  width: 25%
+
+
+@media (min-width: 992px)
+  .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12
+    float: left
+
+  .col-md-3
+    width: 50%
+
 .container 
   padding-right: 15px
   padding-left : 15px
@@ -485,6 +499,31 @@ label
 @media (min-width: 768px)
   .navbar-toggle
     display: none
+
+.panel 
+  -webkit-box-shadow: 0 2px 2px rgba(0,0,0,0.1)
+  box-shadow        : 0 2px 2px rgba(0,0,0,0.1)
+  margin-bottom     : 20px
+  background-color  : #fff
+  border            : 1px solid transparent
+  border-radius     : 2px
+
+  &-heading 
+    border-top-right-radius: 2px 
+    border-top-left-radius : 2px 
+    padding                : 10px 15px
+    box-sizing             : border-box
+    -webkit-box-sizing     : border-box 
+    -moz-box-sizing        : border-box
+    border-bottom          : 1px solid transparent
+
+  &-primary
+    border: 1px solid transparent
+
+    & > .panel-heading
+      color           : #fff 
+      background-color: #46b4ae
+      margin          : -1px
 
 .progress
   height            : 20px
