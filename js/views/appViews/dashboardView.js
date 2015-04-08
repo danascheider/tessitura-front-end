@@ -125,8 +125,6 @@ var DashboardView = Canto.View.extend({
   render             : function() {
     var that = this;
 
-    console.log('Rendering the dashboard view');
-
     // FIX: This is for some reason being called 2 times *after* the Dashboard Presenter
     //      calls showHomeView when the page loads. Need to figure out why this is so 
     //      we can save some time. It doesn't appear to be a result of event callbacks
