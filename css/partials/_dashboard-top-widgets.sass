@@ -1,0 +1,52 @@
+#dashboard-top-widgets
+  float: right 
+
+  & .col-lg-3
+    & > .panel-blue > .panel-heading 
+      background-color: #516695
+      color           : #fff 
+      margin          : 0
+
+    & .dash-widget
+      cursor          : pointer
+
+    & > .panel-primary,
+    & > .panel-blue,
+    & > .panel-yellow,
+    & > .panel-red,
+    & > .panel-green
+      border: 0
+
+    & > .panel, .panel-blue > a:hover,
+    & > .panel, .panel-blue > a:focus
+      color: #516695
+
+    & > .panel-yellow > a:focus,
+    & > .panel-yellow > a:hover
+      background-color: #f0ad4e
+      color           : #fff
+
+    & > .panel-red > a:hover,
+    & > .panel-red > a:focus
+      background-color: #d9534f
+      color           : #fff
+
+  * .col-xs-3
+    float: left
+    padding-right: 0
+
+  & .col-xs-9
+    float: right
+
+  & .dash-widget
+    margin-top: 30px
+
+    & > .panel-body
+      padding: 0
+
+  & .hide-widget,
+  & .show-widget
+    cursor: pointer
+
+  & .huge
+    font-size: 2.5em
