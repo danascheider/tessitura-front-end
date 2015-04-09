@@ -25,15 +25,13 @@
 /****************************************************************************/
 
 require(process.cwd() + '/spec/support/jsdom.js');
-require(process.cwd() + '/js/dependencies.js');
 require(process.cwd() + '/spec/support/env.js');
+require(process.cwd() + '/js/canto.js');
 
 var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
-    Model          = Backbone.Model.extend({}),
+    Model          = Canto.Model.extend({}),
     context        = describe,
     fcontext       = fdescribe;
-
-var SUT = require(process.cwd() + '/js/collections/protectedCollection.js');
 
 /******************************************************************************
  *                                                                            *
@@ -48,7 +46,7 @@ describe('Protected Collection #travis', function() {
   /***************************************************************************/
 
   beforeEach(function() {
-    collection = new SUT({model: Model});
+    collection     = new Canto.ProtectedCollection({model: Model});
     collection.url = Canto.API.base + '/models';
     xhr = new XMLHttpRequest();
     spyOn($, 'cookie').and.returnValue(btoa('testuser:testuser'));
