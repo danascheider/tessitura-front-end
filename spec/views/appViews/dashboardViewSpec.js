@@ -95,17 +95,11 @@
 /***************************************************************************/
 
 require(process.cwd() + '/spec/support/jsdom.js');
-require(process.cwd() + '/js/dependencies.js');
+require(process.cwd() + '/js/canto.js');
 require(process.cwd() + '/spec/support/env.js');
-
-var SUT = require(process.cwd() + '/js/views/appViews/dashboardView.js');
 
 var matchers       = require('jasmine-jquery-matchers'),
     fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
-    XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
-    UserModel      = require(process.cwd() + '/js/models/userModel.js'),
-    TaskModel      = require(process.cwd() + '/js/models/taskModel.js'),
-    TaskCollection = require(process.cwd() + '/js/collections/taskCollection.js'),
     context        = describe,
     fcontext       = fdescribe;
 
@@ -125,11 +119,11 @@ describe('Main Dashboard View #travis', function() {
   });
 
   beforeEach(function() {
-    dashboard = new SUT({user: user});
+    dashboard = new Canto.DashboardView({user: user});
   });
 
   afterEach(function() {
-    fixtures.restoreFixtures();
+    restoreFixtures();
   });
 
   afterAll(function() {
@@ -143,10 +137,10 @@ describe('Main Dashboard View #travis', function() {
 
   describe('constructor', function() {
     it('calls setUser', function() {
-      spyOn(SUT.prototype, 'setUser');
-      var newView = new SUT({user: user});
-      expect(SUT.prototype.setUser).toHaveBeenCalled();
-      expect(SUT.prototype.setUser.calls.argsFor(0)[0]).toEqual(user);
+      spyOn(Canto.DashboardView.prototype, 'setUser');
+      var newView = new Canto.DashboardView({user: user});
+      expect(Canto.DashboardView.prototype.setUser).toHaveBeenCalled();
+      expect(Canto.DashboardView.prototype.setUser.calls.argsFor(0)[0]).toEqual(user);
     });
 
     it('instantiates a sidebar', function() {
@@ -162,13 +156,13 @@ describe('Main Dashboard View #travis', function() {
     });
 
     it('doesn\'t call render', function() {
-      spyOn(SUT.prototype, 'render');
-      var newView = new SUT({user: user});
-      expect(SUT.prototype.render).not.toHaveBeenCalled();
+      spyOn(Canto.DashboardView.prototype, 'render');
+      var newView = new Canto.DashboardView({user: user});
+      expect(Canto.DashboardView.prototype.render).not.toHaveBeenCalled();
     });
 
     it('can be instantiated without a user', function() {
-      var newView = new SUT();
+      var newView = new Canto.DashboardView();
       expect(newView.user).not.toExist();
     });
   });
@@ -225,32 +219,41 @@ describe('Main Dashboard View #travis', function() {
     var newDashboard;
 
     beforeEach(function() {
-      spyOn(SUT.prototype, 'hideDropdownMenus');
-      spyOn(SUT.prototype, 'toggleDropdownMenu');
-      newDashboard = new SUT({user: user});
+      spyOn(Canto.DashboardView.prototype, 'hideDropdownMenus');
+      spyOn(Canto.DashboardView.prototype, 'toggleDropdownMenu');
+      newDashboard = new Canto.DashboardView({user: user});
       newDashboard.render();
     });
 
     describe('click $el', function() {
       it('calls hideDropdownMenus', function() {
         newDashboard.$el.click();
-        expect(SUT.prototype.hideDropdownMenus).toHaveBeenCalled();
+        expect(Canto.DashboardView.prototype.hideDropdownMenus).toHaveBeenCalled();
       });
     });
 
     describe('click li.dropdown', function() {
-      it('calls toggleDropdownMenu', function() {
+      it('calls toggleDropdownMenu()', function() {
         newDashboard.$('li.dropdown').first().click();
-        expect(SUT.prototype.toggleDropdownMenu).toHaveBeenCalled();
+        expect(Canto.DashboardView.prototype.toggleDropdownMenu).toHaveBeenCalled();
       });
     });
 
-    describe('sync user', function() {
+    describe('change user\'s first name', function() {
       it('calls render()', function() {
-        spyOn(SUT.prototype, 'render');
-        var newDashboard = new SUT({user: user});
-        user.trigger('sync');
-        expect(SUT.prototype.render).toHaveBeenCalled();
+        spyOn(Canto.DashboardView.prototype, 'render');
+        var newDashboard = new Canto.DashboardView({user: user});
+        user.trigger('change:first_name');
+        expect(Canto.DashboardView.prototype.render).toHaveBeenCalled();
+      });
+    });
+
+    describe('change user\'s last name', function() {
+      it('calls render()', function() {
+        spyOn(Canto.DashboardView.prototype, 'render');
+        var newDashboard = new Canto.DashboardView({user: user});
+        user.trigger('change:last_name');
+        expect(Canto.DashboardView.prototype.render).toHaveBeenCalled();
       });
     });
   });
@@ -456,20 +459,20 @@ describe('Main Dashboard View #travis', function() {
 
     describe('setUser()', function() {
       it('sets this.user', function() {
-        var newView = new SUT(); // we already know this won't set the user
+        var newView = new Canto.DashboardView(); // we already know this won't set the user
         newView.setUser(user);
         expect(newView.user).toBe(user);
       });
 
       it('calls setUser on the home view', function() {
-        var newView = new SUT();
+        var newView = new Canto.DashboardView();
         spyOn(newView.homeView, 'setUser');
         newView.setUser(user);
         expect(newView.homeView.setUser).toHaveBeenCalledWith(user);
       });
 
       it('calls setUser on the task view', function() {
-        var newView = new SUT();
+        var newView = new Canto.DashboardView();
         spyOn(newView.taskView, 'setUser');
         newView.setUser(user);
         expect(newView.taskView.setUser).toHaveBeenCalled();

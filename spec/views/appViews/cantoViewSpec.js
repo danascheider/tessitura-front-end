@@ -5,7 +5,7 @@ require(process.cwd() + '/spec/support/env.js');
 var context        = describe,
     fcontext       = fdescribe;
 
-fdescribe('Canto.View #travis', function() {
+describe('Canto.View #travis', function() {
   var view;
 
   beforeEach(function() {
