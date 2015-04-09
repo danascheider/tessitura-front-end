@@ -1,20 +1,14 @@
 /* Core Requires
 /*****************************************************************************************/
 
-require(process.cwd() + '/js/dependencies.js');
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/spec/support/env.js');
-
-/* Module-Specific Requires
-/*****************************************************************************************/
-
-var AppPresenter = require(process.cwd() + '/js/presenters/appPresenter.js');
+require(process.cwd() + '/js/canto.js');
 
 /* Configuration
 /*****************************************************************************************/
 
 var matchers       = require('jasmine-jquery-matchers'),
-    fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     context        = describe,
     fcontext       = fdescribe;
 
@@ -30,20 +24,14 @@ describe('App Presenter #travis', function() {
 
   beforeAll(function() {
     jasmine.addMatchers(matchers);
-    _.extend(global, fixtures);
   });
 
   beforeEach(function() { 
-    presenter = new AppPresenter(); 
-  });
-
-  afterEach(function() {
-    restoreFixtures();
+    presenter = new Canto.AppPresenter(); 
   });
 
   afterAll(function() { 
     presenter.destroy();
-    _.omit(global, fixtures);
     presenter = null; 
   });
 
@@ -79,10 +67,10 @@ describe('App Presenter #travis', function() {
   describe('events', function() {
     describe('redirect:dashboard', function() {
       it('calls emitRedirect', function() {
-        spyOn(AppPresenter.prototype, 'emitRedirect');
-        var newPresenter = new AppPresenter();
+        spyOn(Canto.AppPresenter.prototype, 'emitRedirect');
+        var newPresenter = new Canto.AppPresenter();
         newPresenter.homepageView.trigger('redirect', {destination: 'dashboard'});
-        expect(AppPresenter.prototype.emitRedirect).toHaveBeenCalledWith({destination: 'dashboard'});
+        expect(Canto.AppPresenter.prototype.emitRedirect).toHaveBeenCalledWith({destination: 'dashboard'});
       });
     });
   });
@@ -91,7 +79,7 @@ describe('App Presenter #travis', function() {
   /***************************************************************************************/
 
   describe('event callbacks', function() {
-    describe('redirect()', function() {
+    describe('emitRedirect()', function() {
       beforeEach(function() {
         spy = jasmine.createSpy();
         presenter.on('redirect', spy);
@@ -100,7 +88,7 @@ describe('App Presenter #travis', function() {
       afterEach(function() { presenter.off('redirect'); });
 
       it('triggers the redirect event on itself', function() {
-        presenter.redirect({destination: 'dashboard'});
+        presenter.emitRedirect({destination: 'dashboard'});
         expect(spy).toHaveBeenCalledWith({destination: 'dashboard'});
       });
     });

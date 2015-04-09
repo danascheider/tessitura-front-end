@@ -1,15 +1,9 @@
 /* Core Requires
 /*****************************************************************************************/
 
-require(process.cwd() + '/js/dependencies.js');
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/spec/support/env.js');
-
-/* Module-Specific Requires
-/*****************************************************************************************/
-
-var DashboardPresenter = require(process.cwd() + '/js/presenters/dashboardPresenter.js'),
-    TaskCollection     = require(process.cwd() + '/js/collections/taskCollection.js');
+require(process.cwd() + '/js/canto.js');
 
 /* Configuration
 /*****************************************************************************************/
@@ -35,7 +29,7 @@ describe('Dashboard Presenter #travis', function() {
   });
 
   beforeEach(function() {
-    presenter = new DashboardPresenter({user: user});
+    presenter = new Canto.DashboardPresenter({user: user});
   });
 
   afterEach(function() {
@@ -76,7 +70,7 @@ describe('Dashboard Presenter #travis', function() {
     });
 
     it('can be instantiated without a user', function() {
-      var newPresenter = new DashboardPresenter();
+      var newPresenter = new Canto.DashboardPresenter();
       expect(newPresenter.user).not.toExist();
     });
 
@@ -85,9 +79,9 @@ describe('Dashboard Presenter #travis', function() {
     });
 
     it('calls setUser', function() {
-      spyOn(DashboardPresenter.prototype, 'setUser');
-      var newPresenter = new DashboardPresenter({user: user});
-      expect(DashboardPresenter.prototype.setUser).toHaveBeenCalledWith(user);
+      spyOn(Canto.DashboardPresenter.prototype, 'setUser');
+      var newPresenter = new Canto.DashboardPresenter({user: user});
+      expect(Canto.DashboardPresenter.prototype.setUser).toHaveBeenCalledWith(user);
     });
   });
 
@@ -141,7 +135,7 @@ describe('Dashboard Presenter #travis', function() {
       context('when the dashboard view is not already visible', function() {
         beforeEach(function() {
           spyOn(presenter.dashboardView.$el, 'is').and.returnValue(false);
-          spyOn(presenter.dashboardView, 'render').and.callThrough();
+          spyOn(presenter.dashboardView, 'render');
           presenter.getHome();
         });
 
@@ -175,7 +169,7 @@ describe('Dashboard Presenter #travis', function() {
       context('when the dashboard view is not already visible', function() {
         beforeEach(function() {
           spyOn(presenter.dashboardView.$el, 'is').and.returnValue(false);
-          spyOn(presenter.dashboardView, 'render').and.callThrough();
+          spyOn(presenter.dashboardView, 'render');
           presenter.getTask();
         });
 
@@ -243,7 +237,7 @@ describe('Dashboard Presenter #travis', function() {
           args.success(user.toJSON());
         });
 
-        newPresenter = new DashboardPresenter();
+        newPresenter = new Canto.DashboardPresenter();
         spyOn(newPresenter.dashboardView, 'setUser').and.callThrough();
       });
 
@@ -266,24 +260,26 @@ describe('Dashboard Presenter #travis', function() {
       });
 
       it('instantiates a task collection', function() {
-        spyOn(TaskCollection.prototype, 'initialize');
+        spyOn(Canto.TaskCollection.prototype, 'initialize');
         newPresenter.setUser(user);
-        expect(TaskCollection.prototype.initialize).toHaveBeenCalled();
+        expect(Canto.TaskCollection.prototype.initialize).toHaveBeenCalled();
       });
 
       it('fetches the task collection', function() {
-        spyOn(TaskCollection.prototype, 'fetch');
+        spyOn(Canto.TaskCollection.prototype, 'fetch');
         newPresenter.setUser(user);
-        expect(TaskCollection.prototype.fetch).toHaveBeenCalled();
+        expect(Canto.TaskCollection.prototype.fetch).toHaveBeenCalled();
       });
     });
 
     describe('showDash()', function() {
       context('when the dash view is not in the DOM', function() {
-        beforeEach(function() { spyOn(presenter.dashboardView.$el, 'is').and.returnValue(false); });
+        beforeEach(function() { 
+          spyOn(presenter.dashboardView.$el, 'is').and.returnValue(false); 
+          spyOn(presenter.dashboardView, 'render').and.returnValue(presenter.dashboardView);
+        });
 
         it('calls render on the dashboard view', function() {
-          spyOn(presenter.dashboardView, 'render');
           presenter.showDash();
           expect(presenter.dashboardView.render).toHaveBeenCalled();
         });
