@@ -1,16 +1,11 @@
-require(process.cwd() + '/js/dependencies.js');
+require(process.cwd() + '/js/canto.js');
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/spec/support/env.js');
 
-Canto.View         = require(process.cwd() + '/js/views/appViews/cantoView.js');
-
-var custom         = require(process.cwd() + '/spec/support/matchers/toBeA.js'),
-    context        = describe,
+var context        = describe,
     fcontext       = fdescribe;
 
-Backbone.$         = $;
-
-describe('Canto.View', function() {
+fdescribe('Canto.View #travis', function() {
   var view;
 
   beforeEach(function() {
