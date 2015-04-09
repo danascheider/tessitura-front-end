@@ -23,17 +23,13 @@
 /* Core Requires
 /****************************************************************************/
 
-require(process.cwd() + '/js/dependencies.js');
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/spec/support/env.js');
+require(process.cwd() + '/js/canto.js');
 
 var matchers       = _.extend(require('jasmine-jquery-matchers')),
     context        = describe,
     fcontext       = fdescribe;
-
-var User = require(process.cwd() + '/js/models/userModel.js'),
-    RegistrationFormView = require(process.cwd() + '/js/views/partialViews/registrationFormView.js');
-    SUT  = require(process.cwd() + '/js/views/appViews/homepageView.js');
 
 /****************************************************************************
  * BEGIN SUITE                                                              *
@@ -50,7 +46,7 @@ describe('Canto Homepage View #travis', function() {
   })
 
   beforeEach(function() {
-    view = new SUT();
+    view = new Canto.HomepageView();
   });
 
   afterAll(function() {
@@ -80,9 +76,9 @@ describe('Canto Homepage View #travis', function() {
 
   describe('constructor', function() {
     it('does not call render', function() {
-      spyOn(SUT.prototype, 'render');
-      var newView = new SUT();
-      expect(SUT.prototype.render).not.toHaveBeenCalled();
+      spyOn(Canto.HomepageView.prototype, 'render');
+      var newView = new Canto.HomepageView();
+      expect(Canto.HomepageView.prototype.render).not.toHaveBeenCalled();
     });
 
     it('creates a login form', function() {
@@ -117,37 +113,24 @@ describe('Canto Homepage View #travis', function() {
   describe('events', function() {
     beforeEach(function() {
       spy = jasmine.createSpy();
-      spyOn(SUT.prototype, 'hideLoginForm');
-      spyOn(SUT.prototype, 'createUser');
-      spyOn(SUT.prototype, 'toggleLoginForm');
-      newView = new SUT();
+      spyOn(Canto.HomepageView.prototype, 'hideLoginForm');
+      spyOn(Canto.HomepageView.prototype, 'toggleLoginForm');
+      newView = new Canto.HomepageView();
       newView.render();
       newView.on('redirect', spy);
-    });
-
-    afterEach(function() { 
-      newView.remove(); 
-      newView.off('redirect');
-    });
-    
-    describe('registration form creates user', function() {
-      it('emits redirect:dashboard', function() {
-        newView.registrationForm.trigger('createUser');
-        expect(spy).toHaveBeenCalledWith({destination: 'dashboard'});
-      });
     });
 
     describe('click .login-link', function() {
       it('calls toggleLoginForm', function() {
         newView.$('nav li .login-link').click();
-        expect(SUT.prototype.toggleLoginForm).toHaveBeenCalled();
+        expect(Canto.HomepageView.prototype.toggleLoginForm).toHaveBeenCalled();
       });
     });
 
     describe('dblclick #shade', function() {
       it('calls hideLoginForm', function() {
         newView.$('#shade').dblclick();
-        expect(SUT.prototype.hideLoginForm).toHaveBeenCalled();
+        expect(Canto.HomepageView.prototype.hideLoginForm).toHaveBeenCalled();
       });
     });
   });
@@ -158,7 +141,7 @@ describe('Canto Homepage View #travis', function() {
   describe('event callbacks', function() {
     describe('hideLoginForm()', function() {
       it('hides the login form', function() {
-        pending('Need to implement the login form view');
+        pending('This is a UI concern but I don\'t have time for this today');
       });
     });
 

@@ -1,50 +1,40 @@
 require(process.cwd() + '/spec/support/jsdom.js');
-require(process.cwd() + '/js/dependencies.js');
+require(process.cwd() + '/js/canto.js');
 require(process.cwd() + '/spec/support/env.js');
 
-var SUT = require(process.cwd() + '/js/views/collectionViews/taskCollectionView.js');
-
 var matchers       = require('jasmine-jquery-matchers'),
-    custom         = require(process.cwd() + '/spec/support/matchers/toBeA.js');
-    XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
-    TaskModel      = require(process.cwd() + '/js/models/taskModel.js'),
-    TaskCollection = require(process.cwd() + '/js/collections/taskCollection.js'),
-    ListItemView   = require(process.cwd() + '/js/views/modelViews/taskViews/taskListItemView.js'),
+    Fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     context        = describe,
     fcontext       = fdescribe;
 
-Backbone.$         = $;
-
-var task1, task2, task3, collection, childViews;
-
-describe('Task Collection View #travis', function() {
+fdescribe('Task Collection View #travis', function() {
   var view, newView;
+
+  beforeAll(function() {
+    jasmine.addMatchers(matchers);
+    _.extend(global, Fixtures);
+  })
   
   beforeEach(function() {
-    jasmine.addMatchers(matchers);
-    jasmine.addMatchers(custom);
-
-    task1 = new TaskModel({id: 1, title: 'Test Task 1', status: 'Blocking'}),
-    task2 = new TaskModel({id: 2, title: 'Test Task 2', status: 'Blocking'}),
-    task3 = new TaskModel({id: 3, title: 'Test Task 3', status: 'Blocking'});
-
-    collection = new TaskCollection([task1, task2, task3]);
-
-    childViews = collection.models.map(function(task) { return new ListItemView({model: task}); });
-
-    view = new SUT({collection: collection});
+    childViews = collection.models.map(function(task) { return new Canto.TaskListItemView({model: task1}); });
+    view = new Canto.TaskCollectionView({collection: collection});
   });
+
+  afterEach(function() {
+    restoreFixtures();
+  })
 
   afterAll(function() {
     view.remove();
     view = null;
+    global = _.omit(global, Fixtures)
   });
 
   describe('constructor', function() {
     it('does not call the render function', function() {
-      spyOn(SUT.prototype, 'render');
-      var newView = new SUT({collection: collection});
-      expect(SUT.prototype.render).not.toHaveBeenCalled();
+      spyOn(Canto.TaskCollectionView.prototype, 'render');
+      var newView = new Canto.TaskCollectionView({collection: collection});
+      expect(Canto.TaskCollectionView.prototype.render).not.toHaveBeenCalled();
     });
 
     it('creates an empty childViews array', function() {
@@ -92,13 +82,13 @@ describe('Task Collection View #travis', function() {
 
   describe('events', function() {
     beforeEach(function() {
-      spyOn(SUT.prototype, 'render');
-      spyOn(SUT.prototype, 'crossOff');
-      spyOn(SUT.prototype, 'removeChildAndRender');
+      spyOn(Canto.TaskCollectionView.prototype, 'render');
+      spyOn(Canto.TaskCollectionView.prototype, 'crossOff');
+      spyOn(Canto.TaskCollectionView.prototype, 'removeChildAndRender');
 
-      spyOn(SUT.prototype, 'retrieveViewForModel').and.returnValue(childViews[0]);
+      spyOn(Canto.TaskCollectionView.prototype, 'retrieveViewForModel').and.returnValue(childViews[0]);
 
-      newView = new SUT({collection: collection});
+      newView = new Canto.TaskCollectionView({collection: collection});
       newView.childViews = childViews;
     });
 
@@ -110,21 +100,21 @@ describe('Task Collection View #travis', function() {
     describe('add to collection', function() {
       it('calls render', function() {
         newView.collection.trigger('add');
-        expect(SUT.prototype.render).toHaveBeenCalled();
+        expect(Canto.TaskCollectionView.prototype.render).toHaveBeenCalled();
       });
     });
 
     describe('remove from collection', function() {
       it('calls removeChildAndRender', function() {
         newView.collection.trigger('remove');
-        expect(SUT.prototype.render).toHaveBeenCalled();
+        expect(Canto.TaskCollectionView.prototype.render).toHaveBeenCalled();
       });
     });
 
     describe('fetch collection', function() {
       it('calls render', function() {
         newView.collection.trigger('fetch');
-        expect(SUT.prototype.render).toHaveBeenCalled();
+        expect(Canto.TaskCollectionView.prototype.render).toHaveBeenCalled();
       });
     });
 
@@ -140,7 +130,7 @@ describe('Task Collection View #travis', function() {
     describe('change:status', function() {
       it('calls crossOff', function() {
         task1.set('status', 'Complete');
-        expect(SUT.prototype.crossOff).toHaveBeenCalled();
+        expect(Canto.TaskCollectionView.prototype.crossOff).toHaveBeenCalled();
       });
     });
   });
@@ -293,7 +283,7 @@ describe('Task Collection View #travis', function() {
       });
 
       it('removes itself', function() {
-        spyOn(Backbone.View.prototype.remove, 'call');
+        spyOn(Canto.View.prototype.remove, 'call');
         view.remove();
         expect(Backbone.View.prototype.remove.call).toHaveBeenCalledWith(view);
       });
