@@ -1,20 +1,16 @@
 require(process.cwd() + '/spec/support/jsdom.js');
-require(process.cwd() + '/js/dependencies.js');
+require(process.cwd() + '/js/canto.js');
 require(process.cwd() + '/spec/support/env.js');
 
-var SUT = require(process.cwd() + '/js/models/protectedResourceModel.js');
-
-var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
-Backbone.$         = $;
-
-var context        = describe,
+var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
+    context        = describe,
     fcontext       = fdescribe;
 
 describe('Protected Resource Model', function() {
   var resource, xhr;
 
   beforeEach(function() {
-    resource = new SUT({id: 1});
+    resource = new Canto.ProtectedResourceModel({id: 1});
     resource.url = Canto.API.base + '/protected-resources/1'; 
     xhr = new XMLHttpRequest();
   });

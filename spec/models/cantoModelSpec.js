@@ -1,11 +1,8 @@
-require(process.cwd() + '/js/dependencies.js');
+require(process.cwd() + '/js/canto.js');
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/spec/support/env.js');
 
-Canto.Model        = require(process.cwd() + '/js/models/cantoModel.js');
-
-var custom         = require(process.cwd() + '/spec/support/matchers/toBeA.js'),
-    context        = describe,
+var context        = describe,
     fcontext       = fdescribe;
 
 describe('Canto.Model #travis', function() {
