@@ -1,20 +1,17 @@
 require(process.cwd() + '/spec/support/jsdom.js');
-require(process.cwd() + '/js/dependencies.js');
+require(process.cwd() + '/js/canto.js');
 require(process.cwd() + '/spec/support/env.js');
 
 var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
 
-var Collection     = require(process.cwd() + '/js/collections/taskCollection.js'),
-    context        = describe,
+var context        = describe,
     fcontext       = fdescribe;
 
-var SUT = require(process.cwd() + '/js/models/userModel.js');
-
-describe('User Model', function() {
+fdescribe('User Model', function() {
   var user, xhr;
 
   beforeEach(function() {
-    user = new SUT({id: 342, username: 'testuser', password: 'testuser', email: 'testuser@example.com', first_name: 'Test', last_name: 'User'});
+    user = new Canto.UserModel({id: 342, username: 'testuser', password: 'testuser', email: 'testuser@example.com', first_name: 'Test', last_name: 'User'});
     xhr = new XMLHttpRequest();
   });
 
@@ -33,29 +30,29 @@ describe('User Model', function() {
   });
 
   describe('constructor', function() {
-    beforeEach(function() { spyOn(SUT.prototype, 'protectedFetch'); });
+    beforeEach(function() { spyOn(Canto.UserModel.prototype, 'protectedFetch'); });
 
     it('instantiates a task collection #travis', function() {
-      var newUser = new SUT();
+      var newUser = new Canto.UserModel();
       expect(newUser.tasks.isA('TaskCollection')).toBe(true);
     });
 
     describe('when instantiated with an ID', function() {
       it('calls protectedFetch #travis', function() {
-        var newUser = new SUT({id: 14});
-        expect(SUT.prototype.protectedFetch).toHaveBeenCalled();
+        var newUser = new Canto.UserModel({id: 14});
+        expect(Canto.UserModel.prototype.protectedFetch).toHaveBeenCalled();
       });
 
       it('doesn\'t call protectedFetch if `sync` is set to false #travis', function() {
-        var newUser = new SUT({id: 22}, {sync: false});
-        expect(SUT.prototype.protectedFetch).not.toHaveBeenCalled();
+        var newUser = new Canto.UserModel({id: 22}, {sync: false});
+        expect(Canto.UserModel.prototype.protectedFetch).not.toHaveBeenCalled();
       });
     });
 
     describe('when not instantiated with an ID', function() {
       it('doesn\'t call protectedFetch #travis', function() {
-        var newUser = new SUT();
-        expect(SUT.prototype.protectedFetch).not.toHaveBeenCalled();
+        var newUser = new Canto.UserModel();
+        expect(Canto.UserModel.prototype.protectedFetch).not.toHaveBeenCalled();
       });
     });
   });
