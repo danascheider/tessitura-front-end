@@ -48,7 +48,7 @@ var DashboardPresenter = Canto.Model.extend({
         success: function(model) {
           that.dashboardView.setUser(model);
           that.user.tasks.fetch();
-          callback();
+          if(callback) { callback(); }
         }
       });
     }
