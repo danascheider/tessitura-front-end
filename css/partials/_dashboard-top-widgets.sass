@@ -1,14 +1,12 @@
 #dashboard-top-widgets
-  float: right 
-  clear: both
+  float     : right 
 
   & .col-lg-3
+    width: 22.5%
+
     & > .panel-blue > .panel-heading 
       background-color: #516695
       color           : #fff 
-
-    & .dash-widget
-      cursor          : pointer
 
     & > .panel-primary,
     & > .panel-blue,
@@ -31,7 +29,10 @@
       background-color: #d9534f
       color           : #fff
 
-  * .col-xs-3
+    &:first-child
+      width: 240px
+
+  & .col-xs-3
     float: left
     padding-right: 0
 
@@ -56,7 +57,7 @@
   & .panel-primary:hover
     span.pull-left,
     span.pull-right
-      color: #428bca
+      color: #46b4ae
 
   & .panel-blue:hover
     span.pull-left,

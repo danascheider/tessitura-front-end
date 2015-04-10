@@ -31,7 +31,7 @@ describe('Dashboard Sidebar View #ui', function() {
     });
   });
 
-  fdescribe('toggleSecondLevelNav', function() {
+  describe('toggleSecondLevelNav', function() {
     context('when no menus are visible', function() {
       beforeEach(function(done) {
         client.waitForVisible('a[data-method=toggleSecondLevelNav]')

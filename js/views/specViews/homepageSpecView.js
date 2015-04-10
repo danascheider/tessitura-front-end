@@ -44,6 +44,7 @@ var SpecWrapper = Canto.View.extend({
 
     return Canto.View.prototype.render.call(this, this.template(), function() {
       that.view.render();
+      that.$el.addClass('test');
       that.$('#view').html(that.view.$el);
     });
   }
