@@ -1,30 +1,19 @@
 require(process.cwd() + '/spec/support/jsdom.js');
-require(process.cwd() + '/js/dependencies.js');
+require(process.cwd() + '/js/canto.js');
 require(process.cwd() + '/spec/support/env.js');
 
-var SUT = require(process.cwd() + '/js/views/modelViews/taskViews/quickAddFormView.js');
-
 var matchers       = require('jasmine-jquery-matchers'),
-    toBeA          = require(process.cwd() + '/spec/support/matchers/toBeA.js')
     XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
-    TaskModel      = require(process.cwd() + '/js/models/taskModel.js'),
-    TaskCollection = require(process.cwd() + '/js/collections/taskCollection.js'),
+    Fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     context        = describe,
     fcontext       = fdescribe;
-
-var task1 = new TaskModel({id: 1, title: 'Test Task 1', status: 'Blocking'}),
-    task2 = new TaskModel({id: 2, title: 'Test Task 2', status: 'Blocking'}),
-    task3 = new TaskModel({id: 3, title: 'Test Task 3', status: 'Blocking'});
-
-var collection = new TaskCollection([task1, task2, task3]);
 
 describe('Quick-Add Task Form', function() {
   var view, xhr, e;
 
   beforeEach(function() {
     jasmine.addMatchers(matchers);
-    jasmine.addMatchers(toBeA);
-    view = new SUT({collection: collection, grouping: {status: 'Blocking'}});
+    view = new Canto.QuickAddFormView({collection: collection, grouping: {status: 'Blocking'}});
   });
 
   afterAll(function() {
@@ -38,9 +27,9 @@ describe('Quick-Add Task Form', function() {
     });
 
     it('doesn\'t call render #travis', function() {
-      spyOn(SUT.prototype, 'render');
-      var newView = new SUT({collection: collection});
-      expect(SUT.prototype.render).not.toHaveBeenCalled();
+      spyOn(Canto.QuickAddFormView.prototype, 'render');
+      var newView = new Canto.QuickAddFormView({collection: collection});
+      expect(Canto.QuickAddFormView.prototype.render).not.toHaveBeenCalled();
     });
 
     it('sets the `grouping` property #travis', function() {
@@ -95,10 +84,10 @@ describe('Quick-Add Task Form', function() {
   describe('events', function() {
     describe('submit form', function() {
       it('calls createTask #travis', function() {
-        spyOn(SUT.prototype, 'createTask');
-        var newView = new SUT({collection: collection, grouping: {status: 'Blocking'}});
+        spyOn(Canto.QuickAddFormView.prototype, 'createTask');
+        var newView = new Canto.QuickAddFormView({collection: collection, grouping: {status: 'Blocking'}});
         newView.render().$el.submit();
-        expect(SUT.prototype.createTask).toHaveBeenCalled();
+        expect(Canto.QuickAddFormView.prototype.createTask).toHaveBeenCalled();
       });
     });
   });

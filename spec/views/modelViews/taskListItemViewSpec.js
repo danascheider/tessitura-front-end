@@ -9,15 +9,10 @@
 //       - render
 
 require(process.cwd() + '/spec/support/jsdom.js');
-require(process.cwd() + '/js/dependencies.js');
+require(process.cwd() + '/js/canto.js');
 require(process.cwd() + '/spec/support/env.js');
 
-var SUT = require(process.cwd() + '/js/views/modelViews/taskViews/taskListItemView.js');
-
 var matchers  = require('jasmine-jquery-matchers'),
-    custom    = require(process.cwd() + '/spec/support/matchers/toBeA.js');
-    TaskModel = require(process.cwd() + '/js/models/taskModel.js'),
-    ModelView = require(process.cwd() + '/js/views/modelViews/taskViews/taskModelView.js'),
     context   = describe,
     fcontext  = fdescribe;
 
@@ -29,12 +24,9 @@ var matchers  = require('jasmine-jquery-matchers'),
 describe('List Item Task View', function() {
   var view, e;
 
-  var task = new TaskModel({title: 'Finish writing test suite', status: 'New', priority: 'Normal'});
-
   beforeEach(function() { 
     jasmine.addMatchers(matchers);
-    jasmine.addMatchers(custom);
-    view = new SUT({model: task}); 
+    view = new Canto.TaskListItemView({model: task}); 
   });
 
   afterEach(function() { view.remove(); });
@@ -46,9 +38,9 @@ describe('List Item Task View', function() {
     });
 
     it('doesn\'t call render #travis', function() {
-      spyOn(SUT.prototype, 'render');
-      var newView = new SUT({model: task});
-      expect(SUT.prototype.render).not.toHaveBeenCalled();
+      spyOn(Canto.TaskListItemView.prototype, 'render');
+      var newView = new Canto.TaskListItemView({model: task});
+      expect(Canto.TaskListItemView.prototype.render).not.toHaveBeenCalled();
     });
 
     it('creates a model view #travis', function() {
@@ -134,49 +126,49 @@ describe('List Item Task View', function() {
     var newView; 
 
     beforeEach(function() {
-      spyOn(SUT.prototype, 'showEditForm');
-      spyOn(SUT.prototype, 'markComplete');
-      spyOn(SUT.prototype, 'deleteTask');
-      spyOn(SUT.prototype, 'backlogTask');
-      spyOn(SUT.prototype, 'toggleTaskDetails');
-      spyOn(SUT.prototype, 'showEditIcons');
-      spyOn(SUT.prototype, 'hideEditIcons');
-      newView = new SUT({model: task});
+      spyOn(Canto.TaskListItemView.prototype, 'showEditForm');
+      spyOn(Canto.TaskListItemView.prototype, 'markComplete');
+      spyOn(Canto.TaskListItemView.prototype, 'deleteTask');
+      spyOn(Canto.TaskListItemView.prototype, 'backlogTask');
+      spyOn(Canto.TaskListItemView.prototype, 'toggleTaskDetails');
+      spyOn(Canto.TaskListItemView.prototype, 'showEditIcons');
+      spyOn(Canto.TaskListItemView.prototype, 'hideEditIcons');
+      newView = new Canto.TaskListItemView({model: task});
       newView.render();
     });
 
     describe('click edit icon', function() {
       it('calls showEditForm #travis', function() {
         newView.$('i[title=Edit]').click();
-        expect(SUT.prototype.showEditForm).toHaveBeenCalled();
+        expect(Canto.TaskListItemView.prototype.showEditForm).toHaveBeenCalled();
       });
     });
 
     describe('click markComplete checkbox', function() {
       it('calls markComplete #travis', function() {
         newView.$('.fa-square-o').click();
-        expect(SUT.prototype.markComplete).toHaveBeenCalled();
+        expect(Canto.TaskListItemView.prototype.markComplete).toHaveBeenCalled();
       });
     });
 
     describe('click delete icon', function() {
       it('calls deleteTask #travis', function() {
         newView.$('i[title=Delete]').click();
-        expect(SUT.prototype.deleteTask).toHaveBeenCalled();
+        expect(Canto.TaskListItemView.prototype.deleteTask).toHaveBeenCalled();
       });
     });
 
     describe('click backlog icon', function() {
       it('calls backlogTask #travis', function() {
         newView.$('i[title=Backlog]').click();
-        expect(SUT.prototype.backlogTask).toHaveBeenCalled();
+        expect(Canto.TaskListItemView.prototype.backlogTask).toHaveBeenCalled();
       });
     });
 
     describe('click task title', function() {
       it('calls toggleTaskDetails #travis', function() {
         newView.$('a.task-title').click();
-        expect(SUT.prototype.toggleTaskDetails).toHaveBeenCalled();
+        expect(Canto.TaskListItemView.prototype.toggleTaskDetails).toHaveBeenCalled();
       });
     });
 
@@ -189,14 +181,14 @@ describe('List Item Task View', function() {
     describe('mouseenter', function() {
       it('calls showEditIcons #travis', function() {
         newView.$el.mouseenter();
-        expect(SUT.prototype.showEditIcons).toHaveBeenCalled();
+        expect(Canto.TaskListItemView.prototype.showEditIcons).toHaveBeenCalled();
       });
     });
 
     describe('mouseleave', function() {
       it('calls hideEditIcons #travis', function() {
         newView.$el.mouseleave();
-        expect(SUT.prototype.hideEditIcons).toHaveBeenCalled();
+        expect(Canto.TaskListItemView.prototype.hideEditIcons).toHaveBeenCalled();
       });
     });
 

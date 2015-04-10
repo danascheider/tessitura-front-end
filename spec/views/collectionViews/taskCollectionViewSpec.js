@@ -16,7 +16,8 @@ fdescribe('Task Collection View #travis', function() {
   })
   
   beforeEach(function() {
-    childViews = collection.models.map(function(task) { return new Canto.TaskListItemView({model: task1}); });
+    childViews = collection.models.map(function(task) { return new Canto.TaskListItemView({model: task}); });
+    var models = childViews.map(function(model) { return model.cid });
     view = new Canto.TaskCollectionView({collection: collection});
   });
 
@@ -255,7 +256,7 @@ fdescribe('Task Collection View #travis', function() {
       //  
       // });
 
-      describe('idempotency', function() {
+      fdescribe('idempotency', function() {
         beforeEach(function() { 
           view.childViews = childViews;
           view.render(); 
