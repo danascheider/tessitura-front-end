@@ -1,3 +1,6 @@
+Canto                        = Canto || require('../dependencies.js');
+Canto.ProtectedResourceModel = Canto.ProtectedResourceModel || require('./protectedResourceModel.js');
+
 var TaskModel = Canto.ProtectedResourceModel.extend({
   urlRoot : function() {
     return Canto.API.tasks.collection($.cookie('userID'));
@@ -72,7 +75,7 @@ var TaskModel = Canto.ProtectedResourceModel.extend({
   fetch      : function(opts) {
     opts = opts || {};
     opts.url = opts.url || this.url();
-    return Canto.ProtectedResource.prototype.fetch.call(this, opts);
+    return Canto.ProtectedResourceModel.prototype.fetch.call(this, opts);
   },
 
   initialize : function() {
@@ -85,7 +88,7 @@ var TaskModel = Canto.ProtectedResourceModel.extend({
 
     opts.url = this.isNew() ? this.urlRoot() : this.url();
 
-    return Canto.ProtectedResource.prototype.save.call(this, attrs, opts);
+    return Canto.ProtectedResourceModel.prototype.save.call(this, attrs, opts);
   },
 
   validate   : function(attrs) {
