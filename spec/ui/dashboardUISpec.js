@@ -5,7 +5,7 @@ require(process.cwd() + '/spec/support/env.js');
 var context  = describe,
     fcontext = fdescribe;
 
-describe('Dashboard View', function() {
+describe('Dashboard View #ui', function() {
   beforeAll(function(done) {
     jasmine.addMatchers(require('jasmine-jquery-matchers'));
     client.init().url('http://localhost/#dashboardViewSpec', done);
@@ -21,25 +21,26 @@ describe('Dashboard View', function() {
   });
 
   describe('elements', function() {
-    it('does not display dropdowns by default #dashboard #ui', function(done) {
+    it('does not display dropdowns by default #dashboard', function(done) {
       client.waitForVisible('#dashboard-wrapper ul.dropdown-menu', function(err, isVisible) {
         expect(isVisible).toBe(false);
         done();
       });
     });
 
-    it('displays dropdown menus whose parents have class .open #dashboard #ui', function(done) {
-      client.waitForVisible('a[data-method=toggleDropdownMenu]')
+    it('displays dropdown menus whose parents have class .open #dashboard', function(done) {
+      client.waitForVisible('a[data-method=hideDropdownMenus]')
+            .click('a[data-method=hideDropdownMenus]')
             .click('a[data-method=toggleDropdownMenu]')
-            .waitForVisible('#dashboard-wrapper li.dropdown.open', function(err, isVisible) {
-
+            .isVisible('.navbar-top-links > li.open > ul.dropdown-menu', function(err, isVisible) {
+              
         expect(isVisible).toBe(true);
         done();
       });
     });
 
     it('doesn\'t display its dropdown menu by default', function(done) {
-      waitForVisible('#side-menu', true, function(err, isVisible) {
+      client.waitForVisible('#side-menu', true, function(err, isVisible) {
         expect(isVisible).toBe(false);
         done();
       });

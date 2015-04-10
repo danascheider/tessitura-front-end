@@ -195,7 +195,7 @@ describe('Main Dashboard View #travis', function() {
   /* View Elements
   /****************************************************************************/
 
-  describe('elements', function() {
+  fdescribe('elements', function() {
     beforeEach(function() {
       dashboard.render();
       $('body').html(dashboard.el);
@@ -208,6 +208,12 @@ describe('Main Dashboard View #travis', function() {
     describe('sidebar', function() {
       it('is attached to div.sidebar-collapse element', function() {
         expect(dashboard.$('div.sidebar-collapse')).toHaveDescendant('#side-menu');
+      });
+    });
+
+    describe('side-menu icon', function() {
+      it('is present in the navbar-brand element', function() {
+        expect(dashboard.$('.navbar-brand')).toHaveDescendant('i.fa-bars');
       });
     });
   });

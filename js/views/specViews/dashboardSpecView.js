@@ -39,7 +39,7 @@ var SpecWrapper = Backbone.View.extend({
   // ------------------- //
 
   initialize: function() {
-    this.view = new Canto.Dashboard({user: user1});
+    this.view = new Canto.DashboardView({user: user1});
   },
 
   render    : function() {
