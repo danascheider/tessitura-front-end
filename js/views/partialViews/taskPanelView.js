@@ -10,19 +10,19 @@ var TaskPanelView = Canto.View.extend({
     'click .show-widget' : 'showWidget'
   },
 
-  // --------------------- //
-  // Canto View Properties // 
-  // --------------------- //
+  /* Canto View Properties
+  /**************************************************************************************/
 
   klass                : 'TaskPanelView',
+  family               : 'Canto.View',
+  superFamily          : 'Backbone.View',
 
   types                : function() {
     return Canto.View.prototype.types().concat(['TaskPanelView', 'TaskPanel', 'TaskView', 'PartialView']);
   },
 
-  // --------------- //
-  // Event Callbacks //
-  // --------------- //
+  /* Event Callbacks
+  /**************************************************************************************/
 
   crossOffComplete     : function() {
     var that = this;
@@ -81,7 +81,7 @@ var TaskPanelView = Canto.View.extend({
 
     _.extend(this, opts);
 
-    this.collectionView = new Canto.TaskCollectionView({collection: opts.collection});
+    this.collectionView = new Canto.TaskCollectionView({collection: this.collection});
 
     this.listenTo(this.collection, 'change:status', this.crossOffComplete);
     this.listenTo(this.collection, 'change:backlog', this.removeBacklogged);
