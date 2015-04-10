@@ -31,7 +31,7 @@ describe('Dashboard Sidebar View #ui', function() {
     });
   });
 
-  describe('toggleSecondLevelNav', function() {
+  fdescribe('toggleSecondLevelNav', function() {
     context('when no menus are visible', function() {
       beforeEach(function(done) {
         client.waitForVisible('a[data-method=toggleSecondLevelNav]')
@@ -90,11 +90,11 @@ describe('Dashboard Sidebar View #ui', function() {
         client.waitForVisible('a[data-method=showTargetNav]')
               .click('a[data-method=showTargetNav]')
               .waitFor('#side-menu > li:nth-child(7) .nav-second-level', 1200)
-              .click('#side-menu .second-level-nav', done);
+              .click('a[data-method=toggleSecondLevelNav]', done);
       });
 
-      it('hides the target\'s menu #dashboardSidebar', function(done) {
-        client.waitForVisible('#side-menu li:nth-child(7) .nav-second-level', true, function(err, isVisible) {
+      it('hides the target\'s menu', function(done) {
+        client.waitForVisible('#side-menu li:nth-child(7) > .nav-second-level', true, function(err, isVisible) {
           expect(isVisible).toBe(false);
           done();
         });

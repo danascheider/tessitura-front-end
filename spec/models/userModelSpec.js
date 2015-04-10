@@ -7,7 +7,7 @@ var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
 var context        = describe,
     fcontext       = fdescribe;
 
-fdescribe('User Model', function() {
+describe('User Model', function() {
   var user, xhr;
 
   beforeEach(function() {

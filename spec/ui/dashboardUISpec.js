@@ -37,5 +37,12 @@ describe('Dashboard View', function() {
         done();
       });
     });
+
+    it('doesn\'t display its dropdown menu by default', function(done) {
+      waitForVisible('#side-menu', true, function(err, isVisible) {
+        expect(isVisible).toBe(false);
+        done();
+      });
+    });
   });
 });

@@ -1,4 +1,4 @@
-require(process.cwd() + '/js/canto.js');
+require('../../../js/canto.js');
 
 // Require the User model and create a user
 var user = new Canto.UserModel({id: 342, username: 'testuser', password: 'testuser', email: 'testuser@example.com', first_name: 'Test', last_name: 'User'});
