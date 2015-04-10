@@ -46,4 +46,25 @@ describe('Dashboard View #ui', function() {
       });
     });
   });
+
+  describe('functions', function() {
+    describe('toggleSidebar()', function() {
+      context('when the sidebar is visible', function() {
+        beforeEach(function(done) {
+          client.waitForVisible('a[data-method=showSidebar]')
+                .click('a[data-method=showSidebar]')
+                .waitForVisible('#side-menu')
+                .click('a[data-method=toggleSidebar]', done);
+        });
+
+        it('runs the before filter', function() {
+          //
+        });
+      });
+
+      context('when the sidebar is hidden', function() {
+        //
+      });
+    });
+  });
 });

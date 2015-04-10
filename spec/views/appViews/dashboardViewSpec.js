@@ -195,7 +195,7 @@ describe('Main Dashboard View #travis', function() {
   /* View Elements
   /****************************************************************************/
 
-  fdescribe('elements', function() {
+  describe('elements', function() {
     beforeEach(function() {
       dashboard.render();
       $('body').html(dashboard.el);
@@ -227,6 +227,7 @@ describe('Main Dashboard View #travis', function() {
     beforeEach(function() {
       spyOn(Canto.DashboardView.prototype, 'hideDropdownMenus');
       spyOn(Canto.DashboardView.prototype, 'toggleDropdownMenu');
+      spyOn(Canto.DashboardView.prototype, 'toggleSidebar');
       newDashboard = new Canto.DashboardView({user: user});
       newDashboard.render();
     });
@@ -235,6 +236,13 @@ describe('Main Dashboard View #travis', function() {
       it('calls hideDropdownMenus', function() {
         newDashboard.$el.click();
         expect(Canto.DashboardView.prototype.hideDropdownMenus).toHaveBeenCalled();
+      });
+    });
+
+    describe('click .navbar-header', function() {
+      it('calls toggleSidebar', function() {
+        newDashboard.$('.navbar-header').click();
+        expect(Canto.DashboardView.prototype.toggleSidebar).toHaveBeenCalled();
       });
     });
 
