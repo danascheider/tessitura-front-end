@@ -63,7 +63,7 @@ var RegistrationFormView = Canto.View.extend({
   },
 
   validName    : function(first, last) {
-    return !!first.match(/^[A-Za-z\' -]$/) && !!last.match(/^[A-Za-z\' -]$/);
+    return !!first.match(/^[A-Za-z\' -]{2,}$/) && !!last.match(/^[A-Za-z\' -]{2,}$/);
   },
 
   validPassword: function(password) {

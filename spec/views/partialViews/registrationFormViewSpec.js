@@ -26,7 +26,7 @@
 /* Core Requires
 /****************************************************************************/
 
-require(process.cwd() + '/js/dependencies.js');
+require(process.cwd() + '/js/canto.js');
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/spec/support/env.js');
 
@@ -35,14 +35,11 @@ var matchers       = _.extend(require('jasmine-jquery-matchers')),
     context        = describe,
     fcontext       = fdescribe;
 
-var RegistrationForm = require(process.cwd() + '/js/views/partialViews/registrationFormView.js'),
-    UserModel        = require(process.cwd() + '/js/models/userModel.js');
-
 /****************************************************************************
  * BEGIN SUITE                                                              *
 /****************************************************************************/
 
-describe('Registration Form View #travis', function() {
+fdescribe('Registration Form View #travis', function() {
   var form, e, spy, obj;
 
   /* Filters
@@ -54,7 +51,7 @@ describe('Registration Form View #travis', function() {
   })
 
   beforeEach(function() {
-    form = new RegistrationForm();
+    form = new Canto.RegistrationFormView();
   });
 
   afterEach(function() {
@@ -97,7 +94,7 @@ describe('Registration Form View #travis', function() {
     });
 
     it('has ID #registration-form', function() {
-      expect(form.$el).toHaveId('registrationForm');
+      expect(form.$el).toHaveId('registration-form');
     });
 
     describe('form fields', function() {
@@ -137,10 +134,10 @@ describe('Registration Form View #travis', function() {
   describe('view events', function() {
     describe('submit', function() {
       it('calls createUser', function() {
-        spyOn(RegistrationForm.prototype, 'createUser');
-        var newForm = new RegistrationForm();
+        spyOn(Canto.RegistrationFormView.prototype, 'createUser');
+        var newForm = new Canto.RegistrationFormView();
         newForm.$el.submit();
-        expect(RegistrationForm.prototype.createUser).toHaveBeenCalled();
+        expect(Canto.RegistrationFormView.prototype.createUser).toHaveBeenCalled();
       });
     });
   });
@@ -170,9 +167,9 @@ describe('Registration Form View #travis', function() {
       });
 
       it('instantiates a user model', function() {
-        spyOn(UserModel.prototype, 'initialize');
+        spyOn(Canto.UserModel.prototype, 'initialize');
         form.createUser(e);
-        expect(UserModel.prototype.initialize).toHaveBeenCalled();
+        expect(Canto.UserModel.prototype.initialize).toHaveBeenCalled();
       });
 
       it('calls validateForm', function() {
@@ -182,15 +179,15 @@ describe('Registration Form View #travis', function() {
       });
 
       it('calls save on the user', function() {
-        spyOn(UserModel.prototype, 'save');
+        spyOn(Canto.UserModel.prototype, 'save');
         form.createUser(e);
-        expect(UserModel.prototype.save).toHaveBeenCalled();
+        expect(Canto.UserModel.prototype.save).toHaveBeenCalled();
       });
 
       it('uses the attributes from the form', function() {
-        spyOn(UserModel.prototype, 'save');
+        spyOn(Canto.UserModel.prototype, 'save');
         form.createUser(e);
-        expect(UserModel.prototype.save.calls.argsFor(0)).toContain(obj)
+        expect(Canto.UserModel.prototype.save.calls.argsFor(0)).toContain(obj)
       });
 
       context('invalid form', function() {
@@ -199,9 +196,9 @@ describe('Registration Form View #travis', function() {
         });
 
         it('doesn\'t create a user', function() {
-          spyOn(UserModel.prototype, 'initialize');
+          spyOn(Canto.UserModel.prototype, 'initialize');
           form.createUser(e);
-          expect(UserModel.prototype.initialize).not.toHaveBeenCalled();
+          expect(Canto.UserModel.prototype.initialize).not.toHaveBeenCalled();
         });
 
         it('doesn\'t trigger userCreated', function() {
@@ -404,7 +401,7 @@ describe('Registration Form View #travis', function() {
 
         context('allowed', function() {
           afterEach(function() {
-            expect(form.validateForm(formData)).toBe(false);
+            expect(form.validateForm(formData)).toBe(true);
           });
           
           describe('username', function() {
@@ -417,7 +414,7 @@ describe('Registration Form View #travis', function() {
             });
 
             it('can contain only numbers', function() {
-              formData.username = 81135800;
+              formData.username = '81135800';
             });
 
             it('can contain spaces', function() {
@@ -435,7 +432,7 @@ describe('Registration Form View #travis', function() {
             });
 
             it('can contain spaces', function() {
-              formData.password = 'Mary Sue';
+              formData.password = 'Mary Sue 62';
             });          
           });
 
