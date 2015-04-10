@@ -40,16 +40,14 @@
 /* Core Requires
 /***************************************************************************/
 
-require(process.cwd() + '/js/dependencies.js');
+require(process.cwd() + '/js/canto.js');
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/spec/support/env.js');
 
-var matchers       = _.extend(require('jasmine-jquery-matchers'), require(process.cwd() + '/spec/support/matchers/toBeA.js')),
+var matchers       = require('jasmine-jquery-matchers'),
     fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     context        = describe,
     fcontext       = fdescribe;
-
-var SUT = require(process.cwd() + '/js/views/partialViews/dashboardTaskView.js');
 
 /****************************************************************************
  * BEGIN SUITE                                                              *
@@ -67,7 +65,7 @@ describe('Dashboard Task View #travis', function() {
   });
 
   beforeEach(function() {
-    view = new SUT({user: user});
+    view = new Canto.DashboardTaskView({user: user});
   });
 
   afterEach(function() {
@@ -102,20 +100,20 @@ describe('Dashboard Task View #travis', function() {
 
   describe('constructor', function() {
     it('calls setUser', function() {
-      spyOn(SUT.prototype, 'setUser');
-      var newView = new SUT({user: user});
-      expect(SUT.prototype.setUser).toHaveBeenCalled();
-      expect(SUT.prototype.setUser.calls.argsFor(0)[0]).toEqual(user);
+      spyOn(Canto.DashboardTaskView.prototype, 'setUser');
+      var newView = new Canto.DashboardTaskView({user: user});
+      expect(Canto.DashboardTaskView.prototype.setUser).toHaveBeenCalled();
+      expect(Canto.DashboardTaskView.prototype.setUser.calls.argsFor(0)[0]).toEqual(user);
     });
 
     it('doesn\'t call render', function() {
-      spyOn(SUT.prototype, 'render');
-      var newView = new SUT({user: user});
-      expect(SUT.prototype.render).not.toHaveBeenCalled();
+      spyOn(Canto.DashboardTaskView.prototype, 'render');
+      var newView = new Canto.DashboardTaskView({user: user});
+      expect(Canto.DashboardTaskView.prototype.render).not.toHaveBeenCalled();
     });
 
     it('can be instantiated without a user', function() {
-      var newView = new SUT();
+      var newView = new Canto.DashboardTaskView();
       expect(newView.user).not.toExist();
     });
   });
@@ -198,7 +196,7 @@ describe('Dashboard Task View #travis', function() {
 
     describe('setUser()', function() {
       it('sets the user', function() {
-        var newView = new SUT();
+        var newView = new Canto.DashboardTaskView();
         newView.setUser(user);
         expect(newView.user).toBe(user);
       });

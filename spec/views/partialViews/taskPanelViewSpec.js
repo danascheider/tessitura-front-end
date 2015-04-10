@@ -2,16 +2,8 @@ require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/js/canto.js');
 require(process.cwd() + '/spec/support/env.js');
 
-// The fixtures file defines a user, three tasks, and a task collection.
-// Using _.extend enables us to treat them as imported variables instead
-// of having to use the Fixtures namespace.
-
 var Fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
-    TaskCollection = require(process.cwd() + '/js/collections/taskCollection.js'),
-    TaskCollectionView = require(process.cwd() + '/js/views/collectionViews/taskCollectionView.js'),
-    ListItemView   = require(process.cwd() + '/js/views/modelViews/taskViews/taskListItemView.js'),
     matchers       = require('jasmine-jquery-matchers'),
-    XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
     context        = describe,
     fcontext       = fdescribe;
 
@@ -151,9 +143,9 @@ describe('Task Panel View #travis', function() {
     describe('change task status', function() {
       it('calls crossOffComplete', function() {
         spyOn(Canto.TaskPanelView.prototype, 'crossOffComplete');
-        spyOn(TaskCollectionView.prototype, 'crossOff');
+        spyOn(Canto.TaskCollectionView.prototype, 'crossOff');
 
-        var newCollection = new TaskCollection([task1, task2, task3]);
+        var newCollection = new Canto.TaskCollection([task1, task2, task3]);
         var newView = new Canto.TaskPanelView({collection: newCollection});
         newView.collection.trigger('change:status');
         expect(Canto.TaskPanelView.prototype.crossOffComplete).toHaveBeenCalled();
@@ -202,8 +194,8 @@ describe('Task Panel View #travis', function() {
       });
 
       it('doesn\'t include blocking tasks', function() {
-        var newView = new ListItemView({model: task2});
-        spyOn(TaskCollectionView.prototype, 'retrieveViewForModel').and.returnValue(newView);
+        var newView = new Canto.TaskListItemView({model: task2});
+        spyOn(Canto.TaskCollectionView.prototype, 'retrieveViewForModel').and.returnValue(newView);
         task2.set({status: 'Blocking'});
         expect(taskPanel.filterCollection(collection).indexOf(task2)).toBe(-1);
       });

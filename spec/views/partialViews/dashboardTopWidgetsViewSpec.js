@@ -2,8 +2,6 @@ require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/js/dependencies.js');
 require(process.cwd() + '/spec/support/env.js');
 
-var SUT = require(process.cwd() + '/js/views/partialViews/dashboardTopWidgetView.js');
-
 var matchers       = _.extend(require('jasmine-jquery-matchers'), require(process.cwd() + '/spec/support/matchers/toBeA.js')),
     Fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
@@ -26,7 +24,7 @@ describe('Dashboard Top Widget View #travis', function() {
   });
 
   beforeEach(function() {
-    view = new SUT(data);
+    view = new Canto.DashboardTopWidgetView(data);
   });
 
   afterAll(function() {
@@ -37,9 +35,9 @@ describe('Dashboard Top Widget View #travis', function() {
 
   describe('constructor', function() {
     it('doesn\'t call render', function() {
-      spyOn(SUT.prototype, 'render');
-      var newView = new SUT(data);
-      expect(SUT.prototype.render).not.toHaveBeenCalled();
+      spyOn(Canto.DashboardTopWidgetView.prototype, 'render');
+      var newView = new Canto.DashboardTopWidgetView(data);
+      expect(Canto.DashboardTopWidgetView.prototype.render).not.toHaveBeenCalled();
     });
 
     _.each(['taskCollection', 'deadlineCount', 'appointmentCount', 'recommendationCount'], function(datum) {
@@ -99,25 +97,25 @@ describe('Dashboard Top Widget View #travis', function() {
 
   describe('events', function() {
     beforeEach(function() { 
-      spyOn(SUT.prototype, 'followLink');
-      newView = new SUT(data);
+      spyOn(Canto.DashboardTopWidgetView.prototype, 'followLink');
+      newView = new Canto.DashboardTopWidgetView(data);
       newView.render(); 
     });
 
     describe('click .dash-widget', function() {
       it('calls followLink', function() {
         newView.$('.dash-widget').first().click();
-        expect(SUT.prototype.followLink).toHaveBeenCalled();
+        expect(Canto.DashboardTopWidgetView.prototype.followLink).toHaveBeenCalled();
       });
     });
 
     _.each(['add', 'remove'], function(event) {
       describe(event + ' event on task collection', function() {
         it('calls render', function() {
-          spyOn(SUT.prototype, 'render');
-          newView = new SUT(data);
+          spyOn(Canto.DashboardTopWidgetView.prototype, 'render');
+          newView = new Canto.DashboardTopWidgetView(data);
           newView.taskCollection.trigger(event);
-          expect(SUT.prototype.render).toHaveBeenCalled();
+          expect(Canto.DashboardTopWidgetView.prototype.render).toHaveBeenCalled();
         });
       });
     });

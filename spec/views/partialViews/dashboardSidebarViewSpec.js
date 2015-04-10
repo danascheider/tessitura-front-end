@@ -2,23 +2,19 @@ require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/js/dependencies.js');
 require(process.cwd() + '/spec/support/env.js');
 
-var SUT = require(process.cwd() + '/js/views/partialViews/dashboardSidebarView.js');
-
 var matchers       = require('jasmine-jquery-matchers'),
-    toBeA          = require(process.cwd() + '/spec/support/matchers/toBeA'),
-    XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
     context        = describe,
     fcontext       = fdescribe;
-
-Backbone.$         = $;
 
 describe('Dashboard Sidebar View #travis', function() {
   var sidebar, e, link;
 
-  beforeEach(function() {
+  beforeAll(function() {
     jasmine.addMatchers(matchers);
-    jasmine.addMatchers(toBeA);
-    sidebar = new SUT();
+  })
+
+  beforeEach(function() {
+    sidebar = new Canto.DashboardSidebarView();
   });
 
   afterAll(function() {
@@ -28,9 +24,9 @@ describe('Dashboard Sidebar View #travis', function() {
 
   describe('constructor', function() {
     it('doesn\'t call render', function() {
-      spyOn(SUT.prototype, 'render');
-      var newSidebar = new SUT();
-      expect(SUT.prototype.render).not.toHaveBeenCalled();
+      spyOn(Canto.DashboardSidebarView.prototype, 'render');
+      var newSidebar = new Canto.DashboardSidebarView();
+      expect(Canto.DashboardSidebarView.prototype.render).not.toHaveBeenCalled();
     });
   });
 
@@ -86,31 +82,31 @@ describe('Dashboard Sidebar View #travis', function() {
     var newSidebar;
 
     beforeEach(function() { 
-      spyOn(SUT.prototype, 'toggleSecondLevelNav');
-      spyOn(SUT.prototype, 'goToDashboard');
-      spyOn(SUT.prototype, 'goToTaskPage');
-      newSidebar = new SUT();
+      spyOn(Canto.DashboardSidebarView.prototype, 'toggleSecondLevelNav');
+      spyOn(Canto.DashboardSidebarView.prototype, 'goToDashboard');
+      spyOn(Canto.DashboardSidebarView.prototype, 'goToTaskPage');
+      newSidebar = new Canto.DashboardSidebarView();
       newSidebar.render();
     });
 
     describe('click sidebar link', function() {
       it('calls toggleSecondLevelNav', function() {
         newSidebar.$('a.sidebar-link').last().click();
-        expect(SUT.prototype.toggleSecondLevelNav).toHaveBeenCalled();
+        expect(Canto.DashboardSidebarView.prototype.toggleSecondLevelNav).toHaveBeenCalled();
       });
     });
 
     describe('click li > .dashboard-link', function() {
       it('calls goToDashboard', function() {
         newSidebar.$('li > .dashboard-link').first().click();
-        expect(SUT.prototype.goToDashboard).toHaveBeenCalled();
+        expect(Canto.DashboardSidebarView.prototype.goToDashboard).toHaveBeenCalled();
       });
     });
 
     describe('click li > .task-page-link', function() {
       it('calls goToTaskPage', function() {
         newSidebar.$('li > .task-page-link').first().click();
-        expect(SUT.prototype.goToTaskPage).toHaveBeenCalled();
+        expect(Canto.DashboardSidebarView.prototype.goToTaskPage).toHaveBeenCalled();
       });
     })
   });

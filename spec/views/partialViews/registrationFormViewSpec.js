@@ -39,7 +39,7 @@ var matchers       = _.extend(require('jasmine-jquery-matchers')),
  * BEGIN SUITE                                                              *
 /****************************************************************************/
 
-fdescribe('Registration Form View #travis', function() {
+describe('Registration Form View #travis', function() {
   var form, e, spy, obj;
 
   /* Filters

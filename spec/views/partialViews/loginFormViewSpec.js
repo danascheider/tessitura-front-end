@@ -31,11 +31,8 @@ require(process.cwd() + '/spec/support/env.js');
 
 var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
     matchers       = _.extend(require('jasmine-jquery-matchers'), require(process.cwd() + '/spec/support/matchers/toBeA.js')),
-    fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     context        = describe,
     fcontext       = fdescribe;
-
-var SUT = require(process.cwd() + '/js/views/partialViews/loginFormView.js');
 
 /****************************************************************************
  * BEGIN SUITE                                                              *
@@ -49,11 +46,10 @@ describe('Login Form View #travis', function() {
 
   beforeAll(function() {
     jasmine.addMatchers(matchers);
-    _.extend(global, fixtures);
   })
 
   beforeEach(function() {
-    view = new SUT();
+    view = new Canto.LoginFormView();
   });
 
   afterEach(function() {
@@ -63,7 +59,6 @@ describe('Login Form View #travis', function() {
   afterAll(function() {
     view.remove();
     view = null;
-    global = _.omit(global, fixtures);
   });
 
   /* Static Properties
@@ -88,9 +83,9 @@ describe('Login Form View #travis', function() {
 
   describe('constructor', function() {
     it('does not call render', function() {
-      spyOn(SUT.prototype, 'render');
-      var newView = new SUT();
-      expect(SUT.prototype.render).not.toHaveBeenCalled();
+      spyOn(Canto.LoginFormView.prototype, 'render');
+      var newView = new Canto.LoginFormView();
+      expect(Canto.LoginFormView.prototype.render).not.toHaveBeenCalled();
     });
   });
 
@@ -143,9 +138,9 @@ describe('Login Form View #travis', function() {
   describe('view events', function() {
     var newView; 
     beforeEach(function() {
-      spyOn(SUT.prototype, 'loginUser');
-      spyOn(SUT.prototype, 'loginHelp');
-      newView = new SUT();
+      spyOn(Canto.LoginFormView.prototype, 'loginUser');
+      spyOn(Canto.LoginFormView.prototype, 'loginHelp');
+      newView = new Canto.LoginFormView();
       newView.render();
     });
 
@@ -154,14 +149,14 @@ describe('Login Form View #travis', function() {
     describe('submit form', function() {
       it('calls loginUser', function() {
         newView.$el.submit();
-        expect(SUT.prototype.loginUser).toHaveBeenCalled();
+        expect(Canto.LoginFormView.prototype.loginUser).toHaveBeenCalled();
       });
     });
 
     describe('click .login-help-link', function() {
       it('calls loginHelp', function() {
         newView.$('.login-help-link').click();
-        expect(SUT.prototype.loginHelp).toHaveBeenCalled();
+        expect(Canto.LoginFormView.prototype.loginHelp).toHaveBeenCalled();
       });
     });
   });
@@ -217,11 +212,11 @@ describe('Login Form View #travis', function() {
         beforeEach(function() {
           spyOn($, 'cookie');
           spy = jasmine.createSpy();
-          view.on('redirect', spy);
+          view.on('userLoggedIn', spy);
         });
 
         afterAll(function() {
-          view.off('redirect');
+          view.off('userLoggedIn');
         });
 
         context('successful login', function() {
@@ -245,8 +240,8 @@ describe('Login Form View #travis', function() {
               expect($.cookie).toHaveBeenCalledWith('userID', 342, {expires: 365});
             });
 
-            it('triggers the `redirect` event', function(done) {
-              expect(spy).toHaveBeenCalledWith({destination: 'dashboard'});
+            it('triggers the `userLoggedIn` event', function(done) {
+              expect(spy).toHaveBeenCalled();
               done();
             });
           });
@@ -265,8 +260,8 @@ describe('Login Form View #travis', function() {
               expect($.cookie).toHaveBeenCalledWith('userID', 342);
             });
 
-            it('triggers the `redirect` event', function() {
-              expect(spy).toHaveBeenCalledWith({destination: 'dashboard'});
+            it('triggers the `userLoggedIn` event', function() {
+              expect(spy).toHaveBeenCalled();
             });
           });
         });

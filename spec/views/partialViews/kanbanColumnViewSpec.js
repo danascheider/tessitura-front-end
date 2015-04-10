@@ -25,7 +25,7 @@
 /* Core Requires
 /****************************************************************************/
 
-require(process.cwd() + '/js/dependencies.js');
+require(process.cwd() + '/js/canto.js');
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/spec/support/env.js');
 
@@ -33,12 +33,6 @@ var matchers       = _.extend(require('jasmine-jquery-matchers')),
     fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     context        = describe,
     fcontext       = fdescribe;
-
-/* Module-Specific Requires
-/****************************************************************************/
-
-var TaskModel = require(process.cwd() + '/js/models/taskModel.js'),
-    SUT       = require(process.cwd() + '/js/views/partialViews/kanbanColumnView.js');
 
 /****************************************************************************
  * BEGIN SUITE                                                              *
@@ -57,7 +51,7 @@ describe('Kanban Column View #travis', function() {
   });
 
   beforeEach(function() {
-    view = new SUT(data);
+    view = new Canto.KanbanColumnView(data);
   });
 
   afterEach(function() {
@@ -92,8 +86,8 @@ describe('Kanban Column View #travis', function() {
 
   describe('constructor', function() {
     it('does not call render', function() {
-      spyOn(SUT.prototype, 'render');
-      var newView = new SUT(data);
+      spyOn(Canto.KanbanColumnView.prototype, 'render');
+      var newView = new Canto.KanbanColumnView(data);
     });
 
     it('calls setCollection', function () {
@@ -102,7 +96,7 @@ describe('Kanban Column View #travis', function() {
     });
 
     it('sets the data property', function() {
-      var newView = new SUT(data);
+      var newView = new Canto.KanbanColumnView(data);
       _.each(['color', 'icon', 'headline'], function(prop) {
         expect(newView.data[prop]).toEqual(data[prop]);
       });
@@ -110,7 +104,7 @@ describe('Kanban Column View #travis', function() {
 
     it('can be instantiated without a collection', function() {
       delete data.collection;
-      var newView = new SUT(data)
+      var newView = new Canto.KanbanColumnView(data)
       expect(newView.collection).not.toExist();
       data.collection = user.tasks;
     });
@@ -119,7 +113,7 @@ describe('Kanban Column View #travis', function() {
       context('when grouped by backlog', function() {
         it('sets groupedBy to Backlog', function() {
           data.headline = 'Backlog';
-          var newView = new SUT(data);
+          var newView = new Canto.KanbanColumnView(data);
           expect(newView.groupedBy).toEqual({backlog: true});
           data.headline = 'New';
         });
@@ -127,7 +121,7 @@ describe('Kanban Column View #travis', function() {
 
       context('when grouped by status', function() {
         it('sets groupedBy to the appropriate status', function() {
-          var newView = new SUT(data);
+          var newView = new Canto.KanbanColumnView(data);
           expect(newView.groupedBy).toEqual({status: 'New'});
         });
       });
@@ -169,20 +163,20 @@ describe('Kanban Column View #travis', function() {
   describe('view events', function() {
     describe('add task to collection', function() {
       it('calls updateTask', function() {
-        spyOn(SUT.prototype, 'updateTask');
-        var newView = new SUT(data);
-        var newTask = new TaskModel({id: 4, owner_id: 342, title: 'Hello World'});
+        spyOn(Canto.KanbanColumnView.prototype, 'updateTask');
+        var newView = new Canto.KanbanColumnView(data);
+        var newTask = new Canto.TaskModel({id: 4, owner_id: 342, title: 'Hello World'});
         newView.collection.trigger('add', newTask);
-        expect(SUT.prototype.updateTask).toHaveBeenCalled();
+        expect(Canto.KanbanColumnView.prototype.updateTask).toHaveBeenCalled();
       });
     });
 
     describe('change:backlog', function() {
       it('calls removeTask', function() {
-        spyOn(SUT.prototype, 'removeTask');
-        var newView = new SUT(data);
+        spyOn(Canto.KanbanColumnView.prototype, 'removeTask');
+        var newView = new Canto.KanbanColumnView(data);
         newView.collection.trigger('change:backlog', task1);
-        expect(SUT.prototype.removeTask).toHaveBeenCalledWith(task1);
+        expect(Canto.KanbanColumnView.prototype.removeTask).toHaveBeenCalledWith(task1);
       });
     });
   });
@@ -225,7 +219,7 @@ describe('Kanban Column View #travis', function() {
 
       beforeEach(function() { 
         delete data.collection;
-        newView = new SUT();
+        newView = new Canto.KanbanColumnView();
       });
 
       afterAll(function() {

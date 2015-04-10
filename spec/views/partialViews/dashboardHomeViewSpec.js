@@ -38,15 +38,13 @@
 /****************************************************************************/
 
 require(process.cwd() + '/spec/support/jsdom.js');
-require(process.cwd() + '/js/dependencies.js');
+require(process.cwd() + '/js/canto.js');
 require(process.cwd() + '/spec/support/env.js');
 
 var fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
-    matchers       = _.extend(require(process.cwd() + '/spec/support/matchers/toBeA.js'), require('jasmine-jquery-matchers')),
+    matchers       = require('jasmine-jquery-matchers'),
     context        = describe,
     fcontext       = fdescribe;
-
-var SUT = require(process.cwd() + '/js/views/partialViews/dashboardHomeView.js');
 
 /******************************************************************************
  * BEGIN SUITE                                                                *
@@ -64,7 +62,7 @@ describe('Dashboard Home View #travis', function() {
   });
 
   beforeEach(function() {
-    view = new SUT({user: user});
+    view = new Canto.DashboardHomeView({user: user});
   });
 
   afterEach(function() {
@@ -99,19 +97,19 @@ describe('Dashboard Home View #travis', function() {
 
   describe('constructor', function() {
     it('does not call render', function() {
-      spyOn(SUT.prototype, 'render');
-      var newView = new SUT({user: user});
-      expect(SUT.prototype.render).not.toHaveBeenCalled();
+      spyOn(Canto.DashboardHomeView.prototype, 'render');
+      var newView = new Canto.DashboardHomeView({user: user});
+      expect(Canto.DashboardHomeView.prototype.render).not.toHaveBeenCalled();
     });
 
     it('calls setUser', function() {
-      spyOn(SUT.prototype, 'setUser');
-      var newView = new SUT({user: user});
-      expect(SUT.prototype.setUser).toHaveBeenCalled();
+      spyOn(Canto.DashboardHomeView.prototype, 'setUser');
+      var newView = new Canto.DashboardHomeView({user: user});
+      expect(Canto.DashboardHomeView.prototype.setUser).toHaveBeenCalled();
     });
 
     it('can be instantiated without a user', function() {
-      var newView = new SUT();
+      var newView = new Canto.DashboardHomeView();
       expect(newView.user).not.toExist();
     });
   });
@@ -177,7 +175,7 @@ describe('Dashboard Home View #travis', function() {
 
       context('when the child views don\'t exist', function() {
         it('doesn\'t raise an error', function() {
-          var newView = new SUT();
+          var newView = new Canto.DashboardHomeView();
           expect(view.remove).not.toThrow();
         });
       });
@@ -236,7 +234,7 @@ describe('Dashboard Home View #travis', function() {
       var newView;
 
       beforeEach(function() {
-        newView = new SUT();
+        newView = new Canto.DashboardHomeView();
         newView.setUser(user);
       });
 
