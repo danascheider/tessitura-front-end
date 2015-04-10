@@ -52,6 +52,23 @@ describe('Protected Collection #travis', function() {
     spyOn($, 'cookie').and.returnValue(btoa('testuser:testuser'));
   });
 
+  /* Static Properties
+  /***************************************************************************/
+
+  describe('static properties', function() {
+    it('has klass \'ProtectedCollection\'', function() {
+      expect(collection.klass).toBe('ProtectedCollection');
+    });
+
+    it('has family Backbone.Collection', function() {
+      expect(collection.family).toBe('Backbone.Collection');
+    });
+
+    it('has superFamily Backbone.Collection', function() {
+      expect(collection.superFamily).toBe('Backbone.Collection');
+    });
+  });
+
   /* Authorization and Authentication
   /***************************************************************************/
 

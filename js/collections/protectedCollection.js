@@ -1,3 +1,5 @@
+Canto = Canto || require('../dependencies.js');
+
 /* Protected Collection
 /****************************************************************************************/
 
@@ -5,6 +7,13 @@ var ProtectedCollection = Backbone.Collection.extend({
   token     : function() {
     return 'Basic ' + $.cookie('auth');
   },
+
+  /* Canto Collection Properties
+  /**************************************************************************************/
+
+  klass     : 'ProtectedCollection',
+  family    : 'Backbone.Collection',
+  superFamily: 'Backbone.Collection',
 
   /* Special Functions
   /**************************************************************************************/

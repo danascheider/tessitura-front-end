@@ -5,9 +5,15 @@ var TaskCollection = Canto.ProtectedCollection.extend({
     return Canto.API.tasks.collection($.cookie('userID'));
   },
 
-  // ----------------- //
-  // Special Functions //
-  // ----------------- //
+  /* Canto Collection Properties
+  /**************************************************************************************/
+
+  klass       : 'TaskCollection',
+  family      : 'ProtectedCollection',
+  superFamily : 'Backbone.Collection',
+
+  /* Special Functions
+  /**************************************************************************************/
 
   // The isA() function returns true if passed one of the following
   // strings: 'TaskCollection', 'Backbone.Collection', 'ProtectedCollection'
@@ -17,9 +23,8 @@ var TaskCollection = Canto.ProtectedCollection.extend({
     return trueTypes.indexOf(type) > -1 ? true : false;
   },
 
-  // ------------------------- //
-  // Core Collection Functions //
-  // ------------------------- //
+  /* Core Collection Functions
+  /**************************************************************************************/
 
   // There are two routes for fetching a task collection: One to fetch only
   // the incomplete tasks (which is the default) and one for fetching all the

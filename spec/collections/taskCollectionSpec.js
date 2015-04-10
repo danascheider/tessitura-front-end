@@ -50,6 +50,20 @@ describe('Task Collection', function() {
     });
   });
 
+  fdescribe('static properties', function() {
+    it('has klass TaskCollection', function() {
+      expect(collection.klass).toBe('TaskCollection');
+    });
+
+    it('has family ProtectedCollection', function() {
+      expect(collection.family).toBe('ProtectedCollection');
+    });
+
+    it('has superFamily Backbone.Collection', function() {
+      expect(collection.superFamily).toBe('Backbone.Collection');
+    });
+  });
+
   describe('URL', function() {
     it('gets the URL for the logged-in user #travis', function() {
       expect(collection.url()).toEqual(Canto.API.base + '/users/342/tasks');
