@@ -25,13 +25,15 @@ var TaskCollectionView = Canto.View.extend({
     var that = this, 
         view = this.retrieveViewForModel(task);
 
-    view.$('a.task-title').css('text-decoration', 'line-through');
+    if(view) {
+      view.$('a.task-title').css('text-decoration', 'line-through');
 
-    setTimeout(function() {
-      var index = that.childViews.indexOf(view);
-      that.collection.remove(task);
-      that.childViews.splice(index, 1);
-    }, 750);
+      setTimeout(function() {
+        var index = that.childViews.indexOf(view);
+        that.collection.remove(task);
+        that.childViews.splice(index, 1);
+      }, 750);
+    }
   },
 
   fetchCollection      : function() {
@@ -65,7 +67,7 @@ var TaskCollectionView = Canto.View.extend({
     this.collection.each(function(task) {
       var view = that.retrieveViewForModel(task) || new Canto.TaskListItemView({model: task});
 
-      if (that.childViews.indexOf(view) <= -1) {
+      if (that.childViews.indexOf(view) === -1) {
         that.childViews.push(view);
       }
 
