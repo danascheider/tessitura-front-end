@@ -1,5 +1,5 @@
 var TaskCollection = Canto.ProtectedCollection.extend({
-  model      : Canto.Task,
+  model      : Canto.TaskModel,
   comparator : 'position',
   url        : function() {
     return Canto.API.tasks.collection($.cookie('userID'));

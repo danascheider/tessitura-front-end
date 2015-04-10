@@ -50,7 +50,7 @@ describe('Task Collection', function() {
     });
   });
 
-  fdescribe('static properties', function() {
+  describe('static properties', function() {
     it('has klass TaskCollection', function() {
       expect(collection.klass).toBe('TaskCollection');
     });
