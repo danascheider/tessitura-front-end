@@ -8,7 +8,7 @@ var context        = describe,
     fcontext       = fdescribe;
 
 describe('User Model', function() {
-  var user, xhr;
+  var user, xhr, newUser;
 
   beforeEach(function() {
     user = new Canto.UserModel({id: 342, username: 'testuser', password: 'testuser', email: 'testuser@example.com', first_name: 'Test', last_name: 'User'});
@@ -101,6 +101,42 @@ describe('User Model', function() {
 
       it('returns false with another argument', function() {
         expect(user.isA('ProtectedResource')).toBe(false);
+      });
+    });
+
+    describe('login', function() {
+      beforeEach(function() {
+        newUser = new Canto.UserModel({username: 'testuser', password: 'testuser'});
+      });
+
+      it('sends a POST request', function() {
+        newUser.login();
+        expect($.ajax.calls.argsFor(0)[0].type).toEqual('POST');
+      });
+
+      it('calls `fetch`', function() {
+        spyOn(Canto.Model.prototype, 'fetch');
+        newUser.login();
+        expect(Canto.Model.prototype.fetch).toHaveBeenCalled();
+      });
+
+      it('calls `fetch` with itself', function() {
+        spyOn(Canto.Model.prototype.fetch, 'call');
+        newUser.login();
+        expect(Canto.Model.prototype.fetch.call.calls.argsFor(0)[0]).toEqual(newUser);
+      });
+
+      it('sends the request to the login endpoint', function() {
+        newUser.login();
+        expect($.ajax.calls.argsFor(0)[0].url).toEqual(Canto.API.login);
+      });
+
+      it('attaches the auth header', function() {
+        xhr = new XMLHttpRequest();
+        xhr.open('POST', Canto.API.login)
+        newUser.login();
+        $.ajax.calls.argsFor(0)[0].beforeSend(xhr);
+        expect(xhr.getRequestHeader('Authorization')).toEqual('Basic ' + btoa('testuser:testuser'));
       });
     });
 

@@ -7,9 +7,21 @@ var UserModel = Canto.Model.extend({
     return Canto.Model.prototype.types().concat(['UserModel', 'User']);
   },
 
-  // ----------------- //
-  // Special Functions //
-  // ----------------- //
+  /* Special Functions
+  /**************************************************************************************/
+
+  login          : function(settings) {
+    settings = settings || {};
+    var that = this;
+
+    settings.type       = settings.type || 'POST';
+    settings.url        = Canto.API.login;
+    settings.beforeSend = function(xhr) {
+      xhr.setRequestHeader('Authorization', 'Basic ' + btoa(that.get('username') + ':' + that.get('password')));
+    }
+
+    Canto.Model.prototype.fetch.call(this, settings);
+  },
 
   protectedFetch : function(settings) {
     settings = settings || {};
@@ -24,9 +36,8 @@ var UserModel = Canto.Model.extend({
     return Backbone.Model.prototype.fetch.call(this, settings);
   },
 
-  // -------------------- //
-  // Core Model Functions //
-  // -------------------- //
+  /* Core Model Functions
+  /**************************************************************************************/
 
   fetch          : function(settings) {
     settings = settings || {};
