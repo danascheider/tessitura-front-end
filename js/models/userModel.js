@@ -20,7 +20,7 @@ var UserModel = Canto.Model.extend({
       xhr.setRequestHeader('Authorization', 'Basic ' + btoa(that.get('username') + ':' + that.get('password')));
     }
 
-    Canto.Model.prototype.fetch.call(this, settings);
+    return Canto.Model.prototype.fetch.call(this, settings);
   },
 
   protectedFetch : function(settings) {
