@@ -42,6 +42,9 @@ $main-dark-gray: #333
   & #page-wrapper
     box-sizing: border-box
 
+  & .panel-body
+    padding: 15px
+
   & #side-menu
     margin-top: 0
 
@@ -139,9 +142,10 @@ $main-dark-gray: #333
   .panel-red,
   .panel-blue,
   .panel-yellow,
-    .panel-heading
+    & .panel-heading
       color : #fff 
       margin: 0
+
     .panel-body span.pull-left,
     .panel-body span.pull-right
       color: #ccc
@@ -150,35 +154,41 @@ $main-dark-gray: #333
     .panel-heading
       background-color: #516695
 
+    &:hover span.pull-left, 
+    &:hover span.pull-right
+      color: #516695
+
   .panel-green
     .panel-heading
       background-color: #5cb85c
-    .panel-body span.pull-left:hover,
-    .panel-body span.pull-right:hover
+
+    &:hover span.pull-left,
+    &:hover span.pull-right
       color: #5cb85c
 
-  .panel-yellow
+  .panel-primary
     .panel-heading
-      background-color: #f0ad4e
+      background-color: #46b4ae
+
+    &:hover span.pull-left,
+    &:hover span.pull-right
+      color: #46b4ae
 
   .panel-red
     .panel-heading
       background-color: #d9534f
 
-    .panel-blue:hover
-      span.pull-left,
-      span.pull-right
-        color: #516695
+    &:hover span.pull-left,
+    &:hover span.pull-right
+      color: #d9534f
 
-    .panel-yellow:hover
-      span.pull-left,
-      span.pull-right
-        color: #f0ad4e
+  .panel-yellow 
+    .panel-heading
+      background-color: #f0ad4e
 
-    .panel-red:hover
-      span.pull-left,
-      span.pull-right
-        color: #d9534f
+    &:hover span.pull-left,
+    &:hover span.pull-right
+      color: #f0ad4e
 
   #task-panel 
     span.show-widget,

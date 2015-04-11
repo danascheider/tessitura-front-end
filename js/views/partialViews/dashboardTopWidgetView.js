@@ -1,6 +1,5 @@
 var DashboardTopWidgetView = Canto.View.extend({
   id                  : 'dashboard-top-widgets',
-  className           : 'row',
   template            : JST['partials/topWidgets'],
 
   events              : {

@@ -229,11 +229,14 @@ label
 .row:before, .row:after,
 .nav:before, .nav:after,
 .navbar:before, .navbar:after,
-.navbar-header:before, .navbar-header:after
+.navbar-header:before, .navbar-header:after,
+.panel-body:before,
+.panel-body:after
   display: table
   content: " "
 
 .container:after,
+.panel-body:after,
 .row:after,
 .nav:after 
   clear: both
@@ -527,7 +530,7 @@ label
   &-primary
     border: 1px solid transparent
 
-    & > .panel-heading
+    & .panel-heading
       color           : #fff 
       background-color: #46b4ae
       margin          : -1px

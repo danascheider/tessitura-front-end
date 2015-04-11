@@ -1,14 +1,23 @@
 #dashboard-top-widgets
-  min-height      : 100px
-  text-align      : justify
+  width           : 100%
+  min-height      : 50px
 
   & .col-lg-3
-    width       : 22%
-    height      : 200px
-    vertical-align: top
-    display     : inline-block
-    *display    : inline
-    zoom        : 1
+    width          : 25%
+    margin         : -1.8px
+    box-sizing     : border-box
+    -moz-box-sizing: border-box
+    display        : inline-block
+
+    & .panel
+      min-height: 50px
+      margin    : 15px auto
+      cursor    : pointer
+
+      & .panel-body
+        background-color: #fff
+        box-sizing      : border-box
+        -moz-box-sizing : border-box
 
     & .panel:first-child
       margin-left: 0
@@ -16,75 +25,64 @@
     & .panel:last-child
       margin-right: 0
 
-    & > .panel-blue > .panel-heading 
-      background-color: #516695
-      color           : #fff 
+    // & > .panel, .panel-blue > a:hover,
+    // & > .panel, .panel-blue > a:focus
+  //     color: #516695
 
-    & > .panel-primary,
-    & > .panel-blue,
-    & > .panel-yellow,
-    & > .panel-red,
-    & > .panel-green
-      border: 0
+  //   & > .panel-yellow > a:focus,
+  //   & > .panel-yellow > a:hover
+  //     background-color: #f0ad4e
+  //     color           : #fff
 
-    & > .panel, .panel-blue > a:hover,
-    & > .panel, .panel-blue > a:focus
-      color: #516695
+  //   & > .panel-red > a:hover,
+  //   & > .panel-red > a:focus
+  //     background-color: #d9534f
+  //     color           : #fff
 
-    & > .panel-yellow > a:focus,
-    & > .panel-yellow > a:hover
-      background-color: #f0ad4e
-      color           : #fff
+  //   &:first-child
+  //     width: 240px
 
-    & > .panel-red > a:hover,
-    & > .panel-red > a:focus
-      background-color: #d9534f
-      color           : #fff
+  // & .col-xs-3
+  //   float: left
+  //   padding-right: 0
 
-    &:first-child
-      width: 240px
+  // & .col-xs-9
+  //   float: right
 
-  & .col-xs-3
-    float: left
-    padding-right: 0
+  // & .dash-widget
+  //   cursor    : pointer
+  //   margin-top: 30px
 
-  & .col-xs-9
-    float: right
+  //   & > .panel-body
+  //     padding         : 0
+  //     background-color: #fff
 
-  & .dash-widget
-    cursor    : pointer
-    margin-top: 30px
+  // & .hide-widget,
+  // & .show-widget
+  //   cursor: pointer
 
-    & > .panel-body
-      padding         : 0
-      background-color: #fff
+  // & .huge
+  //   font-size: 2.5em
 
-  & .hide-widget,
-  & .show-widget
-    cursor: pointer
+  // & .panel-primary:hover
+  //   span.pull-left,
+  //   span.pull-right
+  //     color: #46b4ae
 
-  & .huge
-    font-size: 2.5em
+  // & .panel-blue:hover
+  //   span.pull-left,
+  //   span.pull-right
+  //     color: #516695
 
-  & .panel-primary:hover
-    span.pull-left,
-    span.pull-right
-      color: #46b4ae
+  // & .panel-yellow:hover
+  //   span.pull-left,
+  //   span.pull-right
+  //     color: #f0ad4e
 
-  & .panel-blue:hover
-    span.pull-left,
-    span.pull-right
-      color: #516695
+  // & .panel-red:hover
+  //   span.pull-left,
+  //   span.pull-right
+  //     color: #d9534f
 
-  & .panel-yellow:hover
-    span.pull-left,
-    span.pull-right
-      color: #f0ad4e
-
-  & .panel-red:hover
-    span.pull-left,
-    span.pull-right
-      color: #d9534f
-
-  .text-right > div:not(.huge)
-    font-size: 1.1em
+  // .text-right > div:not(.huge)
+  //   font-size: 0.9em
