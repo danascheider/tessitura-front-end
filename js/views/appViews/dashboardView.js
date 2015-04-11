@@ -81,7 +81,7 @@ var DashboardView = Canto.View.extend({
     e.preventDefault();
 
     this.$('li.dropdown').removeClass('open');
-    this.$('.sidebar-collapse').toggleClass('visible');
+    this.$('.sidebar-collapse').slideToggle();
   },
 
   /* Special Functions

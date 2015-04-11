@@ -1,8 +1,23 @@
 #dashboard-top-widgets
-  float     : right 
+  border          : 2px dashed #444
+  min-height      : 100px
+  text-align      : justify
+  text-justify    : distribute-letter
+  -ms-text-justify: distribute-letter
 
   & .col-lg-3
-    width: 22.5%
+    width       : 22%
+    height      : 200px
+    vertical-align: top
+    display     : inline-block
+    *display    : inline
+    zoom        : 1
+
+    & .panel:first-child
+      margin-left: 0
+
+    & .panel:last-child
+      margin-right: 0
 
     & > .panel-blue > .panel-heading 
       background-color: #516695
@@ -75,4 +90,4 @@
       color: #d9534f
 
   .text-right > div:not(.huge)
-    font-size: 0.9em
+    font-size: 1.1em
