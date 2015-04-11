@@ -122,9 +122,9 @@ describe('Quick-Add Task Form', function() {
         });
 
         it('creates a new task #travis', function() {
-          spyOn(TaskModel.prototype, 'initialize');
+          spyOn(Canto.TaskModel.prototype, 'initialize');
           view.createTask(e);
-          expect(TaskModel.prototype.initialize).toHaveBeenCalled();
+          expect(Canto.TaskModel.prototype.initialize).toHaveBeenCalled();
         });
 
         it('attaches an auth header #travis', function() {
@@ -139,9 +139,9 @@ describe('Quick-Add Task Form', function() {
         });
 
         it('sets the new task\'s attributes according to its grouping #travis', function() {
-          spyOn(TaskModel.prototype, 'save');
+          spyOn(Canto.TaskModel.prototype, 'save');
           view.createTask(e);
-          expect(TaskModel.prototype.save.calls.argsFor(0)[0].status).toEqual('Blocking');
+          expect(Canto.TaskModel.prototype.save.calls.argsFor(0)[0].status).toEqual('Blocking');
         });
 
         it('adds the new task to the beginning of the collection #travis', function() {
@@ -170,10 +170,10 @@ describe('Quick-Add Task Form', function() {
         it('doesn\'t create a task', function() {
           spyOn(Canto.Utils, 'getAttributes').and.returnValue({title: ''});
           spyOn(collection, 'create');
-          spyOn(TaskModel.prototype, 'initialize');
+          spyOn(Canto.TaskModel.prototype, 'initialize');
           view.createTask(e);
           expect(collection.create).not.toHaveBeenCalled();
-          expect(TaskModel.prototype.initialize).not.toHaveBeenCalled();
+          expect(Canto.TaskModel.prototype.initialize).not.toHaveBeenCalled();
         });
       });
     });

@@ -7,7 +7,7 @@ var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
     context        = describe,
     fcontext       = fdescribe;
 
-describe('Task Collection', function() {
+describe('Task Collection #travis', function() {
   beforeAll(function() {
     _.extend(global, fixtures);
   });

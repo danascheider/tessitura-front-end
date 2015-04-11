@@ -61,8 +61,10 @@ describe('Task List Item View #ui', function() {
     });
 
     it('doesn\'t display the backlog icon by default', function(done) {
-      client.waitForVisible('li#task-1 i[title=Backlog]')
-            .saveScreenshot('screenshot.png', done);
+      client.waitForVisible('li#task-1 i[title=Backlog]', true, function(err, isVisible) {
+        expect(isVisible).toBe(false);
+        done();
+      });
     });
   });
 
