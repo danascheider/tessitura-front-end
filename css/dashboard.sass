@@ -6,11 +6,44 @@ $main-dark-gray: #333
   font-family     : "Open Sans Source Pro", "Helvetica", "Arial", sans-serif
   height          : 100%
 
+  & .btn
+    background-color: rgba(0,0,0,1.0)
+
+    &:hover
+      background-color: inherit
+
+  &.navbar-fixed-top
+    height: 50px
+
+  & .navbar,
+  & .navbar-default.navbar-fixed-top,
+    background-color: rgba(0,0,0,0.8)
+    border          : none
+
+  & .navbar-default.navbar-static-side,
+    margin-top      : 50px
+    padding-top     : 0
+    border          : none
+    box-sizing      : border-box
+
+  & .sidebar-collapse
+    width       : 250px
+    opacity     : 0.8
+    background-color: #000
+    position    : fixed
+    top         : 50px
+    bottom      : 0
+    display     : none
+
+    & > ul,
+    & > li 
+      background: transparent
+
   & #page-wrapper
     box-sizing: border-box
 
   & #side-menu
-    display: none 
+    margin-top: 0
 
   & .sidebar-search
     padding: 15px
@@ -27,12 +60,12 @@ $main-dark-gray: #333
         box-shadow        : inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px #444
 
     & button
-      background-color: #232323
-      color           : #999
+      background-color: #000
+      color           : #444
       border-color    : #444
 
       &:hover 
-        background-color: #282828
+        background-color: #000
         color           : #fff
         border-color    : #444
 
@@ -70,14 +103,14 @@ $main-dark-gray: #333
     margin-bottom: 0
     box-sizing   : border-box
 
-  .navbar-static-side
-    margin-top: 2em
-
   .nav .open > a,
   .nav .open > a:hover,
   .nav .open > a:focus
     background-color: #282828
     border-color    : #428bca
+
+  .sidebar-collapse
+    display: none
 
   .task-details
     display: none
