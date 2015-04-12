@@ -6,8 +6,8 @@
     &:hover > span.toggle-widget
       visibility: visible
 
-  & i 
-    color: #fff
+    & i 
+      color: #fff
 
   .panel-body,
   .panel
@@ -15,15 +15,17 @@
     padding-bottom: 0
 
   .panel-body
-    padding-left : 0 
-    padding-right: 0
+    padding   : 0
+    margin    : 0
+
+    &:after
+      display: none !important
 
   .task-list
     margin-top   : 0
     margin-bottom: 0
-    padding-top  : 0
+    padding      : 0
     list-style   : none
-    padding-left : 0
     color        : #777
 
     a
@@ -63,17 +65,13 @@
         &:hover
           background-color: #fff
 
-
       &:last-child
-        border-bottom : none
-        margin-bottom : 0
+        border-bottom : 0 
+        margin-bottom : 0 
         padding-bottom: 0
 
       &:hover
         background-color: #f6f6f6
-
-        & span.edit-task
-          display: block
 
         & .task-title
           color: #418bca
@@ -94,6 +92,7 @@
         margin-top    : 0.5em
         margin-bottom : 0.5em
 
-        &:last-child
-          margin-bottom : 0
-          padding-bottom: 0
+      &:hover
+        span.edit-task
+          visibility: visible
+          color     : #ccc
