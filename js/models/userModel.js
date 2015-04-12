@@ -30,7 +30,7 @@ var UserModel = Canto.Model.extend({
     settings.url = Canto.API.users.single(this.get('id'));
 
     settings.beforeSend = (settings.beforeSend) || function(xhr) {
-      xhr.setRequestHeader('Authorization', $.cookie('auth'));
+      xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
     };
 
     return Backbone.Model.prototype.fetch.call(this, settings);

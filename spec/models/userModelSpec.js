@@ -70,7 +70,6 @@ describe('User Model', function() {
       });
 
       it('sets the auth header for the requested user #travis', function() {
-        xhr = new XMLHttpRequest();
         xhr.open('GET', user.url());
         user.fetch();
         $.ajax.calls.argsFor(0)[0].beforeSend(xhr);
@@ -86,7 +85,7 @@ describe('User Model', function() {
 
   describe('special functions', function() {
     beforeEach(function() {
-      spyOn($, 'cookie').and.returnValue('Basic ' + btoa('danascheider:danascheider'));
+      spyOn($, 'cookie').and.returnValue(btoa('danascheider:danascheider'));
       spyOn($, 'ajax');
     });
 
@@ -132,7 +131,6 @@ describe('User Model', function() {
       });
 
       it('attaches the auth header', function() {
-        xhr = new XMLHttpRequest();
         xhr.open('POST', Canto.API.login)
         newUser.login();
         $.ajax.calls.argsFor(0)[0].beforeSend(xhr);

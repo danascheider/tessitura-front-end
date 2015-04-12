@@ -25,12 +25,13 @@
 /* Core Requires
 /****************************************************************************/
 
-require(process.cwd() + '/js/dependencies.js');
+require(process.cwd() + '/js/canto.js');
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/spec/support/env.js');
 
 var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
-    matchers       = _.extend(require('jasmine-jquery-matchers'), require(process.cwd() + '/spec/support/matchers/toBeA.js')),
+    matchers       = require('jasmine-jquery-matchers'),
+    fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     context        = describe,
     fcontext       = fdescribe;
 
@@ -45,6 +46,7 @@ describe('Login Form View #travis', function() {
   /**************************************************************************/
 
   beforeAll(function() {
+    _.extend(global, fixtures);
     jasmine.addMatchers(matchers);
   })
 
@@ -59,6 +61,7 @@ describe('Login Form View #travis', function() {
   afterAll(function() {
     view.remove();
     view = null;
+    global = _.omit(global, fixtures);
   });
 
   /* Static Properties
@@ -179,7 +182,7 @@ describe('Login Form View #travis', function() {
         xhr.open('POST', Canto.API.login)
       });
 
-      describe('ajax request', function() {
+      describe('general', function() {
         beforeEach(function() { 
           spyOn($, 'ajax'); 
           spyOn(Canto.Utils, 'getAttributes').and.returnValue({username: 'testuser', password: 'testuser', remember: 'Remember Me'});
@@ -191,20 +194,16 @@ describe('Login Form View #travis', function() {
           expect(e.preventDefault).toHaveBeenCalled();
         });
 
-        it('sends a POST request', function() {
+        it('creates a new user', function() {
+          spyOn(Canto.UserModel.prototype, 'initialize');
           view.loginUser(e);
-          expect($.ajax.calls.argsFor(0)[0].type).toEqual('POST');
+          expect(Canto.UserModel.prototype.initialize).toHaveBeenCalled();
         });
 
-        it('makes a request to the /login endpoint', function() {
+        it('calls login on the user', function() {
+          spyOn(Canto.UserModel.prototype, 'login');
           view.loginUser(e);
-          expect($.ajax.calls.argsFor(0)[0].url).toMatch(/\/login$/);
-        });
-
-        it('includes a basic auth header', function() {
-          view.loginUser(e);
-          $.ajax.calls.argsFor(0)[0].beforeSend(xhr);
-          expect(xhr.getRequestHeader('Authorization')).toEqual(btoa('testuser:testuser'));
+          expect(Canto.UserModel.prototype.login).toHaveBeenCalled();
         });
       });
 
@@ -244,6 +243,11 @@ describe('Login Form View #travis', function() {
               expect(spy).toHaveBeenCalled();
               done();
             });
+
+            it('passes the user with the event', function(done) {
+              expect(typeof (spy.calls.argsFor(0)[0].user)).not.toBe('undefined');
+              done();
+            });
           });
 
           context('with remember me false', function() {
@@ -262,6 +266,11 @@ describe('Login Form View #travis', function() {
 
             it('triggers the `userLoggedIn` event', function() {
               expect(spy).toHaveBeenCalled();
+            });
+
+            it('passes the user with the event', function(done) {
+              expect(typeof (spy.calls.argsFor(0)[0].user)).not.toBe('undefined');
+              done();
             });
           });
         });

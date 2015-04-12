@@ -243,32 +243,40 @@ describe('Dashboard Presenter #travis', function() {
 
       afterEach(function() { newPresenter.destroy(); });
 
-      it('sets the user', function() {
-        newPresenter.setUser(user);
-        expect(newPresenter.user.isA('UserModel')).toBe(true);
+      context('when the user is not actually changed', function() {
+        it('doesn\'t change the user', function() {
+          newPresenter.user = user;
+          newPresenter.setUser(user);
+          expect(newPresenter.user).toBe(user);
+        });
       });
 
-      it('calls setUser on the dashboard', function() {
-        newPresenter.setUser(user);
-        expect(newPresenter.dashboardView.setUser).toHaveBeenCalledWith(user);
+      context('when the "new" user has the same ID as the "old" user', function() {
+        it('doesn\'t change the user', function() {
+          newPresenter.user = user
+          var newUser = new Canto.UserModel({id: user.get('id'), username: user.get('username'), password: user.get('password')});
+          newPresenter.setUser(newUser);
+          expect(newPresenter.user).toBe(user);
+        });
       });
 
-      it('fetches the user data', function() {
-        spyOn(user, 'protectedFetch');
-        newPresenter.setUser(user);
-        expect(user.protectedFetch).toHaveBeenCalled();
-      });
+      context('new user', function() {
+        it('sets the user', function() {
+          newPresenter.setUser(user);
+          expect(newPresenter.user.isA('UserModel')).toBe(true);
+        });
 
-      it('instantiates a task collection', function() {
-        spyOn(Canto.TaskCollection.prototype, 'initialize');
-        newPresenter.setUser(user);
-        expect(Canto.TaskCollection.prototype.initialize).toHaveBeenCalled();
-      });
+        it('calls setUser on the dashboard', function() {
+          newPresenter.setUser(user);
+          expect(newPresenter.dashboardView.setUser).toHaveBeenCalledWith(user);
+        });
 
-      it('fetches the task collection', function() {
-        spyOn(Canto.TaskCollection.prototype, 'fetch');
-        newPresenter.setUser(user);
-        expect(Canto.TaskCollection.prototype.fetch).toHaveBeenCalled();
+        it('instantiates a task collection', function() {
+          user.tasks = null;
+          spyOn(Canto.TaskCollection.prototype, 'initialize');
+          newPresenter.setUser(user);
+          expect(Canto.TaskCollection.prototype.initialize).toHaveBeenCalled();
+        });
       });
     });
 

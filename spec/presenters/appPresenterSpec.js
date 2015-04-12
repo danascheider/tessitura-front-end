@@ -80,16 +80,19 @@ describe('App Presenter #travis', function() {
 
   describe('event callbacks', function() {
     describe('emitRedirect()', function() {
+      var user;
+
       beforeEach(function() {
         spy = jasmine.createSpy();
         presenter.on('redirect', spy);
+        user = new Canto.UserModel({username: 'testuser', password: 'testuser', id: 342});
       });
 
       afterEach(function() { presenter.off('redirect'); });
 
       it('triggers the redirect event on itself', function() {
-        presenter.emitRedirect({destination: 'dashboard'});
-        expect(spy).toHaveBeenCalledWith({destination: 'dashboard'});
+        presenter.emitRedirect({destination: 'dashboard', user: user});
+        expect(spy).toHaveBeenCalledWith({destination: 'dashboard', user: user});
       });
     });
   });

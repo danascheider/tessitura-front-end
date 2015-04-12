@@ -51,7 +51,8 @@ var HomepageView = Canto.View.extend({
   /**************************************************************************/
 
   goToDashboard: function(e) {
-    this.trigger('redirect', {destination: 'dashboard'});
+    var args = _.extend(e, {destination: 'dashboard'});
+    this.trigger('redirect', args);
   },
 
   hideLoginForm: function(e) {

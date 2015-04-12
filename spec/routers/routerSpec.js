@@ -152,10 +152,16 @@ describe('Canto Router #travis', function() {
   /****************************************************************************/
 
   describe('non-route events', function() {
+    var user;
+
+    beforeEach(function() {
+      user = new Canto.UserModel({username: 'testuser', password: 'testuser', id: 342});
+    });
+
     it('listens to its app presenter', function(done) {
       spyOn(Canto.Router.prototype, 'navigateTo');
       var newRouter = new Canto.Router();
-      var e = $.Event('redirect', {destination: 'dashboard'});
+      var e = $.Event('redirect', {destination: 'dashboard', user: user});
       newRouter.AppPresenter.trigger(e);
       done();
       expect(Canto.Router.prototype.navigateTo).toHaveBeenCalledWith(e);
@@ -176,11 +182,25 @@ describe('Canto Router #travis', function() {
 
   describe('event callbacks', function() {
     describe('navigateTo()', function() {
-      it('navigates to the given route', function() {
-        var e = $.Event('redirect', {destination: 'tasks'});
-        spyOn(router, 'navigate');
-        router.navigateTo(e);
-        expect(router.navigate).toHaveBeenCalledWith('tasks', {trigger: true});
+      context('general', function() {
+        it('navigates to the given route', function() {
+          var e = $.Event('redirect', {destination: 'tasks'});
+          spyOn(router, 'navigate');
+          router.navigateTo(e);
+          expect(router.navigate).toHaveBeenCalledWith('tasks', {trigger: true});
+        });
+      });
+
+      context('when passed a user model', function() {
+        beforeEach(function() {
+          spyOn(router.DashboardPresenter, 'setUser');
+        });
+
+        it('calls setUser on the dashboard presenter', function() {
+          e = $.Event('redirect', {destination: 'dashboard', user: user});
+          router.navigateTo(e);
+          expect(router.DashboardPresenter.setUser).toHaveBeenCalledWith(user);
+        });
       });
     });
   });

@@ -43,7 +43,7 @@ describe('Canto Homepage View #travis', function() {
 
   beforeAll(function() {
     jasmine.addMatchers(matchers);
-  })
+  });
 
   beforeEach(function() {
     view = new Canto.HomepageView();
@@ -142,6 +142,32 @@ describe('Canto Homepage View #travis', function() {
     describe('hideLoginForm()', function() {
       it('hides the login form', function() {
         pending('This is a UI concern but I don\'t have time for this today');
+      });
+    });
+
+    describe('goToDashboard()', function() {
+      var user;
+
+      beforeEach(function() {
+        spy = jasmine.createSpy();
+        view.on('redirect', spy);
+        user = new Canto.UserModel({id: 342, username: 'testuser', password: 'testuser'});
+        e = {user: user};
+      });
+      
+      it('triggers redirect on itself', function() {
+        view.goToDashboard(e);
+        expect(spy).toHaveBeenCalled();
+      });
+
+      it('passes the user through', function() {
+        view.goToDashboard(e);
+        expect(spy.calls.argsFor(0)[0]).toEqual(jasmine.objectContaining({user: user}));
+      });
+
+      it('sends the destination', function() {
+        view.goToDashboard(e);
+        expect(spy.calls.argsFor(0)[0]).toEqual(jasmine.objectContaining({destination: 'dashboard'}));
       });
     });
 

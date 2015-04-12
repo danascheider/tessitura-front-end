@@ -62,16 +62,14 @@ var LoginFormView = Canto.View.extend({
         hash      = btoa(loginInfo.username + ':' + loginInfo.password),
         that      = this;
 
-    $.ajax({
-      url        : Canto.API.login,
-      type       : 'POST',
-      beforeSend : function(xhr) {
-        xhr.setRequestHeader('Authorization', hash);
-      },
-      success    : function(user) {
+    var user = new Canto.UserModel({username: loginInfo.username, password: loginInfo.password});
+
+    user.login({
+      async      : false,
+      success    : function(model) {
         loginInfo.remember ? $.cookie('auth', hash, {expires: 365}) : $.cookie('auth', hash);
-        loginInfo.remember ? $.cookie('userID', user.id, {expires: 365}) : $. cookie('userID', user.id);
-        that.trigger('userLoggedIn');
+        loginInfo.remember ? $.cookie('userID', user.id, {expires: 365}) : $. cookie('userID', user.get('id'));
+        that.trigger('userLoggedIn', {user: model});
       }
     });
   },
