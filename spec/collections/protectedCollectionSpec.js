@@ -34,9 +34,7 @@ var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
     fcontext       = fdescribe;
 
 /******************************************************************************
- *                                                                            *
  * BEGIN SUITE                                                                *
- *                                                                            *  
 /******************************************************************************/
 
 describe('Protected Collection #travis', function() {
