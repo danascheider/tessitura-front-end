@@ -140,6 +140,30 @@ ol
   color           : #fff
   background-color: #74abcc
 
+.btn-lg
+  padding      : 10px 16px
+  font-size    : 18px
+  line-height  : 1.33
+  border-radius: 2px
+
+.dropdown-menu
+  &.pull-right
+    right: 0
+    left : auto
+
+  & > .active > a,
+  & > .active > a:hover,
+  & > .active > a:focus 
+    color           : #999
+    text-decoration : none
+    background-color: #418bca
+
+  & .divider
+    background-color: #e5e5e5
+    height          : 1px
+    overflow        : hidden
+    margin          : 9px 0
+
 .col-xs-
   &12
     width: 100%
@@ -288,15 +312,50 @@ ol
   &offset-0 
     margin-left: 0
 
-.open .dropdown-toggle.btn-default
-  color           : #333
-  background-color: #ebebeb
-  border-color    : #adadad
+.hidden
+  display   : none !important
+  visibility: hidden !important
+  
+.hide 
+  display: none !important
+
+.input-group[class*="col-"]
+  padding-right: 0
+  padding-left : 0 
+  float        : none
+
+.invisible
+  visibility: hidden
+
+.navbar-default .navbar-toggle .icon-bar
+  background-color: #888
+
+.open 
+  a
+    outline: 0
+
+  .dropdown-toggle.btn-default
+    color           : #333
+    background-color: #ebebeb
+    border-color    : #adadad
+    background-image: none
+
+  & > .dropdown-menu
+    display: block
 
 .page-header 
   padding-bottom: 9px
   margin        : 40px 0 20px
   border-bottom : 1px solid #eee
+
+.panel-heading > .dropdown .dropdown-toggle
+  color: inherit
+
+.pull-left
+  float: left !important
+
+.show 
+  display: block !important
 
 .text-left
   text-align: left
