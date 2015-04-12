@@ -1,10 +1,14 @@
 $main-dark-gray: #333
+$panel-red-color: #d9534f
+$panel-yellow-color: #f0ad4e
+$panel-green-color: #5db85b
+$panel-blue-color: #418bca
 
 #dashboard-wrapper
-  position        : fixed
   background-color: #ebeef2
   font-family     : "Open Sans Source Pro", "Helvetica", "Arial", sans-serif
   height          : 100%
+  padding         : 15px
 
   & .btn
     background-color: #000
@@ -80,35 +84,35 @@ $main-dark-gray: #333
   .panel-blue,
   .panel-primary
     .panel-heading
-      background-color: #418bca
+      background-color: $panel-blue-color
 
     &:hover span.pull-left, 
     &:hover span.pull-right
-      color: #418bca
+      color: $panel-blue-color
 
   .panel-green
     .panel-heading
-      background-color: #5db85b
+      background-color: $panel-green-color
 
     &:hover span.pull-left,
     &:hover span.pull-right
-      color: #5db85b
+      color: $panel-green-color
 
   .panel-red
     .panel-heading
-      background-color: #d9534f
+      background-color: $panel-red-color
 
     &:hover span.pull-left,
     &:hover span.pull-right
-      color: #d9534f
+      color: $panel-red-color
 
   .panel-yellow 
     .panel-heading
-      background-color: #f0ad4e
+      background-color: $panel-yellow-color
 
     &:hover span.pull-left,
     &:hover span.pull-right
-      color: #f0ad4e
+      color: $panel-yellow-color
 
   #task-panel 
     span.show-widget,

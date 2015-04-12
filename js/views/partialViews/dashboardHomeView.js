@@ -60,13 +60,7 @@ var DashboardHomeView = Canto.View.extend({
 
   renderTopWidgetView : function() {
     this.topWidgetView.render();
-
-    // Remove the top widget view if it is already in the DOM in order to 
-    // maintain idempotency when using prepend() for DOM insertion
-
-    if($.contains(this.$el, this.topWidgetView.$el)) { this.topWidgetView.remove(); }
-
-    this.$el.prepend(this.topWidgetView.$el);
+    this.$('.row').first().html(this.topWidgetView.$el);
   },
 
   setUser             : function(user) {
