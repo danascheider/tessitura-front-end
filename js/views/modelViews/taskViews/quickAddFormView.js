@@ -7,9 +7,8 @@ var QuickAddFormView = Canto.View.extend({
     'submit' : 'createTask'
   },
 
-  // --------------------- //
-  // Canto View Properties //
-  // --------------------- //
+  /* Canto View Properties
+  /**************************************************************************************/
 
   klass      : 'QuickAddTaskFormView',
   family     : 'Canto.View',
@@ -19,9 +18,8 @@ var QuickAddFormView = Canto.View.extend({
     return Canto.View.prototype.types().concat(['QuickAddForm', 'QuickAddFormView', 'TaskCollectionView', 'TaskFormView', 'TaskCreateFormView']);
   },
 
-  // --------------- //
-  // Event Callbacks //
-  // --------------- //
+  /* Event Callbacks
+  /**************************************************************************************/
 
   createTask : function(e) {
     // Prevent the browser from reloading the page
@@ -58,13 +56,12 @@ var QuickAddFormView = Canto.View.extend({
     }
   },
 
-  // ------------------- //
-  // Core View Functions //
-  // ------------------- //
+  /* Core View Functions
+  /**************************************************************************************/
 
   initialize : function(opts) {
     opts = opts || {};
-    this.grouping = opts.grouping;
+    _.extend(this, opts);
   },
 
   render     : function(opts) {
