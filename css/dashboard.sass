@@ -5,7 +5,7 @@ $panel-green-color: #5db85b
 $panel-blue-color: #418bca
 
 #dashboard-wrapper
-  background-color: #ebeef2
+  background-color: #eeeeee
   font-family     : "Open Sans Source Pro", "Helvetica", "Arial", sans-serif
   height          : 100%
   padding         : 15px
@@ -115,12 +115,68 @@ $panel-blue-color: #418bca
       color: $panel-yellow-color
 
   #task-panel 
+    .panel-body
+      padding-left : 0
+      padding-right: 0
+
+    .task-list 
+      a 
+        color: #777
+
+      & li:last-child
+        border-bottom : none
+        margin-bottom : 0
+        padding-bottom: 0
+
+        & > table
+          margin-bottom : 0
+          padding-bottom: 0
+
+      & li:hover
+        background-color: #f6f6f6
+
+      .form-group
+        margin-top: 0.45em
+
+      input
+        margin-bottom : 0.5
+        padding-top   : 0 5px
+        height        : 2em
+
+      li
+        padding            : 0
+        padding-left       : 0.5em
+        border-style       : solid none
+        border-top-color   : #efefef
+        border-bottom-color: #d3d3d3
+        border-width       : 1px
+
+        &.quick-add-form:hover
+          background-color: #fff
+
+        & li > table,
+        & li a
+          vertical-align: center
+          margin-top    : 0.5em
+          margin-bottom : 0.5em
+
+
     span.show-widget,
     span.hide-widget
       display: none
 
       i
         color: #fff
+
+    a.task-title
+      font-weight: bold
+      font-size  : 0.9em
+
+      &:hover
+        text-decoration: none
+
+    form
+      margin-bottom: 0.5em
 
 @import "./partials/_dashboard-top-nav-links"
 @import "./partials/_dashboard-home-view"

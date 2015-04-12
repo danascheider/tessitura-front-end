@@ -2,6 +2,9 @@ $main-dark-gray: #333
 
 /* Global Styles
 /*****************************************************************************************/
+* 
+  box-sizing: border-box
+
 body,
 html
   height : 100%
@@ -21,7 +24,7 @@ a
 
 a:hover,
 a:focus 
-  color          : #327F7B
+  color          : #418bca
   text-decoration: underline
 
 a:focus
@@ -202,6 +205,15 @@ label
 .col-lg-6
   width: 47%
 
+@media (min-width: 1200px)
+  .col-lg-6
+    width: 50%
+    float: left
+
+  .col-lg-4
+    width: percentage(1/3)
+    float: left
+
 @media (min-width: 992px)
   .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12
     float: left
@@ -237,10 +249,14 @@ label
   display: table
   content: " "
 
+.col-lg-6:after,
+.col-lg-4:after,
 .container:after,
+.nav:after,
+.navbar:after,
+.navbar-header:after,
 .panel-body:after,
-.row:after,
-.nav:after 
+.row:after
   clear: both
 
 .dropdown 
@@ -299,40 +315,9 @@ label
   outline: 0
 
 .form-control
-  display           : block
-  width             : 100%
-  height            : 34px
-  padding           : 6px 12px
-  font-size         : 14px
-  line-height       : 1.428571429em
-  color             : #555 
-  background-color  : #fff
-  background-image  : none
+  display      : block
+  width        : 100%
   border            : 1px solid #ccc
-  border-radius     : 2px
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075)
-  box-shadow        : inset 0 1px 1px rgba(0, 0, 0, .075)
-  -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
-  transition        : border-color ease-in-out .15s, box-shadow ease-in-out .15s
-
-  &:focus
-    border-color      : #66afe9
-    outline           : 0
-    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6)
-    box-shadow        : inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6)
-
-  &:-moz-placeholder 
-    color: #999
-
-  &::-moz-placeholder 
-    color  : #999
-    opacity: 1
-
-  &:-ms-input-placeholder 
-    color: #999
-
-  &::-webkit-input-placeholder
-    color: #999
 
 .input-group
   position       : relative
@@ -341,7 +326,6 @@ label
 
   & .form-control
     float        : left
-    width        : 100%
     margin-bottom: 0
     display      : table-cell
 

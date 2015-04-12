@@ -129,5 +129,38 @@
   hr.small
     max-width: 100px
 
+  .form-control
+    width             : 100%
+    height            : 34px
+    padding           : 6px 12px
+    font-size         : 14px
+    line-height       : 1.428571429em
+    color             : #555 
+    background-color  : #fff
+    background-image  : none
+    border-radius     : 2px
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075)
+    box-shadow        : inset 0 1px 1px rgba(0, 0, 0, .075)
+    -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
+    transition        : border-color ease-in-out .15s, box-shadow ease-in-out .15s
+
+    &:focus
+      border-color      : #66afe9
+      outline           : 0
+      -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6)
+      box-shadow        : inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6)
+
+    &:-moz-placeholder 
+      color: #999
+
+    &::-moz-placeholder 
+      color  : #999
+      opacity: 1
+
+    &:-ms-input-placeholder 
+      color: #999
+
+    &::-webkit-input-placeholder
+      color: #999
 @import "./partials/_registration-form"
 @import "./partials/_login-form"
