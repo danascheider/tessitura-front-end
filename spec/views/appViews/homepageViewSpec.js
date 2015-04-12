@@ -139,12 +139,6 @@ describe('Canto Homepage View #travis', function() {
   /**************************************************************************/
 
   describe('event callbacks', function() {
-    describe('hideLoginForm()', function() {
-      it('hides the login form', function() {
-        pending('This is a UI concern but I don\'t have time for this today');
-      });
-    });
-
     describe('goToDashboard()', function() {
       var user;
 
