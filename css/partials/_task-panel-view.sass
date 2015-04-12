@@ -1,7 +1,10 @@
 #task-panel 
-  .panel-heading > span.show-widget,
-  .panel-heading > span.hide-widget
-    display: none
+  .panel-heading
+    & > span.toggle-widget
+      visibility: hidden
+
+    &:hover > span.toggle-widget
+      visibility: visible
 
   & i 
     color: #fff
@@ -45,6 +48,7 @@
       i.fa-check-square-o
         color       : #ccc
         margin-right: 0.5em
+        cursor      : pointer
 
       table
         margin-bottom : 0

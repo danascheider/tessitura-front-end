@@ -4,10 +4,7 @@ var TaskPanelView = Canto.View.extend({
   template             : JST['partials/taskPanel'],
 
   events               : {
-    'mouseenter'         : 'showToggleWidgetIcon',
-    'mouseleave'         : 'hideToggleWidgetIcon',
-    'click .hide-widget' : 'hideWidget',
-    'click .show-widget' : 'showWidget'
+    'click span.toggle-widget i' : 'toggleWidget',
   },
 
   /* Canto View Properties
@@ -42,34 +39,15 @@ var TaskPanelView = Canto.View.extend({
     return slice;
   },
 
-  hideToggleWidgetIcon : function() {
-    if(this.$('span.show-widget i,span.hide-widget i').is(':visible')) { 
-      this.$('span.show-widget i, span.hide-widget i').fadeOut(100);
-    }
-  },
-
-  hideWidget           : function() {
-    this.$('span.pull-right').removeClass('hide-widget').addClass('show-widget');
-    this.$('i.fa-minus').removeClass('fa-minus').addClass('fa-plus');
-    this.$('.panel-body').addClass('hide');
-  },
-
   removeBacklogged     : function() {
     var that = this;
     var backlogged = this.collection.where({backlog: true});
    _.each(backlogged, function(task) { that.collection.remove(task); });
   },
 
-  showToggleWidgetIcon : function() {
-    if(!this.$('span.show-widget,span.hide-widget').is(':visible')) {
-      this.$('span.show-widget, span.hide-widget').fadeIn(100);
-    }
-  },
-
-  showWidget           : function() {
-    this.$('span.pull-right').first().removeClass('show-widget').addClass('hide-widget');
-    this.$('i.fa-plus').removeClass('fa-plus').addClass('fa-minus');
-    this.$('.panel-body').removeClass('hide');
+  toggleWidget         : function(e) {
+    this.$('.panel-body').toggleClass('hide');
+    $(e.target).toggleClass('fa-minus fa-plus');
   },
 
   // ------------------- //
