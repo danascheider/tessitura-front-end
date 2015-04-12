@@ -51,7 +51,7 @@ var TaskPanelView = Canto.View.extend({
   hideWidget           : function() {
     this.$('span.pull-right').removeClass('hide-widget').addClass('show-widget');
     this.$('i.fa-minus').removeClass('fa-minus').addClass('fa-plus');
-    this.$('.panel-body').slideUp();
+    this.$('.panel-body').addClass('hide');
   },
 
   removeBacklogged     : function() {
@@ -69,7 +69,7 @@ var TaskPanelView = Canto.View.extend({
   showWidget           : function() {
     this.$('span.pull-right').first().removeClass('show-widget').addClass('hide-widget');
     this.$('i.fa-plus').removeClass('fa-plus').addClass('fa-minus');
-    this.$('.panel-body').slideDown();
+    this.$('.panel-body').removeClass('hide');
   },
 
   // ------------------- //
