@@ -12,7 +12,7 @@ var JST = {
   'partials/regForm'   : _.template(require('./partialTemplates/registrationFormTemplate.js')),
   'partials/taskPanel' : _.template(require('./partialTemplates/taskPanelTemplate.js')),
   'partials/topWidgets': _.template(require('./partialTemplates/dashboardTopWidgetTemplate.js')),
-  'tasks/model'        : _.template(require('./modelTemplates/taskTemplates/modelTemplate.js')),
+  'tasks/model'        : _.template(require('./modelTemplates/taskTemplates/taskModelTemplate.js')),
   'tasks/listItem'     : _.template(require('./modelTemplates/taskTemplates/listItemTemplate.js')),
   'tasks/quickAdd'     : _.template(require('./modelTemplates/taskTemplates/quickAddFormTemplate.js')),
   'spec/dashboard'     : _.template(require('./specTemplates/dashboardSpecTemplate.js')),

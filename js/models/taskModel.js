@@ -30,7 +30,7 @@ var TaskModel = Canto.ProtectedResourceModel.extend({
 
   displayTitle   : function(chars) {
     var chars = chars || 60;
-    var title = this.escape('title');
+    var title = this.get('title');
 
     if(title.length > chars) {
       var shorter = title.substring(0,chars - 1).split(' ');

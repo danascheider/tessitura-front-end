@@ -90,8 +90,6 @@ Canto.Router = Backbone.Router.extend({
     this.DashboardPresenter.setUser(new Canto.UserModel({id: $.cookie('userID')}));
     this.DashboardPresenter.user.protectedFetch({async: false});
     this.DashboardPresenter.user.tasks.fetch({async: false});
-    console.log(this.DashboardPresenter.user);
-    console.log(this.DashboardPresenter.user.tasks);
     this.DashboardPresenter.getHome();
   },
 

@@ -46,7 +46,7 @@ var TaskPanelView = Canto.View.extend({
   },
 
   toggleWidget         : function(e) {
-    this.$('.panel-body').toggleClass('hide');
+    this.$('.panel-body').slideToggle();
     $(e.target).toggleClass('fa-minus fa-plus');
   },
 
