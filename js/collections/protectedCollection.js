@@ -49,21 +49,13 @@ var ProtectedCollection = Backbone.Collection.extend({
 
   fetch     : function(opts) {
     opts = opts || {};
-
     var that = this;
-
-    var callback = opts.success;
 
     opts.beforeSend = (opts.beforeSend) || function(xhr) {
       xhr.setRequestHeader('Authorization', that.token());
     };
 
-    opts.success = function(model, response, xhr) {
-      that.trigger('fetch');
-      if(!!callback) { callback.call(model, response, xhr); }
-    },
-
-    Backbone.sync('read', this, opts);
+    Backbone.Collection.prototype.fetch.call(this, opts);
   }
 });
 

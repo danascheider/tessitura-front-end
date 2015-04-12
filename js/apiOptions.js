@@ -1,5 +1,5 @@
 var opts = {
-  test: true
+  test: false
 };
 
 module.exports = opts;

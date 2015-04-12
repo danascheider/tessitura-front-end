@@ -39,7 +39,7 @@ var DashboardTopWidgetView = Canto.View.extend({
 
     _.extend(this, this.data); 
 
-    this.listenTo(this.taskCollection, 'add remove', this.render);
+    this.listenTo(this.taskCollection, 'add remove sync', this.render);
   },
 
   render              : function() {

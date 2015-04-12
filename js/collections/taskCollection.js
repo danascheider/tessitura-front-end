@@ -28,10 +28,9 @@ var TaskCollection = Canto.ProtectedCollection.extend({
 
   // There are two routes for fetching a task collection: One to fetch only
   // the incomplete tasks (which is the default) and one for fetching all the
-  // tasks. The fetch() method is being overridden here to do two things beyond
-  // what the Backbone Collection fetch() method does by default:
-  //    1. Add an authorization header to the request
-  //    2. Change the request URL if the `all` option is set to `true`
+  // tasks. The fetch() method is being overridden here to do one thing beyond
+  // what the Protected Collection fetch() method does by default: Change the 
+  // request URL if the `all` option is set to `true`.
   //
   // So there are two possibilities for using the fetch() method:
   //    collection.fetch();               // fetches incomplete tasks

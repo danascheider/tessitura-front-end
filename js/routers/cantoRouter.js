@@ -84,18 +84,15 @@ Canto.Router = Backbone.Router.extend({
 
   displayDashboardHome: function() {
     var that = this;
+    var user = new Canto.UserModel({id: $.cookie('userID')});
+    user.tasks = new Canto.TaskCollection();
 
     this.DashboardPresenter.setUser(new Canto.UserModel({id: $.cookie('userID')}));
-    this.DashboardPresenter.user.protectedFetch({
-      async: false,
-      success: function() {
-        that.DashboardPresenter.user.tasks.fetch({
-          success: function() {
-            that.DashboardPresenter.getHome();
-          }
-        });
-      }
-    });
+    this.DashboardPresenter.user.protectedFetch({async: false});
+    this.DashboardPresenter.user.tasks.fetch({async: false});
+    console.log(this.DashboardPresenter.user);
+    console.log(this.DashboardPresenter.user.tasks);
+    this.DashboardPresenter.getHome();
   },
 
   displayDashboardTaskView: function() {
