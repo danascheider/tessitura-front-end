@@ -58,6 +58,12 @@ var TaskCollectionView = Canto.View.extend({
     });
   },
 
+  removeStyles         : function() {
+    _.each(this.childViews, function(view) {
+      view.$el.removeAttr('style');
+    });
+  },
+
   renderCollection     : function() {
     var that = this;
 
@@ -96,6 +102,7 @@ var TaskCollectionView = Canto.View.extend({
     this.listenTo(this.collection, 'add fetch', this.render);
     this.listenTo(this.collection, 'remove', this.removeChildAndRender);
     this.listenTo(this.collection, 'change:status', this.crossOff);
+    this.listenTo(this.collection, 'drop', this.removeStyles);
   },
 
   remove              : function() {

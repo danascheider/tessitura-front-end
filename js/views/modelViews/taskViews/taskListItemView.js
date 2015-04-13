@@ -74,6 +74,8 @@ var ListItemView = Canto.View.extend({
   },
 
   configureDraggable : function() {
+    var that   = this;
+
     this.$el.draggable({
       containment       : 'parent',
       connectToSortable : '.task-list',
@@ -110,26 +112,20 @@ var ListItemView = Canto.View.extend({
           // Iterator
           var i = 1;
 
-          // FIX: This should trigger an event rather than changing the 
-          //      positions of the models itself
-
           _.each(items, function(item) {
             var model = coll.get($(item).attr('id').match(/(\d+)/)[0]);
             if (model.get('position') !== i) {
-              model.set({position: i});
+              model.save({position: i});
             }
           });
         } else if (column.innerText === 'Backlog') {
-          that.model.set('backlog', true);
+          that.model.save('backlog', true);
         } else {
-          that.model.set('status', column.innerText);
+          that.model.save('status', column.innerText);
         }
 
-        that.model.collection.updateAll({
-          success: function() {
-            that.changePosition();
-          }
-        });
+        that.$el.removeAttr('style');
+        that.trigger('drop');
       }
     });
   },
@@ -140,6 +136,8 @@ var ListItemView = Canto.View.extend({
 
   initialize         : function() {
     this.modelView = new Canto.TaskModelView({model: this.model});
+
+    this.listenTo(this.model, 'change:position', this.render);
   },
 
   remove             : function() {
@@ -153,6 +151,7 @@ var ListItemView = Canto.View.extend({
     return Canto.View.prototype.render.call(this, this.template(), function() {
       that.modelView.render();
       that.$('td.task-listing').html(that.modelView.$el);
+      that.configureDraggable();
     });
   }
 });

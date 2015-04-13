@@ -32,7 +32,7 @@ var ProtectedCollection = Backbone.Collection.extend({
     });
     var toSync        = new Backbone.Collection(changedModels, {url: opts.url});
 
-    opts.url        = opts.url || this.url;
+    opts.url        = opts.url || this.url();
     opts.beforeSend = (opts.beforeSend) || function(xhr) {
       xhr.setRequestHeader('Authorization', that.token());
     };
