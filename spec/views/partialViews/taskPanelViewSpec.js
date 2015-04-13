@@ -7,7 +7,7 @@ var Fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js
     context        = describe,
     fcontext       = fdescribe;
 
-fdescribe('Task Panel View #travis', function() {
+describe('Task Panel View #travis', function() {
 
   // Declare variables to be used in the tests
   var taskPanel, opts, e;

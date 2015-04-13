@@ -17,9 +17,8 @@ var SpecWrapper = Backbone.View.extend({
     'click a[data-method=showSidebar]'       : 'callShowSidebar'
   },
 
-  // --------------- //
-  // Event Callbacks //
-  // --------------- //
+  /* Event Callbacks 
+  /**************************************************************************************/
 
   callHideDropdownMenus  : function(e) {
     e.preventDefault();
@@ -33,10 +32,8 @@ var SpecWrapper = Backbone.View.extend({
     e.preventDefault();
     var that = this;
 
-    if(this.view.$('#side-menu').is(':visible')) { 
-      var ev = $.Event('click', {target: that.view.$('.navbar-brand').first()});
-      that.view.toggleSidebar(ev);
-    }
+    var ev = $.Event('dblclick', {target: that.view.$el});
+    this.view.hideSidebar(ev);
   },
 
   callShowSidebar        : function(e) {
@@ -65,9 +62,8 @@ var SpecWrapper = Backbone.View.extend({
     this.view.toggleSidebar(ev);
   },
 
-  // ------------------- //
-  // Core View Functions //
-  // ------------------- //
+  /* Core View Functions 
+  /**************************************************************************************/
 
   initialize: function() {
     this.view = new Canto.DashboardView({user: user1});

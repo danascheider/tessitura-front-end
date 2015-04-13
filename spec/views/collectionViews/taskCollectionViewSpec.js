@@ -7,7 +7,7 @@ var matchers       = require('jasmine-jquery-matchers'),
     context        = describe,
     fcontext       = fdescribe;
 
-fdescribe('Task Collection View #travis', function() {
+describe('Task Collection View #travis', function() {
   var view, newView;
 
   beforeAll(function() {

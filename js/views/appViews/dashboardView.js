@@ -59,6 +59,7 @@ var DashboardView = Canto.View.extend({
 
   events             : {
     'click'                : 'hideDropdownMenus',
+    'dblclick'             : 'hideSidebar',
     'click li.dropdown'    : 'toggleDropdownMenu',
     'click .navbar-header' : 'toggleSidebar'
   },
@@ -69,6 +70,14 @@ var DashboardView = Canto.View.extend({
   hideDropdownMenus  : function(e) {
     var li = this.$('li.dropdown');
     if(!li.is(e.target) && !li.has(e.target).length) { li.removeClass('open'); }
+  },
+
+  hideSidebar        : function(e) {
+    var target = $(e.target);
+
+    if(target != this.sidebarView.$el && this.sidebarView.$el.has(target).length === 0 && this.sidebarView.$el.is(':visible')) {
+      this.$('.sidebar-collapse').slideUp();
+    }
   },
 
   toggleDropdownMenu : function(e) {

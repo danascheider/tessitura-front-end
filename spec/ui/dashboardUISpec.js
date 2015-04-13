@@ -66,5 +66,20 @@ describe('Dashboard View #ui', function() {
         //
       });
     });
+
+    describe('hideSidebar()', function() {
+      it('hides the sidebar', function(done) {
+        client.waitForVisible('a[data-method=showSidebar]')
+              .click('a[data-method=showSidebar]')
+              .waitForVisible('#side-menu')
+              .click('a[data-method=hideSidebar]')
+              .waitForVisible('#side-menu', 1000, true, function(err, isVisible) {
+
+          client.saveScreenshot('screenshot.png');
+          expect(isVisible).toBe(false);
+          done();
+        });
+      });
+    });
   });
 });

@@ -226,6 +226,7 @@ describe('Main Dashboard View #travis', function() {
 
     beforeEach(function() {
       spyOn(Canto.DashboardView.prototype, 'hideDropdownMenus');
+      spyOn(Canto.DashboardView.prototype, 'hideSidebar');
       spyOn(Canto.DashboardView.prototype, 'toggleDropdownMenu');
       spyOn(Canto.DashboardView.prototype, 'toggleSidebar');
       newDashboard = new Canto.DashboardView({user: user});
@@ -236,6 +237,13 @@ describe('Main Dashboard View #travis', function() {
       it('calls hideDropdownMenus', function() {
         newDashboard.$el.click();
         expect(Canto.DashboardView.prototype.hideDropdownMenus).toHaveBeenCalled();
+      });
+    });
+
+    describe('dblclick $el', function() {
+      it('calls hideSidebar', function() {
+        newDashboard.$el.dblclick();
+        expect(Canto.DashboardView.prototype.hideSidebar).toHaveBeenCalled();
       });
     });
 
