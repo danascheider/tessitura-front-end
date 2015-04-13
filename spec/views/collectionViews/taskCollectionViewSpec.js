@@ -7,7 +7,7 @@ var matchers       = require('jasmine-jquery-matchers'),
     context        = describe,
     fcontext       = fdescribe;
 
-describe('Task Collection View #travis', function() {
+fdescribe('Task Collection View #travis', function() {
   var view, newView;
 
   beforeAll(function() {
@@ -137,7 +137,7 @@ describe('Task Collection View #travis', function() {
   });
 
   describe('event callbacks', function() {
-    describe('removeBacklog', function() {
+    describe('removeBacklog()', function() {
       beforeEach(function() { 
         task2.set('backlog', true); 
         view.removeBacklog();
@@ -148,21 +148,21 @@ describe('Task Collection View #travis', function() {
       });
     });
 
-    describe('removeChildAndRender', function() {
+    describe('removeChildAndRender()', function() {
       it('removes the child view from the array', function() {
         var child = childViews[1];
         view.removeChildAndRender(task2);
         expect(view.childViews).not.toContain(child);
       });
 
-      it('calls render', function() {
+      it('calls render()', function() {
         spyOn(view, 'render');
         view.removeChildAndRender(task2);
         expect(view.render).toHaveBeenCalled();
       });
     });
 
-    describe('removeChildViews', function() {
+    describe('removeChildViews()', function() {
       beforeEach(function() { 
         view.childViews = childViews; 
         view.render();
@@ -193,7 +193,7 @@ describe('Task Collection View #travis', function() {
       });
     });
 
-    describe('renderCollection', function() {
+    describe('renderCollection()', function() {
       it('renders the collection', function() {
         view.renderCollection();
         expect(view.$('li.task-list-item')).toHaveLength(3);
@@ -236,7 +236,7 @@ describe('Task Collection View #travis', function() {
   });
 
   describe('core view functions', function() {
-    describe('render', function() {
+    describe('render()', function() {
       it('renders the quick-add form', function() {
         spyOn(view.quickAddForm, 'render');
         view.render();
@@ -249,12 +249,19 @@ describe('Task Collection View #travis', function() {
         expect(view.renderCollection).toHaveBeenCalled();
       });
 
-      // FIX: I don't know if this test was vestigial or what, but I'm going
-      //      to hang onto its shell while I investigate.
+      it('configures sortable', function() {
+        spyOn($.prototype, 'sortable');
+        view.render();
+        expect($.prototype.sortable).toHaveBeenCalled();
+      });
 
-      // it('configures sortable', function() {
-      //  
-      // });
+      it('doesn\'t apply sortable to class .not-sortable', function() {
+        spyOn($.prototype, 'sortable');
+        view.render();
+        expect($.prototype.sortable.calls.argsFor(0)[0]).toEqual(jasmine.objectContaining({
+          items: '>*:not(.not-sortable)'
+        }));
+      })
 
       describe('idempotency', function() {
         beforeEach(function() { 

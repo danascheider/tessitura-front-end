@@ -77,9 +77,6 @@ var TaskPanelView = Canto.View.extend({
     return Canto.View.prototype.render.call(this, this.template(), function() {
       that.collectionView.render();
       that.$('.panel-body').html(that.collectionView.$el);
-      that.$el.sortable({
-        items : '>*:not(.not-sortable)'
-      });
     });
   }
 });

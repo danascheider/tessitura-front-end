@@ -3,9 +3,8 @@ var TaskCollectionView = Canto.View.extend({
   className            : 'task-list',
   template             : JST['collections/task'],
 
-  // --------------------- //
-  // Canto View Properties //
-  // --------------------- //
+  /* Canto View Properties
+  /**************************************************************************************/
 
   klass                : 'TaskCollectionView',
   family               : 'Canto.View',
@@ -15,9 +14,8 @@ var TaskCollectionView = Canto.View.extend({
     return Canto.View.prototype.types().concat(['TaskCollectionView', 'TaskView']);
   },
 
-  // --------------- //
-  // Event Callbacks //
-  // --------------- //
+  /* Event Callbacks
+  /**************************************************************************************/
 
   crossOff             : function(task) {
     if(!task.get('status') === 'Complete') { return; }
@@ -50,9 +48,8 @@ var TaskCollectionView = Canto.View.extend({
     this.collection.remove(complete);
   },
 
-  // ----------------- //
-  // Special Functions //
-  // ----------------- //
+  /* Special Functions
+  /**************************************************************************************/
 
   removeChildViews     : function() {
     _.each(this.childViews, function(view) {
@@ -86,9 +83,8 @@ var TaskCollectionView = Canto.View.extend({
     return view[0];
   },
 
-  // ------------------- //
-  // Core View Functions //
-  // ------------------- //
+  /* Core View Functions
+  /**************************************************************************************/
 
   initialize          : function(opts) {
     opts = opts || {};
@@ -100,9 +96,6 @@ var TaskCollectionView = Canto.View.extend({
     this.listenTo(this.collection, 'add fetch', this.render);
     this.listenTo(this.collection, 'remove', this.removeChildAndRender);
     this.listenTo(this.collection, 'change:status', this.crossOff);
-
-    // FIX: Determine whether this is really necessary
-    // this.listenTo(this.quickAddForm, 'newTask', this.collection.fetch);
   },
 
   remove              : function() {
@@ -124,6 +117,9 @@ var TaskCollectionView = Canto.View.extend({
       that.quickAddForm.render();
       that.$('li.quick-add-form').html(that.quickAddForm.$el);
       that.renderCollection();
+      that.$el.sortable({
+        items : '>*:not(.not-sortable)'
+      });
     });
   }
 });
