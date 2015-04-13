@@ -36,13 +36,6 @@ describe('Task Collection View Elements', function() {
               .click('#triggers a[data-method=crossOffComplete]', done);
       });
 
-      it('adds a strikethrough to the title', function(done) {
-        client.getCssProperty('li#task-3 a.task-title', 'text-decoration', function(err, res) {
-          expect(res.value).toEqual('line-through');
-          done();
-        });
-      });
-
       it('doesn\'t immediately remove the item from the list', function(done) {
         client.isVisible('li#task-3', function(err, isVisible) {
           expect(isVisible).toBe(true);

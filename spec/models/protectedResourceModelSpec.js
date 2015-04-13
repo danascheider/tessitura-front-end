@@ -26,7 +26,7 @@ describe('Protected Resource Model', function() {
   });
 
   describe('properties', function() {
-    it('has klass ProtectedResourceModel', function() {
+    it('has klass ProtectedResourceModel #travis', function() {
       expect(resource.klass).toBe('ProtectedResourceModel');
     });
   });
@@ -81,15 +81,15 @@ describe('Protected Resource Model', function() {
   });
 
   describe('isA() method', function() {
-    it('returns true with argument ProtectedResourceModel', function() {
+    it('returns true with argument ProtectedResourceModel #travis', function() {
       expect(resource.isA('ProtectedResourceModel')).toBe(true);
     });
 
-    it('returns true with argument ProtectedResource', function() {
+    it('returns true with argument ProtectedResource #travis', function() {
       expect(resource.isA('ProtectedResource')).toBe(true);
     });
 
-    it('returns false with another argument', function() {
+    it('returns false with another argument #travis', function() {
       expect(resource.isA('Canto.View')).toBe(false);
     });
   });

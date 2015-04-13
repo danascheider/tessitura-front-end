@@ -16,7 +16,7 @@ var matchers       = require('jasmine-jquery-matchers'),
 /* APP PRESENTER SPEC                                                                    *
 /*****************************************************************************************/
 
-describe('App Presenter #travis', function() {
+describe('App Presenter', function() {
   var presenter, spy;
 
   /* Filters
@@ -39,15 +39,15 @@ describe('App Presenter #travis', function() {
   /***************************************************************************************/
 
   describe('Canto model properties', function() {
-    it('has klass AppPresenter', function() {
+    it('#travis has klass AppPresenter', function() {
       expect(presenter.klass).toBe('AppPresenter');
     });
 
-    it('has family Canto.Model', function() {
+    it('#travis has family Canto.Model', function() {
       expect(presenter.family).toBe('Canto.Model');
     });
 
-    it('has superFamily Backbone.Model', function() {
+    it('#travis has superFamily Backbone.Model', function() {
       expect(presenter.superFamily).toBe('Backbone.Model');
     });
   });
@@ -56,7 +56,7 @@ describe('App Presenter #travis', function() {
   /***************************************************************************************/
 
   describe('constructor', function() {
-    it('initializes a homepage view #travis', function() {
+    it('#travis initializes a homepage view #travis', function() {
       expect(presenter.homepageView.isA('HomepageView')).toBe(true);
     });
   });
@@ -66,7 +66,7 @@ describe('App Presenter #travis', function() {
 
   describe('events', function() {
     describe('redirect:dashboard', function() {
-      it('calls emitRedirect', function() {
+      it('#travis calls emitRedirect', function() {
         spyOn(Canto.AppPresenter.prototype, 'emitRedirect');
         var newPresenter = new Canto.AppPresenter();
         newPresenter.homepageView.trigger('redirect', {destination: 'dashboard'});
@@ -90,7 +90,7 @@ describe('App Presenter #travis', function() {
 
       afterEach(function() { presenter.off('redirect'); });
 
-      it('triggers the redirect event on itself', function() {
+      it('#travis triggers the redirect event on itself', function() {
         presenter.emitRedirect({destination: 'dashboard', user: user});
         expect(spy).toHaveBeenCalledWith({destination: 'dashboard', user: user});
       });
@@ -102,7 +102,7 @@ describe('App Presenter #travis', function() {
 
   describe('special functions', function() {
     describe('getHomepage()', function() {
-      it('renders the homepage view', function() {
+      it('#travis renders the homepage view', function() {
         spyOn(presenter.homepageView, 'render');
         presenter.getHomepage();
         expect(presenter.homepageView.render).toHaveBeenCalled();
@@ -110,21 +110,21 @@ describe('App Presenter #travis', function() {
     });
 
     describe('isA()', function() {
-      it('returns true with argument AppPresenter', function() {
+      it('#travis returns true with argument AppPresenter', function() {
         expect(presenter.isAn('AppPresenter')).toBe(true);
       });
 
-      it('returns true with argument Presenter', function() {
+      it('#travis returns true with argument Presenter', function() {
         expect(presenter.isA('Presenter')).toBe(true);
       });
 
-      it('returns false with another argument', function() {
+      it('#travis returns false with another argument', function() {
         expect(presenter.isA('Backbone.View')).toBe(false);
       });
     });
 
     describe('removeAll()', function() {
-      it('removes the homepage view', function() {
+      it('#travis removes the homepage view', function() {
         spyOn(presenter.homepageView, 'remove');
         presenter.removeAll();
         expect(presenter.homepageView.remove).toHaveBeenCalled();

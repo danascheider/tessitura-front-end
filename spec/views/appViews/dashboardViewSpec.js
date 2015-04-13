@@ -123,11 +123,11 @@ describe('Main Dashboard View', function() {
   });
 
   afterEach(function() {
+    dashboard.remove();
     restoreFixtures();
   });
 
   afterAll(function() {
-    dashboard.remove();
     dashboard = null;
     global = _.omit(global, fixtures);
   });

@@ -38,7 +38,7 @@ var matchers       = _.extend(require('jasmine-jquery-matchers')),
  * BEGIN SUITE                                                              *
 /****************************************************************************/
 
-describe('Kanban Column View #travis', function() {
+describe('Kanban Column View', function() {
   var view, data;
 
   /* Filters
@@ -51,15 +51,16 @@ describe('Kanban Column View #travis', function() {
   });
 
   beforeEach(function() {
+    spyOn(Canto.TaskModel.prototype, 'displayTitle').and.returnValue('foobar');
     view = new Canto.KanbanColumnView(data);
   });
 
   afterEach(function() {
+    view.remove();
     restoreFixtures();
   })
 
   afterAll(function() {
-    view.remove();
     view = null;
     global = _.omit(global, fixtures);
   });
@@ -68,15 +69,15 @@ describe('Kanban Column View #travis', function() {
   /**************************************************************************/
 
   describe('properties', function() {
-    it('has klass KanbanColumnView', function() {
+    it('#travis has klass KanbanColumnView', function() {
       expect(view.klass).toEqual('KanbanColumnView');
     });
 
-    it('has family Canto.View', function() {
+    it('#travis has family Canto.View', function() {
       expect(view.family).toEqual('Canto.View');
     });
 
-    it('has superFamily Backbone.View', function() {
+    it('#travis has superFamily Backbone.View', function() {
       expect(view.superFamily).toEqual('Backbone.View');
     });
   });
@@ -85,24 +86,24 @@ describe('Kanban Column View #travis', function() {
   /**************************************************************************/
 
   describe('constructor', function() {
-    it('does not call render', function() {
+    it('#travis does not call render', function() {
       spyOn(Canto.KanbanColumnView.prototype, 'render');
       var newView = new Canto.KanbanColumnView(data);
     });
 
-    it('calls setCollection', function () {
+    it('#travis calls setCollection', function () {
       spyOn(view, 'setCollection');
       expect(view.collection).toBe(collection);
     });
 
-    it('sets the data property', function() {
+    it('#travis sets the data property', function() {
       var newView = new Canto.KanbanColumnView(data);
       _.each(['color', 'icon', 'headline'], function(prop) {
         expect(newView.data[prop]).toEqual(data[prop]);
       });
     });
 
-    it('can be instantiated without a collection', function() {
+    it('#travis can be instantiated without a collection', function() {
       delete data.collection;
       var newView = new Canto.KanbanColumnView(data)
       expect(newView.collection).not.toExist();
@@ -111,7 +112,7 @@ describe('Kanban Column View #travis', function() {
 
     describe('groupedBy property', function() {
       context('when grouped by backlog', function() {
-        it('sets groupedBy to Backlog', function() {
+        it('#travis sets groupedBy to Backlog', function() {
           data.headline = 'Backlog';
           var newView = new Canto.KanbanColumnView(data);
           expect(newView.groupedBy).toEqual({backlog: true});
@@ -120,14 +121,14 @@ describe('Kanban Column View #travis', function() {
       });
 
       context('when grouped by status', function() {
-        it('sets groupedBy to the appropriate status', function() {
+        it('#travis sets groupedBy to the appropriate status', function() {
           var newView = new Canto.KanbanColumnView(data);
           expect(newView.groupedBy).toEqual({status: 'New'});
         });
       });
     });
 
-    it('creates a collection view', function() {
+    it('#travis creates a collection view', function() {
       expect(view.collectionView.isA('TaskCollectionView')).toBe(true);
     });
   });
@@ -136,23 +137,23 @@ describe('Kanban Column View #travis', function() {
   /**************************************************************************/
 
   describe('view elements', function() {
-    it('is a div', function() {
+    it('#travis is a div', function() {
       expect(view.$el).toHaveTag('div');
     });
 
-    it('has class .panel', function() {
+    it('#travis has class .panel', function() {
       expect(view.$el).toHaveClass('panel');
     });
 
-    it('has class .dash-widget', function() {
+    it('#travis has class .dash-widget', function() {
       expect(view.$el).toHaveClass('dash-widget');
     });
 
-    it('has class .kanban-column', function() {
+    it('#travis has class .kanban-column', function() {
       expect(view.$el).toHaveClass('kanban-column');
     });
 
-    it('sets its panel color', function() {
+    it('#travis sets its panel color', function() {
       expect(view.$el).toHaveClass('panel-blue');
     });
   });
@@ -162,7 +163,7 @@ describe('Kanban Column View #travis', function() {
 
   describe('view events', function() {
     describe('add task to collection', function() {
-      it('calls updateTask', function() {
+      it('#travis calls updateTask', function() {
         spyOn(Canto.KanbanColumnView.prototype, 'updateTask');
         var newView = new Canto.KanbanColumnView(data);
         var newTask = new Canto.TaskModel({id: 4, owner_id: 342, title: 'Hello World'});
@@ -172,7 +173,7 @@ describe('Kanban Column View #travis', function() {
     });
 
     describe('change:backlog', function() {
-      it('calls removeTask', function() {
+      it('#travis calls removeTask', function() {
         spyOn(Canto.KanbanColumnView.prototype, 'removeTask');
         var newView = new Canto.KanbanColumnView(data);
         newView.collection.trigger('change:backlog', task1);
@@ -186,7 +187,7 @@ describe('Kanban Column View #travis', function() {
 
   describe('event callbacks', function() {
     describe('removeTask()', function() {
-      it('removes the task', function() {
+      it('#travis removes the task', function() {
         spyOn(collection, 'remove');
         view.removeTask(view.collection.models[0]);
         expect(collection.remove.calls.argsFor(0)[0]).toEqual(view.collection.models[0]);
@@ -194,14 +195,14 @@ describe('Kanban Column View #travis', function() {
     });
 
     describe('updateTask()', function() {
-      it('modifies the task with the column\'s groupedBy property', function() {
+      it('#travis modifies the task with the column\'s groupedBy property', function() {
         spyOn(task3, 'save');
         view.updateTask(task3);
         expect(task3.save).toHaveBeenCalledWith({status: 'New'});
       });
 
       context('when the attributes already match', function() {
-        it('doesn\'t call save on the task', function() {
+        it('#travis doesn\'t call save on the task', function() {
           spyOn(task1, 'save');
           view.updateTask(task1);
           expect(task1.save).not.toHaveBeenCalled();
@@ -226,12 +227,12 @@ describe('Kanban Column View #travis', function() {
         data.collection = collection;
       });
 
-      it('sets the collection', function() {
+      it('#travis sets the collection', function() {
         newView.setCollection(collection);
         expect(newView.collection).toBe(collection);
       });
 
-      it('creates a collection view', function() {
+      it('#travis creates a collection view', function() {
         newView.setCollection(collection);
         expect(newView.collectionView.isA('TaskCollectionView')).toBe(true);
       });
@@ -242,13 +243,13 @@ describe('Kanban Column View #travis', function() {
   /**************************************************************************/
 
   describe('remove()', function() {
-    it('removes the collection view', function() {
+    it('#travis removes the collection view', function() {
       spyOn(view.collectionView, 'remove');
       view.remove();
       expect(view.collectionView.remove).toHaveBeenCalled();
     });
 
-    it('removes itself from the DOM using the Canto View prototype', function() {
+    it('#travis removes itself from the DOM using the Canto View prototype', function() {
       spyOn(Canto.View.prototype.remove, 'call');
       view.remove();
       expect(Canto.View.prototype.remove.call).toHaveBeenCalledWith(view);
@@ -256,13 +257,13 @@ describe('Kanban Column View #travis', function() {
   });
 
   describe('render()', function() {
-    it('renders the collection view', function() {
+    it('#travis renders the collection view', function() {
       spyOn(view.collectionView, 'render');
       view.render();
       expect(view.collectionView.render).toHaveBeenCalled();
     });
 
-    it('attaches the collection view to the DOM', function() {
+    it('#travis attaches the collection view to the DOM', function() {
       $('body').html(view.$el);
       view.render();
       expect(view.$('ul.task-list')).toBeInDom();
@@ -274,19 +275,19 @@ describe('Kanban Column View #travis', function() {
 
   describe('special functions', function() {
     describe('isA()', function() {
-      it('returns true with argument KanbanColumnView', function() {
+      it('#travis returns true with argument KanbanColumnView', function() {
         expect(view.isA('KanbanColumnView')).toBe(true);
       });
 
-      it('returns true with argument KanbanColumn', function() {
+      it('#travis returns true with argument KanbanColumn', function() {
         expect(view.isA('KanbanColumn')).toBe(true);
       });
 
-      it('returns true with argument PartialView', function() {
+      it('#travis returns true with argument PartialView', function() {
         expect(view.isA('PartialView')).toBe(true);
       });
 
-      it('returns false with another argument', function() {
+      it('#travis returns false with another argument', function() {
         expect(view.isA('Corvette')).toBe(false);
       });
     });

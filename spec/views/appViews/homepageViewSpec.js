@@ -35,7 +35,7 @@ var matchers       = _.extend(require('jasmine-jquery-matchers')),
  * BEGIN SUITE                                                              *
 /****************************************************************************/
 
-describe('Canto Homepage View #travis', function() {
+describe('Canto Homepage View', function() {
   var view, e, spy, newView;
 
   /* Filters
@@ -49,8 +49,11 @@ describe('Canto Homepage View #travis', function() {
     view = new Canto.HomepageView();
   });
 
-  afterAll(function() {
+  afterEach(function() {
     view.remove();
+  })
+
+  afterAll(function() {
     view = null;
   });
 
@@ -58,15 +61,15 @@ describe('Canto Homepage View #travis', function() {
   /**************************************************************************/
 
   describe('properties', function() {
-    it('has klass \'HomepageView\'', function() {
+    it('#travis has klass \'HomepageView\'', function() {
       expect(view.klass).toEqual('HomepageView');
     });
 
-    it('has family Canto.View', function() {
+    it('#travis has family Canto.View', function() {
       expect(view.family).toEqual('Canto.View');
     });
 
-    it('has superFamily Backbone.View', function() {
+    it('#travis has superFamily Backbone.View', function() {
       expect(view.superFamily).toEqual('Backbone.View');
     });
   });
@@ -75,17 +78,17 @@ describe('Canto Homepage View #travis', function() {
   /**************************************************************************/
 
   describe('constructor', function() {
-    it('does not call render', function() {
+    it('#travis does not call render', function() {
       spyOn(Canto.HomepageView.prototype, 'render');
       var newView = new Canto.HomepageView();
       expect(Canto.HomepageView.prototype.render).not.toHaveBeenCalled();
     });
 
-    it('creates a login form', function() {
+    it('#travis creates a login form', function() {
       expect(view.loginForm).toExist();
     });
 
-    it('creates a registration form', function() {
+    it('#travis creates a registration form', function() {
       expect(view.registrationForm).toExist();
     });
   });
@@ -98,11 +101,11 @@ describe('Canto Homepage View #travis', function() {
       view.render();
     });
 
-    it('is a div', function() {
+    it('#travis is a div', function() {
       expect(view.$el).toHaveTag('div');
     });
 
-    it('has ID #homepage-wrapper', function() {
+    it('#travis has ID #homepage-wrapper', function() {
       expect(view.$el).toHaveId('homepage-wrapper');
     });
   });
@@ -121,14 +124,14 @@ describe('Canto Homepage View #travis', function() {
     });
 
     describe('click .login-link', function() {
-      it('calls toggleLoginForm', function() {
+      it('#travis calls toggleLoginForm', function() {
         newView.$('nav li .login-link').click();
         expect(Canto.HomepageView.prototype.toggleLoginForm).toHaveBeenCalled();
       });
     });
 
     describe('dblclick #shade', function() {
-      it('calls hideLoginForm', function() {
+      it('#travis calls hideLoginForm', function() {
         newView.$('#shade').dblclick();
         expect(Canto.HomepageView.prototype.hideLoginForm).toHaveBeenCalled();
       });
@@ -149,17 +152,17 @@ describe('Canto Homepage View #travis', function() {
         e = {user: user};
       });
       
-      it('triggers redirect on itself', function() {
+      it('#travis triggers redirect on itself', function() {
         view.goToDashboard(e);
         expect(spy).toHaveBeenCalled();
       });
 
-      it('passes the user through', function() {
+      it('#travis passes the user through', function() {
         view.goToDashboard(e);
         expect(spy.calls.argsFor(0)[0]).toEqual(jasmine.objectContaining({user: user}));
       });
 
-      it('sends the destination', function() {
+      it('#travis sends the destination', function() {
         view.goToDashboard(e);
         expect(spy.calls.argsFor(0)[0]).toEqual(jasmine.objectContaining({destination: 'dashboard'}));
       });
@@ -171,7 +174,7 @@ describe('Canto Homepage View #travis', function() {
           spyOn($, 'cookie').and.returnValue(btoa('testuser:testuser'));
         });
 
-        it('triggers redirect', function() {
+        it('#travis triggers redirect', function() {
           spy = jasmine.createSpy();
           view.on('redirect', spy);
           view.toggleLoginForm($.Event('click', {target: view.$('.login-link')}));
@@ -184,7 +187,7 @@ describe('Canto Homepage View #travis', function() {
           spyOn($, 'cookie').and.returnValue(null);
         });
 
-        it('doesn\'t trigger redirect', function() {
+        it('#travis doesn\'t trigger redirect', function() {
           view.toggleLoginForm($.Event('click', {target: view.$('.login-link')}));
         });
       });
@@ -196,19 +199,19 @@ describe('Canto Homepage View #travis', function() {
 
   describe('core view functions', function() {
     describe('remove()', function() {
-      it('removes its login form', function() {
+      it('#travis removes its login form', function() {
         spyOn(view.loginForm, 'remove');
         view.remove();
         expect(view.loginForm.remove).toHaveBeenCalled();
       });
 
-      it('removes its registration form', function() {
+      it('#travis removes its registration form', function() {
         spyOn(view.registrationForm, 'remove');
         view.remove();
         expect(view.registrationForm.remove).toHaveBeenCalled();
       });
 
-      it('removes itself using the Backbone view prototype', function() {
+      it('#travis removes itself using the Backbone view prototype', function() {
         spyOn(Backbone.View.prototype.remove, 'call');
         view.remove();
         expect(Backbone.View.prototype.remove.call).toHaveBeenCalledWith(view);
@@ -216,13 +219,13 @@ describe('Canto Homepage View #travis', function() {
     });
 
     describe('render', function() {
-      it('renders its login form', function() {
+      it('#travis renders its login form', function() {
         spyOn(view.loginForm, 'render');
         view.render();
         expect(view.loginForm.render).toHaveBeenCalled();
       });
 
-      it('inserts its login form into its #shade element', function() {
+      it('#travis inserts its login form into its #shade element', function() {
         view.render();
         expect(view.$('#shade')).toHaveDescendant(view.loginForm.$el);
       });
@@ -234,15 +237,15 @@ describe('Canto Homepage View #travis', function() {
 
   describe('special functions', function() {
     describe('isA()', function() {
-      it('returns true with argument HomepageView', function() {
+      it('#travis returns true with argument HomepageView', function() {
         expect(view.isA('HomepageView')).toBe(true);
       });
 
-      it('returns true with argument TopLevelView', function() {
+      it('#travis returns true with argument TopLevelView', function() {
         expect(view.isA('TopLevelView')).toBe(true);
       });
 
-      it('returns false with another argument', function() {
+      it('#travis returns false with another argument', function() {
         expect(view.isA('Corvette')).toBe(false);
       });
     });

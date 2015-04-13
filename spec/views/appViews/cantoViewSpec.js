@@ -5,51 +5,55 @@ require(process.cwd() + '/spec/support/env.js');
 var context        = describe,
     fcontext       = fdescribe;
 
-describe('Canto.View #travis', function() {
+describe('Canto.View', function() {
   var view;
 
   beforeEach(function() {
     view = new Canto.View();
   });
 
+  afterEach(function() {
+    view.remove();
+  })
+
   afterAll(function() {
     view = null;
   });
 
   describe('properties', function() {
-    it('has klass Canto.View', function() {
+    it('#travis has klass Canto.View', function() {
       expect(view.klass).toEqual('Canto.View');
     });
 
-    it('has family Backbone.View', function() {
+    it('#travis has family Backbone.View', function() {
       expect(view.family).toEqual('Backbone.View');
     });
 
-    it('has blank superFamily', function() {
+    it('#travis has blank superFamily', function() {
       expect(view.superFamily).toEqual('');
     });
   });
 
   describe('types', function() {
-    it('includes Backbone.View', function() {
+    it('#travis includes Backbone.View', function() {
       expect(view.types()).toContain('Backbone.View');
     });
 
-    it('includes Canto.View', function() {
+    it('#travis includes Canto.View', function() {
       expect(view.types()).toContain('Canto.View');
     });
   });
 
   describe('isA', function() {
-    it('returns true with argument Backbone.View', function() {
+    it('#travis returns true with argument Backbone.View', function() {
       expect(view.isA('Backbone.View')).toBe(true);
     });
 
-    it('returns true with argument Canto.View', function() {
+    it('#travis returns true with argument Canto.View', function() {
       expect(view.isA('Canto.View')).toBe(true);
     });
 
-    it('returns false with another argument', function() {
+    it('#travis returns false with another argument', function() {
       expect(view.isA('Corvette')).toBe(false);
     });
   });
@@ -60,23 +64,23 @@ describe('Canto.View #travis', function() {
       spyOn(view, 'helloWorld');
     });
 
-    it('sets the html of its el with code passed into it', function() {
+    it('#travis sets the html of its el with code passed into it', function() {
       view.render('<div id="inner-html"></div>', view.helloWorld);
       expect(view.$el.html()).toEqual('<div id="inner-html"></div>');
     });
 
-    it('calls delegateEvents on itself', function() {
+    it('#travis calls delegateEvents on itself', function() {
       spyOn(view, 'delegateEvents');
       view.render('<div></div>', view.helloWorld);
       expect(view.delegateEvents).toHaveBeenCalled();
     });
 
-    it('executes an arbitrary function', function() {
+    it('#travis executes an arbitrary function', function() {
       view.render('<div></div>', view.helloWorld);
       expect(view.helloWorld).toHaveBeenCalled();
     });
 
-    it('returns itself', function() {
+    it('#travis returns itself', function() {
       expect(view.render('<div></div>', view.helloWorld)).toBe(view);
     });
   });
@@ -102,7 +106,7 @@ describe('Canto.View #travis', function() {
     });
     afterAll(function() { ChildClass = null; });
 
-    it('inherits its types', function() {
+    it('#travis inherits its types', function() {
       var newView = new ChildClass();
       expect(newView.isA('Canto.View')).toBe(true);
     });
@@ -114,19 +118,19 @@ describe('Canto.View #travis', function() {
         newView = new ChildClass();
       });
 
-      it('sets its el\'s HTML', function() {
+      it('#travis sets its el\'s HTML', function() {
         spyOn(newView.$el, 'html');
         newView.render();
         expect(newView.$el.html).toHaveBeenCalledWith('<p>Hello, world!</p>');
       });
 
-      it('calls setMessage with the message', function() {
+      it('#travis calls setMessage with the message', function() {
         spyOn(newView, 'setMessage');
         newView.render();
         expect(newView.setMessage).toHaveBeenCalledWith('Hope you\'re doing well today!');
       });
 
-      it('returns itself', function() {
+      it('#travis returns itself', function() {
         expect(newView.render()).toBe(newView);
       });
     });

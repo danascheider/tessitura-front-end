@@ -8,7 +8,7 @@ var matchers       = require('jasmine-jquery-matchers'),
     context        = describe,
     fcontext       = fdescribe;
 
-describe('Quick-Add Task Form #travis', function() {
+describe('Quick-Add Task Form', function() {
   var view, xhr, e;
 
   beforeAll(function() {
@@ -21,45 +21,45 @@ describe('Quick-Add Task Form #travis', function() {
   });
 
   afterEach(function() {
+    view.remove();
     restoreFixtures();
   })
 
   afterAll(function() {
-    view.remove();
     view = null;
     global = _.omit(global, Fixtures);
   });
 
  describe('constructor', function() {
-    it('assigns the collection', function() {
+    it('#travis assigns the collection', function() {
       expect(view.collection).toBe(collection);
     });
 
-    it('doesn\'t call render', function() {
+    it('#travis doesn\'t call render', function() {
       spyOn(Canto.QuickAddFormView.prototype, 'render');
       var newView = new Canto.QuickAddFormView({collection: collection});
       expect(Canto.QuickAddFormView.prototype.render).not.toHaveBeenCalled();
     });
 
-    it('sets the `grouping` property', function() {
+    it('#travis sets the `grouping` property', function() {
       expect(view.grouping).toEqual({status: 'Blocking'});
     });
   });
 
   describe('properties', function() {
-    it('is a Canto.View', function() {
+    it('#travis is a Canto.View', function() {
       expect(view).toBeA('Canto.View');
     });
 
-    it('has klass QuickAddTaskFormView', function() {
+    it('#travis has klass QuickAddTaskFormView', function() {
       expect(view.klass).toBe('QuickAddTaskFormView');
     });
 
-    it('has family Canto.View', function() {
+    it('#travis has family Canto.View', function() {
       expect(view.family).toBe('Canto.View');
     });
 
-    it('has superFamily Backbone.View', function() {
+    it('#travis has superFamily Backbone.View', function() {
       expect(view.superFamily).toBe('Backbone.View');
     });
   });
@@ -73,26 +73,26 @@ describe('Quick-Add Task Form #travis', function() {
       view.remove();
     });
 
-    it('is a form', function() {
+    it('#travis is a form', function() {
       expect(view.$el[0].tagName).toBe('FORM');
     });
 
-    it('has class .task-form', function() {
+    it('#travis has class .task-form', function() {
       expect(view.$el[0]).toHaveClass('task-form');
     });
 
-    it('has class .create-form', function() {
+    it('#travis has class .create-form', function() {
       expect(view.$el[0]).toHaveClass('create-form');
     });
 
-    it('has class .quick-add-form', function() {
+    it('#travis has class .quick-add-form', function() {
       expect(view.$el[0]).toHaveClass('quick-add-form');
     });
   });
 
   describe('events', function() {
     describe('submit form', function() {
-      it('calls createTask', function() {
+      it('#travis calls createTask', function() {
         spyOn(Canto.QuickAddFormView.prototype, 'createTask');
         var newView = new Canto.QuickAddFormView({collection: collection, grouping: {status: 'Blocking'}});
         newView.render().$el.submit();
@@ -124,19 +124,19 @@ describe('Quick-Add Task Form #travis', function() {
           });
         });
 
-        it('doesn\'t refresh the browser', function() {
+        it('#travis doesn\'t refresh the browser', function() {
           spyOn(e, 'preventDefault');
           view.createTask(e);
           expect(e.preventDefault).toHaveBeenCalled();
         });
 
-        it('creates a new task', function() {
+        it('#travis creates a new task', function() {
           spyOn(Canto.TaskModel.prototype, 'initialize');
           view.createTask(e);
           expect(Canto.TaskModel.prototype.initialize).toHaveBeenCalled();
         });
 
-        it('attaches an auth header', function() {
+        it('#travis attaches an auth header', function() {
           spyOn($, 'cookie').and.callFake(function(args) {
             return args === 'userID' ? 342 : btoa('testuser:testuser');
           });
@@ -147,19 +147,19 @@ describe('Quick-Add Task Form #travis', function() {
           expect(xhr.getRequestHeader('Authorization')).toEqual('Basic ' + btoa('testuser:testuser'));
         });
 
-        it('sets the new task\'s attributes according to its grouping', function() {
+        it('#travis sets the new task\'s attributes according to its grouping', function() {
           spyOn(Canto.TaskModel.prototype, 'save');
           view.createTask(e);
           expect(Canto.TaskModel.prototype.save.calls.argsFor(0)[0].status).toEqual('Blocking');
         });
 
-        it('adds the new task to the beginning of the collection', function() {
+        it('#travis adds the new task to the beginning of the collection', function() {
           spyOn(collection, 'unshift');
           view.createTask(e);
           expect(collection.unshift).toHaveBeenCalled();
         });
 
-        it('triggers the newTask event', function() {
+        it('#travis triggers the newTask event', function() {
           pending('Figure out if the app actually needs to do this');
           var spy = jasmine.createSpy('spy');
           view.on('newTask', spy);
@@ -168,7 +168,7 @@ describe('Quick-Add Task Form #travis', function() {
           view.off();
         });
 
-        it('resets the form', function() {
+        it('#travis resets the form', function() {
           spyOn(view.$el[0], 'reset');
           view.createTask(e);
           expect(view.$el[0].reset).toHaveBeenCalled();
@@ -176,7 +176,7 @@ describe('Quick-Add Task Form #travis', function() {
       });
 
       context('when no title given', function() {
-        it('doesn\'t create a task', function() {
+        it('#travis doesn\'t create a task', function() {
           spyOn(Canto.Utils, 'getAttributes').and.returnValue({title: ''});
           spyOn(collection, 'create');
           spyOn(Canto.TaskModel.prototype, 'initialize');
@@ -190,27 +190,27 @@ describe('Quick-Add Task Form #travis', function() {
 
   describe('special methods', function() {
     describe('isA', function() {
-      it('returns true with arg \'QuickAddFormView\'', function() {
+      it('#travis returns true with arg \'QuickAddFormView\'', function() {
         expect(view.isA('QuickAddFormView')).toBe(true);
       });
 
-      it('returns true with arg \'QuickAddForm\'', function() {
+      it('#travis returns true with arg \'QuickAddForm\'', function() {
         expect(view.isA('QuickAddForm')).toBe(true);
       });
 
-      it('returns true with arg \'TaskCollectionView\'', function() {
+      it('#travis returns true with arg \'TaskCollectionView\'', function() {
         expect(view.isA('TaskCollectionView')).toBe(true);
       });
 
-      it('returns true with arg \'TaskCreateFormView\'', function() {
+      it('#travis returns true with arg \'TaskCreateFormView\'', function() {
         expect(view.isA('TaskCreateFormView')).toBe(true);
       });
 
-      it('returns true with arg \'TaskForm\'', function() {
+      it('#travis returns true with arg \'TaskForm\'', function() {
         expect(view.isA('TaskFormView')).toBe(true);
       });
 
-      it('returns false with other arg', function() {
+      it('#travis returns false with other arg', function() {
         expect(view.isA('Backbone.Model')).toBe(false);
       });
     });

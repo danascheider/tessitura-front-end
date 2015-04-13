@@ -73,9 +73,7 @@ describe('Dashboard View #ui', function() {
               .click('a[data-method=showSidebar]')
               .waitForVisible('#side-menu')
               .click('a[data-method=hideSidebar]')
-              .waitForVisible('#side-menu', 1000, true, function(err, isVisible) {
-
-          client.saveScreenshot('screenshot.png');
+              .waitForVisible('.sidebar-collapse', true, function(err, isVisible) {
           expect(isVisible).toBe(false);
           done();
         });

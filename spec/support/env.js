@@ -9,3 +9,8 @@ global.subsetOf = function(subset, superset) {
     if(!(superset.indexOf(item) > -1)) { return false; }
   });
 };
+
+// require('jasmine-tagged');
+// var jasmineEnv = jasmine.getEnv();
+// jasmineEnv.setIncludedTags(['travis']);
+// jasmineEnv.includeSpecsWithoutTags(false);
