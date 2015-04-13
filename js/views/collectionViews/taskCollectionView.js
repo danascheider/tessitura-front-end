@@ -23,15 +23,12 @@ var TaskCollectionView = Canto.View.extend({
     var that = this, 
         view = this.retrieveViewForModel(task);
 
-    if(view) {
-      view.$('a.task-title').css('text-decoration', 'line-through');
-
-      setTimeout(function() {
-        var index = that.childViews.indexOf(view);
-        that.collection.remove(task);
-        that.childViews.splice(index, 1);
-      }, 750);
-    }
+    setTimeout(function() {
+      var index = that.childViews.indexOf(view);
+      that.collection.remove(task);
+      if(view) { view.remove(); }
+      that.childViews.splice(index, 1);
+    }, 750);
   },
 
   fetchCollection      : function() {
@@ -67,16 +64,19 @@ var TaskCollectionView = Canto.View.extend({
   renderCollection     : function() {
     var that = this;
 
+    var container = document.createDocumentFragment();
+
     this.collection.each(function(task) {
       var view = that.retrieveViewForModel(task) || new Canto.TaskListItemView({model: task});
-
       if (that.childViews.indexOf(view) === -1) {
         that.childViews.push(view);
       }
 
       view.render();
-      that.$el.append(view.$el);
+      container.appendChild(view.el);
     });
+
+    this.$el.append(container);
   },
 
   retrieveViewForModel : function(model) {
@@ -100,8 +100,8 @@ var TaskCollectionView = Canto.View.extend({
     this.quickAddForm = new Canto.QuickAddFormView({collection: this.collection, grouping: this.grouping});
 
     this.listenTo(this.collection, 'add fetch', this.render);
-    this.listenTo(this.collection, 'remove', this.removeChildAndRender);
     this.listenTo(this.collection, 'change:status', this.crossOff);
+    this.listenTo(this.collection, 'remove', this.removeChildAndRender);
     this.listenTo(this.collection, 'drop', this.removeStyles);
   },
 

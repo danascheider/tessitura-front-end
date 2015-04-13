@@ -45,6 +45,7 @@ var ListItemView = Canto.View.extend({
   markComplete      : function() {
     this.model.save({status: 'Complete'});
     this.$('.fa-square-o').removeClass('fa-square-o').addClass('fa-check-square-o');
+    this.$('a.task-title').css('text-decoration', 'line-through');
   },
 
   showEditForm      : function() {
@@ -136,8 +137,6 @@ var ListItemView = Canto.View.extend({
 
   initialize         : function() {
     this.modelView = new Canto.TaskModelView({model: this.model});
-
-    this.listenTo(this.model, 'change:position', this.render);
   },
 
   remove             : function() {

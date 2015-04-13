@@ -3,9 +3,8 @@ var TaskModelView = Canto.View.extend({
   className    : 'task-model',
   template     : JST['tasks/model'],
 
-  // --------------------- //
-  // Canto View Attributes //
-  // --------------------- //
+  /* Canto View Attributes
+  /**************************************************************************************/
 
   klass        : 'TaskModelView',
   family       : 'Canto.View',
@@ -14,18 +13,16 @@ var TaskModelView = Canto.View.extend({
     return Canto.View.prototype.types().concat('TaskModelView');
   },
 
-  // --------------- //
-  // Event Callbacks //
-  // --------------- //
+  /* Event Callbacks
+  /**************************************************************************************/
 
   renderOnSync : function() {
     if(this.model.get('status') === 'Complete') { return; }
     this.render();
   },
 
-  // ------------------- //
-  // Core View Functions //
-  // ------------------- //
+  /* Core View Functions
+  /**************************************************************************************/
 
   initialize   : function() {
     this.listenTo(this.model, 'sync', this.renderOnSync);
