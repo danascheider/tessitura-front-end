@@ -75,8 +75,8 @@ var DashboardView = Canto.View.extend({
   hideSidebar        : function(e) {
     var target = $(e.target);
 
-    if(target != this.sidebarView.$el && this.sidebarView.$el.has(target).length === 0 && this.sidebarView.$el.is(':visible')) {
-      this.$('.sidebar-collapse').slideUp();
+    if(target != this.sidebarView.$el && this.$('.navbar-static-side').has(target).length === 0 && this.sidebarView.$el.is(':visible')) {
+      this.$('.sidebar-collapse').hide();
     }
   },
 
