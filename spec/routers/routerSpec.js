@@ -40,7 +40,7 @@ var DashboardPresenter = require(process.cwd() + '/js/presenters/dashboardPresen
  * CANTO ROUTER SPEC                                                          *
 /******************************************************************************/
 
-describe('Canto Router #travis', function() {
+describe('Canto Router', function() {
 
   var router, spy;
 
@@ -69,7 +69,7 @@ describe('Canto Router #travis', function() {
   /****************************************************************************/
 
   describe('static properties', function() {
-    it('has klass Canto.Router', function() {
+    it('#travis has klass Canto.Router', function() {
       expect(router.klass).toBe('Canto.Router');
     });
   });
@@ -78,11 +78,11 @@ describe('Canto Router #travis', function() {
   /****************************************************************************/
 
   describe('constructor', function() {
-    it('instantiates an app presenter', function() {
+    it('#travis instantiates an app presenter', function() {
       expect(router.AppPresenter.isAn('AppPresenter')).toBe(true);
     });
 
-    it('instantiates a dashboard presenter', function() {
+    it('#travis instantiates a dashboard presenter', function() {
       expect(router.DashboardPresenter.isA('DashboardPresenter')).toBe(true);
     });
   });
@@ -95,13 +95,13 @@ describe('Canto Router #travis', function() {
       context('when logged in', function() {
         beforeEach(function() { spyOn($, 'cookie').and.returnValue('Basic ' + btoa('testuser:testuser')); });
 
-        it('calls remove on the app presenter', function() {
+        it('#travis calls remove on the app presenter', function() {
           spyOn(router.AppPresenter, 'removeAll');
           router.rerouteIfLoggedIn();
           expect(router.AppPresenter.removeAll).toHaveBeenCalled();
         });
 
-        it('navigates to the dashboard', function() {
+        it('#travis navigates to the dashboard', function() {
           spyOn(router, 'navigate');
           router.rerouteIfLoggedIn();
           expect(router.navigate).toHaveBeenCalledWith('dashboard', {trigger: true});
@@ -111,13 +111,13 @@ describe('Canto Router #travis', function() {
       context('when not logged in', function() {
         beforeEach(function() { spyOn($, 'cookie').and.returnValue(null); });
 
-        it('doesn\'t reroute', function() {
+        it('#travis doesn\'t reroute', function() {
           spyOn(router, 'navigate');
           router.rerouteIfLoggedIn();
           expect(router.navigate).not.toHaveBeenCalled();
         });
 
-        it('doesn\'t remove app views', function() {
+        it('#travis doesn\'t remove app views', function() {
           spyOn(router.AppPresenter, 'removeAll');
           router.rerouteIfLoggedIn();
           expect(router.AppPresenter.removeAll).not.toHaveBeenCalled();
@@ -129,7 +129,7 @@ describe('Canto Router #travis', function() {
       context('when not logged in', function() {
         beforeEach(function() { spyOn($, 'cookie').and.returnValue(null); });
 
-        it('redirects to the homepage', function() {
+        it('#travis redirects to the homepage', function() {
           spyOn(router, 'navigate');
           router.verifyLoggedIn();
           expect(router.navigate).toHaveBeenCalledWith('');
@@ -139,7 +139,7 @@ describe('Canto Router #travis', function() {
       context('when logged in', function() {
         beforeEach(function() { spyOn($, 'cookie').and.returnValue('Basic ' + btoa('testuser:testuser')); });
         
-        it('doesn\'t redirect', function() {
+        it('#travis doesn\'t redirect', function() {
           spyOn(router, 'navigate');
           router.verifyLoggedIn();
           expect(router.navigate).not.toHaveBeenCalled();
@@ -158,7 +158,7 @@ describe('Canto Router #travis', function() {
       user = new Canto.UserModel({username: 'testuser', password: 'testuser', id: 342});
     });
 
-    it('listens to its app presenter', function(done) {
+    it('#travis listens to its app presenter', function(done) {
       spyOn(Canto.Router.prototype, 'navigateTo');
       var newRouter = new Canto.Router();
       var e = $.Event('redirect', {destination: 'dashboard', user: user});
@@ -167,7 +167,7 @@ describe('Canto Router #travis', function() {
       expect(Canto.Router.prototype.navigateTo).toHaveBeenCalledWith(e);
     });
 
-    it('listens to its dashboard presenter', function(done) {
+    it('#travis listens to its dashboard presenter', function(done) {
       spyOn(Canto.Router.prototype, 'navigateTo');
       var newRouter = new Canto.Router();
       var e = $.Event('redirect', {destination: 'homepage'});
@@ -183,7 +183,7 @@ describe('Canto Router #travis', function() {
   describe('event callbacks', function() {
     describe('navigateTo()', function() {
       context('general', function() {
-        it('navigates to the given route', function() {
+        it('#travis navigates to the given route', function() {
           var e = $.Event('redirect', {destination: 'tasks'});
           spyOn(router, 'navigate');
           router.navigateTo(e);
@@ -196,7 +196,7 @@ describe('Canto Router #travis', function() {
           spyOn(router.DashboardPresenter, 'setUser');
         });
 
-        it('calls setUser on the dashboard presenter', function() {
+        it('#travis calls setUser on the dashboard presenter', function() {
           e = $.Event('redirect', {destination: 'dashboard', user: user});
           router.navigateTo(e);
           expect(router.DashboardPresenter.setUser).toHaveBeenCalledWith(user);
@@ -210,31 +210,41 @@ describe('Canto Router #travis', function() {
 
   describe('route callbacks', function() {
     describe('displayDashboardHome()', function() {
-      beforeEach(function() { spyOn($, 'cookie').and.returnValue(user.get('id')); });
+      beforeEach(function() { 
+        spyOn($, 'cookie').and.returnValue(user.get('id')); 
+        spyOn($, 'ajax').and.callFake(function(args) {
+          args.success();
+        });
+      });
 
-      it('sets the user', function() {
+      it('#travis sets the user', function() {
         spyOn(router.DashboardPresenter, 'setUser').and.callThrough();
         router.displayDashboardHome();
         expect(router.DashboardPresenter.setUser).toHaveBeenCalled();
       });
 
-      it('calls getHome on the DashboardPresenter', function() {
+      it('#travis calls getHome on the DashboardPresenter', function(done) {
         spyOn(router.DashboardPresenter, 'getHome');
         router.displayDashboardHome();
         expect(router.DashboardPresenter.getHome).toHaveBeenCalled();
+        done();
       });
     });
 
     describe('displayDashboardTaskView()', function() {
-      beforeEach(function() { spyOn($, 'cookie').and.returnValue(user.get('id')); });
+      beforeEach(function() { 
+        spyOn($, 'cookie').and.returnValue(user.get('id')); 
+        spyOn($, 'ajax').and.callFake(function(args) { args.success(); });
+      });
 
-      it('calls setUser on the DashboardPresenter', function() {
+      it('#travis calls setUser on the DashboardPresenter', function(done) {
         spyOn(router.DashboardPresenter, 'setUser').and.callThrough();
         router.displayDashboardTaskView();
         expect(router.DashboardPresenter.setUser).toHaveBeenCalled();
+        done();
       });
 
-      it('calls getTask on the DashboardPresenter', function() {
+      it('#travis calls getTask on the DashboardPresenter', function() {
         spyOn(router.DashboardPresenter, 'getTask');
         router.displayDashboardTaskView();
         expect(router.DashboardPresenter.getTask).toHaveBeenCalled();
@@ -242,13 +252,13 @@ describe('Canto Router #travis', function() {
     });
 
     describe('displayHomepage()', function() {
-      it('calls removeAll on the dashboard presenter', function() {
+      it('#travis calls removeAll on the dashboard presenter', function() {
         spyOn(router.DashboardPresenter, 'removeAll');
         router.displayHomepage();
         expect(router.DashboardPresenter.removeAll).toHaveBeenCalled();
       });
 
-      it('calls getHomepage on the App Presenter', function() {
+      it('#travis calls getHomepage on the App Presenter', function() {
         spyOn(router.AppPresenter, 'getHomepage');
         router.displayHomepage();
         expect(router.AppPresenter.getHomepage).toHaveBeenCalled();
@@ -256,14 +266,14 @@ describe('Canto Router #travis', function() {
     });
 
     describe('logOut()', function() {
-      it('removes cookies', function() {
+      it('#travis removes cookies', function() {
         spyOn($, 'removeCookie');
         router.logOut();
         expect($.removeCookie).toHaveBeenCalledWith('auth');
         expect($.removeCookie).toHaveBeenCalledWith('userID');
       });
 
-      it('navigates to the homepage', function() {
+      it('#travis navigates to the homepage', function() {
         spyOn(router, 'navigate');
         router.logOut();
         expect(router.navigate).toHaveBeenCalledWith('', {trigger: true});
@@ -276,19 +286,19 @@ describe('Canto Router #travis', function() {
 
   describe('special functions', function() {
     describe('isA()', function() {
-      it('returns true with argument Canto.Router', function() {
+      it('#travis returns true with argument Canto.Router', function() {
         expect(router.isA('Canto.Router')).toBe(true);
       });
 
-      it('returns true with argument \'Router\'', function() {
+      it('#travis returns true with argument \'Router\'', function() {
         expect(router.isA('Router')).toBe(true);
       });
 
-      it('returns true with argument \'Backbone.Router\'', function() {
+      it('#travis returns true with argument \'Backbone.Router\'', function() {
         expect(router.isA('Backbone.Router')).toBe(true);
       });
 
-      it('returns false with another argument', function() {
+      it('#travis returns false with another argument', function() {
         expect(router.isA('Canto.Model')).toBe(false);
       });
     });
