@@ -50,9 +50,8 @@ var TaskPanelView = Canto.View.extend({
     $(e.target).toggleClass('fa-minus fa-plus');
   },
 
-  // ------------------- //
-  // Core View Functions //
-  // ------------------- //
+  /* Core View Functions 
+  /**************************************************************************************/
 
   initialize           : function(opts) {
     opts = opts || {};
