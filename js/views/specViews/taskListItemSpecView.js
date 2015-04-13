@@ -21,7 +21,9 @@ var SpecWrapper = Backbone.View.extend({
     this.$el.html(this.template());
     this.$el.addClass('test');
     this.view.render();
-    this.$('#view').html(this.view.el);
+    this.$('#dashboard-wrapper').html(this.view.$el);
+    this.delegateEvents();
+    return this;
   }
 });
 

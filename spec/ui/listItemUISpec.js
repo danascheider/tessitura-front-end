@@ -40,21 +40,21 @@ describe('Task List Item View #ui', function() {
     });
 
     it('doesn\'t display the task details by default #listItem', function(done) {
-      client.waitForVisible('li#task-1 .task-details', function(err, isVisible) {
+      client.waitForVisible('li#task-1 .task-details', true, function(err, isVisible) {
         expect(isVisible).toBe(false);
         done();
       });
     });
 
     it('doesn\'t display the edit icon by default #listItem', function(done) {
-      client.waitForVisible('li#task-1 i[title=Edit]', function(err, isVisible) {
+      client.waitForVisible('li#task-1 i[title=Edit]', true, function(err, isVisible) {
         expect(isVisible).toBe(false);
         done();
       });
     });
 
     it('doesn\'t display the delete icon by default #listItem', function(done) {
-      client.waitForVisible('li#task-1 i[title=Delete]', function(err, isVisible) {
+      client.waitForVisible('li#task-1 i[title=Delete]', true, function(err, isVisible) {
         expect(isVisible).toBe(false);
         done();
       });
@@ -83,23 +83,6 @@ describe('Task List Item View #ui', function() {
       });
     });
 
-    describe('hideEditIcons', function() {
-      beforeEach(function() {
-        client.waitForVisible('#triggers a')
-              .click('#triggers a[data-method=showEditIcons]')
-              .waitForVisible('span.edit-task');
-      });
-
-      it('hides the edit icon #listItem', function(done) {
-        client.click('#triggers a[data-method=hideEditIcons]')
-              .waitForVisible('li#task-1 i[title=Edit]', function(err, isVisible) {
-          
-          expect(isVisible).toBe(false);
-          done();
-        });
-      });
-    });
-
     describe('markComplete', function() {
       beforeEach(function() {
         client.waitForVisible('#triggers a')
@@ -118,38 +101,6 @@ describe('Task List Item View #ui', function() {
               .getAttribute('i.fa-check-square-o', 'class', function(err, res) {
 
           expect('i.fa-check-square-o').not.toHaveClass('fa-square-o');
-          done();
-        });
-      });
-    });
-
-    describe('showEditIcons', function() {
-      it('shows the edit icon #listItem', function(done) {
-        client.waitForVisible('#triggers a')
-              .click('#triggers a[data-method=showEditIcons]')
-              .waitForVisible('li#task-1 i[title=Edit]', function(err, isVisible) {
-
-          expect(isVisible).toBe(true);
-          done();
-        });
-      });
-
-      it('shows the backlog icon #listItem', function(done) {
-        client.waitForVisible('#triggers a')
-              .click('#triggers a[data-method=showEditIcons]')
-              .waitForVisible('li#task-1 i[title=Backlog]', function(err, isVisible) {
-
-          expect(isVisible).toBe(true);
-          done();
-        });
-      });
-
-      it('shows the delete icon #listItem', function(done) {
-        client.waitForVisible('#triggers')
-              .click('#triggers a[data-method=showEditIcons]')
-              .waitForVisible('li#task-1 i[title=Delete]', function(err, isVisible) {
-
-          expect(isVisible).toBe(true);
           done();
         });
       });

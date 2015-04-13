@@ -5,33 +5,21 @@ var SpecWrapper = Backbone.View.extend({
   template   : JST['spec/taskPanel'],
 
   events     : {
-    'click a' : 'callMethod'
+    'click a[data-method=toggleWidget]'     : 'callToggleWidget',
+    'click a[data-method=remove]'           : 'remove',
+    'click a[data-method=render]'           : 'render',
+    'click a[data-method=displayPanelBody]' : 'displayPanelBody',
+    'click a[data-method=hidePanelBody]'    : 'hidePanelBody'
   },
 
-  callMethod : function(e) {
+  callToggleWidget: function(e) {
     e.preventDefault();
-
-    try {
-      this.view[$(e.target).attr('data-method')]();
-    } catch(err) {
-      this[$(e.target).attr('data-method')]();
-    }
-
-    if($(e.target).attr('data-method') === 'render') {
-      this.$('#view').html(this.view.$el);
-    }
-  },
-
-  displayIcon: function() {
-    if(!this.$('#task-panel .show-widget,#task-panel .hide-widget').is(':visible')) { this.$('#task-panel .show-widget, #task-panel .hide-widget').fadeIn(100); }
+    var event = $.Event('click', {target: this.view.$('.panel-heading i').last()});
+    this.view.toggleWidget(event);
   },
 
   displayPanelBody: function() {
     if(!this.$('#task-panel .panel-body').is(':visible')) { this.$('.panel-body').slideDown(); }
-  },
-
-  hideIcon: function() {
-    if(this.$('#task-panel .show-widget,#task-panel .hide-widget').is(':visible')) { this.$('#task-panel .show-widget, #task-panel .hide-widget').fadeOut(100); }
   },
 
   hidePanelBody: function() {

@@ -21,14 +21,14 @@ describe('Dashboard View #ui', function() {
   });
 
   describe('elements', function() {
-    it('does not display dropdowns by default #dashboard', function(done) {
+    it('does not display dropdowns by default', function(done) {
       client.waitForVisible('#dashboard-wrapper ul.dropdown-menu', function(err, isVisible) {
         expect(isVisible).toBe(false);
         done();
       });
     });
 
-    it('displays dropdown menus whose parents have class .open #dashboard', function(done) {
+    it('displays dropdown menus whose parents have class .open', function(done) {
       client.waitForVisible('a[data-method=hideDropdownMenus]')
             .click('a[data-method=hideDropdownMenus]')
             .click('a[data-method=toggleDropdownMenu]')
@@ -39,7 +39,7 @@ describe('Dashboard View #ui', function() {
       });
     });
 
-    it('doesn\'t display its dropdown menu by default', function(done) {
+    it('doesn\'t display its sidebar menu by default', function(done) {
       client.waitForVisible('#side-menu', true, function(err, isVisible) {
         expect(isVisible).toBe(false);
         done();
