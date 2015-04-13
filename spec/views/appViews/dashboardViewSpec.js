@@ -107,7 +107,7 @@ var matchers       = require('jasmine-jquery-matchers'),
  * BEGIN SUITE                                                              *
 /****************************************************************************/
 
-describe('Main Dashboard View #travis', function() {
+describe('Main Dashboard View', function() {
   var dashboard, e, spy;
 
   /* Filters                 
@@ -136,32 +136,32 @@ describe('Main Dashboard View #travis', function() {
   /**************************************************************************/
 
   describe('constructor', function() {
-    it('calls setUser', function() {
+    it('#travis calls setUser', function() {
       spyOn(Canto.DashboardView.prototype, 'setUser');
       var newView = new Canto.DashboardView({user: user});
       expect(Canto.DashboardView.prototype.setUser).toHaveBeenCalled();
       expect(Canto.DashboardView.prototype.setUser.calls.argsFor(0)[0]).toEqual(user);
     });
 
-    it('instantiates a sidebar', function() {
+    it('#travis instantiates a sidebar', function() {
       expect(dashboard.sidebarView).toBeA('DashboardSidebarView');
     });
 
-    it('instantiates a home view', function() {
+    it('#travis instantiates a home view', function() {
       expect(dashboard.homeView.klass).toEqual('DashboardHomeView');
     });
 
-    it('instantiates a task view', function() {
+    it('#travis instantiates a task view', function() {
       expect(dashboard.taskView.klass).toBe('DashboardTaskView');
     });
 
-    it('doesn\'t call render', function() {
+    it('#travis doesn\'t call render', function() {
       spyOn(Canto.DashboardView.prototype, 'render');
       var newView = new Canto.DashboardView({user: user});
       expect(Canto.DashboardView.prototype.render).not.toHaveBeenCalled();
     });
 
-    it('can be instantiated without a user', function() {
+    it('#travis can be instantiated without a user', function() {
       var newView = new Canto.DashboardView();
       expect(newView.user).not.toExist();
     });
@@ -171,21 +171,21 @@ describe('Main Dashboard View #travis', function() {
   /****************************************************************************/
 
   describe('properties', function() {
-    it('has klass DashboardView', function() {
+    it('#travis has klass DashboardView', function() {
       expect(dashboard.klass).toEqual('DashboardView');
     });
 
-    it('has family Canto.View', function() {
+    it('#travis has family Canto.View', function() {
       expect(dashboard.family).toEqual('Canto.View');
     });
 
-    it('has superFamily Backbone.View', function() {
+    it('#travis has superFamily Backbone.View', function() {
       expect(dashboard.superFamily).toEqual('Backbone.View');
     });
 
     describe('types', function() {
       _.each(['DashboardView', 'Dashboard', 'MainDashboardView', 'MainDashboard', 'TopLevelView'], function(type) {
-        it('includes ' + type, function() {
+        it('#travis includes ' + type, function() {
           expect(dashboard.types()).toContain(type);
         });
       });
@@ -201,18 +201,18 @@ describe('Main Dashboard View #travis', function() {
       $('body').html(dashboard.el);
     });
 
-    it('has ID #dashboard-wrapper', function() {
+    it('#travis has ID #dashboard-wrapper', function() {
       expect(dashboard.$el).toHaveId('dashboard-wrapper');
     });
 
     describe('sidebar', function() {
-      it('is attached to div.sidebar-collapse element', function() {
+      it('#travis is attached to div.sidebar-collapse element', function() {
         expect(dashboard.$('div.sidebar-collapse')).toHaveDescendant('#side-menu');
       });
     });
 
     describe('side-menu icon', function() {
-      it('is present in the navbar-brand element', function() {
+      it('#travis is present in the navbar-brand element', function() {
         expect(dashboard.$('.navbar-brand')).toHaveDescendant('i.fa-bars');
       });
     });
@@ -234,35 +234,35 @@ describe('Main Dashboard View #travis', function() {
     });
 
     describe('click $el', function() {
-      it('calls hideDropdownMenus', function() {
+      it('#travis calls hideDropdownMenus', function() {
         newDashboard.$el.click();
         expect(Canto.DashboardView.prototype.hideDropdownMenus).toHaveBeenCalled();
       });
     });
 
     describe('dblclick $el', function() {
-      it('calls hideSidebar', function() {
+      it('#travis calls hideSidebar', function() {
         newDashboard.$el.dblclick();
         expect(Canto.DashboardView.prototype.hideSidebar).toHaveBeenCalled();
       });
     });
 
     describe('click .navbar-header', function() {
-      it('calls toggleSidebar', function() {
+      it('#travis calls toggleSidebar', function() {
         newDashboard.$('.navbar-header').click();
         expect(Canto.DashboardView.prototype.toggleSidebar).toHaveBeenCalled();
       });
     });
 
     describe('click li.dropdown', function() {
-      it('calls toggleDropdownMenu()', function() {
+      it('#travis calls toggleDropdownMenu()', function() {
         newDashboard.$('li.dropdown').first().click();
         expect(Canto.DashboardView.prototype.toggleDropdownMenu).toHaveBeenCalled();
       });
     });
 
     describe('change user\'s first name', function() {
-      it('calls render()', function() {
+      it('#travis calls render()', function() {
         spyOn(Canto.DashboardView.prototype, 'render');
         var newDashboard = new Canto.DashboardView({user: user});
         user.trigger('change:first_name');
@@ -271,7 +271,7 @@ describe('Main Dashboard View #travis', function() {
     });
 
     describe('change user\'s last name', function() {
-      it('calls render()', function() {
+      it('#travis calls render()', function() {
         spyOn(Canto.DashboardView.prototype, 'render');
         var newDashboard = new Canto.DashboardView({user: user});
         user.trigger('change:last_name');
@@ -289,7 +289,7 @@ describe('Main Dashboard View #travis', function() {
 
     describe('hideDropdownMenus', function() {
       context('when none of the menus is open', function() {
-        it('doesn\'t open the menus', function() {
+        it('#travis doesn\'t open the menus', function() {
           dashboard.$('li.dropdown').removeClass('open');
           e = $.Event('click', {target: dashboard.$el});
           dashboard.hideDropdownMenus(e);
@@ -298,7 +298,7 @@ describe('Main Dashboard View #travis', function() {
       });
 
       context('when a menu is open', function() {
-        it('removes the .open class', function() {
+        it('#travis removes the .open class', function() {
           dashboard.$('li.dropdown').first().addClass('open');
           e = $.Event('click', {target: dashboard.$el});
           dashboard.hideDropdownMenus(e);
@@ -307,7 +307,7 @@ describe('Main Dashboard View #travis', function() {
       });
 
       context('when the clicked-on object is inside the menu', function() {
-        it('doesn\'t hide the menu', function() {
+        it('#travis doesn\'t hide the menu', function() {
           dashboard.$('li.dropdown').first().addClass('open');
           e = $.Event('click', {target: dashboard.$('li.dropdown').first().find('ul.dropdown-menu')});
           dashboard.hideDropdownMenus(e);
@@ -323,11 +323,11 @@ describe('Main Dashboard View #travis', function() {
           dashboard.toggleDropdownMenu(e);
         });
 
-        it('adds the .open class to the target menu', function() {
+        it('#travis adds the .open class to the target menu', function() {
           expect(dashboard.$('li.dropdown').first()).toHaveClass('open');
         });
 
-        it('doesn\'t add the .open class to the other menus', function() {
+        it('#travis doesn\'t add the .open class to the other menus', function() {
           expect(dashboard.$('li.dropdown').last()).not.toHaveClass('open');
         });
       });
@@ -339,11 +339,11 @@ describe('Main Dashboard View #travis', function() {
           dashboard.toggleDropdownMenu(e);
         });
 
-        it('removes the .open class from the open menu', function() {
+        it('#travis removes the .open class from the open menu', function() {
           expect(dashboard.$('li.dropdown').last()).not.toHaveClass('open');
         });
 
-        it('adds the .open class to the target menu', function() {
+        it('#travis adds the .open class to the target menu', function() {
           expect(dashboard.$('li.dropdown').first()).toHaveClass('open');
         });
       });
@@ -355,11 +355,11 @@ describe('Main Dashboard View #travis', function() {
           dashboard.toggleDropdownMenu(e);
         });
 
-        it('removes the .open class from the target menu', function() {
+        it('#travis removes the .open class from the target menu', function() {
           expect(dashboard.$('li.dropdown').first()).not.toHaveClass('open');
         });
 
-        it('doesn\'t open any other menus', function() {
+        it('#travis doesn\'t open any other menus', function() {
           expect('li.dropdown.open').not.toExist();
         });
       });
@@ -369,17 +369,18 @@ describe('Main Dashboard View #travis', function() {
       context('when the home view is visible', function() {
         beforeEach(function() {
           spyOn(dashboard.homeView.$el, 'is').and.returnValue(true);
+          spyOn(Canto.TaskModel.prototype, 'displayTitle').and.returnValue('Foobar');
           dashboard.render();
           $('body').html(dashboard.$el);
         });
 
-        it('renders the home view', function() {
+        it('#travis renders the home view', function() {
           spyOn(dashboard.homeView, 'render');
           dashboard.showHomeView();
           expect(dashboard.homeView.render).toHaveBeenCalled();
         });
 
-        it('attaches the home view to the DOM', function() {
+        it('#travis attaches the home view to the DOM', function() {
           dashboard.showHomeView();
           expect(dashboard.homeView.$el).toBeInDom();
         });
@@ -388,27 +389,28 @@ describe('Main Dashboard View #travis', function() {
       context('when the task view is visible', function() {
         beforeEach(function() {
           spyOn(dashboard.taskView.$el, 'is').and.returnValue(true);
+          spyOn(Canto.TaskModel.prototype, 'displayTitle').and.returnValue('foobar');
         });
 
-        it('doesn\'t re-render the main dash', function() {
+        it('#travis doesn\'t re-render the main dash', function() {
           spyOn(dashboard, 'render');
           dashboard.showHomeView();
           expect(dashboard.render).not.toHaveBeenCalled();
         });
 
-        it('removes the task view', function() {
+        it('#travis removes the task view', function() {
           spyOn(dashboard.taskView, 'remove');
           dashboard.showHomeView();
           expect(dashboard.taskView.remove).toHaveBeenCalled();
         });
 
-        it('renders the home view', function() {
+        it('#travis renders the home view', function() {
           spyOn(dashboard.homeView, 'render');
           dashboard.showHomeView();
           expect(dashboard.homeView.render).toHaveBeenCalled();
         });
 
-        it('attaches the home view to the DOM', function() {
+        it('#travis attaches the home view to the DOM', function() {
           dashboard.render();
           $('body').html(dashboard.$el);
           dashboard.homeView.remove();
@@ -427,19 +429,19 @@ describe('Main Dashboard View #travis', function() {
           $('body').html(dashboard.$el);
         });
 
-        it('removes the home view', function() {
+        it('#travis removes the home view', function() {
           spyOn(dashboard.homeView, 'remove');
           dashboard.showTaskView();
           expect(dashboard.homeView.remove).toHaveBeenCalled();
         });
 
-        it('renders the task view', function() {
+        it('#travis renders the task view', function() {
           spyOn(dashboard.taskView, 'render');
           dashboard.showTaskView();
           expect(dashboard.taskView.render).toHaveBeenCalled();
         });
 
-        it('attaches the task view to the DOM', function() {
+        it('#travis attaches the task view to the DOM', function() {
           dashboard.showTaskView();
           expect(dashboard.taskView.$el).toBeInDom();
         });
@@ -452,13 +454,13 @@ describe('Main Dashboard View #travis', function() {
           $('body').html(dashboard.$el);
         });
 
-        it('renders the task view', function() {
+        it('#travis renders the task view', function() {
           spyOn(dashboard.taskView, 'render');
           dashboard.showTaskView();
           expect(dashboard.taskView.render).toHaveBeenCalled();
         });
 
-        it('attaches the task view to the DOM', function() {
+        it('#travis attaches the task view to the DOM', function() {
           dashboard.showTaskView();
           expect(dashboard.taskView.$el).toBeInDom();
         });
@@ -469,31 +471,31 @@ describe('Main Dashboard View #travis', function() {
   describe('special functions', function() {
     describe('isA()', function() {
       _.each(['DashboardView', 'Dashboard', 'MainDashboardView', 'MainDashboard', 'TopLevelView'], function(type) {
-        it('returns true with argument ' + type, function() {
+        it('#travis returns true with argument ' + type, function() {
           expect(dashboard.isA(type)).toBe(true);
         });
       });
 
-      it('returns false with another argument', function() {
+      it('#travis returns false with another argument', function() {
         expect(dashboard.isA('duck')).toBe(false);
       });
     });
 
     describe('setUser()', function() {
-      it('sets this.user', function() {
+      it('#travis sets this.user', function() {
         var newView = new Canto.DashboardView(); // we already know this won't set the user
         newView.setUser(user);
         expect(newView.user).toBe(user);
       });
 
-      it('calls setUser on the home view', function() {
+      it('#travis calls setUser on the home view', function() {
         var newView = new Canto.DashboardView();
         spyOn(newView.homeView, 'setUser');
         newView.setUser(user);
         expect(newView.homeView.setUser).toHaveBeenCalledWith(user);
       });
 
-      it('calls setUser on the task view', function() {
+      it('#travis calls setUser on the task view', function() {
         var newView = new Canto.DashboardView();
         spyOn(newView.taskView, 'setUser');
         newView.setUser(user);
@@ -504,13 +506,13 @@ describe('Main Dashboard View #travis', function() {
 
   describe('core functions', function() {
     describe('render()', function() {
-      it('renders the sidebar view', function() {
+      it('#travis renders the sidebar view', function() {
         spyOn(dashboard.sidebarView, 'render');
         dashboard.render();
         expect(dashboard.sidebarView.render).toHaveBeenCalled();
       });
 
-      it('inserts the sidebar view into its .sidebar-collapse div', function() {
+      it('#travis inserts the sidebar view into its .sidebar-collapse div', function() {
         dashboard.render();
         $('body').html(dashboard.$el);
         expect(dashboard.sidebarView.el).toBeInDom();
@@ -518,25 +520,25 @@ describe('Main Dashboard View #travis', function() {
     });
 
     describe('remove', function() {
-      it('removes the home view', function() {
+      it('#travis removes the home view', function() {
         spyOn(dashboard.homeView, 'remove');
         dashboard.remove();
         expect(dashboard.homeView.remove).toHaveBeenCalled();
       });
 
-      it('removes the task view', function() {
+      it('#travis removes the task view', function() {
         spyOn(dashboard.taskView, 'remove');
         dashboard.remove();
         expect(dashboard.taskView.remove).toHaveBeenCalled();
       });
 
-      it('removes the sidebar view', function() {
+      it('#travis removes the sidebar view', function() {
         spyOn(dashboard.sidebarView, 'remove');
         dashboard.remove();
         expect(dashboard.sidebarView.remove).toHaveBeenCalled();
       });
 
-      it('removes itself through the Backbone.View prototype', function() {
+      it('#travis removes itself through the Backbone.View prototype', function() {
         spyOn(Backbone.View.prototype.remove, 'call');
         dashboard.remove();
         expect(Backbone.View.prototype.remove.call.calls.argsFor(0)[0]).toBe(dashboard);
