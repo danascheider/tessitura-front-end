@@ -69,9 +69,8 @@ var DashboardHomeView = Canto.View.extend({
 
     // Create view elements
     var that = this;
-
     this.taskPanelView = new Canto.TaskPanelView({collection: this.collection});
-    this.topWidgetView    = new Canto.DashboardTopWidgetView({
+    this.topWidgetView = new Canto.DashboardTopWidgetView({
       taskCollection: that.user.tasks,
       deadlineCount: 7,
       appointmentCount: 4,
@@ -100,10 +99,12 @@ var DashboardHomeView = Canto.View.extend({
     Canto.View.prototype.remove.call(this);
   },
 
-  render              : function() {
+  render              : function(opts) {
+    opts = opts || {};
+
     var that = this;
 
-    return Canto.View.prototype.render.call(this, this.template(), function() {
+    return Canto.View.prototype.render.call(that, that.template(), function() {
       that.renderTaskPanelView();
       that.renderTopWidgetView();
     });

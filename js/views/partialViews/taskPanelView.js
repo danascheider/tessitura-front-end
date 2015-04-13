@@ -30,8 +30,8 @@ var TaskPanelView = Canto.View.extend({
     });
   },
 
-  filterCollection     : function(collection) {
-    var tasks = collection.models.filter(function(task) {
+  filterCollection     : function() {
+    var tasks = _.filter(this.collection.models, function(task) {
       return task.get('status') !== 'Blocking' && !task.get('backlog');
     });
 
@@ -53,15 +53,13 @@ var TaskPanelView = Canto.View.extend({
   /* Core View Functions 
   /**************************************************************************************/
 
-  initialize           : function(opts) {
-    opts = opts || {};
-
-    _.extend(this, opts);
-
+  initialize           : function() {
+    this.collection = new Canto.TaskCollection(this.filterCollection());
     this.collectionView = new Canto.TaskCollectionView({collection: this.collection});
 
     this.listenTo(this.collection, 'change:status', this.crossOffComplete);
     this.listenTo(this.collection, 'change:backlog', this.removeBacklogged);
+    this.listenTo(this.collection, 'add remove sync', this.render);
   },
 
   remove               : function() {

@@ -38,13 +38,20 @@ var DashboardPresenter = Canto.Model.extend({
     this.dashboardView.remove();
   },
 
-  setUser    : function(user) {
+  setUser    : function(user, callback) {
     var that = this;
 
     if(this.user && this.user.get('id') === user.get('id')) { return; }
     this.user = user;
     this.user.tasks = user.tasks || new Canto.TaskCollection();
-    this.dashboardView.setUser(user);
+
+    this.user.protectedFetch({async: false});
+    this.user.tasks.fetch({
+      success: function(collection) {
+        that.dashboardView.setUser(user);
+        if(callback) { callback(collection); }
+      }
+    });
   },
 
   showDash   : function() {

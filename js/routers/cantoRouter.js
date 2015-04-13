@@ -87,10 +87,9 @@ Canto.Router = Backbone.Router.extend({
     var user = new Canto.UserModel({id: $.cookie('userID')});
     user.tasks = new Canto.TaskCollection();
 
-    this.DashboardPresenter.setUser(new Canto.UserModel({id: $.cookie('userID')}));
-    this.DashboardPresenter.user.protectedFetch({async: false});
-    this.DashboardPresenter.user.tasks.fetch({async: false});
-    this.DashboardPresenter.getHome();
+    this.DashboardPresenter.setUser(new Canto.UserModel({id: $.cookie('userID')}), function() {
+      that.DashboardPresenter.getHome();
+    });
   },
 
   displayDashboardTaskView: function() {

@@ -112,7 +112,6 @@ var DashboardView = Canto.View.extend({
   },
 
   showTaskView       : function() {
-    if(!this.$el.is(':visible')) { this.render(); }
     if(this.homeView.$el.is(':visible')) { this.homeView.remove(); }
 
     this.taskView.render();
