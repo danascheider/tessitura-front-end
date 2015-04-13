@@ -7,7 +7,7 @@ var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
     context        = describe,
     fcontext       = fdescribe;
 
-describe('Task Collection #travis', function() {
+describe('Task Collection', function() {
   beforeAll(function() {
     _.extend(global, fixtures);
   });
@@ -27,7 +27,7 @@ describe('Task Collection #travis', function() {
   });
 
   describe('constructor', function() {
-    it('sets the models #travis', function() {
+    it('#travis #travis sets the models #travis', function() {
       expect(collection.models).toEqual([task1, task2, task3]);
     });
   });
@@ -45,27 +45,27 @@ describe('Task Collection #travis', function() {
       collection.sort();
     });
 
-    it('orders the tasks by position #travis', function() {
+    it('#travis orders the tasks by position #travis', function() {
       expect(collection.models).toEqual([task2, task1, task3]);
     });
   });
 
   describe('static properties', function() {
-    it('has klass TaskCollection', function() {
+    it('#travis has klass TaskCollection', function() {
       expect(collection.klass).toBe('TaskCollection');
     });
 
-    it('has family ProtectedCollection', function() {
+    it('#travis has family ProtectedCollection', function() {
       expect(collection.family).toBe('ProtectedCollection');
     });
 
-    it('has superFamily Backbone.Collection', function() {
+    it('#travis has superFamily Backbone.Collection', function() {
       expect(collection.superFamily).toBe('Backbone.Collection');
     });
   });
 
   describe('URL', function() {
-    it('gets the URL for the logged-in user #travis', function() {
+    it('#travis gets the URL for the logged-in user #travis', function() {
       expect(collection.url()).toEqual(Canto.API.base + '/users/342/tasks');
     });
   });
@@ -77,19 +77,19 @@ describe('Task Collection #travis', function() {
       });
 
       context('normal', function() {
-        it('sends the request to the collection URL #travis', function() {
+        it('#travis sends the request to the collection URL #travis', function() {
           collection.fetch();
           expect(Canto.ProtectedCollection.prototype.fetch.calls.argsFor(0)[0].url).toEqual(collection.url());
         });
 
-        it('calls fetch on the collection prototype', function() {
+        it('#travis calls fetch on the collection prototype', function() {
           collection.fetch();
           expect(Canto.ProtectedCollection.prototype.fetch).toHaveBeenCalled();
         });
       });
 
       context('with option `all` set to `true`', function() {
-        it('sends the request to the `all` route #travis', function() {
+        it('#travis sends the request to the `all` route #travis', function() {
           collection.fetch({all: true});
           expect(Canto.ProtectedCollection.prototype.fetch.calls.argsFor(0)[0].url).toEqual(collection.url() + '/all');
         });
@@ -98,19 +98,19 @@ describe('Task Collection #travis', function() {
   });
 
   describe('special functions', function() {
-    it('returns true with arg \'TaskCollection\' #travis', function() {
+    it('#travis returns true with arg \'TaskCollection\' #travis', function() {
       expect(collection.isA('TaskCollection')).toBe(true);
     });
 
-    it('returns true with arg \'Backbone.Collection\' #travis', function() {
+    it('#travis returns true with arg \'Backbone.Collection\' #travis', function() {
       expect(collection.isA('Backbone.Collection')).toBe(true);
     });
 
-    it('returns true with arg \'ProtectedCollection\' #travis', function() {
+    it('#travis returns true with arg \'ProtectedCollection\' #travis', function() {
       expect(collection.isA('ProtectedCollection')).toBe(true);
     });
 
-    it('returns false with wrong type #travis', function() {
+    it('#travis returns false with wrong type #travis', function() {
       expect(collection.isA('UserCollection')).toBe(false);
     });
   });
