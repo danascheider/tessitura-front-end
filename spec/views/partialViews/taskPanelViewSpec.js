@@ -215,6 +215,32 @@ describe('Task Panel View', function() {
       });
     });
 
+    fdescribe('showTaskCreateForm()', function() {
+      var spy;
+
+      beforeEach(function() {
+        spy = jasmine.createSpy();
+        taskPanel.on('showTaskCreateForm', spy);
+        e   = $.Event('showTaskCreateForm', {collection: collection});
+      });
+
+      afterEach(function() { 
+        taskPanel.remove();
+        taskPanel.off('showTaskCreateForm');
+      });
+
+      it('triggers the showTaskCreateForm event #travis', function() {
+        taskPanel.showTaskCreateForm(e);
+        expect(spy).toHaveBeenCalled();
+      });
+
+      it('passes the collection through #travis', function(done) {
+        taskPanel.showTaskCreateForm(e);
+        expect(spy.calls.mostRecent().args[0]).toBe('TaskCollection');
+        done();
+      });
+    });
+
     describe('toggleWidget()', function() {
       context('when the widget is visible', function() {
         beforeEach(function() {

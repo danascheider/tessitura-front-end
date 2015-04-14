@@ -54,6 +54,10 @@ var TaskPanelView = Canto.View.extend({
    _.each(backlogged, function(task) { that.collection.remove(task); });
   },
 
+  showTaskCreateForm   : function(e) {
+    this.trigger('showTaskCreateForm', e);
+  },
+
   toggleWidget         : function(e) {
     this.$('.panel-body').slideToggle();
     $(e.target).toggleClass('fa-minus fa-plus');
