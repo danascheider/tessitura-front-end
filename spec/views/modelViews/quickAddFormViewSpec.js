@@ -8,7 +8,7 @@ var matchers       = require('jasmine-jquery-matchers'),
     context        = describe,
     fcontext       = fdescribe;
 
-fdescribe('Quick-Add Task Form', function() {
+describe('Quick-Add Task Form', function() {
   var view, xhr, e, spy;
 
   beforeAll(function() {
