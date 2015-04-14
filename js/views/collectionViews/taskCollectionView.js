@@ -45,6 +45,10 @@ var TaskCollectionView = Canto.View.extend({
     this.collection.remove(complete);
   },
 
+  showTaskCreateForm   : function() {
+    this.trigger('showTaskCreateForm', {collection: this.collection});
+  },
+
   /* Special Functions
   /**************************************************************************************/
 
@@ -103,6 +107,7 @@ var TaskCollectionView = Canto.View.extend({
     this.listenTo(this.collection, 'change:status', this.crossOff);
     this.listenTo(this.collection, 'remove', this.removeChildAndRender);
     this.listenTo(this.collection, 'drop', this.removeStyles);
+    this.listenTo(this.quickAddForm, 'showTaskCreateForm', this.showTaskCreateForm);
   },
 
   remove              : function() {

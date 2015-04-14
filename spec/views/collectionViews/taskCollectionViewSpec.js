@@ -86,7 +86,7 @@ describe('Task Collection View', function() {
       spyOn(Canto.TaskCollectionView.prototype, 'render');
       spyOn(Canto.TaskCollectionView.prototype, 'crossOff');
       spyOn(Canto.TaskCollectionView.prototype, 'removeChildAndRender');
-
+      spyOn(Canto.TaskCollectionView.prototype, 'showTaskCreateForm');
       spyOn(Canto.TaskCollectionView.prototype, 'retrieveViewForModel').and.returnValue(childViews[0]);
 
       newView = new Canto.TaskCollectionView({collection: collection});
@@ -119,14 +119,12 @@ describe('Task Collection View', function() {
       });
     });
 
-    // FIX: Determine whether this is really necessary
-    // 
-    // describe('newTask through quick-add form', function() {
-    //   it('#travis calls fetch on the collection', function() {
-    //     newView.quickAddForm.trigger('newView');
-    //     expect(Backbone.Collection..fetch).toHaveBeenCalled();
-    //   });
-    // });
+    describe('showTaskCreateForm on quick-add form', function() {
+      it('calls showTaskCreateForm() #travis', function() {
+        newView.quickAddForm.trigger('showTaskCreateForm');
+        expect(Canto.TaskCollectionView.prototype.showTaskCreateForm).toHaveBeenCalled();
+      })
+    });
 
     describe('change:status', function() {
       it('calls crossOff #travis', function() {
@@ -219,7 +217,7 @@ describe('Task Collection View', function() {
       });
     });
 
-    describe('retrieveViewForModel', function() {
+    describe('retrieveViewForModel()', function() {
       context('when there is no view for the model', function() {
         beforeEach(function() { view.childViews = []; });
 
@@ -234,6 +232,27 @@ describe('Task Collection View', function() {
         it('returns the appropriate view #travis', function() {
           expect((view.retrieveViewForModel(task1)).klass).toEqual('TaskListItemView');
         });
+      });
+    });
+
+    describe('showTaskCreateForm()', function() {
+      var spy;
+
+      beforeEach(function() {
+        spy = jasmine.createSpy();
+        view.on('showTaskCreateForm', spy);
+      });
+
+      afterEach(function() { view.off('showTaskCreateForm'); });
+
+      it('triggers the showTaskCreateForm event #travis', function() {
+        view.showTaskCreateForm();
+        expect(spy).toHaveBeenCalled();
+      });
+
+      it('passes its collection through #travis', function() {
+        view.showTaskCreateForm();
+        expect(spy.calls.mostRecent().args[0].collection.klass).toEqual('TaskCollection');
       });
     });
   });
