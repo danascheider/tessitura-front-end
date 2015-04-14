@@ -35,8 +35,7 @@ var TaskPanelView = Canto.View.extend({
       return task.get('status') !== 'Blocking' && !task.get('backlog');
     });
 
-    var slice = tasks.slice(0, 10);
-    return slice;
+    return tasks
   },
 
   removeBacklogged     : function() {
@@ -54,8 +53,9 @@ var TaskPanelView = Canto.View.extend({
   /**************************************************************************************/
 
   initialize           : function() {
-    this.collection = new Canto.TaskCollection(this.filterCollection());
-    this.collectionView = new Canto.TaskCollectionView({collection: this.collection});
+    this.collection       = new Canto.TaskCollection(this.filterCollection());
+    var displayCollection = new Canto.TaskCollection(this.collection.slice(0,10));
+    this.collectionView   = new Canto.TaskCollectionView({collection: newColl});
 
     this.listenTo(this.collection, 'change:status', this.crossOffComplete);
     this.listenTo(this.collection, 'change:backlog', this.removeBacklogged);

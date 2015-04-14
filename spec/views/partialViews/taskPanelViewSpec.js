@@ -40,25 +40,31 @@ describe('Task Panel View', function() {
     global = _.omit(global, Fixtures);
   });
 
-  describe('constructor', function() {
-    it('#travis doesn\'t call render', function() {
+  fdescribe('constructor', function() {
+    it('doesn\'t call render #travis', function() {
       spyOn(Canto.TaskPanelView.prototype, 'render');
+      task1.set('status', 'Blocking');
       var newPanel = new Canto.TaskPanelView(opts);
       expect(Canto.TaskPanelView.prototype.render).not.toHaveBeenCalled();
+      newPanel.remove();
     });
 
-    it('#travis sets a collection', function() {
+    it('sets a collection #travis', function() {
       // expect(...).toBe(collection) caused a stack level error
       expect(taskPanel.collection.isA('TaskCollection')).toBe(true);
     });
 
-    it('#travis instantiates a collection view', function() {
-
-      // For some reason, when I worded this with the toBeA('TaskCollectionView')
-      // matcher, it passed even when the thing did not exist. That's why I'm 
-      // using this stupid matcher.
-
+    it('instantiates a collection view #travis', function() {
       expect(taskPanel.collectionView.klass).toBe('TaskCollectionView');
+    });
+
+    it('passes a maximum of 10 models to the collection view #travis', function() {
+      for(var i = 4; i < 13; i++) {
+        collection.create({title: 'My Task ' + i, position: i}, {sync: false, silent: true});
+      }
+
+      var newPanel = new Canto.TaskPanelView({collection: collection});
+      expect(newPanel.collectionView.collection.length).toBe(10);
     });
   });
 
@@ -161,24 +167,20 @@ describe('Task Panel View', function() {
         }
       });
 
-      it('#travis returns 10 tasks', function() {
-        expect(taskPanel.filterCollection(collection)).toHaveLength(10);
-      });
-
-      it('#travis doesn\'t include blocking tasks', function() {
+      it('doesn\'t include blocking tasks #travis', function() {
         var newView = new Canto.TaskListItemView({model: task2});
         spyOn(Canto.TaskCollectionView.prototype, 'retrieveViewForModel').and.returnValue(newView);
         task2.set({status: 'Blocking'});
         expect(taskPanel.filterCollection(collection).indexOf(task2)).toBe(-1);
       });
 
-      it('#travis doesn\'t include backlogged tasks', function() {
+      it('doesn\'t include backlogged tasks#travis', function() {
         task2.set({backlog: true});
         expect(taskPanel.filterCollection(collection).indexOf(task2)).toBe(-1);
-      })
+      });
     });
 
-    describe('toggleWidget', function() {
+    describe('toggleWidget()', function() {
       context('when the widget is visible', function() {
         beforeEach(function() {
           taskPanel.render();
@@ -206,7 +208,7 @@ describe('Task Panel View', function() {
       });
     });
 
-    describe('removeBacklogged', function() {
+    describe('removeBacklogged()', function() {
       it('#travis removes the specified task from the collection', function() {
         spyOn(taskPanel.collection, 'remove');
         task1.set({backlog: true});
