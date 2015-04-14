@@ -54,15 +54,15 @@ describe('Protected Collection', function() {
   /***************************************************************************/
 
   describe('static properties', function() {
-    it('#travis has klass \'ProtectedCollection\'', function() {
+    it('has klass \'ProtectedCollection\' #travis', function() {
       expect(collection.klass).toBe('ProtectedCollection');
     });
 
-    it('#travis has family Backbone.Collection', function() {
+    it('has family Backbone.Collection #travis', function() {
       expect(collection.family).toBe('Backbone.Collection');
     });
 
-    it('#travis has superFamily Backbone.Collection', function() {
+    it('has superFamily Backbone.Collection #travis', function() {
       expect(collection.superFamily).toBe('Backbone.Collection');
     });
   });
@@ -71,7 +71,7 @@ describe('Protected Collection', function() {
   /***************************************************************************/
 
   describe('token', function() {
-    it('#travis returns the value of the auth header for the logged-in user', function() {
+    it('returns the value of the auth header for the logged-in user #travis', function() {
       expect(collection.token()).toEqual('Basic ' + btoa('testuser:testuser'));
     });
   });
@@ -83,14 +83,14 @@ describe('Protected Collection', function() {
     describe('fetch', function() {
       beforeEach(function() { spyOn($, 'ajax'); });
 
-      it('#travis attaches the auth header', function() {
+      it('attaches the auth header #travis', function() {
         xhr.open('GET', collection.url);
         collection.fetch();
         $.ajax.calls.argsFor(0)[0].beforeSend(xhr);
         expect(xhr.getRequestHeader('Authorization')).toEqual(collection.token());
       });
 
-      it('#travis calls Backbone.Sync', function() {
+      it('calls Backbone.Sync #travis', function() {
         spyOn(Backbone, 'sync');
         collection.fetch();
         expect(Backbone.sync.calls.argsFor(0)[1]).toBe(collection);
@@ -103,15 +103,15 @@ describe('Protected Collection', function() {
 
   describe('special functions', function() {
     describe('isA', function() {
-      it('#travis returns true with arg \'ProtectedCollection\'', function() {
+      it('returns true with arg \'ProtectedCollection\' #travis', function() {
         expect(collection.isA('ProtectedCollection')).toBe(true);
       });
 
-      it('#travis returns true with arg \'Backbone.Collection\'', function() {
+      it('returns true with arg \'Backbone.Collection\' #travis', function() {
         expect(collection.isA('Backbone.Collection')).toBe(true);
       });
 
-      it('#travis returns false with another value', function() {
+      it('returns false with another value #travis', function() {
         expect(collection.isA('TaskModel')).toBe(false);
       });
     });
