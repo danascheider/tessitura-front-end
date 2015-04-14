@@ -139,17 +139,20 @@ describe('Task Collection View', function() {
   describe('event callbacks', function() {
     describe('removeBacklog()', function() {
       beforeEach(function() { 
-        task2.set('backlog', true); 
+        spyOn(task2, 'get').and.callFake(function(args) { 
+          if(args['backlog']) { return true; }
+        });
+
         view.removeBacklog();
       });
 
-      it('#travis removes the backlogged task', function() {
+      it('removes the backlogged task #travis', function() {
         expect(view.models).not.toContain(task2);
       });
     });
 
     describe('removeChildAndRender()', function() {
-      it('#travis removes the child view from the array', function() {
+      it('removes the child view from the array #travis', function() {
         var child = childViews[1];
         view.removeChildAndRender(task2);
         expect(view.childViews).not.toContain(child);

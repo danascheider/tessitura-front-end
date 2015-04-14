@@ -169,7 +169,7 @@ describe('Task Panel View', function() {
       });
 
       context('when there are not more tasks than in the child\'s collection', function() {
-        it('doesn\'t give any toruble #travis', function() {
+        it('doesn\'t give any trouble #travis', function() {
           taskPanel.addTaskToDisplay();
           expect(taskPanel.collectionView.collection.length).toBe(3);
         });
