@@ -46,15 +46,15 @@ describe('Dashboard Presenter', function() {
   /***************************************************************************************/
 
   describe('Canto model properties', function() {
-    it('#travis has klass DashboardPresenter', function() {
+    it('has klass DashboardPresenter #travis', function() {
       expect(presenter.klass).toBe('DashboardPresenter');
     });
 
-    it('#travis has family Canto.Model', function() {
+    it('has family Canto.Model #travis', function() {
       expect(presenter.family).toBe('Canto.Model');
     });
 
-    it('#travis has superFamily Backbone.Model', function() {
+    it('has superFamily Backbone.Model #travis', function() {
       expect(presenter.superFamily).toBe('Backbone.Model');
     });
   });
@@ -69,16 +69,16 @@ describe('Dashboard Presenter', function() {
       });
     });
 
-    it('#travis can be instantiated without a user', function() {
+    it('can be instantiated without a user #travis', function() {
       var newPresenter = new Canto.DashboardPresenter();
       expect(newPresenter.user).not.toExist();
     });
 
-    it('#travis creates a dashboard view', function() {
+    it('creates a dashboard view #travis', function() {
       expect(presenter.dashboardView).toExist();
     });
 
-    it('#travis calls setUser', function() {
+    it('calls setUser #travis', function() {
       spyOn(Canto.DashboardPresenter.prototype, 'setUser');
       var newPresenter = new Canto.DashboardPresenter({user: user});
       expect(Canto.DashboardPresenter.prototype.setUser).toHaveBeenCalledWith(user);
@@ -97,14 +97,14 @@ describe('Dashboard Presenter', function() {
     afterEach(function() { presenter.off('redirect'); });
 
     describe('redirect:dashboard on the dashboard view', function() {
-      it('#travis emits the redirect:dashboard event', function() {
+      it('emits the redirect:dashboard event #travis', function() {
         presenter.dashboardView.trigger('redirect', {destination: 'dashboard'});
         expect(spy).toHaveBeenCalledWith({destination: 'dashboard'});
       });
     });
 
     describe('redirect:tasks on the dashboard view', function() {
-      it('#travis emits the redirect:tasks event', function() {
+      it('emits the redirect:tasks event #travis', function() {
         presenter.dashboardView.trigger('redirect', {destination: 'tasks'});
         expect(spy).toHaveBeenCalledWith({destination: 'tasks'});
       });
@@ -123,11 +123,11 @@ describe('Dashboard Presenter', function() {
           presenter.getHome();
         });
 
-        it('#travis calls the dashboard\'s showHomeView method', function() {
+        it('calls the dashboard\'s showHomeView method #travis', function() {
           expect(presenter.dashboardView.showHomeView).toHaveBeenCalled();
         });
 
-        it('#travis sets the \'current\' property to \'home\'', function() {
+        it('sets the \'current\' property to \'home\' #travis', function() {
           expect(presenter.current).toBe('home');
         });
       });
@@ -139,11 +139,11 @@ describe('Dashboard Presenter', function() {
           presenter.getHome();
         });
 
-        it('#travis renders the dashboard view', function() {
+        it('renders the dashboard view #travis', function() {
           expect(presenter.dashboardView.render).toHaveBeenCalled();
         });
 
-        it('#travis attaches the dashboard view to the DOM', function() {
+        it('attaches the dashboard view to the DOM #travis', function() {
           expect(presenter.dashboardView.$el).toBeInDom();
         });
       });
@@ -157,11 +157,11 @@ describe('Dashboard Presenter', function() {
           presenter.getTask();
         });
 
-        it('#travis calls the dashboard\'s showTaskView method', function() {
+        it('calls the dashboard\'s showTaskView method #travis', function() {
           expect(presenter.dashboardView.showTaskView).toHaveBeenCalled();
         });
 
-        it('#travis sets the \'current\' property to \'task\'', function() {
+        it('sets the \'current\' property to \'task\' #travis', function() {
           expect(presenter.current).toBe('task');
         });
       });
@@ -173,11 +173,11 @@ describe('Dashboard Presenter', function() {
           presenter.getTask();
         });
 
-        it('#travis renders the dashboard', function() {
+        it('renders the dashboard #travis', function() {
           expect(presenter.dashboardView.render).toHaveBeenCalled();
         });
 
-        it('#travis attaches the dashboard view to the DOM', function() {
+        it('attaches the dashboard view to the DOM #travis', function() {
           expect(presenter.dashboardView.$el).toBeInDom();
         });
       });
@@ -191,19 +191,19 @@ describe('Dashboard Presenter', function() {
 
       afterEach(function() { presenter.off('redirect'); });
 
-      it('#travis emits the redirect:dashboard event', function() {
+      it('emits the redirect:dashboard event #travis', function() {
         presenter.redirect({destination: 'dashboard'});
         expect(spy).toHaveBeenCalledWith({destination: 'dashboard'});
       });
 
-      it('#travis emits the redirect:tasks event', function() {
+      it('emits the redirect:tasks event #travis', function() {
         presenter.redirect({destination: 'tasks'});
         expect(spy).toHaveBeenCalledWith({destination: 'tasks'});
       });
     });
 
     describe('removeAll()', function() {
-      it('#travis removes the dashboard view', function() {
+      it('removes the dashboard view #travis', function() {
         spyOn(presenter.dashboardView, 'remove');
         presenter.removeAll();
         expect(presenter.dashboardView.remove).toHaveBeenCalled();
@@ -216,15 +216,15 @@ describe('Dashboard Presenter', function() {
 
   describe('special functions', function() {
     describe('isA()', function() {
-      it('#travis returns true with argument `Presenter`', function() {
+      it('returns true with argument `Presenter` #travis', function() {
         expect(presenter.isA('Presenter')).toBe(true);
       });
 
-      it('#travis returns true with argument \'DashboardPresenter\'', function() {
+      it('returns true with argument \'DashboardPresenter\' #travis', function() {
         expect(presenter.isA('DashboardPresenter')).toBe(true);
       });
 
-      it('#travis returns false with another argument', function() {
+      it('returns false with another argument #travis', function() {
         expect(presenter.isA('Backbone.Router')).toBe(false);
       });
     });
@@ -244,7 +244,7 @@ describe('Dashboard Presenter', function() {
       afterEach(function() { newPresenter.destroy(); });
 
       context('when the user is not actually changed', function() {
-        it('#travis doesn\'t change the user', function() {
+        it('doesn\'t change the user #travis', function() {
           newPresenter.user = user;
           newPresenter.setUser(user);
           expect(newPresenter.user).toBe(user);
@@ -252,7 +252,7 @@ describe('Dashboard Presenter', function() {
       });
 
       context('when the "new" user has the same ID as the "old" user', function() {
-        it('#travis doesn\'t change the user', function() {
+        it('doesn\'t change the user #travis', function() {
           newPresenter.user = user
           var newUser = new Canto.UserModel({id: user.get('id'), username: user.get('username'), password: user.get('password')});
           newPresenter.setUser(newUser);
@@ -261,17 +261,17 @@ describe('Dashboard Presenter', function() {
       });
 
       context('new user', function() {
-        it('#travis sets the user', function() {
+        it('sets the user #travis', function() {
           newPresenter.setUser(user);
           expect(newPresenter.user.isA('UserModel')).toBe(true);
         });
 
-        it('#travis calls setUser on the dashboard', function() {
+        it('calls setUser on the dashboard #travis', function() {
           newPresenter.setUser(user);
           expect(newPresenter.dashboardView.setUser).toHaveBeenCalledWith(user);
         });
 
-        it('#travis instantiates a task collection', function() {
+        it('instantiates a task collection #travis', function() {
           user.tasks = null;
           spyOn(Canto.TaskCollection.prototype, 'initialize');
           newPresenter.setUser(user);
@@ -287,12 +287,12 @@ describe('Dashboard Presenter', function() {
           spyOn(presenter.dashboardView, 'render').and.returnValue(presenter.dashboardView);
         });
 
-        it('#travis calls render on the dashboard view', function() {
+        it('calls render on the dashboard view #travis', function() {
           presenter.showDash();
           expect(presenter.dashboardView.render).toHaveBeenCalled();
         });
 
-        it('#travis sets the HTML of the body element', function() {
+        it('sets the HTML of the body element #travis', function() {
           presenter.showDash();
           expect($('body').html()).toContain(presenter.dashboardView.$el.html());
         });
@@ -301,13 +301,13 @@ describe('Dashboard Presenter', function() {
       context('when the dash view is in the DOM already', function() {
         beforeEach(function() { spyOn(presenter.dashboardView.$el, 'is').and.returnValue(true); });
 
-        it('#travis doesn\'t call render', function() {
+        it('doesn\'t call render #travis', function() {
           spyOn(presenter.dashboardView, 'render');
           presenter.showDash();
           expect(presenter.dashboardView.render).not.toHaveBeenCalled();
         });
 
-        it('#travis doesn\'t attach anything to the DOM', function() {
+        it('doesn\'t attach anything to the DOM #travis', function() {
           spyOn($.prototype, 'html');
           presenter.showDash();
           expect($.prototype.html).not.toHaveBeenCalled();
