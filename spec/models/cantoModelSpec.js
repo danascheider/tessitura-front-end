@@ -13,35 +13,35 @@ describe('Canto.Model', function() {
   });
 
   describe('properties', function() {
-    it('#travis has klass Canto.Model', function() {
+    it('has klass Canto.Model #travis', function() {
       expect(model.klass).toBe('Canto.Model');
     });
 
-    it('#travis has family Canto.Model', function() {
+    it('has family Canto.Model #travis', function() {
       expect(model.family).toBe('Canto.Model');
     });
 
-    it('#travis has superFamily Backbone.Model', function() {
+    it('has superFamily Backbone.Model #travis', function() {
       expect(model.superFamily).toBe('Backbone.Model');
     });
   });
 
   describe('types', function() {
-    it('#travis includes Backbone.Model and Canto.Model', function() {
+    it('includes Backbone.Model and Canto.Model #travis', function() {
       expect(model.types()).toEqual(['Backbone.Model', 'Canto.Model']);
     });
   });
 
   describe('isA', function() {
-    it('#travis returns true with argument Backbone.Model', function() {
+    it('returns true with argument Backbone.Model #travis', function() {
       expect(model.isA('Backbone.Model')).toBe(true);
     });
 
-    it('#travis returns true with argument Canto.Model', function() {
+    it('returns true with argument Canto.Model #travis', function() {
       expect(model.isA('Canto.Model')).toBe(true);
     });
 
-    it('#travis returns false with another argument', function() {
+    it('returns false with another argument #travis', function() {
       expect(model.isA('ProtectedResourceModel')).toBe(false);
     });
   });
@@ -59,35 +59,35 @@ describe('Canto.Model', function() {
     });
 
     describe('types', function() {
-      it('#travis inherits types from Canto.Model', function() {
+      it('inherits types from Canto.Model #travis', function() {
         expect(newModel.types()).toEqual(['Backbone.Model', 'Canto.Model']);
       });
     });
 
     describe('isA', function() {
-      it('#travis returns true with argument Backbone.Model', function() {
+      it('returns true with argument Backbone.Model #travis', function() {
         expect(newModel.isA('Backbone.Model')).toBe(true);
       });
 
-      it('#travis returns true with argument Canto.Model', function() {
+      it('returns true with argument Canto.Model #travis', function() {
         expect(newModel.isA('Canto.Model')).toBe(true);
       });
 
-      it('#travis returns false with another argument', function() {
+      it('returns false with another argument #travis', function() {
         expect(newModel.isA('walrus')).toBe(false);
       });
     });
 
     describe('properties', function() {
-      it('#travis has klass NewModel', function() {
+      it('has klass NewModel #travis', function() {
         expect(newModel.klass).toBe('NewModel');
       });
 
-      it('#travis has family Canto.Model', function() {
+      it('has family Canto.Model #travis', function() {
         expect(newModel.family).toBe('Canto.Model');
       });
 
-      it('#travis has superFamily Backbone.Model', function() {
+      it('has superFamily Backbone.Model #travis', function() {
         expect(newModel.superFamily).toBe('Backbone.Model');
       });
     });
