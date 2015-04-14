@@ -102,7 +102,7 @@ var KanbanColumnView = Canto.View.extend({
   },
 
   remove      : function() {
-    this.collectionView.remove();
+    if(this.collectionView) { this.collectionView.remove(); }
     Canto.View.prototype.remove.call(this);
   },
 
