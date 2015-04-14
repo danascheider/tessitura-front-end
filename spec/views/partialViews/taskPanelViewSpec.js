@@ -40,7 +40,7 @@ describe('Task Panel View', function() {
     global = _.omit(global, Fixtures);
   });
 
-  fdescribe('constructor', function() {
+  describe('constructor', function() {
     it('doesn\'t call render #travis', function() {
       spyOn(Canto.TaskPanelView.prototype, 'render');
       task1.set('status', 'Blocking');
@@ -69,15 +69,15 @@ describe('Task Panel View', function() {
   });
 
   describe('properties', function() {
-    it('#travis has klass \'TaskPanelView\'', function() {
+    it('has klass \'TaskPanelView\' #travis', function() {
       expect(taskPanel.klass).toBe('TaskPanelView');
     });
 
-    it('#travis has family \'Canto.View\'', function() {
+    it('has family \'Canto.View\' #travis', function() {
       expect(taskPanel.family).toBe('Canto.View');
     });
 
-    it('#travis has superFamily \'Backbone.View\'', function() {
+    it('has superFamily \'Backbone.View\' #travis', function() {
       expect(taskPanel.superFamily).toBe('Backbone.View');
     });
   });
@@ -138,10 +138,45 @@ describe('Task Panel View', function() {
         expect(Canto.TaskPanelView.prototype.removeBacklogged).toHaveBeenCalled();
       });
     });
+
+    describe('remove task from collection display', function() {
+      it('calls addTaskToDisplay', function() {
+        spyOn(Canto.TaskPanelView.prototype, 'addTaskToDisplay');
+        var newView = new Canto.TaskPanelView({collection: collection});
+        newView.collectionView.collection.remove(task1);
+        expect(Canto.TaskPanelView.prototype.addTaskToDisplay).toHaveBeenCalled();
+      });
+    });
   });
 
   describe('event callbacks', function() {
-    describe('crossOffComplete', function() {
+    describe('addTaskToDisplay()', function() {
+      context('when there are more tasks than are in the child\'s collection', function() {
+        var newView;
+
+        beforeEach(function() {
+          for(var i = 4; i < 13; i++) {
+            collection.create({title: 'My Task ' + i, position: i}, {sync: false, silent: true});
+          }
+
+          newView = new Canto.TaskPanelView({collection: collection});
+        });
+
+        it('adds a task to the collection view\'s collection #travis', function() {
+          newView.addTaskToDisplay();
+          expect(newView.collectionView.collection.length).toBe(11);
+        });
+      });
+
+      context('when there are not more tasks than in the child\'s collection', function() {
+        it('doesn\'t give any toruble #travis', function() {
+          taskPanel.addTaskToDisplay();
+          expect(taskPanel.collectionView.collection.length).toBe(3);
+        });
+      });
+    });
+
+    describe('crossOffComplete()', function() {
       beforeEach(function() {
         task1.set({status: 'Complete'}, {silent: true});
         taskPanel.render();

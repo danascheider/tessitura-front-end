@@ -21,6 +21,16 @@ var TaskPanelView = Canto.View.extend({
   /* Event Callbacks
   /**************************************************************************************/
 
+  addTaskToDisplay     : function() {
+
+    if (this.collection.length > this.collectionView.collection) {
+      var index = (this.collectionView.collection.length - 1) + 1,
+          model = this.collection.at(index);
+
+      this.collectionView.collection.add(model);
+    }
+  },
+
   crossOffComplete     : function() {
     var that = this;
 
@@ -55,11 +65,11 @@ var TaskPanelView = Canto.View.extend({
   initialize           : function() {
     this.collection       = new Canto.TaskCollection(this.filterCollection());
     var displayCollection = new Canto.TaskCollection(this.collection.slice(0,10));
-    this.collectionView   = new Canto.TaskCollectionView({collection: newColl});
+    this.collectionView   = new Canto.TaskCollectionView({collection: displayCollection});
 
     this.listenTo(this.collection, 'change:status', this.crossOffComplete);
     this.listenTo(this.collection, 'change:backlog', this.removeBacklogged);
-    this.listenTo(this.collection, 'add remove', this.render);
+    this.listenTo(this.collectionView.collection, 'remove', this.addTaskToDisplay);
   },
 
   remove               : function() {
