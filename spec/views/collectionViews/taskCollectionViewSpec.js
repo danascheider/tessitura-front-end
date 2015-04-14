@@ -38,29 +38,29 @@ describe('Task Collection View', function() {
       expect(Canto.TaskCollectionView.prototype.render).not.toHaveBeenCalled();
     });
 
-    it('#travis creates an empty childViews array', function() {
+    it('creates an empty childViews array #travis', function() {
       expect(view.childViews).toEqual([]);
     });
 
-    it('#travis creates a quick-add form', function() {
+    it('creates a quick-add form #travis', function() {
       expect(view.quickAddForm.klass).toEqual('QuickAddTaskFormView');
     });
   });
 
   describe('properties', function() {
-    it('#travis is a Canto.View', function() {
-      expect(view).toBeA('Canto.View');
+    it('is a Canto.View #travis', function() {
+      expect(view.isA('Canto.View')).toBe(true);
     });
 
-    it('#travis has klass TaskCollectionView', function() {
+    it('has klass TaskCollectionView #travis', function() {
       expect(view.klass).toEqual('TaskCollectionView');
     });
 
-    it('#travis has family Canto.View', function() {
+    it('has family Canto.View #travis', function() {
       expect(view.family).toEqual('Canto.View');
     });
 
-    it('#travis has superFamily Backbone.View', function() {
+    it('has superFamily Backbone.View #travis', function() {
       expect(view.superFamily).toEqual('Backbone.View');
     });
   });
@@ -68,15 +68,15 @@ describe('Task Collection View', function() {
   describe('elements', function() {
     beforeEach(function() { view.render(); });
 
-    it('#travis is a ul', function() {
+    it('is a ul #travis', function() {
       expect(view.$el[0]).toHaveTag('UL');
     });
 
-    it('#travis has class .task-list', function() {
+    it('has class .task-list #travis', function() {
       expect(view.$el[0]).toHaveClass('task-list');
     });
 
-    it('#travis has a list item for each task', function() {
+    it('has a list item for each task #travis', function() {
       expect(view.$('.task-list-item')).toHaveLength(3);
     });
   });
@@ -99,21 +99,21 @@ describe('Task Collection View', function() {
     });
 
     describe('add to collection', function() {
-      it('#travis calls render', function() {
+      it('calls render() #travis', function() {
         newView.collection.trigger('add');
         expect(Canto.TaskCollectionView.prototype.render).toHaveBeenCalled();
       });
     });
 
     describe('remove from collection', function() {
-      it('#travis calls removeChildAndRender', function() {
+      it('calls removeChildAndRender() #travis', function() {
         newView.collection.trigger('remove');
         expect(Canto.TaskCollectionView.prototype.render).toHaveBeenCalled();
       });
     });
 
     describe('fetch collection', function() {
-      it('#travis calls render', function() {
+      it('calls render() #travis', function() {
         newView.collection.trigger('fetch');
         expect(Canto.TaskCollectionView.prototype.render).toHaveBeenCalled();
       });
@@ -129,7 +129,7 @@ describe('Task Collection View', function() {
     // });
 
     describe('change:status', function() {
-      it('#travis calls crossOff', function() {
+      it('calls crossOff #travis', function() {
         task1.set('status', 'Complete');
         expect(Canto.TaskCollectionView.prototype.crossOff).toHaveBeenCalled();
       });
@@ -158,7 +158,7 @@ describe('Task Collection View', function() {
         expect(view.childViews).not.toContain(child);
       });
 
-      it('#travis calls render()', function() {
+      it('calls render() #travis', function() {
         spyOn(view, 'render');
         view.removeChildAndRender(task2);
         expect(view.render).toHaveBeenCalled();
@@ -171,33 +171,33 @@ describe('Task Collection View', function() {
         view.render();
       });
 
-      it('#travis calls remove on the child views', function() {
+      it('calls remove() on the child views #travis', function() {
         spyOn(view.childViews[2], 'remove');
         view.removeChildViews(); 
         expect(view.childViews[2].remove).toHaveBeenCalled();
       });
 
-      it('#travis calls unbind on the child views', function() {
+      it('calls unbind on the child views #travis', function() {
         spyOn(view.childViews[1], 'unbind');
         view.removeChildViews();
         expect(view.childViews[1].unbind).toHaveBeenCalled();
       });
     });
 
-    describe('removeComplete', function() {
+    describe('removeComplete()', function() {
       beforeEach(function() {
         view.childViews = childViews;
         task1.set('status', 'Complete');
         view.removeComplete();
       });
 
-      it('#travis removes the completed task', function() {
+      it('removes the completed task #travis', function() {
         expect(view.models).not.toContain(task1);
       });
     });
 
     describe('renderCollection()', function() {
-      it('#travis renders the collection', function() {
+      it('renders the collection #travis', function() {
         view.renderCollection();
         expect(view.$('li.task-list-item')).toHaveLength(3);
       });
@@ -206,15 +206,15 @@ describe('Task Collection View', function() {
 
   describe('special functions', function() {
     describe('isA', function() {
-      it('#travis returns true with the argument TaskCollectionView', function() {
+      it('returns true with the argument TaskCollectionView #travis', function() {
         expect(view.isA('TaskCollectionView')).toBe(true);
       });
 
-      it('#travis returns true with the argument TaskView', function() {
+      it('returns true with the argument TaskView #travis', function() {
         expect(view.isA('TaskView')).toBe(true);
       });
 
-      it('#travis returns false with other arguments', function() {
+      it('returns false with other arguments #travis', function() {
         expect(view.isA('deposed Nigerian warlord')).toBe(false);
       });
     });
@@ -223,7 +223,7 @@ describe('Task Collection View', function() {
       context('when there is no view for the model', function() {
         beforeEach(function() { view.childViews = []; });
 
-        it('#travis returns null', function() {
+        it('returns null #travis', function() {
           expect(view.retrieveViewForModel(task1)).toBe(null);
         });
       });
@@ -231,7 +231,7 @@ describe('Task Collection View', function() {
       context('when there is a view for the model', function() {
         beforeEach(function() { view.childViews = childViews; });
 
-        it('#travis returns the appropriate view', function() {
+        it('returns the appropriate view #travis', function() {
           expect((view.retrieveViewForModel(task1)).klass).toEqual('TaskListItemView');
         });
       });
@@ -240,25 +240,25 @@ describe('Task Collection View', function() {
 
   describe('core view functions', function() {
     describe('render()', function() {
-      it('#travis renders the quick-add form', function() {
+      it('renders the quick-add form #travis', function() {
         spyOn(view.quickAddForm, 'render');
         view.render();
         expect(view.quickAddForm.render).toHaveBeenCalled();
       });
 
-      it('#travis renders the list items', function() {
+      it('renders the list items #travis', function() {
         spyOn(view, 'renderCollection');
         view.render();
         expect(view.renderCollection).toHaveBeenCalled();
       });
 
-      it('#travis configures sortable', function() {
+      it('configures sortable #travis', function() {
         spyOn($.prototype, 'sortable');
         view.render();
         expect($.prototype.sortable).toHaveBeenCalled();
       });
 
-      it('#travis doesn\'t apply sortable to class .not-sortable', function() {
+      it('doesn\'t apply sortable to class .not-sortable #travis', function() {
         spyOn($.prototype, 'sortable');
         view.render();
         expect($.prototype.sortable.calls.argsFor(0)[0]).toEqual(jasmine.objectContaining({
@@ -272,12 +272,12 @@ describe('Task Collection View', function() {
           view.render(); 
         });
 
-        it('#travis maintains the length of the list', function() {
+        it('maintains the length of the list #travis', function() {
           view.render(); // render a second time
           expect(view.$('.task-list-item').length).toEqual(3);
         });
 
-        it('#travis maintains the length of the child view array', function() {
+        it('maintains the length of the child view array #travis', function() {
           view.render();
           expect(view.childViews.length).toEqual(3);
         });
@@ -287,13 +287,13 @@ describe('Task Collection View', function() {
     describe('remove', function() {
       beforeEach(function() { view.render(); });
 
-      it('#travis calls removeChildViews', function() {
+      it('calls removeChildViews() #travis', function() {
         spyOn(view, 'removeChildViews');
         view.remove();
         expect(view.removeChildViews).toHaveBeenCalled();
       });
 
-      it('#travis removes itself', function() {
+      it('removes itself #travis', function() {
         spyOn(Canto.View.prototype.remove, 'call');
         view.remove();
         expect(Backbone.View.prototype.remove.call).toHaveBeenCalledWith(view);

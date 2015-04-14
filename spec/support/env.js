@@ -13,4 +13,3 @@ global.subsetOf = function(subset, superset) {
 // require('jasmine-tagged');
 // var jasmineEnv = jasmine.getEnv();
 // jasmineEnv.setIncludedTags(['travis']);
-// jasmineEnv.includeSpecsWithoutTags(false);
