@@ -23,7 +23,7 @@ var TaskPanelView = Canto.View.extend({
 
   addTaskToDisplay     : function() {
 
-    if (this.collection.length > this.collectionView.collection) {
+    if (this.collection.length > this.collectionView.collection.length) {
       var index = (this.collectionView.collection.length - 1) + 1,
           model = this.collection.at(index);
 
