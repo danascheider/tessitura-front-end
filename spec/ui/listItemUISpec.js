@@ -6,9 +6,6 @@ var matchers = require('jasmine-jquery-matchers'),
     context  = describe,
     fcontext = fdescribe;
 
-// FIX: There are some problems with these examples, but they are hard to 
-//      troubleshoot without having written the CSS for the relevant views yet
-
 describe('Task List Item View #ui', function() {
   beforeAll(function(done) {
     jasmine.addMatchers(matchers);
