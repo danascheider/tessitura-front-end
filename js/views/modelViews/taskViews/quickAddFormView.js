@@ -4,7 +4,8 @@ var QuickAddFormView = Canto.View.extend({
   template   : JST['tasks/quickAdd'],
 
   events     : {
-    'submit' : 'createTask'
+    'click span.pull-right > i' : 'showTaskCreateForm',
+    'submit'                    : 'createTask'
   },
 
   /* Canto View Properties
@@ -47,13 +48,16 @@ var QuickAddFormView = Canto.View.extend({
       newTask.save(attrs, {
         success    : function(model) {
           that.$el[0].reset();
-          that.collection.unshift(model);
-
-          // FIX: Determine if the app works without this
-          // that.trigger('newTask');
-        }
+          that.collection.unshift(model);        }
       });
     }
+  },
+
+  // This causes an event that will bubble up to the main dashboard view, so it
+  // will know to show the shade element and the task form.
+
+  showTaskCreateForm: function() {
+    this.trigger('showTaskCreateForm');
   },
 
   /* Core View Functions
