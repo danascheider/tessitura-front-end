@@ -40,5 +40,5 @@ Canto.Router     = Canto.Router || require('./routers/cantoRouter.js'); // requi
 Canto.TestRouter = require('../spec/support/testRouter.js');
 
 global.TestRouter = new Canto.TestRouter();
-// global.Router     = new Canto.Router();
+global.Router     = new Canto.Router();
 Backbone.history.start();
