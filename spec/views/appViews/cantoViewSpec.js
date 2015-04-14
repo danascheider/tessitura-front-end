@@ -21,39 +21,39 @@ describe('Canto.View', function() {
   });
 
   describe('properties', function() {
-    it('#travis has klass Canto.View', function() {
+    it('has klass Canto.View #travis', function() {
       expect(view.klass).toEqual('Canto.View');
     });
 
-    it('#travis has family Backbone.View', function() {
+    it('has family Backbone.View #travis', function() {
       expect(view.family).toEqual('Backbone.View');
     });
 
-    it('#travis has blank superFamily', function() {
+    it('has blank superFamily #travis', function() {
       expect(view.superFamily).toEqual('');
     });
   });
 
   describe('types', function() {
-    it('#travis includes Backbone.View', function() {
+    it('includes Backbone.View #travis', function() {
       expect(view.types()).toContain('Backbone.View');
     });
 
-    it('#travis includes Canto.View', function() {
+    it('includes Canto.View #travis', function() {
       expect(view.types()).toContain('Canto.View');
     });
   });
 
   describe('isA', function() {
-    it('#travis returns true with argument Backbone.View', function() {
+    it('returns true with argument Backbone.View #travis', function() {
       expect(view.isA('Backbone.View')).toBe(true);
     });
 
-    it('#travis returns true with argument Canto.View', function() {
+    it('returns true with argument Canto.View #travis', function() {
       expect(view.isA('Canto.View')).toBe(true);
     });
 
-    it('#travis returns false with another argument', function() {
+    it('returns false with another argument #travis', function() {
       expect(view.isA('Corvette')).toBe(false);
     });
   });
@@ -64,23 +64,23 @@ describe('Canto.View', function() {
       spyOn(view, 'helloWorld');
     });
 
-    it('#travis sets the html of its el with code passed into it', function() {
+    it('sets the html of its el with code passed into it #travis', function() {
       view.render('<div id="inner-html"></div>', view.helloWorld);
       expect(view.$el.html()).toEqual('<div id="inner-html"></div>');
     });
 
-    it('#travis calls delegateEvents on itself', function() {
+    it('calls delegateEvents on itself #travis', function() {
       spyOn(view, 'delegateEvents');
       view.render('<div></div>', view.helloWorld);
       expect(view.delegateEvents).toHaveBeenCalled();
     });
 
-    it('#travis executes an arbitrary function', function() {
+    it('executes an arbitrary function #travis', function() {
       view.render('<div></div>', view.helloWorld);
       expect(view.helloWorld).toHaveBeenCalled();
     });
 
-    it('#travis returns itself', function() {
+    it('returns itself #travis', function() {
       expect(view.render('<div></div>', view.helloWorld)).toBe(view);
     });
   });
@@ -106,7 +106,7 @@ describe('Canto.View', function() {
     });
     afterAll(function() { ChildClass = null; });
 
-    it('#travis inherits its types', function() {
+    it('inherits its types #travis', function() {
       var newView = new ChildClass();
       expect(newView.isA('Canto.View')).toBe(true);
     });
@@ -118,19 +118,19 @@ describe('Canto.View', function() {
         newView = new ChildClass();
       });
 
-      it('#travis sets its el\'s HTML', function() {
+      it('sets its el\'s HTML #travis', function() {
         spyOn(newView.$el, 'html');
         newView.render();
         expect(newView.$el.html).toHaveBeenCalledWith('<p>Hello, world!</p>');
       });
 
-      it('#travis calls setMessage with the message', function() {
+      it('calls setMessage with the message #travis', function() {
         spyOn(newView, 'setMessage');
         newView.render();
         expect(newView.setMessage).toHaveBeenCalledWith('Hope you\'re doing well today!');
       });
 
-      it('#travis returns itself', function() {
+      it('returns itself #travis', function() {
         expect(newView.render()).toBe(newView);
       });
     });
