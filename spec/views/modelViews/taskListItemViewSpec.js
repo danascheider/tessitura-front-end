@@ -22,7 +22,7 @@ var matchers  = require('jasmine-jquery-matchers'),
 //      spec. If they are the responsibility of the view, they should be defined
 //      in the view. 
 
-fdescribe('List Item Task View', function() {
+describe('List Item Task View', function() {
   var view, e;
 
   beforeAll(function() {
