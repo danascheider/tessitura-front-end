@@ -1,4 +1,8 @@
 var ListItemView = Canto.View.extend({
+
+  /* Backbone View Properties
+  /**************************************************************************************/
+
   tagName    : 'li',
   className  : 'task-list-item ui-widget-content ui-draggable',
   id         : function() { return 'task-' + this.model.get('id'); },
@@ -14,9 +18,8 @@ var ListItemView = Canto.View.extend({
     'mouseleave'             : 'hideEditIcons'
   },
 
-  // --------------------- //
-  // Canto View Properties //
-  // --------------------- //
+  /* Canto View Properties
+  /**************************************************************************************/
 
   klass      : 'TaskListItemView',
   family     : 'Canto.View',
@@ -26,9 +29,8 @@ var ListItemView = Canto.View.extend({
     return Canto.View.prototype.types().concat(['TaskListItemView', 'ListItemView']);
   },
 
-  // --------------- //
-  // Event Callbacks //
-  // --------------- //
+  /* Event Callbacks
+  /**************************************************************************************/
 
   backlogTask        : function() {
     this.model.save({backlog: true});
@@ -60,19 +62,8 @@ var ListItemView = Canto.View.extend({
     this.$('.task-details').slideToggle();
   },
 
-  // ----------------- //
-  // Special Functions //
-  // ----------------- //
-
-  // When the list item is dragged and dropped, by default an
-  // inline style is placed that causes problems with the 
-  // rest of my UI. This method takes it away and renders the
-  // list item without the inline style.
-  
-  changePosition  : function() {
-    this.$el.removeAttr('style');
-    this.render();
-  },
+  /* Special Functions
+  /**************************************************************************************/
 
   configureDraggable : function() {
     var that   = this;
@@ -131,9 +122,8 @@ var ListItemView = Canto.View.extend({
     });
   },
 
-  // ------------------- //
-  // Core View Functions //
-  // ------------------- //
+  /* Core View Functions
+  /**************************************************************************************/
 
   initialize         : function() {
     this.modelView = new Canto.TaskModelView({model: this.model});

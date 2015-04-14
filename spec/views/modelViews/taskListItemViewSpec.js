@@ -22,7 +22,7 @@ var matchers  = require('jasmine-jquery-matchers'),
 //      spec. If they are the responsibility of the view, they should be defined
 //      in the view. 
 
-describe('List Item Task View', function() {
+fdescribe('List Item Task View', function() {
   var view, e;
 
   beforeAll(function() {
@@ -258,7 +258,7 @@ describe('List Item Task View', function() {
     });
 
     describe('toggleTaskDetails', function() {
-      it('#travis calls preventDefault', function() {
+      it('calls preventDefault #travis', function() {
         var e = $.Event({target: view.$('.task-title')});
         spyOn(e, 'preventDefault');
         view.toggleTaskDetails(e);
@@ -268,19 +268,6 @@ describe('List Item Task View', function() {
   });
 
   describe('special functions', function() {
-    describe('changePosition', function() {
-      it('#travis removes inline styles', function() {
-        view.changePosition();
-        expect(view.$el).not.toHaveAttr('style');
-      });
-
-      it('#travis renders the view', function() {
-        spyOn(view, 'render');
-        view.changePosition();
-        expect(view.render).toHaveBeenCalled();
-      });
-    });
-
     describe('configureDraggable', function() {
       beforeEach(function() {
         spyOn(view.$el, 'draggable');
