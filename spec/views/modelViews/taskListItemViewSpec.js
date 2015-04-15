@@ -301,7 +301,7 @@ describe('List Item Task View', function() {
     });
   });
 
-  fdescribe('core view functions', function() {
+  describe('core view functions', function() {
     describe('remove()', function() {
       it('removes the model view #travis', function() {
         spyOn(view.modelView, 'remove');

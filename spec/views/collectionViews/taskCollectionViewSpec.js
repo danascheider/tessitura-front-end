@@ -135,6 +135,60 @@ describe('Task Collection View', function() {
   });
 
   describe('event callbacks', function() {
+    describe('crossOff()', function() {
+      context('when the task is complete', function() {
+        it('retrieves the view associated with the given task #travis', function() {
+          spyOn(view, 'retrieveViewForModel');
+          view.crossOff(task3);
+          expect(view.retrieveViewForModel).toHaveBeenCalledWith(task3);
+        });
+
+        it('destroys the view #travis', function(done) {
+          view.render();
+          var child = view.retrieveViewForModel(task3);
+          spyOn(child, 'destroy');
+          view.crossOff(task3);
+          setTimeout(function() { expect(child.destroy).toHaveBeenCalled(); }, 750);
+          done();
+        });
+
+        it('removes the task from the collection #travis', function(done) {
+          spyOn(view.collection, 'remove');
+          view.crossOff(task3);
+          setTimeout(function() { expect(view.collection.remove).toHaveBeenCalledWith(task3); }, 750);
+          done();
+        });
+
+        it('removes the view from the childViews array #travis', function() {
+          var child = view.retrieveViewForModel(task3);
+          view.crossOff(task3);
+          expect(view.childViews).not.toContain(child);
+        });
+      });
+
+      context('when the task is incomplete', function() {
+        it('doesn\'t call destroy on the view #travis', function() {
+          view.render();
+          var child = view.retrieveViewForModel(task2);
+          spyOn(child, 'destroy');
+          view.crossOff(task2);
+          expect(child.destroy).not.toHaveBeenCalled();
+        });
+        
+        it('doesn\'t remove the view from the childViews array #travis', function() {
+          view.render();
+          var child = view.retrieveViewForModel(task2);
+          view.crossOff(task2);
+          expect(view.childViews).toContain(child);
+        });
+
+        it('doesn\'t remove the task from the collection #travis', function() {
+          view.crossOff(task2);
+          expect(view.collection.get(2)).toBe(task2);
+        });
+      });
+    });
+
     describe('removeBacklog()', function() {
       beforeEach(function() { 
         spyOn(task2, 'get').and.callFake(function(args) { 

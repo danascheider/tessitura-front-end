@@ -18,16 +18,15 @@ var TaskCollectionView = Canto.View.extend({
   /**************************************************************************************/
 
   crossOff             : function(task) {
-    if(!task.get('status') === 'Complete') { return; }
+    if(task.get('status') !== 'Complete') { return; }
 
     var that = this, 
         view = this.retrieveViewForModel(task);
 
     setTimeout(function() {
       var index = that.childViews.indexOf(view);
+      if(view) { view.destroy(); }
       that.collection.remove(task);
-      if(view) { view.remove(); }
-      that.childViews.splice(index, 1);
     }, 750);
   },
 
