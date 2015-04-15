@@ -37,7 +37,7 @@ describe('List Item Task View', function() {
     global = _.omit(global, fixtures);
   });
 
-  fdescribe('constructor', function() {
+  describe('constructor', function() {
     it('sets the model #travis', function() {
       expect(view.model).toBe(task1);
     });
@@ -301,8 +301,8 @@ describe('List Item Task View', function() {
     });
   });
 
-  describe('core view functions', function() {
-    describe('remove', function() {
+  fdescribe('core view functions', function() {
+    describe('remove()', function() {
       it('removes the model view #travis', function() {
         spyOn(view.modelView, 'remove');
         view.remove();

@@ -6,7 +6,7 @@ Backbone.View.prototype.types = function() {
   return ['Backbone.View'];
 };
 
-Backbone.View.prototype.destroyChild = function() {
+Backbone.View.prototype.destroyChildren = function() {
   if(this.childViews) {
     var len = this.childViews.length;
     for(var i=0; i < len; i++) {
@@ -15,13 +15,13 @@ Backbone.View.prototype.destroyChild = function() {
   }
 }
 
-Backbone.View.prototype.destroyView = function() {
+Backbone.View.prototype.destroy = function() {
   if(this.beforeClose) { 
     this.beforeClose();
   }
 
-  if(this.destroyChild) {
-    this.destroyChild();
+  if(this.destroyChildren) {
+    this.destroyChildren();
   }
 
   this.undelegateEvents();
