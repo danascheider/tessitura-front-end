@@ -222,13 +222,13 @@ describe('Task Collection View', function() {
           expect(view.collection.length).toBe(3);
         });
 
-        it('does not remove child views from the child view array', function() {
+        it('does not remove child views from the child view array #travis', function() {
           view.render();
           view.removeBacklog();
           expect(view.childViews.length).toBe(3);
         });
 
-        it('doesn\'t delete any child views', function() {
+        it('doesn\'t delete any child views #travis', function() {
           spyOn(Canto.TaskListItemView.prototype, 'destroy');
           view.removeBacklog();
           expect(Canto.TaskListItemView.prototype.destroy).not.toHaveBeenCalled();
@@ -270,17 +270,50 @@ describe('Task Collection View', function() {
     });
 
     describe('removeComplete()', function() {
-      beforeEach(function() {
-        view.childViews = childViews;
-        task1.set('status', 'Complete');
-        view.removeComplete();
+      context('when there is a complete task', function() {
+        beforeEach(function() {
+          view.childViews = childViews;
+          spyOn(task1, 'get').and.returnValue('Complete');
+        });
+
+        it('removes the completed task from the collection #travis', function() {
+          view.removeComplete();
+          expect(view.models).not.toContain(task1);
+        });
+
+        it('calls destroy on the model\'s view #travis', function() {
+          view.render();
+          var child = view.retrieveViewForModel(task1);
+          spyOn(child, 'destroy');
+          view.removeComplete();
+          expect(child.destroy).toHaveBeenCalled();
+        });
+
+        it('removes the view from the childViews array #travis', function() {
+          view.render();
+          var child = view.retrieveViewForModel(task1);
+          view.removeComplete();
+          expect(view.childViews).not.toContain(child);
+        });
       });
 
-      it('removes the completed task #travis', function() {
-        expect(view.models).not.toContain(task1);
+      context('when there is no complete task', function() {
+        beforeEach(function() {
+          spyOn(task3, 'get').and.returnValue('New');
+        });
+
+        it('doesn\'t remove any tasks from the collection #travis', function() {
+          view.removeComplete();
+          expect(view.collection.length).toBe(3);
+        });
+
+        it('doesn\'t remove any views from the array', function() {
+          view.render().removeComplete();
+          expect(view.childViews.length).toBe(3);
+        });
       });
     });
-
+  
     describe('renderCollection()', function() {
       it('renders the collection #travis', function() {
         view.renderCollection();

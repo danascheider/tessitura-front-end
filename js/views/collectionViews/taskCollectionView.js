@@ -46,7 +46,12 @@ var TaskCollectionView = Canto.View.extend({
 
   removeComplete       : function() {
     var complete = this.collection.where({status: 'Complete'});
-    this.collection.remove(complete);
+
+    for(var i=0; i < complete.length; i++) {
+      var view = this.retrieveViewForModel(complete[i]);
+      this.collection.remove(complete[i]);
+      if(view) { view.destroy(); }
+    }
   },
 
   showTaskCreateForm   : function() {
