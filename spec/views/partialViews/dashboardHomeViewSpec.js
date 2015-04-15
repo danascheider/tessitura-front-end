@@ -175,7 +175,7 @@ describe('Dashboard Home View', function() {
       });
 
       context('when the child views don\'t exist', function() {
-        it('doesn\'t raise an error #travis',() {
+        it('doesn\'t raise an error #travis', function() {
           var newView = new Canto.DashboardHomeView();
           expect(view.remove).not.toThrow();
         });
@@ -188,27 +188,27 @@ describe('Dashboard Home View', function() {
 
   describe('special functions', function() {
     describe('isA()', function() {
-      it('returns true with argument DashboardHomeView #travis',() {
+      it('returns true with argument DashboardHomeView #travis', function() {
         expect(view.isA('DashboardHomeView')).toBe(true);
       });
 
-      it('returns true with argument PartialView #travis',() {
+      it('returns true with argument PartialView #travis', function() {
         expect(view.isA('PartialView')).toBe(true);
       });
 
-      it('returns false with another argument #travis',() {
+      it('returns false with another argument #travis', function() {
         expect(view.isA('Corvette')).toBe(false);
       });
     });
 
     describe('renderTaskPanelView()', function() {
-      it('calls render on the task panel view #travis',() {
+      it('calls render on the task panel view #travis', function() {
         spyOn(view.taskPanelView, 'render');
         view.renderTaskPanelView();
         expect(view.taskPanelView.render).toHaveBeenCalled();
       });
 
-      it('attaches the task panel view to the DOM #travis',() {
+      it('attaches the task panel view to the DOM #travis', function() {
         view.$el.html(view.template());
         view.renderTaskPanelView();
         $('body').html(view.$el);
@@ -217,13 +217,13 @@ describe('Dashboard Home View', function() {
     });
 
     describe('renderTopWidgetView()', function() {
-      it('calls render on the top-widget view #travis',() {
+      it('calls render on the top-widget view #travis', function() {
         spyOn(view.topWidgetView, 'render');
         view.renderTopWidgetView();
         expect(view.topWidgetView.render).toHaveBeenCalled();
       });
 
-      it('attaches the top widget view to the DOM #travis',() {
+      it('attaches the top widget view to the DOM #travis', function() {
         view.$el.html(view.template());
         view.renderTopWidgetView();
         $('body').html(view.$el);
@@ -239,19 +239,19 @@ describe('Dashboard Home View', function() {
         newView.setUser(user);
       });
 
-      it('sets the user #travis',() {
+      it('sets the user #travis', function() {
         expect(newView.user).toBe(user);
       });
 
-      it('sets the collection #travis',() {
+      it('sets the collection #travis', function() {
         expect(newView.collection).toBe(user.tasks);
       });
 
-      it('creates the task panel #travis',() {
+      it('creates the task panel #travis', function() {
         expect(newView.taskPanelView.klass).toBe('TaskPanelView');
       });
 
-      it('creates a top widget view #travis',() {
+      it('creates a top widget view #travis', function() {
         expect(newView.topWidgetView.klass).toBe('DashboardTopWidgetView');
       });
     });

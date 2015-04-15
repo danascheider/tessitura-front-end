@@ -55,7 +55,8 @@ var TaskPanelView = Canto.View.extend({
   },
 
   showTaskCreateForm   : function(e) {
-    this.trigger('showTaskCreateForm', e);
+    var c = this.collectionView.collection;
+    this.trigger('showTaskCreateForm', {collection: this.collection});
   },
 
   toggleWidget         : function(e) {
