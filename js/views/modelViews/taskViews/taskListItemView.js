@@ -127,6 +127,7 @@ var ListItemView = Canto.View.extend({
 
   initialize         : function() {
     this.modelView = new Canto.TaskModelView({model: this.model});
+    this.childViews.push(this.modelView);
   },
 
   remove             : function() {

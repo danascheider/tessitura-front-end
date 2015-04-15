@@ -17,11 +17,6 @@ var matchers  = require('jasmine-jquery-matchers'),
     context   = describe,
     fcontext  = fdescribe;
 
-// FIX: Need to give serious consideration to testing styles. If styles are not
-//      the responsibility of the view, they should not be tested by the view
-//      spec. If they are the responsibility of the view, they should be defined
-//      in the view. 
-
 describe('List Item Task View', function() {
   var view, e;
 
@@ -42,7 +37,7 @@ describe('List Item Task View', function() {
     global = _.omit(global, fixtures);
   });
 
-  describe('constructor', function() {
+  fdescribe('constructor', function() {
     it('sets the model #travis', function() {
       expect(view.model).toBe(task1);
     });
@@ -55,6 +50,10 @@ describe('List Item Task View', function() {
 
     it('creates a model view #travis', function() {
       expect((view.modelView).klass).toEqual('TaskModelView');
+    });
+
+    it('includes the model view in its childViews array', function() {
+      expect(view.childViews).toContain(view.modelView);
     });
 
     it('creates an edit form #travis', function() {
