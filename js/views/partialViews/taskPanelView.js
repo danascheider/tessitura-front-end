@@ -48,10 +48,8 @@ var TaskPanelView = Canto.View.extend({
     return tasks
   },
 
-  removeBacklogged     : function() {
-    var that = this;
-    var backlogged = this.collection.where({backlog: true});
-   _.each(backlogged, function(task) { that.collection.remove(task); });
+  removeBacklog        : function() {
+    this.collectionView.removeBacklog();
   },
 
   showTaskCreateForm   : function(e) {
@@ -72,6 +70,8 @@ var TaskPanelView = Canto.View.extend({
     var displayCollection = new Canto.TaskCollection(this.collection.slice(0,10));
     this.collectionView   = new Canto.TaskCollectionView({collection: displayCollection});
 
+    this.childViews.push(this.collectionView);
+
     this.listenTo(this.collection, 'change:status', this.crossOffComplete);
     this.listenTo(this.collection, 'change:backlog', this.removeBacklogged);
     this.listenTo(this.collectionView.collection, 'remove', this.addTaskToDisplay);
@@ -80,7 +80,6 @@ var TaskPanelView = Canto.View.extend({
   remove               : function() {
     this.collectionView.remove();
     Backbone.View.prototype.remove.call(this);
-    this.undelegateEvents();
   },
 
   render               : function() {

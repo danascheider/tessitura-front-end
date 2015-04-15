@@ -34,7 +34,7 @@ describe('Task Panel View', function() {
   });
 
   afterAll(function() {
-    taskPanel = null;
+    taskPanel.destroy();
 
     // Scrub up the pollution
     global = _.omit(global, Fixtures);
@@ -56,6 +56,10 @@ describe('Task Panel View', function() {
 
     it('instantiates a collection view #travis', function() {
       expect(taskPanel.collectionView.klass).toBe('TaskCollectionView');
+    });
+
+    it('adds the collection view to its childViews array', function() {
+      expect(taskPanel.childViews).toEqual([taskPanel.collectionView]);
     });
 
     it('passes a maximum of 10 models to the collection view #travis', function() {
@@ -265,12 +269,17 @@ describe('Task Panel View', function() {
       });
     });
 
-    describe('removeBacklogged()', function() {
-      it('removes the specified task from the collection #travis', function() {
-        spyOn(taskPanel.collection, 'remove');
-        task1.set({backlog: true});
-        taskPanel.removeBacklogged();
-        expect(taskPanel.collection.remove).toHaveBeenCalledWith(task1);
+    describe('removeBacklog()', function() {
+      context('when there is a backlogged task', function() {
+        beforeEach(function() {
+          spyOn(task1, 'get').and.returnValue(true);
+        });
+
+        it('calls removeBacklog on its collection view #travis', function() {
+          spyOn(taskPanel.collectionView, 'removeBacklog');
+          taskPanel.removeBacklog();
+          expect(taskPanel.collectionView.removeBacklog).toHaveBeenCalled();
+        });
       });
     });
   });
