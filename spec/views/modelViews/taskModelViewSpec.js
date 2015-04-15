@@ -36,11 +36,11 @@ describe('Task Model View', function() {
   });
 
   describe('constructor', function() {
-    it('#travis assigns the model', function() {
+    it('assigns the model #travis', function() {
       expect(view.model).toBe(task1);
     });
 
-    it('#travis does not call render', function() {
+    it('does not call render #travis', function() {
       spyOn(Canto.TaskModelView.prototype, 'render');
       var newView = new Canto.TaskModelView({model: task1});
       expect(Canto.TaskModelView.prototype.render).not.toHaveBeenCalled();
@@ -48,19 +48,19 @@ describe('Task Model View', function() {
   });
 
   describe('properties', function() {
-    it('#travis is a Canto.View', function() {
+    it('is a Canto.View #travis', function() {
       expect(view).toBeA('Canto.View');
     });
 
-    it('#travis has klass TaskModelView', function() {
+    it('has klass TaskModelView #travis', function() {
       expect(view.klass).toBe('TaskModelView');
     });
 
-    it('#travis has family Canto.View', function() {
+    it('has family Canto.View #travis', function() {
       expect(view.family).toBe('Canto.View');
     });
 
-    it('#travis has superFamily Backbone.View', function() {
+    it('has superFamily Backbone.View #travis', function() {
       expect(view.superFamily).toBe('Backbone.View');
     });
   });
@@ -68,18 +68,18 @@ describe('Task Model View', function() {
   describe('el', function() {
     beforeEach(function() { view.render(); });
 
-    it('#travis is a div', function() {
+    it('is a div #travis', function() {
       expect(view.$el[0].tagName).toEqual('DIV');
     });
 
-    it('#travis has class .task-model', function() {
+    it('has class .task-model #travis', function() {
       expect(view.$el[0]).toHaveClass('task-model');
     });
   });
 
   describe('events', function() {
     describe('save model', function() {
-      it('#travis calls renderOnSync', function() {
+      it('calls renderOnSync #travis', function() {
         spyOn(Canto.TaskModelView.prototype, 'renderOnSync');
         var newView = new Canto.TaskModelView({model: task1});
         task1.trigger('sync');
@@ -95,27 +95,27 @@ describe('Task Model View', function() {
       view.render(); 
     });
 
-    it('#travis displays the task\'s title', function() {
+    it('displays the task\'s title #travis', function() {
       expect(view.$('a.task-title').html()).toEqual('Task 1');
     });
 
-    it('#travis displays the task\'s deadline', function() {
+    it('displays the task\'s deadline #travis', function() {
       expect(view.$('table.task-details').html()).toEqual(jasmine.stringMatching('Monday, September 28, 2015'));
     });
 
-    it('#travis displays the task\'s priority', function() {
+    it('displays the task\'s priority #travis', function() {
       expect(view.$('.task-priority-row').html()).toEqual(jasmine.stringMatching('Low'));
     });
 
-    it('#travis displays the task\'s status', function() {
+    it('displays the task\'s status #travis', function() {
       expect(view.$('.task-status-row').html()).toEqual(jasmine.stringMatching('New'));
     });
 
-    it('#travis displays the task\'s description', function() {
+    it('displays the task\'s description #travis', function() {
       expect(view.$('.task-description-row').html()).toEqual(jasmine.stringMatching("Test Canto's front-end functionality"));
     });
 
-    it('#travis does not display blank fields', function() {
+    it('does not display blank fields #travis', function() {
       task1.unset('deadline');
       view.render();
       expect(view.$('tr.task-deadline-row').length).toEqual(0);
@@ -125,11 +125,11 @@ describe('Task Model View', function() {
 
   describe('special functions', function() {
     describe('isA', function() {
-      it('#travis returns true with arg \'TaskModelView\'', function() {
+      it('returns true with arg \'TaskModelView\' #travis', function() {
         expect(view.isA('TaskModelView')).toBe(true);
       });
 
-      it('#travis returns false with another string', function() {
+      it('returns false with another string #travis', function() {
         expect(view.isA('TaskCollection')).toBe(false);
       });
     });
@@ -140,14 +140,14 @@ describe('Task Model View', function() {
       beforeEach(function() { spyOn(view, 'render'); });
 
       context('when not marked complete', function() {
-        it('#travis calls the render function', function() {
+        it('calls the render function #travis', function() {
           view.renderOnSync();
           expect(view.render).toHaveBeenCalled();
         });
       });
 
       context('when marked complete', function() {
-        it('#travis doesn\'t call render', function() {
+        it('doesn\'t call render #travis', function() {
           task1.set('status', 'Complete');
           view.renderOnSync();
           expect(view.render).not.toHaveBeenCalled();
