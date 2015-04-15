@@ -5,7 +5,7 @@ require(process.cwd() + '/spec/support/env.js');
 var context        = describe,
     fcontext       = fdescribe;
 
-describe('Canto.View', function() {
+fdescribe('Canto.View', function() {
   var view;
 
   beforeEach(function() {
@@ -31,6 +31,10 @@ describe('Canto.View', function() {
 
     it('has blank superFamily #travis', function() {
       expect(view.superFamily).toEqual('');
+    });
+
+    it('has empty array childViews #travis', function() {
+      expect(view.childViews).toEqual([]);
     });
   });
 
@@ -95,6 +99,8 @@ describe('Canto.View', function() {
         setMessage : function(message) {
           this.$el.append('<p>' + message + '</p>');
         },
+        initialize : function() {
+        },
         render     : function() {
           var that = this;
 
@@ -109,6 +115,11 @@ describe('Canto.View', function() {
     it('inherits its types #travis', function() {
       var newView = new ChildClass();
       expect(newView.isA('Canto.View')).toBe(true);
+    });
+
+    it('has a childViews array #travis', function() {
+      var newView = new ChildClass();
+      expect(newView.childViews).toEqual([]);
     });
 
     describe('render', function() {
