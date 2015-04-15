@@ -10,9 +10,8 @@ var TaskModel = Canto.ProtectedResourceModel.extend({
     return Canto.API.tasks.single(this.get('id'));
   },
 
-  // ---------------------- //
-  // Canto Model Properties //
-  // ---------------------- //
+  /* Special Functions 
+  /**************************************************************************************/
 
   klass   : 'TaskModel',
   parent  : 'ProtectedResourceModel',
@@ -20,9 +19,8 @@ var TaskModel = Canto.ProtectedResourceModel.extend({
     return Canto.ProtectedResourceModel.prototype.types().concat(['TaskModel', 'Task']);
   },
 
-  // ----------------- //
-  // Special Functions //
-  // ----------------- //
+  /* Special Functions 
+  /**************************************************************************************/
 
   complete       : function() {
     return this.get('status') === 'Complete';
@@ -68,9 +66,8 @@ var TaskModel = Canto.ProtectedResourceModel.extend({
     return pretty;
   },
 
-  // -------------------- //
-  // Core Model Functions //
-  // -------------------- //
+  /* Special Functions 
+  /**************************************************************************************/
 
   fetch      : function(opts) {
     opts = opts || {};
