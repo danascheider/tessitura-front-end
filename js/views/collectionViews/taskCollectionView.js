@@ -24,7 +24,6 @@ var TaskCollectionView = Canto.View.extend({
         view = this.retrieveViewForModel(task);
 
     setTimeout(function() {
-      var index = that.childViews.indexOf(view);
       if(view) { view.destroy(); }
       that.collection.remove(task);
     }, 750);

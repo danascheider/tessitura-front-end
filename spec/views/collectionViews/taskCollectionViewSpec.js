@@ -32,7 +32,7 @@ describe('Task Collection View', function() {
   });
 
   describe('constructor', function() {
-    it('#travis does not call the render function', function() {
+    it('does not call the render function', function() {
       spyOn(Canto.TaskCollectionView.prototype, 'render');
       var newView = new Canto.TaskCollectionView({collection: collection});
       expect(Canto.TaskCollectionView.prototype.render).not.toHaveBeenCalled();
@@ -148,15 +148,19 @@ describe('Task Collection View', function() {
           var child = view.retrieveViewForModel(task3);
           spyOn(child, 'destroy');
           view.crossOff(task3);
-          setTimeout(function() { expect(child.destroy).toHaveBeenCalled(); }, 750);
-          done();
+          setTimeout(function() {
+            expect(child.destroy).toHaveBeenCalled();
+            done();
+          }, 750);
         });
 
         it('removes the task from the collection #travis', function(done) {
           spyOn(view.collection, 'remove');
           view.crossOff(task3);
-          setTimeout(function() { expect(view.collection.remove).toHaveBeenCalledWith(task3); }, 750);
-          done();
+          setTimeout(function() {
+            expect(view.collection.remove).toHaveBeenCalledWith(task3);
+            done();
+          }, 750);
         });
 
         it('removes the view from the childViews array #travis', function() {
@@ -260,12 +264,6 @@ describe('Task Collection View', function() {
         spyOn(view.childViews[2], 'remove');
         view.removeChildViews(); 
         expect(view.childViews[2].remove).toHaveBeenCalled();
-      });
-
-      it('calls unbind on the child views #travis', function() {
-        spyOn(view.childViews[1], 'unbind');
-        view.removeChildViews();
-        expect(view.childViews[1].unbind).toHaveBeenCalled();
       });
     });
 
