@@ -35,8 +35,13 @@ var TaskCollectionView = Canto.View.extend({
   },
 
   removeBacklog        : function() {
-    var backlog = this.collection.where({backlog: 'true'});
-    this.collection.remove(backlog);
+    var backlog = this.collection.where({backlog: true});
+
+    for(var i=0; i < backlog.length; i++) {
+      var view = this.retrieveViewForModel(backlog[i]);
+      this.collection.remove(backlog[i]);
+      if(view) { view.destroy(); }
+    }
   },
 
   removeComplete       : function() {

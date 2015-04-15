@@ -10,7 +10,7 @@ Backbone.View.prototype.destroyChildren = function() {
   if(this.childViews) {
     var len = this.childViews.length;
     for(var i=0; i < len; i++) {
-      this.childViews[i].destroyView();
+      this.childViews[i].destroy();
     }
   }
 }
@@ -20,7 +20,7 @@ Backbone.View.prototype.destroy = function() {
     this.beforeClose();
   }
 
-  if(this.destroyChildren) {
+  if(this.hasOwnProperty('destroyChildren')) {
     this.destroyChildren();
   }
 

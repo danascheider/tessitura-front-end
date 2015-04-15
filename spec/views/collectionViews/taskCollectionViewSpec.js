@@ -190,16 +190,49 @@ describe('Task Collection View', function() {
     });
 
     describe('removeBacklog()', function() {
-      beforeEach(function() { 
-        spyOn(task2, 'get').and.callFake(function(args) { 
-          if(args['backlog']) { return true; }
+      context('when there is a backlogged task', function() {
+        beforeEach(function() { 
+          spyOn(Canto.TaskModel.prototype, 'displayTitle').and.returnValue('foobar');
+          spyOn(task2, 'get').and.returnValue(true);
         });
 
-        view.removeBacklog();
+        it('removes the backlogged task from the collection #travis', function() {
+          view.removeBacklog();
+          expect(view.collection.models).not.toContain(task2);
+        });
+
+        it('destroys the task\'s view #travis', function() {
+          view.render();
+          var child = view.retrieveViewForModel(task2);
+          spyOn(child, 'destroy');
+          view.removeBacklog();
+          expect(child.destroy).toHaveBeenCalled();
+        });
+
+        it('removes the view from the childViews array #travis', function() {
+          view.render();
+          view.removeBacklog();
+          expect(view.childViews.length).toBe(2);
+        });
       });
 
-      it('removes the backlogged task #travis', function() {
-        expect(view.models).not.toContain(task2);
+      context('when there is no backlogged task', function() {
+        it('does not remove any tasks from the collection #travis', function() {
+          view.removeBacklog();
+          expect(view.collection.length).toBe(3);
+        });
+
+        it('does not remove child views from the child view array', function() {
+          view.render();
+          view.removeBacklog();
+          expect(view.childViews.length).toBe(3);
+        });
+
+        it('doesn\'t delete any child views', function() {
+          spyOn(Canto.TaskListItemView.prototype, 'destroy');
+          view.removeBacklog();
+          expect(Canto.TaskListItemView.prototype.destroy).not.toHaveBeenCalled();
+        });
       });
     });
 
