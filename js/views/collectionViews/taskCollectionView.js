@@ -64,7 +64,6 @@ var TaskCollectionView = Canto.View.extend({
   removeChildViews     : function() {
     _.each(this.childViews, function(view) {
       view.remove();
-      view.unbind();
     });
   },
 
