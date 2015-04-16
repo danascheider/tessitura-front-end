@@ -19,14 +19,14 @@ describe('Protected Resource Model', function() {
     resource = null;
   });
 
-  it('returns its token #travis', function() {
+  it('returns its token #model #travis', function() {
     spyOn($, 'cookie').and.returnValue(btoa('testuser:testuser'));
     var string = 'Basic ' + btoa('testuser:testuser');
     expect(resource.token()).toEqual(string);
   });
 
   describe('properties', function() {
-    it('has klass ProtectedResourceModel #travis', function() {
+    it('has klass ProtectedResourceModel #model #travis', function() {
       expect(resource.klass).toBe('ProtectedResourceModel');
     });
   });
@@ -34,7 +34,7 @@ describe('Protected Resource Model', function() {
   describe('destroy() method', function() {
     beforeEach(function() { spyOn(resource, 'token').and.returnValue('Basic ' + btoa('testuser:testuser')); });
 
-    it('attaches an authorization header #travis', function() {
+    it('attaches an authorization header #model #travis', function() {
 
       // XHR object can be passed to the Ajax beforeSend setting to
       // check the value of the Authorization header
@@ -53,7 +53,7 @@ describe('Protected Resource Model', function() {
       expect(xhr.getRequestHeader('Authorization')).toEqual(resource.token());
     });
 
-    it('calls destroy on the Backbone model prototype #travis', function() {
+    it('calls destroy on the Backbone model prototype #model #travis', function() {
       spyOn(Backbone.Model.prototype, 'destroy');
       resource.destroy();
       expect(Backbone.Model.prototype.destroy).toHaveBeenCalled();
@@ -63,7 +63,7 @@ describe('Protected Resource Model', function() {
   describe('fetch() method', function() {
     beforeEach(function() { spyOn(resource, 'token').and.returnValue('Basic ' + btoa('testuser:testuser')); });
 
-    it('attaches an authorization header #travis', function() {
+    it('attaches an authorization header #model #travis', function() {
       xhr.open('GET', resource.url);
 
       spyOn($, 'ajax');
@@ -73,7 +73,7 @@ describe('Protected Resource Model', function() {
       expect(xhr.getRequestHeader('Authorization')).toEqual(resource.token());
     });
 
-    it('calls fetch on the Backbone model prototype #travis', function() {
+    it('calls fetch on the Backbone model prototype #model #travis', function() {
       spyOn(Backbone.Model.prototype, 'fetch');
       resource.fetch();
       expect(Backbone.Model.prototype.fetch).toHaveBeenCalled;
@@ -81,15 +81,15 @@ describe('Protected Resource Model', function() {
   });
 
   describe('isA() method', function() {
-    it('returns true with argument ProtectedResourceModel #travis', function() {
+    it('returns true with argument ProtectedResourceModel #model #travis', function() {
       expect(resource.isA('ProtectedResourceModel')).toBe(true);
     });
 
-    it('returns true with argument ProtectedResource #travis', function() {
+    it('returns true with argument ProtectedResource #model #travis', function() {
       expect(resource.isA('ProtectedResource')).toBe(true);
     });
 
-    it('returns false with another argument #travis', function() {
+    it('returns false with another argument #model #travis', function() {
       expect(resource.isA('Canto.View')).toBe(false);
     });
   });
@@ -97,7 +97,7 @@ describe('Protected Resource Model', function() {
   describe('save() method', function() {
     beforeEach(function() { spyOn(resource, 'token').and.returnValue('Basic ' + btoa('testuser:testuser')); });
 
-    it('attaches an authorization header #travis', function() {
+    it('attaches an authorization header #model #travis', function() {
       xhr.open('PUT', resource.url);
 
       spyOn($, 'ajax');
@@ -107,7 +107,7 @@ describe('Protected Resource Model', function() {
       expect(xhr.getRequestHeader('Authorization')).toEqual(resource.token());
     });
 
-    it('calls save on the Backbone model prototype #travis', function() {
+    it('calls save on the Backbone model prototype #model #travis', function() {
       spyOn(Backbone.Model.prototype, 'save');
       resource.save();
       expect(Backbone.Model.prototype.save).toHaveBeenCalled();

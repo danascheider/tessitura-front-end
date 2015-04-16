@@ -20,11 +20,11 @@ describe('User Model', function() {
   });
 
   describe('properties', function() {
-    it('has `urlRoot` /users #travis', function() {
+    it('has `urlRoot` /users #model #travis', function() {
       expect(user.urlRoot).toEqual(Canto.API.base + '/users');
     });
 
-    it('has klass UserModel #travis', function() {
+    it('has klass UserModel #model #travis', function() {
       expect(user.klass).toBe('UserModel');
     });
   });
@@ -32,25 +32,25 @@ describe('User Model', function() {
   describe('constructor', function() {
     beforeEach(function() { spyOn(Canto.UserModel.prototype, 'protectedFetch'); });
 
-    it('instantiates a task collection #travis', function() {
+    it('instantiates a task collection #model #travis', function() {
       var newUser = new Canto.UserModel();
       expect(newUser.tasks.isA('TaskCollection')).toBe(true);
     });
 
     describe('when instantiated with an ID', function() {
-      it('calls protectedFetch #travis', function() {
+      it('calls protectedFetch #model #travis', function() {
         var newUser = new Canto.UserModel({id: 14});
         expect(Canto.UserModel.prototype.protectedFetch).toHaveBeenCalled();
       });
 
-      it('doesn\'t call protectedFetch if `sync` is set to false #travis', function() {
+      it('doesn\'t call protectedFetch if `sync` is set to false #model #travis', function() {
         var newUser = new Canto.UserModel({id: 22}, {sync: false});
         expect(Canto.UserModel.prototype.protectedFetch).not.toHaveBeenCalled();
       });
     });
 
     describe('when not instantiated with an ID', function() {
-      it('doesn\'t call protectedFetch #travis', function() {
+      it('doesn\'t call protectedFetch #model #travis', function() {
         var newUser = new Canto.UserModel();
         expect(Canto.UserModel.prototype.protectedFetch).not.toHaveBeenCalled();
       });
@@ -63,20 +63,20 @@ describe('User Model', function() {
     });
 
     describe('fetch', function() {
-      it('calls Backbone fetch function #travis', function() {
+      it('calls Backbone fetch function #model #travis', function() {
         spyOn(Backbone.Model.prototype, 'fetch');
         user.fetch();
         expect(Backbone.Model.prototype.fetch).toHaveBeenCalled();
       });
 
-      it('sets the auth header for the requested user #travis', function() {
+      it('sets the auth header for the requested user #model #travis', function() {
         xhr.open('GET', user.url());
         user.fetch();
         $.ajax.calls.argsFor(0)[0].beforeSend(xhr);
         expect(xhr.getRequestHeader('Authorization')).toEqual('Basic ' + btoa('testuser:testuser'));
       });
 
-      it('sends the request to the requested user\'s endpoint #travis', function() {
+      it('sends the request to the requested user\'s endpoint #model #travis', function() {
         user.fetch();
         expect($.ajax.calls.argsFor(0)[0].url).toEqual(user.url());
       });
@@ -90,15 +90,15 @@ describe('User Model', function() {
     });
 
     describe('isA', function() {
-      it('returns true with argument UserModel #travis', function() {
+      it('returns true with argument UserModel #model #travis', function() {
         expect(user.isA('UserModel')).toBe(true);
       });
 
-      it('returns true with argument User #travis', function() {
+      it('returns true with argument User #model #travis', function() {
         expect(user.isA('User')).toBe(true);
       });
 
-      it('returns false with another argument #travis', function() {
+      it('returns false with another argument #model #travis', function() {
         expect(user.isA('ProtectedResource')).toBe(false);
       });
     });
@@ -108,29 +108,29 @@ describe('User Model', function() {
         newUser = new Canto.UserModel({username: 'testuser', password: 'testuser'});
       });
 
-      it('sends a POST request #travis', function() {
+      it('sends a POST request #model #travis', function() {
         newUser.login();
         expect($.ajax.calls.argsFor(0)[0].type).toEqual('POST');
       });
 
-      it('calls `fetch` #travis', function() {
+      it('calls `fetch` #model #travis', function() {
         spyOn(Canto.Model.prototype, 'fetch');
         newUser.login();
         expect(Canto.Model.prototype.fetch).toHaveBeenCalled();
       });
 
-      it('calls `fetch` with itself #travis', function() {
+      it('calls `fetch` with itself #model #travis', function() {
         spyOn(Canto.Model.prototype.fetch, 'call');
         newUser.login();
         expect(Canto.Model.prototype.fetch.call.calls.argsFor(0)[0]).toEqual(newUser);
       });
 
-      it('sends the request to the login endpoint #travis', function() {
+      it('sends the request to the login endpoint #model #travis', function() {
         newUser.login();
         expect($.ajax.calls.argsFor(0)[0].url).toEqual(Canto.API.login);
       });
 
-      it('attaches the auth header #travis', function() {
+      it('attaches the auth header #model #travis', function() {
         xhr.open('POST', Canto.API.login)
         newUser.login();
         $.ajax.calls.argsFor(0)[0].beforeSend(xhr);
@@ -139,20 +139,20 @@ describe('User Model', function() {
     });
 
     describe('protectedFetch', function() {
-      it('calls Backbone fetch function #travis', function() {
+      it('calls Backbone fetch function #model #travis', function() {
         spyOn(Backbone.Model.prototype, 'fetch');
         user.protectedFetch();
         expect(Backbone.Model.prototype.fetch).toHaveBeenCalled();
       });
 
-      it('sets the auth header for the requested user #travis', function() {
+      it('sets the auth header for the requested user #model #travis', function() {
         xhr.open('GET', user.url);
         user.protectedFetch();
         $.ajax.calls.argsFor(0)[0].beforeSend(xhr);
         expect(xhr.getRequestHeader('Authorization')).toEqual('Basic ' + btoa('danascheider:danascheider'));
       });
 
-      it('sends the request to the requested user\'s endpoint #travis', function() {
+      it('sends the request to the requested user\'s endpoint #model #travis', function() {
         user.protectedFetch();
         expect($.ajax.calls.argsFor(0)[0].url).toEqual(Canto.API.base + '/users/342');
       });
