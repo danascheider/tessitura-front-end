@@ -59,8 +59,8 @@ describe('Dashboard Presenter', function() {
     });
   });
 
-  /* Presenter Constructor
-  /***************************************************************************************/
+  // /* Presenter Constructor
+  // /***************************************************************************************/
 
   describe('constructor', function() {
     beforeEach(function() {
@@ -85,8 +85,8 @@ describe('Dashboard Presenter', function() {
     });
   });
 
-  /* Presenter Events
-  /***************************************************************************************/
+  // /* Presenter Events
+  // /***************************************************************************************/
 
   describe('events', function() {
     beforeEach(function() {
@@ -111,8 +111,8 @@ describe('Dashboard Presenter', function() {
     });
   });
 
-  /* Event Callbacks
-  /***************************************************************************************/
+  // /* Event Callbacks
+  // /***************************************************************************************/
 
   describe('event callbacks', function() {
     describe('getHome()', function() {
@@ -238,7 +238,7 @@ describe('Dashboard Presenter', function() {
         });
 
         newPresenter = new Canto.DashboardPresenter();
-        spyOn(newPresenter.dashboardView, 'setUser').and.callThrough();
+        spyOn(newPresenter.dashboardView, 'setUser');
       });
 
       afterEach(function() { newPresenter.destroy(); });
@@ -271,12 +271,12 @@ describe('Dashboard Presenter', function() {
           expect(newPresenter.dashboardView.setUser).toHaveBeenCalledWith(user);
         });
 
-        it('instantiates a task collection #presenter #travis', function() {
-          user.tasks = null;
-          spyOn(Canto.TaskCollection.prototype, 'initialize');
-          newPresenter.setUser(user);
-          expect(Canto.TaskCollection.prototype.initialize).toHaveBeenCalled();
-        });
+        // it('instantiates a task collection #presenter #travis', function() {
+        //   user.tasks = null;
+        //   spyOn(Canto.TaskCollection.prototype, 'initialize');
+        //   newPresenter.setUser(user);
+        //   expect(Canto.TaskCollection.prototype.initialize).toHaveBeenCalled();
+        // });
       });
     });
 
