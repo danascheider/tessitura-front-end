@@ -27,7 +27,7 @@ describe('Task Collection', function() {
   });
 
   describe('constructor', function() {
-    it('sets the models #travis', function() {
+    it('sets the models #collection #travis', function() {
       expect(collection.models).toEqual([task1, task2, task3]);
     });
   });
@@ -45,27 +45,27 @@ describe('Task Collection', function() {
       collection.sort();
     });
 
-    it('orders the tasks by position #travis', function() {
+    it('orders the tasks by position #collection #travis', function() {
       expect(collection.models).toEqual([task2, task1, task3]);
     });
   });
 
   describe('static properties', function() {
-    it('has klass TaskCollection #travis', function() {
+    it('has klass TaskCollection #collection #travis', function() {
       expect(collection.klass).toBe('TaskCollection');
     });
 
-    it('has family ProtectedCollection #travis', function() {
+    it('has family ProtectedCollection #collection #travis', function() {
       expect(collection.family).toBe('ProtectedCollection');
     });
 
-    it('has superFamily Backbone.Collection #travis', function() {
+    it('has superFamily Backbone.Collection #collection #travis', function() {
       expect(collection.superFamily).toBe('Backbone.Collection');
     });
   });
 
   describe('URL', function() {
-    it('gets the URL for the logged-in user #travis', function() {
+    it('gets the URL for the logged-in user #collection #travis', function() {
       expect(collection.url()).toEqual(Canto.API.base + '/users/342/tasks');
     });
   });
@@ -77,7 +77,7 @@ describe('Task Collection', function() {
       });
 
       context('normal', function() {
-        it('sends the request to the collection URL #travis', function() {
+        it('sends the request to the collection URL #collection #travis', function() {
           collection.fetch();
           expect(Canto.ProtectedCollection.prototype.fetch.calls.argsFor(0)[0].url).toEqual(collection.url());
         });
@@ -89,7 +89,7 @@ describe('Task Collection', function() {
       });
 
       context('with option `all` set to `true`', function() {
-        it('sends the request to the `all` route #travis', function() {
+        it('sends the request to the `all` route #collection #travis', function() {
           collection.fetch({all: true});
           expect(Canto.ProtectedCollection.prototype.fetch.calls.argsFor(0)[0].url).toEqual(collection.url() + '/all');
         });
@@ -98,19 +98,19 @@ describe('Task Collection', function() {
   });
 
   describe('special functions', function() {
-    it('returns true with arg \'TaskCollection\' #travis', function() {
+    it('returns true with arg \'TaskCollection\' #collection #travis', function() {
       expect(collection.isA('TaskCollection')).toBe(true);
     });
 
-    it('returns true with arg \'Backbone.Collection\' #travis', function() {
+    it('returns true with arg \'Backbone.Collection\' #collection #travis', function() {
       expect(collection.isA('Backbone.Collection')).toBe(true);
     });
 
-    it('returns true with arg \'ProtectedCollection\' #travis', function() {
+    it('returns true with arg \'ProtectedCollection\' #collection #travis', function() {
       expect(collection.isA('ProtectedCollection')).toBe(true);
     });
 
-    it('returns false with wrong type #travis', function() {
+    it('returns false with wrong type #collection #travis', function() {
       expect(collection.isA('UserCollection')).toBe(false);
     });
   });
