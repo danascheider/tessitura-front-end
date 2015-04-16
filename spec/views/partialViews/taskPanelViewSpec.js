@@ -297,12 +297,6 @@ describe('Task Panel View', function() {
         taskPanel.remove();
         expect(Backbone.View.prototype.remove.call).toHaveBeenCalledWith(taskPanel);
       });
-
-      it('calls undelegateEvents #travis', function() {
-        spyOn(taskPanel, 'undelegateEvents');
-        taskPanel.remove();
-        expect(taskPanel.undelegateEvents).toHaveBeenCalled();
-      });
     });
 
     describe('render()', function() {
