@@ -73,7 +73,7 @@ var TaskPanelView = Canto.View.extend({
     this.childViews.push(this.collectionView);
 
     this.listenTo(this.collection, 'change:status', this.crossOffComplete);
-    this.listenTo(this.collection, 'change:backlog', this.removeBacklogged);
+    this.listenTo(this.collection, 'change:backlog', this.removeBacklog);
     this.listenTo(this.collectionView.collection, 'remove', this.addTaskToDisplay);
   },
 
