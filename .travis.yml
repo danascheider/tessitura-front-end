@@ -1,6 +1,6 @@
 language: node_js
 node_js:
   - "iojs"
-before_script: 'mv spec/support/travis.js spec/support/env.js; mv spec/support/travisAPIOpts.js js/apiOptions.js'
+before_script: ''
 notifications:
   email: false

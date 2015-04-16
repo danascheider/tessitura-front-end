@@ -1,0 +1,6 @@
+#!/usr/bin/bash
+
+mv spec/support/travis.js spec/support/env.js
+mv spec/support/travisAPIOpts.js js/apiOptions.js
+mv js/run-travis.js js/run.js
+bin/package
