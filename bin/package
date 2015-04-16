@@ -1,4 +1,4 @@
 #!/bin/bash
 
-browserify js/canto.js -d -p [minifyify --map canto.min.js.map --output js/canto.min.js.map] > js/canto.min.js
+browserify js/run.js -d -p [minifyify --map run.min.js.map --output js/run.min.js.map] > js/run.min.js
 compile
