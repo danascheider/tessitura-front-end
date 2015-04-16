@@ -135,11 +135,11 @@ describe('Task Panel View', function() {
     });
 
     describe('change task backlog', function() {
-      it('calls removeBacklogged() #travis', function() {
-        spyOn(Canto.TaskPanelView.prototype, 'removeBacklogged');
+      it('calls removeBacklog() #travis', function() {
+        spyOn(Canto.TaskPanelView.prototype, 'removeBacklog');
         var newView = new Canto.TaskPanelView({collection: collection});
         newView.collection.trigger('change:backlog');
-        expect(Canto.TaskPanelView.prototype.removeBacklogged).toHaveBeenCalled();
+        expect(Canto.TaskPanelView.prototype.removeBacklog).toHaveBeenCalled();
       });
     });
 
