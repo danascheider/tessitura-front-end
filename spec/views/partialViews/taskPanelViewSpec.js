@@ -41,7 +41,7 @@ describe('Task Panel View', function() {
   });
 
   describe('constructor', function() {
-    it('doesn\'t call render #travis', function() {
+    it('doesn\'t call render #partialView #view #travis', function() {
       spyOn(Canto.TaskPanelView.prototype, 'render');
       task1.set('status', 'Blocking');
       var newPanel = new Canto.TaskPanelView(opts);
@@ -49,12 +49,12 @@ describe('Task Panel View', function() {
       newPanel.remove();
     });
 
-    it('sets a collection #travis', function() {
+    it('sets a collection #partialView #view #travis', function() {
       // expect(...).toBe(collection) caused a stack level error
       expect(taskPanel.collection.isA('TaskCollection')).toBe(true);
     });
 
-    it('instantiates a collection view #travis', function() {
+    it('instantiates a collection view #partialView #view #travis', function() {
       expect(taskPanel.collectionView.klass).toBe('TaskCollectionView');
     });
 
@@ -62,7 +62,7 @@ describe('Task Panel View', function() {
       expect(taskPanel.childViews).toEqual([taskPanel.collectionView]);
     });
 
-    it('passes a maximum of 10 models to the collection view #travis', function() {
+    it('passes a maximum of 10 models to the collection view #partialView #view #travis', function() {
       for(var i = 4; i < 13; i++) {
         collection.create({title: 'My Task ' + i, position: i}, {sync: false, silent: true});
       }
@@ -73,15 +73,15 @@ describe('Task Panel View', function() {
   });
 
   describe('properties', function() {
-    it('has klass \'TaskPanelView\' #travis', function() {
+    it('has klass \'TaskPanelView\' #partialView #view #travis', function() {
       expect(taskPanel.klass).toBe('TaskPanelView');
     });
 
-    it('has family \'Canto.View\' #travis', function() {
+    it('has family \'Canto.View\' #partialView #view #travis', function() {
       expect(taskPanel.family).toBe('Canto.View');
     });
 
-    it('has superFamily \'Backbone.View\' #travis', function() {
+    it('has superFamily \'Backbone.View\' #partialView #view #travis', function() {
       expect(taskPanel.superFamily).toBe('Backbone.View');
     });
   });
@@ -91,30 +91,30 @@ describe('Task Panel View', function() {
       taskPanel.render();
     });
 
-    it('has ID #task-panel #travis', function() {
+    it('has ID #task-panel #partialView #view #travis', function() {
       expect(taskPanel.$el).toHaveId('task-panel');
     });
 
-    it('has class \'panel\' #travis', function() {
+    it('has class \'panel\' #partialView #view #travis', function() {
       expect(taskPanel.$el).toHaveClass('panel');
     });
 
-    it('has class \'panel-primary\' #travis', function() {
+    it('has class \'panel-primary\' #partialView #view #travis', function() {
       expect(taskPanel.$el).toHaveClass('panel-primary');
     });
 
-    it('has class \'dash-widget\' #travis', function() {
+    it('has class \'dash-widget\' #partialView #view #travis', function() {
       expect(taskPanel.$el).toHaveClass('dash-widget');
     });
 
-    it('has a collection view #travis', function() {
+    it('has a collection view #partialView #view #travis', function() {
       expect(taskPanel.$('ul.task-list')).toExist();
     });
   });
 
   describe('events', function() {
     describe('click .toggle-widget i', function() {
-      it(' calls toggleWidget() #travis', function() {
+      it(' calls toggleWidget() #partialView #view #travis', function() {
         spyOn(Canto.TaskPanelView.prototype, 'toggleWidget');
         var newView = new Canto.TaskPanelView({collection: collection});
         newView.render().$('.toggle-widget i').trigger('click');
@@ -123,7 +123,7 @@ describe('Task Panel View', function() {
     });
 
     describe('change task status', function() {
-      it('calls crossOffComplete() #travis', function() {
+      it('calls crossOffComplete() #partialView #view #travis', function() {
         spyOn(Canto.TaskPanelView.prototype, 'crossOffComplete');
         spyOn(Canto.TaskCollectionView.prototype, 'crossOff');
 
@@ -135,7 +135,7 @@ describe('Task Panel View', function() {
     });
 
     describe('change task backlog', function() {
-      it('calls removeBacklog() #travis', function() {
+      it('calls removeBacklog() #partialView #view #travis', function() {
         spyOn(Canto.TaskPanelView.prototype, 'removeBacklog');
         var newView = new Canto.TaskPanelView({collection: collection});
         newView.collection.trigger('change:backlog');
@@ -144,7 +144,7 @@ describe('Task Panel View', function() {
     });
 
     describe('remove task from collection display', function() {
-      it('calls addTaskToDisplay() #travis', function() {
+      it('calls addTaskToDisplay() #partialView #view #travis', function() {
         spyOn(Canto.TaskPanelView.prototype, 'addTaskToDisplay');
         var newView = new Canto.TaskPanelView({collection: collection});
         newView.collectionView.collection.remove(task1);
@@ -166,14 +166,14 @@ describe('Task Panel View', function() {
           newView = new Canto.TaskPanelView({collection: collection});
         });
 
-        it('adds a task to the collection view\'s collection #travis', function() {
+        it('adds a task to the collection view\'s collection #partialView #view #travis', function() {
           newView.addTaskToDisplay();
           expect(newView.collectionView.collection.length).toBe(11);
         });
       });
 
       context('when there are not more tasks than in the child\'s collection', function() {
-        it('doesn\'t give any trouble #travis', function() {
+        it('doesn\'t give any trouble #partialView #view #travis', function() {
           taskPanel.addTaskToDisplay();
           expect(taskPanel.collectionView.collection.length).toBe(3);
         });
@@ -190,7 +190,7 @@ describe('Task Panel View', function() {
         task1.set({status: 'New'}, {silent: true});
       })
 
-      it('calls crossOff on the collection view #travis', function() {
+      it('calls crossOff on the collection view #partialView #view #travis', function() {
         spyOn(taskPanel.collectionView, 'crossOff');
         taskPanel.crossOffComplete();
         expect(taskPanel.collectionView.crossOff).toHaveBeenCalledWith(task1);
@@ -206,14 +206,14 @@ describe('Task Panel View', function() {
         }
       });
 
-      it('doesn\'t include blocking tasks #travis', function() {
+      it('doesn\'t include blocking tasks #partialView #view #travis', function() {
         var newView = new Canto.TaskListItemView({model: task2});
         spyOn(Canto.TaskCollectionView.prototype, 'retrieveViewForModel').and.returnValue(newView);
         task2.set({status: 'Blocking'});
         expect(taskPanel.filterCollection(collection).indexOf(task2)).toBe(-1);
       });
 
-      it('doesn\'t include backlogged tasks #travis', function() {
+      it('doesn\'t include backlogged tasks #partialView #view #travis', function() {
         task2.set({backlog: true});
         expect(taskPanel.filterCollection(collection).indexOf(task2)).toBe(-1);
       });
@@ -230,12 +230,12 @@ describe('Task Panel View', function() {
         taskPanel.off('showTaskCreateForm');
       });
 
-      it('triggers the \'showTaskCreateForm\' event #travis', function() {
+      it('triggers the \'showTaskCreateForm\' event #partialView #view #travis', function() {
         taskPanel.showTaskCreateForm(e);
         expect(spy).toHaveBeenCalled();
       });
 
-      xit('passes its collection through #travis', function() {
+      xit('passes its collection through #partialView #view #travis', function() {
         taskPanel.showTaskCreateForm(e);
         expect(spy.calls.argsFor(0)[0]).toBe({collection: collection});
       });
@@ -250,19 +250,19 @@ describe('Task Panel View', function() {
           taskPanel.toggleWidget(e);
         });
 
-        it('removes the .fa-minus class #travis', function(done) {
+        it('removes the .fa-minus class #partialView #view #travis', function(done) {
           pending('Find out why this test keeps failing when the functionality unambiguously works');
           expect(taskPanel.$('.panel-heading i').last()).not.toHaveClass('fa-minus');
           done();
         });
 
-        it('adds the .fa-plus class #travis', function(done) {
+        it('adds the .fa-plus class #partialView #view #travis', function(done) {
           pending('Find out why this test keeps failing when the functionality unambiguously works');
           expect(taskPanel.$('.panel-heading i').last()).toHaveClass('fa-plus');
           done();
         });
 
-        it('calls slideToggle on the widget #travis', function(done) {
+        it('calls slideToggle on the widget #partialView #view #travis', function(done) {
           expect($.prototype.slideToggle).toHaveBeenCalled();
           done();
         });
@@ -275,7 +275,7 @@ describe('Task Panel View', function() {
           spyOn(task1, 'get').and.returnValue(true);
         });
 
-        it('calls removeBacklog on its collection view #travis', function() {
+        it('calls removeBacklog on its collection view #partialView #view #travis', function() {
           spyOn(taskPanel.collectionView, 'removeBacklog');
           taskPanel.removeBacklog();
           expect(taskPanel.collectionView.removeBacklog).toHaveBeenCalled();
@@ -286,13 +286,13 @@ describe('Task Panel View', function() {
 
   describe('core view functions', function() {
     describe('remove()', function() {
-      it('removes the collection view from the DOM #travis', function() {
+      it('removes the collection view from the DOM #partialView #view #travis', function() {
         spyOn(taskPanel.collectionView, 'remove');
         taskPanel.remove();
         expect(taskPanel.collectionView.remove).toHaveBeenCalled();
       });
 
-      it('removes itself from the DOM #travis', function() {
+      it('removes itself from the DOM #partialView #view #travis', function() {
         spyOn(Backbone.View.prototype.remove, 'call');
         taskPanel.remove();
         expect(Backbone.View.prototype.remove.call).toHaveBeenCalledWith(taskPanel);
@@ -300,13 +300,13 @@ describe('Task Panel View', function() {
     });
 
     describe('render()', function() {
-      it('renders its collection view #travis', function() {
+      it('renders its collection view #partialView #view #travis', function() {
         spyOn(taskPanel.collectionView, 'render');
         taskPanel.render();
         expect(taskPanel.collectionView.render).toHaveBeenCalled();
       });
 
-      it('attaches the collection view to the DOM #travis', function() {
+      it('attaches the collection view to the DOM #partialView #view #travis', function() {
         spyOn($.prototype, 'html');
         taskPanel.render();
         expect($.prototype.html.calls.argsFor(1)).toContain(taskPanel.collectionView.template());
@@ -316,23 +316,23 @@ describe('Task Panel View', function() {
 
   describe('special functions', function() {
     describe('isA', function() {
-      it('returns true with argument \'TaskPanelView\' #travis', function() {
+      it('returns true with argument \'TaskPanelView\' #partialView #view #travis', function() {
         expect(taskPanel.isA('TaskPanelView')).toBe(true);
       });
 
-      it('returns true with argument \'TaskPanel\' #travis', function() {
+      it('returns true with argument \'TaskPanel\' #partialView #view #travis', function() {
         expect(taskPanel.isA('TaskPanel')).toBe(true);
       });
 
-      it('returns true with argument \'TaskView\' #travis', function() {
+      it('returns true with argument \'TaskView\' #partialView #view #travis', function() {
         expect(taskPanel.isA('TaskView')).toBe(true);
       });
 
-      it('returns true with argument \'PartialView\' #travis', function() {
+      it('returns true with argument \'PartialView\' #partialView #view #travis', function() {
         expect(taskPanel.isA('PartialView')).toBe(true);
       });
 
-      it('returns false with other arguments #travis', function() {
+      it('returns false with other arguments #partialView #view #travis', function() {
         expect(taskPanel.isA('TaskCollectionView')).toBe(false);
       });
     });

@@ -82,15 +82,15 @@ describe('Dashboard Task View', function() {
   /**************************************************************************/
 
   describe('properties', function() {
-    it('#travis has klass DashboardTaskView', function() {
+    it('#view #travis has klass DashboardTaskView', function() {
       expect(view.klass).toEqual('DashboardTaskView');
     });
 
-    it('#travis has family Canto.View', function() {
+    it('#view #travis has family Canto.View', function() {
       expect(view.family).toEqual('Canto.View');
     });
 
-    it('#travis has superFamily Backbone.View', function() {
+    it('#view #travis has superFamily Backbone.View', function() {
       expect(view.superFamily).toEqual('Backbone.View');
     });
   });
@@ -99,20 +99,20 @@ describe('Dashboard Task View', function() {
   /**************************************************************************/
 
   describe('constructor', function() {
-    it('#travis calls setUser', function() {
+    it('#view #travis calls setUser', function() {
       spyOn(Canto.DashboardTaskView.prototype, 'setUser');
       var newView = new Canto.DashboardTaskView({user: user});
       expect(Canto.DashboardTaskView.prototype.setUser).toHaveBeenCalled();
       expect(Canto.DashboardTaskView.prototype.setUser.calls.argsFor(0)[0]).toEqual(user);
     });
 
-    it('#travis doesn\'t call render', function() {
+    it('#view #travis doesn\'t call render', function() {
       spyOn(Canto.DashboardTaskView.prototype, 'render');
       var newView = new Canto.DashboardTaskView({user: user});
       expect(Canto.DashboardTaskView.prototype.render).not.toHaveBeenCalled();
     });
 
-    it('#travis can be instantiated without a user', function() {
+    it('#view #travis can be instantiated without a user', function() {
       var newView = new Canto.DashboardTaskView();
       expect(newView.user).not.toExist();
     });
@@ -127,11 +127,11 @@ describe('Dashboard Task View', function() {
       view.render();
     });
 
-    it('#travis is a div', function() {
+    it('#view #travis is a div', function() {
       expect(view.$el[0].tagName).toEqual('DIV');
     });
 
-    it('#travis has ID #page-wrapper', function() {
+    it('#view #travis has ID #page-wrapper', function() {
       expect(view.$el).toHaveId('page-wrapper');
     });
   });
@@ -142,7 +142,7 @@ describe('Dashboard Task View', function() {
   describe('core view functions', function() {
     describe('remove', function() {
       _.each(['newColumnView', 'inProgressColumnView', 'blockingColumnView', 'backlogColumnView'], function(column) {
-        it('#travis removes its ' + column, function(done) {
+        it('#view #travis removes its ' + column, function(done) {
           pending('Iron out some other aspects of the app and hope this works after that');
           view.render();
           done();
@@ -153,7 +153,7 @@ describe('Dashboard Task View', function() {
         });
       });
 
-      it('#travis removes itself using the Backbone.View.prototype', function() {
+      it('#view #travis removes itself using the Backbone.View.prototype', function() {
         spyOn(Backbone.View.prototype.remove, 'call');
         view.remove();
         expect(Backbone.View.prototype.remove.call).toHaveBeenCalledWith(view);
@@ -161,14 +161,14 @@ describe('Dashboard Task View', function() {
     });
 
     describe('render', function() {
-      it('#travis fetches the task collection', function() {
+      it('#view #travis fetches the task collection', function() {
         spyOn(user.tasks, 'fetch');
         view.render();
         expect(user.tasks.fetch).toHaveBeenCalled();
       });
 
       _.each(['newColumnView', 'inProgressColumnView', 'blockingColumnView', 'backlogColumnView'], function(column) {
-        it('#travis creates the ' + column, function() {
+        it('#view #travis creates the ' + column, function() {
           spyOn($, 'ajax').and.callFake(function(args) {
             args.success(user.tasks);
           });
@@ -185,17 +185,17 @@ describe('Dashboard Task View', function() {
 
   describe('special functions', function() {
     describe('isA()', function() {
-      it('#travis returns true with argument DashboardTaskView', function() {
+      it('#view #travis returns true with argument DashboardTaskView', function() {
         expect(view.isA('DashboardTaskView')).toBe(true);
       });
 
-      it('#travis returns false with another argument', function() {
+      it('#view #travis returns false with another argument', function() {
         expect(view.isA('Corvette')).toBe(false);
       });
     });
 
     describe('setUser()', function() {
-      it('#travis sets the user', function() {
+      it('#view #travis sets the user', function() {
         var newView = new Canto.DashboardTaskView();
         newView.setUser(user);
         expect(newView.user).toBe(user);
