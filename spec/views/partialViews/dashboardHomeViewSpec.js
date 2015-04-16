@@ -254,6 +254,14 @@ describe('Dashboard Home View', function() {
       it('creates a top widget view #travis', function() {
         expect(newView.topWidgetView.klass).toBe('DashboardTopWidgetView');
       });
+
+      it('puts the task panel in its childViews array #travis', function() {
+        expect(newView.childViews).toContain(newView.topWidgetView);
+      });
+
+      it('puts the top-widget view in ints childViews array #travis', function() {
+        expect(newView.childViews).toContain(newView.topWidgetView);
+      });
     });
   });
 });

@@ -76,6 +76,9 @@ var DashboardHomeView = Canto.View.extend({
       appointmentCount: 4,
       recommendationCount: 14
     });
+
+    this.childViews.push(this.taskPanelView);
+    this.childViews.push(this.topWidgetView);
   },
 
   /* Core View Functions
