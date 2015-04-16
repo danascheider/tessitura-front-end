@@ -21,7 +21,7 @@ describe('Dashboard Sidebar View', function() {
   afterAll(function() { sidebar = null; });
 
   describe('constructor', function() {
-    it('#travis doesn\'t call render', function() {
+    it('doesn\'t call render #travis', function() {
       spyOn(Canto.DashboardSidebarView.prototype, 'render');
       var newSidebar = new Canto.DashboardSidebarView();
       expect(Canto.DashboardSidebarView.prototype.render).not.toHaveBeenCalled();
@@ -29,19 +29,19 @@ describe('Dashboard Sidebar View', function() {
   });
 
   describe('properties', function() {
-    it('#travis is a Canto.View', function() {
+    it('is a Canto.View #travis', function() {
       expect(sidebar).toBeA('Canto.View');
     });
 
-    it('#travis has klass DashboardSidebarView', function() {
+    it('has klass DashboardSidebarView #travis', function() {
       expect(sidebar.klass).toBe('DashboardSidebarView');
     });
 
-    it('#travis has family Canto.View', function() {
+    it('has family Canto.View #travis', function() {
       expect(sidebar.family).toBe('Canto.View');
     });
 
-    it('#travis has superFamily Backbone.View', function() {
+    it('has superFamily Backbone.View #travis', function() {
       expect(sidebar.superFamily).toBe('Backbone.View');
     });
   });
@@ -51,27 +51,27 @@ describe('Dashboard Sidebar View', function() {
       sidebar.render();
     });
 
-    it('#travis is a ul', function() {
+    it('is a ul #travis', function() {
       expect(sidebar.$el[0].tagName).toEqual('UL');
     });
 
-    it('#travis has class .nav', function() {
+    it('has class .nav #travis', function() {
       expect(sidebar.$el).toHaveClass('nav');
     });
 
-    it('#travis has ID #side-menu', function() {
+    it('has ID #side-menu #travis', function() {
       expect(sidebar.$el).toHaveId('side-menu');
     });
 
-    it('#travis has a search field', function() {
+    it('has a search field #travis', function() {
       expect(sidebar.$('.custom-search-form')).toExist();
     });
 
-    it('#travis has a link to the dashboard', function() {
+    it('has a link to the dashboard #travis', function() {
       expect(sidebar.$('.dashboard-link')).toExist();
     });
 
-    it('#travis has a link to the task page', function() {
+    it('has a link to the task page #travis', function() {
       expect(sidebar.$('.task-page-link')).toExist();
     });
   });
@@ -88,21 +88,21 @@ describe('Dashboard Sidebar View', function() {
     });
 
     describe('click sidebar link', function() {
-      it('#travis calls toggleSecondLevelNav', function() {
+      it('calls toggleSecondLevelNav #travis', function() {
         newSidebar.$('a.sidebar-link').last().click();
         expect(Canto.DashboardSidebarView.prototype.toggleSecondLevelNav).toHaveBeenCalled();
       });
     });
 
     describe('click li > .dashboard-link', function() {
-      it('#travis calls goToDashboard', function() {
+      it('calls goToDashboard #travis', function() {
         newSidebar.$('li > .dashboard-link').first().click();
         expect(Canto.DashboardSidebarView.prototype.goToDashboard).toHaveBeenCalled();
       });
     });
 
     describe('click li > .task-page-link', function() {
-      it('#travis calls goToTaskPage', function() {
+      it('calls goToTaskPage #travis', function() {
         newSidebar.$('li > .task-page-link').first().click();
         expect(Canto.DashboardSidebarView.prototype.goToTaskPage).toHaveBeenCalled();
       });
@@ -113,7 +113,7 @@ describe('Dashboard Sidebar View', function() {
     beforeEach(function() { sidebar.render(); });
 
     describe('goToDashboard', function() {
-      it('#travis triggers the redirect:dashboard event on the view', function() {
+      it('triggers the redirect:dashboard event on the view #travis', function() {
         var spy = jasmine.createSpy();
         sidebar.on('redirect', spy);
         sidebar.goToDashboard();
@@ -123,7 +123,7 @@ describe('Dashboard Sidebar View', function() {
     });
 
     describe('goToTaskPage', function() {
-      it('#travis triggers the redirect:tasks event on the view', function() {
+      it('triggers the redirect:tasks event on the view #travis', function() {
         var spy = jasmine.createSpy();
         sidebar.on('redirect', spy);
         sidebar.goToTaskPage();
@@ -139,12 +139,12 @@ describe('Dashboard Sidebar View', function() {
       });
 
       context('when the menu clicked is closed', function() {
-        it('#travis adds the `active` class to its parent', function() {
+        it('adds the `active` class to its parent #travis', function() {
           sidebar.toggleSecondLevelNav(e);
           expect(link.closest('li')).toHaveClass('active');
         });
 
-        it('#travis removes the `active` class from any other li\'s', function() {
+        it('removes the `active` class from any other li\'s #travis', function() {
           sidebar.$('a[href=#]').last().closest('li').addClass('active');
           sidebar.toggleSecondLevelNav(e);
           expect(sidebar.$('a[href=#]').last().closest('li')).not.toHaveClass('active');
@@ -152,7 +152,7 @@ describe('Dashboard Sidebar View', function() {
       });
 
       context('when the menu clicked is open', function() {
-        it('#travis removes the `active` class from all the menus', function() {
+        it('removes the `active` class from all the menus #travis', function() {
           link.closest('li').addClass('active');
           sidebar.toggleSecondLevelNav(e);
           expect(sidebar.$('li.active').length).toEqual(0);
@@ -163,19 +163,19 @@ describe('Dashboard Sidebar View', function() {
 
   describe('special functions', function() {
     describe('isA', function() {
-      it('#travis returns true with argument DashboardSidebarView', function() {
+      it('returns true with argument DashboardSidebarView #travis', function() {
         expect(sidebar.isA('DashboardSidebarView')).toBe(true);
       });
 
-      it('#travis returns true with argument DashboardView', function() {
+      it('returns true with argument DashboardView #travis', function() {
         expect(sidebar.isA('DashboardView')).toBe(true);
       });
 
-      it('#travis returns true with argument PartialView', function() {
+      it('returns true with argument PartialView #travis', function() {
         expect(sidebar.isA('PartialView')).toBe(true);
       });
 
-      it('#travis returns false with other argument', function() {
+      it('returns false with other argument #travis', function() {
         expect(sidebar.isA('Backbone.Router')).toBe(false);
       });
     });

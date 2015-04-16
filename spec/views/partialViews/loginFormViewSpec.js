@@ -68,15 +68,15 @@ describe('Login Form View', function() {
   /**************************************************************************/
 
   describe('properties', function() {
-    it('#travis has klass LoginFormView', function() {
+    it('has klass LoginFormView #travis', function() {
       expect(view.klass).toEqual('LoginFormView');
     });
 
-    it('#travis has family Canto.View', function() {
+    it('has family Canto.View #travis', function() {
       expect(view.family).toEqual('Canto.View');
     });
 
-    it('#travis has superFamily Backbone.View', function() {
+    it('has superFamily Backbone.View #travis', function() {
       expect(view.superFamily).toEqual('Backbone.View');
     });
   });
@@ -85,7 +85,7 @@ describe('Login Form View', function() {
   /**************************************************************************/
 
   describe('constructor', function() {
-    it('#travis does not call render', function() {
+    it('does not call render #travis', function() {
       spyOn(Canto.LoginFormView.prototype, 'render');
       var newView = new Canto.LoginFormView();
       expect(Canto.LoginFormView.prototype.render).not.toHaveBeenCalled();
@@ -100,36 +100,36 @@ describe('Login Form View', function() {
       view.render();
     });
 
-    it('#travis is a form', function() {
+    it('is a form #travis', function() {
       expect(view.$el).toHaveTag('form');
     });
 
-    it('#travis has ID #login-form', function() {
+    it('has ID #login-form #travis', function() {
       expect(view.$el).toHaveId('login-form');
     });
 
-    it('#travis has a username field', function() {
+    it('has a username field #travis', function() {
       expect(view.$('input[name=username]')).toHaveLength(1);
     });
 
-    it('#travis has a password field', function() {
+    it('has a password field #travis', function() {
       expect(view.$('input[name=password]')).toHaveLength(1);
     });
 
-    it('#travis has a submit button', function() {
+    it('has a submit button #travis', function() {
       expect(view.$('button[type=submit]')).toHaveLength(1);
     });
 
-    it('#travis has a link for login help', function() {
+    it('has a link for login help #travis', function() {
       expect(view.$('a.login-help-link')).toHaveLength(1);
     });
 
     describe('remember checkbox', function() {
-      it('#travis is a checkbox', function() {
+      it('is a checkbox #travis', function() {
         expect(view.$('input[name=remember]')[0].type).toEqual('checkbox');
       });
 
-      it('#travis is checked by default', function() {
+      it('is checked by default #travis', function() {
         expect(view.$('input[name=remember]')).toBeChecked();
       });
     });
@@ -150,14 +150,14 @@ describe('Login Form View', function() {
     afterEach(function() { newView.remove(); });
 
     describe('submit form', function() {
-      it('#travis calls loginUser', function() {
+      it('calls loginUser #travis', function() {
         newView.$el.submit();
         expect(Canto.LoginFormView.prototype.loginUser).toHaveBeenCalled();
       });
     });
 
     describe('click .login-help-link', function() {
-      it('#travis calls loginHelp', function() {
+      it('calls loginHelp #travis', function() {
         newView.$('.login-help-link').click();
         expect(Canto.LoginFormView.prototype.loginHelp).toHaveBeenCalled();
       });
@@ -169,7 +169,7 @@ describe('Login Form View', function() {
 
   describe('event callbacks', function() {
     describe('loginHelp()', function() {
-      it('#travis does not log "Haha, you\'re boned!" to the console', function() {
+      it('does not log "Haha, you\'re boned!" to the console #travis', function() {
         pending('Fuller implementation');
       });
     });
@@ -188,19 +188,19 @@ describe('Login Form View', function() {
           spyOn(Canto.Utils, 'getAttributes').and.returnValue({username: 'testuser', password: 'testuser', remember: 'Remember Me'});
         });
 
-        it('#travis doesn\'t refresh the page', function() {
+        it('doesn\'t refresh the page #travis', function() {
           spyOn(e, 'preventDefault').and.callThrough();
           view.loginUser(e);
           expect(e.preventDefault).toHaveBeenCalled();
         });
 
-        it('#travis creates a new user', function() {
+        it('creates a new user #travis', function() {
           spyOn(Canto.UserModel.prototype, 'initialize');
           view.loginUser(e);
           expect(Canto.UserModel.prototype.initialize).toHaveBeenCalled();
         });
 
-        it('#travis calls login on the user', function() {
+        it('calls login on the user #travis', function() {
           spyOn(Canto.UserModel.prototype, 'login');
           view.loginUser(e);
           expect(Canto.UserModel.prototype.login).toHaveBeenCalled();
@@ -231,20 +231,20 @@ describe('Login Form View', function() {
               view.loginUser(e);
             });
 
-            it('#travis sets the auth cookie for 365 days', function() {
+            it('sets the auth cookie for 365 days #travis', function() {
               expect($.cookie).toHaveBeenCalledWith('auth', btoa('testuser:testuser'), {expires: 365});
             });
 
-            it('#travis sets the userID cookie for 365 days', function() {
+            it('sets the userID cookie for 365 days #travis', function() {
               expect($.cookie).toHaveBeenCalledWith('userID', 342, {expires: 365});
             });
 
-            it('#travis triggers the `userLoggedIn` event', function(done) {
+            it('triggers the `userLoggedIn` event #travis', function(done) {
               expect(spy).toHaveBeenCalled();
               done();
             });
 
-            it('#travis passes the user with the event', function(done) {
+            it('passes the user with the event #travis', function(done) {
               expect(typeof (spy.calls.argsFor(0)[0].user)).not.toBe('undefined');
               done();
             });
@@ -256,19 +256,19 @@ describe('Login Form View', function() {
               view.loginUser(e);
             });
 
-            it('#travis sets the auth cookie as a session cookie', function() {
+            it('sets the auth cookie as a session cookie #travis', function() {
               expect($.cookie).toHaveBeenCalledWith('auth', btoa('testuser:testuser'));
             });
 
-            it('#travis sets the userID cookie as a session cookie', function() {
+            it('sets the userID cookie as a session cookie #travis', function() {
               expect($.cookie).toHaveBeenCalledWith('userID', 342);
             });
 
-            it('#travis triggers the `userLoggedIn` event', function() {
+            it('triggers the `userLoggedIn` event #travis', function() {
               expect(spy).toHaveBeenCalled();
             });
 
-            it('#travis passes the user with the event', function(done) {
+            it('passes the user with the event #travis', function(done) {
               expect(typeof (spy.calls.argsFor(0)[0].user)).not.toBe('undefined');
               done();
             });
@@ -280,11 +280,11 @@ describe('Login Form View', function() {
             spyOn($, 'ajax').and.callFake(function(args) { args.error(); });
           });
 
-          it('#travis doesn\'t set cookies', function() {
+          it('doesn\'t set cookies #travis', function() {
             expect($.cookie).not.toHaveBeenCalled();
           });
 
-          it('#travis doesn\'t redirect to the dashboard', function() {
+          it('doesn\'t redirect to the dashboard #travis', function() {
             expect(spy).not.toHaveBeenCalled();
           });
         });
@@ -306,19 +306,19 @@ describe('Login Form View', function() {
 
   describe('special functions', function() {
     describe('isA()', function() {
-      it('#travis returns true with argument LoginFormView', function() {
+      it('returns true with argument LoginFormView #travis', function() {
         expect(view.isA('LoginFormView')).toBe(true);
       });
 
-      it('#travis returns true with argument LoginForm', function() {
+      it('returns true with argument LoginForm #travis', function() {
         expect(view.isA('LoginForm')).toBe(true);
       });
 
-      it('#travis returns true with argument PartialView', function() {
+      it('returns true with argument PartialView #travis', function() {
         expect(view.isA('PartialView')).toBe(true);
       });
 
-      it('#travis returns false with another argument', function() {
+      it('returns false with another argument #travis', function() {
         expect(view.isA('Corvette')).toBe(false);
       });
     });
