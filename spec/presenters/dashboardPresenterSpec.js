@@ -183,7 +183,7 @@ describe('Dashboard Presenter', function() {
       });
     });
 
-    describe('redirect()', function() {
+    describe('emitRedirect()', function() {
       beforeEach(function() {
         spy = jasmine.createSpy();
         presenter.on('redirect', spy);
@@ -192,12 +192,12 @@ describe('Dashboard Presenter', function() {
       afterEach(function() { presenter.off('redirect'); });
 
       it('emits the redirect:dashboard event #travis', function() {
-        presenter.redirect({destination: 'dashboard'});
+        presenter.emitRedirect({destination: 'dashboard'});
         expect(spy).toHaveBeenCalledWith({destination: 'dashboard'});
       });
 
       it('emits the redirect:tasks event #travis', function() {
-        presenter.redirect({destination: 'tasks'});
+        presenter.emitRedirect({destination: 'tasks'});
         expect(spy).toHaveBeenCalledWith({destination: 'tasks'});
       });
     });

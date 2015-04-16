@@ -7,38 +7,38 @@ var DashboardPresenter = Canto.Model.extend({
   /* Canto Model Properties
   /***************************************************************************************/
 
-  klass      : 'DashboardPresenter',
-  types      : function() {
+  klass        : 'DashboardPresenter',
+  types        : function() {
     return Canto.Model.prototype.types().concat(['Presenter', 'DashboardPresenter']);
   },
 
   /* Event Callbacks
   /***************************************************************************************/
 
-  getHome    : function() {
+  getHome      : function() {
     this.showDash();
     this.dashboardView.showHomeView();
     this.current = 'home';
   },
 
-  getTask    : function() {
+  getTask      : function() {
     this.showDash();
     this.dashboardView.showTaskView();
     this.current = 'task';
   },
 
-  redirect   : function(opts) {
+  emitRedirect : function(opts) {
     this.trigger('redirect', opts);
   },
 
   /* Special Functions
   /***************************************************************************************/
 
-  removeAll  : function() {
+  removeAll    : function() {
     this.dashboardView.remove();
   },
 
-  setUser    : function(user, callback) {
+  setUser      : function(user, callback) {
     var that = this;
 
     if(this.user && this.user.get('id') === user.get('id')) { return; }
@@ -54,7 +54,7 @@ var DashboardPresenter = Canto.Model.extend({
     });
   },
 
-  showDash   : function() {
+  showDash     : function() {
     if(!this.dashboardView.$el.is(':visible')) {
       this.dashboardView.render();
       $('body').html(this.dashboardView.$el);
@@ -64,14 +64,14 @@ var DashboardPresenter = Canto.Model.extend({
   /* Core Model Functions
   /***************************************************************************************/
 
-  initialize : function(opts) {
+  initialize   : function(opts) {
     opts = opts || {};
     this.dashboardView = new Canto.DashboardView();
     
     if(!!opts.user) { this.setUser(opts.user) }
 
-    _.bindAll(this, 'showDash', 'getHome', 'getTask', 'setUser', 'redirect', 'removeAll');
-    this.listenTo(this.dashboardView, 'redirect', this.redirect);
+    _.bindAll(this, 'showDash', 'getHome', 'getTask', 'setUser', 'emitRedirect', 'removeAll');
+    this.listenTo(this.dashboardView, 'redirect', this.emitRedirect);
   }
 });
 
