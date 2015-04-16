@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 mv spec/support/travis.js spec/support/env.js
 mv spec/support/travisAPIOpts.js js/apiOptions.js
