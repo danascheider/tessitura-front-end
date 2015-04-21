@@ -24,12 +24,12 @@
 /* Core Requires
 /****************************************************************************/
 
-require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/spec/support/env.js');
 require(process.cwd() + '/js/canto.js');
+require(process.cwd() + '/spec/support/jsdom.js');
 
 var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
-    Model          = Canto.Model.extend({}),
+    Model          = Barista.Model.extend({}),
     context        = describe,
     fcontext       = fdescribe;
 
@@ -37,14 +37,14 @@ var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
  * BEGIN SUITE                                                                *
 /******************************************************************************/
 
-fdescribe('Protected Collection', function() {
+describe('Protected Collection', function() {
   var collection, model1, model2, model3, xhr, ajaxSettings, spy;
 
   /* Filters
   /***************************************************************************/
 
   beforeEach(function() {
-    collection     = new Canto.ProtectedCollection({model: Model});
+    collection     = new Barista.ProtectedCollection({model: Model});
     collection.url = Canto.API.base + '/models';
     xhr = new XMLHttpRequest();
     spyOn($, 'cookie').and.returnValue(btoa('testuser:testuser'));
@@ -54,7 +54,8 @@ fdescribe('Protected Collection', function() {
   /***************************************************************************/
 
   describe('static properties', function() {
-    it('has klass \'ProtectedCollection\' #collection #travis', function() {
+    fit('has klass \'ProtectedCollection\' #collection #travis', function() {
+      console.log(Barista);
       expect(collection.klass).toBe('ProtectedCollection');
     });
 

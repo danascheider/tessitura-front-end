@@ -26,7 +26,6 @@
     "webdriverio"          : "~2.4.5",
     "browserify"           : "~9.0.3",
     "minifyify"            : "~6.3.2",
-    "baristajs"            : "~0.1.1",
     "jasmine-jquery-matchers": "~0.0.1"
   }
 }

@@ -10,8 +10,6 @@ global.subsetOf = function(subset, superset) {
   });
 };
 
-require('../../node_modules/baristajs/baristajs.min.js');
-
 // require('jasmine-tagged');
 // var jasmineEnv = jasmine.getEnv();
 // jasmineEnv.setIncludedTags(['travis']);
