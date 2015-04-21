@@ -29,7 +29,7 @@ require(process.cwd() + '/js/canto.js');
 require(process.cwd() + '/spec/support/jsdom.js');
 
 var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
-    Model          = Barista.Model.extend({}),
+    Model          = Canto.Model.extend({}),
     context        = describe,
     fcontext       = fdescribe;
 
@@ -37,25 +37,28 @@ var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
  * BEGIN SUITE                                                                *
 /******************************************************************************/
 
-describe('Protected Collection', function() {
+fdescribe('Protected Collection', function() {
   var collection, model1, model2, model3, xhr, ajaxSettings, spy;
 
   /* Filters
   /***************************************************************************/
 
   beforeEach(function() {
-    collection     = new Barista.ProtectedCollection({model: Model});
+    collection     = new Canto.ProtectedCollection({model: Model});
     collection.url = Canto.API.base + '/models';
     xhr = new XMLHttpRequest();
     spyOn($, 'cookie').and.returnValue(btoa('testuser:testuser'));
   });
 
+  // afterEach(function() {
+  //   collection.destroy();
+  // });
+
   /* Static Properties
   /***************************************************************************/
 
   describe('static properties', function() {
-    fit('has klass \'ProtectedCollection\' #collection #travis', function() {
-      console.log(Barista);
+    it('has klass \'ProtectedCollection\' #collection #travis', function() {
       expect(collection.klass).toBe('ProtectedCollection');
     });
 
@@ -114,6 +117,19 @@ describe('Protected Collection', function() {
 
       it('returns false with another value #collection #travis', function() {
         expect(collection.isA('TaskModel')).toBe(false);
+      });
+    });
+
+    describe('destroy', function() {
+      it('removes all the models from the collection', function() {
+        collection.destroy();
+        expect(collection.models).toEqual([]);
+      });
+
+      it('calls stopListening', function() {
+        spyOn(collection, 'stopListening');
+        collection.destroy();
+        expect(collection.stopListening).toHaveBeenCalled();
       });
     });
   });

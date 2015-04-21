@@ -18,6 +18,11 @@ var ProtectedCollection = Backbone.Collection.extend({
   /* Special Functions
   /**************************************************************************************/
 
+  destroy   : function() {
+    this.reset([]);
+    this.stopListening();
+  },
+
   isA       : function(type) {
     return ['Backbone.Collection', 'ProtectedCollection'].indexOf(type) > -1 ? true : false;
   },
