@@ -5,11 +5,15 @@ require(process.cwd() + '/spec/support/env.js');
 var context        = describe,
     fcontext       = fdescribe;
 
-describe('Canto.Model', function() {
+fdescribe('Canto.Model', function() {
   var model;
 
   beforeEach(function() {
     model = new Canto.Model();
+  });
+
+  afterEach(function() {
+    model.destroy();
   });
 
   describe('properties', function() {
