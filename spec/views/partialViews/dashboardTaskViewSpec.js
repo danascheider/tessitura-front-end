@@ -45,8 +45,6 @@ require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/spec/support/env.js');
 
 var matchers       = require('jasmine-jquery-matchers'),
-    fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
-    context        = describe,
     fcontext       = fdescribe;
 
 /****************************************************************************
@@ -54,28 +52,35 @@ var matchers       = require('jasmine-jquery-matchers'),
 /****************************************************************************/
 
 describe('Dashboard Task View', function() {
-  var view, e, spy;
+  var view, newView, e, spy;
 
   /* Filters
   /**************************************************************************/
 
   beforeAll(function() {
     jasmine.addMatchers(matchers);
-    _.extend(global, fixtures);
   });
 
   beforeEach(function() {
+    user = new Canto.UserModel({id: 342, username: 'testuser', password: 'testuser', email: 'testuser@example.com', first_name: 'Test', last_name: 'User'});
+
+    // Require the task model and create 3 tasks
+    task1 = new Canto.TaskModel({id: 1, owner_id: 342, title: 'Task 1', status: 'New', priority: 'Low', position: 1});
+    task2 = new Canto.TaskModel({id: 2, owner_id: 342, title: 'Task 2', status: 'New', priority: 'Normal', position: 2});
+    task3 = new Canto.TaskModel({id: 3, owner_id: 342, title: 'Task 3', status: 'Complete', priority: 'Normal', position: 3});
+
+    collection = user.tasks;
+
     view = new Canto.DashboardTaskView({user: user});
   });
 
   afterEach(function() {
-    view.remove();
-    restoreFixtures();
+    _.each([view, user, task1, task2, task3, collection], function(obj) { obj.destroy(); });
+    newView && newView.destroy();
   });
 
   afterAll(function() {
-    dashboard = null;
-    global = _.omit(global, fixtures);
+    view = null;
   });
 
   /* Static Properties
@@ -101,19 +106,19 @@ describe('Dashboard Task View', function() {
   describe('constructor', function() {
     it('#view #travis calls setUser', function() {
       spyOn(Canto.DashboardTaskView.prototype, 'setUser');
-      var newView = new Canto.DashboardTaskView({user: user});
+      newView = new Canto.DashboardTaskView({user: user});
       expect(Canto.DashboardTaskView.prototype.setUser).toHaveBeenCalled();
       expect(Canto.DashboardTaskView.prototype.setUser.calls.argsFor(0)[0]).toEqual(user);
     });
 
     it('#view #travis doesn\'t call render', function() {
       spyOn(Canto.DashboardTaskView.prototype, 'render');
-      var newView = new Canto.DashboardTaskView({user: user});
+      newView = new Canto.DashboardTaskView({user: user});
       expect(Canto.DashboardTaskView.prototype.render).not.toHaveBeenCalled();
     });
 
     it('#view #travis can be instantiated without a user', function() {
-      var newView = new Canto.DashboardTaskView();
+      newView = new Canto.DashboardTaskView();
       expect(newView.user).not.toExist();
     });
   });
@@ -196,7 +201,7 @@ describe('Dashboard Task View', function() {
 
     describe('setUser()', function() {
       it('#view #travis sets the user', function() {
-        var newView = new Canto.DashboardTaskView();
+        newView = new Canto.DashboardTaskView();
         newView.setUser(user);
         expect(newView.user).toBe(user);
       });

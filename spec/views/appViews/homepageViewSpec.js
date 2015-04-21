@@ -36,26 +36,15 @@ var matchers       = _.extend(require('jasmine-jquery-matchers')),
 /****************************************************************************/
 
 describe('Canto Homepage View', function() {
-  var view, e, spy, newView;
+  var view, e, spy, newView, user;
 
   /* Filters
   /**************************************************************************/
 
-  beforeAll(function() {
-    jasmine.addMatchers(matchers);
-  });
-
-  beforeEach(function() {
-    view = new Canto.HomepageView();
-  });
-
-  afterEach(function() {
-    view.remove();
-  })
-
-  afterAll(function() {
-    view = null;
-  });
+  beforeAll(function()  { jasmine.addMatchers(matchers); });
+  beforeEach(function() { view = new Canto.HomepageView(); });
+  afterEach(function()  { view.destroy(); });
+  afterAll(function()   { view = null; });
 
   /* Static Properties
   /**************************************************************************/
@@ -123,6 +112,8 @@ describe('Canto Homepage View', function() {
       newView.on('redirect', spy);
     });
 
+    afterEach(function() { newView.destroy(); });
+
     describe('click .login-link', function() {
       it('#view #travis calls toggleLoginForm', function() {
         newView.$('nav li .login-link').click();
@@ -143,14 +134,14 @@ describe('Canto Homepage View', function() {
 
   describe('event callbacks', function() {
     describe('goToDashboard()', function() {
-      var user;
-
       beforeEach(function() {
         spy = jasmine.createSpy();
         view.on('redirect', spy);
         user = new Canto.UserModel({id: 342, username: 'testuser', password: 'testuser'});
         e = {user: user};
       });
+
+      afterEach(function() { user.destroy(); });
       
       it('#view #travis triggers redirect on itself', function() {
         view.goToDashboard(e);
@@ -199,21 +190,22 @@ describe('Canto Homepage View', function() {
 
   describe('core view functions', function() {
     describe('remove()', function() {
-      it('#view #travis removes its login form', function() {
+      beforeEach(function() {
         spyOn(view.loginForm, 'remove');
+        spyOn(view.registrationForm, 'remove');
+        spyOn(Backbone.View.prototype.remove, 'call');
         view.remove();
+      });
+
+      it('#view #travis removes its login form', function() {
         expect(view.loginForm.remove).toHaveBeenCalled();
       });
 
       it('#view #travis removes its registration form', function() {
-        spyOn(view.registrationForm, 'remove');
-        view.remove();
         expect(view.registrationForm.remove).toHaveBeenCalled();
       });
 
       it('#view #travis removes itself using the Backbone view prototype', function() {
-        spyOn(Backbone.View.prototype.remove, 'call');
-        view.remove();
         expect(Backbone.View.prototype.remove.call).toHaveBeenCalledWith(view);
       });
     });

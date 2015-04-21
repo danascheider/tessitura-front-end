@@ -3,38 +3,42 @@ require(process.cwd() + '/js/canto.js');
 require(process.cwd() + '/spec/support/env.js');
 
 var matchers       = require('jasmine-jquery-matchers'),
-    Fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     context        = describe,
     fcontext       = fdescribe;
 
 describe('Task Collection View', function() {
-  var view, newView;
+  var view, user, newView, collection, task1, task2, task3;
 
   beforeAll(function() {
     jasmine.addMatchers(matchers);
-    _.extend(global, Fixtures);
   })
   
   beforeEach(function() {
+    task1 = new Canto.TaskModel({id: 1, owner_id: 342, title: 'Task 1', status: 'New', priority: 'Low', position: 1});
+    task2 = new Canto.TaskModel({id: 2, owner_id: 342, title: 'Task 2', status: 'New', priority: 'Normal', position: 2});
+    task3 = new Canto.TaskModel({id: 3, owner_id: 342, title: 'Task 3', status: 'Complete', priority: 'Normal', position: 3});
+
+    collection = new Canto.TaskCollection([task1, task2, task3]);
+
     childViews = collection.models.map(function(task) { return new Canto.TaskListItemView({model: task}); });
     var models = childViews.map(function(model) { return model.cid });
     view = new Canto.TaskCollectionView({collection: collection});
   });
 
   afterEach(function() {
-    view.remove();
-    restoreFixtures();
-  })
+    _.each([view, task1, task2, task3, collection], function(obj) { obj.destroy(); });
+  });
 
   afterAll(function() {
     view = null;
-    global = _.omit(global, Fixtures)
   });
 
   describe('constructor', function() {
+    afterEach(function() { newView && newView.destroy(); });
+
     it('does not call the render function', function() {
       spyOn(Canto.TaskCollectionView.prototype, 'render');
-      var newView = new Canto.TaskCollectionView({collection: collection});
+      newView = new Canto.TaskCollectionView({collection: collection});
       expect(Canto.TaskCollectionView.prototype.render).not.toHaveBeenCalled();
     });
 
@@ -67,6 +71,7 @@ describe('Task Collection View', function() {
 
   describe('elements', function() {
     beforeEach(function() { view.render(); });
+    afterEach(function()  { view.remove(); });
 
     it('is a ul #collectionView #view #travis', function() {
       expect(view.$el[0]).toHaveTag('UL');
@@ -83,10 +88,10 @@ describe('Task Collection View', function() {
 
   describe('events', function() {
     beforeEach(function() {
-      spyOn(Canto.TaskCollectionView.prototype, 'render');
-      spyOn(Canto.TaskCollectionView.prototype, 'crossOff');
-      spyOn(Canto.TaskCollectionView.prototype, 'removeChildAndRender');
-      spyOn(Canto.TaskCollectionView.prototype, 'showTaskCreateForm');
+      _.each(['render', 'crossOff', 'removeChildAndRender', 'showTaskCreateForm'], function(method) {
+        spyOn(Canto.TaskCollectionView.prototype, method);
+      });
+
       spyOn(Canto.TaskCollectionView.prototype, 'retrieveViewForModel').and.returnValue(childViews[0]);
 
       newView = new Canto.TaskCollectionView({collection: collection});
@@ -94,8 +99,7 @@ describe('Task Collection View', function() {
     });
 
     afterEach(function() {
-      newView.remove();
-      newView.unbind();
+      newView.destroy();
     });
 
     describe('add to collection', function() {

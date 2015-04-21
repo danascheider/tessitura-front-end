@@ -41,8 +41,7 @@ require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/js/canto.js');
 require(process.cwd() + '/spec/support/env.js');
 
-var fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
-    matchers       = require('jasmine-jquery-matchers'),
+var matchers       = require('jasmine-jquery-matchers'),
     context        = describe,
     fcontext       = fdescribe;
 
@@ -51,29 +50,37 @@ var fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js
 /******************************************************************************/
 
 describe('Dashboard Home View', function() {
-  var view;
+  var view, newView, user, collection, task1, task2, task3;
 
   /* Filters
   /****************************************************************************/
 
   beforeAll(function() {
     jasmine.addMatchers(matchers);
-    _.extend(global, fixtures);
   });
 
   beforeEach(function() {
+
+    user = new Canto.UserModel({id: 342, username: 'testuser', password: 'testuser', email: 'testuser@example.com', first_name: 'Test', last_name: 'User'});
+
+    // Require the task model and create 3 tasks
+    task1 = new Canto.TaskModel({id: 1, owner_id: 342, title: 'Task 1', status: 'New', priority: 'Low', position: 1});
+    task2 = new Canto.TaskModel({id: 2, owner_id: 342, title: 'Task 2', status: 'New', priority: 'Normal', position: 2});
+    task3 = new Canto.TaskModel({id: 3, owner_id: 342, title: 'Task 3', status: 'Complete', priority: 'Normal', position: 3});
+
+    collection = user.tasks;
+
     spyOn(Canto.TaskModel.prototype, 'displayTitle').and.returnValue('foobar');
     view = new Canto.DashboardHomeView({user: user});
   });
 
   afterEach(function() {
-    view.remove();
-    restoreFixtures();
+    _.each([view, user, task1, task2, task3, collection], function(obj) { obj.destroy(); });
+    newView && newView.destroy();
   });
 
   afterAll(function() {
     view = null;
-    global = _.omit(global, fixtures);
   });
 
   /* Static Properties
@@ -99,18 +106,18 @@ describe('Dashboard Home View', function() {
   describe('constructor', function() {
     it('does not call render #partialView #view #travis', function() {
       spyOn(Canto.DashboardHomeView.prototype, 'render');
-      var newView = new Canto.DashboardHomeView({user: user});
+      newView = new Canto.DashboardHomeView({user: user});
       expect(Canto.DashboardHomeView.prototype.render).not.toHaveBeenCalled();
     });
 
     it('calls setUser #partialView #view #travis', function() {
       spyOn(Canto.DashboardHomeView.prototype, 'setUser');
-      var newView = new Canto.DashboardHomeView({user: user});
+      newView = new Canto.DashboardHomeView({user: user});
       expect(Canto.DashboardHomeView.prototype.setUser).toHaveBeenCalled();
     });
 
     it('can be instantiated without a user #partialView #view #travis', function() {
-      var newView = new Canto.DashboardHomeView();
+      newView = new Canto.DashboardHomeView();
       expect(newView.user).not.toExist();
     });
   });
@@ -176,7 +183,7 @@ describe('Dashboard Home View', function() {
 
       context('when the child views don\'t exist', function() {
         it('doesn\'t raise an error #partialView #view #travis', function() {
-          var newView = new Canto.DashboardHomeView();
+          newView = new Canto.DashboardHomeView();
           expect(view.remove).not.toThrow();
         });
       });
@@ -232,8 +239,6 @@ describe('Dashboard Home View', function() {
     });
 
     describe('setUser()', function() {
-      var newView;
-
       beforeEach(function() {
         newView = new Canto.DashboardHomeView();
         newView.setUser(user);

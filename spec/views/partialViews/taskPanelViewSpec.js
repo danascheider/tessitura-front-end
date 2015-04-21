@@ -58,8 +58,12 @@ describe('Task Panel View', function() {
       expect(taskPanel.collectionView.klass).toBe('TaskCollectionView');
     });
 
+    it('creates a childViews array', function() {
+      expect(_.isArray(taskPanel.childViews)).toBe(true);
+    });
+
     it('adds the collection view to its childViews array', function() {
-      expect(taskPanel.childViews).toEqual([taskPanel.collectionView]);
+      expect(taskPanel.childViews).toContain(taskPanel.collectionView);
     });
 
     it('passes a maximum of 10 models to the collection view #partialView #view #travis', function() {

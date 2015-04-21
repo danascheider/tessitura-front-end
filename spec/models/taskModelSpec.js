@@ -5,7 +5,7 @@ require(process.cwd() + '/js/canto.js');
 var context           = describe,
     fcontext          = fdescribe;
 
-fdescribe('Task Model', function() {
+describe('Task Model', function() {
   var task;
 
   beforeEach(function() {
@@ -20,7 +20,7 @@ fdescribe('Task Model', function() {
   afterEach(function() {
     task.destroy();
   });
-  
+    
   describe('properties', function() {
     it('has a `urlRoot` scoped to the logged in user #model #travis', function() {
       expect(task.urlRoot()).toEqual(Canto.API.base + '/users/342/tasks');

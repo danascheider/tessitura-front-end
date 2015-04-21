@@ -3,47 +3,44 @@ require(process.cwd() + '/js/canto.js');
 require(process.cwd() + '/spec/support/env.js');
 
 var matchers  = require('jasmine-jquery-matchers'),
-    Fixtures  = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     context   = describe,
     fcontext  = fdescribe;
 
 describe('Task Model View', function() {
-  var view;
+  var view, task, newView;
 
   beforeAll(function() {
     jasmine.addMatchers(matchers);
-    _.extend(global, Fixtures);
   });
 
   beforeEach(function() {
-    jasmine.addMatchers(matchers);
-
     spyOn($, 'cookie').and.callFake(function(name) {
       return name === 'userID' ? 342 : btoa('testuser:testuser');
     });
-
-    view = new Canto.TaskModelView({model: task1});
+  
+    task = new Canto.TaskModel({id: 1, owner_id: 342, title: 'Task 1', status: 'New', priority: 'Low', position: 1});
+    view = new Canto.TaskModelView({model: task});
   });
 
   afterEach(function() {
-    view.remove();
-    restoreFixtures();
+    task.destroy();
+    view.destroy();
   }); 
 
   afterAll(function() {
-    global = _.omit(global, Fixtures);
     view = null;
   });
 
   describe('constructor', function() {
     it('assigns the model #modelView #view #travis', function() {
-      expect(view.model).toBe(task1);
+      expect(view.model).toBe(task);
     });
 
     it('does not call render #modelView #view #travis', function() {
       spyOn(Canto.TaskModelView.prototype, 'render');
-      var newView = new Canto.TaskModelView({model: task1});
+      newView = new Canto.TaskModelView({model: task});
       expect(Canto.TaskModelView.prototype.render).not.toHaveBeenCalled();
+      newView.destroy();
     });
   });
 
@@ -81,17 +78,18 @@ describe('Task Model View', function() {
     describe('save model', function() {
       it('calls renderOnSync #modelView #view #travis', function() {
         spyOn(Canto.TaskModelView.prototype, 'renderOnSync');
-        var newView = new Canto.TaskModelView({model: task1});
-        task1.trigger('sync');
+        newView = new Canto.TaskModelView({model: task});
+        task.trigger('sync');
         expect(Canto.TaskModelView.prototype.renderOnSync).toHaveBeenCalled();
+        newView.destroy();
       });
     });
   });
 
   describe('view elements', function() {
     beforeEach(function() { 
-      task1.set('deadline', new Date(2015, 8, 28));
-      task1.set('description', 'Test Canto\'s front-end functionality')
+      task.set('deadline', new Date(2015, 8, 28));
+      task.set('description', 'Test Canto\'s front-end functionality')
       view.render(); 
     });
 
@@ -116,10 +114,10 @@ describe('Task Model View', function() {
     });
 
     it('does not display blank fields #modelView #view #travis', function() {
-      task1.unset('deadline');
+      task.unset('deadline');
       view.render();
       expect(view.$('tr.task-deadline-row').length).toEqual(0);
-      task1.set('deadline', new Date(2015, 8, 28));
+      task.set('deadline', new Date(2015, 8, 28));
     });
   });
 
@@ -148,7 +146,7 @@ describe('Task Model View', function() {
 
       context('when marked complete', function() {
         it('doesn\'t call render #modelView #view #travis', function() {
-          task1.set('status', 'Complete');
+          task.set('status', 'Complete');
           view.renderOnSync();
           expect(view.render).not.toHaveBeenCalled();
         });

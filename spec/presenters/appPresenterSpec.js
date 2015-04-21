@@ -17,7 +17,7 @@ var matchers       = require('jasmine-jquery-matchers'),
 /*****************************************************************************************/
 
 describe('App Presenter', function() {
-  var presenter, spy;
+  var presenter, newPresenter, spy;
 
   /* Filters
   /***************************************************************************************/
@@ -66,9 +66,14 @@ describe('App Presenter', function() {
 
   describe('events', function() {
     describe('redirect:dashboard', function() {
-      it('calls emitRedirect #presenter #travis', function() {
+      beforeEach(function() {
         spyOn(Canto.AppPresenter.prototype, 'emitRedirect');
-        var newPresenter = new Canto.AppPresenter();
+        newPresenter = new Canto.AppPresenter();
+      });
+
+      afterEach(function() { newPresenter.destroy(); });
+
+      it('calls emitRedirect #presenter #travis', function() {
         newPresenter.homepageView.trigger('redirect', {destination: 'dashboard'});
         expect(Canto.AppPresenter.prototype.emitRedirect).toHaveBeenCalledWith({destination: 'dashboard'});
       });
@@ -88,7 +93,10 @@ describe('App Presenter', function() {
         user = new Canto.UserModel({username: 'testuser', password: 'testuser', id: 342});
       });
 
-      afterEach(function() { presenter.off('redirect'); });
+      afterEach(function() { 
+        presenter.off('redirect'); 
+        user.destroy();
+      });
 
       it('triggers the redirect event on itself #presenter #travis', function() {
         presenter.emitRedirect({destination: 'dashboard', user: user});

@@ -8,18 +8,9 @@ var context        = describe,
 describe('Canto.View', function() {
   var view;
 
-  beforeEach(function() {
-    view = new Canto.View();
-  });
-
-  afterEach(function() {
-    view.remove();
-  })
-
-  afterAll(function() {
-    view.destroy();
-    view = null;
-  });
+  beforeEach(function() { view = new Canto.View(); });
+  afterEach(function()  { view.destroy(); });
+  afterAll(function()   { view = null; });
 
   describe('properties', function() {
     it('has klass Canto.View #appView #view #travis', function() {
@@ -35,7 +26,7 @@ describe('Canto.View', function() {
     });
 
     it('has empty array childViews #appView #view #travis', function() {
-      expect(view.childViews).toEqual([]);
+      expect(view.childViews.length).toEqual(0);
     });
   });
 
@@ -120,7 +111,7 @@ describe('Canto.View', function() {
 
     it('has a childViews array #appView #view #travis', function() {
       var newView = new ChildClass();
-      expect(newView.childViews).toEqual([]);
+      expect(_.isArray(newView.childViews)).toBe(true);
     });
 
     describe('render', function() {

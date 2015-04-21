@@ -3,38 +3,38 @@ require(process.cwd() + '/js/dependencies.js');
 require(process.cwd() + '/spec/support/env.js');
 
 var matchers       = _.extend(require('jasmine-jquery-matchers'), require(process.cwd() + '/spec/support/matchers/toBeA.js')),
-    Fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
     context        = describe,
     fcontext       = fdescribe;
 
 describe('Dashboard Top Widget View', function() {
-  var view, data, e, newView;
+  var view, newView, collection, data, e, newView;
 
   beforeAll(function() {
     jasmine.addMatchers(matchers);
-    _.extend(global, Fixtures);
+  });
 
+  beforeEach(function() {
+    var task = new Canto.TaskModel({title: 'Hello World'});
+    collection = new Canto.TaskCollection([task]);
     data = {
       taskCollection: collection,
       deadlineCount: 6,
       appointmentCount: 2,
       recommendationCount: 12
     };
-  });
 
-  beforeEach(function() {
     view = new Canto.DashboardTopWidgetView(data);
   });
 
   afterEach(function() { 
-    view.remove();
-    restoreFixtures();
+    view.destroy();
+    collection.destroy();
+    newView && newView.destroy();
   });
 
   afterAll(function() {
     view = null;
-    global = _.omit(global, Fixtures);
   });
 
   describe('constructor', function() {

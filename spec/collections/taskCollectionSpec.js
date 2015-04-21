@@ -6,7 +6,7 @@ var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
     context        = describe,
     fcontext       = fdescribe;
 
-fdescribe('Task Collection', function() {
+describe('Task Collection', function() {
   var collection, task1, task2, task3
 
   beforeEach(function() {

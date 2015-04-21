@@ -31,7 +31,6 @@ require(process.cwd() + '/spec/support/env.js');
 
 var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
     matchers       = require('jasmine-jquery-matchers'),
-    fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     context        = describe,
     fcontext       = fdescribe;
 
@@ -40,28 +39,26 @@ var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
 /****************************************************************************/
 
 describe('Login Form View', function() {
-  var view, e, spy, xhr;
+  var view, user, newView, e, spy, xhr;
 
   /* Filters
   /**************************************************************************/
 
   beforeAll(function() {
-    _.extend(global, fixtures);
     jasmine.addMatchers(matchers);
-  })
+  });
 
   beforeEach(function() {
     view = new Canto.LoginFormView();
   });
 
   afterEach(function() {
-    view.remove();
-    restoreFixtures();
+    view.destroy();
+    newView && newView.destroy();
   });
 
   afterAll(function() {
     view = null;
-    global = _.omit(global, fixtures);
   });
 
   /* Static Properties
@@ -220,10 +217,13 @@ describe('Login Form View', function() {
 
         context('successful login', function() {
           beforeEach(function() {
+            user = new Canto.UserModel({id: 342, username: 'testuser', password: 'testuser'});
             spyOn($, 'ajax').and.callFake(function(args) {
               args.success(user);
             });
           });
+
+          afterEach(function() { user.destroy(); });
 
           context('with remember me true', function() {
             beforeEach(function() {

@@ -4,30 +4,34 @@ require(process.cwd() + '/spec/support/env.js');
 
 var matchers       = require('jasmine-jquery-matchers'),
     XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
-    Fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     context        = describe,
     fcontext       = fdescribe;
 
 describe('Quick-Add Task Form', function() {
-  var view, xhr, e, spy;
+  var view, newView, collection, task1, task2, task3, xhr, e, spy;
 
   beforeAll(function() {
     jasmine.addMatchers(matchers);
-    _.extend(global, Fixtures);
   });
 
   beforeEach(function() {
+    task1 = new Canto.TaskModel({id: 1, owner_id: 342, title: 'Task 1', status: 'Blocking', priority: 'Low', position: 1});
+    task2 = new Canto.TaskModel({id: 2, owner_id: 342, title: 'Task 2', status: 'Blocking', priority: 'Normal', position: 2});
+    task3 = new Canto.TaskModel({id: 3, owner_id: 342, title: 'Task 3', status: 'Blocking', priority: 'Normal', position: 3});
+
+    collection = new Canto.TaskCollection([task1, task2, task3]);
+
     view = new Canto.QuickAddFormView({collection: collection, grouping: {status: 'Blocking'}});
   });
 
   afterEach(function() {
-    view.remove();
-    restoreFixtures();
+    _.each([view, task1, task2, task3, collection], function(obj) { obj.destroy(); });
   })
 
   afterAll(function() {
-    view = null;
-    global = _.omit(global, Fixtures);
+    _.each([view, task1, task2, task3, collection], function(variable) {
+      variable = null;
+    });
   });
 
  describe('constructor', function() {
@@ -37,8 +41,9 @@ describe('Quick-Add Task Form', function() {
 
     it('doesn\'t call render() #modelView #view #travis', function() {
       spyOn(Canto.QuickAddFormView.prototype, 'render');
-      var newView = new Canto.QuickAddFormView({collection: collection});
+      newView = new Canto.QuickAddFormView({collection: collection});
       expect(Canto.QuickAddFormView.prototype.render).not.toHaveBeenCalled();
+      newView.destroy();
     });
 
     it('sets the `grouping` property #modelView #view #travis', function() {
@@ -91,10 +96,13 @@ describe('Quick-Add Task Form', function() {
   });
 
   describe('events', function() {
+    beforeEach(function() {
+      _.each(['showTaskCreateForm', 'createTask'], function(method) { spyOn(Canto.QuickAddFormView.prototype, method); });
+      newView = new Canto.QuickAddFormView({collection: collection, grouping: {status: 'Blocking'}});
+    });
+
     describe('click span.pull-right', function() {
       it('calls showTaskCreateForm() #modelView #view #travis', function() {
-        spyOn(Canto.QuickAddFormView.prototype, 'showTaskCreateForm');
-        var newView = new Canto.QuickAddFormView({collection: collection, grouping: {status: 'Blocking'}});
         newView.render().$('span.pull-right > i').click();
         expect(Canto.QuickAddFormView.prototype.showTaskCreateForm).toHaveBeenCalled();
       });
@@ -102,8 +110,6 @@ describe('Quick-Add Task Form', function() {
 
     describe('submit form', function() {
       it('calls createTask() #modelView #view #travis', function() {
-        spyOn(Canto.QuickAddFormView.prototype, 'createTask');
-        var newView = new Canto.QuickAddFormView({collection: collection, grouping: {status: 'Blocking'}});
         newView.render().$el.submit();
         expect(Canto.QuickAddFormView.prototype.createTask).toHaveBeenCalled();
       });

@@ -31,7 +31,6 @@ require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/spec/support/env.js');
 
 var matchers       = _.extend(require('jasmine-jquery-matchers')),
-    fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     context        = describe,
     fcontext       = fdescribe;
 
@@ -40,28 +39,26 @@ var matchers       = _.extend(require('jasmine-jquery-matchers')),
 /****************************************************************************/
 
 describe('Registration Form View', function() {
-  var form, e, spy, obj;
+  var form, newForm, e, spy, obj;
 
   /* Filters
   /**************************************************************************/
 
   beforeAll(function() {
     jasmine.addMatchers(matchers);
-    _.extend(global, fixtures);
-  })
+  });
 
   beforeEach(function() {
     form = new Canto.RegistrationFormView();
   });
 
   afterEach(function() {
-    form.remove();
-    restoreFixtures();
+    form.destroy();
+    newForm && newForm.destroy();
   });
 
   afterAll(function() {
     form = null;
-    global = _.omit(global, fixtures);
   });
 
   /* Static Properties
@@ -135,7 +132,7 @@ describe('Registration Form View', function() {
     describe('submit', function() {
       it('calls createUser #partialView #view #travis', function() {
         spyOn(Canto.RegistrationFormView.prototype, 'createUser');
-        var newForm = new Canto.RegistrationFormView();
+        newForm = new Canto.RegistrationFormView();
         newForm.$el.submit();
         expect(Canto.RegistrationFormView.prototype.createUser).toHaveBeenCalled();
       });

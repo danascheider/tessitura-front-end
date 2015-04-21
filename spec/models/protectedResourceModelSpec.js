@@ -6,7 +6,7 @@ var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
     context        = describe,
     fcontext       = fdescribe;
 
-fdescribe('Protected Resource Model', function() {
+describe('Protected Resource Model', function() {
   var resource, xhr;
 
   beforeEach(function() {

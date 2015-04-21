@@ -7,23 +7,20 @@ var matchers       = require('jasmine-jquery-matchers'),
     fcontext       = fdescribe;
 
 describe('Dashboard Sidebar View', function() {
-  var sidebar, e, link;
+  var sidebar, newSidebar, e, link;
 
-  beforeAll(function() {
-    jasmine.addMatchers(matchers);
-  })
-
-  beforeEach(function() {
-    sidebar = new Canto.DashboardSidebarView();
+  beforeAll(function()  { jasmine.addMatchers(matchers); });
+  beforeEach(function() { sidebar = new Canto.DashboardSidebarView(); });
+  afterEach(function()  { 
+    sidebar.destroy(); 
+    newSidebar && newSidebar.destroy();
   });
-
-  afterEach(function() { sidebar.remove(); });
-  afterAll(function() { sidebar = null; });
+  afterAll(function()   { sidebar = null; });
 
   describe('constructor', function() {
     it('doesn\'t call render #partialView #view #travis', function() {
       spyOn(Canto.DashboardSidebarView.prototype, 'render');
-      var newSidebar = new Canto.DashboardSidebarView();
+      newSidebar = new Canto.DashboardSidebarView();
       expect(Canto.DashboardSidebarView.prototype.render).not.toHaveBeenCalled();
     });
   });
@@ -77,12 +74,10 @@ describe('Dashboard Sidebar View', function() {
   });
 
   describe('events', function() {
-    var newSidebar;
+    newSidebar;
 
     beforeEach(function() { 
-      spyOn(Canto.DashboardSidebarView.prototype, 'toggleSecondLevelNav');
-      spyOn(Canto.DashboardSidebarView.prototype, 'goToDashboard');
-      spyOn(Canto.DashboardSidebarView.prototype, 'goToTaskPage');
+      _.each(['toggleSecondLevelNav', 'goToTaskPage', 'goToDashboard'], function(method) { spyOn(Canto.DashboardSidebarView.prototype, method); });
       newSidebar = new Canto.DashboardSidebarView();
       newSidebar.render();
     });

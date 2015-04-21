@@ -8,11 +8,15 @@ var context        = describe,
     fcontext       = fdescribe;
 
 describe('User Model', function() {
-  var user, xhr, newUser;
+  var user, newUser, xhr, newUser;
 
   beforeEach(function() {
     user = new Canto.UserModel({id: 342, username: 'testuser', password: 'testuser', email: 'testuser@example.com', first_name: 'Test', last_name: 'User'});
     xhr = new XMLHttpRequest();
+  });
+
+  afterEach(function() {
+    user.destroy();
   });
 
   afterAll(function() {
@@ -31,20 +35,21 @@ describe('User Model', function() {
 
   describe('constructor', function() {
     beforeEach(function() { spyOn(Canto.UserModel.prototype, 'protectedFetch'); });
+    afterEach(function() { newUser.destroy(); });
 
     it('instantiates a task collection #model #travis', function() {
-      var newUser = new Canto.UserModel();
+      newUser = new Canto.UserModel();
       expect(newUser.tasks.isA('TaskCollection')).toBe(true);
     });
 
     describe('when instantiated with an ID', function() {
       it('calls protectedFetch #model #travis', function() {
-        var newUser = new Canto.UserModel({id: 14});
+        newUser = new Canto.UserModel({id: 14});
         expect(Canto.UserModel.prototype.protectedFetch).toHaveBeenCalled();
       });
 
       it('doesn\'t call protectedFetch if `sync` is set to false #model #travis', function() {
-        var newUser = new Canto.UserModel({id: 22}, {sync: false});
+        newUser = new Canto.UserModel({id: 22}, {sync: false});
         expect(Canto.UserModel.prototype.protectedFetch).not.toHaveBeenCalled();
       });
     });
@@ -58,9 +63,7 @@ describe('User Model', function() {
   });
 
   describe('core functions', function() {
-    beforeEach(function() {
-      spyOn($, 'ajax');
-    });
+    beforeEach(function() { spyOn($, 'ajax'); });
 
     describe('fetch', function() {
       it('calls Backbone fetch function #model #travis', function() {
@@ -107,6 +110,8 @@ describe('User Model', function() {
       beforeEach(function() {
         newUser = new Canto.UserModel({username: 'testuser', password: 'testuser'});
       });
+
+      afterEach(function() { newUser.destroy(); });
 
       it('sends a POST request #model #travis', function() {
         newUser.login();

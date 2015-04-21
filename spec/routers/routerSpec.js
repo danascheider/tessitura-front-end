@@ -25,7 +25,6 @@ require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/spec/support/env.js');
 
 var matchers       = require('jasmine-jquery-matchers'),
-    fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     context        = describe,
     fcontext       = fdescribe;
 
@@ -42,28 +41,21 @@ var DashboardPresenter = require(process.cwd() + '/js/presenters/dashboardPresen
 
 describe('Canto Router', function() {
 
-  var router, spy;
+  var router, user, spy;
 
   /* Filters
   /****************************************************************************/
 
   beforeAll(function() {
     jasmine.addMatchers(matchers);
-    _.extend(global, fixtures);
   });
 
   beforeEach(function() {
     router = new Canto.Router();
   });
 
-  afterEach(function() {
-    restoreFixtures();
-  });
-
   afterAll(function() {
     router = null;
-    destroyFixtures([user, collection]);
-    global = _.omit(global, fixtures);
   });
 
   /* Static Properties
@@ -153,12 +145,14 @@ describe('Canto Router', function() {
   /****************************************************************************/
 
   describe('non-route events', function() {
-    var user, newRouter, event;
+    var newRouter, event;
 
     beforeEach(function() {
       spyOn(Canto.Router.prototype, 'navigateTo');
       user = new Canto.UserModel({username: 'testuser', password: 'testuser', id: 342});
     });
+
+    afterEach(function() { user.destroy(); });
 
     it('listens to its dashboard presenter #router #travis', function(done) {
       newRouter = new Canto.Router();
@@ -172,9 +166,7 @@ describe('Canto Router', function() {
       newRouter.AppPresenter.emitRedirect({destination: 'dashboard', user: user});
       expect(Canto.Router.prototype.navigateTo).toHaveBeenCalledWith({destination: 'dashboard', user: user});
       done();
-
-   });
-
+    });
   });
 
   /* Event Callbacks
@@ -193,8 +185,11 @@ describe('Canto Router', function() {
 
       context('when passed a user model', function() {
         beforeEach(function() {
+          user = new Canto.UserModel({username: 'testuser', password: 'testuser', id: 342});
           spyOn(router.DashboardPresenter, 'setUser');
         });
+
+        afterEach(function() { user.destroy(); });
 
         it('calls setUser on the dashboard presenter #router #travis #router #travis', function() {
           e = $.Event('redirect', {destination: 'dashboard', user: user});
@@ -211,14 +206,16 @@ describe('Canto Router', function() {
   describe('route callbacks', function() {
     describe('displayDashboardHome()', function() {
       beforeEach(function() { 
-        spyOn($, 'cookie').and.returnValue(user.get('id')); 
+        // This was actually causing a problem
+        spyOn(router.DashboardPresenter.dashboardView.homeView, 'setUser');
+        spyOn($, 'cookie').and.returnValue(342);
         spyOn($, 'ajax').and.callFake(function(args) {
-          args.success();
+          args.success && args.success();
         });
       });
 
       it('sets the user #router #travis #router #travis', function() {
-        spyOn(router.DashboardPresenter, 'setUser').and.callThrough();
+        spyOn(router.DashboardPresenter, 'setUser');
         router.displayDashboardHome();
         expect(router.DashboardPresenter.setUser).toHaveBeenCalled();
       });
@@ -227,25 +224,24 @@ describe('Canto Router', function() {
         spyOn(router.DashboardPresenter, 'getHome');
         router.displayDashboardHome();
         expect(router.DashboardPresenter.getHome).toHaveBeenCalled();
-        done();
+        setTimeout(function() { done(); }, 50);
       });
     });
 
     describe('displayDashboardTaskView()', function() {
       beforeEach(function() { 
-        spyOn($, 'cookie').and.returnValue(user.get('id')); 
+        spyOn(router.DashboardPresenter, 'setUser');
+        spyOn(router.DashboardPresenter, 'getTask');
         spyOn($, 'ajax').and.callFake(function(args) { args.success(); });
       });
 
       it('calls setUser on the DashboardPresenter #router #travis', function(done) {
-        spyOn(router.DashboardPresenter, 'setUser').and.callThrough();
         router.displayDashboardTaskView();
         expect(router.DashboardPresenter.setUser).toHaveBeenCalled();
         done();
       });
 
       it('calls getTask on the DashboardPresenter #router #travis', function() {
-        spyOn(router.DashboardPresenter, 'getTask');
         router.displayDashboardTaskView();
         expect(router.DashboardPresenter.getTask).toHaveBeenCalled();
       });

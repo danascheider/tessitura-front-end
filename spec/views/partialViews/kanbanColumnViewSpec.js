@@ -30,7 +30,6 @@ require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/spec/support/env.js');
 
 var matchers       = _.extend(require('jasmine-jquery-matchers')),
-    fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     context        = describe,
     fcontext       = fdescribe;
 
@@ -39,30 +38,36 @@ var matchers       = _.extend(require('jasmine-jquery-matchers')),
 /****************************************************************************/
 
 describe('Kanban Column View', function() {
-  var view, data;
+  var view, newView, user, collection, task1, task2, task3, data;
 
   /* Filters
   /**************************************************************************/
 
   beforeAll(function() {
     jasmine.addMatchers(matchers);
-    _.extend(global, fixtures);
-    data = {collection: collection, color: 'blue', icon: 'fa-exclamation-circle', headline: 'New'};
   });
 
   beforeEach(function() {
+    user = new Canto.UserModel({id: 342, username: 'testuser', password: 'testuser', email: 'testuser@example.com', first_name: 'Test', last_name: 'User'});
+
+    task1 = new Canto.TaskModel({id: 1, owner_id: 342, title: 'Task 1', status: 'New', priority: 'Low', position: 1});
+    task2 = new Canto.TaskModel({id: 2, owner_id: 342, title: 'Task 2', status: 'New', priority: 'Normal', position: 2});
+    task3 = new Canto.TaskModel({id: 3, owner_id: 342, title: 'Task 3', status: 'Complete', priority: 'Normal', position: 3});
+
+    collection = user.tasks = new Canto.TaskCollection([task1, task2, task3]);
+    data = {collection: collection, color: 'blue', icon: 'fa-exclamation-circle', headline: 'New'};
+
     spyOn(Canto.TaskModel.prototype, 'displayTitle').and.returnValue('foobar');
     view = new Canto.KanbanColumnView(data);
   });
 
   afterEach(function() {
-    view.remove();
-    restoreFixtures();
-  })
+    _.each([view, user, task1, task2, task3, collection], function(ob) { ob.destroy(); });
+    newView && newView.destroy(); 
+  });
 
   afterAll(function() {
     view = null;
-    global = _.omit(global, fixtures);
   });
 
   /* Static Properties
@@ -88,16 +93,17 @@ describe('Kanban Column View', function() {
   describe('constructor', function() {
     it('does not call render #partialView #view #travis', function() {
       spyOn(Canto.KanbanColumnView.prototype, 'render');
-      var newView = new Canto.KanbanColumnView(data);
+      newView = new Canto.KanbanColumnView(data);
     });
 
     it('calls setCollection #partialView #view #travis', function () {
-      spyOn(view, 'setCollection');
-      expect(view.collection).toBe(collection);
+      spyOn(Canto.KanbanColumnView.prototype, 'setCollection');
+      newView = new Canto.KanbanColumnView(data);
+      expect(Canto.KanbanColumnView.prototype.setCollection.calls.argsFor(0)[0]).toEqual(collection);
     });
 
     it('sets the data property #partialView #view #travis', function() {
-      var newView = new Canto.KanbanColumnView(data);
+      newView = new Canto.KanbanColumnView(data);
       _.each(['color', 'icon', 'headline'], function(prop) {
         expect(newView.data[prop]).toEqual(data[prop]);
       });
@@ -105,7 +111,7 @@ describe('Kanban Column View', function() {
 
     it('can be instantiated without a collection #partialView #view #travis', function() {
       delete data.collection;
-      var newView = new Canto.KanbanColumnView(data)
+      newView = new Canto.KanbanColumnView(data)
       expect(newView.collection).not.toExist();
       data.collection = user.tasks;
     });
@@ -114,7 +120,7 @@ describe('Kanban Column View', function() {
       context('when grouped by backlog', function() {
         it('sets groupedBy to Backlog #partialView #view #travis', function() {
           data.headline = 'Backlog';
-          var newView = new Canto.KanbanColumnView(data);
+          newView = new Canto.KanbanColumnView(data);
           expect(newView.groupedBy).toEqual({backlog: true});
           data.headline = 'New';
         });
@@ -122,7 +128,7 @@ describe('Kanban Column View', function() {
 
       context('when grouped by status', function() {
         it('sets groupedBy to the appropriate status #partialView #view #travis', function() {
-          var newView = new Canto.KanbanColumnView(data);
+          newView = new Canto.KanbanColumnView(data);
           expect(newView.groupedBy).toEqual({status: 'New'});
         });
       });
@@ -165,7 +171,7 @@ describe('Kanban Column View', function() {
     describe('add task to collection', function() {
       it('calls updateTask #partialView #view #travis', function() {
         spyOn(Canto.KanbanColumnView.prototype, 'updateTask');
-        var newView = new Canto.KanbanColumnView(data);
+        newView = new Canto.KanbanColumnView(data);
         var newTask = new Canto.TaskModel({id: 4, owner_id: 342, title: 'Hello World'});
         newView.collection.trigger('add', newTask);
         expect(Canto.KanbanColumnView.prototype.updateTask).toHaveBeenCalled();
@@ -175,7 +181,7 @@ describe('Kanban Column View', function() {
     describe('change:backlog', function() {
       it('calls removeTask #partialView #view #travis', function() {
         spyOn(Canto.KanbanColumnView.prototype, 'removeTask');
-        var newView = new Canto.KanbanColumnView(data);
+        newView = new Canto.KanbanColumnView(data);
         newView.collection.trigger('change:backlog', task1);
         expect(Canto.KanbanColumnView.prototype.removeTask).toHaveBeenCalledWith(task1);
       });
@@ -216,7 +222,7 @@ describe('Kanban Column View', function() {
 
   describe('special functions', function() {
     describe('setCollection()', function() {
-      var newView;
+      newView;
 
       beforeEach(function() { 
         delete data.collection;

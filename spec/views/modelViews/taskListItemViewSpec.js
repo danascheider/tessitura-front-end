@@ -13,39 +13,37 @@ require(process.cwd() + '/js/canto.js');
 require(process.cwd() + '/spec/support/env.js');
 
 var matchers  = require('jasmine-jquery-matchers'),
-    fixtures  = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     context   = describe,
     fcontext  = fdescribe;
 
 describe('List Item Task View', function() {
-  var view, e;
+  var view, newView, task, e;
 
   beforeAll(function() {
     jasmine.addMatchers(matchers);
-    _.extend(global, fixtures);
   });
 
   beforeEach(function() { 
-    jasmine.addMatchers(matchers);
-    view = new Canto.TaskListItemView({model: task1}); 
+    task = new Canto.TaskModel({id: 1, owner_id: 342, title: 'Task 1', status: 'New', priority: 'Low', position: 1});
+    view = new Canto.TaskListItemView({model: task}); 
   });
 
-  afterEach(function() { view.remove(); });
+  afterEach(function() { view.destroy(); });
 
   afterAll(function() { 
     view   = null; 
-    global = _.omit(global, fixtures);
   });
 
   describe('constructor', function() {
     it('sets the model #modelView #view #travis', function() {
-      expect(view.model).toBe(task1);
+      expect(view.model).toBe(task);
     });
 
     it('doesn\'t call render #modelView #view #travis', function() {
       spyOn(Canto.TaskListItemView.prototype, 'render');
-      var newView = new Canto.TaskListItemView({model: task1});
+      newView = new Canto.TaskListItemView({model: task});
       expect(Canto.TaskListItemView.prototype.render).not.toHaveBeenCalled();
+      newView.destroy();
     });
 
     it('creates a model view #modelView #view #travis', function() {
@@ -132,19 +130,15 @@ describe('List Item Task View', function() {
   });
 
   describe('events', function() {
-    var newView; 
-
     beforeEach(function() {
-      spyOn(Canto.TaskListItemView.prototype, 'showEditForm');
-      spyOn(Canto.TaskListItemView.prototype, 'markComplete');
-      spyOn(Canto.TaskListItemView.prototype, 'deleteTask');
-      spyOn(Canto.TaskListItemView.prototype, 'backlogTask');
-      spyOn(Canto.TaskListItemView.prototype, 'toggleTaskDetails');
-      spyOn(Canto.TaskListItemView.prototype, 'showEditIcons');
-      spyOn(Canto.TaskListItemView.prototype, 'hideEditIcons');
-      newView = new Canto.TaskListItemView({model: task1});
+      var arr = ['showEditForm', 'markComplete', 'deleteTask', 'backlogTask', 'toggleTaskDetails', 'showEditIcons', 'hideEditIcons'];
+      _.each(arr, function(method) { spyOn(Canto.TaskListItemView.prototype, method); });
+
+      newView = new Canto.TaskListItemView({model: task});
       newView.render();
     });
+
+    afterEach(function() { newView.destroy(); });
 
     describe('click edit icon', function() {
       it('calls showEditForm #modelView #view #travis', function() {
@@ -216,26 +210,26 @@ describe('List Item Task View', function() {
         // the program waits for the server to respond, which, of course, it won't.
 
         spyOn($, 'ajax');
-        spyOn(task1, 'save').and.callThrough();
+        spyOn(task, 'save').and.callThrough();
         view.backlogTask();
       });
 
-      afterEach(function() { task1.unset('backlog'); });
+      afterEach(function() { task.unset('backlog'); });
 
       it('changes the task\'s backlog status to true #modelView #view #travis', function() {
-        expect(task1.get('backlog')).toBe(true);
+        expect(task.get('backlog')).toBe(true);
       });
 
       it('saves the task #modelView #view #travis', function() {
-        expect(task1.save).toHaveBeenCalled();
+        expect(task.save).toHaveBeenCalled();
       });
     });
 
     describe('deleteTask', function() {
       it('destroys the task #modelView #view #travis', function() {
-        spyOn(task1, 'destroy');
+        spyOn(task, 'destroy');
         view.deleteTask();
-        expect(task1.destroy).toHaveBeenCalled();
+        expect(task.destroy).toHaveBeenCalled();
       });
     });
 
@@ -250,9 +244,9 @@ describe('List Item Task View', function() {
 
     describe('markComplete', function() {
       it('marks the task complete and saves #modelView #view #travis', function() {
-        spyOn(task1, 'save');
+        spyOn(task, 'save');
         view.markComplete();
-        expect(task1.save.calls.argsFor(0)[0]).toEqual({status: 'Complete'});
+        expect(task.save.calls.argsFor(0)[0]).toEqual({status: 'Complete'});
       });
     });
 
