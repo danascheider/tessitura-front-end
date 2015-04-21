@@ -20,8 +20,8 @@ Configuring Barista is easy but relies on a couple of conventions:
 
 If your app follows these conventions, then just put this in your spec helper file or wherever
 you keep your test configuration:
-    var Barista = require('baristajs'),
-        App     = require('../app.js');
+    var Barista = require('baristajs');
+    var App     = require('../app.js');
 
     Barista.config(app);
 

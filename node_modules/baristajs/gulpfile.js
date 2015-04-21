@@ -9,16 +9,16 @@ var gulp       = require('gulp'),
 
 gulp.task('default', function() {
   var b = browserify({
-    entries   : './lib/barista.js',
+    entries   : './lib/baristajs.js',
     debug     : true, 
     transform : [reactify]
   });
 
   return b.bundle()
-          .pipe(source('./lib/barista.min.js'))
+          .pipe(source('./lib/baristajs.min.js'))
           .pipe(buffer())
           .pipe(sourcemaps.init({loadMaps: true}))
           .pipe(uglify())
-          .pipe(gulp.dest('./barista.min.js'))
-          .pipe(fs.createReadStream('./lib/barista.min.js').pipe(fs.createWriteStream('./barista.min.js')));
+          .pipe(gulp.dest('./baristajs.min.js'))
+          .pipe(fs.createReadStream('./lib/baristajs.min.js').pipe(fs.createWriteStream('./baristajs.min.js')));
 });

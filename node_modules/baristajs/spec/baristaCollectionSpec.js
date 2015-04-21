@@ -1,4 +1,4 @@
-var Barista    = require(process.cwd() + '/lib/barista.js'),
+var Barista    = require(process.cwd() + '/lib/baristajs.js'),
     ExampleApp = require(process.cwd() + '/spec/ex1/exampleApp1.js'),
     Backbone   = require('backbone'),
     context    = describe;

@@ -1,4 +1,4 @@
-require(process.cwd() + '/lib/barista.js');
+require(process.cwd() + '/lib/baristajs.js');
 
 var _          = require('underscore'),
     ExampleApp = require(process.cwd() + '/spec/ex1/exampleApp1.js'),
