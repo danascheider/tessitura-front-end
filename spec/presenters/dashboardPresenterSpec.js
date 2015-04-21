@@ -37,6 +37,7 @@ describe('Dashboard Presenter', function() {
   });
 
   afterAll(function() {
+    destroyFixtures([user, collection]);
     global = _.omit(global, fixtures);
     presenter.destroy();
     presenter = null;
@@ -59,8 +60,8 @@ describe('Dashboard Presenter', function() {
     });
   });
 
-  // /* Presenter Constructor
-  // /***************************************************************************************/
+  /* Presenter Constructor
+  /***************************************************************************************/
 
   describe('constructor', function() {
     beforeEach(function() {
@@ -85,8 +86,8 @@ describe('Dashboard Presenter', function() {
     });
   });
 
-  // /* Presenter Events
-  // /***************************************************************************************/
+  /* Presenter Events
+  /***************************************************************************************/
 
   describe('events', function() {
     beforeEach(function() {
@@ -111,8 +112,8 @@ describe('Dashboard Presenter', function() {
     });
   });
 
-  // /* Event Callbacks
-  // /***************************************************************************************/
+  /* Event Callbacks
+  /***************************************************************************************/
 
   describe('event callbacks', function() {
     describe('getHome()', function() {
@@ -215,104 +216,104 @@ describe('Dashboard Presenter', function() {
   /***************************************************************************************/
 
   describe('special functions', function() {
-    describe('isA()', function() {
-      it('returns true with argument `Presenter` #presenter #travis', function() {
-        expect(presenter.isA('Presenter')).toBe(true);
-      });
+    // describe('isA()', function() {
+    //   it('returns true with argument `Presenter` #presenter #travis', function() {
+    //     expect(presenter.isA('Presenter')).toBe(true);
+    //   });
 
-      it('returns true with argument \'DashboardPresenter\' #presenter #travis', function() {
-        expect(presenter.isA('DashboardPresenter')).toBe(true);
-      });
+    //   it('returns true with argument \'DashboardPresenter\' #presenter #travis', function() {
+    //     expect(presenter.isA('DashboardPresenter')).toBe(true);
+    //   });
 
-      it('returns false with another argument #presenter #travis', function() {
-        expect(presenter.isA('Backbone.Router')).toBe(false);
-      });
-    });
+    //   it('returns false with another argument #presenter #travis', function() {
+    //     expect(presenter.isA('Backbone.Router')).toBe(false);
+    //   });
+    // });
 
-    describe('setUser()', function() {
-      var newPresenter;
+    // describe('setUser()', function() {
+    //   var newPresenter;
       
-      beforeEach(function() {
-        spyOn($, 'ajax').and.callFake(function(args) {
-          args.success(user.toJSON());
-        });
+    //   beforeEach(function() {
+    //     spyOn($, 'ajax').and.callFake(function(args) {
+    //       args.success(user.toJSON());
+    //     });
 
-        newPresenter = new Canto.DashboardPresenter();
-        spyOn(newPresenter.dashboardView, 'setUser');
-      });
+    //     newPresenter = new Canto.DashboardPresenter();
+    //     spyOn(newPresenter.dashboardView, 'setUser');
+    //   });
 
-      afterEach(function() { newPresenter.destroy(); });
+    //   afterEach(function() { newPresenter.destroy(); });
 
-      context('when the user is not actually changed', function() {
-        it('doesn\'t change the user #presenter #travis', function() {
-          newPresenter.user = user;
-          newPresenter.setUser(user);
-          expect(newPresenter.user).toBe(user);
-        });
-      });
+    //   context('when the user is not actually changed', function() {
+    //     it('doesn\'t change the user #presenter #travis', function() {
+    //       newPresenter.user = user;
+    //       newPresenter.setUser(user);
+    //       expect(newPresenter.user).toBe(user);
+    //     });
+    //   });
 
-      context('when the "new" user has the same ID as the "old" user', function() {
-        it('doesn\'t change the user #presenter #travis', function() {
-          newPresenter.user = user
-          var newUser = new Canto.UserModel({id: user.get('id'), username: user.get('username'), password: user.get('password')});
-          newPresenter.setUser(newUser);
-          expect(newPresenter.user).toBe(user);
-        });
-      });
+    //   context('when the "new" user has the same ID as the "old" user', function() {
+    //     it('doesn\'t change the user #presenter #travis', function() {
+    //       newPresenter.user = user
+    //       var newUser = new Canto.UserModel({id: user.get('id'), username: user.get('username'), password: user.get('password')});
+    //       newPresenter.setUser(newUser);
+    //       expect(newPresenter.user).toBe(user);
+    //     });
+    //   });
 
-      context('new user', function() {
-        it('sets the user #presenter #travis', function() {
-          newPresenter.setUser(user);
-          expect(newPresenter.user.isA('UserModel')).toBe(true);
-        });
+    //   context('new user', function() {
+    //     it('sets the user #presenter #travis', function() {
+    //       newPresenter.setUser(user);
+    //       expect(newPresenter.user.isA('UserModel')).toBe(true);
+    //     });
 
-        it('calls setUser on the dashboard #presenter #travis', function() {
-          newPresenter.setUser(user);
-          expect(newPresenter.dashboardView.setUser).toHaveBeenCalledWith(user);
-        });
+    //     it('calls setUser on the dashboard #presenter #travis', function() {
+    //       newPresenter.setUser(user);
+    //       expect(newPresenter.dashboardView.setUser).toHaveBeenCalledWith(user);
+    //     });
 
-        // it('instantiates a task collection #presenter #travis', function() {
-        //   user.tasks = null;
-        //   spyOn(Canto.TaskCollection.prototype, 'initialize');
-        //   newPresenter.setUser(user);
-        //   expect(Canto.TaskCollection.prototype.initialize).toHaveBeenCalled();
-        // });
-      });
-    });
+    //     // it('instantiates a task collection #presenter #travis', function() {
+    //     //   user.tasks = null;
+    //     //   spyOn(Canto.TaskCollection.prototype, 'initialize');
+    //     //   newPresenter.setUser(user);
+    //     //   expect(Canto.TaskCollection.prototype.initialize).toHaveBeenCalled();
+    //     // });
+    //   });
+    // });
 
-    describe('showDash()', function() {
-      context('when the dash view is not in the DOM', function() {
-        beforeEach(function() { 
-          spyOn(presenter.dashboardView.$el, 'is').and.returnValue(false); 
-          spyOn(presenter.dashboardView, 'render').and.returnValue(presenter.dashboardView);
-        });
+    // describe('showDash()', function() {
+    //   context('when the dash view is not in the DOM', function() {
+    //     beforeEach(function() { 
+    //       spyOn(presenter.dashboardView.$el, 'is').and.returnValue(false); 
+    //       spyOn(presenter.dashboardView, 'render').and.returnValue(presenter.dashboardView);
+    //     });
 
-        it('calls render on the dashboard view #presenter #travis', function() {
-          presenter.showDash();
-          expect(presenter.dashboardView.render).toHaveBeenCalled();
-        });
+    //     it('calls render on the dashboard view #presenter #travis', function() {
+    //       presenter.showDash();
+    //       expect(presenter.dashboardView.render).toHaveBeenCalled();
+    //     });
 
-        it('sets the HTML of the body element #presenter #travis', function() {
-          presenter.showDash();
-          expect($('body').html()).toContain(presenter.dashboardView.$el.html());
-        });
-      });
+    //     it('sets the HTML of the body element #presenter #travis', function() {
+    //       presenter.showDash();
+    //       expect($('body').html()).toContain(presenter.dashboardView.$el.html());
+    //     });
+    //   });
 
-      context('when the dash view is in the DOM already', function() {
-        beforeEach(function() { spyOn(presenter.dashboardView.$el, 'is').and.returnValue(true); });
+    //   context('when the dash view is in the DOM already', function() {
+    //     beforeEach(function() { spyOn(presenter.dashboardView.$el, 'is').and.returnValue(true); });
 
-        it('doesn\'t call render #presenter #travis', function() {
-          spyOn(presenter.dashboardView, 'render');
-          presenter.showDash();
-          expect(presenter.dashboardView.render).not.toHaveBeenCalled();
-        });
+    //     it('doesn\'t call render #presenter #travis', function() {
+    //       spyOn(presenter.dashboardView, 'render');
+    //       presenter.showDash();
+    //       expect(presenter.dashboardView.render).not.toHaveBeenCalled();
+    //     });
 
-        it('doesn\'t attach anything to the DOM #presenter #travis', function() {
-          spyOn($.prototype, 'html');
-          presenter.showDash();
-          expect($.prototype.html).not.toHaveBeenCalled();
-        });
-      });
-    });
+    //     it('doesn\'t attach anything to the DOM #presenter #travis', function() {
+    //       spyOn($.prototype, 'html');
+    //       presenter.showDash();
+    //       expect($.prototype.html).not.toHaveBeenCalled();
+    //     });
+    //   });
+    // });
   });
 });

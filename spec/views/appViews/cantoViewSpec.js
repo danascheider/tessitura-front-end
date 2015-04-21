@@ -35,7 +35,6 @@ describe('Canto.View', function() {
     });
 
     it('has empty array childViews #appView #view #travis', function() {
-      pending('Find out what other test is failing and why');
       expect(view.childViews).toEqual([]);
     });
   });

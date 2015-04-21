@@ -1,0 +1,3 @@
+#!/usr/bin/iojs
+
+require('../baristajs.min.js');

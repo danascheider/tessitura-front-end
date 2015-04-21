@@ -37,7 +37,7 @@ var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
  * BEGIN SUITE                                                                *
 /******************************************************************************/
 
-describe('Protected Collection', function() {
+fdescribe('Protected Collection', function() {
   var collection, model1, model2, model3, xhr, ajaxSettings, spy;
 
   /* Filters

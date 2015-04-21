@@ -62,6 +62,7 @@ describe('Canto Router', function() {
 
   afterAll(function() {
     router = null;
+    destroyFixtures([user, collection]);
     global = _.omit(global, fixtures);
   });
 

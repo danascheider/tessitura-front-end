@@ -23,6 +23,7 @@ describe('Task Collection', function() {
   });
 
   afterAll(function() {
+    destroyFixtures([user, collection]);
     global = _.omit(global, fixtures);
   });
 
