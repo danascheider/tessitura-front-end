@@ -5,7 +5,7 @@ require(process.cwd() + '/js/canto.js');
 var context           = describe,
     fcontext          = fdescribe;
 
-describe('Task Model', function() {
+fdescribe('Task Model', function() {
   var task;
 
   beforeEach(function() {
@@ -17,10 +17,10 @@ describe('Task Model', function() {
     spyOn($, 'ajax');
   });
 
-  afterAll(function() {
-    task = null;
+  afterEach(function() {
+    task.destroy();
   });
-
+  
   describe('properties', function() {
     it('has a `urlRoot` scoped to the logged in user #model #travis', function() {
       expect(task.urlRoot()).toEqual(Canto.API.base + '/users/342/tasks');

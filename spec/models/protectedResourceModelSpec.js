@@ -6,13 +6,17 @@ var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
     context        = describe,
     fcontext       = fdescribe;
 
-describe('Protected Resource Model', function() {
+fdescribe('Protected Resource Model', function() {
   var resource, xhr;
 
   beforeEach(function() {
     resource = new Canto.ProtectedResourceModel({id: 1});
     resource.url = Canto.API.base + '/protected-resources/1'; 
     xhr = new XMLHttpRequest();
+  });
+
+  afterEach(function() {
+    resource.destroy();
   });
 
   afterAll(function() {
