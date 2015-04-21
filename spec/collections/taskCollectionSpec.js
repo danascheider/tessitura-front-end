@@ -1,30 +1,29 @@
 require(process.cwd() + '/spec/support/jsdom.js');
-require(process.cwd() + '/js/dependencies.js');
+require(process.cwd() + '/js/canto.js');
 require(process.cwd() + '/spec/support/env.js');
 
 var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
-    fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     context        = describe,
     fcontext       = fdescribe;
 
-describe('Task Collection', function() {
-  beforeAll(function() {
-    _.extend(global, fixtures);
-  });
+fdescribe('Task Collection', function() {
+  var collection, task1, task2, task3
 
   beforeEach(function() {
+    task1 = new Canto.TaskModel({title: 'New Task', owner_id: 342});
+    task2 = new Canto.TaskModel({title: 'New Task', owner_id: 342});
+    task3 = new Canto.TaskModel({title: 'New Task', owner_id: 342});
+    collection = new Canto.TaskCollection([task1, task2, task3]);
     spyOn($, 'cookie').and.callFake(function(name) {
       return name === 'userID' ? 342 : btoa('testuser:testuser');
     });
   });
 
   afterEach(function() {
-    restoreFixtures();
-  });
-
-  afterAll(function() {
-    destroyFixtures([user, collection]);
-    global = _.omit(global, fixtures);
+    task1.destroy();
+    task2.destroy();
+    task3.destroy();
+    collection.destroy();
   });
 
   describe('constructor', function() {
