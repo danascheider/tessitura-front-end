@@ -6,7 +6,7 @@ var matchers = require('jasmine-jquery-matchers'),
     context  = describe,
     fcontext = fdescribe;
 
-describe('Task Panel View Elements #ui', function() {
+describe('Task Panel View Elements', function() {
   beforeAll(function(done) {
     jasmine.addMatchers(matchers);
     client.init().url('http://localhost/#taskPanelViewSpec', done);
@@ -22,7 +22,7 @@ describe('Task Panel View Elements #ui', function() {
     done();
   });
 
-  describe('toggle-widget icon', function() {
+  describe('toggle-widget icon #ui', function() {
     it('is hidden by default', function(done) {
       client.waitForVisible('span.toggle-widget', true, function(err, isVisible) {
         expect(isVisible).toBe(false);
@@ -30,7 +30,7 @@ describe('Task Panel View Elements #ui', function() {
       });
     });
 
-    it('is visible on hover', function(done) {
+    it('is visible on hover #ui', function(done) {
       client.element('#task-panel .panel-heading', function(err, element) {
         client.moveTo(element.value['ELEMENT'], 0, 0)
               .waitForVisible('span.toggle-widget', function(err, isVisible) {
@@ -42,7 +42,7 @@ describe('Task Panel View Elements #ui', function() {
     })
 
     context('when the panel body is visible', function() {
-      it('has icon class fa-minus', function(done) {
+      it('has icon class fa-minus #ui', function(done) {
         client.element('#task-panel .panel-heading', function(err, el) {
           client.moveTo(el.value['ELEMENT'], 0, 0)
                 .waitForVisible('i.fa-minus', function(err, isVisible) {
@@ -54,7 +54,7 @@ describe('Task Panel View Elements #ui', function() {
       });
 
       context('when the panel body is hidden', function() {
-        it('has icon class fa-plus', function(done) {
+        it('has icon class fa-plus #ui', function(done) {
           pending('Figure out why this is failing when the functionality unambiguously works');
           client.waitForVisible('#triggers a[data-method=hidePanelBody]')
                 .click('#triggers a[data-method=hidePanelBody]')
@@ -74,7 +74,7 @@ describe('Task Panel View Elements #ui', function() {
   });
 
   describe('remove', function() {
-    it('hides itself', function(done) {
+    it('hides itself #ui', function(done) {
       client.waitForVisible('a[data-method=remove]')
             .click('a[data-method=remove]')
             .waitForVisible('#task-panel', true, function(err, isVisible) {

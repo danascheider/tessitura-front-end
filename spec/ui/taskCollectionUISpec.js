@@ -22,7 +22,7 @@ describe('Task Collection View Elements', function() {
     client.end(done);
   });
 
-  it('displays its quick-add form', function(done) {
+  it('displays its quick-add form #ui', function(done) {
     client.waitForVisible('#view .quick-add-form', function(err, isVisible) {
       expect(isVisible).toBe(true);
       done();
@@ -36,14 +36,14 @@ describe('Task Collection View Elements', function() {
               .click('#triggers a[data-method=crossOffComplete]', done);
       });
 
-      it('doesn\'t immediately remove the item from the list', function(done) {
+      it('doesn\'t immediately remove the item from the list #ui', function(done) {
         client.isVisible('li#task-3', function(err, isVisible) {
           expect(isVisible).toBe(true);
           done();
         });
       });
 
-      it('does eventually remove the item from the list', function(done) {
+      it('does eventually remove the item from the list #ui', function(done) {
         client.waitForVisible('li#task-3', 800, true, function(err, isVisible) {
           expect(isVisible).toBe(false);
           done()
@@ -57,14 +57,14 @@ describe('Task Collection View Elements', function() {
               .click('a[data-method=crossOffIncomplete', done);
       });
 
-      it('does not cross out the title', function(done) {
+      it('does not cross out the title #ui', function(done) {
         client.getCssProperty('li#task-1 a.task-title', 'text-decoration', function(err, res) {
           expect(res.value).not.toEqual('line-through');
           done();
         });
       });
 
-      it('does not eventually remove the item from the list', function(done) {
+      it('does not eventually remove the item from the list #ui', function(done) {
         client.waitForVisible('li#task-3', 800, function(err, isVisible) {
           expect(isVisible).toBe(true);
           done()

@@ -25,7 +25,7 @@ require(process.cwd() + '/spec/support/env.js');
  * BEGIN SUITE                                                                *
 /******************************************************************************/
 
-describe('Dashboard Home View - Visual Elements #ui', function() {
+describe('Dashboard Home View - Visual Elements', function() {
 
   /* Filters
   /****************************************************************************/
@@ -45,14 +45,14 @@ describe('Dashboard Home View - Visual Elements #ui', function() {
   });
 
   describe('view elements', function() {
-    it('displays its task panel view', function(done) {
+    it('displays its task panel view #ui', function(done) {
       client.waitForVisible('#task-panel', function(err, isVisible) {
         expect(isVisible).toBe(true);
         done();
       });
     });
 
-    it('displays its top widget view', function(done) {
+    it('displays its top widget view #ui', function(done) {
       client.waitForVisible('#dashboard-top-widgets', function(err, isVisible) {
         expect(isVisible).toBe(true);
         done();

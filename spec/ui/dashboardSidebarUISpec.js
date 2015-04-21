@@ -5,7 +5,7 @@ require(process.cwd() + '/spec/support/env.js');
 var context  = describe,
     fcontext = fdescribe;
 
-describe('Dashboard Sidebar View #ui', function() {
+describe('Dashboard Sidebar View', function() {
   beforeAll(function(done) {
     jasmine.addMatchers(require('jasmine-jquery-matchers'));
     client.init().url('http://localhost/#dashboardSidebarViewSpec');
@@ -23,7 +23,7 @@ describe('Dashboard Sidebar View #ui', function() {
   });
 
   describe('elements', function() {
-    it('does not display second-level navs by default #dashboardSidebar', function(done) {
+    it('does not display second-level navs by default #dashboardSidebar #ui', function(done) {
       client.waitForVisible('#side-menu > li > ul.nav-second-level', function(err, isVisible) {
         expect(isVisible).toBe(false);
         done();
@@ -38,7 +38,7 @@ describe('Dashboard Sidebar View #ui', function() {
               .click('a[data-method=toggleSecondLevelNav]', done);
       });
 
-      it('expands the second-level nav #dashboardSidebar', function(done) {
+      it('expands the second-level nav #dashboardSidebar #ui', function(done) {
         client.isVisible('#side-menu li:nth-child(7)', function(err, isVisible) {
           expect(isVisible).toBe(true);
           done();
@@ -66,7 +66,7 @@ describe('Dashboard Sidebar View #ui', function() {
               .waitForVisible('#side-menu li.active', done);
       });
 
-      it('expands the second-level nav #dashboardSidebar', function(done) {
+      it('expands the second-level nav #dashboardSidebar #ui', function(done) {
         client.click('a[data-method=toggleSecondLevelNav]')
               .isVisible('#side-menu > li:nth-child(5) .nav-second-level', function(err, isVisible) {
 
@@ -75,7 +75,7 @@ describe('Dashboard Sidebar View #ui', function() {
         });
       });
 
-      it('hides the other open second-level menu #dashboardSidebar', function(done) {
+      it('hides the other open second-level menu #dashboardSidebar #ui', function(done) {
         client.click('a[data-method=toggleSecondLevelNav]')
               .waitForVisible('//ul[@id="side-menu"]/li[last()]/ul[@class="nav-second-level"]', function(err, isVisible) {
                 
@@ -93,7 +93,7 @@ describe('Dashboard Sidebar View #ui', function() {
               .click('a[data-method=toggleSecondLevelNav]', done);
       });
 
-      it('hides the target\'s menu', function(done) {
+      it('hides the target\'s menu  #ui', function(done) {
         client.waitForVisible('#side-menu li:nth-child(7) > .nav-second-level', true, function(err, isVisible) {
           expect(isVisible).toBe(false);
           done();
@@ -106,7 +106,7 @@ describe('Dashboard Sidebar View #ui', function() {
 
     // Verify that the test apparatus is working as intended
 
-    it('shows the last second-level nav #dashboardSidebar', function(done) {
+    it('shows the last second-level nav #dashboardSidebar #ui', function(done) {
       client.waitForVisible('a[data-method=showLastNav]')
             .click('a[data-method=showLastNav]')
             .waitForVisible('#side-menu li.active')

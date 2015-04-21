@@ -28,7 +28,7 @@ var context  = describe,
  * BEGIN SUITE                                                                *
 /******************************************************************************/
 
-describe('Homepage View - Visual Elements #ui', function() {
+describe('Homepage View - Visual Elements', function() {
 
   /* Filters
   /****************************************************************************/
@@ -52,42 +52,42 @@ describe('Homepage View - Visual Elements #ui', function() {
   /****************************************************************************/
 
   describe('view elements', function() {
-    it('displays its top nav', function(done) {
+    it('displays its top nav #ui', function(done) {
       client.waitForVisible('#navbar-top', function(err, isVisible) {
         expect(isVisible).toBe(true);
         done();
       });
     });
 
-    it('displays a link to log in', function(done) {
+    it('displays a link to log in #ui', function(done) {
       client.waitForVisible('#navbar-top .login-link', function(err, isVisible) {
         expect(isVisible).toBe(true);
         done();
       });
     });
 
-    it('displays a registration form', function(done) {
+    it('displays a registration form #ui', function(done) {
       client.waitForVisible('form#registration-form', function(err, isVisible) {
         expect(isVisible).toBe(true);
         done();
       });
     });
 
-    it('displays a features section', function(done) {
+    it('displays a features section #ui', function(done) {
       client.waitForVisible('#view section#features', function(err, isVisible) {
         expect(isVisible).toBe(true);
         done();
       });
     });
 
-    it('displays contact information', function(done) {
+    it('displays contact information #ui', function(done) {
       client.waitForVisible('#view #contact-us', function(err, isVisible) {
         expect(isVisible).toBe(true);
         done();
       });
     });
 
-    describe('login form', function() {
+    describe('login form #ui', function() {
       it('is hidden by default', function(done) {
         client.waitForVisible('#login-form', true, function(err, isVisible) {
           expect(isVisible).toBe(false);
@@ -108,7 +108,7 @@ describe('Homepage View - Visual Elements #ui', function() {
               .waitForVisible('#view #login-form', done);
       });
 
-      it('hides the login form', function(done) {
+      it('hides the login form #ui', function(done) {
         client.click('#triggers a[data-method=hideLoginForm]')
               .waitForVisible('#view #login-form', true, function(err, isVisible) {
 
@@ -126,7 +126,7 @@ describe('Homepage View - Visual Elements #ui', function() {
                 .waitForVisible('#view #login-form', true, done)
         });
 
-        it('displays the login form', function(done) {
+        it('displays the login form #ui', function(done) {
           client.click('#triggers a[data-method=toggleLoginForm]')
                 .waitForVisible('#view #login-form', function(err, isVisible) {
             expect(isVisible).toBe(true);
@@ -134,7 +134,7 @@ describe('Homepage View - Visual Elements #ui', function() {
           });
         });
 
-        it('hides the center text', function(done) {
+        it('hides the center text #ui', function(done) {
           client.click('#triggers a[data-method=toggleLoginForm]')
                 .waitForVisible('#view div.text-vertical-center > *', true, function(err, isVisible) {
             expect(isVisible).toBe(false);
@@ -150,7 +150,7 @@ describe('Homepage View - Visual Elements #ui', function() {
                 .waitForVisible('#view #login-form', done);
         });
 
-        it('hides the login form', function(done) {
+        it('hides the login form #ui', function(done) {
           client.waitForVisible('#triggers a[data-method=toggleLoginForm]')
                 .click('#triggers a[data-method=toggleLoginForm]')
                 .waitForVisible('#view #login-form', true, function(err, isVisible) {
@@ -160,7 +160,7 @@ describe('Homepage View - Visual Elements #ui', function() {
           });
         });
 
-        it('shows the center text', function(done) {
+        it('shows the center text #ui', function(done) {
           client.waitForVisible('#triggers a[data-method=toggleLoginForm]')
                 .click('#triggers a[data-method=toggleLoginForm]')
                 .waitForVisible('#view div.text-vertical-center > *', function(err, isVisible) {

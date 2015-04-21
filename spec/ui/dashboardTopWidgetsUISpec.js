@@ -16,7 +16,7 @@ var matchers = require('jasmine-jquery-matchers'),
  *                                                                          *  
 /****************************************************************************/
 
-describe('Dashboard Top Widgets View #ui', function() {
+describe('Dashboard Top Widgets View', function() {
 
   /* Filters
   /***********************************************************************/
@@ -36,7 +36,7 @@ describe('Dashboard Top Widgets View #ui', function() {
 
   describe('view elements', function() {
     describe('task widget', function() {
-      it('is visible by default', function(done) {
+      it('is visible by default #ui', function(done) {
         client.waitForVisible('#dashboard-top-widgets div[data-name=tasks]', function(err, isVisible) {
           expect(isVisible).toBe(true);
           done();
@@ -45,7 +45,7 @@ describe('Dashboard Top Widgets View #ui', function() {
     });
 
     describe('deadline widget', function() {
-      it('is visible by default', function(done) {
+      it('is visible by default #ui', function(done) {
         client.waitForVisible('#dashboard-top-widgets div[data-name=deadlines]', function(err, isVisible) {
           expect(isVisible).toBe(true);
           done();
@@ -54,7 +54,7 @@ describe('Dashboard Top Widgets View #ui', function() {
     });
 
     describe('appointment widget', function() {
-      it('is visible by default', function(done) {
+      it('is visible by default #ui', function(done) {
         client.waitForVisible('#dashboard-top-widgets div[data-name=appointments]', function(err, isVisible) {
           expect(isVisible).toBe(true);
           done();
@@ -63,7 +63,7 @@ describe('Dashboard Top Widgets View #ui', function() {
     });
 
     describe('recommendation widget', function() {
-      it('is visible by default', function(done) {
+      it('is visible by default #ui', function(done) {
         client.waitForVisible('#dashboard-top-widgets div[data-name=recommendations]', function(err, isVisible) {
           expect(isVisible).toBe(true);
           done();

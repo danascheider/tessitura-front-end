@@ -5,7 +5,7 @@ require(process.cwd() + '/spec/support/env.js');
 var context  = describe,
     fcontext = fdescribe;
 
-describe('Dashboard View #ui', function() {
+describe('Dashboard View', function() {
   beforeAll(function(done) {
     jasmine.addMatchers(require('jasmine-jquery-matchers'));
     client.init().url('http://localhost/#dashboardViewSpec', done);
@@ -21,14 +21,14 @@ describe('Dashboard View #ui', function() {
   });
 
   describe('elements', function() {
-    it('does not display dropdowns by default', function(done) {
+    it('does not display dropdowns by default #ui', function(done) {
       client.waitForVisible('#dashboard-wrapper ul.dropdown-menu', function(err, isVisible) {
         expect(isVisible).toBe(false);
         done();
       });
     });
 
-    it('displays dropdown menus whose parents have class .open', function(done) {
+    it('displays dropdown menus whose parents have class .open #ui', function(done) {
       client.waitForVisible('a[data-method=hideDropdownMenus]')
             .click('a[data-method=hideDropdownMenus]')
             .click('a[data-method=toggleDropdownMenu]')
@@ -39,7 +39,7 @@ describe('Dashboard View #ui', function() {
       });
     });
 
-    it('doesn\'t display its sidebar menu by default', function(done) {
+    it('doesn\'t display its sidebar menu by default #ui', function(done) {
       client.waitForVisible('#side-menu', true, function(err, isVisible) {
         expect(isVisible).toBe(false);
         done();
@@ -58,7 +58,7 @@ describe('Dashboard View #ui', function() {
         });
 
         it('runs the before filter', function() {
-          //
+          pending('Figure out how to test this');
         });
       });
 
@@ -68,7 +68,7 @@ describe('Dashboard View #ui', function() {
     });
 
     describe('hideSidebar()', function() {
-      it('hides the sidebar', function(done) {
+      it('hides the sidebar #ui', function(done) {
         client.waitForVisible('a[data-method=showSidebar]')
               .click('a[data-method=showSidebar]')
               .waitForVisible('#side-menu')
