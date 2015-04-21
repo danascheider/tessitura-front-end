@@ -20,5 +20,5 @@ gulp.task('default', function() {
           .pipe(sourcemaps.init({loadMaps: true}))
           .pipe(uglify())
           .pipe(gulp.dest('./barista.min.js'))
-          .pipe(fs.createReadStream('./lib/barista.min.js').pipe(fs.createWriteStream('./example/vendor/barista.min.js')));
+          .pipe(fs.createReadStream('./lib/barista.min.js').pipe(fs.createWriteStream('./barista.min.js')));
 });
