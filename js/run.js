@@ -1,4 +1,6 @@
 require('./canto.js');
 
-global.Router = new Canto.TestRouter();
+var test = require('./apiOptions.js').test;
+
+global.Router = test ? new Canto.TestRouter() : new Canto.Router();
 Backbone.history.start();
