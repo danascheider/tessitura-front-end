@@ -4,7 +4,7 @@
 require('../../vendor/backbone-route-filter.js');
 
 /******************************************************************************
- * CANTO ROUTER SPEC                                                          *
+ * CANTO ROUTER                                                               *
 /******************************************************************************/
 
 Canto.Router = Backbone.Router.extend({
@@ -98,6 +98,7 @@ Canto.Router = Backbone.Router.extend({
   },
 
   displayHomepage: function() {
+    console.log('Displaying the homepage');
     this.DashboardPresenter.removeAll();
     this.AppPresenter.getHomepage();
   },
@@ -109,14 +110,16 @@ Canto.Router = Backbone.Router.extend({
   },
 
   rerouteIfLoggedIn: function(fragment, args, next) {
-    if ($.cookie('auth')) {
+    if ($.cookie('auth') && $.cookie('userID')) {
       this.AppPresenter.removeAll();
       this.navigate('dashboard', {trigger: true});
+    } else {
+      next();
     }
   },
 
   verifyLoggedIn: function(fragment, args, next) {
-    if (!$.cookie('auth')) {
+    if (!($.cookie('auth') && $.cookie('userID'))) {
       this.navigate('');
     }
   }
