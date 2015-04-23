@@ -31,3 +31,9 @@ Then(/^the '(.*)' cookie should have value '(.*)'$/) do |name, value|
   cookie = page.driver.browser.manage.all_cookies.find {|cookie| cookie[:name] == name }
   expect(cookie[:value]).to eq(value)
 end
+
+Then(/^the cookies should expire in (\d+) days$/) do |num|
+  num = num.to_i
+  exp = page.driver.browser.manage.all_cookies.map {|c| c[:expires].to_date - Date.today }
+  expect(exp).to eq(Array.new(exp.length, num))
+end
