@@ -31,9 +31,18 @@ Then(/^I should see my dashboard$/) do
   expect(find '#dashboard-wrapper').to be_truthy
 end
 
+Then(/^I should not see the dashboard$/) do 
+  expect(page).not_to have_selector('#dashboard-wrapper')
+end
+
 Then(/^the '(.*)' cookie should have value '(.*)'$/) do |name, value|
   cookie = page.driver.browser.manage.all_cookies.find {|cookie| cookie[:name] == name }
   expect(cookie[:value]).to eq(value)
+end
+
+Then(/^the '(.*)' cookie should not be set$/) do |name|
+  cookie = page.driver.browser.manage.all_cookies.find {|cookie| cookie[:name] == name }
+  expect(cookie).to be nil
 end
 
 Then(/^the cookies should expire in (\d+) days$/) do |num|

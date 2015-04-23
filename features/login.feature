@@ -19,6 +19,15 @@ Feature: User login
     # Then I should not see the '#shade' element
     # And I should not see the '#login-form' element
 
+  Scenario: Unsuccessful login attempt
+    When I click the login link
+    And I fill in the 'Username' field with 'baddymcbadster'
+    And I fill in the 'Password' field with 'mynameisbaddymcbadster2'
+    And I submit the form
+    Then the 'userID' cookie should not be set
+    And the 'auth' cookie should not be set 
+    And I should not see the dashboard
+
   Scenario Outline: Logging in
     When I click the login link
     And I fill in the 'Username' field with 'testuser'
