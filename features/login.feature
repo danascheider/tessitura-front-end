@@ -25,7 +25,7 @@ Feature: User login
     And I fill in the 'Password' field with 'testuser'
     And I check the 'Remember Me' checkbox
     And I submit the form
-    Then I should see my dashboard
-    And the 'userID' cookie should have value 342
-    And the 'auth' cookie should have value 'dGVzdHVzZXI6dGVzdHVzZXI='
+    # Then I should see my dashboard
+    And the 'userID' cookie should have value '342'
+    And the 'auth' cookie should have value 'dGVzdHVzZXI6dGVzdHVzZXI%3D'
     And the cookies should expire in 365 days
