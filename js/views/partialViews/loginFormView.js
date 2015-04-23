@@ -65,7 +65,6 @@ var LoginFormView = Canto.View.extend({
     var user = new Canto.UserModel({username: loginInfo.username, password: loginInfo.password});
 
     user.login({
-      async      : false,
       success    : function(model) {
         loginInfo.remember ? $.cookie('auth', hash, {expires: 365}) : $.cookie('auth', hash);
         loginInfo.remember ? $.cookie('userID', user.id, {expires: 365}) : $. cookie('userID', user.get('id'));

@@ -98,7 +98,6 @@ Canto.Router = Backbone.Router.extend({
   },
 
   displayHomepage: function() {
-    console.log('Displaying the homepage');
     this.DashboardPresenter.removeAll();
     this.AppPresenter.getHomepage();
   },
@@ -119,8 +118,10 @@ Canto.Router = Backbone.Router.extend({
   },
 
   verifyLoggedIn: function(fragment, args, next) {
-    if (!($.cookie('auth') && $.cookie('userID'))) {
-      this.navigate('');
+    if($.cookie('auth') && $.cookie('userID')) { 
+      next(); 
+    } else {
+      this.navigate('/');
     }
   }
 });

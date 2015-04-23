@@ -36,6 +36,7 @@ Then(/^I should not see the dashboard$/) do
 end
 
 Then(/^the '(.*)' cookie should have value '(.*)'$/) do |name, value|
+  wait_for_ajax
   cookie = page.driver.browser.manage.all_cookies.find {|cookie| cookie[:name] == name }
   expect(cookie[:value]).to eq(value)
 end

@@ -45,11 +45,14 @@ var DashboardPresenter = Canto.Model.extend({
     this.user = user;
     this.user.tasks = user.tasks || new Canto.TaskCollection();
 
-    this.user.protectedFetch({async: false});
-    this.user.tasks.fetch({
-      success: function(collection) {
-        that.dashboardView.setUser(user);
-        if(callback) { callback(collection); }
+    this.user.protectedFetch({
+      success: function() {
+        that.user.tasks.fetch({
+          success: function(collection) {
+            that.dashboardView.setUser(user);
+            if(callback) { callback(collection); }
+          }
+        });
       }
     });
   },
