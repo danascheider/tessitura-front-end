@@ -19,13 +19,18 @@ Feature: User login
     # Then I should not see the '#shade' element
     # And I should not see the '#login-form' element
 
-  Scenario: Logging in with 'Remember Me' true
+  Scenario Outline: Logging in
     When I click the login link
     And I fill in the 'Username' field with 'testuser'
     And I fill in the 'Password' field with 'testuser'
-    And I check the 'Remember Me' checkbox
+    And I <action> the 'Remember Me' checkbox
     And I submit the form
-    # Then I should see my dashboard
-    And the 'userID' cookie should have value '342'
+    Then the 'userID' cookie should have value '342'
     And the 'auth' cookie should have value 'dGVzdHVzZXI6dGVzdHVzZXI%3D'
-    And the cookies should expire in 365 days
+    And the cookies should <expectation>
+    And I should see my dashboard
+
+      Examples:
+      | action  | expectation        |
+      | check   | expire in 365 days |
+      | uncheck | be session cookies |

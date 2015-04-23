@@ -7,7 +7,11 @@ When(/^I double-click the '(.*)' element$/) do |selector|
 end
 
 When(/^I check the 'Remember Me' checkbox$/) do 
-  check('Remember Me')
+  check 'Remember Me'
+end
+
+When(/^I uncheck the 'Remember Me' checkbox$/) do 
+  uncheck 'Remember Me'
 end
 
 When(/^I fill in the '(.*)' field with '(.*)'$/) do |field, value|
@@ -36,4 +40,9 @@ Then(/^the cookies should expire in (\d+) days$/) do |num|
   num = num.to_i
   exp = page.driver.browser.manage.all_cookies.map {|c| c[:expires].to_date - Date.today }
   expect(exp).to eq(Array.new(exp.length, num))
+end
+
+Then(/^the cookies should be session cookies$/) do 
+  vals = page.driver.browser.manage.all_cookies.map {|c| c[:expires] }
+  expect(vals).to eq(Array.new(vals.length, nil))
 end
