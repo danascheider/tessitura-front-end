@@ -1,5 +1,5 @@
 When(/^I double-click the '(.*)' element$/) do |selector|
-  find(selector).double_click
+  page.evaluate_script("\$\('#{selector}'\).dblclick\(\)")
 end
 
 When(/^I fill in the '(.*)' field with '(.*)'$/) do |field, value|

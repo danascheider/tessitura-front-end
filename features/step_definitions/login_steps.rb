@@ -30,7 +30,7 @@ When(/^I submit the login form$/) do
 end
 
 Then(/^I should (not )?see the '(.*)' element$/) do |neg, selector|
-  if neg then expect(page).not_to have_selector(selector, visible: true) 
+  if neg then expect(page).not_to have_css(selector) 
   else expect(page).to have_selector(selector, visible: true); end
 end
 

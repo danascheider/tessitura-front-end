@@ -16,14 +16,14 @@ Feature: User login
   Scenario: Hiding the login form
     When I click the login link
     And I double-click the '#shade' element
-    # Then I should not see the '#shade' element
-    # And I should not see the '#login-form' element
+    Then I should not see the '#shade' element
+    And I should not see the '#login-form' element
 
   Scenario: Unsuccessful login attempt
     When I log in with invalid credentials
     Then the 'userID' cookie should not be set
     And the 'auth' cookie should not be set 
-    And I should not see the dashboard
+    And I should not see the '#dashboard-wrapper' element
 
   Scenario Outline: Logging in
     When I log in with 'Remember Me' <value>
