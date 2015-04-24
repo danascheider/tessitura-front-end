@@ -1,5 +1,5 @@
 Given(/^I am not logged in$/) do 
-  page.driver.browser.manage.delete_all_cookies
+  visit('/#logout')
 end
 
 Given(/^I am logged in$/) do 

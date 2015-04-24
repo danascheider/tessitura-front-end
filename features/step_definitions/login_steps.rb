@@ -23,8 +23,9 @@ When(/^I submit the form$/) do
 end
 
 Then(/^I should (not )?see the '(.*)' element$/) do |neg, selector|
+  save_screenshot('screenshot.png')
   if neg then expect(page).not_to have_selector(selector, visible: true) 
-  else expect(find(selector)).to be_visible; end
+  else expect(page).to have_selector(selector, visible: true); end
 end
 
 Then(/^I should see my dashboard$/) do 

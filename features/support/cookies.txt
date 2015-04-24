@@ -1,9 +1,0 @@
-phantom.addCookie({
-  name: 'userID',
-  value: 342
-});
-
-phantom.addCookie({
-  name: 'auth',
-  value: 'dGVzdHVzZXI6dGVzdHVzZXI='
-});
