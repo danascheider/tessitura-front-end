@@ -20,26 +20,19 @@ Feature: User login
     # And I should not see the '#login-form' element
 
   Scenario: Unsuccessful login attempt
-    When I click the login link
-    And I fill in the 'Username' field with 'baddymcbadster'
-    And I fill in the 'Password' field with 'mynameisbaddymcbadster2'
-    And I submit the form
+    When I log in with invalid credentials
     Then the 'userID' cookie should not be set
     And the 'auth' cookie should not be set 
     And I should not see the dashboard
 
   Scenario Outline: Logging in
-    When I click the login link
-    And I fill in the 'Username' field with 'testuser'
-    And I fill in the 'Password' field with 'testuser'
-    And I <action> the 'Remember Me' checkbox
-    And I submit the form
+    When I log in with 'Remember Me' <value>
     Then the 'userID' cookie should have value '342'
     And the 'auth' cookie should have value 'dGVzdHVzZXI6dGVzdHVzZXI%3D'
     And the cookies should <expectation>
     And I should see my dashboard
 
       Examples:
-      | action  | expectation        |
-      | check   | expire in 365 days |
-      | uncheck | be session cookies |
+      | value | expectation        |
+      | true  | expire in 365 days |
+      | false | be session cookies |

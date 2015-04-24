@@ -2,8 +2,19 @@ When(/^I click the login link$/) do
   find('#navbar-top a.login-link').click
 end
 
-When(/^I double-click the '(.*)' element$/) do |selector|
-  find(selector).double_click
+When(/^I log in with 'Remember Me' (true|false)/) do |bool|
+  step "I click the login link"
+  step "I fill in the 'Username' field with 'testuser'"
+  step "I fill in the 'Password' field with 'testuser'"
+  step bool === 'true' ? "I check the 'Remember Me' checkbox" : "I uncheck the 'Remember Me' checkbox"
+  step "I submit the login form"
+end
+
+When(/^I log in with invalid credentials$/) do 
+  step "I click the login link"
+  step "I fill in the 'Username' field with 'baddymcbadster'"
+  step "I fill in the 'Password' field with 'iambaddy222'"
+  step "I submit the login form"
 end
 
 When(/^I check the 'Remember Me' checkbox$/) do 
@@ -14,16 +25,11 @@ When(/^I uncheck the 'Remember Me' checkbox$/) do
   uncheck 'Remember Me'
 end
 
-When(/^I fill in the '(.*)' field with '(.*)'$/) do |field, value|
-  fill_in field, with: value
-end
-
-When(/^I submit the form$/) do 
+When(/^I submit the login form$/) do 
   click_button 'Login'
 end
 
 Then(/^I should (not )?see the '(.*)' element$/) do |neg, selector|
-  save_screenshot('screenshot.png')
   if neg then expect(page).not_to have_selector(selector, visible: true) 
   else expect(page).to have_selector(selector, visible: true); end
 end
