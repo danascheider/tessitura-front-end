@@ -45,10 +45,24 @@ var DashboardPresenter = Canto.Model.extend({
     this.user = user;
     this.user.tasks = user.tasks || new Canto.TaskCollection();
 
+    // Fetch the user using stored credentials
+
     this.user.protectedFetch({
       success: function() {
+
+        // Once the user has been fetched successfully, send a request for their
+        // task collection this works if the initial request for the user is 
+        // unsuccessful, causing this to act more like a sequence of synchronous 
+        // fetches, which Chrome has informed me is "deprecated" due to "user experience".
+
         that.user.tasks.fetch({
           success: function(collection) {
+
+            // When the user and their tasks have been fetched successfully, then set
+            // user on the dashboard view. At this point, if any callback has been passed
+            // to the setUser function, it will be executed with the task collection as
+            // an argument.
+
             that.dashboardView.setUser(user);
             if(callback) { callback(collection); }
           }
