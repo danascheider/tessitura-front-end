@@ -1,5 +1,5 @@
-var options = require('./apiOptions.js');
-var BaseURL = options.test === true ? 'http://private-6f87dc-canto.apiary-mock.com' : 'http://localhost:9292';
+var test    = require('./apiOptions.js').useTestAPI;
+var BaseURL = test ? 'http://private-6f87dc-canto.apiary-mock.com' : 'http://localhost:9292';
 
 var API = {
   base  : BaseURL,

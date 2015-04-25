@@ -1,5 +1,6 @@
 var opts = {
-  test: false
+  test      : false,
+  useTestAPI: true
 };
 
 module.exports = opts;
