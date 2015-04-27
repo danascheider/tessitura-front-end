@@ -29,11 +29,6 @@ When(/^I submit the login form$/) do
   click_button 'Login'
 end
 
-Then(/^I should (not )?see the '(.*)' element$/) do |neg, selector|
-  if neg then expect(page).not_to have_css(selector) 
-  else expect(page).to have_selector(selector, visible: true); end
-end
-
 Then(/^I should see my dashboard$/) do 
   expect(find '#dashboard-wrapper').to be_truthy
 end
