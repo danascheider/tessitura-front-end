@@ -8,5 +8,6 @@ group :test do
   gem 'capybara',           '~> 2.4.4'
   gem 'capybara-webkit',    '~> 1.4.1'
   gem 'rspec-expectations', '~> 3.2.0'
+  gem 'rspec-mocks',        '~> 3.2.1'
   gem 'selenium-webdriver', '~> 2.44.0'
 end
