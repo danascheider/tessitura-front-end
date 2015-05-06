@@ -65,6 +65,7 @@ Canto.Router = Backbone.Router.extend({
     'dashboard(/)'   : 'displayDashboardHome',
     'tasks(/)'       : 'displayDashboardTaskView',
     'logout(/)'      : 'logOut',
+    'prepare(/)'     : 'prepareTestEnvironment',
     '*actions'       : 'defaultAction'
   },
 
@@ -106,6 +107,13 @@ Canto.Router = Backbone.Router.extend({
     $.removeCookie('auth');
     $.removeCookie('userID');
     this.navigate('', {trigger: true});
+  },
+
+  prepareTestEnvironment: function() {
+    $.ajax({
+      type: 'POST'
+      url: 'http://api.canto-test.com:3000/test/prepare'
+    });
   },
 
   rerouteIfLoggedIn: function(fragment, args, next) {

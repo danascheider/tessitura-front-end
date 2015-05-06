@@ -1,8 +1,8 @@
 {
   "name"        : "Canto",
   "version"     : "0.1.0",
-  "repository"  : "https://github.com/danascheider/sandbox",
-  "description" : "Just random projects I'm working on",
+  "repository"  : "https://github.com/danascheider/canto-front-end",
+  "description" : "Career management app for classical singers",
   "scripts"     : {
     "test" : "jasmine"
   },

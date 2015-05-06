@@ -10,4 +10,5 @@ group :test do
   gem 'rspec-expectations', '~> 3.2.0'
   gem 'rspec-mocks',        '~> 3.2.1'
   gem 'selenium-webdriver', '~> 2.44.0'
+  gem 'rack-test',          '~> 0.6.2'
 end
