@@ -111,7 +111,7 @@ Canto.Router = Backbone.Router.extend({
 
   prepareTestEnvironment: function() {
     $.ajax({
-      type: 'POST'
+      type: 'POST',
       url: 'http://api.canto-test.com:3000/test/prepare'
     });
   },
