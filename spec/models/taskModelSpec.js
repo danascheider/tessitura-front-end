@@ -11,7 +11,7 @@ describe('Task Model', function() {
   beforeEach(function() {
     task = new Canto.TaskModel({id: 1, title: 'My Task'});
     var cookie = spyOn($, 'cookie').and.callFake(function(name) {
-      return name === 'userID' ? 342 : 'Basic ' + btoa('testuser:testuser');
+      return name === 'userID' ? 1 : 'Basic ' + btoa('testuser:testuser');
     });
     
     spyOn($, 'ajax');
@@ -23,7 +23,7 @@ describe('Task Model', function() {
     
   describe('properties', function() {
     it('has a `urlRoot` scoped to the logged in user #model #travis', function() {
-      expect(task.urlRoot()).toEqual(Canto.API.base + '/users/342/tasks');
+      expect(task.urlRoot()).toEqual(Canto.API.base + '/users/1/tasks');
     });
 
     it('has an individual `url` not scoped to the logged in user #model #travis', function() {

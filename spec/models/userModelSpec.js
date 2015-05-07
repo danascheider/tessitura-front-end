@@ -11,7 +11,7 @@ describe('User Model', function() {
   var user, newUser, xhr, newUser;
 
   beforeEach(function() {
-    user = new Canto.UserModel({id: 342, username: 'testuser', password: 'testuser', email: 'testuser@example.com', first_name: 'Test', last_name: 'User'});
+    user = new Canto.UserModel({id: 1, username: 'testuser', password: 'testuser', email: 'testuser@example.com', first_name: 'Test', last_name: 'User'});
     xhr = new XMLHttpRequest();
   });
 
@@ -159,7 +159,7 @@ describe('User Model', function() {
 
       it('sends the request to the requested user\'s endpoint #model #travis', function() {
         user.protectedFetch();
-        expect($.ajax.calls.argsFor(0)[0].url).toEqual(Canto.API.base + '/users/342');
+        expect($.ajax.calls.argsFor(0)[0].url).toEqual(Canto.API.base + '/users/1');
       });
     });
   });
