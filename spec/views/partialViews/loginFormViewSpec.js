@@ -217,7 +217,7 @@ describe('Login Form View', function() {
 
         context('successful login', function() {
           beforeEach(function() {
-            user = new Canto.UserModel({id: 342, username: 'testuser', password: 'testuser'});
+            user = new Canto.UserModel({id: 1, username: 'testuser', password: 'testuser'});
             spyOn($, 'ajax').and.callFake(function(args) {
               args.success(user);
             });
@@ -236,7 +236,7 @@ describe('Login Form View', function() {
             });
 
             it('sets the userID cookie for 365 days #partialView #view #travis', function() {
-              expect($.cookie).toHaveBeenCalledWith('userID', 342, {expires: 365});
+              expect($.cookie).toHaveBeenCalledWith('userID', 1, {expires: 365});
             });
 
             it('triggers the `userLoggedIn` event #partialView #view #travis', function(done) {
@@ -261,7 +261,7 @@ describe('Login Form View', function() {
             });
 
             it('sets the userID cookie as a session cookie #partialView #view #travis', function() {
-              expect($.cookie).toHaveBeenCalledWith('userID', 342);
+              expect($.cookie).toHaveBeenCalledWith('userID', 1);
             });
 
             it('triggers the `userLoggedIn` event #partialView #view #travis', function() {

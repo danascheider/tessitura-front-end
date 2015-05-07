@@ -24,7 +24,7 @@ describe('List Item Task View', function() {
   });
 
   beforeEach(function() { 
-    task = new Canto.TaskModel({id: 1, owner_id: 342, title: 'Task 1', status: 'New', priority: 'Low', position: 1});
+    task = new Canto.TaskModel({id: 1, owner_id: 1, title: 'Task 1', status: 'New', priority: 'Low', position: 1});
     view = new Canto.TaskListItemView({model: task}); 
   });
 

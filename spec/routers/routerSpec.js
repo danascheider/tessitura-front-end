@@ -149,7 +149,7 @@ describe('Canto Router', function() {
 
     beforeEach(function() {
       spyOn(Canto.Router.prototype, 'navigateTo');
-      user = new Canto.UserModel({username: 'testuser', password: 'testuser', id: 342});
+      user = new Canto.UserModel({username: 'testuser', password: 'testuser', id: 1});
     });
 
     afterEach(function() { user.destroy(); });
@@ -185,7 +185,7 @@ describe('Canto Router', function() {
 
       context('when passed a user model', function() {
         beforeEach(function() {
-          user = new Canto.UserModel({username: 'testuser', password: 'testuser', id: 342});
+          user = new Canto.UserModel({username: 'testuser', password: 'testuser', id: 1});
           spyOn(router.DashboardPresenter, 'setUser');
         });
 
@@ -208,7 +208,7 @@ describe('Canto Router', function() {
       beforeEach(function() { 
         // This was actually causing a problem
         spyOn(router.DashboardPresenter.dashboardView.homeView, 'setUser');
-        spyOn($, 'cookie').and.returnValue(342);
+        spyOn($, 'cookie').and.returnValue(1);
         spyOn($, 'ajax').and.callFake(function(args) {
           args.success && args.success();
         });

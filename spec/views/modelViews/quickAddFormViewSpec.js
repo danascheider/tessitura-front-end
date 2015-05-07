@@ -15,9 +15,9 @@ describe('Quick-Add Task Form', function() {
   });
 
   beforeEach(function() {
-    task1 = new Canto.TaskModel({id: 1, owner_id: 342, title: 'Task 1', status: 'Blocking', priority: 'Low', position: 1});
-    task2 = new Canto.TaskModel({id: 2, owner_id: 342, title: 'Task 2', status: 'Blocking', priority: 'Normal', position: 2});
-    task3 = new Canto.TaskModel({id: 3, owner_id: 342, title: 'Task 3', status: 'Blocking', priority: 'Normal', position: 3});
+    task1 = new Canto.TaskModel({id: 1, owner_id: 1, title: 'Task 1', status: 'Blocking', priority: 'Low', position: 1});
+    task2 = new Canto.TaskModel({id: 2, owner_id: 1, title: 'Task 2', status: 'Blocking', priority: 'Normal', position: 2});
+    task3 = new Canto.TaskModel({id: 3, owner_id: 1, title: 'Task 3', status: 'Blocking', priority: 'Normal', position: 3});
 
     collection = new Canto.TaskCollection([task1, task2, task3]);
 
@@ -153,10 +153,10 @@ describe('Quick-Add Task Form', function() {
 
         it('attaches an auth header #modelView #view #travis', function() {
           spyOn($, 'cookie').and.callFake(function(args) {
-            return args === 'userID' ? 342 : btoa('testuser:testuser');
+            return args === 'userID' ? 1 : btoa('testuser:testuser');
           });
 
-          xhr.open('POST', Canto.API.tasks.collection(342));
+          xhr.open('POST', Canto.API.tasks.collection(1));
           view.createTask(e);
           $.ajax.calls.argsFor(0)[0].beforeSend(xhr);
           expect(xhr.getRequestHeader('Authorization')).toEqual('Basic ' + btoa('testuser:testuser'));

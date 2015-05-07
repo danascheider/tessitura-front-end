@@ -48,11 +48,11 @@ describe('Kanban Column View', function() {
   });
 
   beforeEach(function() {
-    user = new Canto.UserModel({id: 342, username: 'testuser', password: 'testuser', email: 'testuser@example.com', first_name: 'Test', last_name: 'User'});
+    user = new Canto.UserModel({id: 1, username: 'testuser', password: 'testuser', email: 'testuser@example.com', first_name: 'Test', last_name: 'User'});
 
-    task1 = new Canto.TaskModel({id: 1, owner_id: 342, title: 'Task 1', status: 'New', priority: 'Low', position: 1});
-    task2 = new Canto.TaskModel({id: 2, owner_id: 342, title: 'Task 2', status: 'New', priority: 'Normal', position: 2});
-    task3 = new Canto.TaskModel({id: 3, owner_id: 342, title: 'Task 3', status: 'Complete', priority: 'Normal', position: 3});
+    task1 = new Canto.TaskModel({id: 1, owner_id: 1, title: 'Task 1', status: 'New', priority: 'Low', position: 1});
+    task2 = new Canto.TaskModel({id: 2, owner_id: 1, title: 'Task 2', status: 'New', priority: 'Normal', position: 2});
+    task3 = new Canto.TaskModel({id: 3, owner_id: 1, title: 'Task 3', status: 'Complete', priority: 'Normal', position: 3});
 
     collection = user.tasks = new Canto.TaskCollection([task1, task2, task3]);
     data = {collection: collection, color: 'blue', icon: 'fa-exclamation-circle', headline: 'New'};
@@ -172,7 +172,7 @@ describe('Kanban Column View', function() {
       it('calls updateTask #partialView #view #travis', function() {
         spyOn(Canto.KanbanColumnView.prototype, 'updateTask');
         newView = new Canto.KanbanColumnView(data);
-        var newTask = new Canto.TaskModel({id: 4, owner_id: 342, title: 'Hello World'});
+        var newTask = new Canto.TaskModel({id: 4, owner_id: 1, title: 'Hello World'});
         newView.collection.trigger('add', newTask);
         expect(Canto.KanbanColumnView.prototype.updateTask).toHaveBeenCalled();
       });

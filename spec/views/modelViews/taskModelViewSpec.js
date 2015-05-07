@@ -15,10 +15,10 @@ describe('Task Model View', function() {
 
   beforeEach(function() {
     spyOn($, 'cookie').and.callFake(function(name) {
-      return name === 'userID' ? 342 : btoa('testuser:testuser');
+      return name === 'userID' ? 1 : btoa('testuser:testuser');
     });
   
-    task = new Canto.TaskModel({id: 1, owner_id: 342, title: 'Task 1', status: 'New', priority: 'Low', position: 1});
+    task = new Canto.TaskModel({id: 1, owner_id: 1, title: 'Task 1', status: 'New', priority: 'Low', position: 1});
     view = new Canto.TaskModelView({model: task});
   });
 

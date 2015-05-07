@@ -137,7 +137,7 @@ describe('Canto Homepage View', function() {
       beforeEach(function() {
         spy = jasmine.createSpy();
         view.on('redirect', spy);
-        user = new Canto.UserModel({id: 342, username: 'testuser', password: 'testuser'});
+        user = new Canto.UserModel({id: 1, username: 'testuser', password: 'testuser'});
         e = {user: user};
       });
 
