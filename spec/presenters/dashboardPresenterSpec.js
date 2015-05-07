@@ -27,7 +27,7 @@ describe('Dashboard Presenter', function() {
   });
 
   beforeEach(function() {
-    user      = new Canto.UserModel({id: 342, username: 'testuser', password: 'testuser', email: 'testuser@example.com', first_name: 'Test', last_name: 'User'});
+    user      = new Canto.UserModel({id: 1, username: 'testuser', password: 'testuser', email: 'testuser@example.com', first_name: 'Test', last_name: 'User'});
     presenter = new Canto.DashboardPresenter({user: user});
   });
 

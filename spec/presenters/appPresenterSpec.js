@@ -90,7 +90,7 @@ describe('App Presenter', function() {
       beforeEach(function() {
         spy = jasmine.createSpy();
         presenter.on('redirect', spy);
-        user = new Canto.UserModel({username: 'testuser', password: 'testuser', id: 342});
+        user = new Canto.UserModel({username: 'testuser', password: 'testuser', id: 1});
       });
 
       afterEach(function() { 
