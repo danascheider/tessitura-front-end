@@ -10,12 +10,12 @@ describe('Task Collection', function() {
   var collection, task1, task2, task3
 
   beforeEach(function() {
-    task1 = new Canto.TaskModel({title: 'New Task', owner_id: 342});
-    task2 = new Canto.TaskModel({title: 'New Task', owner_id: 342});
-    task3 = new Canto.TaskModel({title: 'New Task', owner_id: 342});
+    task1 = new Canto.TaskModel({title: 'New Task', owner_id: 1});
+    task2 = new Canto.TaskModel({title: 'New Task', owner_id: 1});
+    task3 = new Canto.TaskModel({title: 'New Task', owner_id: 1});
     collection = new Canto.TaskCollection([task1, task2, task3]);
     spyOn($, 'cookie').and.callFake(function(name) {
-      return name === 'userID' ? 342 : btoa('testuser:testuser');
+      return name === 'userID' ? 1 : btoa('testuser:testuser');
     });
   });
 
@@ -66,7 +66,7 @@ describe('Task Collection', function() {
 
   describe('URL', function() {
     it('gets the URL for the logged-in user #collection #travis', function() {
-      expect(collection.url()).toEqual(Canto.API.base + '/users/342/tasks');
+      expect(collection.url()).toEqual(Canto.API.base + '/users/1/tasks');
     });
   });
 
