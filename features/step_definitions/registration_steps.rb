@@ -3,7 +3,7 @@ Given(/^I am on the homepage$/) do
 end
 
 When(/^I fill out the registration form with valid data$/) do 
-  within '#registration-form' do 
-    fill_in 'Username', with: 'testuser222'
+  within '#registration-form fieldset.login-information' do 
+    fill_in 'username', with: 'testuser'
   end
 end
