@@ -1,10 +1,10 @@
-<fieldset class='login-information'>
+<fieldset class='form-group login-information'>
   <legend>Login Information</legend>
   <input class='form-control half-width' name='username' title='Username' placeholder='Username (required)'>
   <input class='form-control half-width' type='password' name='password' title='Password' placeholder='Password (required)'>
   <input class='form-control' type='email' name='email' title='E-mail Address' placeholder='E-mail (required)'>
 </fieldset>
-<fieldset class='profile-information'>
+<fieldset class='form-group profile-information'>
   <legend>Profile Information:</legend>
   <input class='form-control half-width' name='first_name' title='First Name' placeholder='First Name'>
   <input class='form-control half-width' name='last_name' title='Last Name' placeholder='Last Name'>
@@ -37,11 +37,11 @@
   <input class='form-control half-width' name='country' title='Country' placeholder='Country'>
   <input class='form-control half-width' name='city' title='City' placeholder='City'>
 </fieldset>
-<fieldset class='terms'>
+<div class='form-group terms'>
   <label>
     <input class='checkbox' type='checkbox' name='acceptTerms' value='Accept Terms'>I accept the <a href='#'>Terms of Use</a></label>
-</fieldset>
-<fieldset class='submit'>
+</div>
+<fieldset class='form-group submit'>
   <button type='submit' class='btn btn-dark half-width'>Create Account</button>
   <button type='reset' class='btn btn-dark half-width'>Clear Form</button>
 </fieldset>

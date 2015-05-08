@@ -16,22 +16,32 @@
       margin    : auto 5px
       font-size : inherit
 
-    &.terms
-      font-weight   : normal
-      display       : block
-      text-align    : left
-      margin        : 15px 10px 10px 6px 
-
-      & input[type="checkbox"]
-        position      : relative
-        vertical-align: bottom
-        margin        : 0 10px 0 0
-        top           : 1px
-
-      & label
-        padding-left: 5px
-        font-weight : normal
-
     & input
       margin            : 5px
       display           : inline-block
+
+    &.has-error
+      & input.checkbox,
+      & label > input.checkbox
+        color: #a94442
+
+  & div.terms
+    font-weight   : normal
+    display       : block
+    text-align    : left
+    vertical-align: center
+    margin        : 15px 10px 10px 6px 
+
+    & input[type="checkbox"]
+      position      : relative
+      vertical-align: center
+      margin        : 0 10px 0 0
+      top           : 1px
+      float         : left
+
+    & label
+      padding-left: 5px
+      font-weight : normal
+
+    &.has-error
+      border : 1px solid #a94442

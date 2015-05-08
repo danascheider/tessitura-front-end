@@ -42,3 +42,7 @@ end
 Then(/^the dashboard should have my name on it$/) do 
   expect(page).to have_text('New User')
 end
+
+Then(/^I should see a message that I have to accept the terms of use$/) do
+  expect(page).to have_text('Terms of use are required')
+end

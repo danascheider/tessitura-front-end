@@ -8,7 +8,8 @@ var RegistrationFormView = Canto.View.extend({
   id          : 'registration-form',
 
   events      : {
-    'submit' : 'createUser'
+    'click input[type=checkbox]' : 'removeError',
+    'submit'                     : 'createUser'
   },
 
   /* Canto View Properties
@@ -21,6 +22,11 @@ var RegistrationFormView = Canto.View.extend({
     return Canto.View.prototype.types().concat(['RegistrationFormView', 'RegistrationForm', 'FormView', 'PartialView']);
   },
 
+  /* Special Properties
+  /**************************************************************************/
+
+  reqdFields  : ['username', 'password', 'email', 'first_name', 'last_name'],
+
   /* Event Callbacks
   /**************************************************************************/
 
@@ -28,7 +34,10 @@ var RegistrationFormView = Canto.View.extend({
     e.preventDefault();
 
     var data = Canto.Utils.getAttributes(this.$el);
-    if(!this.validateForm(data)) { return; }
+
+    if(!this.validateForm(data)) { 
+      return;
+    }
 
     var user = new Canto.UserModel(),
         hash = btoa(data.username + ':' + data.password),
@@ -43,27 +52,38 @@ var RegistrationFormView = Canto.View.extend({
     });
   },
 
+  removeError : function() {
+    if(this.$('fieldset.terms').hasClass('has-error')) { this.$('fieldset.terms').removeClass('has-error'); }
+  },
+
   /* Special Functions
   /**************************************************************************/
 
   validateForm: function(data) {
-    if(!data.acceptTerms) { return false; }
+    if(!data.acceptTerms) { 
+      this.$('div.form-group.terms').addClass('has-error');
+      return false; 
+    }
+
     delete data.acceptTerms
     return this.validCreds(data.username, data.password, data.email) && this.validName(data.first_name, data.last_name);
   },
 
   /* Form Validations
   /**************************************************************************/
-  validCreds   : function(username, password, email) {
+  validCreds   : function(username, password, email)
     return this.validPassword(password) && this.validUsername(username) && this.validEmail(email) && password.indexOf(username) === -1;
   },
 
   validEmail   : function(email) {
-    return !!email.match(/(\S+)@(\S+)\.(\S+)/);
+    var valid = !!email.match(/(\S+)@(\S+)\.(\S+)/);
+    if (!valid) { this.$('input[name=email]').addClass('has-error') }
+    return valid;
   },
 
   validName    : function(first, last) {
-    return !!first.match(/^[A-Za-z' -]{2,}$/) && !!last.match(/^[A-Za-z\' -]{2,}$/);
+    var valid = !!first.match(/^[A-Za-z' -]{2,}$/) && !!last.match(/^[A-Za-z\' -]{2,}$/);
+    return valid;
   },
 
   validPassword: function(password) {
