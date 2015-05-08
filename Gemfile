@@ -11,4 +11,5 @@ group :test do
   gem 'rspec-mocks',        '~> 3.2.1'
   gem 'selenium-webdriver', '~> 2.44.0'
   gem 'rack-test',          '~> 0.6.2'
+  gem 'poltergeist',        '~> 1.6.0'
 end
