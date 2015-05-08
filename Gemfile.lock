@@ -54,8 +54,6 @@ GEM
       multi_json (~> 1.0)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
-    show_me_the_cookies (2.6.0)
-      capybara (~> 2.0)
     websocket (1.2.1)
     websocket-driver (0.5.4)
       websocket-extensions (>= 0.1.0)
@@ -77,4 +75,3 @@ DEPENDENCIES
   rspec-mocks (~> 3.2.1)
   sass (~> 3.4.13)
   selenium-webdriver (~> 2.44.0)
-  show_me_the_cookies (~> 2.6.0)
