@@ -81,7 +81,7 @@ var HomepageView = Canto.View.extend({
 
     var that = this;
 
-    this.listenTo(this.registrationForm, 'createUser', function() {
+    this.listenTo(this.registrationForm, 'userCreated', function() {
       this.trigger('redirect', {destination: 'dashboard'});
     });
 

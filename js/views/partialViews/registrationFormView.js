@@ -39,7 +39,7 @@ var RegistrationFormView = Canto.View.extend({
         $.cookie('auth', hash);
         $.cookie('userID', model.id);
         that.trigger('userCreated');
-      }
+      } 
     });
   },
 
@@ -48,12 +48,12 @@ var RegistrationFormView = Canto.View.extend({
 
   validateForm: function(data) {
     if(!data.acceptTerms) { return false; }
+    delete data.acceptTerms
     return this.validCreds(data.username, data.password, data.email) && this.validName(data.first_name, data.last_name);
   },
 
   /* Form Validations
   /**************************************************************************/
-
   validCreds   : function(username, password, email) {
     return this.validPassword(password) && this.validUsername(username) && this.validEmail(email) && password.indexOf(username) === -1;
   },
@@ -63,13 +63,14 @@ var RegistrationFormView = Canto.View.extend({
   },
 
   validName    : function(first, last) {
-    return !!first.match(/^[A-Za-z\' -]{2,}$/) && !!last.match(/^[A-Za-z\' -]{2,}$/);
+    return !!first.match(/^[A-Za-z' -]{2,}$/) && !!last.match(/^[A-Za-z\' -]{2,}$/);
   },
 
   validPassword: function(password) {
     return !!password && password.length >= 8 && !!password.match(/[A-Za-z]/) && !!password.match(/[0-9]/);
   },
 
+  // FIX: The back end requires the username to be 8 characters so one of these needs to change.
   validUsername: function(name) {
     return !!name && name.length >= 6;
   },
