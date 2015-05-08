@@ -39,22 +39,24 @@ end
 
 Then(/^the '(.*)' cookie should have value '(.*)'$/) do |name, value|
   wait_for_ajax
-  cookie = page.driver.browser.manage.all_cookies.find {|cookie| cookie[:name] == name }
-  expect(cookie[:value]).to eq(value)
+  cookies = (page.driver.cookies.select {|k,v| k === name })
+  expect(cookies[name].value).to eq (value)
 end
 
 Then(/^the '(.*)' cookie should not be set$/) do |name|
-  cookie = page.driver.browser.manage.all_cookies.find {|cookie| cookie[:name] == name }
+  cookie = (page.driver.browser.cookies.select {|c| c.name = name}).first
   expect(cookie).to be nil
 end
 
 Then(/^the cookies should expire in (\d+) days$/) do |num|
   num = num.to_i
-  exp = page.driver.browser.manage.all_cookies.map {|c| c[:expires].to_date - Date.today }
+  exp = page.driver.cookies.map {|k,v| v.expires.to_date - Date.today }
   expect(exp).to eq(Array.new(exp.length, num))
 end
 
 Then(/^the cookies should be session cookies$/) do 
-  vals = page.driver.browser.manage.all_cookies.map {|c| c[:expires] }
+  vals = page.driver.cookies.map {|k,v| v.expires }
+
+  # Session cookies do not have an ++expires++ attribute
   expect(vals).to eq(Array.new(vals.length, nil))
 end

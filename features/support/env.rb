@@ -1,5 +1,6 @@
 require 'capybara/cucumber'
 require 'capybara/webkit'
+require 'capybara/poltergeist'
 require 'rspec/expectations'
 require 'base64'
 
@@ -10,8 +11,8 @@ include WaitForAjax
 Capybara.run_server        = false
 Capybara.app_host          = 'http://localhost'
 
-Capybara.register_driver :selenium_chrome do |app|
-  Capybara::Selenium::Driver.new(app, browser: :chrome)
+Capybara.register_driver :poltergeist do |app|
+  Capybara::Poltergeist::Driver.new app
 end
 
-Capybara.javascript_driver = :selenium_chrome
+Capybara.javascript_driver = :poltergeist

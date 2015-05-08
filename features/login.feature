@@ -27,7 +27,7 @@ Feature: User login
 
   Scenario Outline: Logging in
     When I log in with 'Remember Me' <value>
-    Then the 'userID' cookie should have value '342'
+    Then the 'userID' cookie should have value '1'
     And the 'auth' cookie should have value 'dGVzdHVzZXI6dGVzdHVzZXI%3D'
     And the cookies should <expectation>
     And I should see my dashboard
