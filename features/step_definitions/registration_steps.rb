@@ -30,3 +30,7 @@ Then(/^I should be routed to my dashboard$/) do
   wait_for_ajax
   expect(find('#dashboard-wrapper')).to be_visible
 end
+
+Then(/^the dashboard should have my name on it$/) do 
+  expect(page).to have_text('New User')
+end

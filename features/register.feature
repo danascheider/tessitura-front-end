@@ -8,3 +8,4 @@ Feature: User registration
   Scenario: Valid registration
     When I submit the registration form with valid data
     Then I should be routed to my dashboard
+    And the dashboard should have my name on it
