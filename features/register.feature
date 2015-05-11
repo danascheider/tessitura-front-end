@@ -18,3 +18,17 @@ Feature: User registration
     And I submit the registration form
     Then I should not be routed to my dashboard
     And the 'terms' div should have class 'has-error'
+
+  Scenario Outline: Missing data
+    When I fill out the registration form with the <attribute> attribute blank
+    And I submit the registration form
+    Then I should not be routed to my dashboard
+    And the <attribute> <tag> should have class 'has-error'
+
+    Examples:
+      | attribute  | tag   |
+      | username   | input |
+      | password   | input |
+      | email      | input |
+      | first_name | input |
+      | last_name  | input |

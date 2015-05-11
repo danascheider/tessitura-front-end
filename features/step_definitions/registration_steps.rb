@@ -24,6 +24,14 @@ When(/^I (don't )?accept the terms of use$/) do |neg|
   end
 end
 
+When(/^I fill out the registration form with the (.*) attribute blank$/) do |attr|
+  step 'I fill out the registration form with valid data'
+
+  within '#registration-form' do 
+    fill_in attr, with: ''
+  end
+end
+
 When(/^I submit the registration form$/) do 
   within '#registration-form fieldset.submit' do 
     click_button 'Create Account'
@@ -46,4 +54,8 @@ end
 Then(/^the '(.*)' (.*) should have class '(.*)'$/) do |klass1, tag, klass2|
   selector = "#registration-form #{tag}.#{klass1}"
   expect(find(selector)['class']).to include(klass2)
+end
+
+Then(/^the (\w*) (.*) should have class '(.*)'$/) do |attr, tag, klass|
+  selector = "#registration-form #{tag}[name=#{klass}]"
 end
