@@ -3,6 +3,12 @@ Given(/^I am on my dashboard$/) do
   step 'I navigate to the dashboard'
 end
 
+Given(/^the (.*) menu is open$/) do |title|
+  within "ul.navbar-top-links" do 
+    find("li.dropdown[title=#{title}]").click
+  end
+end
+
 When(/^I click on the '(.*)' dropdown$/) do |title|
   within 'ul.navbar-top-links' do 
     selector = "li.dropdown[title=#{title}]"

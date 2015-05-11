@@ -17,3 +17,8 @@ Feature: Dashboard elements
       | Alerts   | Messages | Tasks  | User  |
       | Tasks    | Messages | Alerts | User  |
       | User     | Messages | Alerts | Tasks |
+
+  Scenario: Closure of opened menus
+    Given the 'Messages' menu is open
+    When I click on the 'Alerts' dropdown
+    Then I should not see the 'Messages' menu
