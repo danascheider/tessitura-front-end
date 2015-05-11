@@ -15,3 +15,4 @@ Feature: Navigate to the homepage
     Given I am logged in
     When I navigate to '/'
     Then I should not see the homepage
+    And I should see my dashboard
