@@ -8,6 +8,10 @@ Given(/^I am logged in$/) do
   page.driver.set_cookie('userID', 1)
 end
 
+When(/^I click on the '(.*)' element$/) do |selector|
+  find(selector).click
+end
+
 When(/^I double-click the '(.*)' element$/) do |selector|
   evaluate_script("\$\('#{selector}'\).dblclick\(\)")
 end

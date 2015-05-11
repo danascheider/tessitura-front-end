@@ -22,3 +22,8 @@ Feature: Dashboard elements
     Given the 'Messages' menu is open
     When I click on the 'Alerts' dropdown
     Then I should not see the 'Messages' menu
+
+  Scenario: Closing menu by clicking outside
+    Given the 'Messages' menu is open
+    When I click on the '#page-wrapper' element
+    Then I should not see the 'Messages' menu
