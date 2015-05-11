@@ -4,7 +4,7 @@ Feature: Dashboard home elements
   Background:
     Given I am on my dashboard
 
-  # This data refers to the user object hard-coded in the test API. This user
+  # These data refer to the user object hard-coded in the test API. This user
   # has 5 tasks, 4 of which are incomplete. Note that values for resources other
   # than tasks are currently hard-coded
 
@@ -18,3 +18,10 @@ Feature: Dashboard home elements
       | deadlines       | 7   | upcoming deadlines |
       | appointments    | 4   | new appointments   |
       | recommendations | 14  | recommendations    |
+
+  Scenario: Dashboard task panel
+
+    Only tasks that are incomplete, not blocking, and not backlogged are shown
+
+    Then I should see my task panel
+    And my task panel should show 2 tasks
