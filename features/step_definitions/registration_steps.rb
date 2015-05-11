@@ -19,7 +19,7 @@ When(/^I fill out the registration form with valid data$/) do
 end
 
 When(/^I (don't )?accept the terms of use$/) do |neg|
-  within '#registration-form fieldset.terms' do 
+  within '#registration-form div.terms' do 
     if neg then uncheck 'acceptTerms'; else check 'acceptTerms'; end
   end
 end
@@ -43,6 +43,7 @@ Then(/^the dashboard should have my name on it$/) do
   expect(page).to have_text('New User')
 end
 
-Then(/^I should see a message that I have to accept the terms of use$/) do
-  expect(page).to have_text('Terms of use are required')
+Then(/^the '(.*)' (.*) should have class '(.*)'$/) do |klass1, tag, klass2|
+  selector = "#registration-form #{tag}.#{klass1}"
+  expect(find(selector)['class']).to include(klass2)
 end

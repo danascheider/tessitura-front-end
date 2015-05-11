@@ -82,17 +82,24 @@ var RegistrationFormView = Canto.View.extend({
   },
 
   validName    : function(first, last) {
-    var valid = !!first.match(/^[A-Za-z' -]{2,}$/) && !!last.match(/^[A-Za-z\' -]{2,}$/);
+    var first_valid = !!first.match(/^[A-Za-z' -]{2,}$/),
+        last_valid  = !!last.match(/^[A-Za-z\' -]{2,}$/);
+
+    if (!first_valid) { this.$('input[name=first_name]').addClass('has-error'); }
+    if (!last_valid) { this.$('input[name=last_name]').addClass('has-error'); }
     return valid;
   },
 
   validPassword: function(password) {
-    return !!password && password.length >= 8 && !!password.match(/[A-Za-z]/) && !!password.match(/[0-9]/);
+    var valid = !!password && password.length >= 8 && !!password.match(/[A-Za-z]/) && !!password.match(/[0-9]/);
+    if (!valid) { this.$('input[name=password]').addClass('has-error') }
+    return valid;
   },
 
-  // FIX: The back end requires the username to be 8 characters so one of these needs to change.
   validUsername: function(name) {
-    return !!name && name.length >= 6;
+    var valid = !!name && name.length >= 8;
+    if (!valid) { this.$('input[name=username]').addClass('has-error') }
+    return valid;
   },
 
   /* Core View Functions

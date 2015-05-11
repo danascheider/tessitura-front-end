@@ -17,4 +17,4 @@ Feature: User registration
     But I don't accept the terms of use
     And I submit the registration form
     Then I should not be routed to my dashboard
-    And I should see a message that I have to accept the terms of use
+    And the 'terms' div should have class 'has-error'
