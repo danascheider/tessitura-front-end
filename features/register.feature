@@ -9,7 +9,8 @@ Feature: User registration
     When I fill out the registration form with valid data
     And I accept the terms of use
     And I submit the registration form
-    Then I should be routed to my dashboard
+    Then no fields should have class 'has_error'
+    And I should be routed to my dashboard
     And the dashboard should have my name on it
 
   Scenario: Terms not accepted
@@ -44,3 +45,14 @@ Scenario Outline: Invalid data
     | username  | foo   |
     | password  | bar   |
     | email     | baz   |
+
+Scenario Outline: Duplicate username or email
+  Given there is a user with <attribute> '<value>'
+  When I fill out the registration form with <attribute> '<value>'
+  Then I should not be routed to my dashboard
+  And the <attribute> input should have class 'has-error'
+
+  Examples:
+    | attribute | value                  |
+    | username  | testuser86             |
+    | email     | testuser86@example.com | 

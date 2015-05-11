@@ -2,6 +2,16 @@ Given(/^I am on the homepage$/) do
   step "I navigate to '/'"
 end
 
+Given(/^there is a user with (.*) '(.*)'$/) do |attr, val|
+  step 'I fill out the registration form with valid data'
+
+  within '#registration-form' do 
+    fill_in attr, with: val
+  end
+
+  step 'I submit the registration form'
+end
+
 When(/^I fill out the registration form with valid data$/) do 
   within '#registration-form' do 
     within 'fieldset.login-information' do 
@@ -52,6 +62,12 @@ Then(/^I should (not )?be routed to my dashboard$/) do |neg|
     expect(page).not_to have_selector('#dashboard-wrapper')
   else
     expect(find('#dashboard-wrapper')).to be_visible
+  end
+end
+
+Then(/^no fields should have class '(.*)'$/) do |klass|
+  within '#registration-form' do 
+    expect(page).not_to have_selector(".#{klass}")
   end
 end
 

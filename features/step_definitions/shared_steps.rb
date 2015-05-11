@@ -4,12 +4,12 @@ end
 
 Given(/^I am logged in$/) do 
   visit('/') # It says "access denied" unless I visit some goddamned place first
-  page.driver.set_cookie('auth', 'dGVzdHVzZXI6dGVzdHVzZXI%3D')
-  page.driver.set_cookie('userID', 1)
+  driver.set_cookie('auth', 'dGVzdHVzZXI6dGVzdHVzZXI%3D')
+  driver.set_cookie('userID', 1)
 end
 
 When(/^I double-click the '(.*)' element$/) do |selector|
-  page.evaluate_script("\$\('#{selector}'\).dblclick\(\)")
+  evaluate_script("\$\('#{selector}'\).dblclick\(\)")
 end
 
 When(/^I fill in the '(.*)' field with '(.*)'$/) do |field, value|
