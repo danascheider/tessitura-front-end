@@ -71,7 +71,7 @@ var RegistrationFormView = Canto.View.extend({
 
   /* Form Validations
   /**************************************************************************/
-  validCreds   : function(username, password, email)
+  validCreds   : function(username, password, email) {
     return this.validPassword(password) && this.validUsername(username) && this.validEmail(email) && password.indexOf(username) === -1;
   },
 

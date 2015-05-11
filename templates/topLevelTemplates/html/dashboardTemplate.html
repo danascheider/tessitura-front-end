@@ -10,7 +10,7 @@
   </div> <!-- end navbar-header -->
 
   <ul class='nav navbar-top-links navbar-right'>
-    <li class='dropdown'>
+    <li class='dropdown' title='Messages'>
       <a class='dropdown-toggle' data-toggle='dropdown' href='#' onclick='return false'>
         <i class='fa fa-envelope fa-fw'></i>  <i class='fa fa-caret-down'></i>
       </a>
@@ -58,9 +58,9 @@
           </a>
         </li>
       </ul> <!-- end dropdown-messages -->
-    </li> <!-- end dropdown -->
+    </li> <!-- end messages dropdown -->
 
-    <li class='dropdown'>
+    <li class='dropdown' title='Tasks'>
       <a class='dropdown-toggle' data-toggle='dropdown' href='#' onclick='return false'>
         <i class='fa fa-tasks fa-fw'></i>  <i class='fa fa-caret-down'></i>
       </a>
@@ -136,9 +136,9 @@
           </a>
         </li>
       </ul> <!-- end dropdown-tasks -->
-    </li> <!-- end dropdown -->
+    </li> <!-- end tasks dropdown -->
 
-    <li class='dropdown'>
+    <li class='dropdown' title='Alerts'>
       <a class='dropdown-toggle' data-toggle='dropdown' href='#' onclick='return false'>
         <i class='fa fa-bell fa-fw'></i>  <i class='fa fa-caret-down'></i>
       </a>
@@ -195,9 +195,9 @@
           </a>
         </li>
       </ul> <!-- end dropdown-alerts -->
-    </li> <!-- end dropdown -->
+    </li> <!-- end alerts dropdown -->
 
-    <li class='dropdown'>
+    <li class='dropdown' title='Profile'>
       <a class='dropdown-toggle' data-toggle='dropdown' href='#' onclick='return false'>
         <i class='fa fa-user fa-fw'></i>  <%- first_name %> <%- last_name %>  <i class='fa fa-caret-down'></i>
       </a>
@@ -207,7 +207,7 @@
         <li class='divider'></li>
         <li><a href='/#logout'><i class='fa fa-sign-out fa-fw'></i> Logout</a></li>
       </ul> <!-- end dropdown-user -->
-    </li> <!-- end dropdown -->
+    </li> <!-- end profile dropdown -->
   </ul> <!-- end navbar-top-links -->
 
   <div class='navbar-default navbar-static-side' role='navigation'>
