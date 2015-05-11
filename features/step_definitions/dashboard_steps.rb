@@ -9,6 +9,12 @@ Given(/^the (.*) menu is open$/) do |title|
   end
 end
 
+Given(/^the sidebar is hidden$/) do 
+  unless page.has_selector? '#side-menu'
+    find('.navbar-header').click
+  end
+end
+
 When(/^I click on the '(.*)' dropdown$/) do |title|
   within 'ul.navbar-top-links' do 
     selector = "li.dropdown[title=#{title}]"
@@ -28,4 +34,8 @@ Then(/^I should see the '(.*)' menu$/) do |title|
     selector = "ul.dropdown-#{title.downcase}"
     expect(find(selector)).to be_visible
   end
+end
+
+Then(/^I should see the sidebar$/) do 
+  expect(find('#side-menu')).to be_visible
 end

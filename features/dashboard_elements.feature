@@ -27,3 +27,12 @@ Feature: Dashboard elements
     Given the 'Messages' menu is open
     When I click on the '#page-wrapper' element
     Then I should not see the 'Messages' menu
+
+  Scenario: Opening sidebar
+    Given the sidebar is hidden
+    When I click on the '.navbar-header' element
+    Then I should see the sidebar
+
+  Scenario: Closing sidebar
+    Given the sidebar is visible
+    When I click on the '.navbar-header'
