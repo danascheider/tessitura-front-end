@@ -33,6 +33,12 @@ Feature: Dashboard elements
     When I click on the '.navbar-header' element
     Then I should see the sidebar
 
-  Scenario: Closing sidebar
+  Scenario Outline: Closing sidebar
     Given the sidebar is visible
-    When I click on the '.navbar-header'
+    When I <action>
+    Then I should not see the sidebar
+
+    Examples:
+      | action                                |
+      | click on the '.navbar-header' element |
+      | double-click the 'nav' element        |
