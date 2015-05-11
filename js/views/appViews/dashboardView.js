@@ -83,6 +83,7 @@ var DashboardView = Canto.View.extend({
   toggleDropdownMenu : function(e) {
     var li = $(e.target).closest('li.dropdown');
     li.siblings().removeClass('open');
+    li.children().blur(); 
   },
 
   toggleSidebar      : function(e) {

@@ -87,7 +87,7 @@ var RegistrationFormView = Canto.View.extend({
 
     if (!first_valid) { this.$('input[name=first_name]').addClass('has-error'); }
     if (!last_valid) { this.$('input[name=last_name]').addClass('has-error'); }
-    return valid;
+    return first_valid && last_valid;
   },
 
   validPassword: function(password) {
