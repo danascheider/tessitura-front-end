@@ -10,9 +10,16 @@ When(/^I click on the '(.*)' dropdown$/) do |title|
   end
 end
 
+Then(/^I should not see the '(.*)' menu$/) do |title|
+  within "ul.navbar-top-links li.dropdown[title=#{title}]" do 
+    selector = "ul.dropdown-#{title.downcase}"
+    expect(page).not_to have_selector selector
+  end
+end
+
 Then(/^I should see the '(.*)' menu$/) do |title|
   within "ul.navbar-top-links li.dropdown[title=#{title}]" do 
     selector = "ul.dropdown-#{title.downcase}"
-    find(selector)
+    expect(find(selector)).to be_visible
   end
 end
