@@ -4,8 +4,8 @@ end
 
 Given(/^I am logged in$/) do 
   visit('/') # It says "access denied" unless I visit some goddamned place first
-  driver.set_cookie('auth', 'dGVzdHVzZXI6dGVzdHVzZXI%3D')
-  driver.set_cookie('userID', 1)
+  page.driver.set_cookie('auth', 'dGVzdHVzZXI6dGVzdHVzZXI%3D')
+  page.driver.set_cookie('userID', 1)
 end
 
 When(/^I double-click the '(.*)' element$/) do |selector|
