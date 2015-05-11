@@ -32,6 +32,14 @@ When(/^I fill out the registration form with the (.*) attribute blank$/) do |att
   end
 end
 
+When(/^I fill out the registration form with (\w*) '(.*)'$/) do |attr, val|
+  step 'I fill out the registration form with valid data'
+
+  within '#registration-form' do 
+    fill_in attr, with: val 
+  end
+end
+
 When(/^I submit the registration form$/) do 
   within '#registration-form fieldset.submit' do 
     click_button 'Create Account'

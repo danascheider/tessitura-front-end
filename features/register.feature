@@ -23,12 +23,24 @@ Feature: User registration
     When I fill out the registration form with the <attribute> attribute blank
     And I submit the registration form
     Then I should not be routed to my dashboard
-    And the <attribute> <tag> should have class 'has-error'
+    And the <attribute> input should have class 'has-error'
 
     Examples:
-      | attribute  | tag   |
-      | username   | input |
-      | password   | input |
-      | email      | input |
-      | first_name | input |
-      | last_name  | input |
+      | attribute  |
+      | username   |
+      | password   |
+      | email      |
+      | first_name |
+      | last_name  |
+
+Scenario Outline: Invalid data
+  When I fill out the registration form with <attribute> '<value>'
+  And I submit the registration form
+  Then I should not be routed to my dashboard
+  And the <attribute> input should have class 'has-error'
+
+  Examples:
+    | attribute | value |
+    | username  | foo   |
+    | password  | bar   |
+    | email     | baz   |
