@@ -9,3 +9,10 @@ When(/^I click on the '(.*)' dropdown$/) do |title|
     find(selector).click
   end
 end
+
+Then(/^I should see the '(.*)' menu$/) do |title|
+  within "ul.navbar-top-links li.dropdown[title=#{title}]" do 
+    selector = "ul.dropdown-#{title.downcase}"
+    find(selector)
+  end
+end
