@@ -24,6 +24,10 @@ When(/^I navigate to '(.*)'$/) do |url|
   visit url
 end
 
+When(/^I navigate to the dashboard$/) do 
+  visit '/#dashboard'
+end
+
 Then(/^I should (not )?see the '(\S+)' element$/) do |neg, selector|
   if neg then expect(page).not_to have_css(selector) 
   else expect(page).to have_selector(selector, visible: true); end
