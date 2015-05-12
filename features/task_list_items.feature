@@ -18,6 +18,11 @@ Feature: Task List Items
     And there should be a line through the title in the '#task-1' element
     And the '#task-1' element should be removed from the DOM after a short time
 
-  Scenario: Click on the backlog icon
-    When I click on the 'Backlog' icon inside the '#task-1' element
+  Scenario Outline: Click on the icons
+    When I click on the '<title>' icon inside the '#task-1' element
     Then the '#task-1' element should be removed from the DOM
+
+    Examples:
+      | title   |
+      | Backlog |
+      | Delete  |
