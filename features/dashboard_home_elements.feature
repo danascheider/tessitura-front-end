@@ -27,7 +27,16 @@ Feature: Dashboard home elements
     And my task panel should show 2 tasks
     And the task details should not be visible
 
-  Scenario: Hide task panel
-    Given the '.panel-body' element inside the '#task-panel' element is visible
+  Scenario Outline: Toggle task panel
+
+    The user can show/hide the panel body of the task panel by clicking the '.toggle-widget' 
+    icon, which becomes visible when they hover on the panel.
+
+    Given the '.panel-body' element inside the '#task-panel' element is <original>
     When I click on the '.toggle-widget' element inside the '#task-panel>.panel-heading' element
-    Then the '.panel-body' element inside the '#task-panel' element should be hidden
+    Then the '.panel-body' element inside the '#task-panel' element should be <new>
+
+    Examples:
+      | original | new     |
+      | visible  | hidden  |
+      | hidden   | visible |

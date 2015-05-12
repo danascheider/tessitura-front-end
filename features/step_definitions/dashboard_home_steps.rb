@@ -1,6 +1,18 @@
-Given(/^the '(\S*)' element inside the '(\S*)' element is visible$/) do |child, parent|
-  within parent do 
-    expect(find(child)).to be_visible
+Given(/^the '.panel-body' element inside the '#task-panel' element is hidden$/) do
+  within '#task-panel' do 
+    if page.has_selector? '.panel-body'
+      find('.panel-heading').hover
+      find('.toggle-widget').click
+    end
+  end
+end
+
+Given(/^the '.panel-body' element inside the '#task-panel' element is visible$/) do
+  within '#task-panel' do 
+    unless page.has_selector? '.panel-body'
+      find('.panel-heading').hover
+      find('.toggle-widget').click
+    end
   end
 end
 
@@ -39,5 +51,11 @@ end
 Then(/^the '(\S*)' element inside the '(\S*)' element should be hidden$/) do |child, parent|
   within parent do 
     expect(page).not_to have_selector child 
+  end
+end
+
+Then(/^the '(\S*)' element inside the '(\S*)' element should be visible$/) do |child, parent|
+  within parent do 
+    expect(find(child)).to be_visible 
   end
 end
