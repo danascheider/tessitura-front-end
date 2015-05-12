@@ -25,3 +25,8 @@ Feature: Dashboard home elements
 
     Then I should see my task panel
     And my task panel should show 2 tasks
+    And the task details should not be visible
+
+  Scenario: Expand task list item
+    When I click on the '#task-1' element
+    Then I should see the '#task-1' element's '.task-details' element

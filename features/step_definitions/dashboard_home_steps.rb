@@ -16,6 +16,16 @@ Then(/^I should see my task panel$/) do
   expect(find('#task-panel')).to be_visible
 end
 
+Then(/^I should see the '(\S*)' element's '(\S*)' element$/) do |parent, child|
+  find('#task-1')
+end
+
 Then(/^my '(.*)' widget should say I have (\d+) (.*)$/) do |name, qty, obj|
   expect(find("div[data-name=#{name}] div.huge")).to have_content qty
+end
+
+Then(/^the task details should not be visible$/) do 
+  within('#task-panel') do 
+    expect(page).not_to have_selector '.task-details'
+  end
 end

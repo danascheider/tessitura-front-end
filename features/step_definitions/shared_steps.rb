@@ -24,7 +24,7 @@ When(/^I navigate to '(.*)'$/) do |url|
   visit url
 end
 
-Then(/^I should (not )?see the '(.*)' element$/) do |neg, selector|
+Then(/^I should (not )?see the '(\S+)' element$/) do |neg, selector|
   if neg then expect(page).not_to have_css(selector) 
   else expect(page).to have_selector(selector, visible: true); end
 end
