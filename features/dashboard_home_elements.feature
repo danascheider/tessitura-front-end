@@ -26,3 +26,8 @@ Feature: Dashboard home elements
     Then I should see my task panel
     And my task panel should show 2 tasks
     And the task details should not be visible
+
+  Scenario: Hide task panel
+    Given the '.panel-body' element inside the '#task-panel' element is visible
+    When I click on the '.toggle-widget' element inside the '#task-panel>.panel-heading' element
+    Then the '.panel-body' element inside the '#task-panel' element should be hidden
