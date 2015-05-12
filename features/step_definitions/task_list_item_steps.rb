@@ -27,7 +27,7 @@ end
 
 Then(/^the '\#task\-(\d+)' element should be removed from the DOM after a short time$/) do |id|
   sleep 0.75
-  step "The '#task-#{id}' element should be removed from the DOM"
+  step "the '#task-#{id}' element should be removed from the DOM"
 end
 
 Then(/^the task details should not be visible$/) do 
