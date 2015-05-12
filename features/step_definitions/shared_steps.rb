@@ -8,7 +8,7 @@ Given(/^I am logged in$/) do
   page.driver.set_cookie('userID', 1)
 end
 
-When(/^I click on the '(.*)' element$/) do |selector|
+When(/^I click on the '(\S*)' element$/) do |selector|
   find(selector).click
 end
 

@@ -1,3 +1,10 @@
+When(/^I click on the '(.*)' icon inside the '\#task\-(\d+)' element$/) do |title, id|
+  find("#task-#{id}").hover
+  within "#task-#{id}" do 
+    find("i[title=#{title}]").click
+  end
+end
+
 When(/^I click on the mark\-complete checkbox inside the '\#task\-(\d+)' element$/) do |id|
   within "#task-#{id}" do 
     find('i[title="Mark complete"]').click
@@ -14,9 +21,13 @@ Then(/^the mark\-complete checkbox should be checked$/) do
   expect(page).to have_selector 'i.fa-check-square-o[title="Mark complete"]'
 end
 
+Then(/^the '\#task\-(\d+)' element should be removed from the DOM$/) do |id|
+  expect(page).not_to have_selector("#task-#{id}")
+end
+
 Then(/^the '\#task\-(\d+)' element should be removed from the DOM after a short time$/) do |id|
   sleep 0.75
-  expect(page).not_to have_selector("#task-#{id}")
+  step "The '#task-#{id}' element should be removed from the DOM"
 end
 
 Then(/^the task details should not be visible$/) do 
