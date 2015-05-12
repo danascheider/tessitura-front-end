@@ -25,7 +25,7 @@ var QuickAddFormView = Canto.View.extend({
   createTask : function(e) {
     // Prevent the browser from reloading the page
     e.preventDefault();
-    
+
     // Declare variable `that` for use inside Ajax block
     var that  = this;
     var attrs = Canto.Utils.getAttributes(this.$el);

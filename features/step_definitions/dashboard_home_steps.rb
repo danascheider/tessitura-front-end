@@ -24,6 +24,14 @@ When(/^I click on the '(\S*)' element inside the '(\S*)' element$/) do |child, p
   end
 end
 
+When(/^I submit the quick\-add form with '(.*)'$/) do |title|
+  within '#task-panel form.quick-add-form' do 
+    fill_in 'title', with: title
+    input = find('input[name=title]')
+    input.native.send_key(:Enter)
+  end
+end
+
 Then(/^I should see my '(.*)' widget$/) do |name|
   expect(find("div[data-name=#{name}]")).to be_visible
 end
@@ -40,12 +48,19 @@ end
 
 Then(/^my task panel should show (\d+) tasks$/) do |num|
   within '#task-panel' do 
-    expect(page).to have_selector('li.task-list-item', count: 2)
+    wait_for_ajax
+    expect(page).to have_selector('li.task-list-item', count: num)
   end
 end
 
 Then(/^my '(.*)' widget should say I have (\d+) (.*)$/) do |name, qty, obj|
   expect(find("div[data-name=#{name}] div.huge")).to have_content qty
+end
+
+Then(/^the first list item should contain the text '(.*)'$/) do |text|
+  within '#task-panel' do 
+    expect(first('li.task-list-item')).to have_content text
+  end
 end
 
 Then(/^the '(\S*)' element inside the '(\S*)' element should be hidden$/) do |child, parent|
