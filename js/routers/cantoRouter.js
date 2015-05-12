@@ -94,8 +94,13 @@ Canto.Router = Backbone.Router.extend({
   },
 
   displayDashboardTaskView: function() {
-    if(!this.DashboardPresenter.user) { this.DashboardPresenter.setUser(new Canto.UserModel({id: $.cookie('userID')})); }
-    this.DashboardPresenter.getTask();
+    var that = this;
+    var user = new Canto.UserModel({id: $.cookie('userID')});
+    user.tasks = new Canto.TaskCollection();
+
+    this.DashboardPresenter.setUser(user, function() {
+      that.DashboardPresenter.getTask();
+    });
   },
 
   displayHomepage: function() {

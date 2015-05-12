@@ -130,7 +130,7 @@ var DashboardTaskView = Canto.View.extend({
 
     this.user.tasks.fetch({
       success: function(collection) {
-        collection = new Canto.TaskCollection(collection);
+        collection = new Canto.TaskCollection(collection.models);
 
         that.backlogColumnView = new Canto.KanbanColumnView({
           el         : that.$('#backlog-tasks'),
