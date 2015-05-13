@@ -53,7 +53,9 @@ var KanbanColumnView = Canto.View.extend({
   /**************************************************************************/
 
   removeTask  : function(task) {
-    this.collection.remove(task);
+    if(!(this.groupedBy.backlog && task.get('backlog'))) { 
+      this.collection.remove(task);
+    }
   },
 
   updateTask  : function(task) {

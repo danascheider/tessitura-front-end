@@ -29,5 +29,5 @@ Then(/^the '(\S+)' column should have its own quick\-add form$/) do |id|
 end
 
 Then(/^the first task in the '(\S+)' column should be called '(.*)'$/) do |id, title|
-  #
+  pending
 end
