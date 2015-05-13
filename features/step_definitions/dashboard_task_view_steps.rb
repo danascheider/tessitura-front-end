@@ -29,5 +29,7 @@ Then(/^the '(\S+)' column should have its own quick\-add form$/) do |id|
 end
 
 Then(/^the first task in the '(\S+)' column should be called '(.*)'$/) do |id, title|
-  pending
+  within id do 
+    expect(first('li.task-list-item')).to have_content title
+  end
 end
