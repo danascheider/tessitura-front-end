@@ -1,113 +1,114 @@
-.kanban-col
-  position: relative
-  float: left
-  padding: 0 1em
-  width: 25%
+#dashboard-wrapper
+  .kanban-col
+    position: relative
+    float: left
+    padding: 0 1em
+    width: 25%
 
-  .panel-heading
-    & > span.toggle-widget
-      visibility: hidden
+    .panel-heading
+      & > span.toggle-widget
+        visibility: hidden
 
-    &:hover > span.toggle-widget
-      visibility: visible
-      cursor    : pointer
+      &:hover > span.toggle-widget
+        visibility: visible
+        cursor    : pointer
 
-    & i 
-      color: #fff
+      & i 
+        color: #fff
 
-  .panel-body,
-  .panel
-    padding-top   : 0.15em
-    padding-bottom: 0
+    .panel-body,
+    .panel
+      padding-top   : 0.15em
+      padding-bottom: 0
 
-  .panel-body
-    padding         : 0
-    margin          : 0
-    background-color: #fff
+    .panel-body
+      padding         : 0
+      margin          : 0
+      background-color: #fff
 
-    &:after
-      display: none !important
+      &:after
+        display: none !important
 
-  .task-list
-    margin-top   : 0
-    margin-bottom: 0
-    padding      : 0
-    list-style   : none
-    color        : #777
+    .task-list
+      margin-top   : 0
+      margin-bottom: 0
+      padding      : 0
+      list-style   : none
+      color        : #777
 
-    a
-      color: #777
+      a
+        color: #777
 
-      &.task-title
-        font-weight: bold 
-        font-size  : 0.9em
-
-      &:hover
-        text-decoration: none
-
-    & > li 
-      min-height         : 2.75em
-      padding            : 0 0 0 0.5em
-      border-style       : solid none
-      border-top-color   : #efefef
-      border-bottom-color: #d3d3d3
-      border-width       : 1px
-
-      i.fa-square-o,
-      i.fa-check-square-o
-        color       : #ccc
-        margin-right: 0.5em
-        cursor      : pointer
-
-      table
-        margin-bottom : 0
-        padding-bottom: 0
-
-        & th
-          padding-right: 0.5em
-
-      &:first-child
-        padding: 0.5em
+        &.task-title
+          font-weight: bold 
+          font-size  : 0.9em
 
         &:hover
-          background-color: #fff
+          text-decoration: none
 
-      &:last-child
-        border-bottom : 0 
-        margin-bottom : 0 
-        padding-bottom: 0
+      & > li 
+        min-height         : 2.75em
+        padding            : 0 0 0 0.5em
+        border-style       : solid none
+        border-top-color   : #efefef
+        border-bottom-color: #d3d3d3
+        border-width       : 1px
 
-      &:hover
-        background-color: #f6f6f6
-
-        & .task-title
-          color: #418bca
-
-      & > form.quick-add-form
-        display   : block
-
-        input
-          padding      : 0 5px
-          height       : 2em
-
-        &:hover
-          background-color: #fff
-
-        & span.pull-right
-          margin-top  : -1.65em
-          margin-right: 5px
+        i.fa-square-o,
+        i.fa-check-square-o
+          color       : #ccc
+          margin-right: 0.5em
           cursor      : pointer
 
-      & > table,
-      & > a
-        vertical-align: center
-        margin-top    : 0.5em
-        margin-bottom : 0.5em
+        table
+          margin-bottom : 0
+          padding-bottom: 0
 
-      &:hover
-        span.edit-task
-          visibility: visible
-          color     : #ccc
-          
-.kanban-board
-  margin-top: 0
+          & th
+            padding-right: 0.5em
+
+        &:first-child
+          padding: 0.5em
+
+          &:hover
+            background-color: #fff
+
+        &:last-child
+          border-bottom : 0 
+          margin-bottom : 0 
+          padding-bottom: 0
+
+        &:hover
+          background-color: #f6f6f6
+
+          & .task-title
+            color: #418bca
+
+        & > form.quick-add-form
+          display   : block
+
+          input
+            padding      : 0 5px
+            height       : 2em
+
+          &:hover
+            background-color: #fff
+
+          & span.pull-right
+            margin-top  : -1.65em
+            margin-right: 5px
+            cursor      : pointer
+
+        & > table,
+        & > a
+          vertical-align: center
+          margin-top    : 0.5em
+          margin-bottom : 0.5em
+
+        &:hover
+          span.edit-task
+            visibility: visible
+            color     : #ccc
+            
+  .kanban-board
+    margin-top: 0
