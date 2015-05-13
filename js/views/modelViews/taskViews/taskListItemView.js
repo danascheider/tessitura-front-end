@@ -113,7 +113,11 @@ var ListItemView = Canto.View.extend({
         } else if (column.innerText === 'Backlog') {
           that.model.save('backlog', true);
         } else {
-          that.model.save('status', column.innerText);
+          that.model.save('status', column.innerText, {
+            beforeSend: function(xhr) {
+              xhr.addRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
+            }
+          });
         }
 
         that.$el.removeAttr('style');
