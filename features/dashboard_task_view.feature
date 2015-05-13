@@ -15,3 +15,15 @@ Feature: Dashboard task view
       | #new-tasks         | 2   |
       | #in-progress-tasks | 0   |
       | #blocking-tasks    | 1   |
+
+  Scenario Outline: Submit quick-add form in Kanban columns
+    When I submit the quick-add form in the '<name>' column with 'Another Task'
+    Then the '<name>' column should contain <num> tasks
+    And the first task in the '<name>' column should be called 'Another Task'
+
+    Examples:
+      | name               | num |
+      | #backlog-tasks     | 2   |
+      | #new-tasks         | 3   |
+      | #in-progress-tasks | 1   |
+      | #blocking-tasks    | 2   |
