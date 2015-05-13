@@ -1,4 +1,8 @@
 $main-dark-gray: #333
+$panel-red-color: #d9534f
+$panel-yellow-color: #f0ad4e
+$panel-green-color: #5db85b
+$panel-blue-color: #418bca
 
 @import '_bootstrap.scss'
 
@@ -405,7 +409,7 @@ label
 
       &:hover,
       &:focus
-        color           : #72b1e5
+        color           : lighten($panel-blue-color, 25%)
         text-decoration : none
         background-color: #000
 
