@@ -46,6 +46,8 @@
       border-top-color   : #efefef
       border-bottom-color: #d3d3d3
       border-width       : 1px
+      margin             : 0
+      box-sizing         : border-box
 
       i.fa-square-o,
       i.fa-check-square-o
@@ -60,11 +62,11 @@
         & th
           padding-right: 0.5em
 
-      &:first-child
-        padding: 0.5em
-
         &:hover
           background-color: #fff
+
+      &:first-child
+        padding: 0.5em
 
       &:last-child
         border-bottom : 0 
@@ -78,18 +80,28 @@
           color: #418bca
 
       & > form.quick-add-form
-        display   : block
+        display : block
+
+        .form-group
+          margin: 0
+          padding: 0
 
         input
           padding      : 0 5px
           height       : 2em
+          box-sizing   : border-box
 
         &:hover
           background-color: #fff
 
+          & > span.pull-right
+            color: #418bca
+
         & span.pull-right
+          display     : inline-block
           margin-top  : -1.65em
           margin-right: 5px
+          margin-bottom: 0
           cursor      : pointer
 
       & > table,
