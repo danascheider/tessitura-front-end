@@ -10,9 +10,8 @@ var DashboardSidebarView = Canto.View.extend({
     'click li > .task-page-link' : 'goToTaskPage'
   },
 
-  // --------------------- //
-  // Canto View Properties //
-  // --------------------- //
+  /* Canto View Properties
+  /*************************************************************************************/
 
   klass                : 'DashboardSidebarView',
   family               : 'Canto.View',
@@ -22,9 +21,8 @@ var DashboardSidebarView = Canto.View.extend({
     return Canto.View.prototype.types().concat(['DashboardView', 'DashboardSidebarView', 'PartialView']);
   },
 
-  // --------------- //
-  // Event Callbacks //
-  // --------------- //
+  /* Event Callbacks
+  /*************************************************************************************/
 
   goToDashboard        : function() {
     this.trigger('redirect', {destination: 'dashboard'});
