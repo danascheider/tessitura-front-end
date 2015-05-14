@@ -103,6 +103,35 @@ var DashboardTaskView = Canto.View.extend({
   /* Special Functions
   /**************************************************************************/
 
+  addToBacklog      : function(task) {
+    this.backlogColumnView.collection.add([task]);
+  },
+
+  changeStatus      : function(task) {
+    var newCollection = this.findNewCollection(task);
+    newCollection.add([task]);
+  },
+
+  findNewCollection : function(task) {
+    var that   = this,
+        status = task.get(status);
+
+    if(task.get('backlog') === true) { return this.backlogColumnView.collection; }
+
+    _.each([that.newColumnView, that.inProgressColumnView, that.blockingColumnView], function(col) {
+      if(col.headline === status) {
+        return col.collection;
+      }
+    });
+  },
+
+  removeFromBacklog : function(task) {
+    var that = this;
+    this.backlogColumnView.collection.remove(task);
+    var newCollection = this.findNewCollection(task);
+    newCollection.add([task]);
+  },
+
   setUser : function(user) {
     this.user = user;
   },
@@ -169,6 +198,14 @@ var DashboardTaskView = Canto.View.extend({
         _.each([that.backlogColumnView, that.newColumnView, that.inProgressColumnView, that.blockingColumnView], function(col) {
           col.render();
         });
+
+        that.listenTo(that.backlogColumnView.collection, 'change:backlog', that.removeFromBacklog);
+        that.listenTo(that.newColumnView.collection, 'change:status', that.changeStatus);
+        that.listenTo(that.inProgressColumnView.collection, 'change:status', that.changeStatus);
+        that.listenTo(that.blockingColumnView.collection, 'change:status', that.changeStatus);
+        that.listenTo(that.newColumnView.collection, 'change:backlog', that.addToBacklog);
+        that.listenTo(that.inProgressColumnView.collection, 'change:backlog', that.addToBacklog);
+        that.listenTo(that.blockingColumnView.collection, 'change:backlog', that.addToBacklog);
       }
     });
 

@@ -3,6 +3,16 @@ Given(/^I am on the '\/\#tasks' page$/) do
   step "I navigate to '/#tasks'"
 end
 
+When(/^I click the 'Backlog' icon for the first task in the '(\S+)' column$/) do |id|
+  within "#{id} ul" do 
+    first('.task-list-item').hover
+
+    within first('.task-list-item') do 
+      find('i.fa-archive').click
+    end
+  end
+end
+
 When(/^I submit the quick\-add form in the '(\S+)' column with '(.*)'$/) do |col, title|
   within col do 
     fill_in 'title', with: title
@@ -18,6 +28,7 @@ end
 Then(/^the '(\S+)' column should contain (\d+) tasks$/) do |id, count|
   within id do 
     wait_for_ajax
+    save_screenshot 'screenshot.png'
     expect(page).to have_selector('li.task-list-item', count: count)
   end
 end

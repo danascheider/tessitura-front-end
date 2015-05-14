@@ -27,3 +27,8 @@ Feature: Dashboard task view
       | #new-tasks         | 3   |
       | #in-progress-tasks | 1   |
       | #blocking-tasks    | 2   |
+
+  Scenario: Backlogging task from Kanban column
+    When I click the 'Backlog' icon for the first task in the '#new-tasks' column
+    Then the '#new-tasks' column should contain 1 tasks
+    And the '#backlog-tasks' column should contain 2 tasks
