@@ -14,7 +14,7 @@ if(testing) {
       task3 = new Canto.TaskModel({id: 3, owner_id: 1, title: 'Task 3', status: 'Blocking', priority: 'High', position: 3}),
       task4 = new Canto.TaskModel({id: 4, owner_id: 1, title: 'Task 4', status: 'In Progress', priority: 'High', backlog: true, position: 4}),
       task5 = new Canto.TaskModel({id: 5, owner_id: 1, title: 'Task 5', status: 'Complete', priority: 'Normal', position: 5});
-  var collection = user.tasks = new TaskCollection([task1, task2, task3, task4, task5]);
+  var collection = user.tasks = new Canto.TaskCollection([task1, task2, task3, task4, task5]);
 
   Fixtures = {
     user            : user,
