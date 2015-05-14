@@ -44,13 +44,12 @@ Canto.Router = Backbone.Router.extend({
     if(obj.user && ['dashboard', 'tasks'].indexOf(obj.destination) > -1) {
 
       // The redirect:dashboard event is emitted with a user object when the
-      // user logs in. The router should call set user on the dashboard presenter
+      // user logs in. The router should call `setUser` on the dashboard presenter
       // when it receives the user object. The `fetchUser` option is set to false
       // because the server has already sent the user in response to the login
       // request.
 
       this.DashboardPresenter.setUser(obj.user);
-
     }
 
     this.navigate(obj.destination, {trigger: true});

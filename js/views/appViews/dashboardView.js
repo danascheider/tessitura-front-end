@@ -58,10 +58,12 @@ var DashboardView = Canto.View.extend({
   /**************************************************************************/
 
   events             : {
-    'click'                : 'hideDropdownMenus',
-    'dblclick'             : 'hideSidebar',
-    'click li.dropdown'    : 'toggleDropdownMenu',
-    'click .navbar-header' : 'toggleSidebar'
+    'click'                  : 'hideDropdownMenus',
+    'dblclick'               : 'hideSidebar',
+    'click li.dropdown'      : 'toggleDropdownMenu',
+    'click .navbar-header'   : 'toggleSidebar',
+    'click a.dashboard-link' : 'redirectToDashboard',
+    'click a.task-page-link' : 'redirectToTaskPage'
   },
 
   /* Event Callbacks
@@ -78,6 +80,18 @@ var DashboardView = Canto.View.extend({
     if(target != this.sidebarView.$el && this.$('.navbar-static-side').has(target).length === 0 && this.sidebarView.$el.is(':visible')) {
       this.$('.sidebar-collapse').hide();
     }
+  },
+
+  redirectToDashboard: function(e) {
+    e.preventDefault();
+    this.trigger('redirect', {destination: 'dashboard'});
+    this.$('.sidebar-collapse').slideUp();
+  },
+
+  redirectToTaskPage : function(e) {
+    e.preventDefault();
+    this.trigger('redirect', {destination: 'tasks'});
+    this.$('.sidebar-collapse').slideUp();
   },
 
   toggleDropdownMenu : function(e) {

@@ -44,11 +44,10 @@ var QuickAddFormView = Canto.View.extend({
     // Tasks are invalid without a title, so this code should not run
     // unless a title has been entered in the form's input.
     if(!!attrs.title) {
-      var newTask = new TaskModel();
-      newTask.save(attrs, {
+      this.collection.create(attrs, {
         success    : function(model) {
           that.$el[0].reset();
-          that.collection.unshift(model);        }
+        }
       });
     }
   },

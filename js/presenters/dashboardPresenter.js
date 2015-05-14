@@ -88,6 +88,7 @@ var DashboardPresenter = Canto.Model.extend({
     if(!!opts.user) { this.setUser(opts.user) }
 
     _.bindAll(this, 'showDash', 'getHome', 'getTask', 'setUser', 'emitRedirect', 'removeAll');
+  
     this.listenTo(this.dashboardView, 'redirect', this.emitRedirect);
   }
 });

@@ -10,6 +10,11 @@ var TaskModel = Canto.ProtectedResourceModel.extend({
     return Canto.API.tasks.single(this.get('id'));
   },
 
+  defaults: {
+    priority: 'Normal',
+    status  : 'New'
+  },
+
   /* Special Functions 
   /**************************************************************************************/
 

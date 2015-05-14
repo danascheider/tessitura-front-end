@@ -114,15 +114,18 @@ var DashboardTaskView = Canto.View.extend({
 
   findNewCollection : function(task) {
     var that   = this,
-        status = task.get(status);
+        status = task.get('status'),
+        collection;
 
     if(task.get('backlog') === true) { return this.backlogColumnView.collection; }
 
     _.each([that.newColumnView, that.inProgressColumnView, that.blockingColumnView], function(col) {
-      if(col.headline === status) {
-        return col.collection;
+      if(col.data.headline === status) {
+        collection = col.collection;
       }
     });
+
+    return collection;
   },
 
   removeFromBacklog : function(task) {
