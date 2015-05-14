@@ -49,6 +49,7 @@ end
 Then(/^my task panel should show (\d+) tasks$/) do |num|
   within '#task-panel' do 
     wait_for_ajax
+    save_screenshot 'screenshot.png'
     expect(page).to have_selector('li.task-list-item', count: num)
   end
 end

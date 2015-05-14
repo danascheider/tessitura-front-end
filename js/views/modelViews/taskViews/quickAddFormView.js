@@ -44,9 +44,18 @@ var QuickAddFormView = Canto.View.extend({
     // Tasks are invalid without a title, so this code should not run
     // unless a title has been entered in the form's input.
     if(!!attrs.title) {
-      this.collection.create(attrs, {
+
+      // It is necessary to do it this way instead of using
+      // `this.collection.create` because the latter triggers the `add` event
+      // on the collection before the task is assigned an ID, which causes it
+      // to be added to the view in `'li#task-undefined'`, which is obviously
+      // wrong and aesthetically offensive.
+
+      var task = new Canto.TaskModel();
+      task.save(attrs, {
         success    : function(model) {
           that.$el[0].reset();
+          that.collection.unshift(model);
         }
       });
     }
