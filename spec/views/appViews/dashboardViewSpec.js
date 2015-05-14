@@ -308,7 +308,7 @@ describe('Main Dashboard View', function() {
           dashboard.$('li.dropdown').first().addClass('open');
           e = $.Event('click', {target: dashboard.$el});
           dashboard.hideDropdownMenus(e);
-          expect(dashboard.$('li.dropdown').first()).not.toHaveClass('open');
+          expect(dashboard.$('li.dropdown')[0]).not.toContain('open');
         });
       });
 
@@ -317,7 +317,7 @@ describe('Main Dashboard View', function() {
           dashboard.$('li.dropdown').first().addClass('open');
           e = $.Event('click', {target: dashboard.$('li.dropdown').first().find('ul.dropdown-menu')});
           dashboard.hideDropdownMenus(e);
-          expect(dashboard.$('li.dropdown').first()).toHaveClass('open');
+          expect(dashboard.$('li.dropdown')[0].className).toContain('open');
         });
       });
     });
@@ -330,11 +330,11 @@ describe('Main Dashboard View', function() {
         });
 
         it('adds the .open class to the target menu #appView #view #travis', function() {
-          expect(dashboard.$('li.dropdown').first()).toHaveClass('open');
+          expect(dashboard.$('li.dropdown')[0].className).toContain('open');
         });
 
         it('doesn\'t add the .open class to the other menus #appView #view #travis', function() {
-          expect(dashboard.$('li.dropdown').last()).not.toHaveClass('open');
+          expect(dashboard.$('li.dropdown')[0].className).not.toContain('open');
         });
       });
 
@@ -346,11 +346,11 @@ describe('Main Dashboard View', function() {
         });
 
         it('removes the .open class from the open menu #appView #view #travis', function() {
-          expect(dashboard.$('li.dropdown').last()).not.toHaveClass('open');
+          expect(dashboard.$('li.dropdown').last().className).not.toContain('open');
         });
 
         it('adds the .open class to the target menu #appView #view #travis', function() {
-          expect(dashboard.$('li.dropdown').first()).toHaveClass('open');
+          expect(dashboard.$('li.dropdown')[0].className).toContain('open');
         });
       });
 
@@ -362,7 +362,7 @@ describe('Main Dashboard View', function() {
         });
 
         it('removes the .open class from the target menu #appView #view #travis', function() {
-          expect(dashboard.$('li.dropdown').first()).not.toHaveClass('open');
+          expect(dashboard.$('li.dropdown')[0].className).not.toContain('open');
         });
 
         it('doesn\'t open any other menus #appView #view #travis', function() {
