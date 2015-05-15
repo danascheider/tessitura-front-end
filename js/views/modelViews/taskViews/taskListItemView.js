@@ -59,6 +59,7 @@ var ListItemView = Canto.View.extend({
 
   toggleTaskDetails : function(e) {
     if(e) { e.preventDefault(); }
+    this.$el.toggleClass('open', {duration: 400});
     this.$('.task-details').slideToggle();
   },
 
@@ -120,8 +121,8 @@ var ListItemView = Canto.View.extend({
           });
         }
 
-        that.$el.removeAttr('style');
         that.trigger('drop');
+        that.render();
       }
     });
   },
@@ -146,6 +147,7 @@ var ListItemView = Canto.View.extend({
       that.modelView.render();
       that.$('td.task-listing').html(that.modelView.$el);
       that.configureDraggable();
+      that.$el.removeAttr('style');
     });
   }
 });

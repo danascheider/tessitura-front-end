@@ -1,6 +1,8 @@
 When(/^I click on the '(.*)' icon inside the '\#task\-(\d+)' element$/) do |title, id|
   find("#task-#{id}").hover
+
   within "#task-#{id}" do 
+    save_screenshot 'screenshot.png'
     find("i[title=#{title}]").click
   end
 end
