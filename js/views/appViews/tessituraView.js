@@ -5,7 +5,6 @@ var TessituraView = Backbone.View.extend({
   types       : function() {
     return Backbone.View.prototype.types().concat(['Tessitura.View']);
   },
-  childViews  : [],
   isA         : function(type) {
     return this.types().indexOf(type) > -1 ? true : false;
   },

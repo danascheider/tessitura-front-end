@@ -143,6 +143,7 @@ var DashboardView = Tessitura.View.extend({
     this.homeView    = new Tessitura.DashboardHomeView();
     this.taskView    = new Tessitura.DashboardTaskView();
 
+    this.childViews  = [this.sidebarView, this.homeView, this.taskView];
     if(opts.user) { this.setUser(opts.user); }
   },
 

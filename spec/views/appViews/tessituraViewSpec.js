@@ -24,10 +24,6 @@ describe('Tessitura.View', function() {
     it('has blank superFamily #appView #view #travis', function() {
       expect(view.superFamily).toEqual('');
     });
-
-    it('has empty array childViews #appView #view #travis', function() {
-      expect(view.childViews.length).toEqual(0);
-    });
   });
 
   describe('types', function() {
@@ -107,11 +103,6 @@ describe('Tessitura.View', function() {
     it('inherits its types #appView #view #travis', function() {
       var newView = new ChildClass();
       expect(newView.isA('Tessitura.View')).toBe(true);
-    });
-
-    it('has a childViews array #appView #view #travis', function() {
-      var newView = new ChildClass();
-      expect(_.isArray(newView.childViews)).toBe(true);
     });
 
     describe('render', function() {

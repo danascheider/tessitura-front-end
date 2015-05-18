@@ -132,7 +132,7 @@ var ListItemView = Tessitura.View.extend({
 
   initialize         : function() {
     this.modelView = new Tessitura.TaskModelView({model: this.model});
-    this.childViews.push(this.modelView);
+    this.childViews = [this.modelView];
   },
 
   remove             : function() {

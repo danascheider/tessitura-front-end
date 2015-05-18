@@ -70,7 +70,7 @@ var TaskPanelView = Tessitura.View.extend({
     var displayCollection = new Tessitura.TaskCollection(this.collection.slice(0,10));
     this.collectionView   = new Tessitura.TaskCollectionView({collection: displayCollection});
 
-    this.childViews.push(this.collectionView);
+    this.childViews = [this.collectionView];
 
     this.listenTo(this.collection, 'change:status', this.crossOffComplete);
     this.listenTo(this.collection, 'change:backlog', this.removeBacklog);

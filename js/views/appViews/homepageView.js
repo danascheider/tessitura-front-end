@@ -79,6 +79,8 @@ var HomepageView = Tessitura.View.extend({
     this.loginForm        = new Tessitura.LoginFormView();
     this.registrationForm = new Tessitura.RegistrationFormView();
 
+    this.childViews       = [this.loginForm, this.registrationForm];
+
     var that = this;
 
     this.listenTo(this.registrationForm, 'userCreated', function() {

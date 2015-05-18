@@ -77,8 +77,7 @@ var DashboardHomeView = Tessitura.View.extend({
       recommendationCount: 14
     });
 
-    this.childViews.push(this.taskPanelView);
-    this.childViews.push(this.topWidgetView);
+    this.childViews = [this.taskPanelView, this.topWidgetView];
   },
 
   /* Core View Functions

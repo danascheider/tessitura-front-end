@@ -84,6 +84,7 @@ var KanbanColumnView = Tessitura.View.extend({
   setCollection : function(collection) {
     this.collection = collection;
     this.collectionView = new Tessitura.TaskCollectionView({collection: this.collection});
+    this.childViews.push(this.collectionView);
 
     this.listenTo(this.collection, 'add', this.updateTask);
     this.listenTo(this.collection, 'change:backlog', this.removeTask);
@@ -98,13 +99,19 @@ var KanbanColumnView = Tessitura.View.extend({
     this.data.color = this.data.color || 'primary';
     this.$el.addClass('panel-' + this.data.color);
 
-    this.groupedBy = this.data.headline === 'Backlog' ?  {backlog: true} : {status: this.data.headline};
+    this.groupedBy  = this.data.headline === 'Backlog' ?  {backlog: true} : {status: this.data.headline};
+    this.childViews = [];
 
     if(!!this.data.collection) { this.setCollection(this.data.collection); }
   },
 
   remove      : function() {
-    if(this.collectionView) { this.collectionView.remove(); }
+    if(!!this.childViews.length) { 
+      _.each(this.childViews, function(view) {
+        view.remove(); 
+      });
+    }
+    
     Tessitura.View.prototype.remove.call(this);
   },
 

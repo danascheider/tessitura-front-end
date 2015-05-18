@@ -67,17 +67,17 @@ describe('Tessitura Homepage View', function() {
   /**************************************************************************/
 
   describe('constructor', function() {
-    it('#view #travis does not call render', function() {
+    it('does not call render #appView #view #travis', function() {
       spyOn(Tessitura.HomepageView.prototype, 'render');
       var newView = new Tessitura.HomepageView();
       expect(Tessitura.HomepageView.prototype.render).not.toHaveBeenCalled();
     });
 
-    it('#view #travis creates a login form', function() {
+    it('creates a login form #appView #view #travis', function() {
       expect(view.loginForm).toExist();
     });
 
-    it('#view #travis creates a registration form', function() {
+    it('creates a registration form #appView #view #travis', function() {
       expect(view.registrationForm).toExist();
     });
   });

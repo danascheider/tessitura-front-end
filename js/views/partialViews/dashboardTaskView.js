@@ -145,15 +145,15 @@ var DashboardTaskView = Tessitura.View.extend({
   initialize : function(opts) {
     opts = opts || {};
 
+    this.childViews = [];
     if(!!opts.user) { this.setUser(opts.user); }
   },
 
   remove     : function() {
-    if(!!this.backlogColumnView)    { this.backlogColumnView.remove();    }
-    if(!!this.newColumnView)        { this.newColumnView.remove();        }
-    if(!!this.inProgressColumnView) { this.inProgressColumnView.remove(); }
-    if(!!this.blockingColumnView)   { this.blockingColumnView.remove();   }
-    
+    if(!!this.childViews.length) { 
+      _.each(this.childViews, function(view) { view.remove(); });
+    }
+
     Tessitura.View.prototype.remove.call(this);
   },
 
@@ -198,7 +198,12 @@ var DashboardTaskView = Tessitura.View.extend({
           headline   : 'Blocking'
         });
 
-        _.each([that.backlogColumnView, that.newColumnView, that.inProgressColumnView, that.blockingColumnView], function(col) {
+        that.childViews.push(that.backlogColumnView);
+        that.childViews.push(that.newColumnView);
+        that.childViews.push(that.inProgressColumnView);
+        that.childViews.puah(that.blockingColumnView);
+
+        _.each(that.childViews, function(col) {
           col.render();
         });
 
