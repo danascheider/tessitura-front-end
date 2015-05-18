@@ -25,7 +25,7 @@
 /****************************************************************************/
 
 require(process.cwd() + '/spec/support/env.js');
-require(process.cwd() + '/js/Tessitura.js');
+require(process.cwd() + '/js/tessitura.js');
 require(process.cwd() + '/spec/support/jsdom.js');
 
 var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
