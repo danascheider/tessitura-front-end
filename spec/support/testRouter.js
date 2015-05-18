@@ -1,6 +1,6 @@
 require('../../js/dependencies.js');
-var testing    = require('../../js/apiOptions.js').test;
-var TestRouter = Tessitura.Router.extend({});
+var testing    = require('../../js/apiOptions.js').useTestRouter,
+    TestRouter = Tessitura.Router.extend({});
 
 if (testing) {
   Tessitura.DashboardHomeSpecView      = require('../../js/views/specViews/dashboardHomeSpecView.js');
@@ -12,17 +12,26 @@ if (testing) {
   Tessitura.TaskCollectionSpecView     = require('../../js/views/specViews/taskCollectionSpecView.js');
   Tessitura.TaskPanelSpecView          = require('../../js/views/specViews/taskPanelSpecView.js');
 
+  // Because adding these routes directly as the `routes` property of the test router
+  // would overwrite, instead of adding to, the main Tessitura.Router routes, the 
+  // routes are being defined here to combine the two sets. There is no need to 
+  // define the route callbacks similarly, because the ones defined in the test router
+  // have different names from those in the main router, and therefore do not
+  // overwrite the prototype callbacks.
+  
+  var testRoutes = _.extend(Tessitura.Router.prototype.routes, {
+        'listItemViewSpec(/)'           : 'displayListItemView',
+        'dashboardHomeViewSpec(/)'      : 'displayDashboardHomeView',
+        'dashboardSidebarViewSpec(/)'   : 'displayDashboardSidebarView',
+        'dashboardTopWidgetViewSpec(/)' : 'displayDashboardTopWidgetView',
+        'dashboardViewSpec(/)'          : 'displayDashboardView',
+        'homepageViewSpec(/)'           : 'displayHomepageView',
+        'taskCollectionViewSpec(/)'     : 'displayTaskCollectionView',
+        'taskPanelViewSpec(/)'          : 'displayTaskPanelView',
+      });
+
   TestRouter = Tessitura.Router.extend({
-    routes : {
-      'listItemViewSpec(/)'           : 'displayListItemView',
-      'dashboardHomeViewSpec(/)'      : 'displayDashboardHomeView',
-      'dashboardSidebarViewSpec(/)'   : 'displayDashboardSidebarView',
-      'dashboardTopWidgetViewSpec(/)' : 'displayDashboardTopWidgetView',
-      'dashboardViewSpec(/)'          : 'displayDashboardView',
-      'homepageViewSpec(/)'           : 'displayHomepageView',
-      'taskCollectionViewSpec(/)'     : 'displayTaskCollectionView',
-      'taskPanelViewSpec(/)'          : 'displayTaskPanelView',
-    },
+    routes : testRoutes,
 
     displayListItemView         : function() {
       view = new Tessitura.TaskListItemSpecView();

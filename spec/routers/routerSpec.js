@@ -233,12 +233,12 @@ describe('Tessitura Router', function() {
 
     describe('displayDashboardTaskView()', function() {
       beforeEach(function() { 
-        spyOn(router.DashboardPresenter, 'setUser');
         spyOn(router.DashboardPresenter, 'getTask');
         spyOn($, 'ajax').and.callFake(function(args) { args.success(); });
       });
 
       it('calls setUser on the DashboardPresenter #router #travis', function(done) {
+        spyOn(router.DashboardPresenter, 'setUser');
         router.displayDashboardTaskView();
         expect(router.DashboardPresenter.setUser).toHaveBeenCalled();
         done();
