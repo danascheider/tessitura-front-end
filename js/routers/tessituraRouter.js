@@ -116,7 +116,7 @@ Tessitura.Router = Backbone.Router.extend({
   prepareTestEnvironment: function() {
     $.ajax({
       type: 'POST',
-      url: 'http://api.Tessitura-test.com:3000/test/prepare'
+      url: 'http://api.canto-test.com:3000/test/prepare'
     });
   },
 
