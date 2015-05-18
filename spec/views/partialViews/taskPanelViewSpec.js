@@ -2,14 +2,12 @@ require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/js/tessitura.js');
 require(process.cwd() + '/spec/support/env.js');
 
-var Fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
+var Fixtures       = require('../../support/fixtures/fixtures.js'),
     matchers       = require('jasmine-jquery-matchers'),
     context        = describe,
     fcontext       = fdescribe;
 
 describe('Task Panel View', function() {
-
-  // Declare variables to be used in the tests
   var taskPanel, opts, e, spy;
 
   beforeAll(function() {
@@ -126,18 +124,6 @@ describe('Task Panel View', function() {
       });
     });
 
-    describe('change task status', function() {
-      it('calls crossOffComplete() #partialView #view #travis', function() {
-        spyOn(Tessitura.TaskPanelView.prototype, 'crossOffComplete');
-        spyOn(Tessitura.TaskCollectionView.prototype, 'crossOff');
-
-        var newCollection = new Tessitura.TaskCollection([task1, task2, task3]);
-        var newView = new Tessitura.TaskPanelView({collection: newCollection});
-        newView.collection.trigger('change:status');
-        expect(Tessitura.TaskPanelView.prototype.crossOffComplete).toHaveBeenCalled();
-      });
-    });
-
     describe('change task backlog', function() {
       it('calls removeBacklog() #partialView #view #travis', function() {
         spyOn(Tessitura.TaskPanelView.prototype, 'removeBacklog');
@@ -163,7 +149,7 @@ describe('Task Panel View', function() {
         var newView;
 
         beforeEach(function() {
-          for(var i = 4; i < 13; i++) {
+          for(var i = 5; i < 13; i++) {
             collection.create({title: 'My Task ' + i, position: i}, {sync: false, silent: true});
           }
 
@@ -184,22 +170,22 @@ describe('Task Panel View', function() {
       });
     });
 
-    describe('crossOffComplete()', function() {
-      beforeEach(function() {
-        task1.set({status: 'Complete'}, {silent: true});
-        taskPanel.render();
-      });
+    // describe('crossOffComplete()', function() {
+    //   beforeEach(function() {
+    //     task1.set({status: 'Complete'}, {silent: true});
+    //     taskPanel.render();
+    //   });
 
-      afterEach(function() {
-        task1.set({status: 'New'}, {silent: true});
-      })
+    //   afterEach(function() {
+    //     task1.set({status: 'New'}, {silent: true});
+    //   })
 
-      it('calls crossOff on the collection view #partialView #view #travis', function() {
-        spyOn(taskPanel.collectionView, 'crossOff');
-        taskPanel.crossOffComplete();
-        expect(taskPanel.collectionView.crossOff).toHaveBeenCalledWith(task1);
-      });
-    });
+    //   it('calls crossOff on the collection view #partialView #view #travis', function() {
+    //     spyOn(taskPanel.collectionView, 'crossOff');
+    //     taskPanel.crossOffComplete();
+    //     expect(taskPanel.collectionView.crossOff).toHaveBeenCalledWith(task1);
+    //   });
+    // });
 
     describe('filterCollection()', function() {
       beforeEach(function() {

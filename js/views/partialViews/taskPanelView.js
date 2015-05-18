@@ -31,21 +31,12 @@ var TaskPanelView = Tessitura.View.extend({
     }
   },
 
-  crossOffComplete     : function() {
-    var that = this;
-
-    var complete = this.collection.where({status: 'Complete'});
-    _.each(complete, function(task) {
-      that.collectionView.crossOff(task);
-    });
-  },
-
   filterCollection     : function() {
     var tasks = _.filter(this.collection.models, function(task) {
       return task.get('status') !== 'Blocking' && !task.get('backlog');
     });
 
-    return tasks
+    return tasks;
   },
 
   removeBacklog        : function() {
@@ -65,21 +56,20 @@ var TaskPanelView = Tessitura.View.extend({
   /* Core View Functions 
   /**************************************************************************************/
 
-  initialize           : function() {
+  initialize           : function(opts) {
     this.collection       = new Tessitura.TaskCollection(this.filterCollection());
     var displayCollection = new Tessitura.TaskCollection(this.collection.slice(0,10));
     this.collectionView   = new Tessitura.TaskCollectionView({collection: displayCollection});
 
     this.childViews = [this.collectionView];
 
-    this.listenTo(this.collection, 'change:status', this.crossOffComplete);
     this.listenTo(this.collection, 'change:backlog', this.removeBacklog);
     this.listenTo(this.collectionView.collection, 'remove', this.addTaskToDisplay);
   },
 
   remove               : function() {
-    this.collectionView.remove();
-    Backbone.View.prototype.remove.call(this);
+    _.each(this.childViews, function(view) { view.remove(); });
+    Tessitura.View.prototype.remove.call(this);
   },
 
   render               : function() {

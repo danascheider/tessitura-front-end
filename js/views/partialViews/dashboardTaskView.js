@@ -150,7 +150,7 @@ var DashboardTaskView = Tessitura.View.extend({
   },
 
   remove     : function() {
-    if(!!this.childViews.length) { 
+    if(this.childViews && this.childViews.length) { 
       _.each(this.childViews, function(view) { view.remove(); });
     }
 
@@ -201,7 +201,7 @@ var DashboardTaskView = Tessitura.View.extend({
         that.childViews.push(that.backlogColumnView);
         that.childViews.push(that.newColumnView);
         that.childViews.push(that.inProgressColumnView);
-        that.childViews.puah(that.blockingColumnView);
+        that.childViews.push(that.blockingColumnView);
 
         _.each(that.childViews, function(col) {
           col.render();

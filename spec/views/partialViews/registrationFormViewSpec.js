@@ -341,6 +341,10 @@ describe('Registration Form View', function() {
             it('must be at least 6 characters #partialView #view #travis', function() {
               formData.username = 'testu';
             });
+
+            it('can\'t contain special characters #partialView #view #travis', function() {
+              formData.username = '8!!#%5ajouuk';
+            });
           });
 
           describe('password', function() {
@@ -402,10 +406,6 @@ describe('Registration Form View', function() {
           });
           
           describe('username', function() {
-            it('can contain special characters #partialView #view #travis', function() {
-              formData.username = '8!!#%5ajouuk';
-            });
-
             it('can contain only letters #partialView #view #travis', function() {
               formData.username = 'testus';
             });

@@ -1,6 +1,6 @@
 require('../../../js/tessitura.js');
 
-var testing = require('../../../js/apiOptions.js').test
+var testing = require('../../../js/apiOptions.js').useTestRouter
 
 var Fixtures = {};
 
@@ -34,6 +34,7 @@ if(testing) {
       this.task3.set({id: 3, owner_id: 1, title: 'Task 3', status: 'Complete', priority: 'Normal', position: 3}, {silent: true});
       this.collection.reset([task1, task2, task3]);
     }
-  }}
+  }
+}
 
 module.exports = Fixtures;

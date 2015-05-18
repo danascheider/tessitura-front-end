@@ -97,7 +97,7 @@ var RegistrationFormView = Tessitura.View.extend({
   },
 
   validUsername: function(name) {
-    var valid = !!name && name.length >= 8;
+    var valid = !!name && name.length >= 6 && !!name.match(/^[A-Za-z0-9_\- ]*$/);
     if (!valid) { this.$('input[name=username]').addClass('has-error') }
     return valid;
   },
