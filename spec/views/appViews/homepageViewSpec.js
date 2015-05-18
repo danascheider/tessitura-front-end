@@ -90,11 +90,11 @@ describe('Tessitura Homepage View', function() {
       view.render();
     });
 
-    it('#view #travis is a div', function() {
+    it('is a div #appView #view #travis', function() {
       expect(view.$el).toHaveTag('div');
     });
 
-    it('#view #travis has ID #homepage-wrapper', function() {
+    it('has ID #homepage-wrapper #appView #view #travis', function() {
       expect(view.$el).toHaveId('homepage-wrapper');
     });
   });
@@ -115,14 +115,14 @@ describe('Tessitura Homepage View', function() {
     afterEach(function() { newView.destroy(); });
 
     describe('click .login-link', function() {
-      it('#view #travis calls toggleLoginForm', function() {
+      it('calls toggleLoginForm #appView #view #travis', function() {
         newView.$('nav li .login-link').click();
         expect(Tessitura.HomepageView.prototype.toggleLoginForm).toHaveBeenCalled();
       });
     });
 
     describe('dblclick #shade', function() {
-      it('#view #travis calls hideLoginForm', function() {
+      it('calls hideLoginForm #appView #view #travis', function() {
         newView.$('#shade').dblclick();
         expect(Tessitura.HomepageView.prototype.hideLoginForm).toHaveBeenCalled();
       });
@@ -143,17 +143,17 @@ describe('Tessitura Homepage View', function() {
 
       afterEach(function() { user.destroy(); });
       
-      it('#view #travis triggers redirect on itself', function() {
+      it('triggers redirect on itself #appView #view #travis', function() {
         view.goToDashboard(e);
         expect(spy).toHaveBeenCalled();
       });
 
-      it('#view #travis passes the user through', function() {
+      it('passes the user through #appView #view #travis', function() {
         view.goToDashboard(e);
         expect(spy.calls.argsFor(0)[0]).toEqual(jasmine.objectContaining({user: user}));
       });
 
-      it('#view #travis sends the destination', function() {
+      it('sends the destination #appView #view #travis', function() {
         view.goToDashboard(e);
         expect(spy.calls.argsFor(0)[0]).toEqual(jasmine.objectContaining({destination: 'dashboard'}));
       });
@@ -165,7 +165,7 @@ describe('Tessitura Homepage View', function() {
           spyOn($, 'cookie').and.returnValue(btoa('testuser:testuser'));
         });
 
-        it('#view #travis triggers redirect', function() {
+        it('triggers redirect #appView #view #travis', function() {
           spy = jasmine.createSpy();
           view.on('redirect', spy);
           view.toggleLoginForm($.Event('click', {target: view.$('.login-link')}));
@@ -178,7 +178,7 @@ describe('Tessitura Homepage View', function() {
           spyOn($, 'cookie').and.returnValue(null);
         });
 
-        it('#view #travis doesn\'t trigger redirect', function() {
+        it('doesn\'t trigger redirect #appView #view #travis', function() {
           view.toggleLoginForm($.Event('click', {target: view.$('.login-link')}));
         });
       });
@@ -197,27 +197,27 @@ describe('Tessitura Homepage View', function() {
         view.remove();
       });
 
-      it('#view #travis removes its login form', function() {
+      it('removes its login form #appView #view #travis', function() {
         expect(view.loginForm.remove).toHaveBeenCalled();
       });
 
-      it('#view #travis removes its registration form', function() {
+      it('removes its registration form #appView #view #travis', function() {
         expect(view.registrationForm.remove).toHaveBeenCalled();
       });
 
-      it('#view #travis removes itself using the Backbone view prototype', function() {
+      it('removes itself using the Backbone view prototype #appView #view #travis', function() {
         expect(Backbone.View.prototype.remove.call).toHaveBeenCalledWith(view);
       });
     });
 
     describe('render', function() {
-      it('#view #travis renders its login form', function() {
+      it('renders its login form #appView #view #travis', function() {
         spyOn(view.loginForm, 'render');
         view.render();
         expect(view.loginForm.render).toHaveBeenCalled();
       });
 
-      it('#view #travis inserts its login form into its #shade element', function() {
+      it('inserts its login form into its #shade element #appView #view #travis', function() {
         view.render();
         expect(view.$('#shade')).toHaveDescendant(view.loginForm.$el);
       });
@@ -229,15 +229,15 @@ describe('Tessitura Homepage View', function() {
 
   describe('special functions', function() {
     describe('isA()', function() {
-      it('#view #travis returns true with argument HomepageView', function() {
+      it('returns true with argument HomepageView #appView #view #travis', function() {
         expect(view.isA('HomepageView')).toBe(true);
       });
 
-      it('#view #travis returns true with argument TopLevelView', function() {
+      it('returns true with argument TopLevelView #appView #view #travis', function() {
         expect(view.isA('TopLevelView')).toBe(true);
       });
 
-      it('#view #travis returns false with another argument', function() {
+      it('returns false with another argument #appView #view #travis', function() {
         expect(view.isA('Corvette')).toBe(false);
       });
     });
