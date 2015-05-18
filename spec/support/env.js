@@ -12,5 +12,5 @@ global.subsetOf = function(subset, superset) {
 
 require('jasmine-tagged');
 var jasmineEnv = jasmine.getEnv();
-jasmineEnv.setIncludedTags(['travis', 'ui']);
+jasmineEnv.setIncludedTags(['collection', 'model', 'presenter', 'router']);
 jasmineEnv.includeSpecsWithoutTags(false);

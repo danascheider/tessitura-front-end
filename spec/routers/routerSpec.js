@@ -214,7 +214,7 @@ describe('Tessitura Router', function() {
         });
       });
 
-      it('sets the user #router #travis #router #travis', function() {
+      it('sets the user #router #travis', function() {
         spyOn(router.DashboardPresenter, 'setUser');
         router.displayDashboardHome();
         expect(router.DashboardPresenter.setUser).toHaveBeenCalled();
