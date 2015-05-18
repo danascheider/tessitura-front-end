@@ -155,6 +155,12 @@ describe('Main Dashboard View', function() {
       expect(dashboard.taskView.klass).toBe('DashboardTaskView');
     });
 
+    it('puts its child views in a childViews array #appView #view #travis', function() {
+      expect(dashboard.childViews).toEqual([
+        dashboard.sidebarView, dashboard.homeView, dashboard.taskView
+      ]);
+    });
+
     it('doesn\'t call render #appView #view #travis', function() {
       spyOn(Tessitura.DashboardView.prototype, 'render');
       newView = new Tessitura.DashboardView({user: user});
