@@ -241,9 +241,10 @@ describe('Tessitura Router', function() {
         done();
       });
 
-      it('calls getTask on the DashboardPresenter #router #travis', function() {
+      it('calls getTask on the DashboardPresenter #router #travis', function(done) {
         router.displayDashboardTaskView();
         expect(router.DashboardPresenter.getTask).toHaveBeenCalled();
+        done();
       });
     });
 
