@@ -1,4 +1,4 @@
-require(process.cwd() + '/js/cessitura.js');
+require(process.cwd() + '/js/tessitura.js');
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/spec/support/env.js');
 

@@ -36,5 +36,5 @@ Tessitura.AppPresenter         = require('./presenters/appPresenter.js');
 Tessitura.DashboardPresenter   = require('./presenters/dashboardPresenter.js');
 
 // Require router
-Tessitura.Router     = Tessitura.Router || require('./routers/TessituraRouter.js');
+Tessitura.Router     = Tessitura.Router || require('./routers/tessituraRouter.js');
 Tessitura.TestRouter = require('../spec/support/testRouter.js');
