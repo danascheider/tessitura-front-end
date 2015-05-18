@@ -125,13 +125,13 @@ Tessitura.Router = Backbone.Router.extend({
       this.AppPresenter.removeAll();
       this.navigate('dashboard', {trigger: true});
     } else {
-      next;
+      next();
     }
   },
 
   verifyLoggedIn: function(fragment, args, next) {
     if($.cookie('auth') && $.cookie('userID')) { 
-      next; 
+      next(); 
     } else {
       this.navigate('');
     }
