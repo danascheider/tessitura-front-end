@@ -1,5 +1,5 @@
 require(process.cwd() + '/spec/support/jsdom.js');
-require(process.cwd() + '/js/canto.js');
+require(process.cwd() + '/js/tessitura.js');
 require(process.cwd() + '/spec/support/env.js');
 
 var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
@@ -10,10 +10,10 @@ describe('Task Collection', function() {
   var collection, task1, task2, task3
 
   beforeEach(function() {
-    task1 = new Canto.TaskModel({title: 'New Task', owner_id: 1});
-    task2 = new Canto.TaskModel({title: 'New Task', owner_id: 1});
-    task3 = new Canto.TaskModel({title: 'New Task', owner_id: 1});
-    collection = new Canto.TaskCollection([task1, task2, task3]);
+    task1 = new Tessitura.TaskModel({title: 'New Task', owner_id: 1});
+    task2 = new Tessitura.TaskModel({title: 'New Task', owner_id: 1});
+    task3 = new Tessitura.TaskModel({title: 'New Task', owner_id: 1});
+    collection = new Tessitura.TaskCollection([task1, task2, task3]);
     spyOn($, 'cookie').and.callFake(function(name) {
       return name === 'userID' ? 1 : btoa('testuser:testuser');
     });
@@ -66,32 +66,32 @@ describe('Task Collection', function() {
 
   describe('URL', function() {
     it('gets the URL for the logged-in user #collection #travis', function() {
-      expect(collection.url()).toEqual(Canto.API.base + '/users/1/tasks');
+      expect(collection.url()).toEqual(Tessitura.API.base + '/users/1/tasks');
     });
   });
 
   describe('core functions', function() {
     describe('fetch', function() {
       beforeEach(function() {
-        spyOn(Canto.ProtectedCollection.prototype, 'fetch');
+        spyOn(Tessitura.ProtectedCollection.prototype, 'fetch');
       });
 
       context('normal', function() {
         it('sends the request to the collection URL #collection #travis', function() {
           collection.fetch();
-          expect(Canto.ProtectedCollection.prototype.fetch.calls.argsFor(0)[0].url).toEqual(collection.url());
+          expect(Tessitura.ProtectedCollection.prototype.fetch.calls.argsFor(0)[0].url).toEqual(collection.url());
         });
 
         it('calls fetch on the collection prototype', function() {
           collection.fetch();
-          expect(Canto.ProtectedCollection.prototype.fetch).toHaveBeenCalled();
+          expect(Tessitura.ProtectedCollection.prototype.fetch).toHaveBeenCalled();
         });
       });
 
       context('with option `all` set to `true`', function() {
         it('sends the request to the `all` route #collection #travis', function() {
           collection.fetch({all: true});
-          expect(Canto.ProtectedCollection.prototype.fetch.calls.argsFor(0)[0].url).toEqual(collection.url() + '/all');
+          expect(Tessitura.ProtectedCollection.prototype.fetch.calls.argsFor(0)[0].url).toEqual(collection.url() + '/all');
         });
       });
     });

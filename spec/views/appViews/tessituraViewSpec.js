@@ -1,20 +1,20 @@
-require(process.cwd() + '/js/canto.js');
+require(process.cwd() + '/js/cessitura.js');
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/spec/support/env.js');
 
 var context        = describe,
     fcontext       = fdescribe;
 
-describe('Canto.View', function() {
+describe('Tessitura.View', function() {
   var view;
 
-  beforeEach(function() { view = new Canto.View(); });
+  beforeEach(function() { view = new Tessitura.View(); });
   afterEach(function()  { view.destroy(); });
   afterAll(function()   { view = null; });
 
   describe('properties', function() {
-    it('has klass Canto.View #appView #view #travis', function() {
-      expect(view.klass).toEqual('Canto.View');
+    it('has klass Tessitura.View #appView #view #travis', function() {
+      expect(view.klass).toEqual('Tessitura.View');
     });
 
     it('has family Backbone.View #appView #view #travis', function() {
@@ -35,8 +35,8 @@ describe('Canto.View', function() {
       expect(view.types()).toContain('Backbone.View');
     });
 
-    it('includes Canto.View #appView #view #travis', function() {
-      expect(view.types()).toContain('Canto.View');
+    it('includes Tessitura.View #appView #view #travis', function() {
+      expect(view.types()).toContain('Tessitura.View');
     });
   });
 
@@ -45,8 +45,8 @@ describe('Canto.View', function() {
       expect(view.isA('Backbone.View')).toBe(true);
     });
 
-    it('returns true with argument Canto.View #appView #view #travis', function() {
-      expect(view.isA('Canto.View')).toBe(true);
+    it('returns true with argument Tessitura.View #appView #view #travis', function() {
+      expect(view.isA('Tessitura.View')).toBe(true);
     });
 
     it('returns false with another argument #appView #view #travis', function() {
@@ -85,7 +85,7 @@ describe('Canto.View', function() {
     var ChildClass;
 
     beforeEach(function() { 
-      ChildClass = Canto.View.extend({
+      ChildClass = Tessitura.View.extend({
         tagName    : 'span',
         template   : _.template('<p>Hello, <%= recipient %>!</p>'),
         setMessage : function(message) {
@@ -96,7 +96,7 @@ describe('Canto.View', function() {
         render     : function() {
           var that = this;
 
-          return Canto.View.prototype.render.call(this, this.template({recipient: 'world'}), function(args) {
+          return Tessitura.View.prototype.render.call(this, this.template({recipient: 'world'}), function(args) {
             return that.setMessage(args)
           }, 'Hope you\'re doing well today!');
         }
@@ -106,7 +106,7 @@ describe('Canto.View', function() {
 
     it('inherits its types #appView #view #travis', function() {
       var newView = new ChildClass();
-      expect(newView.isA('Canto.View')).toBe(true);
+      expect(newView.isA('Tessitura.View')).toBe(true);
     });
 
     it('has a childViews array #appView #view #travis', function() {

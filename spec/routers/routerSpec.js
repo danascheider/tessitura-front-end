@@ -31,15 +31,15 @@ var matchers       = require('jasmine-jquery-matchers'),
 /* Module-Specific Requires
 /******************************************************************************/
 
-Canto.Router = require(process.cwd() + '/js/routers/cantoRouter.js');
+Tessitura.Router = require(process.cwd() + '/js/routers/tessituraRouter.js');
 
 var DashboardPresenter = require(process.cwd() + '/js/presenters/dashboardPresenter.js');
 
 /******************************************************************************
- * CANTO ROUTER SPEC                                                          *
+ * Tessitura ROUTER SPEC                                                          *
 /******************************************************************************/
 
-describe('Canto Router', function() {
+describe('Tessitura Router', function() {
 
   var router, user, spy;
 
@@ -51,7 +51,7 @@ describe('Canto Router', function() {
   });
 
   beforeEach(function() {
-    router = new Canto.Router();
+    router = new Tessitura.Router();
   });
 
   afterAll(function() {
@@ -62,8 +62,8 @@ describe('Canto Router', function() {
   /****************************************************************************/
 
   describe('static properties', function() {
-    it('has klass Canto.Router #router #travis', function() {
-      expect(router.klass).toBe('Canto.Router');
+    it('has klass Tessitura.Router #router #travis', function() {
+      expect(router.klass).toBe('Tessitura.Router');
     });
   });
 
@@ -148,23 +148,23 @@ describe('Canto Router', function() {
     var newRouter, event;
 
     beforeEach(function() {
-      spyOn(Canto.Router.prototype, 'navigateTo');
-      user = new Canto.UserModel({username: 'testuser', password: 'testuser', id: 1});
+      spyOn(Tessitura.Router.prototype, 'navigateTo');
+      user = new Tessitura.UserModel({username: 'testuser', password: 'testuser', id: 1});
     });
 
     afterEach(function() { user.destroy(); });
 
     it('listens to its dashboard presenter #router #travis', function(done) {
-      newRouter = new Canto.Router();
+      newRouter = new Tessitura.Router();
       newRouter.DashboardPresenter.emitRedirect({destination: 'homepage'});
-      expect(Canto.Router.prototype.navigateTo).toHaveBeenCalledWith({destination: 'homepage'});
+      expect(Tessitura.Router.prototype.navigateTo).toHaveBeenCalledWith({destination: 'homepage'});
       done();
     });
 
     it('listens to its app presenter #router #travis', function(done) {
-      newRouter = new Canto.Router();
+      newRouter = new Tessitura.Router();
       newRouter.AppPresenter.emitRedirect({destination: 'dashboard', user: user});
-      expect(Canto.Router.prototype.navigateTo).toHaveBeenCalledWith({destination: 'dashboard', user: user});
+      expect(Tessitura.Router.prototype.navigateTo).toHaveBeenCalledWith({destination: 'dashboard', user: user});
       done();
     });
   });
@@ -185,7 +185,7 @@ describe('Canto Router', function() {
 
       context('when passed a user model', function() {
         beforeEach(function() {
-          user = new Canto.UserModel({username: 'testuser', password: 'testuser', id: 1});
+          user = new Tessitura.UserModel({username: 'testuser', password: 'testuser', id: 1});
           spyOn(router.DashboardPresenter, 'setUser');
         });
 
@@ -282,8 +282,8 @@ describe('Canto Router', function() {
 
   describe('special functions', function() {
     describe('isA()', function() {
-      it('returns true with argument Canto.Router #router #travis', function() {
-        expect(router.isA('Canto.Router')).toBe(true);
+      it('returns true with argument Tessitura.Router #router #travis', function() {
+        expect(router.isA('Tessitura.Router')).toBe(true);
       });
 
       it('returns true with argument \'Router\' #router #travis', function() {
@@ -295,7 +295,7 @@ describe('Canto Router', function() {
       });
 
       it('returns false with another argument #router #travis', function() {
-        expect(router.isA('Canto.Model')).toBe(false);
+        expect(router.isA('Tessitura.Model')).toBe(false);
       });
     });
   });

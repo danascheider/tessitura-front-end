@@ -1,16 +1,16 @@
-var TaskModelView = Canto.View.extend({
+var TaskModelView = Tessitura.View.extend({
   tagName      : 'div',
   className    : 'task-model',
   template     : JST['tasks/model'],
 
-  /* Canto View Attributes
+  /* Tessitura View Attributes
   /**************************************************************************************/
 
   klass        : 'TaskModelView',
-  family       : 'Canto.View',
+  family       : 'Tessitura.View',
   superFamily  : 'Backbone.View',
   types        : function() {
-    return Canto.View.prototype.types().concat('TaskModelView');
+    return Tessitura.View.prototype.types().concat('TaskModelView');
   },
 
   /* Event Callbacks
@@ -29,7 +29,7 @@ var TaskModelView = Canto.View.extend({
   },
 
   render       : function() {
-    return Canto.View.prototype.render.call(this, this.template({model: this.model}));
+    return Tessitura.View.prototype.render.call(this, this.template({model: this.model}));
   }
 });
 

@@ -38,7 +38,7 @@
 /****************************************************************************/
 
 require(process.cwd() + '/spec/support/jsdom.js');
-require(process.cwd() + '/js/canto.js');
+require(process.cwd() + '/js/tessitura.js');
 require(process.cwd() + '/spec/support/env.js');
 
 var matchers       = require('jasmine-jquery-matchers'),
@@ -61,17 +61,17 @@ describe('Dashboard Home View', function() {
 
   beforeEach(function() {
 
-    user = new Canto.UserModel({id: 1, username: 'testuser', password: 'testuser', email: 'testuser@example.com', first_name: 'Test', last_name: 'User'});
+    user = new Tessitura.UserModel({id: 1, username: 'testuser', password: 'testuser', email: 'testuser@example.com', first_name: 'Test', last_name: 'User'});
 
     // Require the task model and create 3 tasks
-    task1 = new Canto.TaskModel({id: 1, owner_id: 1, title: 'Task 1', status: 'New', priority: 'Low', position: 1});
-    task2 = new Canto.TaskModel({id: 2, owner_id: 1, title: 'Task 2', status: 'New', priority: 'Normal', position: 2});
-    task3 = new Canto.TaskModel({id: 3, owner_id: 1, title: 'Task 3', status: 'Complete', priority: 'Normal', position: 3});
+    task1 = new Tessitura.TaskModel({id: 1, owner_id: 1, title: 'Task 1', status: 'New', priority: 'Low', position: 1});
+    task2 = new Tessitura.TaskModel({id: 2, owner_id: 1, title: 'Task 2', status: 'New', priority: 'Normal', position: 2});
+    task3 = new Tessitura.TaskModel({id: 3, owner_id: 1, title: 'Task 3', status: 'Complete', priority: 'Normal', position: 3});
 
     collection = user.tasks;
 
-    spyOn(Canto.TaskModel.prototype, 'displayTitle').and.returnValue('foobar');
-    view = new Canto.DashboardHomeView({user: user});
+    spyOn(Tessitura.TaskModel.prototype, 'displayTitle').and.returnValue('foobar');
+    view = new Tessitura.DashboardHomeView({user: user});
   });
 
   afterEach(function() {
@@ -91,8 +91,8 @@ describe('Dashboard Home View', function() {
       expect(view.klass).toEqual('DashboardHomeView');
     });
 
-    it('has family Canto.View', function() {
-      expect(view.family).toEqual('Canto.View');
+    it('has family Tessitura.View', function() {
+      expect(view.family).toEqual('Tessitura.View');
     });
 
     it('has superFamily Backbone.View', function() {
@@ -105,19 +105,19 @@ describe('Dashboard Home View', function() {
 
   describe('constructor', function() {
     it('does not call render #partialView #view #travis', function() {
-      spyOn(Canto.DashboardHomeView.prototype, 'render');
-      newView = new Canto.DashboardHomeView({user: user});
-      expect(Canto.DashboardHomeView.prototype.render).not.toHaveBeenCalled();
+      spyOn(Tessitura.DashboardHomeView.prototype, 'render');
+      newView = new Tessitura.DashboardHomeView({user: user});
+      expect(Tessitura.DashboardHomeView.prototype.render).not.toHaveBeenCalled();
     });
 
     it('calls setUser #partialView #view #travis', function() {
-      spyOn(Canto.DashboardHomeView.prototype, 'setUser');
-      newView = new Canto.DashboardHomeView({user: user});
-      expect(Canto.DashboardHomeView.prototype.setUser).toHaveBeenCalled();
+      spyOn(Tessitura.DashboardHomeView.prototype, 'setUser');
+      newView = new Tessitura.DashboardHomeView({user: user});
+      expect(Tessitura.DashboardHomeView.prototype.setUser).toHaveBeenCalled();
     });
 
     it('can be instantiated without a user #partialView #view #travis', function() {
-      newView = new Canto.DashboardHomeView();
+      newView = new Tessitura.DashboardHomeView();
       expect(newView.user).not.toExist();
     });
   });
@@ -183,7 +183,7 @@ describe('Dashboard Home View', function() {
 
       context('when the child views don\'t exist', function() {
         it('doesn\'t raise an error #partialView #view #travis', function() {
-          newView = new Canto.DashboardHomeView();
+          newView = new Tessitura.DashboardHomeView();
           expect(view.remove).not.toThrow();
         });
       });
@@ -240,7 +240,7 @@ describe('Dashboard Home View', function() {
 
     describe('setUser()', function() {
       beforeEach(function() {
-        newView = new Canto.DashboardHomeView();
+        newView = new Tessitura.DashboardHomeView();
         newView.setUser(user);
       });
 

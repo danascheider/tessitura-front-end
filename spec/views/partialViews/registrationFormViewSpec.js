@@ -26,7 +26,7 @@
 /* Core Requires
 /****************************************************************************/
 
-require(process.cwd() + '/js/canto.js');
+require(process.cwd() + '/js/tessitura.js');
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/spec/support/env.js');
 
@@ -49,7 +49,7 @@ describe('Registration Form View', function() {
   });
 
   beforeEach(function() {
-    form = new Canto.RegistrationFormView();
+    form = new Tessitura.RegistrationFormView();
   });
 
   afterEach(function() {
@@ -69,8 +69,8 @@ describe('Registration Form View', function() {
       expect(form.klass).toBe('RegistrationFormView');
     });
 
-    it('has family Canto.View #partialView #view #travis', function() {
-      expect(form.family).toBe('Canto.View');
+    it('has family Tessitura.View #partialView #view #travis', function() {
+      expect(form.family).toBe('Tessitura.View');
     });
 
     it('has superFamily Backbone.View #partialView #view #travis', function() {
@@ -131,10 +131,10 @@ describe('Registration Form View', function() {
   describe('view events', function() {
     describe('submit', function() {
       it('calls createUser #partialView #view #travis', function() {
-        spyOn(Canto.RegistrationFormView.prototype, 'createUser');
-        newForm = new Canto.RegistrationFormView();
+        spyOn(Tessitura.RegistrationFormView.prototype, 'createUser');
+        newForm = new Tessitura.RegistrationFormView();
         newForm.$el.submit();
-        expect(Canto.RegistrationFormView.prototype.createUser).toHaveBeenCalled();
+        expect(Tessitura.RegistrationFormView.prototype.createUser).toHaveBeenCalled();
       });
     });
   });
@@ -150,7 +150,7 @@ describe('Registration Form View', function() {
           first_name: 'Test', last_name: 'User', acceptTerms: true
         };
 
-        spyOn(Canto.Utils, 'getAttributes').and.returnValue(obj);      
+        spyOn(Tessitura.Utils, 'getAttributes').and.returnValue(obj);      
 
         e = $.Event('submit', {target: form.$el});
       });
@@ -164,9 +164,9 @@ describe('Registration Form View', function() {
       });
 
       it('instantiates a user model #partialView #view #travis', function() {
-        spyOn(Canto.UserModel.prototype, 'initialize');
+        spyOn(Tessitura.UserModel.prototype, 'initialize');
         form.createUser(e);
-        expect(Canto.UserModel.prototype.initialize).toHaveBeenCalled();
+        expect(Tessitura.UserModel.prototype.initialize).toHaveBeenCalled();
       });
 
       it('calls validateForm #partialView #view #travis', function() {
@@ -176,15 +176,15 @@ describe('Registration Form View', function() {
       });
 
       it('calls save on the user #partialView #view #travis', function() {
-        spyOn(Canto.UserModel.prototype, 'save');
+        spyOn(Tessitura.UserModel.prototype, 'save');
         form.createUser(e);
-        expect(Canto.UserModel.prototype.save).toHaveBeenCalled();
+        expect(Tessitura.UserModel.prototype.save).toHaveBeenCalled();
       });
 
       it('uses the attributes from the form #partialView #view #travis', function() {
-        spyOn(Canto.UserModel.prototype, 'save');
+        spyOn(Tessitura.UserModel.prototype, 'save');
         form.createUser(e);
-        expect(Canto.UserModel.prototype.save.calls.argsFor(0)).toContain(obj)
+        expect(Tessitura.UserModel.prototype.save.calls.argsFor(0)).toContain(obj)
       });
 
       context('invalid form', function() {
@@ -193,9 +193,9 @@ describe('Registration Form View', function() {
         });
 
         it('doesn\'t create a user #partialView #view #travis', function() {
-          spyOn(Canto.UserModel.prototype, 'initialize');
+          spyOn(Tessitura.UserModel.prototype, 'initialize');
           form.createUser(e);
-          expect(Canto.UserModel.prototype.initialize).not.toHaveBeenCalled();
+          expect(Tessitura.UserModel.prototype.initialize).not.toHaveBeenCalled();
         });
 
         it('doesn\'t trigger userCreated #partialView #view #travis', function() {
@@ -439,7 +439,7 @@ describe('Registration Form View', function() {
             });
 
             it('can contain subdomains #partialView #view #travis', function() {
-              formData.email = 'dana@admin.canto.si';
+              formData.email = 'dana@admin.Tessitura.si';
             });
           });
 
@@ -468,11 +468,11 @@ describe('Registration Form View', function() {
 
   describe('core view functions', function() {
     describe('render()', function() {
-      it('calls render on the Canto View prototype #partialView #view #travis', function() {
-        spyOn(Canto.View.prototype.render, 'call');
+      it('calls render on the Tessitura View prototype #partialView #view #travis', function() {
+        spyOn(Tessitura.View.prototype.render, 'call');
         form.render();
-        expect(Canto.View.prototype.render.call).toHaveBeenCalled();
-        expect(Canto.View.prototype.render.call.calls.argsFor(0)).toContain(form);
+        expect(Tessitura.View.prototype.render.call).toHaveBeenCalled();
+        expect(Tessitura.View.prototype.render.call.calls.argsFor(0)).toContain(form);
       });
     });
   });

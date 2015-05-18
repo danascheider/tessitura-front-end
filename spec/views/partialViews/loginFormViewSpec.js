@@ -25,7 +25,7 @@
 /* Core Requires
 /****************************************************************************/
 
-require(process.cwd() + '/js/canto.js');
+require(process.cwd() + '/js/tessitura.js');
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/spec/support/env.js');
 
@@ -49,7 +49,7 @@ describe('Login Form View', function() {
   });
 
   beforeEach(function() {
-    view = new Canto.LoginFormView();
+    view = new Tessitura.LoginFormView();
   });
 
   afterEach(function() {
@@ -69,8 +69,8 @@ describe('Login Form View', function() {
       expect(view.klass).toEqual('LoginFormView');
     });
 
-    it('has family Canto.View #partialView #view #travis', function() {
-      expect(view.family).toEqual('Canto.View');
+    it('has family Tessitura.View #partialView #view #travis', function() {
+      expect(view.family).toEqual('Tessitura.View');
     });
 
     it('has superFamily Backbone.View #partialView #view #travis', function() {
@@ -83,9 +83,9 @@ describe('Login Form View', function() {
 
   describe('constructor', function() {
     it('does not call render #partialView #view #travis', function() {
-      spyOn(Canto.LoginFormView.prototype, 'render');
-      var newView = new Canto.LoginFormView();
-      expect(Canto.LoginFormView.prototype.render).not.toHaveBeenCalled();
+      spyOn(Tessitura.LoginFormView.prototype, 'render');
+      var newView = new Tessitura.LoginFormView();
+      expect(Tessitura.LoginFormView.prototype.render).not.toHaveBeenCalled();
     });
   });
 
@@ -138,9 +138,9 @@ describe('Login Form View', function() {
   describe('view events', function() {
     var newView; 
     beforeEach(function() {
-      spyOn(Canto.LoginFormView.prototype, 'loginUser');
-      spyOn(Canto.LoginFormView.prototype, 'loginHelp');
-      newView = new Canto.LoginFormView();
+      spyOn(Tessitura.LoginFormView.prototype, 'loginUser');
+      spyOn(Tessitura.LoginFormView.prototype, 'loginHelp');
+      newView = new Tessitura.LoginFormView();
       newView.render();
     });
 
@@ -149,14 +149,14 @@ describe('Login Form View', function() {
     describe('submit form', function() {
       it('calls loginUser #partialView #view #travis', function() {
         newView.$el.submit();
-        expect(Canto.LoginFormView.prototype.loginUser).toHaveBeenCalled();
+        expect(Tessitura.LoginFormView.prototype.loginUser).toHaveBeenCalled();
       });
     });
 
     describe('click .login-help-link', function() {
       it('calls loginHelp #partialView #view #travis', function() {
         newView.$('.login-help-link').click();
-        expect(Canto.LoginFormView.prototype.loginHelp).toHaveBeenCalled();
+        expect(Tessitura.LoginFormView.prototype.loginHelp).toHaveBeenCalled();
       });
     });
   });
@@ -176,13 +176,13 @@ describe('Login Form View', function() {
         view.render();
         e = $.Event('submit', {target: view.$el});
         xhr = new XMLHttpRequest();
-        xhr.open('POST', Canto.API.login)
+        xhr.open('POST', Tessitura.API.login)
       });
 
       describe('general', function() {
         beforeEach(function() { 
           spyOn($, 'ajax'); 
-          spyOn(Canto.Utils, 'getAttributes').and.returnValue({username: 'testuser', password: 'testuser', remember: 'Remember Me'});
+          spyOn(Tessitura.Utils, 'getAttributes').and.returnValue({username: 'testuser', password: 'testuser', remember: 'Remember Me'});
         });
 
         it('doesn\'t refresh the page #partialView #view #travis', function() {
@@ -192,15 +192,15 @@ describe('Login Form View', function() {
         });
 
         it('creates a new user #partialView #view #travis', function() {
-          spyOn(Canto.UserModel.prototype, 'initialize');
+          spyOn(Tessitura.UserModel.prototype, 'initialize');
           view.loginUser(e);
-          expect(Canto.UserModel.prototype.initialize).toHaveBeenCalled();
+          expect(Tessitura.UserModel.prototype.initialize).toHaveBeenCalled();
         });
 
         it('calls login on the user #partialView #view #travis', function() {
-          spyOn(Canto.UserModel.prototype, 'login');
+          spyOn(Tessitura.UserModel.prototype, 'login');
           view.loginUser(e);
-          expect(Canto.UserModel.prototype.login).toHaveBeenCalled();
+          expect(Tessitura.UserModel.prototype.login).toHaveBeenCalled();
         });
       });
 
@@ -217,7 +217,7 @@ describe('Login Form View', function() {
 
         context('successful login', function() {
           beforeEach(function() {
-            user = new Canto.UserModel({id: 1, username: 'testuser', password: 'testuser'});
+            user = new Tessitura.UserModel({id: 1, username: 'testuser', password: 'testuser'});
             spyOn($, 'ajax').and.callFake(function(args) {
               args.success(user);
             });
@@ -227,7 +227,7 @@ describe('Login Form View', function() {
 
           context('with remember me true', function() {
             beforeEach(function() {
-              spyOn(Canto.Utils, 'getAttributes').and.returnValue({username: 'testuser', password: 'testuser', remember: 'Remember Me'});
+              spyOn(Tessitura.Utils, 'getAttributes').and.returnValue({username: 'testuser', password: 'testuser', remember: 'Remember Me'});
               view.loginUser(e);
             });
 
@@ -252,7 +252,7 @@ describe('Login Form View', function() {
 
           context('with remember me false', function() {
             beforeEach(function() {
-              spyOn(Canto.Utils, 'getAttributes').and.returnValue({username: 'testuser', password: 'testuser', remember: null});
+              spyOn(Tessitura.Utils, 'getAttributes').and.returnValue({username: 'testuser', password: 'testuser', remember: null});
               view.loginUser(e);
             });
 

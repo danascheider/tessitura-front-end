@@ -1,4 +1,4 @@
-var ListItemView = Canto.View.extend({
+var ListItemView = Tessitura.View.extend({
 
   /* Backbone View Properties
   /**************************************************************************************/
@@ -18,15 +18,15 @@ var ListItemView = Canto.View.extend({
     'mouseleave'             : 'hideEditIcons'
   },
 
-  /* Canto View Properties
+  /* Tessitura View Properties
   /**************************************************************************************/
 
   klass      : 'TaskListItemView',
-  family     : 'Canto.View',
+  family     : 'Tessitura.View',
   superFamily: 'Backbone.View',
 
   types      : function() {
-    return Canto.View.prototype.types().concat(['TaskListItemView', 'ListItemView']);
+    return Tessitura.View.prototype.types().concat(['TaskListItemView', 'ListItemView']);
   },
 
   /* Event Callbacks
@@ -131,7 +131,7 @@ var ListItemView = Canto.View.extend({
   /**************************************************************************************/
 
   initialize         : function() {
-    this.modelView = new Canto.TaskModelView({model: this.model});
+    this.modelView = new Tessitura.TaskModelView({model: this.model});
     this.childViews.push(this.modelView);
   },
 
@@ -143,7 +143,7 @@ var ListItemView = Canto.View.extend({
   render             : function() {
     var that = this;
 
-    return Canto.View.prototype.render.call(this, this.template(), function() {
+    return Tessitura.View.prototype.render.call(this, this.template(), function() {
       that.modelView.render();
       that.$('td.task-listing').html(that.modelView.$el);
       that.configureDraggable();

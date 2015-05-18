@@ -3,7 +3,7 @@
 
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/spec/support/env.js');
-require(process.cwd() + '/js/canto.js');
+require(process.cwd() + '/js/tessitura.js');
 
 /* Configuration
 /*****************************************************************************************/
@@ -27,7 +27,7 @@ describe('App Presenter', function() {
   });
 
   beforeEach(function() { 
-    presenter = new Canto.AppPresenter(); 
+    presenter = new Tessitura.AppPresenter(); 
   });
 
   afterAll(function() { 
@@ -35,16 +35,16 @@ describe('App Presenter', function() {
     presenter = null; 
   });
 
-  /* Canto Model Properties
+  /* Tessitura Model Properties
   /***************************************************************************************/
 
-  describe('Canto model properties', function() {
+  describe('Tessitura model properties', function() {
     it('has klass AppPresenter #presenter #travis', function() {
       expect(presenter.klass).toBe('AppPresenter');
     });
 
-    it('has family Canto.Model #presenter #travis', function() {
-      expect(presenter.family).toBe('Canto.Model');
+    it('has family Tessitura.Model #presenter #travis', function() {
+      expect(presenter.family).toBe('Tessitura.Model');
     });
 
     it('has superFamily Backbone.Model #presenter #travis', function() {
@@ -67,15 +67,15 @@ describe('App Presenter', function() {
   describe('events', function() {
     describe('redirect:dashboard', function() {
       beforeEach(function() {
-        spyOn(Canto.AppPresenter.prototype, 'emitRedirect');
-        newPresenter = new Canto.AppPresenter();
+        spyOn(Tessitura.AppPresenter.prototype, 'emitRedirect');
+        newPresenter = new Tessitura.AppPresenter();
       });
 
       afterEach(function() { newPresenter.destroy(); });
 
       it('calls emitRedirect #presenter #travis', function() {
         newPresenter.homepageView.trigger('redirect', {destination: 'dashboard'});
-        expect(Canto.AppPresenter.prototype.emitRedirect).toHaveBeenCalledWith({destination: 'dashboard'});
+        expect(Tessitura.AppPresenter.prototype.emitRedirect).toHaveBeenCalledWith({destination: 'dashboard'});
       });
     });
   });
@@ -90,7 +90,7 @@ describe('App Presenter', function() {
       beforeEach(function() {
         spy = jasmine.createSpy();
         presenter.on('redirect', spy);
-        user = new Canto.UserModel({username: 'testuser', password: 'testuser', id: 1});
+        user = new Tessitura.UserModel({username: 'testuser', password: 'testuser', id: 1});
       });
 
       afterEach(function() { 

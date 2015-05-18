@@ -75,8 +75,8 @@ describe(/* ACTUAL VALUE */, function() {
       expect(view.klass).toEqual(/* Expected Value */);
     });
 
-    it('has family Canto.View', function() {
-      expect(view.family).toEqual('Canto.View');
+    it('has family Tessitura.View', function() {
+      expect(view.family).toEqual('Tessitura.View');
     });
 
     it('has superFamily Backbone.View', function() {

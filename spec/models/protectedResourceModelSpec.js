@@ -1,5 +1,5 @@
 require(process.cwd() + '/spec/support/jsdom.js');
-require(process.cwd() + '/js/canto.js');
+require(process.cwd() + '/js/tessitura.js');
 require(process.cwd() + '/spec/support/env.js');
 
 var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
@@ -10,8 +10,8 @@ describe('Protected Resource Model', function() {
   var resource, xhr;
 
   beforeEach(function() {
-    resource = new Canto.ProtectedResourceModel({id: 1});
-    resource.url = Canto.API.base + '/protected-resources/1'; 
+    resource = new Tessitura.ProtectedResourceModel({id: 1});
+    resource.url = Tessitura.API.base + '/protected-resources/1'; 
     xhr = new XMLHttpRequest();
   });
 
@@ -94,7 +94,7 @@ describe('Protected Resource Model', function() {
     });
 
     it('returns false with another argument #model #travis', function() {
-      expect(resource.isA('Canto.View')).toBe(false);
+      expect(resource.isA('Tessitura.View')).toBe(false);
     });
   });
 

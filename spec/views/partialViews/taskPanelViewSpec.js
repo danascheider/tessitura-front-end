@@ -1,5 +1,5 @@
 require(process.cwd() + '/spec/support/jsdom.js');
-require(process.cwd() + '/js/canto.js');
+require(process.cwd() + '/js/tessitura.js');
 require(process.cwd() + '/spec/support/env.js');
 
 var Fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
@@ -25,7 +25,7 @@ describe('Task Panel View', function() {
       }
     };
 
-    taskPanel = new Canto.TaskPanelView(opts);
+    taskPanel = new Tessitura.TaskPanelView(opts);
   });
 
   afterEach(function() {
@@ -42,10 +42,10 @@ describe('Task Panel View', function() {
 
   describe('constructor', function() {
     it('doesn\'t call render #partialView #view #travis', function() {
-      spyOn(Canto.TaskPanelView.prototype, 'render');
+      spyOn(Tessitura.TaskPanelView.prototype, 'render');
       task1.set('status', 'Blocking');
-      var newPanel = new Canto.TaskPanelView(opts);
-      expect(Canto.TaskPanelView.prototype.render).not.toHaveBeenCalled();
+      var newPanel = new Tessitura.TaskPanelView(opts);
+      expect(Tessitura.TaskPanelView.prototype.render).not.toHaveBeenCalled();
       newPanel.remove();
     });
 
@@ -71,7 +71,7 @@ describe('Task Panel View', function() {
         collection.create({title: 'My Task ' + i, position: i}, {sync: false, silent: true});
       }
 
-      var newPanel = new Canto.TaskPanelView({collection: collection});
+      var newPanel = new Tessitura.TaskPanelView({collection: collection});
       expect(newPanel.collectionView.collection.length).toBe(10);
     });
   });
@@ -81,8 +81,8 @@ describe('Task Panel View', function() {
       expect(taskPanel.klass).toBe('TaskPanelView');
     });
 
-    it('has family \'Canto.View\' #partialView #view #travis', function() {
-      expect(taskPanel.family).toBe('Canto.View');
+    it('has family \'Tessitura.View\' #partialView #view #travis', function() {
+      expect(taskPanel.family).toBe('Tessitura.View');
     });
 
     it('has superFamily \'Backbone.View\' #partialView #view #travis', function() {
@@ -119,40 +119,40 @@ describe('Task Panel View', function() {
   describe('events', function() {
     describe('click .toggle-widget i', function() {
       it(' calls toggleWidget() #partialView #view #travis', function() {
-        spyOn(Canto.TaskPanelView.prototype, 'toggleWidget');
-        var newView = new Canto.TaskPanelView({collection: collection});
+        spyOn(Tessitura.TaskPanelView.prototype, 'toggleWidget');
+        var newView = new Tessitura.TaskPanelView({collection: collection});
         newView.render().$('.toggle-widget i').trigger('click');
-        expect(Canto.TaskPanelView.prototype.toggleWidget).toHaveBeenCalled();
+        expect(Tessitura.TaskPanelView.prototype.toggleWidget).toHaveBeenCalled();
       });
     });
 
     describe('change task status', function() {
       it('calls crossOffComplete() #partialView #view #travis', function() {
-        spyOn(Canto.TaskPanelView.prototype, 'crossOffComplete');
-        spyOn(Canto.TaskCollectionView.prototype, 'crossOff');
+        spyOn(Tessitura.TaskPanelView.prototype, 'crossOffComplete');
+        spyOn(Tessitura.TaskCollectionView.prototype, 'crossOff');
 
-        var newCollection = new Canto.TaskCollection([task1, task2, task3]);
-        var newView = new Canto.TaskPanelView({collection: newCollection});
+        var newCollection = new Tessitura.TaskCollection([task1, task2, task3]);
+        var newView = new Tessitura.TaskPanelView({collection: newCollection});
         newView.collection.trigger('change:status');
-        expect(Canto.TaskPanelView.prototype.crossOffComplete).toHaveBeenCalled();
+        expect(Tessitura.TaskPanelView.prototype.crossOffComplete).toHaveBeenCalled();
       });
     });
 
     describe('change task backlog', function() {
       it('calls removeBacklog() #partialView #view #travis', function() {
-        spyOn(Canto.TaskPanelView.prototype, 'removeBacklog');
-        var newView = new Canto.TaskPanelView({collection: collection});
+        spyOn(Tessitura.TaskPanelView.prototype, 'removeBacklog');
+        var newView = new Tessitura.TaskPanelView({collection: collection});
         newView.collection.trigger('change:backlog');
-        expect(Canto.TaskPanelView.prototype.removeBacklog).toHaveBeenCalled();
+        expect(Tessitura.TaskPanelView.prototype.removeBacklog).toHaveBeenCalled();
       });
     });
 
     describe('remove task from collection display', function() {
       it('calls addTaskToDisplay() #partialView #view #travis', function() {
-        spyOn(Canto.TaskPanelView.prototype, 'addTaskToDisplay');
-        var newView = new Canto.TaskPanelView({collection: collection});
+        spyOn(Tessitura.TaskPanelView.prototype, 'addTaskToDisplay');
+        var newView = new Tessitura.TaskPanelView({collection: collection});
         newView.collectionView.collection.remove(task1);
-        expect(Canto.TaskPanelView.prototype.addTaskToDisplay).toHaveBeenCalled();
+        expect(Tessitura.TaskPanelView.prototype.addTaskToDisplay).toHaveBeenCalled();
       });
     });
   });
@@ -167,7 +167,7 @@ describe('Task Panel View', function() {
             collection.create({title: 'My Task ' + i, position: i}, {sync: false, silent: true});
           }
 
-          newView = new Canto.TaskPanelView({collection: collection});
+          newView = new Tessitura.TaskPanelView({collection: collection});
         });
 
         it('adds a task to the collection view\'s collection #partialView #view #travis', function() {
@@ -211,8 +211,8 @@ describe('Task Panel View', function() {
       });
 
       it('doesn\'t include blocking tasks #partialView #view #travis', function() {
-        var newView = new Canto.TaskListItemView({model: task2});
-        spyOn(Canto.TaskCollectionView.prototype, 'retrieveViewForModel').and.returnValue(newView);
+        var newView = new Tessitura.TaskListItemView({model: task2});
+        spyOn(Tessitura.TaskCollectionView.prototype, 'retrieveViewForModel').and.returnValue(newView);
         task2.set({status: 'Blocking'});
         expect(taskPanel.filterCollection(collection).indexOf(task2)).toBe(-1);
       });

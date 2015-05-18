@@ -10,7 +10,7 @@ describe('Dashboard Sidebar View', function() {
   var sidebar, newSidebar, e, link;
 
   beforeAll(function()  { jasmine.addMatchers(matchers); });
-  beforeEach(function() { sidebar = new Canto.DashboardSidebarView(); });
+  beforeEach(function() { sidebar = new Tessitura.DashboardSidebarView(); });
   afterEach(function()  { 
     sidebar.destroy(); 
     newSidebar && newSidebar.destroy();
@@ -19,23 +19,23 @@ describe('Dashboard Sidebar View', function() {
 
   describe('constructor', function() {
     it('doesn\'t call render #partialView #view #travis', function() {
-      spyOn(Canto.DashboardSidebarView.prototype, 'render');
-      newSidebar = new Canto.DashboardSidebarView();
-      expect(Canto.DashboardSidebarView.prototype.render).not.toHaveBeenCalled();
+      spyOn(Tessitura.DashboardSidebarView.prototype, 'render');
+      newSidebar = new Tessitura.DashboardSidebarView();
+      expect(Tessitura.DashboardSidebarView.prototype.render).not.toHaveBeenCalled();
     });
   });
 
   describe('properties', function() {
-    it('is a Canto.View #partialView #view #travis', function() {
-      expect(sidebar).toBeA('Canto.View');
+    it('is a Tessitura.View #partialView #view #travis', function() {
+      expect(sidebar).toBeA('Tessitura.View');
     });
 
     it('has klass DashboardSidebarView #partialView #view #travis', function() {
       expect(sidebar.klass).toBe('DashboardSidebarView');
     });
 
-    it('has family Canto.View #partialView #view #travis', function() {
-      expect(sidebar.family).toBe('Canto.View');
+    it('has family Tessitura.View #partialView #view #travis', function() {
+      expect(sidebar.family).toBe('Tessitura.View');
     });
 
     it('has superFamily Backbone.View #partialView #view #travis', function() {
@@ -77,29 +77,29 @@ describe('Dashboard Sidebar View', function() {
     newSidebar;
 
     beforeEach(function() { 
-      _.each(['toggleSecondLevelNav', 'goToTaskPage', 'goToDashboard'], function(method) { spyOn(Canto.DashboardSidebarView.prototype, method); });
-      newSidebar = new Canto.DashboardSidebarView();
+      _.each(['toggleSecondLevelNav', 'goToTaskPage', 'goToDashboard'], function(method) { spyOn(Tessitura.DashboardSidebarView.prototype, method); });
+      newSidebar = new Tessitura.DashboardSidebarView();
       newSidebar.render();
     });
 
     describe('click sidebar link', function() {
       it('calls toggleSecondLevelNav #partialView #view #travis', function() {
         newSidebar.$('a.sidebar-link').last().click();
-        expect(Canto.DashboardSidebarView.prototype.toggleSecondLevelNav).toHaveBeenCalled();
+        expect(Tessitura.DashboardSidebarView.prototype.toggleSecondLevelNav).toHaveBeenCalled();
       });
     });
 
     describe('click li > .dashboard-link', function() {
       it('calls goToDashboard #partialView #view #travis', function() {
         newSidebar.$('li > .dashboard-link').first().click();
-        expect(Canto.DashboardSidebarView.prototype.goToDashboard).toHaveBeenCalled();
+        expect(Tessitura.DashboardSidebarView.prototype.goToDashboard).toHaveBeenCalled();
       });
     });
 
     describe('click li > .task-page-link', function() {
       it('calls goToTaskPage #partialView #view #travis', function() {
         newSidebar.$('li > .task-page-link').first().click();
-        expect(Canto.DashboardSidebarView.prototype.goToTaskPage).toHaveBeenCalled();
+        expect(Tessitura.DashboardSidebarView.prototype.goToTaskPage).toHaveBeenCalled();
       });
     })
   });

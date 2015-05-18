@@ -1,5 +1,5 @@
 require(process.cwd() + '/spec/support/jsdom.js');
-require(process.cwd() + '/js/canto.js');
+require(process.cwd() + '/js/tessitura.js');
 require(process.cwd() + '/spec/support/env.js');
 
 var matchers  = require('jasmine-jquery-matchers'),
@@ -18,8 +18,8 @@ describe('Task Model View', function() {
       return name === 'userID' ? 1 : btoa('testuser:testuser');
     });
   
-    task = new Canto.TaskModel({id: 1, owner_id: 1, title: 'Task 1', status: 'New', priority: 'Low', position: 1});
-    view = new Canto.TaskModelView({model: task});
+    task = new Tessitura.TaskModel({id: 1, owner_id: 1, title: 'Task 1', status: 'New', priority: 'Low', position: 1});
+    view = new Tessitura.TaskModelView({model: task});
   });
 
   afterEach(function() {
@@ -37,24 +37,24 @@ describe('Task Model View', function() {
     });
 
     it('does not call render #modelView #view #travis', function() {
-      spyOn(Canto.TaskModelView.prototype, 'render');
-      newView = new Canto.TaskModelView({model: task});
-      expect(Canto.TaskModelView.prototype.render).not.toHaveBeenCalled();
+      spyOn(Tessitura.TaskModelView.prototype, 'render');
+      newView = new Tessitura.TaskModelView({model: task});
+      expect(Tessitura.TaskModelView.prototype.render).not.toHaveBeenCalled();
       newView.destroy();
     });
   });
 
   describe('properties', function() {
-    it('is a Canto.View #modelView #view #travis', function() {
-      expect(view).toBeA('Canto.View');
+    it('is a Tessitura.View #modelView #view #travis', function() {
+      expect(view).toBeA('Tessitura.View');
     });
 
     it('has klass TaskModelView #modelView #view #travis', function() {
       expect(view.klass).toBe('TaskModelView');
     });
 
-    it('has family Canto.View #modelView #view #travis', function() {
-      expect(view.family).toBe('Canto.View');
+    it('has family Tessitura.View #modelView #view #travis', function() {
+      expect(view.family).toBe('Tessitura.View');
     });
 
     it('has superFamily Backbone.View #modelView #view #travis', function() {
@@ -77,10 +77,10 @@ describe('Task Model View', function() {
   describe('events', function() {
     describe('save model', function() {
       it('calls renderOnSync #modelView #view #travis', function() {
-        spyOn(Canto.TaskModelView.prototype, 'renderOnSync');
-        newView = new Canto.TaskModelView({model: task});
+        spyOn(Tessitura.TaskModelView.prototype, 'renderOnSync');
+        newView = new Tessitura.TaskModelView({model: task});
         task.trigger('sync');
-        expect(Canto.TaskModelView.prototype.renderOnSync).toHaveBeenCalled();
+        expect(Tessitura.TaskModelView.prototype.renderOnSync).toHaveBeenCalled();
         newView.destroy();
       });
     });
@@ -89,7 +89,7 @@ describe('Task Model View', function() {
   describe('view elements', function() {
     beforeEach(function() { 
       task.set('deadline', new Date(2015, 8, 28));
-      task.set('description', 'Test Canto\'s front-end functionality')
+      task.set('description', 'Test Tessitura\'s front-end functionality')
       view.render(); 
     });
 
@@ -110,7 +110,7 @@ describe('Task Model View', function() {
     });
 
     it('displays the task\'s description #modelView #view #travis', function() {
-      expect(view.$('.task-description-row').html()).toEqual(jasmine.stringMatching("Test Canto's front-end functionality"));
+      expect(view.$('.task-description-row').html()).toEqual(jasmine.stringMatching("Test Tessitura's front-end functionality"));
     });
 
     it('does not display blank fields #modelView #view #travis', function() {

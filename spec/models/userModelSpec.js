@@ -1,5 +1,5 @@
 require(process.cwd() + '/spec/support/jsdom.js');
-require(process.cwd() + '/js/canto.js');
+require(process.cwd() + '/js/tessitura.js');
 require(process.cwd() + '/spec/support/env.js');
 
 var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
@@ -11,7 +11,7 @@ describe('User Model', function() {
   var user, newUser, xhr, newUser;
 
   beforeEach(function() {
-    user = new Canto.UserModel({id: 1, username: 'testuser', password: 'testuser', email: 'testuser@example.com', first_name: 'Test', last_name: 'User'});
+    user = new Tessitura.UserModel({id: 1, username: 'testuser', password: 'testuser', email: 'testuser@example.com', first_name: 'Test', last_name: 'User'});
     xhr = new XMLHttpRequest();
   });
 
@@ -25,7 +25,7 @@ describe('User Model', function() {
 
   describe('properties', function() {
     it('has `urlRoot` /users #model #travis', function() {
-      expect(user.urlRoot).toEqual(Canto.API.base + '/users');
+      expect(user.urlRoot).toEqual(Tessitura.API.base + '/users');
     });
 
     it('has klass UserModel #model #travis', function() {
@@ -34,30 +34,30 @@ describe('User Model', function() {
   });
 
   describe('constructor', function() {
-    beforeEach(function() { spyOn(Canto.UserModel.prototype, 'protectedFetch'); });
+    beforeEach(function() { spyOn(Tessitura.UserModel.prototype, 'protectedFetch'); });
     afterEach(function() { newUser.destroy(); });
 
     it('instantiates a task collection #model #travis', function() {
-      newUser = new Canto.UserModel();
+      newUser = new Tessitura.UserModel();
       expect(newUser.tasks.isA('TaskCollection')).toBe(true);
     });
 
     describe('when instantiated with an ID', function() {
       it('calls protectedFetch #model #travis', function() {
-        newUser = new Canto.UserModel({id: 14});
-        expect(Canto.UserModel.prototype.protectedFetch).toHaveBeenCalled();
+        newUser = new Tessitura.UserModel({id: 14});
+        expect(Tessitura.UserModel.prototype.protectedFetch).toHaveBeenCalled();
       });
 
       it('doesn\'t call protectedFetch if `sync` is set to false #model #travis', function() {
-        newUser = new Canto.UserModel({id: 22}, {sync: false});
-        expect(Canto.UserModel.prototype.protectedFetch).not.toHaveBeenCalled();
+        newUser = new Tessitura.UserModel({id: 22}, {sync: false});
+        expect(Tessitura.UserModel.prototype.protectedFetch).not.toHaveBeenCalled();
       });
     });
 
     describe('when not instantiated with an ID', function() {
       it('doesn\'t call protectedFetch #model #travis', function() {
-        var newUser = new Canto.UserModel();
-        expect(Canto.UserModel.prototype.protectedFetch).not.toHaveBeenCalled();
+        var newUser = new Tessitura.UserModel();
+        expect(Tessitura.UserModel.prototype.protectedFetch).not.toHaveBeenCalled();
       });
     });
   });
@@ -108,7 +108,7 @@ describe('User Model', function() {
 
     describe('login', function() {
       beforeEach(function() {
-        newUser = new Canto.UserModel({username: 'testuser', password: 'testuser'});
+        newUser = new Tessitura.UserModel({username: 'testuser', password: 'testuser'});
       });
 
       afterEach(function() { newUser.destroy(); });
@@ -119,24 +119,24 @@ describe('User Model', function() {
       });
 
       it('calls `fetch` #model #travis', function() {
-        spyOn(Canto.Model.prototype, 'fetch');
+        spyOn(Tessitura.Model.prototype, 'fetch');
         newUser.login();
-        expect(Canto.Model.prototype.fetch).toHaveBeenCalled();
+        expect(Tessitura.Model.prototype.fetch).toHaveBeenCalled();
       });
 
       it('calls `fetch` with itself #model #travis', function() {
-        spyOn(Canto.Model.prototype.fetch, 'call');
+        spyOn(Tessitura.Model.prototype.fetch, 'call');
         newUser.login();
-        expect(Canto.Model.prototype.fetch.call.calls.argsFor(0)[0]).toEqual(newUser);
+        expect(Tessitura.Model.prototype.fetch.call.calls.argsFor(0)[0]).toEqual(newUser);
       });
 
       it('sends the request to the login endpoint #model #travis', function() {
         newUser.login();
-        expect($.ajax.calls.argsFor(0)[0].url).toEqual(Canto.API.login);
+        expect($.ajax.calls.argsFor(0)[0].url).toEqual(Tessitura.API.login);
       });
 
       it('attaches the auth header #model #travis', function() {
-        xhr.open('POST', Canto.API.login)
+        xhr.open('POST', Tessitura.API.login)
         newUser.login();
         $.ajax.calls.argsFor(0)[0].beforeSend(xhr);
         expect(xhr.getRequestHeader('Authorization')).toEqual('Basic ' + btoa('testuser:testuser'));
@@ -159,7 +159,7 @@ describe('User Model', function() {
 
       it('sends the request to the requested user\'s endpoint #model #travis', function() {
         user.protectedFetch();
-        expect($.ajax.calls.argsFor(0)[0].url).toEqual(Canto.API.base + '/users/1');
+        expect($.ajax.calls.argsFor(0)[0].url).toEqual(Tessitura.API.base + '/users/1');
       });
     });
   });

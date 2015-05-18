@@ -25,7 +25,7 @@
 /* Core Requires
 /****************************************************************************/
 
-require(process.cwd() + '/js/canto.js');
+require(process.cwd() + '/js/tessitura.js');
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/spec/support/env.js');
 
@@ -48,17 +48,17 @@ describe('Kanban Column View', function() {
   });
 
   beforeEach(function() {
-    user = new Canto.UserModel({id: 1, username: 'testuser', password: 'testuser', email: 'testuser@example.com', first_name: 'Test', last_name: 'User'});
+    user = new Tessitura.UserModel({id: 1, username: 'testuser', password: 'testuser', email: 'testuser@example.com', first_name: 'Test', last_name: 'User'});
 
-    task1 = new Canto.TaskModel({id: 1, owner_id: 1, title: 'Task 1', status: 'New', priority: 'Low', position: 1});
-    task2 = new Canto.TaskModel({id: 2, owner_id: 1, title: 'Task 2', status: 'New', priority: 'Normal', position: 2});
-    task3 = new Canto.TaskModel({id: 3, owner_id: 1, title: 'Task 3', status: 'Complete', priority: 'Normal', position: 3});
+    task1 = new Tessitura.TaskModel({id: 1, owner_id: 1, title: 'Task 1', status: 'New', priority: 'Low', position: 1});
+    task2 = new Tessitura.TaskModel({id: 2, owner_id: 1, title: 'Task 2', status: 'New', priority: 'Normal', position: 2});
+    task3 = new Tessitura.TaskModel({id: 3, owner_id: 1, title: 'Task 3', status: 'Complete', priority: 'Normal', position: 3});
 
-    collection = user.tasks = new Canto.TaskCollection([task1, task2, task3]);
+    collection = user.tasks = new Tessitura.TaskCollection([task1, task2, task3]);
     data = {collection: collection, color: 'blue', icon: 'fa-exclamation-circle', headline: 'New'};
 
-    spyOn(Canto.TaskModel.prototype, 'displayTitle').and.returnValue('foobar');
-    view = new Canto.KanbanColumnView(data);
+    spyOn(Tessitura.TaskModel.prototype, 'displayTitle').and.returnValue('foobar');
+    view = new Tessitura.KanbanColumnView(data);
   });
 
   afterEach(function() {
@@ -78,8 +78,8 @@ describe('Kanban Column View', function() {
       expect(view.klass).toEqual('KanbanColumnView');
     });
 
-    it('has family Canto.View #partialView #view #travis', function() {
-      expect(view.family).toEqual('Canto.View');
+    it('has family Tessitura.View #partialView #view #travis', function() {
+      expect(view.family).toEqual('Tessitura.View');
     });
 
     it('has superFamily Backbone.View #partialView #view #travis', function() {
@@ -92,18 +92,18 @@ describe('Kanban Column View', function() {
 
   describe('constructor', function() {
     it('does not call render #partialView #view #travis', function() {
-      spyOn(Canto.KanbanColumnView.prototype, 'render');
-      newView = new Canto.KanbanColumnView(data);
+      spyOn(Tessitura.KanbanColumnView.prototype, 'render');
+      newView = new Tessitura.KanbanColumnView(data);
     });
 
     it('calls setCollection #partialView #view #travis', function () {
-      spyOn(Canto.KanbanColumnView.prototype, 'setCollection');
-      newView = new Canto.KanbanColumnView(data);
-      expect(Canto.KanbanColumnView.prototype.setCollection.calls.argsFor(0)[0]).toEqual(collection);
+      spyOn(Tessitura.KanbanColumnView.prototype, 'setCollection');
+      newView = new Tessitura.KanbanColumnView(data);
+      expect(Tessitura.KanbanColumnView.prototype.setCollection.calls.argsFor(0)[0]).toEqual(collection);
     });
 
     it('sets the data property #partialView #view #travis', function() {
-      newView = new Canto.KanbanColumnView(data);
+      newView = new Tessitura.KanbanColumnView(data);
       _.each(['color', 'icon', 'headline'], function(prop) {
         expect(newView.data[prop]).toEqual(data[prop]);
       });
@@ -111,7 +111,7 @@ describe('Kanban Column View', function() {
 
     it('can be instantiated without a collection #partialView #view #travis', function() {
       delete data.collection;
-      newView = new Canto.KanbanColumnView(data)
+      newView = new Tessitura.KanbanColumnView(data)
       expect(newView.collection).not.toExist();
       data.collection = user.tasks;
     });
@@ -120,7 +120,7 @@ describe('Kanban Column View', function() {
       context('when grouped by backlog', function() {
         it('sets groupedBy to Backlog #partialView #view #travis', function() {
           data.headline = 'Backlog';
-          newView = new Canto.KanbanColumnView(data);
+          newView = new Tessitura.KanbanColumnView(data);
           expect(newView.groupedBy).toEqual({backlog: true});
           data.headline = 'New';
         });
@@ -128,7 +128,7 @@ describe('Kanban Column View', function() {
 
       context('when grouped by status', function() {
         it('sets groupedBy to the appropriate status #partialView #view #travis', function() {
-          newView = new Canto.KanbanColumnView(data);
+          newView = new Tessitura.KanbanColumnView(data);
           expect(newView.groupedBy).toEqual({status: 'New'});
         });
       });
@@ -170,20 +170,20 @@ describe('Kanban Column View', function() {
   describe('view events', function() {
     describe('add task to collection', function() {
       it('calls updateTask #partialView #view #travis', function() {
-        spyOn(Canto.KanbanColumnView.prototype, 'updateTask');
-        newView = new Canto.KanbanColumnView(data);
-        var newTask = new Canto.TaskModel({id: 4, owner_id: 1, title: 'Hello World'});
+        spyOn(Tessitura.KanbanColumnView.prototype, 'updateTask');
+        newView = new Tessitura.KanbanColumnView(data);
+        var newTask = new Tessitura.TaskModel({id: 4, owner_id: 1, title: 'Hello World'});
         newView.collection.trigger('add', newTask);
-        expect(Canto.KanbanColumnView.prototype.updateTask).toHaveBeenCalled();
+        expect(Tessitura.KanbanColumnView.prototype.updateTask).toHaveBeenCalled();
       });
     });
 
     describe('change:backlog', function() {
       it('calls removeTask #partialView #view #travis', function() {
-        spyOn(Canto.KanbanColumnView.prototype, 'removeTask');
-        newView = new Canto.KanbanColumnView(data);
+        spyOn(Tessitura.KanbanColumnView.prototype, 'removeTask');
+        newView = new Tessitura.KanbanColumnView(data);
         newView.collection.trigger('change:backlog', task1);
-        expect(Canto.KanbanColumnView.prototype.removeTask).toHaveBeenCalledWith(task1);
+        expect(Tessitura.KanbanColumnView.prototype.removeTask).toHaveBeenCalledWith(task1);
       });
     });
   });
@@ -226,7 +226,7 @@ describe('Kanban Column View', function() {
 
       beforeEach(function() { 
         delete data.collection;
-        newView = new Canto.KanbanColumnView();
+        newView = new Tessitura.KanbanColumnView();
       });
 
       afterAll(function() {
@@ -255,10 +255,10 @@ describe('Kanban Column View', function() {
       expect(view.collectionView.remove).toHaveBeenCalled();
     });
 
-    it('removes itself from the DOM using the Canto View prototype #partialView #view #travis', function() {
-      spyOn(Canto.View.prototype.remove, 'call');
+    it('removes itself from the DOM using the Tessitura View prototype #partialView #view #travis', function() {
+      spyOn(Tessitura.View.prototype.remove, 'call');
       view.remove();
-      expect(Canto.View.prototype.remove.call).toHaveBeenCalledWith(view);
+      expect(Tessitura.View.prototype.remove.call).toHaveBeenCalledWith(view);
     });
   });
 

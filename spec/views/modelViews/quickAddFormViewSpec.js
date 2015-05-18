@@ -1,5 +1,5 @@
 require(process.cwd() + '/spec/support/jsdom.js');
-require(process.cwd() + '/js/canto.js');
+require(process.cwd() + '/js/tessitura.js');
 require(process.cwd() + '/spec/support/env.js');
 
 var matchers       = require('jasmine-jquery-matchers'),
@@ -15,13 +15,13 @@ describe('Quick-Add Task Form', function() {
   });
 
   beforeEach(function() {
-    task1 = new Canto.TaskModel({id: 1, owner_id: 1, title: 'Task 1', status: 'Blocking', priority: 'Low', position: 1});
-    task2 = new Canto.TaskModel({id: 2, owner_id: 1, title: 'Task 2', status: 'Blocking', priority: 'Normal', position: 2});
-    task3 = new Canto.TaskModel({id: 3, owner_id: 1, title: 'Task 3', status: 'Blocking', priority: 'Normal', position: 3});
+    task1 = new Tessitura.TaskModel({id: 1, owner_id: 1, title: 'Task 1', status: 'Blocking', priority: 'Low', position: 1});
+    task2 = new Tessitura.TaskModel({id: 2, owner_id: 1, title: 'Task 2', status: 'Blocking', priority: 'Normal', position: 2});
+    task3 = new Tessitura.TaskModel({id: 3, owner_id: 1, title: 'Task 3', status: 'Blocking', priority: 'Normal', position: 3});
 
-    collection = new Canto.TaskCollection([task1, task2, task3]);
+    collection = new Tessitura.TaskCollection([task1, task2, task3]);
 
-    view = new Canto.QuickAddFormView({collection: collection, grouping: {status: 'Blocking'}});
+    view = new Tessitura.QuickAddFormView({collection: collection, grouping: {status: 'Blocking'}});
   });
 
   afterEach(function() {
@@ -40,9 +40,9 @@ describe('Quick-Add Task Form', function() {
     });
 
     it('doesn\'t call render() #modelView #view #travis', function() {
-      spyOn(Canto.QuickAddFormView.prototype, 'render');
-      newView = new Canto.QuickAddFormView({collection: collection});
-      expect(Canto.QuickAddFormView.prototype.render).not.toHaveBeenCalled();
+      spyOn(Tessitura.QuickAddFormView.prototype, 'render');
+      newView = new Tessitura.QuickAddFormView({collection: collection});
+      expect(Tessitura.QuickAddFormView.prototype.render).not.toHaveBeenCalled();
       newView.destroy();
     });
 
@@ -52,16 +52,16 @@ describe('Quick-Add Task Form', function() {
   });
 
   describe('properties', function() {
-    it('is a Canto.View #modelView #view #travis', function() {
-      expect(view).toBeA('Canto.View');
+    it('is a Tessitura.View #modelView #view #travis', function() {
+      expect(view).toBeA('Tessitura.View');
     });
 
     it('has klass QuickAddTaskFormView #modelView #view #travis', function() {
       expect(view.klass).toBe('QuickAddTaskFormView');
     });
 
-    it('has family Canto.View #modelView #view #travis', function() {
-      expect(view.family).toBe('Canto.View');
+    it('has family Tessitura.View #modelView #view #travis', function() {
+      expect(view.family).toBe('Tessitura.View');
     });
 
     it('has superFamily Backbone.View #modelView #view #travis', function() {
@@ -97,21 +97,21 @@ describe('Quick-Add Task Form', function() {
 
   describe('events', function() {
     beforeEach(function() {
-      _.each(['showTaskCreateForm', 'createTask'], function(method) { spyOn(Canto.QuickAddFormView.prototype, method); });
-      newView = new Canto.QuickAddFormView({collection: collection, grouping: {status: 'Blocking'}});
+      _.each(['showTaskCreateForm', 'createTask'], function(method) { spyOn(Tessitura.QuickAddFormView.prototype, method); });
+      newView = new Tessitura.QuickAddFormView({collection: collection, grouping: {status: 'Blocking'}});
     });
 
     describe('click span.pull-right', function() {
       it('calls showTaskCreateForm() #modelView #view #travis', function() {
         newView.render().$('span.pull-right > i').click();
-        expect(Canto.QuickAddFormView.prototype.showTaskCreateForm).toHaveBeenCalled();
+        expect(Tessitura.QuickAddFormView.prototype.showTaskCreateForm).toHaveBeenCalled();
       });
     });
 
     describe('submit form', function() {
       it('calls createTask() #modelView #view #travis', function() {
         newView.render().$el.submit();
-        expect(Canto.QuickAddFormView.prototype.createTask).toHaveBeenCalled();
+        expect(Tessitura.QuickAddFormView.prototype.createTask).toHaveBeenCalled();
       });
     });
   });
@@ -132,7 +132,7 @@ describe('Quick-Add Task Form', function() {
         beforeEach(function() {
           xhr = new XMLHttpRequest();
 
-          spyOn(Canto.Utils, 'getAttributes').and.returnValue({title: 'Finish writing tests'});
+          spyOn(Tessitura.Utils, 'getAttributes').and.returnValue({title: 'Finish writing tests'});
 
           spyOn($, 'ajax').and.callFake(function(args) {
             args.success();
@@ -146,9 +146,9 @@ describe('Quick-Add Task Form', function() {
         });
 
         it('creates a new task #modelView #view #travis', function() {
-          spyOn(Canto.TaskModel.prototype, 'initialize');
+          spyOn(Tessitura.TaskModel.prototype, 'initialize');
           view.createTask(e);
-          expect(Canto.TaskModel.prototype.initialize).toHaveBeenCalled();
+          expect(Tessitura.TaskModel.prototype.initialize).toHaveBeenCalled();
         });
 
         it('attaches an auth header #modelView #view #travis', function() {
@@ -156,16 +156,16 @@ describe('Quick-Add Task Form', function() {
             return args === 'userID' ? 1 : btoa('testuser:testuser');
           });
 
-          xhr.open('POST', Canto.API.tasks.collection(1));
+          xhr.open('POST', Tessitura.API.tasks.collection(1));
           view.createTask(e);
           $.ajax.calls.argsFor(0)[0].beforeSend(xhr);
           expect(xhr.getRequestHeader('Authorization')).toEqual('Basic ' + btoa('testuser:testuser'));
         });
 
         it('sets the new task\'s attributes according to its grouping #modelView #view #travis', function() {
-          spyOn(Canto.TaskModel.prototype, 'save');
+          spyOn(Tessitura.TaskModel.prototype, 'save');
           view.createTask(e);
-          expect(Canto.TaskModel.prototype.save.calls.argsFor(0)[0].status).toEqual('Blocking');
+          expect(Tessitura.TaskModel.prototype.save.calls.argsFor(0)[0].status).toEqual('Blocking');
         });
 
         it('adds the new task to the beginning of the collection #modelView #view #travis', function() {
@@ -192,12 +192,12 @@ describe('Quick-Add Task Form', function() {
 
       context('when no title given', function() {
         it('doesn\'t create a task #modelView #view #travis', function() {
-          spyOn(Canto.Utils, 'getAttributes').and.returnValue({title: ''});
+          spyOn(Tessitura.Utils, 'getAttributes').and.returnValue({title: ''});
           spyOn(collection, 'create');
-          spyOn(Canto.TaskModel.prototype, 'initialize');
+          spyOn(Tessitura.TaskModel.prototype, 'initialize');
           view.createTask(e);
           expect(collection.create).not.toHaveBeenCalled();
-          expect(Canto.TaskModel.prototype.initialize).not.toHaveBeenCalled();
+          expect(Tessitura.TaskModel.prototype.initialize).not.toHaveBeenCalled();
         });
       });
     });

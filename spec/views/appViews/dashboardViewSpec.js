@@ -95,7 +95,7 @@
 /***************************************************************************/
 
 require(process.cwd() + '/spec/support/jsdom.js');
-require(process.cwd() + '/js/canto.js');
+require(process.cwd() + '/js/tessitura.js');
 require(process.cwd() + '/spec/support/env.js');
 
 var matchers       = require('jasmine-jquery-matchers'),
@@ -117,8 +117,8 @@ describe('Main Dashboard View', function() {
   });
 
   beforeEach(function() {
-    user = new Canto.UserModel({id: 1, username: 'testuser', password: 'testuser', email: 'testuser@example.com', first_name: 'Test', last_name: 'User'});
-    dashboard = new Canto.DashboardView({user: user});
+    user = new Tessitura.UserModel({id: 1, username: 'testuser', password: 'testuser', email: 'testuser@example.com', first_name: 'Test', last_name: 'User'});
+    dashboard = new Tessitura.DashboardView({user: user});
   });
 
   afterEach(function() {
@@ -137,10 +137,10 @@ describe('Main Dashboard View', function() {
     afterEach(function() { newView && newView.destroy(); });
 
     it('calls setUser #appView #view #travis', function() {
-      spyOn(Canto.DashboardView.prototype, 'setUser');
-      newView = new Canto.DashboardView({user: user});
-      expect(Canto.DashboardView.prototype.setUser).toHaveBeenCalled();
-      expect(Canto.DashboardView.prototype.setUser.calls.argsFor(0)[0]).toEqual(user);
+      spyOn(Tessitura.DashboardView.prototype, 'setUser');
+      newView = new Tessitura.DashboardView({user: user});
+      expect(Tessitura.DashboardView.prototype.setUser).toHaveBeenCalled();
+      expect(Tessitura.DashboardView.prototype.setUser.calls.argsFor(0)[0]).toEqual(user);
     });
 
     it('instantiates a sidebar #appView #view #travis', function() {
@@ -156,13 +156,13 @@ describe('Main Dashboard View', function() {
     });
 
     it('doesn\'t call render #appView #view #travis', function() {
-      spyOn(Canto.DashboardView.prototype, 'render');
-      newView = new Canto.DashboardView({user: user});
-      expect(Canto.DashboardView.prototype.render).not.toHaveBeenCalled();
+      spyOn(Tessitura.DashboardView.prototype, 'render');
+      newView = new Tessitura.DashboardView({user: user});
+      expect(Tessitura.DashboardView.prototype.render).not.toHaveBeenCalled();
     });
 
     it('can be instantiated without a user #appView #view #travis', function() {
-      newView = new Canto.DashboardView();
+      newView = new Tessitura.DashboardView();
       expect(newView.user).not.toExist();
     });
   });
@@ -175,8 +175,8 @@ describe('Main Dashboard View', function() {
       expect(dashboard.klass).toEqual('DashboardView');
     });
 
-    it('has family Canto.View #appView #view #travis', function() {
-      expect(dashboard.family).toEqual('Canto.View');
+    it('has family Tessitura.View #appView #view #travis', function() {
+      expect(dashboard.family).toEqual('Tessitura.View');
     });
 
     it('has superFamily Backbone.View #appView #view #travis', function() {
@@ -225,11 +225,11 @@ describe('Main Dashboard View', function() {
     var newView;
 
     beforeEach(function() {
-      spyOn(Canto.DashboardView.prototype, 'hideDropdownMenus');
-      spyOn(Canto.DashboardView.prototype, 'hideSidebar');
-      spyOn(Canto.DashboardView.prototype, 'toggleDropdownMenu');
-      spyOn(Canto.DashboardView.prototype, 'toggleSidebar');
-      newView = new Canto.DashboardView({user: user});
+      spyOn(Tessitura.DashboardView.prototype, 'hideDropdownMenus');
+      spyOn(Tessitura.DashboardView.prototype, 'hideSidebar');
+      spyOn(Tessitura.DashboardView.prototype, 'toggleDropdownMenu');
+      spyOn(Tessitura.DashboardView.prototype, 'toggleSidebar');
+      newView = new Tessitura.DashboardView({user: user});
       newView.render();
     });
 
@@ -238,28 +238,28 @@ describe('Main Dashboard View', function() {
     describe('click $el', function() {
       it('calls hideDropdownMenus #appView #view #travis', function() {
         newView.$el.click();
-        expect(Canto.DashboardView.prototype.hideDropdownMenus).toHaveBeenCalled();
+        expect(Tessitura.DashboardView.prototype.hideDropdownMenus).toHaveBeenCalled();
       });
     });
 
     describe('dblclick $el', function() {
       it('calls hideSidebar #appView #view #travis', function() {
         newView.$el.dblclick();
-        expect(Canto.DashboardView.prototype.hideSidebar).toHaveBeenCalled();
+        expect(Tessitura.DashboardView.prototype.hideSidebar).toHaveBeenCalled();
       });
     });
 
     describe('click .navbar-header', function() {
       it('calls toggleSidebar #appView #view #travis', function() {
         newView.$('.navbar-header').click();
-        expect(Canto.DashboardView.prototype.toggleSidebar).toHaveBeenCalled();
+        expect(Tessitura.DashboardView.prototype.toggleSidebar).toHaveBeenCalled();
       });
     });
 
     describe('click li.dropdown', function() {
       it('calls toggleDropdownMenu() #appView #view #travis', function() {
         newView.$('li.dropdown').first().click();
-        expect(Canto.DashboardView.prototype.toggleDropdownMenu).toHaveBeenCalled();
+        expect(Tessitura.DashboardView.prototype.toggleDropdownMenu).toHaveBeenCalled();
       });
     });
 
@@ -267,10 +267,10 @@ describe('Main Dashboard View', function() {
       afterEach(function() { newView.destroy(); });
 
       it('calls render() #appView #view #travis', function() {
-        spyOn(Canto.DashboardView.prototype, 'render');
-        newView = new Canto.DashboardView({user: user});
+        spyOn(Tessitura.DashboardView.prototype, 'render');
+        newView = new Tessitura.DashboardView({user: user});
         user.trigger('change:first_name');
-        expect(Canto.DashboardView.prototype.render).toHaveBeenCalled();
+        expect(Tessitura.DashboardView.prototype.render).toHaveBeenCalled();
       });
     });
 
@@ -278,10 +278,10 @@ describe('Main Dashboard View', function() {
       afterEach(function() { newView.destroy(); });
 
       it('calls render() #appView #view #travis', function() {
-        spyOn(Canto.DashboardView.prototype, 'render');
-        newView = new Canto.DashboardView({user: user});
+        spyOn(Tessitura.DashboardView.prototype, 'render');
+        newView = new Tessitura.DashboardView({user: user});
         user.trigger('change:last_name');
-        expect(Canto.DashboardView.prototype.render).toHaveBeenCalled();
+        expect(Tessitura.DashboardView.prototype.render).toHaveBeenCalled();
       });
     });
   });
@@ -375,7 +375,7 @@ describe('Main Dashboard View', function() {
       context('when the home view is visible', function() {
         beforeEach(function() {
           spyOn(dashboard.homeView.$el, 'is').and.returnValue(true);
-          spyOn(Canto.TaskModel.prototype, 'displayTitle').and.returnValue('Foobar');
+          spyOn(Tessitura.TaskModel.prototype, 'displayTitle').and.returnValue('Foobar');
           dashboard.render();
           $('body').html(dashboard.$el);
         });
@@ -395,7 +395,7 @@ describe('Main Dashboard View', function() {
       context('when the task view is visible', function() {
         beforeEach(function() {
           spyOn(dashboard.taskView.$el, 'is').and.returnValue(true);
-          spyOn(Canto.TaskModel.prototype, 'displayTitle').and.returnValue('foobar');
+          spyOn(Tessitura.TaskModel.prototype, 'displayTitle').and.returnValue('foobar');
         });
 
         it('doesn\'t re-render the main dash #appView #view #travis', function() {
@@ -497,20 +497,20 @@ describe('Main Dashboard View', function() {
       afterEach(function() { newView.destroy(); });
 
       it('sets this.user #appView #view #travis', function() {
-        newView = new Canto.DashboardView(); // we already know this won't set the user
+        newView = new Tessitura.DashboardView(); // we already know this won't set the user
         newView.setUser(user);
         expect(newView.user).toBe(user);
       });
 
       it('calls setUser on the home view #appView #view #travis', function() {
-        newView = new Canto.DashboardView();
+        newView = new Tessitura.DashboardView();
         spyOn(newView.homeView, 'setUser');
         newView.setUser(user);
         expect(newView.homeView.setUser).toHaveBeenCalledWith(user);
       });
 
       it('calls setUser on the task view #appView #view #travis', function() {
-        newView = new Canto.DashboardView();
+        newView = new Tessitura.DashboardView();
         spyOn(newView.taskView, 'setUser');
         newView.setUser(user);
         expect(newView.taskView.setUser).toHaveBeenCalled();

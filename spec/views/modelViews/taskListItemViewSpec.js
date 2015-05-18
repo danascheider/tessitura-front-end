@@ -9,7 +9,7 @@
 //       - render
 
 require(process.cwd() + '/spec/support/jsdom.js');
-require(process.cwd() + '/js/canto.js');
+require(process.cwd() + '/js/tessitura.js');
 require(process.cwd() + '/spec/support/env.js');
 
 var matchers  = require('jasmine-jquery-matchers'),
@@ -24,8 +24,8 @@ describe('List Item Task View', function() {
   });
 
   beforeEach(function() { 
-    task = new Canto.TaskModel({id: 1, owner_id: 1, title: 'Task 1', status: 'New', priority: 'Low', position: 1});
-    view = new Canto.TaskListItemView({model: task}); 
+    task = new Tessitura.TaskModel({id: 1, owner_id: 1, title: 'Task 1', status: 'New', priority: 'Low', position: 1});
+    view = new Tessitura.TaskListItemView({model: task}); 
   });
 
   afterEach(function() { view.destroy(); });
@@ -40,9 +40,9 @@ describe('List Item Task View', function() {
     });
 
     it('doesn\'t call render #modelView #view #travis', function() {
-      spyOn(Canto.TaskListItemView.prototype, 'render');
-      newView = new Canto.TaskListItemView({model: task});
-      expect(Canto.TaskListItemView.prototype.render).not.toHaveBeenCalled();
+      spyOn(Tessitura.TaskListItemView.prototype, 'render');
+      newView = new Tessitura.TaskListItemView({model: task});
+      expect(Tessitura.TaskListItemView.prototype.render).not.toHaveBeenCalled();
       newView.destroy();
     });
 
@@ -60,16 +60,16 @@ describe('List Item Task View', function() {
   });
 
   describe('properties', function() {
-    it('is a Canto.View #modelView #view #travis', function() {
-      expect(view).toBeA('Canto.View');
+    it('is a Tessitura.View #modelView #view #travis', function() {
+      expect(view).toBeA('Tessitura.View');
     });
 
     it('has klass TaskListItemView #modelView #view #travis', function() {
       expect(view.klass).toBe('TaskListItemView');
     });
 
-    it('has family Canto.View #modelView #view #travis', function() {
-      expect(view.family).toBe('Canto.View');
+    it('has family Tessitura.View #modelView #view #travis', function() {
+      expect(view.family).toBe('Tessitura.View');
     });
 
     it('has superFamily Backbone.View #modelView #view #travis', function() {
@@ -132,9 +132,9 @@ describe('List Item Task View', function() {
   describe('events', function() {
     beforeEach(function() {
       var arr = ['showEditForm', 'markComplete', 'deleteTask', 'backlogTask', 'toggleTaskDetails', 'showEditIcons', 'hideEditIcons'];
-      _.each(arr, function(method) { spyOn(Canto.TaskListItemView.prototype, method); });
+      _.each(arr, function(method) { spyOn(Tessitura.TaskListItemView.prototype, method); });
 
-      newView = new Canto.TaskListItemView({model: task});
+      newView = new Tessitura.TaskListItemView({model: task});
       newView.render();
     });
 
@@ -143,35 +143,35 @@ describe('List Item Task View', function() {
     describe('click edit icon', function() {
       it('calls showEditForm #modelView #view #travis', function() {
         newView.$('i[title=Edit]').click();
-        expect(Canto.TaskListItemView.prototype.showEditForm).toHaveBeenCalled();
+        expect(Tessitura.TaskListItemView.prototype.showEditForm).toHaveBeenCalled();
       });
     });
 
     describe('click markComplete checkbox', function() {
       it('calls markComplete #modelView #view #travis', function() {
         newView.$('.fa-square-o').click();
-        expect(Canto.TaskListItemView.prototype.markComplete).toHaveBeenCalled();
+        expect(Tessitura.TaskListItemView.prototype.markComplete).toHaveBeenCalled();
       });
     });
 
     describe('click delete icon', function() {
       it('calls deleteTask #modelView #view #travis', function() {
         newView.$('i[title=Delete]').click();
-        expect(Canto.TaskListItemView.prototype.deleteTask).toHaveBeenCalled();
+        expect(Tessitura.TaskListItemView.prototype.deleteTask).toHaveBeenCalled();
       });
     });
 
     describe('click backlog icon', function() {
       it('calls backlogTask #modelView #view #travis', function() {
         newView.$('i[title=Backlog]').click();
-        expect(Canto.TaskListItemView.prototype.backlogTask).toHaveBeenCalled();
+        expect(Tessitura.TaskListItemView.prototype.backlogTask).toHaveBeenCalled();
       });
     });
 
     describe('click task title', function() {
       it('calls toggleTaskDetails() #modelView #view #travis', function() {
         newView.$('a.task-title').click();
-        expect(Canto.TaskListItemView.prototype.toggleTaskDetails).toHaveBeenCalled();
+        expect(Tessitura.TaskListItemView.prototype.toggleTaskDetails).toHaveBeenCalled();
       });
     });
 
@@ -184,14 +184,14 @@ describe('List Item Task View', function() {
     describe('mouseenter', function() {
       it('calls showEditIcons() #modelView #view #travis', function() {
         newView.$el.mouseenter();
-        expect(Canto.TaskListItemView.prototype.showEditIcons).toHaveBeenCalled();
+        expect(Tessitura.TaskListItemView.prototype.showEditIcons).toHaveBeenCalled();
       });
     });
 
     describe('mouseleave', function() {
       it('calls hideEditIcons() #modelView #view #travis', function() {
         newView.$el.mouseleave();
-        expect(Canto.TaskListItemView.prototype.hideEditIcons).toHaveBeenCalled();
+        expect(Tessitura.TaskListItemView.prototype.hideEditIcons).toHaveBeenCalled();
       });
     });
 

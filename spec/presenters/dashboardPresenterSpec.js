@@ -3,7 +3,7 @@
 
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/spec/support/env.js');
-require(process.cwd() + '/js/canto.js');
+require(process.cwd() + '/js/tessitura.js');
 
 /* Configuration
 /*****************************************************************************************/
@@ -27,8 +27,8 @@ describe('Dashboard Presenter', function() {
   });
 
   beforeEach(function() {
-    user      = new Canto.UserModel({id: 1, username: 'testuser', password: 'testuser', email: 'testuser@example.com', first_name: 'Test', last_name: 'User'});
-    presenter = new Canto.DashboardPresenter({user: user});
+    user      = new Tessitura.UserModel({id: 1, username: 'testuser', password: 'testuser', email: 'testuser@example.com', first_name: 'Test', last_name: 'User'});
+    presenter = new Tessitura.DashboardPresenter({user: user});
   });
 
   afterEach(function() {
@@ -40,16 +40,16 @@ describe('Dashboard Presenter', function() {
     presenter = null;
   });
 
-  /* Canto Model Properties
+  /* Tessitura Model Properties
   /***************************************************************************************/
 
-  describe('Canto model properties', function() {
+  describe('Tessitura model properties', function() {
     it('has klass DashboardPresenter #presenter #travis', function() {
       expect(presenter.klass).toBe('DashboardPresenter');
     });
 
-    it('has family Canto.Model #presenter #travis', function() {
-      expect(presenter.family).toBe('Canto.Model');
+    it('has family Tessitura.Model #presenter #travis', function() {
+      expect(presenter.family).toBe('Tessitura.Model');
     });
 
     it('has superFamily Backbone.Model #presenter #travis', function() {
@@ -70,7 +70,7 @@ describe('Dashboard Presenter', function() {
     afterEach(function() { newPresenter.destroy(); });
 
     it('can be instantiated without a user #presenter #travis', function() {
-      newPresenter = new Canto.DashboardPresenter();
+      newPresenter = new Tessitura.DashboardPresenter();
       expect(newPresenter.user).not.toExist();
     });
 
@@ -79,9 +79,9 @@ describe('Dashboard Presenter', function() {
     });
 
     it('calls setUser #presenter #travis', function() {
-      spyOn(Canto.DashboardPresenter.prototype, 'setUser');
-      newPresenter = new Canto.DashboardPresenter({user: user});
-      expect(Canto.DashboardPresenter.prototype.setUser).toHaveBeenCalledWith(user);
+      spyOn(Tessitura.DashboardPresenter.prototype, 'setUser');
+      newPresenter = new Tessitura.DashboardPresenter({user: user});
+      expect(Tessitura.DashboardPresenter.prototype.setUser).toHaveBeenCalledWith(user);
     });
   });
 
@@ -235,7 +235,7 @@ describe('Dashboard Presenter', function() {
           args.success(user.toJSON());
         });
 
-        newPresenter = new Canto.DashboardPresenter();
+        newPresenter = new Tessitura.DashboardPresenter();
         spyOn(newPresenter.dashboardView, 'setUser');
       });
 
@@ -243,7 +243,7 @@ describe('Dashboard Presenter', function() {
       context('when the "new" user has the same ID as the "old" user', function() {
         it('doesn\'t change the user #presenter #travis', function() {
           newPresenter.user = user
-          var newUser = new Canto.UserModel({id: user.get('id'), username: user.get('username'), password: user.get('password')});
+          var newUser = new Tessitura.UserModel({id: user.get('id'), username: user.get('username'), password: user.get('password')});
           newPresenter.setUser(newUser);
           expect(newPresenter.user).toBe(user);
           newUser.destroy();
@@ -263,9 +263,9 @@ describe('Dashboard Presenter', function() {
 
         it('instantiates a task collection #presenter #travis', function() {
           user.tasks = null;
-          spyOn(Canto.TaskCollection.prototype, 'initialize');
+          spyOn(Tessitura.TaskCollection.prototype, 'initialize');
           newPresenter.setUser(user);
-          expect(Canto.TaskCollection.prototype.initialize).toHaveBeenCalled();
+          expect(Tessitura.TaskCollection.prototype.initialize).toHaveBeenCalled();
         });
       });
     });

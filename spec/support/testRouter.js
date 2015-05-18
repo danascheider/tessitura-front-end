@@ -1,18 +1,18 @@
 require('../../js/dependencies.js');
 var testing    = require('../../js/apiOptions.js').test;
-var TestRouter = Canto.Router.extend({});
+var TestRouter = Tessitura.Router.extend({});
 
 if (testing) {
-  Canto.DashboardHomeSpecView      = require('../../js/views/specViews/dashboardHomeSpecView.js');
-  Canto.DashboardSidebarSpecView   = require('../../js/views/specViews/dashboardSidebarSpecView.js');
-  Canto.DashboardTopWidgetSpecView = require('../../js/views/specViews/dashboardTopWidgetSpecView.js');
-  Canto.DashboardSpecView          = require('../../js/views/specViews/dashboardSpecView.js');
-  Canto.TaskListItemSpecView       = require('../../js/views/specViews/taskListItemSpecView.js');
-  Canto.HomepageSpecView           = require('../../js/views/specViews/homepageSpecView.js');
-  Canto.TaskCollectionSpecView     = require('../../js/views/specViews/taskCollectionSpecView.js');
-  Canto.TaskPanelSpecView          = require('../../js/views/specViews/taskPanelSpecView.js');
+  Tessitura.DashboardHomeSpecView      = require('../../js/views/specViews/dashboardHomeSpecView.js');
+  Tessitura.DashboardSidebarSpecView   = require('../../js/views/specViews/dashboardSidebarSpecView.js');
+  Tessitura.DashboardTopWidgetSpecView = require('../../js/views/specViews/dashboardTopWidgetSpecView.js');
+  Tessitura.DashboardSpecView          = require('../../js/views/specViews/dashboardSpecView.js');
+  Tessitura.TaskListItemSpecView       = require('../../js/views/specViews/taskListItemSpecView.js');
+  Tessitura.HomepageSpecView           = require('../../js/views/specViews/homepageSpecView.js');
+  Tessitura.TaskCollectionSpecView     = require('../../js/views/specViews/taskCollectionSpecView.js');
+  Tessitura.TaskPanelSpecView          = require('../../js/views/specViews/taskPanelSpecView.js');
 
-  TestRouter = Canto.Router.extend({
+  TestRouter = Tessitura.Router.extend({
     routes : {
       'listItemViewSpec(/)'           : 'displayListItemView',
       'dashboardHomeViewSpec(/)'      : 'displayDashboardHomeView',
@@ -25,40 +25,40 @@ if (testing) {
     },
 
     displayListItemView         : function() {
-      view = new Canto.TaskListItemSpecView();
+      view = new Tessitura.TaskListItemSpecView();
       view.render();
     },
 
     displayDashboardHomeView    : function() {
-      view = new Canto.DashboardHomeSpecView();
+      view = new Tessitura.DashboardHomeSpecView();
     },
 
     displayDashboardSidebarView : function() {
-      view = new Canto.DashboardSidebarSpecView();
+      view = new Tessitura.DashboardSidebarSpecView();
       view.render();
     },
 
     displayDashboardTopWidgetView: function() {
-      view = new Canto.DashboardTopWidgetSpecView();
+      view = new Tessitura.DashboardTopWidgetSpecView();
     },
 
     displayDashboardView        : function() {
-      view = new Canto.DashboardSpecView();
+      view = new Tessitura.DashboardSpecView();
       view.render();
     },
 
     displayHomepageView         : function() {
-      view = new Canto.HomepageSpecView();
+      view = new Tessitura.HomepageSpecView();
       view.render();
     },
 
     displayTaskCollectionView   : function() {
-      view = new Canto.TaskCollectionSpecView();
+      view = new Tessitura.TaskCollectionSpecView();
       view.render();
     },
 
     displayTaskPanelView        : function() {
-      view = new Canto.TaskPanelSpecView();
+      view = new Tessitura.TaskPanelSpecView();
       view.render();
     }
   });

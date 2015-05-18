@@ -1,5 +1,5 @@
 require(process.cwd() + '/spec/support/jsdom.js');
-require(process.cwd() + '/js/canto.js');
+require(process.cwd() + '/js/tessitura.js');
 require(process.cwd() + '/spec/support/env.js');
 
 var matchers       = require('jasmine-jquery-matchers'),
@@ -14,15 +14,15 @@ describe('Task Collection View', function() {
   })
   
   beforeEach(function() {
-    task1 = new Canto.TaskModel({id: 1, owner_id: 1, title: 'Task 1', status: 'New', priority: 'Low', position: 1});
-    task2 = new Canto.TaskModel({id: 2, owner_id: 1, title: 'Task 2', status: 'New', priority: 'Normal', position: 2});
-    task3 = new Canto.TaskModel({id: 3, owner_id: 1, title: 'Task 3', status: 'Complete', priority: 'Normal', position: 3});
+    task1 = new Tessitura.TaskModel({id: 1, owner_id: 1, title: 'Task 1', status: 'New', priority: 'Low', position: 1});
+    task2 = new Tessitura.TaskModel({id: 2, owner_id: 1, title: 'Task 2', status: 'New', priority: 'Normal', position: 2});
+    task3 = new Tessitura.TaskModel({id: 3, owner_id: 1, title: 'Task 3', status: 'Complete', priority: 'Normal', position: 3});
 
-    collection = new Canto.TaskCollection([task1, task2, task3]);
+    collection = new Tessitura.TaskCollection([task1, task2, task3]);
 
-    childViews = collection.models.map(function(task) { return new Canto.TaskListItemView({model: task}); });
+    childViews = collection.models.map(function(task) { return new Tessitura.TaskListItemView({model: task}); });
     var models = childViews.map(function(model) { return model.cid });
-    view = new Canto.TaskCollectionView({collection: collection});
+    view = new Tessitura.TaskCollectionView({collection: collection});
   });
 
   afterEach(function() {
@@ -37,9 +37,9 @@ describe('Task Collection View', function() {
     afterEach(function() { newView && newView.destroy(); });
 
     it('does not call the render function', function() {
-      spyOn(Canto.TaskCollectionView.prototype, 'render');
-      newView = new Canto.TaskCollectionView({collection: collection});
-      expect(Canto.TaskCollectionView.prototype.render).not.toHaveBeenCalled();
+      spyOn(Tessitura.TaskCollectionView.prototype, 'render');
+      newView = new Tessitura.TaskCollectionView({collection: collection});
+      expect(Tessitura.TaskCollectionView.prototype.render).not.toHaveBeenCalled();
     });
 
     it('creates an empty childViews array #collectionView #view #travis', function() {
@@ -52,16 +52,16 @@ describe('Task Collection View', function() {
   });
 
   describe('properties', function() {
-    it('is a Canto.View #collectionView #view #travis', function() {
-      expect(view.isA('Canto.View')).toBe(true);
+    it('is a Tessitura.View #collectionView #view #travis', function() {
+      expect(view.isA('Tessitura.View')).toBe(true);
     });
 
     it('has klass TaskCollectionView #collectionView #view #travis', function() {
       expect(view.klass).toEqual('TaskCollectionView');
     });
 
-    it('has family Canto.View #collectionView #view #travis', function() {
-      expect(view.family).toEqual('Canto.View');
+    it('has family Tessitura.View #collectionView #view #travis', function() {
+      expect(view.family).toEqual('Tessitura.View');
     });
 
     it('has superFamily Backbone.View #collectionView #view #travis', function() {
@@ -89,12 +89,12 @@ describe('Task Collection View', function() {
   describe('events', function() {
     beforeEach(function() {
       _.each(['render', 'crossOff', 'removeChildAndRender', 'showTaskCreateForm'], function(method) {
-        spyOn(Canto.TaskCollectionView.prototype, method);
+        spyOn(Tessitura.TaskCollectionView.prototype, method);
       });
 
-      spyOn(Canto.TaskCollectionView.prototype, 'retrieveViewForModel').and.returnValue(childViews[0]);
+      spyOn(Tessitura.TaskCollectionView.prototype, 'retrieveViewForModel').and.returnValue(childViews[0]);
 
-      newView = new Canto.TaskCollectionView({collection: collection});
+      newView = new Tessitura.TaskCollectionView({collection: collection});
       newView.childViews = childViews;
     });
 
@@ -105,35 +105,35 @@ describe('Task Collection View', function() {
     describe('add to collection', function() {
       it('calls render() #collectionView #view #travis', function() {
         newView.collection.trigger('add');
-        expect(Canto.TaskCollectionView.prototype.render).toHaveBeenCalled();
+        expect(Tessitura.TaskCollectionView.prototype.render).toHaveBeenCalled();
       });
     });
 
     describe('remove from collection', function() {
       it('calls removeChildAndRender() #collectionView #view #travis', function() {
         newView.collection.trigger('remove');
-        expect(Canto.TaskCollectionView.prototype.render).toHaveBeenCalled();
+        expect(Tessitura.TaskCollectionView.prototype.render).toHaveBeenCalled();
       });
     });
 
     describe('fetch collection', function() {
       it('calls render() #collectionView #view #travis', function() {
         newView.collection.trigger('fetch');
-        expect(Canto.TaskCollectionView.prototype.render).toHaveBeenCalled();
+        expect(Tessitura.TaskCollectionView.prototype.render).toHaveBeenCalled();
       });
     });
 
     describe('showTaskCreateForm on quick-add form', function() {
       it('calls showTaskCreateForm() #collectionView #view #travis', function() {
         newView.quickAddForm.trigger('showTaskCreateForm');
-        expect(Canto.TaskCollectionView.prototype.showTaskCreateForm).toHaveBeenCalled();
+        expect(Tessitura.TaskCollectionView.prototype.showTaskCreateForm).toHaveBeenCalled();
       })
     });
 
     describe('change:status', function() {
       it('calls crossOff #collectionView #view #travis', function() {
         task1.set('status', 'Complete');
-        expect(Canto.TaskCollectionView.prototype.crossOff).toHaveBeenCalled();
+        expect(Tessitura.TaskCollectionView.prototype.crossOff).toHaveBeenCalled();
       });
     });
   });
@@ -200,7 +200,7 @@ describe('Task Collection View', function() {
     describe('removeBacklog()', function() {
       context('when there is a backlogged task', function() {
         beforeEach(function() { 
-          spyOn(Canto.TaskModel.prototype, 'displayTitle').and.returnValue('foobar');
+          spyOn(Tessitura.TaskModel.prototype, 'displayTitle').and.returnValue('foobar');
           spyOn(task2, 'get').and.returnValue(true);
         });
 
@@ -237,9 +237,9 @@ describe('Task Collection View', function() {
         });
 
         it('doesn\'t delete any child views #collectionView #view #travis', function() {
-          spyOn(Canto.TaskListItemView.prototype, 'destroy');
+          spyOn(Tessitura.TaskListItemView.prototype, 'destroy');
           view.removeBacklog();
-          expect(Canto.TaskListItemView.prototype.destroy).not.toHaveBeenCalled();
+          expect(Tessitura.TaskListItemView.prototype.destroy).not.toHaveBeenCalled();
         });
       });
     });
@@ -435,7 +435,7 @@ describe('Task Collection View', function() {
       });
 
       it('removes itself #collectionView #view #travis', function() {
-        spyOn(Canto.View.prototype.remove, 'call');
+        spyOn(Tessitura.View.prototype.remove, 'call');
         view.remove();
         expect(Backbone.View.prototype.remove.call).toHaveBeenCalledWith(view);
       });

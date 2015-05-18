@@ -3,7 +3,7 @@
  * PROTECTED COLLECTION                                                    *
  *                                                                         *
  * The ProtectedCollection is a higher-level collection extended into      *
- * Canto's other collections. Its main function is to affix the proper     *  
+ * Tessitura's other collections. Its main function is to affix the proper *  
  * authorization header to all Ajax requests.                              *
  *                                                                         *
  *                                                                         *
@@ -25,11 +25,11 @@
 /****************************************************************************/
 
 require(process.cwd() + '/spec/support/env.js');
-require(process.cwd() + '/js/canto.js');
+require(process.cwd() + '/js/Tessitura.js');
 require(process.cwd() + '/spec/support/jsdom.js');
 
 var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
-    Model          = Canto.Model.extend({}),
+    Model          = Tessitura.Model.extend({}),
     context        = describe,
     fcontext       = fdescribe;
 
@@ -44,8 +44,8 @@ describe('Protected Collection', function() {
   /***************************************************************************/
 
   beforeEach(function() {
-    collection     = new Canto.ProtectedCollection({model: Model});
-    collection.url = Canto.API.base + '/models';
+    collection     = new Tessitura.ProtectedCollection({model: Model});
+    collection.url = Tessitura.API.base + '/models';
     xhr = new XMLHttpRequest();
     spyOn($, 'cookie').and.returnValue(btoa('testuser:testuser'));
   });

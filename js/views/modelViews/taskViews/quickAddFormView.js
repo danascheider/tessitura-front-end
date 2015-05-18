@@ -1,4 +1,4 @@
-var QuickAddFormView = Canto.View.extend({
+var QuickAddFormView = Tessitura.View.extend({
   tagName    : 'form',
   className  : 'task-form create-form quick-add-form',
   template   : JST['tasks/quickAdd'],
@@ -8,15 +8,15 @@ var QuickAddFormView = Canto.View.extend({
     'submit'                    : 'createTask'
   },
 
-  /* Canto View Properties
+  /* Tessitura View Properties
   /**************************************************************************************/
 
   klass      : 'QuickAddTaskFormView',
-  family     : 'Canto.View',
+  family     : 'Tessitura.View',
   superFamily: 'Backbone.View',
 
   types      : function() {
-    return Canto.View.prototype.types().concat(['QuickAddForm', 'QuickAddFormView', 'TaskCollectionView', 'TaskFormView', 'TaskCreateFormView']);
+    return Tessitura.View.prototype.types().concat(['QuickAddForm', 'QuickAddFormView', 'TaskCollectionView', 'TaskFormView', 'TaskCreateFormView']);
   },
 
   /* Event Callbacks
@@ -28,7 +28,7 @@ var QuickAddFormView = Canto.View.extend({
 
     // Declare variable `that` for use inside Ajax block
     var that  = this;
-    var attrs = Canto.Utils.getAttributes(this.$el);
+    var attrs = Tessitura.Utils.getAttributes(this.$el);
     var TaskModel = require('../../../models/taskModel.js');
 
     // Make sure the task being created has the attributes 
@@ -51,7 +51,7 @@ var QuickAddFormView = Canto.View.extend({
       // to be added to the view in `'li#task-undefined'`, which is obviously
       // wrong and aesthetically offensive.
 
-      var task = new Canto.TaskModel();
+      var task = new Tessitura.TaskModel();
       task.save(attrs, {
         success    : function(model) {
           that.$el[0].reset();
@@ -77,7 +77,7 @@ var QuickAddFormView = Canto.View.extend({
   },
 
   render     : function(opts) {
-    return Canto.View.prototype.render.call(this, this.template());
+    return Tessitura.View.prototype.render.call(this, this.template());
   }
 });
 

@@ -1,6 +1,6 @@
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/spec/support/env.js');
-require(process.cwd() + '/js/canto.js');
+require(process.cwd() + '/js/tessitura.js');
 
 var context           = describe,
     fcontext          = fdescribe;
@@ -9,7 +9,7 @@ describe('Task Model', function() {
   var task;
 
   beforeEach(function() {
-    task = new Canto.TaskModel({id: 1, title: 'My Task'});
+    task = new Tessitura.TaskModel({id: 1, title: 'My Task'});
     var cookie = spyOn($, 'cookie').and.callFake(function(name) {
       return name === 'userID' ? 1 : 'Basic ' + btoa('testuser:testuser');
     });
@@ -23,11 +23,11 @@ describe('Task Model', function() {
     
   describe('properties', function() {
     it('has a `urlRoot` scoped to the logged in user #model #travis', function() {
-      expect(task.urlRoot()).toEqual(Canto.API.base + '/users/1/tasks');
+      expect(task.urlRoot()).toEqual(Tessitura.API.base + '/users/1/tasks');
     });
 
     it('has an individual `url` not scoped to the logged in user #model #travis', function() {
-      expect(task.url()).toEqual(Canto.API.base + '/tasks/1');
+      expect(task.url()).toEqual(Tessitura.API.base + '/tasks/1');
     });
 
     it('has klass `TaskModel` #model #travis', function() {
@@ -41,15 +41,15 @@ describe('Task Model', function() {
 
   describe('constructor', function() {
     it('does not save the task automatically #model #travis', function() {
-      spyOn(Canto.TaskModel.prototype, 'save');
-      var newTask = new Canto.TaskModel();
-      expect(Canto.TaskModel.prototype.save).not.toHaveBeenCalled();
+      spyOn(Tessitura.TaskModel.prototype, 'save');
+      var newTask = new Tessitura.TaskModel();
+      expect(Tessitura.TaskModel.prototype.save).not.toHaveBeenCalled();
     });
   });
 
   describe('validations', function() {
     it('is invalid without a title #model #travis', function() {
-      var newTask = new Canto.TaskModel();
+      var newTask = new Tessitura.TaskModel();
       expect(newTask.isValid()).toBe(false);
     });
   });
@@ -62,9 +62,9 @@ describe('Task Model', function() {
       });
 
       it('calls fetch on the ProtectedResource prototype #model #travis', function() {
-        spyOn(Canto.ProtectedResourceModel.prototype, 'fetch');
+        spyOn(Tessitura.ProtectedResourceModel.prototype, 'fetch');
         task.fetch();
-        expect(Canto.ProtectedResourceModel.prototype.fetch).toHaveBeenCalled();
+        expect(Tessitura.ProtectedResourceModel.prototype.fetch).toHaveBeenCalled();
       });
     });
 
@@ -76,9 +76,9 @@ describe('Task Model', function() {
       });
 
       it('calls save on the ProtectedResource prototype #model #travis', function() {
-        spyOn(Canto.ProtectedResourceModel.prototype, 'save');
+        spyOn(Tessitura.ProtectedResourceModel.prototype, 'save');
         task.save();
-        expect(Canto.ProtectedResourceModel.prototype.save).toHaveBeenCalled();
+        expect(Tessitura.ProtectedResourceModel.prototype.save).toHaveBeenCalled();
       });
 
       context('when the task is new', function() {

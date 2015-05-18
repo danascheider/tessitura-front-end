@@ -25,7 +25,7 @@
 
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/spec/support/env.js');
-require(process.cwd() + '/js/canto.js');
+require(process.cwd() + '/js/tessitura.js');
 
 var matchers       = _.extend(require('jasmine-jquery-matchers')),
     context        = describe,
@@ -35,14 +35,14 @@ var matchers       = _.extend(require('jasmine-jquery-matchers')),
  * BEGIN SUITE                                                              *
 /****************************************************************************/
 
-describe('Canto Homepage View', function() {
+describe('Tessitura Homepage View', function() {
   var view, e, spy, newView, user;
 
   /* Filters
   /**************************************************************************/
 
   beforeAll(function()  { jasmine.addMatchers(matchers); });
-  beforeEach(function() { view = new Canto.HomepageView(); });
+  beforeEach(function() { view = new Tessitura.HomepageView(); });
   afterEach(function()  { view.destroy(); });
   afterAll(function()   { view = null; });
 
@@ -54,8 +54,8 @@ describe('Canto Homepage View', function() {
       expect(view.klass).toEqual('HomepageView');
     });
 
-    it('#view #travis has family Canto.View', function() {
-      expect(view.family).toEqual('Canto.View');
+    it('#view #travis has family Tessitura.View', function() {
+      expect(view.family).toEqual('Tessitura.View');
     });
 
     it('#view #travis has superFamily Backbone.View', function() {
@@ -68,9 +68,9 @@ describe('Canto Homepage View', function() {
 
   describe('constructor', function() {
     it('#view #travis does not call render', function() {
-      spyOn(Canto.HomepageView.prototype, 'render');
-      var newView = new Canto.HomepageView();
-      expect(Canto.HomepageView.prototype.render).not.toHaveBeenCalled();
+      spyOn(Tessitura.HomepageView.prototype, 'render');
+      var newView = new Tessitura.HomepageView();
+      expect(Tessitura.HomepageView.prototype.render).not.toHaveBeenCalled();
     });
 
     it('#view #travis creates a login form', function() {
@@ -105,9 +105,9 @@ describe('Canto Homepage View', function() {
   describe('events', function() {
     beforeEach(function() {
       spy = jasmine.createSpy();
-      spyOn(Canto.HomepageView.prototype, 'hideLoginForm');
-      spyOn(Canto.HomepageView.prototype, 'toggleLoginForm');
-      newView = new Canto.HomepageView();
+      spyOn(Tessitura.HomepageView.prototype, 'hideLoginForm');
+      spyOn(Tessitura.HomepageView.prototype, 'toggleLoginForm');
+      newView = new Tessitura.HomepageView();
       newView.render();
       newView.on('redirect', spy);
     });
@@ -117,14 +117,14 @@ describe('Canto Homepage View', function() {
     describe('click .login-link', function() {
       it('#view #travis calls toggleLoginForm', function() {
         newView.$('nav li .login-link').click();
-        expect(Canto.HomepageView.prototype.toggleLoginForm).toHaveBeenCalled();
+        expect(Tessitura.HomepageView.prototype.toggleLoginForm).toHaveBeenCalled();
       });
     });
 
     describe('dblclick #shade', function() {
       it('#view #travis calls hideLoginForm', function() {
         newView.$('#shade').dblclick();
-        expect(Canto.HomepageView.prototype.hideLoginForm).toHaveBeenCalled();
+        expect(Tessitura.HomepageView.prototype.hideLoginForm).toHaveBeenCalled();
       });
     });
   });
@@ -137,7 +137,7 @@ describe('Canto Homepage View', function() {
       beforeEach(function() {
         spy = jasmine.createSpy();
         view.on('redirect', spy);
-        user = new Canto.UserModel({id: 1, username: 'testuser', password: 'testuser'});
+        user = new Tessitura.UserModel({id: 1, username: 'testuser', password: 'testuser'});
         e = {user: user};
       });
 

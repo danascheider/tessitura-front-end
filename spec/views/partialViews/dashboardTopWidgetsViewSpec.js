@@ -15,8 +15,8 @@ describe('Dashboard Top Widget View', function() {
   });
 
   beforeEach(function() {
-    var task = new Canto.TaskModel({title: 'Hello World'});
-    collection = new Canto.TaskCollection([task]);
+    var task = new Tessitura.TaskModel({title: 'Hello World'});
+    collection = new Tessitura.TaskCollection([task]);
     data = {
       taskCollection: collection,
       deadlineCount: 6,
@@ -24,7 +24,7 @@ describe('Dashboard Top Widget View', function() {
       recommendationCount: 12
     };
 
-    view = new Canto.DashboardTopWidgetView(data);
+    view = new Tessitura.DashboardTopWidgetView(data);
   });
 
   afterEach(function() { 
@@ -39,9 +39,9 @@ describe('Dashboard Top Widget View', function() {
 
   describe('constructor', function() {
     it('doesn\'t call render #partialView #view #travis', function() {
-      spyOn(Canto.DashboardTopWidgetView.prototype, 'render');
-      var newView = new Canto.DashboardTopWidgetView(data);
-      expect(Canto.DashboardTopWidgetView.prototype.render).not.toHaveBeenCalled();
+      spyOn(Tessitura.DashboardTopWidgetView.prototype, 'render');
+      var newView = new Tessitura.DashboardTopWidgetView(data);
+      expect(Tessitura.DashboardTopWidgetView.prototype.render).not.toHaveBeenCalled();
     });
 
     _.each(['taskCollection', 'deadlineCount', 'appointmentCount', 'recommendationCount'], function(datum) {
@@ -56,8 +56,8 @@ describe('Dashboard Top Widget View', function() {
       expect(view.klass).toBe('DashboardTopWidgetView');
     });
 
-    it('has family Canto.View #partialView #view #travis', function() {
-      expect(view.family).toBe('Canto.View');
+    it('has family Tessitura.View #partialView #view #travis', function() {
+      expect(view.family).toBe('Tessitura.View');
     });
 
     it('has superFamily Backbone.View #partialView #view #travis', function() {
@@ -101,25 +101,25 @@ describe('Dashboard Top Widget View', function() {
 
   describe('events', function() {
     beforeEach(function() { 
-      spyOn(Canto.DashboardTopWidgetView.prototype, 'followLink');
-      newView = new Canto.DashboardTopWidgetView(data);
+      spyOn(Tessitura.DashboardTopWidgetView.prototype, 'followLink');
+      newView = new Tessitura.DashboardTopWidgetView(data);
       newView.render(); 
     });
 
     describe('click .dash-widget', function() {
       it('calls followLink #partialView #view #travis', function() {
         newView.$('.dash-widget').first().click();
-        expect(Canto.DashboardTopWidgetView.prototype.followLink).toHaveBeenCalled();
+        expect(Tessitura.DashboardTopWidgetView.prototype.followLink).toHaveBeenCalled();
       });
     });
 
     _.each(['add', 'remove'], function(event) {
       describe(event + ' event on task collection', function() {
         it('calls render #partialView #view #travis', function() {
-          spyOn(Canto.DashboardTopWidgetView.prototype, 'render');
-          newView = new Canto.DashboardTopWidgetView(data);
+          spyOn(Tessitura.DashboardTopWidgetView.prototype, 'render');
+          newView = new Tessitura.DashboardTopWidgetView(data);
           newView.taskCollection.trigger(event);
-          expect(Canto.DashboardTopWidgetView.prototype.render).toHaveBeenCalled();
+          expect(Tessitura.DashboardTopWidgetView.prototype.render).toHaveBeenCalled();
         });
       });
     });

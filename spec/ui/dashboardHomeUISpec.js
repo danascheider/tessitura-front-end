@@ -17,7 +17,7 @@
 /* Core Requires
 /****************************************************************************/
 
-Canto = Canto || require('../../js/canto.js');
+Tessitura = Tessitura || require('../../js/tessitura.js');
 require(process.cwd() + '/spec/support/webdriver.js');
 require(process.cwd() + '/spec/support/env.js');
 

@@ -40,7 +40,7 @@
 /* Core Requires
 /***************************************************************************/
 
-require(process.cwd() + '/js/canto.js');
+require(process.cwd() + '/js/tessitura.js');
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/spec/support/env.js');
 
@@ -62,16 +62,16 @@ describe('Dashboard Task View', function() {
   });
 
   beforeEach(function() {
-    user = new Canto.UserModel({id: 1, username: 'testuser', password: 'testuser', email: 'testuser@example.com', first_name: 'Test', last_name: 'User'});
+    user = new Tessitura.UserModel({id: 1, username: 'testuser', password: 'testuser', email: 'testuser@example.com', first_name: 'Test', last_name: 'User'});
 
     // Require the task model and create 3 tasks
-    task1 = new Canto.TaskModel({id: 1, owner_id: 1, title: 'Task 1', status: 'New', priority: 'Low', position: 1});
-    task2 = new Canto.TaskModel({id: 2, owner_id: 1, title: 'Task 2', status: 'New', priority: 'Normal', position: 2});
-    task3 = new Canto.TaskModel({id: 3, owner_id: 1, title: 'Task 3', status: 'Complete', priority: 'Normal', position: 3});
+    task1 = new Tessitura.TaskModel({id: 1, owner_id: 1, title: 'Task 1', status: 'New', priority: 'Low', position: 1});
+    task2 = new Tessitura.TaskModel({id: 2, owner_id: 1, title: 'Task 2', status: 'New', priority: 'Normal', position: 2});
+    task3 = new Tessitura.TaskModel({id: 3, owner_id: 1, title: 'Task 3', status: 'Complete', priority: 'Normal', position: 3});
 
     collection = user.tasks;
 
-    view = new Canto.DashboardTaskView({user: user});
+    view = new Tessitura.DashboardTaskView({user: user});
   });
 
   afterEach(function() {
@@ -91,8 +91,8 @@ describe('Dashboard Task View', function() {
       expect(view.klass).toEqual('DashboardTaskView');
     });
 
-    it('#view #travis has family Canto.View', function() {
-      expect(view.family).toEqual('Canto.View');
+    it('#view #travis has family Tessitura.View', function() {
+      expect(view.family).toEqual('Tessitura.View');
     });
 
     it('#view #travis has superFamily Backbone.View', function() {
@@ -105,20 +105,20 @@ describe('Dashboard Task View', function() {
 
   describe('constructor', function() {
     it('#view #travis calls setUser', function() {
-      spyOn(Canto.DashboardTaskView.prototype, 'setUser');
-      newView = new Canto.DashboardTaskView({user: user});
-      expect(Canto.DashboardTaskView.prototype.setUser).toHaveBeenCalled();
-      expect(Canto.DashboardTaskView.prototype.setUser.calls.argsFor(0)[0]).toEqual(user);
+      spyOn(Tessitura.DashboardTaskView.prototype, 'setUser');
+      newView = new Tessitura.DashboardTaskView({user: user});
+      expect(Tessitura.DashboardTaskView.prototype.setUser).toHaveBeenCalled();
+      expect(Tessitura.DashboardTaskView.prototype.setUser.calls.argsFor(0)[0]).toEqual(user);
     });
 
     it('#view #travis doesn\'t call render', function() {
-      spyOn(Canto.DashboardTaskView.prototype, 'render');
-      newView = new Canto.DashboardTaskView({user: user});
-      expect(Canto.DashboardTaskView.prototype.render).not.toHaveBeenCalled();
+      spyOn(Tessitura.DashboardTaskView.prototype, 'render');
+      newView = new Tessitura.DashboardTaskView({user: user});
+      expect(Tessitura.DashboardTaskView.prototype.render).not.toHaveBeenCalled();
     });
 
     it('#view #travis can be instantiated without a user', function() {
-      newView = new Canto.DashboardTaskView();
+      newView = new Tessitura.DashboardTaskView();
       expect(newView.user).not.toExist();
     });
   });
@@ -201,7 +201,7 @@ describe('Dashboard Task View', function() {
 
     describe('setUser()', function() {
       it('#view #travis sets the user', function() {
-        newView = new Canto.DashboardTaskView();
+        newView = new Tessitura.DashboardTaskView();
         newView.setUser(user);
         expect(newView.user).toBe(user);
       });
