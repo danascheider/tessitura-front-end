@@ -1,7 +1,7 @@
 Tessitura = require('./dependencies.js');
 
 // Require models
-Tessitura.Model                  = require('./models/TessituraModel.js');
+Tessitura.Model                  = require('./models/tessituraModel.js');
 Tessitura.ProtectedResourceModel = require('./models/protectedResourceModel.js');
 Tessitura.TaskModel              = require('./models/taskModel.js');
 Tessitura.UserModel              = require('./models/userModel.js');
@@ -11,7 +11,7 @@ Tessitura.ProtectedCollection = require('./collections/protectedCollection.js');
 Tessitura.TaskCollection      = require('./collections/taskCollection.js');
 
 // Require top-level views
-Tessitura.View                = require('./views/appViews/TessituraView.js');
+Tessitura.View                = require('./views/appViews/tessituraView.js');
 Tessitura.DashboardView       = require('./views/appViews/dashboardView.js');
 Tessitura.HomepageView        = require('./views/appViews/homepageView.js');
 
