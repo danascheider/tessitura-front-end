@@ -42,8 +42,8 @@ describe('Task Collection View', function() {
       expect(Tessitura.TaskCollectionView.prototype.render).not.toHaveBeenCalled();
     });
 
-    it('creates an empty childViews array #collectionView #view #travis', function() {
-      expect(view.childViews).toEqual([]);
+    it('creates a childViews array containing its quick-add form #collectionView #view #travis', function() {
+      expect(view.childViews).toEqual([view.quickAddForm]);
     });
 
     it('creates a quick-add form #collectionView #view #travis', function() {
@@ -220,7 +220,7 @@ describe('Task Collection View', function() {
         it('removes the view from the childViews array #collectionView #view #travis', function() {
           view.render();
           view.removeBacklog();
-          expect(view.childViews.length).toBe(2);
+          expect(view.childViews.length).toBe(3);
         });
       });
 
@@ -233,7 +233,7 @@ describe('Task Collection View', function() {
         it('does not remove child views from the child view array #collectionView #view #travis', function() {
           view.render();
           view.removeBacklog();
-          expect(view.childViews.length).toBe(3);
+          expect(view.childViews.length).toBe(4);
         });
 
         it('doesn\'t delete any child views #collectionView #view #travis', function() {
