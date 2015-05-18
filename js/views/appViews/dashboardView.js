@@ -96,6 +96,7 @@ var DashboardView = Tessitura.View.extend({
 
   toggleDropdownMenu : function(e) {
     var li = $(e.target).closest('li.dropdown');
+    li.toggleClass('open');
     li.siblings().removeClass('open');
     li.children().blur(); 
   },

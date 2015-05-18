@@ -43,7 +43,7 @@
  *       when the target menu is open .............................. 317   *
  *         removes the .open class from the target menu ............ 324   *
  *         doesn't open any other menus ............................ 328   *
- *     showHomeView() .............................................. ---   *
+ *     showHomeView() .............................................. 374   *
  *       when the main dash and home view are visible .............. ---   *
  *         doesn't re-render the main dash ......................... ---   *
  *         renders the home view ................................... ---   *
@@ -325,7 +325,7 @@ describe('Main Dashboard View', function() {
     describe('toggleDropdownMenu', function() {
       context('when none of the menus is open', function() {
         beforeEach(function() {
-          e = $.Event('click', {target: dashboard.$('a.dropdown-toggle').first()});
+          e = $.Event('click', {target: dashboard.$('li.dropdown').first()});
           dashboard.toggleDropdownMenu(e);
         });
 
@@ -334,14 +334,15 @@ describe('Main Dashboard View', function() {
         });
 
         it('doesn\'t add the .open class to the other menus #appView #view #travis', function() {
-          expect(dashboard.$('li.dropdown')[0].className).not.toContain('open');
+          var index = dashboard.$('li.dropdown').length - 1
+          expect(dashboard.$('li.dropdown')[index].className).not.toContain('open');
         });
       });
 
       context('when another menu is open', function() {
         beforeEach(function() {
           dashboard.$('li.dropdown').last().addClass('open');
-          e.target = dashboard.$('a.dropdown-toggle').first();
+          e.target = dashboard.$('li.dropdown').first();
           dashboard.toggleDropdownMenu(e);
         });
 
