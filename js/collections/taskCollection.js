@@ -1,11 +1,11 @@
-var TaskCollection = Canto.ProtectedCollection.extend({
-  model      : Canto.TaskModel,
+var TaskCollection = Tessitura.ProtectedCollection.extend({
+  model      : Tessitura.TaskModel,
   comparator : 'position',
   url        : function() {
-    return Canto.API.tasks.collection($.cookie('userID'));
+    return Tessitura.API.tasks.collection($.cookie('userID'));
   },
 
-  /* Canto Collection Properties
+  /* Tessitura Collection Properties
   /**************************************************************************************/
 
   klass       : 'TaskCollection',
@@ -40,12 +40,12 @@ var TaskCollection = Canto.ProtectedCollection.extend({
     opts = opts || {};
 
     if(!opts.url) {
-      opts.url = opts.all === true ? Canto.API.tasks.fullCollection($.cookie('userID')) : this.url();
+      opts.url = opts.all === true ? Tessitura.API.tasks.fullCollection($.cookie('userID')) : this.url();
     }
 
     delete opts.all;
 
-    Canto.ProtectedCollection.prototype.fetch.call(this, opts);
+    Tessitura.ProtectedCollection.prototype.fetch.call(this, opts);
   }
 });
 

@@ -11,7 +11,7 @@
  * Module-Specific Requires ......................................... 39   *
  * Module ........................................................... 47   *
  *   Backbone View Properties ....................................... 52   *
- *   Canto View Properties .......... ............................... 59   *
+ *   Tessitura View Properties .......... ............................... 59   *
  *     klass                                                               *
  *     family                                                              *
  *     superFamily                                                         *
@@ -35,7 +35,7 @@
  * BEGIN MODULE                                                             *
 /****************************************************************************/
 
-var DashboardView = Canto.View.extend({
+var DashboardView = Tessitura.View.extend({
 
   /* Backbone View Properties
   /**************************************************************************/
@@ -43,15 +43,15 @@ var DashboardView = Canto.View.extend({
   id                 : 'dashboard-wrapper',
   template           : JST['dashboard'],
 
-  /* Canto View Properties   
+  /* Tessitura View Properties   
   /**************************************************************************/
 
   klass              : 'DashboardView',
-  family             : 'Canto.View',
+  family             : 'Tessitura.View',
   superFamily        : 'Backbone.View',
 
   types              : function() {
-    return Canto.View.prototype.types().concat(['DashboardView', 'MainDashboardView', 'Dashboard', 'MainDashboard', 'TopLevelView']);
+    return Tessitura.View.prototype.types().concat(['DashboardView', 'MainDashboardView', 'Dashboard', 'MainDashboard', 'TopLevelView']);
   },
 
   /* View Events                  
@@ -138,23 +138,23 @@ var DashboardView = Canto.View.extend({
   initialize         : function(opts) {
     opts = opts || {};
 
-    this.sidebarView = new Canto.DashboardSidebarView();
-    this.homeView    = new Canto.DashboardHomeView();
-    this.taskView    = new Canto.DashboardTaskView();
+    this.sidebarView = new Tessitura.DashboardSidebarView();
+    this.homeView    = new Tessitura.DashboardHomeView();
+    this.taskView    = new Tessitura.DashboardTaskView();
 
     if(opts.user) { this.setUser(opts.user); }
   },
 
   remove             : function() {
     this.sidebarView.remove();
-    Canto.View.prototype.remove.call(this);
+    Tessitura.View.prototype.remove.call(this);
     this.homeView.remove();
     this.taskView.remove();
   },
 
   render             : function() {
     var that = this;
-    return Canto.View.prototype.render.call(this, this.template(that.user.attributes), function() {
+    return Tessitura.View.prototype.render.call(this, this.template(that.user.attributes), function() {
       that.sidebarView.render();
       that.$('div.sidebar-collapse').html(that.sidebarView.$el);
     });

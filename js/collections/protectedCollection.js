@@ -1,4 +1,4 @@
-Canto = Canto || require('../dependencies.js');
+Tessitura = Tessitura || require('../dependencies.js');
 
 /* Protected Collection
 /****************************************************************************************/
@@ -8,7 +8,7 @@ var ProtectedCollection = Backbone.Collection.extend({
     return 'Basic ' + $.cookie('auth');
   },
 
-  /* Canto Collection Properties
+  /* Tessitura Collection Properties
   /**************************************************************************************/
 
   klass     : 'ProtectedCollection',

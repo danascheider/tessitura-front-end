@@ -1,7 +1,7 @@
 global.document  = window.document;
 global.navigator = window.navigator;
 
-global.Canto     = {
+global.Tessitura     = {
   API      : require('./api.js'),
   Utils    : require('./utils.js'),
 };
@@ -22,4 +22,4 @@ require('bootstrap-sass');
 require('../vendor/jquery-ui-1.11.4.custom/jquery-ui.min.js');
 require('./views/backboneViewMods.js');
 
-module.exports = Canto;
+module.exports = Tessitura;

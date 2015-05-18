@@ -1,4 +1,4 @@
-var DashboardTopWidgetView = Canto.View.extend({
+var DashboardTopWidgetView = Tessitura.View.extend({
   id                  : 'dashboard-top-widgets',
   template            : JST['partials/topWidgets'],
 
@@ -20,11 +20,11 @@ var DashboardTopWidgetView = Canto.View.extend({
   // ----------------- //
 
   klass               : 'DashboardTopWidgetView',
-  family              : 'Canto.View',
+  family              : 'Tessitura.View',
   superFamily         : 'Backbone.View',
 
   types               : function() {
-    return Canto.View.prototype.types().concat(['DashboardTopWidgetView', 'PartialView']);
+    return Tessitura.View.prototype.types().concat(['DashboardTopWidgetView', 'PartialView']);
   },
 
   // ------------------- //
@@ -43,7 +43,7 @@ var DashboardTopWidgetView = Canto.View.extend({
   },
 
   render              : function() {
-    Canto.View.prototype.render.call(this, this.template(this.data));
+    Tessitura.View.prototype.render.call(this, this.template(this.data));
   }
 });
 

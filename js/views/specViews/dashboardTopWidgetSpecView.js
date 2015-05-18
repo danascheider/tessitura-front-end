@@ -65,7 +65,7 @@ var SpecWrapper = Backbone.View.extend({
       recommendationCount : 12
     };
 
-    this.view = new Canto.DashboardTopWidgetView(data);
+    this.view = new Tessitura.DashboardTopWidgetView(data);
     this.render();
   },
 

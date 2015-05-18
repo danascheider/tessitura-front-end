@@ -45,7 +45,7 @@ var SpecWrapper = Backbone.View.extend({
   // ------------------- //
 
   initialize: function() {
-    this.view = new Canto.DashboardSidebarView();
+    this.view = new Tessitura.DashboardSidebarView();
   },
 
   render    : function() {

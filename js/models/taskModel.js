@@ -1,13 +1,13 @@
-Canto                        = Canto || require('../dependencies.js');
-Canto.ProtectedResourceModel = Canto.ProtectedResourceModel || require('./protectedResourceModel.js');
+Tessitura                        = Tessitura || require('../dependencies.js');
+Tessitura.ProtectedResourceModel = Tessitura.ProtectedResourceModel || require('./protectedResourceModel.js');
 
-var TaskModel = Canto.ProtectedResourceModel.extend({
+var TaskModel = Tessitura.ProtectedResourceModel.extend({
   urlRoot : function() {
-    return Canto.API.tasks.collection($.cookie('userID'));
+    return Tessitura.API.tasks.collection($.cookie('userID'));
   },
 
   url     : function() {
-    return Canto.API.tasks.single(this.get('id'));
+    return Tessitura.API.tasks.single(this.get('id'));
   },
 
   defaults: {
@@ -21,7 +21,7 @@ var TaskModel = Canto.ProtectedResourceModel.extend({
   klass   : 'TaskModel',
   parent  : 'ProtectedResourceModel',
   types   : function() {
-    return Canto.ProtectedResourceModel.prototype.types().concat(['TaskModel', 'Task']);
+    return Tessitura.ProtectedResourceModel.prototype.types().concat(['TaskModel', 'Task']);
   },
 
   /* Special Functions 
@@ -77,7 +77,7 @@ var TaskModel = Canto.ProtectedResourceModel.extend({
   fetch      : function(opts) {
     opts = opts || {};
     opts.url = opts.url || this.url();
-    return Canto.ProtectedResourceModel.prototype.fetch.call(this, opts);
+    return Tessitura.ProtectedResourceModel.prototype.fetch.call(this, opts);
   },
 
   initialize : function() {
@@ -90,7 +90,7 @@ var TaskModel = Canto.ProtectedResourceModel.extend({
 
     opts.url = this.isNew() ? this.urlRoot() : this.url();
 
-    return Canto.ProtectedResourceModel.prototype.save.call(this, attrs, opts);
+    return Tessitura.ProtectedResourceModel.prototype.save.call(this, attrs, opts);
   },
 
   validate   : function(attrs) {

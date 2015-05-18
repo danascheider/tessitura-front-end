@@ -2,14 +2,14 @@
  * DASHBOARD PRESENTER                                                                   *
 \*****************************************************************************************/
 
-var DashboardPresenter = Canto.Model.extend({
+var DashboardPresenter = Tessitura.Model.extend({
 
-  /* Canto Model Properties
+  /* Tessitura Model Properties
   /***************************************************************************************/
 
   klass        : 'DashboardPresenter',
   types        : function() {
-    return Canto.Model.prototype.types().concat(['Presenter', 'DashboardPresenter']);
+    return Tessitura.Model.prototype.types().concat(['Presenter', 'DashboardPresenter']);
   },
 
   /* Event Callbacks
@@ -43,7 +43,7 @@ var DashboardPresenter = Canto.Model.extend({
 
     if(this.user && this.user.get('id') === user.get('id')) { return; }
     this.user = user;
-    this.user.tasks = user.tasks || new Canto.TaskCollection();
+    this.user.tasks = user.tasks || new Tessitura.TaskCollection();
 
     // Fetch the user using stored credentials
 
@@ -83,7 +83,7 @@ var DashboardPresenter = Canto.Model.extend({
 
   initialize   : function(opts) {
     opts = opts || {};
-    this.dashboardView = new Canto.DashboardView();
+    this.dashboardView = new Tessitura.DashboardView();
     
     if(!!opts.user) { this.setUser(opts.user) }
 

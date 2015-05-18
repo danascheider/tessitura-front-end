@@ -1,4 +1,4 @@
-require('./canto.js');
+require('./tessitura.js');
 
-global.Router = new Canto.TestRouter();
+global.Router = new Tessitura.TestRouter();
 Backbone.history.start();

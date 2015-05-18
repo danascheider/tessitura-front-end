@@ -1,4 +1,4 @@
-var ProtectedResource = Canto.Model.extend({
+var ProtectedResource = Tessitura.Model.extend({
   token   : function() {
     return 'Basic ' + $.cookie('auth');
   },
@@ -43,7 +43,7 @@ var ProtectedResource = Canto.Model.extend({
   },
 
   types   : function() {
-    return Canto.Model.prototype.types().concat(['ProtectedResourceModel', 'ProtectedResource']);
+    return Tessitura.Model.prototype.types().concat(['ProtectedResourceModel', 'ProtectedResource']);
   }
 });
 

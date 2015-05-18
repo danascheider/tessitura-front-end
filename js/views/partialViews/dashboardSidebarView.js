@@ -1,4 +1,4 @@
-var DashboardSidebarView = Canto.View.extend({
+var DashboardSidebarView = Tessitura.View.extend({
   tagName              : 'ul',
   className            : 'nav',
   id                   : 'side-menu',
@@ -10,15 +10,15 @@ var DashboardSidebarView = Canto.View.extend({
     'click li > .task-page-link' : 'goToTaskPage'
   },
 
-  /* Canto View Properties
+  /* Tessitura View Properties
   /*************************************************************************************/
 
   klass                : 'DashboardSidebarView',
-  family               : 'Canto.View',
+  family               : 'Tessitura.View',
   superFamily          : 'Backbone.View',
 
   types                : function() {
-    return Canto.View.prototype.types().concat(['DashboardView', 'DashboardSidebarView', 'PartialView']);
+    return Tessitura.View.prototype.types().concat(['DashboardView', 'DashboardSidebarView', 'PartialView']);
   },
 
   /* Event Callbacks
@@ -63,7 +63,7 @@ var DashboardSidebarView = Canto.View.extend({
   // ------------------- //
 
   render               : function() {
-    return Canto.View.prototype.render.call(this, this.template());
+    return Tessitura.View.prototype.render.call(this, this.template());
   }
 });
 

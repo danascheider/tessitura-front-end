@@ -24,7 +24,7 @@
  * BEGIN MODULE                                                             *
 /****************************************************************************/
 
-var LoginFormView = Canto.View.extend({
+var LoginFormView = Tessitura.View.extend({
 
   /* Backbone View Properties
   /**************************************************************************/
@@ -38,14 +38,14 @@ var LoginFormView = Canto.View.extend({
     'click .login-help-link' : 'loginHelp'
   },
 
-  /* Canto View Properties
+  /* Tessitura View Properties
   /**************************************************************************/
 
   klass       : 'LoginFormView',
-  family      : 'Canto.View',
+  family      : 'Tessitura.View',
   superFamily : 'Backbone.View',
   types       : function() {
-    return Canto.View.prototype.types().concat(['LoginFormView', 'LoginForm', 'PartialView']);
+    return Tessitura.View.prototype.types().concat(['LoginFormView', 'LoginForm', 'PartialView']);
   },
 
   /* Event Callbacks
@@ -58,11 +58,11 @@ var LoginFormView = Canto.View.extend({
   loginUser   : function(e) {
     e.preventDefault();
 
-    var loginInfo = Canto.Utils.getAttributes(this.$el),
+    var loginInfo = Tessitura.Utils.getAttributes(this.$el),
         hash      = btoa(loginInfo.username + ':' + loginInfo.password),
         that      = this;
 
-    var user = new Canto.UserModel({username: loginInfo.username, password: loginInfo.password});
+    var user = new Tessitura.UserModel({username: loginInfo.username, password: loginInfo.password});
 
     user.login({
       success    : function(model) {
@@ -77,7 +77,7 @@ var LoginFormView = Canto.View.extend({
   /**************************************************************************/
 
   render      : function() {
-    return Canto.View.prototype.render.call(this, this.template());
+    return Tessitura.View.prototype.render.call(this, this.template());
   }
 });
 

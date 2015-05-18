@@ -1,17 +1,17 @@
-var TaskCollectionView = Canto.View.extend({
+var TaskCollectionView = Tessitura.View.extend({
   tagName              : 'ul',
   className            : 'task-list',
   template             : JST['collections/task'],
 
-  /* Canto View Properties
+  /* Tessitura View Properties
   /**************************************************************************************/
 
   klass                : 'TaskCollectionView',
-  family               : 'Canto.View',
+  family               : 'Tessitura.View',
   superFamily          : 'Backbone.View',
 
   types                : function() {
-    return Canto.View.prototype.types().concat(['TaskCollectionView', 'TaskView']);
+    return Tessitura.View.prototype.types().concat(['TaskCollectionView', 'TaskView']);
   },
 
   /* Event Callbacks
@@ -78,7 +78,7 @@ var TaskCollectionView = Canto.View.extend({
     var container = document.createDocumentFragment();
 
     this.collection.each(function(task) {
-      var view = that.retrieveViewForModel(task) || new Canto.TaskListItemView({model: task});
+      var view = that.retrieveViewForModel(task) || new Tessitura.TaskListItemView({model: task});
       if (that.childViews.indexOf(view) === -1) {
         that.childViews.push(view);
       }
@@ -108,7 +108,7 @@ var TaskCollectionView = Canto.View.extend({
 
     this.grouping     = opts.grouping;
     this.childViews   = [];
-    this.quickAddForm = new Canto.QuickAddFormView({collection: this.collection, grouping: this.grouping});
+    this.quickAddForm = new Tessitura.QuickAddFormView({collection: this.collection, grouping: this.grouping});
 
     this.listenTo(this.collection, 'add fetch', this.render);
     this.listenTo(this.collection, 'change:status', this.crossOff);
@@ -132,7 +132,7 @@ var TaskCollectionView = Canto.View.extend({
   render              : function() {
     var view, that = this;
 
-    return Canto.View.prototype.render.call(this, this.template(), function() {
+    return Tessitura.View.prototype.render.call(this, this.template(), function() {
       that.quickAddForm.render();
       that.$('li.quick-add-form').html(that.quickAddForm.$el);
       that.renderCollection();

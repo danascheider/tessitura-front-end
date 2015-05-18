@@ -11,7 +11,7 @@
  * Module-Specific Requires ......................................... 39   *
  * Module ........................................................... 47   *
  *   Backbone View Properties ....................................... 52   *
- *   Canto View Properties .......... ............................... 59   *
+ *   Tessitura View Properties .......... ........................... 59   *
  *     klass                                                               *
  *     family                                                              *
  *     superFamily                                                         *
@@ -31,7 +31,7 @@
  * BEGIN MODULE                                                             *
 /****************************************************************************/
 
-var DashboardHomeView = Canto.View.extend({
+var DashboardHomeView = Tessitura.View.extend({
 
   /* Backbone View Properties
   /**************************************************************************/
@@ -40,14 +40,14 @@ var DashboardHomeView = Canto.View.extend({
   id               : 'page-wrapper',
   className        : 'dashboard-home',
 
-  /* Canto View Properties
+  /* Tessitura View Properties
   /**************************************************************************/
 
   klass            : 'DashboardHomeView',
-  family           : 'Canto.View',
+  family           : 'Tessitura.View',
   superFamily      : 'Backbone.View',
   types            : function() {
-    return Canto.View.prototype.types().concat(['DashboardHomeView', 'PartialView']);
+    return Tessitura.View.prototype.types().concat(['DashboardHomeView', 'PartialView']);
   },
 
   /* Special Functions
@@ -69,8 +69,8 @@ var DashboardHomeView = Canto.View.extend({
 
     // Create view elements
     var that = this;
-    this.taskPanelView = new Canto.TaskPanelView({collection: this.collection});
-    this.topWidgetView = new Canto.DashboardTopWidgetView({
+    this.taskPanelView = new Tessitura.TaskPanelView({collection: this.collection});
+    this.topWidgetView = new Tessitura.DashboardTopWidgetView({
       taskCollection: that.user.tasks,
       deadlineCount: 7,
       appointmentCount: 4,
@@ -99,7 +99,7 @@ var DashboardHomeView = Canto.View.extend({
       if(!(this.taskPanelView && this.topWidgetView)) { return; }
     }
 
-    Canto.View.prototype.remove.call(this);
+    Tessitura.View.prototype.remove.call(this);
   },
 
   render              : function(opts) {
@@ -107,7 +107,7 @@ var DashboardHomeView = Canto.View.extend({
 
     var that = this;
 
-    return Canto.View.prototype.render.call(that, that.template(), function() {
+    return Tessitura.View.prototype.render.call(that, that.template(), function() {
       that.renderTaskPanelView();
       that.renderTopWidgetView();
     });

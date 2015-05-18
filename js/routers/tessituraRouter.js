@@ -4,17 +4,17 @@
 require('../../vendor/backbone-route-filter.js');
 
 /******************************************************************************
- * CANTO ROUTER                                                               *
+ * Tessitura ROUTER                                                               *
 /******************************************************************************/
 
-Canto.Router = Backbone.Router.extend({
+Tessitura.Router = Backbone.Router.extend({
 
   /* Static Properties
   /****************************************************************************/
 
-  klass      : 'Canto.Router',
+  klass      : 'Tessitura.Router',
   types      : function() {
-    return ['Canto.Router', 'Router', 'Backbone.Router'];
+    return ['Tessitura.Router', 'Router', 'Backbone.Router'];
   },
 
   /* Special Functions
@@ -28,8 +28,8 @@ Canto.Router = Backbone.Router.extend({
   /****************************************************************************/
 
   initialize : function() {
-    this.AppPresenter = new Canto.AppPresenter();
-    this.DashboardPresenter = new Canto.DashboardPresenter();
+    this.AppPresenter = new Tessitura.AppPresenter();
+    this.DashboardPresenter = new Tessitura.DashboardPresenter();
 
     this.listenTo(this.AppPresenter, 'redirect', this.navigateTo);
     this.listenTo(this.DashboardPresenter, 'redirect', this.navigateTo);
@@ -84,18 +84,18 @@ Canto.Router = Backbone.Router.extend({
 
   displayDashboardHome: function() {
     var that = this;
-    var user = new Canto.UserModel({id: $.cookie('userID')});
-    user.tasks = new Canto.TaskCollection();
+    var user = new Tessitura.UserModel({id: $.cookie('userID')});
+    user.tasks = new Tessitura.TaskCollection();
 
-    this.DashboardPresenter.setUser(new Canto.UserModel({id: $.cookie('userID')}), function() {
+    this.DashboardPresenter.setUser(new Tessitura.UserModel({id: $.cookie('userID')}), function() {
       that.DashboardPresenter.getHome();
     });
   },
 
   displayDashboardTaskView: function() {
     var that = this;
-    var user = new Canto.UserModel({id: $.cookie('userID')});
-    user.tasks = new Canto.TaskCollection();
+    var user = new Tessitura.UserModel({id: $.cookie('userID')});
+    user.tasks = new Tessitura.TaskCollection();
 
     this.DashboardPresenter.setUser(user, function() {
       that.DashboardPresenter.getTask();
@@ -116,7 +116,7 @@ Canto.Router = Backbone.Router.extend({
   prepareTestEnvironment: function() {
     $.ajax({
       type: 'POST',
-      url: 'http://api.canto-test.com:3000/test/prepare'
+      url: 'http://api.Tessitura-test.com:3000/test/prepare'
     });
   },
 
@@ -138,4 +138,4 @@ Canto.Router = Backbone.Router.extend({
   }
 });
 
-module.exports = Canto.Router;
+module.exports = Tessitura.Router;

@@ -12,7 +12,7 @@
  * Module-Specific Requires ......................................... 39   *
  * Module ........................................................... 47   *
  *   Backbone View Properties ....................................... 52   *
- *   Canto View Properties .......... ............................... 59   *
+ *   Tessitura View Properties .......... ............................... 59   *
  *     klass                                                               *
  *     family                                                              *
  *     superFamily                                                         *
@@ -30,7 +30,7 @@
  * BEGIN MODULE                                                             *
 /****************************************************************************/
 
-var KanbanColumnView = Canto.View.extend({
+var KanbanColumnView = Tessitura.View.extend({
 
   /* Backbone View Properties
   /**************************************************************************/
@@ -38,15 +38,15 @@ var KanbanColumnView = Canto.View.extend({
   template    : JST['partials/kanbanCol'],
   className   : 'panel dash-widget kanban-column',
 
-  /* Canto View Properties
+  /* Tessitura View Properties
   /**************************************************************************/
 
   klass       : 'KanbanColumnView',
-  family      : 'Canto.View',
+  family      : 'Tessitura.View',
   superFamily : 'Backbone.View',
 
   types       : function() {
-    return Canto.View.prototype.types().concat(['KanbanColumnView', 'KanbanColumn', 'PartialView']);
+    return Tessitura.View.prototype.types().concat(['KanbanColumnView', 'KanbanColumn', 'PartialView']);
   },
 
   /* Event Callbacks
@@ -83,7 +83,7 @@ var KanbanColumnView = Canto.View.extend({
 
   setCollection : function(collection) {
     this.collection = collection;
-    this.collectionView = new Canto.TaskCollectionView({collection: this.collection});
+    this.collectionView = new Tessitura.TaskCollectionView({collection: this.collection});
 
     this.listenTo(this.collection, 'add', this.updateTask);
     this.listenTo(this.collection, 'change:backlog', this.removeTask);
@@ -105,13 +105,13 @@ var KanbanColumnView = Canto.View.extend({
 
   remove      : function() {
     if(this.collectionView) { this.collectionView.remove(); }
-    Canto.View.prototype.remove.call(this);
+    Tessitura.View.prototype.remove.call(this);
   },
 
   render      : function() {
     var that = this;
 
-    Canto.View.prototype.render.call(this, this.template({data: that.data}), function() {
+    Tessitura.View.prototype.render.call(this, this.template({data: that.data}), function() {
       that.collectionView.render();
       that.$('.panel-body').html(that.collectionView.$el);
     });

@@ -1,4 +1,4 @@
-var task = new Canto.TaskModel({id: 1, title: 'Make tests for the SpecWrapper views'});
+var task = new Tessitura.TaskModel({id: 1, title: 'Make tests for the SpecWrapper views'});
 
 var SpecWrapper = Backbone.View.extend({
   el         : 'body',
@@ -14,7 +14,7 @@ var SpecWrapper = Backbone.View.extend({
   },
 
   initialize : function() {
-    this.view = new Canto.TaskListItemView({model: task});
+    this.view = new Tessitura.TaskListItemView({model: task});
   },
 
   render     : function() {

@@ -24,7 +24,7 @@
  * BEGIN MODULE                                                             *
 /****************************************************************************/
 
-var HomepageView = Canto.View.extend({
+var HomepageView = Tessitura.View.extend({
 
   /* Backbone View Properties
   /**************************************************************************/
@@ -37,14 +37,14 @@ var HomepageView = Canto.View.extend({
     'dblclick #shade'           : 'hideLoginForm'
   },
 
-  /* Canto View Properties
+  /* Tessitura View Properties
   /**************************************************************************/
 
   klass       : 'HomepageView',
-  family      : 'Canto.View',
+  family      : 'Tessitura.View',
   superFamily : 'Backbone.View',
   types       : function() {
-    return Canto.View.prototype.types().concat(['HomepageView', 'TopLevelView']);
+    return Tessitura.View.prototype.types().concat(['HomepageView', 'TopLevelView']);
   },
 
   /* Event Callbacks
@@ -76,8 +76,8 @@ var HomepageView = Canto.View.extend({
   /**************************************************************************/
 
   initialize  : function() {
-    this.loginForm        = new Canto.LoginFormView();
-    this.registrationForm = new Canto.RegistrationFormView();
+    this.loginForm        = new Tessitura.LoginFormView();
+    this.registrationForm = new Tessitura.RegistrationFormView();
 
     var that = this;
 
@@ -91,13 +91,13 @@ var HomepageView = Canto.View.extend({
   remove      : function() {
     this.loginForm.remove();
     this.registrationForm.remove();
-    Canto.View.prototype.remove.call(this);
+    Tessitura.View.prototype.remove.call(this);
   },
 
   render      : function() {
     var that = this;
 
-    return Canto.View.prototype.render.call(this, this.template(), function() {
+    return Tessitura.View.prototype.render.call(this, this.template(), function() {
       that.registrationForm.render();
       that.$('section#register div.col-md-12').html(that.registrationForm.$el);
 

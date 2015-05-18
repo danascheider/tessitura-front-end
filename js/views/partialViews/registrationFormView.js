@@ -1,4 +1,4 @@
-var RegistrationFormView = Canto.View.extend({
+var RegistrationFormView = Tessitura.View.extend({
 
   /* Backbone View Properties
   /**************************************************************************/
@@ -12,14 +12,14 @@ var RegistrationFormView = Canto.View.extend({
     'submit'                     : 'createUser'
   },
 
-  /* Canto View Properties
+  /* Tessitura View Properties
   /**************************************************************************/
 
   klass       : 'RegistrationFormView',
-  family      : 'Canto.View',
+  family      : 'Tessitura.View',
   superFamily : 'Backbone.View',
   types       : function() {
-    return Canto.View.prototype.types().concat(['RegistrationFormView', 'RegistrationForm', 'FormView', 'PartialView']);
+    return Tessitura.View.prototype.types().concat(['RegistrationFormView', 'RegistrationForm', 'FormView', 'PartialView']);
   },
 
   /* Special Properties
@@ -33,13 +33,13 @@ var RegistrationFormView = Canto.View.extend({
   createUser  : function(e) {
     e.preventDefault();
 
-    var data = Canto.Utils.getAttributes(this.$el);
+    var data = Tessitura.Utils.getAttributes(this.$el);
 
     if(!this.validateForm(data)) { 
       return;
     }
 
-    var user = new Canto.UserModel(),
+    var user = new Tessitura.UserModel(),
         hash = btoa(data.username + ':' + data.password),
         that = this;
 
@@ -106,7 +106,7 @@ var RegistrationFormView = Canto.View.extend({
   /**************************************************************************/
 
   render      : function() {
-    return Canto.View.prototype.render.call(this, this.template());
+    return Tessitura.View.prototype.render.call(this, this.template());
   }
 });
 

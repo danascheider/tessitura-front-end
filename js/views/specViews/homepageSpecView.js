@@ -1,4 +1,4 @@
-var SpecWrapper = Canto.View.extend({
+var SpecWrapper = Tessitura.View.extend({
   el         : 'body',
   template   : JST['spec/homepage'],
 
@@ -35,14 +35,14 @@ var SpecWrapper = Canto.View.extend({
   /***************************************************************************/
 
   initialize : function() {
-    this.view = new Canto.HomepageView();
+    this.view = new Tessitura.HomepageView();
     this.render();
   },
 
   render     : function() {
     var that = this;
 
-    return Canto.View.prototype.render.call(this, this.template(), function() {
+    return Tessitura.View.prototype.render.call(this, this.template(), function() {
       that.view.render();
       that.$el.addClass('test');
       that.$('#view').html(that.view.$el);

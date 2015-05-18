@@ -1,9 +1,9 @@
-var CantoView = Backbone.View.extend({
-  klass       : 'Canto.View',
+var TessituraView = Backbone.View.extend({
+  klass       : 'Tessitura.View',
   family      : 'Backbone.View',
   superFamily : '',
   types       : function() {
-    return Backbone.View.prototype.types().concat(['Canto.View']);
+    return Backbone.View.prototype.types().concat(['Tessitura.View']);
   },
   childViews  : [],
   isA         : function(type) {
@@ -18,4 +18,4 @@ var CantoView = Backbone.View.extend({
   }
 });
 
-module.exports = CantoView;
+module.exports = TessituraView;

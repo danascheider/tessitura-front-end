@@ -12,7 +12,7 @@
  *   Backbone View Properties ....................................... 96   *
  *     template ..................................................... 96   *
  *     id ........................................................... 97   *
- *   Canto View Properties .......................................... --   *
+ *   Tessitura View Properties ...................................... --   *
  *     klass ........................................................ --   *
  *     family ....................................................... --   *
  *     superFamily .................................................. --   *
@@ -82,7 +82,7 @@
  * BEGIN MODULE                                                             *
 /****************************************************************************/
 
-var DashboardTaskView = Canto.View.extend({
+var DashboardTaskView = Tessitura.View.extend({
 
   /* Backbone View Properties
   /**************************************************************************/
@@ -90,14 +90,14 @@ var DashboardTaskView = Canto.View.extend({
   template    : JST['partials/dashTasks'],
   id          : 'page-wrapper',
 
-  /* Canto View Properties
+  /* Tessitura View Properties
   /**************************************************************************/
 
   klass       : 'DashboardTaskView',
-  family      : 'Canto.View',
+  family      : 'Tessitura.View',
   superFamily : 'Backbone.View',
   types       : function() {
-    return Canto.View.prototype.types().concat(['DashboardTaskView']);
+    return Tessitura.View.prototype.types().concat(['DashboardTaskView']);
   },
 
   /* Special Functions
@@ -154,7 +154,7 @@ var DashboardTaskView = Canto.View.extend({
     if(!!this.inProgressColumnView) { this.inProgressColumnView.remove(); }
     if(!!this.blockingColumnView)   { this.blockingColumnView.remove();   }
     
-    Canto.View.prototype.remove.call(this);
+    Tessitura.View.prototype.remove.call(this);
   },
 
   render     : function() {
@@ -162,11 +162,11 @@ var DashboardTaskView = Canto.View.extend({
 
     this.user.tasks.fetch({
       success: function(collection) {
-        collection = new Canto.TaskCollection(collection.models);
+        collection = new Tessitura.TaskCollection(collection.models);
 
-        that.backlogColumnView = new Canto.KanbanColumnView({
+        that.backlogColumnView = new Tessitura.KanbanColumnView({
           el         : that.$('#backlog-tasks'),
-          collection : new Canto.TaskCollection(collection.where({backlog: true})),
+          collection : new Tessitura.TaskCollection(collection.where({backlog: true})),
           color      : 'red',
           icon       : 'fa-exclamation-circle',
           headline   : 'Backlog'
@@ -174,25 +174,25 @@ var DashboardTaskView = Canto.View.extend({
 
         collection.remove(that.backlogColumnView.collection.models);
 
-        that.newColumnView = new Canto.KanbanColumnView({
+        that.newColumnView = new Tessitura.KanbanColumnView({
           el         : that.$('#new-tasks'),
-          collection : new Canto.TaskCollection(collection.where({status: 'New'})),
+          collection : new Tessitura.TaskCollection(collection.where({status: 'New'})),
           color      : 'blue',
           icon       : 'fa-certificate',
           headline   : 'New'
         });
 
-        that.inProgressColumnView = new Canto.KanbanColumnView({
+        that.inProgressColumnView = new Tessitura.KanbanColumnView({
           el         : that.$('#in-progress-tasks'),
-          collection : new Canto.TaskCollection(collection.where({status: 'In Progress'})),
+          collection : new Tessitura.TaskCollection(collection.where({status: 'In Progress'})),
           color      : 'green',
           icon       : 'fa-road',
           headline   : 'In Progress'
         });
 
-        that.blockingColumnView = new Canto.KanbanColumnView({
+        that.blockingColumnView = new Tessitura.KanbanColumnView({
           el         : that.$('#blocking-tasks'),
-          collection : new Canto.TaskCollection(collection.where({status: 'Blocking'})),
+          collection : new Tessitura.TaskCollection(collection.where({status: 'Blocking'})),
           color      : 'yellow',
           icon       : 'fa-minus-circle',
           headline   : 'Blocking'
@@ -212,7 +212,7 @@ var DashboardTaskView = Canto.View.extend({
       }
     });
 
-    return Canto.View.prototype.render.call(this, this.template());
+    return Tessitura.View.prototype.render.call(this, this.template());
   }
 });
 

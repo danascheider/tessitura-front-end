@@ -1,10 +1,10 @@
 require('../dependencies.js');
 
-var UserModel = Canto.Model.extend({
-  urlRoot: Canto.API.users.collection,
+var UserModel = Tessitura.Model.extend({
+  urlRoot: Tessitura.API.users.collection,
   klass  : 'UserModel',
   types  : function() {
-    return Canto.Model.prototype.types().concat(['UserModel', 'User']);
+    return Tessitura.Model.prototype.types().concat(['UserModel', 'User']);
   },
 
   /* Special Functions
@@ -15,19 +15,19 @@ var UserModel = Canto.Model.extend({
     var that = this;
 
     settings.type       = settings.type || 'POST';
-    settings.url        = Canto.API.login;
+    settings.url        = Tessitura.API.login;
     settings.beforeSend = function(xhr) {
       xhr.setRequestHeader('Authorization', 'Basic ' + btoa(that.get('username') + ':' + that.get('password')));
     }
 
-    return Canto.Model.prototype.fetch.call(this, settings);
+    return Tessitura.Model.prototype.fetch.call(this, settings);
   },
 
   protectedFetch : function(settings) {
     settings = settings || {};
     var that = this;
 
-    settings.url = Canto.API.users.single(this.get('id'));
+    settings.url = Tessitura.API.users.single(this.get('id'));
 
     settings.beforeSend = (settings.beforeSend) || function(xhr) {
       xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
@@ -55,7 +55,7 @@ var UserModel = Canto.Model.extend({
   initialize     : function(attrs, opts) {
     opts = opts || {};
 
-    this.tasks = new Canto.TaskCollection();
+    this.tasks = new Tessitura.TaskCollection();
 
     if(this.get('id') && !(opts.sync === false)) { this.protectedFetch(); }
   }

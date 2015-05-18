@@ -1,4 +1,4 @@
-var TaskPanelView = Canto.View.extend({
+var TaskPanelView = Tessitura.View.extend({
   id                   : 'task-panel',
   className            : 'panel panel-primary dash-widget',
   template             : JST['partials/taskPanel'],
@@ -7,15 +7,15 @@ var TaskPanelView = Canto.View.extend({
     'click span.toggle-widget i' : 'toggleWidget',
   },
 
-  /* Canto View Properties
+  /* Tessitura View Properties
   /**************************************************************************************/
 
   klass                : 'TaskPanelView',
-  family               : 'Canto.View',
+  family               : 'Tessitura.View',
   superFamily          : 'Backbone.View',
 
   types                : function() {
-    return Canto.View.prototype.types().concat(['TaskPanelView', 'TaskPanel', 'TaskView', 'PartialView']);
+    return Tessitura.View.prototype.types().concat(['TaskPanelView', 'TaskPanel', 'TaskView', 'PartialView']);
   },
 
   /* Event Callbacks
@@ -66,9 +66,9 @@ var TaskPanelView = Canto.View.extend({
   /**************************************************************************************/
 
   initialize           : function() {
-    this.collection       = new Canto.TaskCollection(this.filterCollection());
-    var displayCollection = new Canto.TaskCollection(this.collection.slice(0,10));
-    this.collectionView   = new Canto.TaskCollectionView({collection: displayCollection});
+    this.collection       = new Tessitura.TaskCollection(this.filterCollection());
+    var displayCollection = new Tessitura.TaskCollection(this.collection.slice(0,10));
+    this.collectionView   = new Tessitura.TaskCollectionView({collection: displayCollection});
 
     this.childViews.push(this.collectionView);
 
@@ -85,7 +85,7 @@ var TaskPanelView = Canto.View.extend({
   render               : function() {
     var that = this;
 
-    return Canto.View.prototype.render.call(this, this.template(), function() {
+    return Tessitura.View.prototype.render.call(this, this.template(), function() {
       that.collectionView.render();
       that.$('.panel-body').html(that.collectionView.$el);
     });

@@ -1,6 +1,6 @@
 var fixtures = require('../../../spec/support/fixtures/fixtures.js');
 
-var SpecWrapper = Canto.View.extend({
+var SpecWrapper = Tessitura.View.extend({
   template: JST['spec/dashHome'],
   el      : 'body',
 
@@ -8,14 +8,14 @@ var SpecWrapper = Canto.View.extend({
   /***************************************************************************/
 
   initialize : function() {
-    this.view = new Canto.DashboardHomeView({user: fixtures.user});
+    this.view = new Tessitura.DashboardHomeView({user: fixtures.user});
     this.render();
   },
 
   render  : function() {
     var that = this;
 
-    return Canto.View.prototype.render.call(this, this.template(), function() {
+    return Tessitura.View.prototype.render.call(this, this.template(), function() {
       that.$el.addClass('test');
       that.view.render();
       that.$('#view').html(that.view.$el);

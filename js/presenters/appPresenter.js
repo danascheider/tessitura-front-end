@@ -1,18 +1,18 @@
-Canto = Canto || require('../dependencies.js')
+Tessitura = Tessitura || require('../dependencies.js')
 
 /*****************************************************************************************
 /* APP PRESENTER                                                                         *
 /*****************************************************************************************/
 
-var AppPresenter = Canto.Model.extend({
+var AppPresenter = Tessitura.Model.extend({
 
-  /* Canto Model Properties
+  /* Tessitura Model Properties
   /***************************************************************************************/
 
   klass : 'AppPresenter',
 
   types : function() {
-    return Canto.Model.prototype.types().concat(['AppPresenter', 'Presenter']);
+    return Tessitura.Model.prototype.types().concat(['AppPresenter', 'Presenter']);
   },
 
   isAn  : function(type) {
@@ -44,7 +44,7 @@ var AppPresenter = Canto.Model.extend({
   /***************************************************************************************/
 
   initialize : function() {
-    this.homepageView = new Canto.HomepageView();
+    this.homepageView = new Tessitura.HomepageView();
 
     this.listenTo(this.homepageView, 'redirect', this.emitRedirect);
   }

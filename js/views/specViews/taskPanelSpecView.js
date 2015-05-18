@@ -27,7 +27,7 @@ var SpecWrapper = Backbone.View.extend({
   },
 
   initialize : function() {
-    this.view = new Canto.TaskPanelView({collection: Fixtures.collection});
+    this.view = new Tessitura.TaskPanelView({collection: Fixtures.collection});
     this.render();
   },
 
