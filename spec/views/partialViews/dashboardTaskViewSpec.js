@@ -45,6 +45,7 @@ require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/spec/support/env.js');
 
 var matchers       = require('jasmine-jquery-matchers'),
+    fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     fcontext       = fdescribe;
 
 /****************************************************************************
@@ -59,27 +60,21 @@ describe('Dashboard Task View', function() {
 
   beforeAll(function() {
     jasmine.addMatchers(matchers);
+    _.extend(global, fixtures);
   });
 
   beforeEach(function() {
-    user = new Tessitura.UserModel({id: 1, username: 'testuser', password: 'testuser', email: 'testuser@example.com', first_name: 'Test', last_name: 'User'});
-
-    // Require the task model and create 3 tasks
-    task1 = new Tessitura.TaskModel({id: 1, owner_id: 1, title: 'Task 1', status: 'New', priority: 'Low', position: 1});
-    task2 = new Tessitura.TaskModel({id: 2, owner_id: 1, title: 'Task 2', status: 'New', priority: 'Normal', position: 2});
-    task3 = new Tessitura.TaskModel({id: 3, owner_id: 1, title: 'Task 3', status: 'Complete', priority: 'Normal', position: 3});
-
-    collection = user.tasks;
-
-    view = new Tessitura.DashboardTaskView({user: user});
+    view = new Tessitura.DashboardTaskView({user: user, collection: collection});
   });
 
   afterEach(function() {
-    _.each([view, user, task1, task2, task3, collection], function(obj) { obj.destroy(); });
+    restoreFixtures();
+    view.remove();
     newView && newView.destroy();
   });
 
   afterAll(function() {
+    _.omit(global, fixtures);
     view = null;
   });
 
@@ -87,15 +82,15 @@ describe('Dashboard Task View', function() {
   /**************************************************************************/
 
   describe('properties', function() {
-    it('#view #travis has klass DashboardTaskView', function() {
+    it('#partialView #view #travis has klass DashboardTaskView', function() {
       expect(view.klass).toEqual('DashboardTaskView');
     });
 
-    it('#view #travis has family Tessitura.View', function() {
+    it('has family Tessitura.View #partialView #view #travis', function() {
       expect(view.family).toEqual('Tessitura.View');
     });
 
-    it('#view #travis has superFamily Backbone.View', function() {
+    it('has superFamily Backbone.View #partialView #view #travis', function() {
       expect(view.superFamily).toEqual('Backbone.View');
     });
   });
@@ -104,20 +99,20 @@ describe('Dashboard Task View', function() {
   /**************************************************************************/
 
   describe('constructor', function() {
-    it('#view #travis calls setUser', function() {
+    it('calls setUser #partialView #view #travis', function() {
       spyOn(Tessitura.DashboardTaskView.prototype, 'setUser');
       newView = new Tessitura.DashboardTaskView({user: user});
       expect(Tessitura.DashboardTaskView.prototype.setUser).toHaveBeenCalled();
       expect(Tessitura.DashboardTaskView.prototype.setUser.calls.argsFor(0)[0]).toEqual(user);
     });
 
-    it('#view #travis doesn\'t call render', function() {
+    it('doesn\'t call render #partialView #view #travis', function() {
       spyOn(Tessitura.DashboardTaskView.prototype, 'render');
       newView = new Tessitura.DashboardTaskView({user: user});
       expect(Tessitura.DashboardTaskView.prototype.render).not.toHaveBeenCalled();
     });
 
-    it('#view #travis can be instantiated without a user', function() {
+    it('can be instantiated without a user #partialView #view #travis', function() {
       newView = new Tessitura.DashboardTaskView();
       expect(newView.user).not.toExist();
     });
@@ -174,6 +169,7 @@ describe('Dashboard Task View', function() {
 
       _.each(['newColumnView', 'inProgressColumnView', 'blockingColumnView', 'backlogColumnView'], function(column) {
         it('#view #travis creates the ' + column, function() {
+          spyOn(Tessitura.TaskModel.prototype, 'displayTitle').and.returnValue('foobar')
           spyOn($, 'ajax').and.callFake(function(args) {
             args.success(user.tasks);
           });
