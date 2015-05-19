@@ -150,6 +150,9 @@ describe('Registration Form View', function() {
           first_name: 'Test', last_name: 'User', acceptTerms: true
         };
 
+        spy = jasmine.createSpy();
+        form.on('userCreated', spy);
+
         spyOn(Tessitura.Utils, 'getAttributes').and.returnValue(obj);      
 
         e = $.Event('submit', {target: form.$el});
@@ -198,11 +201,12 @@ describe('Registration Form View', function() {
           expect(Tessitura.UserModel.prototype.initialize).not.toHaveBeenCalled();
         });
 
-        it('doesn\'t trigger userCreated #partialView #view #travis', function() {
+        it('doesn\'t trigger userCreated #partialView #view #travis', function(done) {
           spy = jasmine.createSpy();
           form.on('userCreated', spy);
           form.createUser(e);
           expect(spy).not.toHaveBeenCalled();
+          done();
           form.off('userCreated');
         });
       });
@@ -236,7 +240,6 @@ describe('Registration Form View', function() {
         });
 
         it('emits the userCreated event #partialView #view #travis', function(done) {
-          spy = jasmine.createSpy();
           form.on('userCreated', spy);
           form.createUser(e);
           expect(spy).toHaveBeenCalled();
