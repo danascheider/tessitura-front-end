@@ -56,8 +56,6 @@ var UserModel = Tessitura.Model.extend({
     opts = opts || {};
 
     this.tasks = new Tessitura.TaskCollection();
-
-    if(this.get('id') && !(opts.sync === false)) { this.protectedFetch(); }
   }
 });
 

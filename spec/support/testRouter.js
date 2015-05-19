@@ -31,7 +31,21 @@ if (testing) {
       });
 
   TestRouter = Tessitura.Router.extend({
-    routes : testRoutes,
+    routes : {
+      'listItemViewSpec(/)'           : 'displayListItemView',
+      'dashboardHomeViewSpec(/)'      : 'displayDashboardHomeView',
+      'dashboardSidebarViewSpec(/)'   : 'displayDashboardSidebarView',
+      'dashboardTopWidgetViewSpec(/)' : 'displayDashboardTopWidgetView',
+      'dashboardViewSpec(/)'          : 'displayDashboardView',
+      'homepageViewSpec(/)'           : 'displayHomepageView',
+      'taskCollectionViewSpec(/)'     : 'displayTaskCollectionView',
+      'taskPanelViewSpec(/)'          : 'displayTaskPanelView',
+    },
+
+    initialize                  : function() {
+      console.log('Initializing test router with routes ', testRoutes);
+      Tessitura.Router.prototype.initialize.call(this);
+    },
 
     displayListItemView         : function() {
       view = new Tessitura.TaskListItemSpecView();

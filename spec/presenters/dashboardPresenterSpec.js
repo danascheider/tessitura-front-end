@@ -260,13 +260,6 @@ describe('Dashboard Presenter', function() {
           newPresenter.setUser(user);
           expect(newPresenter.dashboardView.setUser).toHaveBeenCalledWith(user);
         });
-
-        it('instantiates a task collection #presenter #travis', function() {
-          user.tasks = null;
-          spyOn(Tessitura.TaskCollection.prototype, 'initialize');
-          newPresenter.setUser(user);
-          expect(Tessitura.TaskCollection.prototype.initialize).toHaveBeenCalled();
-        });
       });
     });
 

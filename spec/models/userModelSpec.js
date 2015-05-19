@@ -34,31 +34,11 @@ describe('User Model', function() {
   });
 
   describe('constructor', function() {
-    beforeEach(function() { spyOn(Tessitura.UserModel.prototype, 'protectedFetch'); });
     afterEach(function() { newUser.destroy(); });
 
     it('instantiates a task collection #model #travis', function() {
       newUser = new Tessitura.UserModel();
       expect(newUser.tasks.isA('TaskCollection')).toBe(true);
-    });
-
-    describe('when instantiated with an ID', function() {
-      it('calls protectedFetch #model #travis', function() {
-        newUser = new Tessitura.UserModel({id: 14});
-        expect(Tessitura.UserModel.prototype.protectedFetch).toHaveBeenCalled();
-      });
-
-      it('doesn\'t call protectedFetch if `sync` is set to false #model #travis', function() {
-        newUser = new Tessitura.UserModel({id: 22}, {sync: false});
-        expect(Tessitura.UserModel.prototype.protectedFetch).not.toHaveBeenCalled();
-      });
-    });
-
-    describe('when not instantiated with an ID', function() {
-      it('doesn\'t call protectedFetch #model #travis', function() {
-        var newUser = new Tessitura.UserModel();
-        expect(Tessitura.UserModel.prototype.protectedFetch).not.toHaveBeenCalled();
-      });
     });
   });
 

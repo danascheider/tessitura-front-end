@@ -45,14 +45,14 @@ describe('Dashboard Home View - Visual Elements', function() {
   });
 
   describe('view elements', function() {
-    it('displays its task panel view #ui', function(done) {
+    it('displays its task panel view #dashboardHomeUI #ui', function(done) {
       client.waitForVisible('#task-panel', function(err, isVisible) {
         expect(isVisible).toBe(true);
         done();
       });
     });
 
-    it('displays its top widget view #ui', function(done) {
+    it('displays its top widget view #dashboardHomeUI #ui', function(done) {
       client.waitForVisible('#dashboard-top-widgets', function(err, isVisible) {
         expect(isVisible).toBe(true);
         done();

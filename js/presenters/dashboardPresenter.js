@@ -43,7 +43,6 @@ var DashboardPresenter = Tessitura.Model.extend({
 
     if(this.user && this.user.get('id') === user.get('id')) { return; }
     this.user = user;
-    this.user.tasks = user.tasks || new Tessitura.TaskCollection();
 
     // Fetch the user using stored credentials
 
