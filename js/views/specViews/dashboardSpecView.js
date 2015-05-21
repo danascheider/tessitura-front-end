@@ -20,24 +20,21 @@ var SpecWrapper = Backbone.View.extend({
   /* Event Callbacks 
   /**************************************************************************************/
 
-  callHideDropdownMenus  : function(e) {
-    e.preventDefault();
+  callHideDropdownMenus  : function() {
     var that = this;
 
     var ev = $.Event('click', {target: that.view.$('#page-wrapper')});
     this.view.hideDropdownMenus(ev);
   },
 
-  callHideSidebar        : function(e) {
-    e.preventDefault();
+  callHideSidebar        : function() {
     var that = this;
 
     var ev = $.Event('dblclick', {target: that.view.$el});
     this.view.hideSidebar(ev);
   },
 
-  callShowSidebar        : function(e) {
-    e.preventDefault();
+  callShowSidebar        : function() {
     var that = this;
 
     if(!this.view.$('#side-menu').is(':visible')) { 
@@ -46,16 +43,14 @@ var SpecWrapper = Backbone.View.extend({
     }
   },
 
-  callToggleDropdownMenu : function(e) {
-    e.preventDefault();
+  callToggleDropdownMenu : function() {
     var that = this;
 
-    var ev = $.Event('click', {target: that.view.$('a.dropdown-toggle').first()});
-    this.view.toggleDropdownMenu(ev);
+    var e = $.Event('click', {target: that.view.$('.navbar-top-links li.dropdown').first()});
+    this.view.$('.navbar-top-links > li.dropdown > a.dropdown-toggle').first().click();
   },
 
-  callToggleSidebar      : function(e) {
-    e.preventDefault();
+  callToggleSidebar      : function() {
     var that = this;
 
     var ev = $.Event('click', {target: that.view.$('.navbar-brand')});
