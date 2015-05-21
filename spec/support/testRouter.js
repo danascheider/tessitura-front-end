@@ -42,11 +42,6 @@ if (testing) {
       'taskPanelViewSpec(/)'          : 'displayTaskPanelView',
     },
 
-    initialize                  : function() {
-      console.log('Initializing test router with routes ', testRoutes);
-      Tessitura.Router.prototype.initialize.call(this);
-    },
-
     displayListItemView         : function() {
       view = new Tessitura.TaskListItemSpecView();
       view.render();
@@ -54,6 +49,7 @@ if (testing) {
 
     displayDashboardHomeView    : function() {
       view = new Tessitura.DashboardHomeSpecView();
+      view.render();
     },
 
     displayDashboardSidebarView : function() {
@@ -63,6 +59,7 @@ if (testing) {
 
     displayDashboardTopWidgetView: function() {
       view = new Tessitura.DashboardTopWidgetSpecView();
+      view.render();
     },
 
     displayDashboardView        : function() {
