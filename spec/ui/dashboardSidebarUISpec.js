@@ -8,18 +8,15 @@ var context  = describe,
 describe('Dashboard Sidebar View', function() {
   beforeAll(function(done) {
     jasmine.addMatchers(require('jasmine-jquery-matchers'));
-    client.init().url('http://localhost/#dashboardSidebarViewSpec');
-    done();
+    client.init().url('http://localhost/#dashboardSidebarViewSpec', done);
   });
 
   beforeEach(function(done) {
-    client.refresh();
-    done();
+    client.refresh(done);
   });
 
   afterAll(function(done) {
-    client.end();
-    done();
+    client.end(done);
   });
 
   describe('elements', function() {
@@ -33,10 +30,8 @@ describe('Dashboard Sidebar View', function() {
 
   describe('toggleSecondLevelNav', function() {
     context('when no menus are visible', function() {
-      beforeEach(function(done) {
-        client.saveScreenshot('screenshot.png')
-              .waitForVisible('a[data-method=toggleSecondLevelNav]')
-              .click('a[data-method=toggleSecondLevelNav]', done);
+      beforeEach(function() {
+        client.click('#triggers a[data-method=toggleSecondLevelNav]');
       });
 
       it('expands the second-level nav #dashboardSidebarUI #ui', function(done) {

@@ -13,13 +13,11 @@ describe('Task Panel View Elements', function() {
   });
 
   beforeEach(function(done) {
-    client.refresh();
-    done();
+    client.refresh(done);
   });
 
   afterAll(function(done) {
-    client.end();
-    done();
+    client.end(done);
   });
 
   describe('toggle-widget icon #ui', function() {

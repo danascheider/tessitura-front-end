@@ -22,21 +22,21 @@ describe('Dashboard Top Widgets View', function() {
   /***********************************************************************/
 
   beforeAll(function(done) {
+    jasmine.addMatchers(matchers);
     client.init().url('http://localhost/#dashboardTopWidgetViewSpec', done);
   });
 
   beforeEach(function(done) {
-    client.refresh();
-    done();
+    client.refresh(done);
   });
 
-  afterAll(function() {
-    client.end();
+  afterAll(function(done) {
+    client.end(done);
   });
 
   describe('view elements', function() {
     describe('task widget', function() {
-      it('is visible by default #ui', function(done) {
+      it('is visible by default #dashboardTopWidgetUI #ui', function(done) {
         client.waitForVisible('#dashboard-top-widgets div[data-name=tasks]', function(err, isVisible) {
           expect(isVisible).toBe(true);
           done();
@@ -45,7 +45,7 @@ describe('Dashboard Top Widgets View', function() {
     });
 
     describe('deadline widget', function() {
-      it('is visible by default #ui', function(done) {
+      it('is visible by default #dashboardTopWidgetUI #ui', function(done) {
         client.waitForVisible('#dashboard-top-widgets div[data-name=deadlines]', function(err, isVisible) {
           expect(isVisible).toBe(true);
           done();
@@ -54,7 +54,7 @@ describe('Dashboard Top Widgets View', function() {
     });
 
     describe('appointment widget', function() {
-      it('is visible by default #ui', function(done) {
+      it('is visible by default #dashboardTopWidgetUI #ui', function(done) {
         client.waitForVisible('#dashboard-top-widgets div[data-name=appointments]', function(err, isVisible) {
           expect(isVisible).toBe(true);
           done();
@@ -63,7 +63,7 @@ describe('Dashboard Top Widgets View', function() {
     });
 
     describe('recommendation widget', function() {
-      it('is visible by default #ui', function(done) {
+      it('is visible by default #dashboardTopWidgetUI #ui', function(done) {
         client.waitForVisible('#dashboard-top-widgets div[data-name=recommendations]', function(err, isVisible) {
           expect(isVisible).toBe(true);
           done();

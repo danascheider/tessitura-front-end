@@ -30,18 +30,17 @@ describe('Dashboard Home View - Visual Elements', function() {
   /* Filters
   /****************************************************************************/
 
-  beforeAll(function() {
+  beforeAll(function(done) {
     jasmine.addMatchers(require('jasmine-jquery-matchers'));
-    client.init().url('http://localhost/#dashboardHomeViewSpec');
+    client.init().url('http://localhost/#dashboardHomeViewSpec', done);
   });
 
-  beforeEach(function() {
-    client.refresh();
+  beforeEach(function(done) {
+    client.refresh(done);
   });
 
   afterAll(function(done) {
-    client.end();
-    done();
+    client.end(done);
   });
 
   describe('view elements', function() {
