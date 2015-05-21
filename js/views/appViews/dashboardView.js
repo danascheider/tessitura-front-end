@@ -82,28 +82,23 @@ var DashboardView = Tessitura.View.extend({
     }
   },
 
-  redirectToDashboard: function(e) {
-    e.preventDefault();
+  redirectToDashboard: function() {
     this.trigger('redirect', {destination: 'dashboard'});
     this.$('.sidebar-collapse').slideUp();
   },
 
-  redirectToTaskPage : function(e) {
-    e.preventDefault();
+  redirectToTaskPage : function() {
     this.trigger('redirect', {destination: 'tasks'});
     this.$('.sidebar-collapse').slideUp();
   },
 
   toggleDropdownMenu : function(e) {
-    var li = $(e.target).closest('li.dropdown');
+    var li = $(e.target).has('li');
     li.toggleClass('open');
-    li.siblings().removeClass('open');
-    li.children().blur(); 
+    $(e.target).blur();
   },
 
-  toggleSidebar      : function(e) {
-    e.preventDefault();
-
+  toggleSidebar      : function() {
     this.$('li.dropdown').removeClass('open');
     this.$('.sidebar-collapse').slideToggle();
   },
