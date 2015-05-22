@@ -29,7 +29,7 @@ When(/^I fill out the registration form with valid data$/) do
 end
 
 When(/^I (don't )?accept the terms of use$/) do |neg|
-  within '#registration-form div.terms' do 
+  within '#registration-form fieldset.terms' do 
     if neg then uncheck 'acceptTerms'; else check 'acceptTerms'; end
   end
 end

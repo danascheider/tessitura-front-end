@@ -61,7 +61,7 @@ var RegistrationFormView = Tessitura.View.extend({
 
   validateForm: function(data) {
     if(!data.acceptTerms) { 
-      this.$('div.form-group.terms').addClass('has-error');
+      this.$('fieldset.form-group.terms').addClass('has-error');
       return false; 
     }
 

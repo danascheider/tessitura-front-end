@@ -18,7 +18,7 @@ Feature: User registration
     But I don't accept the terms of use
     And I submit the registration form
     Then I should not be routed to my dashboard
-    And the 'terms' div should have class 'has-error'
+    And the 'terms' fieldset should have class 'has-error'
 
   Scenario Outline: Missing data
     When I fill out the registration form with the <attribute> attribute blank
