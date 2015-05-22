@@ -18,11 +18,11 @@ When(/^I log in with invalid credentials$/) do
 end
 
 When(/^I check the 'Remember Me' checkbox$/) do 
-  check 'Remember Me'
+  check 'remember'
 end
 
 When(/^I uncheck the 'Remember Me' checkbox$/) do 
-  uncheck 'Remember Me'
+  uncheck 'remember'
 end
 
 When(/^I submit the login form$/) do 
