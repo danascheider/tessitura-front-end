@@ -5,41 +5,17 @@
     padding: 0 1em
     width: 25%
 
-    &.panel-red
-      & .task-list > li:hover
-        & .task-title
-          color: $panel-red-color
+    &.panel-red .task-list > li:hover .task-title
+      color: $panel-red-color
 
-      & form:hover
-        & span.expand-form
-          color: $panel-red-color
+    &.panel-blue .task-list > li:hover .task-title
+      color: $panel-blue-color
 
-    &.panel-blue
-      & .task-list > li:hover
-        & .task-title
-          color: $panel-blue-color
+    &.panel-green .task-list > li:hover .task-title
+      color: $panel-green-color
 
-      & form:hover
-        & span.expand-form
-          color: $panel-blue-color
-
-    &.panel-green
-      & .task-list > li:hover
-        & .task-title
-          color: $panel-green-color
-
-      & form:hover
-        & span.expand-form
-          color: $panel-green-color
-
-    &.panel-yellow
-      & .task-list > li:hover
-        & .task-title
-          color: $panel-yellow-color
-
-      & form:hover
-        & span.expand-form
-          color: $panel-yellow-color
+    &.panel-yellow .task-list > li:hover .task-title
+      color: $panel-yellow-color
 
     .panel-heading
       & > span.toggle-widget

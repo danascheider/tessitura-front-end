@@ -53,6 +53,9 @@
       margin : 0 
       padding: 0
 
+    &:hover
+      background-color: inherit
+
   li.task-list-item
     list-style: none 
     
@@ -98,8 +101,12 @@
       background-color: $panel-blue-color
 
     &:hover span.pull-left, 
-    &:hover span.pull-right:not(.expand-form):not(.edit-task)
+    &:hover span.pull-right:not(.edit-task):not(.expand-form)
       color: $panel-blue-color
+
+    & .quick-add-form:hover
+      & span.expand-form
+        color: $panel-blue-color
 
   .panel-green
     .panel-heading
@@ -109,6 +116,12 @@
     &:hover span.pull-right:not(.expand-form)
       color: $panel-green-color
 
+    & .quick-add-form:hover
+      & span.expand-form
+        color: $panel-green-color
+
+
+
   .panel-red
     .panel-heading
       background-color: $panel-red-color
@@ -117,6 +130,10 @@
     &:hover span.pull-right:not(.expand-form)
       color: $panel-red-color
 
+    & .quick-add-form:hover
+      & span.expand-form
+        color: $panel-red-color
+
   .panel-yellow 
     .panel-heading
       background-color: $panel-yellow-color
@@ -124,6 +141,10 @@
     &:hover span.pull-left,
     &:hover span.pull-right:not(.expand-form)
       color: $panel-yellow-color
+
+    & .quick-add-form:hover
+      & span.expand-form
+        color: $panel-yellow-color
 
 @import "./partials/_dashboard-top-nav-links"
 @import "./partials/_dashboard-home-view"
