@@ -31,7 +31,7 @@ describe('Dashboard Sidebar View', function() {
   describe('toggleSecondLevelNav', function() {
     context('when no menus are visible', function() {
       beforeEach(function() {
-        client.click('#triggers a[data-method=toggleSecondLevelNav]');
+        client.saveScreenshot('screenshot.png').click('#triggers a[data-method=toggleSecondLevelNav]');
       });
 
       it('expands the second-level nav #dashboardSidebarUI #ui', function(done) {
