@@ -95,14 +95,10 @@ describe('Registration Form View', function() {
     });
 
     describe('form fields', function() {
-      _.each(['username', 'password', 'email', 'first_name', 'last_name', 'birthdate', 'fach', 'city', 'country'], function(field) {
+      _.each(['username', 'password', 'password-confirmation', 'email', 'email-confirmation', 'first_name', 'last_name', 'birthdate', 'fach', 'city', 'country'], function(field) {
         it('has a ' + field + ' field #partialView #view #travis', function() {
           expect(form.$('input[name=' + field + ']')).toHaveLength(1);
         });
-      });
-
-      it('has a password confirmation field #partialView #view #travis', function() {
-        pending('Figure out how to fit the password confirmation field into the design');
       });
 
       it('has a captcha #partialView #view #travis', function() {
