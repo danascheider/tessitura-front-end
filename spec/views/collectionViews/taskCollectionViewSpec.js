@@ -311,7 +311,7 @@ describe('Task Collection View', function() {
 
         it('doesn\'t remove any views from the array', function() {
           view.render().removeComplete();
-          expect(view.childViews.length).toBe(3);
+          expect(view.childViews.length).toBe(4);
         });
       });
     });
