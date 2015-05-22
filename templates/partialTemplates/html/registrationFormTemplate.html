@@ -39,10 +39,11 @@
   <input class='form-control half-width left' name='country' title='Country' placeholder='Country'>
   <input class='form-control half-width right' name='city' title='City' placeholder='City'>
 </fieldset>
-<div class='form-group terms'>
-  <label>
-    <input class='checkbox' type='checkbox' name='acceptTerms' value='Accept Terms'>I accept the <a href='#'>Terms of Use</a></label>
-</div>
+<fieldset class='form-group terms'>
+  <div class='checkbox'>
+    <input class='checkbox' type='checkbox' name='acceptTerms' value='Accept Terms'><label for='acceptTerms'>I accept the <a href='#'>Terms of Use</a></label>
+  </div>
+</fieldset>
 <fieldset class='form-group submit'>
   <button type='submit' class='btn btn-dark half-width'>Create Account</button>
   <button type='reset' class='btn btn-dark half-width'>Clear Form</button>
