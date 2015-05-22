@@ -1,24 +1,37 @@
 #registration-form
   margin-bottom: 15px
+  padding      : 20px
 
   .half-width
-    width: 46%
+    width  : 46%
+    display: inline-block
+
+    &.left
+      margin-right: 3px
+
+    &.right 
+      margin-left: 3px
 
   & > fieldset
     display: block
     border : 0
-    passing: 0 10px
-    padding: 0 
+    padding: 0
     margin : 15px 10px 0 0
 
     & button
-      box-sizing: content-box
+      box-sizing: border-box
       margin    : auto 5px
       font-size : inherit
 
     & input
-      margin            : 5px
-      display           : inline-block
+      margin-top   : 5px
+      margin-bottom: 5px
+
+      &:not(.half-width)
+        position    : relative
+        width       : 93%
+        margin-left : auto
+        margin-right: auto
 
     &.has-error
       & input.checkbox,
