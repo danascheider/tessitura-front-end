@@ -133,7 +133,7 @@ Tessitura.Router = Backbone.Router.extend({
     if($.cookie('auth') && $.cookie('userID')) { 
       next(); 
     } else {
-      this.navigate('');
+      this.navigate('/', {trigger: true});
     }
   }
 });

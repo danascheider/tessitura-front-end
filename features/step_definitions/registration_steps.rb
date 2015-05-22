@@ -56,15 +56,6 @@ When(/^I submit the registration form$/) do
   end
 end
 
-Then(/^I should (not )?be routed to my dashboard$/) do |neg|
-  wait_for_ajax
-  if neg
-    expect(page).not_to have_selector('#dashboard-wrapper')
-  else
-    expect(find('#dashboard-wrapper')).to be_visible
-  end
-end
-
 Then(/^no fields should have class '(.*)'$/) do |klass|
   within '#registration-form' do 
     expect(page).not_to have_selector(".#{klass}")

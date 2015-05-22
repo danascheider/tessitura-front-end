@@ -28,6 +28,15 @@ When(/^I navigate to the dashboard$/) do
   visit '/#dashboard'
 end
 
+Then(/^I should (not )?be routed to my dashboard$/) do |neg|
+  wait_for_ajax
+  if neg
+    expect(page).not_to have_selector('#dashboard-wrapper')
+  else
+    expect(find '#dashboard-wrapper').to be_visible
+  end
+end
+
 Then(/^I should (not )?see the '(\S+)' element$/) do |neg, selector|
   if neg then expect(page).not_to have_css(selector) 
   else expect(page).to have_selector(selector, visible: true); end
