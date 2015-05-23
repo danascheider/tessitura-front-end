@@ -64,11 +64,6 @@ Then(/^no fields should have class '(.*)'$/) do |klass|
   end
 end
 
-Then(/^the '(.*)' cookie should be set to '(.*)'/) do |name, value|
-  wait_for_ajax
-  save_screenshot 'screenshot.png'
-end
-
 Then(/^the dashboard should have my name on it$/) do 
   expect(page).to have_text('New User')
 end

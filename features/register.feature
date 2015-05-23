@@ -10,7 +10,8 @@ Feature: User registration
     And I accept the terms of use
     And I submit the registration form
     Then no fields should have class 'has_error'
-    And the 'userID' cookie should be set to '2'
+    And the 'userID' cookie should have value '2'
+    And the 'auth' cookie should have value 'kh8980yhlk'
     And I should be routed to my dashboard
     And the dashboard should have my name on it
 

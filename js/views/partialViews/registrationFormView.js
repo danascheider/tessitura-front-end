@@ -81,7 +81,7 @@ var RegistrationFormView = Tessitura.View.extend({
   },
 
   validEmail   : function(email, confirmation) {
-    var valid = !!email.match(/(\S+)@(\S+)\.(\S+)/) && !!confirmation;
+    var valid = !!email.match(/(\S+)@(\S+)\.(\S+)/) && !!confirmation && confirmation === email;
     if (!valid) { this.$('input[name=email]').addClass('has-error') }
     return valid;
   },

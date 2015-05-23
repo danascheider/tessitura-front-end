@@ -382,6 +382,10 @@ describe('Registration Form View', function() {
             it('requires a confirmation #partialView #view #travis', function() {
               delete formData.passwordConfirmation;
             });
+
+            it('must match the confirmation #partialView #view #travis', function() {
+              formData.passwordConfirmation = 'foobarbaz101';
+            });
           });
 
           describe('email', function() {
@@ -400,8 +404,12 @@ describe('Registration Form View', function() {
               formData.emailConfirmation = 'foo@bar';
             });
 
-            it('has to include a confirmation', function() {
+            it('has to include a confirmation #partialView #view #travis', function() {
               delete formData.emailConfirmation;
+            });
+
+            it('has to match the confirmation #partialView #view #travis', function() {
+              formData.emailConfirmation = 'dana.scheider@tessitura.io';
             });
           });
 
