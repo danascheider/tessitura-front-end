@@ -17,7 +17,9 @@ When(/^I fill out the registration form with valid data$/) do
     within 'fieldset.login-information' do 
       fill_in 'username', with: '22testuser22'
       fill_in 'password', with: 'kh8980yhlk'
+      fill_in 'password-confirmation', with: 'kh8980yhlk'
       fill_in 'email', with: 'newtestuseremail@example.com'
+      fill_in 'email-confirmation', with: 'newtestuseremail@example.com'
     end
 
     within 'fieldset.profile-information' do 

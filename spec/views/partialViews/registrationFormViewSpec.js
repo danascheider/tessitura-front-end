@@ -8,20 +8,20 @@
  * required information and indicated they accept the terms of use.        *
  *                                                                         *
  * CONTENTS                                                          LINE  *
- * Requires ......................................................... 26   *
- * Suite ............................................................ 44   *
+ * Requires ......................................................... 29   *
+ * Suite ............................................................ 47   *
  *   Filters ........................................................ 50   *
- *   Static Properties .............................................. 60   *
+ *   Static Properties .............................................. 67   *
  *     klass                                                               *
  *     family                                                              *
  *     superFamily                                                         *
- *   Core Functions ................................................. 69   *
- *     fetch()                                                             *
- *   Special Functions .............................................. 91   *
- *     updateAll() .................................................. 92   *
- *     isA() ....................................................... 140   *
+ *   View Elements .................................................. 84   *
+ *   Events ........................................................ 126   *
+ *   Event Callbacks ............................................... 139   *
+ *   Special Callbacks ............................................. 275   *
+ *   Core View Functions ........................................... 468   *
  *                                                                         *
-/****************************************************************************/
+/***************************************************************************/
 
 /* Core Requires
 /****************************************************************************/
@@ -95,7 +95,7 @@ describe('Registration Form View', function() {
     });
 
     describe('form fields', function() {
-      _.each(['username', 'password', 'password-confirmation', 'email', 'email-confirmation', 'first_name', 'last_name', 'birthdate', 'fach', 'city', 'country'], function(field) {
+      _.each(['username', 'password', 'passwordConfirmation', 'email', 'emailConfirmation', 'first_name', 'last_name', 'birthdate', 'fach', 'city', 'country'], function(field) {
         it('has a ' + field + ' field #partialView #view #travis', function() {
           expect(form.$('input[name=' + field + ']')).toHaveLength(1);
         });
@@ -142,7 +142,8 @@ describe('Registration Form View', function() {
     describe('createUser', function() {
       beforeEach(function() {
         obj = {
-          username: 'testuser245', password: '245usertest', email: 'tu245@example.org',
+          username: 'testuser245', password: '245usertest', passwordConfirmation: '245usertest', 
+          email: 'tu245@example.org', emailConfirmation: 'tu245@example.org',
           first_name: 'Test', last_name: 'User', acceptTerms: true
         };
 
@@ -301,7 +302,8 @@ describe('Registration Form View', function() {
 
       beforeEach(function() {
         formData = {
-          username: 'testuser245', password: '245usertest', email: 'tu245@example.org',
+          username: 'testuser245', password: '245usertest', passwordConfirmation: '245usertest',
+          email: 'tu245@example.org', emailConfirmation: 'tu245@example.org',
           first_name: 'Test', last_name: 'User', acceptTerms: true
         }
       });
@@ -309,12 +311,7 @@ describe('Registration Form View', function() {
       describe('return value', function() {
         context('when valid', function() {
           it('returns true #partialView #view #travis', function() {
-            obj = {
-              username: 'testuser245', password: '245usertest', email: 'tu245@example.org',
-              first_name: 'Test', last_name: 'User', acceptTerms: true
-            };
-
-            expect(form.validateForm(obj)).toBe(true);
+            expect(form.validateForm(formData)).toBe(true);
           });
         });
 
@@ -365,6 +362,12 @@ describe('Registration Form View', function() {
 
             it('cannot match the username #partialView #view #travis', function() {
               formData.password = formData.username
+            });
+          });
+
+          describe('passwordConfirmation', function() {
+            it('must be present #partialView #view #travis', function() {
+              formData.passwordConfirmation  = null;
             });
           });
 
@@ -421,15 +424,22 @@ describe('Registration Form View', function() {
           describe('password', function() {
             it('can contain special characters #partialView #view #travis', function() {
               formData.password = '8!!#%5aj';
+              formData.passwordConfirmation = '8!!#%5aj'
             });
 
             it('can contain only alphanumeric characters #partialView #view #travis', function() {
               formData.password = '8113XAB00';
+              formData.passwordConfirmation = '8113XAB00';
             });
 
             it('can contain spaces #partialView #view #travis', function() {
               formData.password = 'Mary Sue 62';
-            });          
+              formData.passwordConfirmation = 'Mary Sue 62';
+            });
+
+            it('requires a confirmation #partialView #view #travis', function() {
+              delete formData.passwordConfirmation;
+            });
           });
 
           describe('email', function() {

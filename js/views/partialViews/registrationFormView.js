@@ -66,13 +66,14 @@ var RegistrationFormView = Tessitura.View.extend({
     }
 
     delete data.acceptTerms
-    return this.validCreds(data.username, data.password, data.email) && this.validName(data.first_name, data.last_name);
+    return this.validCreds(data.username, data.password, data.passwordConfirmation, data.email, data.emailConfirmation) && this.validName(data.first_name, data.last_name);
   },
 
   /* Form Validations
   /**************************************************************************/
-  validCreds   : function(username, password, email) {
-    return this.validPassword(password) && this.validUsername(username) && this.validEmail(email) && password.indexOf(username) === -1;
+
+  validCreds   : function(username, password, passwordConfirmation, email, emailConfirmation) {
+    return this.validPassword(password, passwordConfirmation) && this.validUsername(username) && this.validEmail(email) && password.indexOf(username) === -1;
   },
 
   validEmail   : function(email) {
@@ -90,8 +91,8 @@ var RegistrationFormView = Tessitura.View.extend({
     return first_valid && last_valid;
   },
 
-  validPassword: function(password) {
-    var valid = !!password && password.length >= 8 && !!password.match(/[A-Za-z]/) && !!password.match(/[0-9]/);
+  validPassword: function(password, confirmation) {
+    var valid = !!password && password.length >= 8 && !!password.match(/[A-Za-z]/) && !!password.match(/[0-9]/) && !!confirmation && password === confirmation;
     if (!valid) { this.$('input[name=password]').addClass('has-error') }
     return valid;
   },
