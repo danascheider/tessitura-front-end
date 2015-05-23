@@ -363,25 +363,30 @@ describe('Registration Form View', function() {
             it('cannot match the username #partialView #view #travis', function() {
               formData.password = formData.username
             });
-          });
 
-          describe('passwordConfirmation', function() {
-            it('must be present #partialView #view #travis', function() {
-              formData.passwordConfirmation  = null;
+            it('requires a confirmation #partialView #view #travis', function() {
+              delete formData.passwordConfirmation;
             });
           });
 
           describe('email', function() {
             it('has to contain @ #partialView #view #travis', function() {
               formData.email = '';
+              formData.emailConfirmation = '';
             });
 
             it('has to contain something before the @ #partialView #view #travis', function() {
               formData.email = '@foo.io';
+              formData.emailConfirmation = '@foo.io';
             });
 
             it('has to contain a domain after the @ #partialView #view #travis', function() {
               formData.email = 'foo@bar';
+              formData.emailConfirmation = 'foo@bar';
+            });
+
+            it('has to include a confirmation', function() {
+              delete formData.emailConfirmation;
             });
           });
 
@@ -436,19 +441,17 @@ describe('Registration Form View', function() {
               formData.password = 'Mary Sue 62';
               formData.passwordConfirmation = 'Mary Sue 62';
             });
-
-            it('requires a confirmation #partialView #view #travis', function() {
-              delete formData.passwordConfirmation;
-            });
           });
 
           describe('email', function() {
             it('can contain periods #partialView #view #travis', function() {
               formData.email = 'dana.scheider@gmail.com';
+              formData.emailConfirmation = 'dana.scheider@gmail.com';
             });
 
             it('can contain subdomains #partialView #view #travis', function() {
-              formData.email = 'dana@admin.Tessitura.si';
+              formData.email = 'dana@admin.tessitura.io';
+              formData.emailConfirmation = 'dana@admin.tessitura.io'
             });
           });
 

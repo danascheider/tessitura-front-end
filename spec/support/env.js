@@ -10,7 +10,7 @@ global.subsetOf = function(subset, superset) {
   });
 };
 
-// require('jasmine-tagged');
-// var jasmineEnv = jasmine.getEnv();
-// jasmineEnv.setIncludedTags(['collection', 'model', 'router', 'dashboardHomeUI', 'dashboardSidebarUI', 'dashboardTopWidgetUI', 'dashboardUI', 'homepageUI', 'listItemUI', 'taskCollectionUI']);
-// jasmineEnv.includeSpecsWithoutTags(false);
+require('jasmine-tagged');
+var jasmineEnv = jasmine.getEnv();
+jasmineEnv.setIncludedTags(['travis']);
+jasmineEnv.includeSpecsWithoutTags(false);
