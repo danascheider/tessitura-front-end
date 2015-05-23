@@ -8,8 +8,9 @@ var RegistrationFormView = Tessitura.View.extend({
   id          : 'registration-form',
 
   events      : {
-    'click input[type=checkbox]' : 'removeError',
-    'submit'                     : 'createUser'
+    'click input[type=checkbox]'   : 'removeError',
+    'click label[for=acceptTerms]' : 'toggleCheckbox',
+    'submit'                       : 'createUser'
   },
 
   /* Tessitura View Properties
@@ -57,6 +58,11 @@ var RegistrationFormView = Tessitura.View.extend({
 
   removeError : function() {
     if(this.$('fieldset.terms').hasClass('has-error')) { this.$('fieldset.terms').removeClass('has-error'); }
+  },
+
+  toggleCheckbox: function() {
+    this.$('input[name=acceptTerms]').prop('checked', function(i, val) { return !val; });
+    this.removeError();
   },
 
   /* Special Functions
