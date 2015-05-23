@@ -17,9 +17,9 @@ When(/^I fill out the registration form with valid data$/) do
     within 'fieldset.login-information' do 
       fill_in 'username', with: '22testuser22'
       fill_in 'password', with: 'kh8980yhlk'
-      fill_in 'password-confirmation', with: 'kh8980yhlk'
+      fill_in 'passwordConfirmation', with: 'kh8980yhlk'
       fill_in 'email', with: 'newtestuseremail@example.com'
-      fill_in 'email-confirmation', with: 'newtestuseremail@example.com'
+      fill_in 'emailConfirmation', with: 'newtestuseremail@example.com'
     end
 
     within 'fieldset.profile-information' do 
@@ -62,6 +62,11 @@ Then(/^no fields should have class '(.*)'$/) do |klass|
   within '#registration-form' do 
     expect(page).not_to have_selector(".#{klass}")
   end
+end
+
+Then(/^the '(.*)' cookie should be set to '(.*)'/) do |name, value|
+  wait_for_ajax
+  save_screenshot 'screenshot.png'
 end
 
 Then(/^the dashboard should have my name on it$/) do 

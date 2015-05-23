@@ -43,6 +43,9 @@ var RegistrationFormView = Tessitura.View.extend({
         hash = btoa(data.username + ':' + data.password),
         that = this;
 
+    delete data.passwordConfirmation;
+    delete data.emailConfirmation;
+
     user.save(data, {
       success: function(model) {
         $.cookie('auth', hash);
@@ -65,7 +68,8 @@ var RegistrationFormView = Tessitura.View.extend({
       return false; 
     }
 
-    delete data.acceptTerms
+    delete data.acceptTerms;
+
     return this.validCreds(data.username, data.password, data.passwordConfirmation, data.email, data.emailConfirmation) && this.validName(data.first_name, data.last_name);
   },
 

@@ -84,6 +84,7 @@ var HomepageView = Tessitura.View.extend({
     var that = this;
 
     this.listenTo(this.registrationForm, 'userCreated', function() {
+      console.log('User created!');
       this.trigger('redirect', {destination: 'dashboard'});
     });
 

@@ -182,14 +182,24 @@ describe('Registration Form View', function() {
       });
 
       it('uses the attributes from the form #partialView #view #travis', function() {
+        var obj2 = {
+          username: 'testuser245', password: '245usertest', 
+          email: 'tu245@example.org',
+          first_name: 'Test', last_name: 'User'
+        }
+
+        delete obj2.passwordConfirmation;
+        delete obj2.emailConfirmation;
+
         spyOn(Tessitura.UserModel.prototype, 'save');
         form.createUser(e);
-        expect(Tessitura.UserModel.prototype.save.calls.argsFor(0)).toContain(obj)
+        expect(Tessitura.UserModel.prototype.save.calls.argsFor(0)).toContain(obj2);
       });
 
       context('invalid form', function() {
         beforeEach(function() {
           spyOn(form, 'validateForm').and.returnValue(false);
+          spyOn($, 'cookie');
         });
 
         it('doesn\'t create a user #partialView #view #travis', function() {
@@ -205,6 +215,11 @@ describe('Registration Form View', function() {
           expect(spy).not.toHaveBeenCalled();
           done();
           form.off('userCreated');
+        });
+
+        it('doesn\'t set cookies #partialView #view #travis', function() {
+          form.createUser(e);
+          expect($.cookie).not.toHaveBeenCalled();
         });
       });
 

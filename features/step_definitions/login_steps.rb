@@ -39,7 +39,7 @@ end
 
 Then(/^the '(.*)' cookie should have value '(.*)'$/) do |name, value|
   wait_for_ajax
-  cookies = (page.driver.cookies.select {|k,v| k === name })
+  cookies = page.driver.cookies.select {|k,v| k == name }
   expect(cookies[name].value).to eq (value)
 end
 
