@@ -70,10 +70,10 @@ var DashboardView = Tessitura.View.extend({
   /**************************************************************************/
 
   emitRedirect       : function(args) {
-    if(args.destination === tasks) { 
-      this.redirectToTaskPage(); 
+    if(args.destination === 'dashboard') { 
+      this.redirectToDashboard(); 
     } else {
-      this.redirectToDashboard();
+      this.redirectToTaskPage();
     }
   },
 
