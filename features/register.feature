@@ -10,8 +10,7 @@ Feature: User registration
     And I accept the terms of use
     And I submit the registration form
     Then no fields should have class 'has_error'
-    And the 'userID' cookie should have value '2'
-    And the 'auth' cookie should have value 'kh8980yhlk'
+    And I should be logged in as user 2
     And I should be routed to my dashboard
     And the dashboard should have my name on it
 
@@ -29,12 +28,14 @@ Feature: User registration
     And the <attribute> input should have class 'has-error'
 
     Examples:
-      | attribute  |
-      | username   |
-      | password   |
-      | email      |
-      | first_name |
-      | last_name  |
+      | attribute            |
+      | username             |
+      | password             |
+      | email                |
+      | first_name           |
+      | last_name            |
+      | passwordConfirmation |
+      | emailConfirmation    |
 
 Scenario Outline: Invalid data
   When I fill out the registration form with <attribute> '<value>'
@@ -43,10 +44,12 @@ Scenario Outline: Invalid data
   And the <attribute> input should have class 'has-error'
 
   Examples:
-    | attribute | value |
-    | username  | foo   |
-    | password  | bar   |
-    | email     | baz   |
+    | attribute            | value          |
+    | username             | foo            |
+    | password             | bar            |
+    | email                | baz            |
+    | passwordConfirmation | foobar888      |
+    | emailConfirmation    | jimbob@foo.bar |
 
 Scenario Outline: Duplicate username or email
   Given there is a user with <attribute> '<value>'

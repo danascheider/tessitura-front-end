@@ -80,11 +80,8 @@ var HomepageView = Tessitura.View.extend({
     this.registrationForm = new Tessitura.RegistrationFormView();
 
     this.childViews       = [this.loginForm, this.registrationForm];
-
-    var that = this;
-
+    
     this.listenTo(this.registrationForm, 'userCreated', function() {
-      console.log('User created!');
       this.trigger('redirect', {destination: 'dashboard'});
     });
 

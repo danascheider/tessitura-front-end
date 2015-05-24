@@ -58,6 +58,11 @@ When(/^I submit the registration form$/) do
   end
 end
 
+Then(/^I should be logged in as user 2$/) do 
+  step "the 'userID' cookie should have value '2'"
+  step "the 'auth' cookie should have value 'MjJ0ZXN0dXNlcjIyOmtoODk4MHlobGs%3D'"
+end
+
 Then(/^no fields should have class '(.*)'$/) do |klass|
   within '#registration-form' do 
     expect(page).not_to have_selector(".#{klass}")
