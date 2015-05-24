@@ -12,10 +12,5 @@ global.btoa  = function(string) {
 
 require('jasmine-tagged');
 var jasmineEnv = jasmine.getEnv();
-jasmineEnv.setIncludedTags([
-  'collection', 
-  'model', 
-  'presenter', 
-  'appView'
-  ]);
+jasmineEnv.setIncludedTags(['travis']);
 jasmineEnv.includeSpecsWithoutTags(false);
