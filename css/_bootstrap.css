@@ -1533,8 +1533,8 @@ pre {
     clear: both; }
 
 .row {
-  margin-left: -10.313em;
-  margin-right: -10.313em; }
+  margin-left: -1.313em;
+  margin-right: -1.313em; }
   .row:before, .row:after {
     content: " ";
     display: table; }
@@ -3119,7 +3119,7 @@ tbody.collapse.in {
     background-color: #e5e5e5; }
   .dropdown-menu > li > a {
     display: block;
-    padding: 3px 1.25em;
+    padding: 0.188em 1.25em;
     clear: both;
     font-weight: normal;
     line-height: 1.42857143;
@@ -3644,8 +3644,8 @@ tbody.collapse.in {
 .container > .navbar-collapse,
 .container-fluid > .navbar-header,
 .container-fluid > .navbar-collapse {
-  margin-right: -10.313em;
-  margin-left: -10.313em; }
+  margin-right: -1.313em;
+  margin-left: -1.313em; }
   @media (min-width: 768px) {
     .container > .navbar-header,
     .container > .navbar-collapse,
@@ -3698,7 +3698,7 @@ tbody.collapse.in {
 .navbar-toggle {
   position: relative;
   float: right;
-  margin-right: 10.313em;
+  margin-right: 1.313em;
   padding: 0.563em 0.625em;
   margin-top: 8px;
   margin-bottom: 8px;
@@ -3752,8 +3752,8 @@ tbody.collapse.in {
           padding-bottom: 10.313em; } }
 
 .navbar-form {
-  margin-left: -10.313em;
-  margin-right: -10.313em;
+  margin-left: -1.313em;
+  margin-right: -1.313em;
   padding: 0.625em 10.313em;
   border-top: 1px solid transparent;
   border-bottom: 1px solid transparent;
@@ -3843,8 +3843,8 @@ tbody.collapse.in {
   @media (min-width: 768px) {
     .navbar-text {
       float: left;
-      margin-left: 10.313em;
-      margin-right: 10.313em; } }
+      margin-left: 1.313em;
+      margin-right: 1.313em; } }
 
 @media (min-width: 768px) {
   .navbar-left {
@@ -3852,7 +3852,7 @@ tbody.collapse.in {
 
   .navbar-right {
     float: right !important;
-    margin-right: -10.313em; }
+    margin-right: -1.313em; }
     .navbar-right ~ .navbar-right {
       margin-right: 0; } }
 .navbar-default {
