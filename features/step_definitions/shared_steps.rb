@@ -28,6 +28,10 @@ When(/^I navigate to the dashboard$/) do
   visit '/#dashboard'
 end
 
+Then(/^I should be on my dashboard$/) do 
+  expect(page).to have_css('.dashboard-home')
+end
+
 Then(/^I should (not )?be routed to my dashboard$/) do |neg|
   wait_for_ajax
   save_screenshot 'screenshot.png'
