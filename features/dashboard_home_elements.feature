@@ -6,7 +6,7 @@ Feature: Dashboard home elements
 
   # These data refer to the user object hard-coded in the test API. This user
   # has 5 tasks, 4 of which are incomplete. Note that values for resources other
-  # than tasks are currently hard-coded
+  # than tasks are currently hard-coded.
 
   Scenario Outline: Dashboard top widgets
     Then I should see my '<name>' widget
