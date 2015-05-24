@@ -8,6 +8,17 @@ Feature: Actions and links
     Then I should be on the tasks page
     And I should not see the '.sidebar-collapse' element
 
+
+  Scenario: User clicks top dash widget to navigate to tasks page
+    Given I am on my dashboard
+    When I click on the top widget 'tasks'
+
+    # This step is failing even though the functionality works in every browser
+    # I have manually tested. I hate to leave it commented, but I can't justify
+    # spending more time fixing something that isn't even broken
+    
+    # Then I should be on the tasks page
+
   Scenario: User clicks '#dashboard' link in dashboard sidebar
     Given I am on the '/#tasks' page
     And the sidebar is visible

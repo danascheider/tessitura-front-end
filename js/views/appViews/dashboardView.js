@@ -69,6 +69,11 @@ var DashboardView = Tessitura.View.extend({
   /* Event Callbacks
   /**************************************************************************/
 
+  emitRedirect       : function(args) {
+    console.log('Redirecting');
+    this.redirectToTaskPage();
+  },
+
   hideDropdownMenus  : function(e) {
     var li = this.$('li.dropdown');
     if(!li.is(e.target) && !li.has(e.target).length) { li.removeClass('open'); }
@@ -140,6 +145,8 @@ var DashboardView = Tessitura.View.extend({
 
     this.childViews  = [this.sidebarView, this.homeView, this.taskView];
     if(opts.user) { this.setUser(opts.user); }
+
+    this.listenTo(this.homeView, 'all', this.emitRedirect);
   },
 
   remove             : function() {

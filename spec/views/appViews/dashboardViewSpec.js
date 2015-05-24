@@ -235,11 +235,18 @@ describe('Main Dashboard View', function() {
       spyOn(Tessitura.DashboardView.prototype, 'hideSidebar');
       spyOn(Tessitura.DashboardView.prototype, 'toggleDropdownMenu');
       spyOn(Tessitura.DashboardView.prototype, 'toggleSidebar');
+      spy = jasmine.createSpy();
+
       newView = new Tessitura.DashboardView({user: user});
+
+      newView.on('redirect', spy);
       newView.render();
     });
 
-    afterEach(function() { newView.destroy(); });
+    afterEach(function() { 
+      newView.off('redirect');
+      newView.destroy(); 
+    });
 
     describe('click $el', function() {
       it('calls hideDropdownMenus #appView #view #travis', function() {
@@ -288,6 +295,15 @@ describe('Main Dashboard View', function() {
         newView = new Tessitura.DashboardView({user: user});
         user.trigger('change:last_name');
         expect(Tessitura.DashboardView.prototype.render).toHaveBeenCalled();
+      });
+    });
+
+    describe('redirect from home view', function() {
+      it('triggers redirect', function() {
+        spy = jasmine.createSpy();
+        view.on('redirect', spy);
+        view.homeView.trigger('redirect', {destination: 'tasks'});
+        expect(spy).toHaveBeenCalled();
       });
     });
   });

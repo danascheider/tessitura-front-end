@@ -50,6 +50,13 @@ var DashboardHomeView = Tessitura.View.extend({
     return Tessitura.View.prototype.types().concat(['DashboardHomeView', 'PartialView']);
   },
 
+  /* Event Callbacks
+  /**************************************************************************/
+
+  emitRedirect        : function(args) {
+    this.trigger('redirect', {destination: args.destination});
+  },
+
   /* Special Functions
   /**************************************************************************/
 
@@ -78,6 +85,8 @@ var DashboardHomeView = Tessitura.View.extend({
     });
 
     this.childViews = [this.taskPanelView, this.topWidgetView];
+
+    this.listenTo(this.topWidgetView, 'redirect', this.emitRedirect);
   },
 
   /* Core View Functions
@@ -85,9 +94,7 @@ var DashboardHomeView = Tessitura.View.extend({
 
   initialize          : function(opts) {
     opts = opts || {};
-    if(!!opts.user) {
-      this.setUser(opts.user);
-    }
+    if(!!opts.user) { this.setUser(opts.user); }
   },
 
   remove              : function() {

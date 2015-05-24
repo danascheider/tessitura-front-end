@@ -5,8 +5,12 @@ When(/^I click on the '(\S+)' link in the sidebar$/) do |link|
   end
 end
 
-Then(/^I should be on the tasks page$/) do
-  within '#page-wrapper' do 
-    expect(page).to have_selector('.kanban-board')
+When(/^I click on the top widget '(.*)'$/) do |name|
+  within '#dashboard-top-widgets' do 
+    find("div.dash-widget[data-name=#{name}]").click
   end
+end
+
+Then(/^I should be on the tasks page$/) do
+  expect(current_url).to eql 'http://localhost/#tasks'
 end

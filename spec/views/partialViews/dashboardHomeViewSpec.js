@@ -42,6 +42,7 @@ require(process.cwd() + '/js/tessitura.js');
 require(process.cwd() + '/spec/support/env.js');
 
 var matchers       = require('jasmine-jquery-matchers'),
+    fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     context        = describe,
     fcontext       = fdescribe;
 
@@ -60,22 +61,12 @@ describe('Dashboard Home View', function() {
   });
 
   beforeEach(function() {
-
-    user = new Tessitura.UserModel({id: 1, username: 'testuser', password: 'testuser', email: 'testuser@example.com', first_name: 'Test', last_name: 'User'});
-
-    // Require the task model and create 3 tasks
-    task1 = new Tessitura.TaskModel({id: 1, owner_id: 1, title: 'Task 1', status: 'New', priority: 'Low', position: 1});
-    task2 = new Tessitura.TaskModel({id: 2, owner_id: 1, title: 'Task 2', status: 'New', priority: 'Normal', position: 2});
-    task3 = new Tessitura.TaskModel({id: 3, owner_id: 1, title: 'Task 3', status: 'Complete', priority: 'Normal', position: 3});
-
-    collection = user.tasks;
-
     spyOn(Tessitura.TaskModel.prototype, 'displayTitle').and.returnValue('foobar');
-    view = new Tessitura.DashboardHomeView({user: user});
+    view = new Tessitura.DashboardHomeView({user: fixtures.user});
   });
 
   afterEach(function() {
-    _.each([view, user, task1, task2, task3, collection], function(obj) { obj.destroy(); });
+    fixtures.restoreFixtures();
     newView && newView.destroy();
   });
 
@@ -106,13 +97,13 @@ describe('Dashboard Home View', function() {
   describe('constructor', function() {
     it('does not call render #partialView #view #travis', function() {
       spyOn(Tessitura.DashboardHomeView.prototype, 'render');
-      newView = new Tessitura.DashboardHomeView({user: user});
+      newView = new Tessitura.DashboardHomeView({user: fixtures.user});
       expect(Tessitura.DashboardHomeView.prototype.render).not.toHaveBeenCalled();
     });
 
     it('calls setUser #partialView #view #travis', function() {
       spyOn(Tessitura.DashboardHomeView.prototype, 'setUser');
-      newView = new Tessitura.DashboardHomeView({user: user});
+      newView = new Tessitura.DashboardHomeView({user: fixtures.user});
       expect(Tessitura.DashboardHomeView.prototype.setUser).toHaveBeenCalled();
     });
 
@@ -145,6 +136,42 @@ describe('Dashboard Home View', function() {
 
     it('has class .dashboard-home #partialView #view #travis', function() {
       expect(view.$el).toHaveClass('dashboard-home');
+    });
+  });
+
+  /* Events
+  /**************************************************************************/
+
+    describe('events', function() {
+      describe('redirect on top widgets', function() {
+        it('calls emitRedirect #partialView #view #travis', function() {
+          spyOn(Tessitura.DashboardHomeView.prototype, 'emitRedirect');
+          newView = new Tessitura.DashboardHomeView({user: fixtures.user});
+          newView.topWidgetView.trigger('redirect', {destination: 'tasks'});
+          expect(Tessitura.DashboardHomeView.prototype.emitRedirect).toHaveBeenCalled();
+        });
+      });
+    });
+
+  /* Event Callbacks
+  /**************************************************************************/
+
+  describe('event callbacks', function() {
+    describe('emitRedirect', function() {
+      beforeEach(function() {
+        spy = jasmine.createSpy();
+        view.on('redirect', spy);
+        e = $.Event('redirect', {destination: 'dashboard'});
+      });
+
+      afterEach(function() {
+        view.off('redirect');
+      });
+
+      it('triggers the redirect event', function() {
+        view.emitRedirect(e);
+        expect(spy).toHaveBeenCalled();
+      });
     });
   });
 
@@ -241,15 +268,15 @@ describe('Dashboard Home View', function() {
     describe('setUser()', function() {
       beforeEach(function() {
         newView = new Tessitura.DashboardHomeView();
-        newView.setUser(user);
+        newView.setUser(fixtures.user);
       });
 
       it('sets the user #partialView #view #travis', function() {
-        expect(newView.user).toBe(user);
+        expect(newView.user).toBe(fixtures.user);
       });
 
       it('sets the collection #partialView #view #travis', function() {
-        expect(newView.collection).toBe(user.tasks);
+        expect(newView.collection).toBe(fixtures.user.tasks);
       });
 
       it('creates the task panel #partialView #view #travis', function() {
