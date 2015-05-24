@@ -70,8 +70,11 @@ var DashboardView = Tessitura.View.extend({
   /**************************************************************************/
 
   emitRedirect       : function(args) {
-    console.log('Redirecting');
-    this.redirectToTaskPage();
+    if(args.destination === tasks) { 
+      this.redirectToTaskPage(); 
+    } else {
+      this.redirectToDashboard();
+    }
   },
 
   hideDropdownMenus  : function(e) {
