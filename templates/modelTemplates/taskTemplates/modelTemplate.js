@@ -1,0 +1,3 @@
+var string = "<a href='' class='task-title' title=\"<%= model.escape('title') %>\"><%= model.displayTitle() %></a>\n<table class='task-details'>\n  <% if (model.get('deadline')) { %>\n    <tr class='task-deadline-row'>\n      <th>Deadline:</th>\n      <td><%= model.prettyDeadline() %></td>\n    </tr>\n  <% } %>\n  <tr class='task-priority-row'>\n    <th>Priority:</th>\n    <td><%= model.escape('priority') %></td>\n  </tr>\n  <tr class='task-status-row'>\n    <th>Status:</th>\n    <td><%= model.escape('status') %></td>\n  </tr>\n  <% if (model.get('description')) { %>\n    <tr class='task-description-row'>\n      <th style='vertical-align: text-top'>Notes:</th>\n      <td><%= model.escape('description') %></td>\n    </tr>\n  <% } %>\n</table>";
+
+module.exports = string;

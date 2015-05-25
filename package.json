@@ -1,7 +1,7 @@
 {
   "name"        : "Tessitura",
   "version"     : "0.1.0",
-  "repository"  : "https://github.com/danascheider/canto-front-end",
+  "repository"  : "https://github.com/danascheider/tessitura-front-end",
   "description" : "Career management app for classical singers",
   "scripts"     : {
     "test" : "jasmine"

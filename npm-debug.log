@@ -1,0 +1,27 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/node', '/usr/bin/npm', 'run', 'spec' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.36
+4 verbose node symlink /usr/bin/node
+5 verbose run-script [ 'prespec', 'spec', 'postspec' ]
+6 info prespec canto@0.1.0
+7 info spec canto@0.1.0
+8 verbose unsafe-perm in lifecycle true
+9 info canto@0.1.0 Failed to exec spec script
+10 error canto@0.1.0 spec: `./node_modules/mocha/bin/_mocha --recursive --reporter html js/spec`
+10 error Exit status 8
+11 error Failed at the canto@0.1.0 spec script.
+11 error This is most likely a problem with the canto package,
+11 error not with npm itself.
+11 error Tell the author that this fails on your system:
+11 error     ./node_modules/mocha/bin/_mocha --recursive --reporter html js/spec
+11 error You can get their info via:
+11 error     npm owner ls canto
+11 error There is likely additional logging output above.
+12 error System Linux 3.2.0-4-amd64
+13 error command "/usr/bin/node" "/usr/bin/npm" "run" "spec"
+14 error cwd /var/www
+15 error node -v v0.10.36
+16 error npm -v 1.4.28
+17 error code ELIFECYCLE
+18 verbose exit [ 1, true ]
