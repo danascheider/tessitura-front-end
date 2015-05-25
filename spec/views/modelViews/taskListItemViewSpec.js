@@ -270,11 +270,7 @@ describe('List Item Task View', function() {
       it('makes the view draggable #modelView #view #travis', function() {
         expect(view.$el.draggable).toHaveBeenCalled();
       });
-
-      it('confines the view to its parent list #modelView #view #travis', function() {
-        expect(view.$el.draggable.calls.argsFor(0)[0].containment).toEqual('parent');
-      });
-
+      
       it('connects to the sortable task list #modelView #view #travis', function() {
         expect(view.$el.draggable.calls.argsFor(0)[0].connectToSortable).toEqual('.task-list');
       });
