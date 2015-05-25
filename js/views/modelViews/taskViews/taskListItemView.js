@@ -81,6 +81,8 @@ var ListItemView = Tessitura.View.extend({
       stop: function() {
         var column = $(this).closest('.kanban-col').find('.panel-heading')[0];
 
+        console.log(column);
+
         // At this point, sorting only works on the dashboard. On
         // the Kanban board, tasks change status when dragged and 
         // dropped, but do not change their list position. I may or
@@ -112,9 +114,9 @@ var ListItemView = Tessitura.View.extend({
             }
           });
         } else if (column.innerText === 'Backlog') {
-          that.model.save('backlog', true);
+          that.model.save({backlog: true});
         } else {
-          that.model.save('status', column.innerText, {
+          that.model.save({status: column.innerText}, {
             beforeSend: function(xhr) {
               xhr.addRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
             }
