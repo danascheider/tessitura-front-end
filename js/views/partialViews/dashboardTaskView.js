@@ -120,7 +120,6 @@ var DashboardTaskView = Tessitura.View.extend({
 
     _.each([that.newColumnView, that.inProgressColumnView, that.blockingColumnView], function(col) {
       if(col.data.headline === status) {
-        console.log(col.collection);
         col.collection = col.collection || new Tessitura.TaskCollection();
         col.collection.add(task);
       }

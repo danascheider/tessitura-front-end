@@ -113,7 +113,6 @@ var ListItemView = Tessitura.View.extend({
         } else if (column === 'Backlog') {
           that.model.save({backlog: true});
         } else {
-          console.log('Saving model with status ' + column);
           that.model.save({backlog: false, status: column.replace(/^ /, '')}, {
             beforeSend: function(xhr) {
               xhr.addRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
