@@ -1,0 +1,112 @@
+<div class='col-lg-3 col-md-6'>
+  <div class='panel panel-primary dash-widget' data-target='tasks' data-name='tasks'> 
+    <div class='panel-heading'>
+      <div class='row'>
+
+        <!-- This is the div with the widget's icon -->
+        <div class='col-xs-3'>
+          <i class='fa fa-tasks fa-4x'></i>
+        </div>
+
+        <!-- This is the div with the number and kind of items -->
+        <div class='col-xs-9 text-right'>
+          <div class='huge'><%= taskCollection.length %></div>
+          <div>Incomplete Tasks!</div>
+        </div> <!-- end col-xs-9 text-right' -->
+
+      </div>
+    </div>
+    <a href='#'>
+      <div class='panel-body'>
+        <span class='pull-left'>View Details</span>
+        <span class='pull-right'>
+          <i class='fa fa-arrow-circle-right'></i>
+        </span>
+      </div>
+    </a>
+  </div>
+</div> <!-- end col-lg-3 col-md-6 (first widget) -->
+<div class='col-lg-3 col-md-6'>
+  <div class='panel panel-green dash-widget' data-name='deadlines'>
+    <div class='panel-heading'>
+      <div class='row'>
+
+        <!-- This is the div with the widget's icon -->
+        <div class='col-xs-3'>
+          <i class='fa fa-clock-o fa-4x'></i>
+        </div>
+
+        <!-- This is the div with the number and kind of items -->
+        <div class='col-xs-9 text-right'>
+          <div class='huge'><%= deadlineCount %></div>
+          <div>Upcoming Deadlines!</div>
+        </div> <!-- end col-xs-9 text-right' -->
+
+      </div>
+    </div>
+    <a href='#'>
+      <div class='panel-body'>
+        <span class='pull-left'>View Details</span>
+        <span class='pull-right'>
+          <i class='fa fa-arrow-circle-right'></i>
+        </span>
+      </div>
+    </a>
+  </div>
+</div> <!-- end col-lg-3 col-md-6 (second widget) -->
+<div class='col-lg-3 col-md-6'>
+  <div class='panel panel-yellow dash-widget' data-name='appointments'>
+    <div class='panel-heading'>
+      <div class='row'>
+
+        <!-- This is the div with the widget's icon -->
+        <div class='col-xs-3'>
+          <i class='fa fa-calendar-o fa-4x'></i>
+        </div>
+
+        <!-- This is the div with the number and kind of items -->
+        <div class='col-xs-9 text-right'>
+          <div class='huge'><%= appointmentCount %></div>
+          <div>New Appointments!</div>
+        </div> <!-- end col-xs-9 text-right' -->
+
+      </div>
+    </div>
+    <a href='#'>
+      <div class='panel-body'>
+        <span class='pull-left'>View Details</span>
+        <span class='pull-right'>
+          <i class='fa fa-arrow-circle-right'></i>
+        </span>
+      </div>
+    </a>
+  </div>
+</div> <!-- end col-lg-3 col-md-6 (third widget) -->
+<div class='col-lg-3 col-md-6'>
+  <div class='panel panel-red dash-widget' data-name='recommendations'>
+    <div class='panel-heading'>
+      <div class='row'>
+
+        <!-- This is the div with the widget's icon -->
+        <div class='col-xs-3'>
+          <i class='fa fa-check fa-4x'></i>
+        </div>
+
+        <!-- This is the div with the number and kind of items -->
+        <div class='col-xs-9 text-right'>
+          <div class='huge'><%= recommendationCount %></div>
+          <div>Recommendations!</div>
+        </div> <!-- end col-xs-9 text-right' -->
+
+      </div>
+    </div>
+    <a href='#'>
+      <div class='panel-body'>
+        <span class='pull-left'>View Details</span>
+        <span class='pull-right'>
+          <i class='fa fa-arrow-circle-right'></i>
+        </span>
+      </div>
+    </a>
+  </div>
+</div> <!-- end col-lg-3 col-md-6 (fourth widget) -->

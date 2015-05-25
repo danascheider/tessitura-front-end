@@ -1,0 +1,73 @@
+#dashboard-wrapper 
+  .navbar-top-links
+    display              : block
+    -webkit-margin-before: 0
+    float                : right
+
+    & li
+      display       : inline-block
+      padding-bottom: 0
+
+      &:last-child
+        margin-right: 15px
+
+      & a
+        text-decoration: none
+        color          : #bbb
+        padding        : 15px
+
+      &:hover,
+      &:focus
+        background-color: #000
+        color           : lighten($panel-blue-color, 25%)
+        text-decoration : none
+
+        & > a
+          color: lighten($panel-blue-color, 25%)
+
+      &.open > a
+        color: #72b1e5
+
+      &.open > .dropdown-menu
+        display: block
+
+        & li
+          width: 100%
+
+    & .dropdown-menu li:last-child
+      margin-right: 0
+
+      & a
+        padding   : 3px 20px
+        min-height: 0
+        color     : #bbb
+
+      &:hover,
+      &:focus
+        background-color: #000
+
+        & > a
+          color: lighten($panel-blue-color, 25%)
+
+        & div
+          white-space: normal
+
+    & .dropdown-messages,
+    & .dropdown-tasks,
+    & .dropdown-alerts
+      width    : 310px
+      min-width: 0
+      overflow : hidden
+
+    & .dropdown-messages
+      margin-left: 5px
+
+    & .dropdown-tasks
+      margin-left: -59px
+
+    & .dropdown-alerts
+      margin-left: -123px
+
+    & .dropdown-user
+      right: 0
+      left : auto

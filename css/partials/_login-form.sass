@@ -1,0 +1,55 @@
+#login-form 
+  position        : absolute
+  vertical-align  : center
+  top             : 0
+  bottom          : 0
+  left            : 0
+  right           : 0
+  display         : table
+  margin          : auto
+  width           : 60%
+  height          : 70%
+  box-sizing      : border-box
+  padding-left    : 10%
+  padding-right   : 10%
+  background-color: rgba(0,0,0,0.7)
+
+  & label[for='username'],
+  & label[for='password']
+    display: none
+
+  & div.form-elements
+    position      : relative
+    display       : table-cell
+    vertical-align: middle
+    margin        : auto
+
+  & .form-group
+    margin-bottom: 15px
+
+  & a, & label
+    color: #fff
+
+  & input, & button
+    margin: 0.25em
+
+  & input
+    background-color: rgba(255,255,255,0.9)
+    border          : none
+    color           : #333
+
+  & div.checkbox
+    width:   100%
+    padding: 0
+    margin : 0
+
+    & input
+      float  : left
+      display: block
+
+  & button.btn-dark
+    background-color: rgba(116,124,201,0.8)
+    width           : 100%
+
+    &:hover, &:focus
+      background-color: rgba(98,107,194,0.8)

@@ -1,0 +1,16 @@
+#!/home/dana/.rvm/rubies/ruby-2.1.3/bin/ruby
+
+require 'colorize'
+require 'fileutils'
+
+# templates/partialTemplates/html/dashboardTopWidgetsTemplate.html
+orig          = File.absolute_path(ARGV[0])
+orig_filename = orig.gsub(/(.*)\//, '')
+orig_path     = orig.gsub(orig_filename, '')
+
+new_filename  = orig_filename.gsub(/html/, 'js')
+new_path = orig_path.match(/var\/www/) ? orig_path.gsub(/html\//, '') : orig_path.gsub(/^(.*)\/templates/, '')
+
+str = File.read(orig)
+File.open("#{new_path}#{new_filename}", 'w+') {|file| file.puts("var string = " + str.inspect + ";\n\nmodule.exports = string;") }
+STDOUT.puts "Success! The file was saved at #{new_path}#{new_filename}".colorize(:green)

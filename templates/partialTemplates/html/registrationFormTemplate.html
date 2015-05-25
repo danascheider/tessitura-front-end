@@ -1,0 +1,50 @@
+<fieldset class='form-group login-information'>
+  <legend>Login Information</legend>
+  <input class='form-control' name='username' title='Username' placeholder='Username (required)'>
+  <input class='form-control half-width left' type='password' name='password' title='Password' placeholder='Password (required)'>
+  <input class='form-control half-width right' type='password' name='passwordConfirmation' title='Re-type Password' placeholder='Re-type Password (required)'>
+  <input class='form-control half-width left' type='email' name='email' title='E-mail Address' placeholder='E-mail (required)'>
+  <input class='form-control half-width right' type='email' name='emailConfirmation' title='Re-type E-mail' placeholder='Re-type E-mail (required)'> 
+</fieldset>
+<fieldset class='form-group profile-information'>
+  <legend>Profile Information</legend>
+  <input class='form-control half-width left' name='first_name' title='First Name' placeholder='First Name (required)'>
+  <input class='form-control half-width right' name='last_name' title='Last Name' placeholder='Last Name (required)'>
+  <input class='form-control half-width left' name='birthdate' type='date' title='Date of Birth'>
+  <input class='form-control half-width right' name='fach' list='fachs' title='Fach' placeholder='Fach'>
+
+  <datalist id='fachs'>
+    <option value='Soprano - lyric coloratura' />
+    <option value='Soprano - dramatic coloratura' />
+    <option value='Soprano - lyric' />
+    <option value='Soprano - spinto' />
+    <option value='Soprano - dramatic' />
+    <option value='Mezzo-soprano - Rossini' />
+    <option value='Mezzo-soprano - lyric' />
+    <option value='Mezzo-soprano - dramatic' />
+    <option value='Contralto' />
+    <option value='Countertenor' />
+    <option value='Tenor leggiero' />
+    <option value='Tenor - lyric' />
+    <option value='Tenor - spinto' />
+    <option value='Heldentenor' />
+    <option value='Lyric baritone' />
+    <option value='Dramatic baritone' />
+    <option value='Lyric bass' />
+    <option value='Basso buffo' />
+    <option value='Basso profondo' />
+    <option value='Other' />
+  </datalist>
+
+  <input class='form-control half-width left' name='country' title='Country' placeholder='Country'>
+  <input class='form-control half-width right' name='city' title='City' placeholder='City'>
+</fieldset>
+<fieldset class='form-group terms'>
+  <div class='checkbox'>
+    <input class='checkbox' type='checkbox' name='acceptTerms' value='Accept Terms'><label for='acceptTerms'>I accept the <a href='#'>Terms of Use</a></label>
+  </div>
+</fieldset>
+<fieldset class='form-group submit'>
+  <button type='submit' class='btn btn-dark half-width'>Create Account</button>
+  <button type='reset' class='btn btn-dark half-width'>Clear Form</button>
+</fieldset>

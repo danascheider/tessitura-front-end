@@ -1,44 +1,45 @@
-define(['underscore', 'backbone', 'cookie'], function(_, Backbone) {
+Tessitura = Tessitura || require('../dependencies.js');
 
-  var ProtectedCollection = Backbone.Collection.extend({
-    token: function() {
-      return 'Basic ' + $.cookie('auth');
-    },
+/* Protected Collection
+/****************************************************************************************/
 
-    fetch: function(opts) {
-      opts = opts || {};
+var ProtectedCollection = Backbone.Collection.extend({
+  token     : function() {
+    return 'Basic ' + $.cookie('auth');
+  },
 
-      var that = this;
+  /* Tessitura Collection Properties
+  /**************************************************************************************/
 
-      opts.beforeSend = (opts.beforeSend) || function(xhr) {
-        xhr.setRequestHeader('Authorization', that.token());
-      };
+  klass     : 'ProtectedCollection',
+  family    : 'Backbone.Collection',
+  superFamily: 'Backbone.Collection',
 
-      return Backbone.Collection.prototype.fetch.call(this, opts);
-    },
+  /* Special Functions
+  /**************************************************************************************/
 
-    updateAll: function(opts) {
-      opts = opts || {};
-      var that = this;
-      var callback = opts.success;
+  destroy   : function() {
+    this.reset([]);
+    this.stopListening();
+  },
 
-      opts.url  = opts.url || this.url();
-      opts.beforeSend = (opts.beforeSend) || function(xhr) {
-        xhr.setRequestHeader('Authorization', that.token());
-      };
-      opts.success = function(obj, response, xhr) {
-        if(callback) { callback.call(obj, response, xhr); }
-        that.trigger('collectionSynced');
-      }
+  isA       : function(type) {
+    return ['Backbone.Collection', 'ProtectedCollection'].indexOf(type) > -1 ? true : false;
+  },
 
-      var changedModels = this.filter(function(model) {
-        return model.hasChanged();
-      });
+  /* Core Collection Functions
+  /**************************************************************************************/
 
-      toSync = new Backbone.Collection(changedModels, {url: opts.url});
-      Backbone.sync('update', toSync, opts);
-    }
-  });
+  fetch     : function(opts) {
+    opts = opts || {};
+    var that = this;
 
-  return ProtectedCollection;
+    opts.beforeSend = (opts.beforeSend) || function(xhr) {
+      xhr.setRequestHeader('Authorization', that.token());
+    };
+
+    Backbone.Collection.prototype.fetch.call(this, opts);
+  }
 });
+
+module.exports = ProtectedCollection;

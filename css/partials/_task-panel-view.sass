@@ -1,0 +1,25 @@
+#task-panel 
+  .panel-heading
+    & > span.toggle-widget
+      visibility: hidden
+
+    &:hover > span.toggle-widget
+      visibility: visible
+      cursor    : pointer
+
+    & i 
+      color: #fff
+
+  .panel-body,
+  .panel
+    padding-top   : 0.15em
+    padding-bottom: 0
+
+  .panel-body
+    padding   : 0
+    margin    : 0
+
+    &:after
+      display: none !important
+
+@import "./_task-collection-view"

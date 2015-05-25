@@ -1,0 +1,105 @@
+span.edit-task
+  display: none
+
+ul.task-list
+  margin-top   : 0
+  margin-bottom: 0
+  padding      : 0
+  list-style   : none
+  color        : #777
+
+  a
+    color: #777
+
+    &.task-title
+      font-weight: bold 
+      font-size  : 0.9em
+
+    &:hover
+      text-decoration: none
+
+  & > li 
+    min-height         : 2.75em
+    padding            : 0 0 0 0.5em
+    border-style       : solid none
+    border-top-color   : #efefef
+    border-bottom-color: #d3d3d3
+    border-width       : 1px
+    margin             : 0
+    box-sizing         : border-box
+    overflow-y         : none
+    list-style         : none
+
+    i.fa-square-o,
+    i.fa-check-square-o
+      color       : #ccc
+      margin-right: 0.5em
+      cursor      : pointer
+
+    table
+      margin-bottom : 0
+      padding-bottom: 0
+
+      & th
+        padding-right: 0.5em
+
+    & > .edit-task
+      display: none
+
+    &:first-child
+      padding: 0.5em
+
+    &:last-child
+      border-bottom : 0 
+      margin-bottom : 0 
+      padding-bottom: 0
+
+    &:hover
+      background-color: #f6f6f6
+
+      & .task-title
+        color: $panel-blue-color
+
+    & > form.quick-add-form
+      display : block
+
+      .form-group
+        margin: 0
+        padding: 0
+
+      input
+        padding      : 0 5px
+        height       : 2em
+        box-sizing   : border-box
+
+      &:hover
+        background-color: #fff
+
+        & span.pull-right
+          color: $panel-blue-color
+
+      & span.pull-right
+        display     : inline-block
+        margin-top  : -1.65em
+        margin-right: 5px
+        margin-bottom: 0
+        cursor      : pointer
+
+    & > table,
+    & > a
+      vertical-align: center
+      margin-top    : 0.5em
+      margin-bottom : 0.5em
+
+    &:hover
+      span.edit-task
+        visibility: visible
+        color     : #ccc
+
+    &.open
+      height: auto!important
+
+      &:hover
+        span.edit-task
+          visibility: visible
+          color     : #ccc

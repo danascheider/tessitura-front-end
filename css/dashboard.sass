@@ -1,0 +1,158 @@
+#dashboard-wrapper
+  background-color: #eeeeee
+  font-family     : "Open Sans Source Pro", "Helvetica", "Arial", sans-serif
+  height          : 100%
+  padding         : 1.313em
+
+  & .btn
+    background-color: #000
+
+    &:hover
+      background-color: inherit
+
+  &.navbar-fixed-top
+    height: 3.125em
+
+  & .navbar,
+  & .navbar-default.navbar-fixed-top,
+    background-color: rgba(0,0,0,0.87)
+    border          : none
+
+  & #page-wrapper
+    box-sizing: border-box
+    width     : 100%
+
+  & .panel-body
+    padding: 1.313em
+
+  .navbar-brand
+    color: #ccc
+    &:hover
+      color: lighten($panel-blue-color, 25%)
+
+    & > i
+      margin-right: 1.313em
+
+  .navbar-fixed-top
+    margin-bottom: 0
+    box-sizing   : border-box
+
+  .nav .open > a,
+  .nav .open > a:hover,
+  .nav .open > a:focus
+    background-color: #000
+
+  .task-details
+    display: none
+
+  li.quick-add-form
+    padding   : 0
+    margin    : 0
+    box-sizing: border-box
+
+    & > form
+      margin : 0.313em
+      padding: 0
+
+    &:hover
+      background-color: inherit
+
+  li.task-list-item
+    list-style: none 
+    
+  span.edit-task
+    float         : right 
+    vertical-align: top
+    padding-top   : 0.5em
+    padding-right : 0.25em
+    cursor        : pointer
+
+    & i:hover
+      color: #aaa
+
+  .dash-widget
+    span.pull-left,
+    span.pull-right
+      color: #ccc
+
+  .panel-primary,
+  .panel-blue,
+  .panel-yellow,
+  .panel-red,
+  .panel-green
+    border: none,
+    margin: none
+
+  .panel-primary,
+  .panel-green,
+  .panel-red,
+  .panel-blue,
+  .panel-yellow,
+    & .panel-heading
+      color : #fff 
+      margin: 0
+
+    .panel-body span.pull-left,
+    .panel-body span.pull-right
+      color: #ccc
+
+  .panel-blue,
+  .panel-primary
+    .panel-heading
+      background-color: $panel-blue-color
+
+    &:hover span.pull-left, 
+    &:hover span.pull-right:not(.edit-task):not(.expand-form)
+      color: $panel-blue-color
+
+    & .quick-add-form:hover
+      & span.expand-form
+        color: $panel-blue-color
+
+  .panel-green
+    .panel-heading
+      background-color: $panel-green-color
+
+    &:hover span.pull-left,
+    &:hover span.pull-right:not(.expand-form)
+      color: $panel-green-color
+
+    & .quick-add-form:hover
+      & span.expand-form
+        color: $panel-green-color
+
+
+
+  .panel-red
+    .panel-heading
+      background-color: $panel-red-color
+
+    &:hover span.pull-left,
+    &:hover span.pull-right:not(.expand-form)
+      color: $panel-red-color
+
+    & .quick-add-form:hover
+      & span.expand-form
+        color: $panel-red-color
+
+  .panel-yellow 
+    .panel-heading
+      background-color: $panel-yellow-color
+
+    &:hover span.pull-left,
+    &:hover span.pull-right:not(.expand-form)
+      color: $panel-yellow-color
+
+    & .quick-add-form:hover
+      & span.expand-form
+        color: $panel-yellow-color
+
+li.quick-add-form
+  padding: 0.313em
+
+@import "./partials/_dashboard-top-nav-links"
+@import "./partials/_dashboard-home-view"
+@import "./partials/_dashboard-sidebar"
+@import "./partials/_dashboard-top-widgets"
+@import "./partials/_task-panel-view"
+@import "./partials/_kanban"

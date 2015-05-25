@@ -1,4 +1,6 @@
-define(function() {
-  var apiOptions = {test: true};
-  return apiOptions;
-});
+var opts = {
+  useTestRouter: false,
+  useTestAPI   : true
+};
+
+module.exports = opts;

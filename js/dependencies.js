@@ -1,14 +1,25 @@
-require('jquery.cookie');
+global.document  = window.document;
+global.navigator = window.navigator;
 
-global.Canto   = {
-  API      : require('./api.js')
+global.Tessitura     = {
+  API      : require('./api.js'),
+  Utils    : require('./utils.js'),
 };
 
-global.$        = require('jquery');
+global.$ = global.jQuery = require('jquery');
+
 global._        = require('underscore');
 global.Backbone = require('backbone');
-
-global.JST      = {
-  'tasks/model'    : _.template(require('../templates/modelTemplates/taskTemplates/modelTemplate.js')),
-  'tasks/listItem' : _.template(require('../templates/modelTemplates/taskTemplates/listItemTemplate.js')),
+global.JST      = require('../templates/jst.js');
+global.btoa     = function(string) {
+  return new Buffer(string).toString('base64');
 };
+Backbone.$      = $;
+
+
+require('jquery.cookie');
+require('bootstrap-sass');
+require('../vendor/jquery-ui-1.11.4.custom/jquery-ui.min.js');
+require('./views/backboneViewMods.js');
+
+module.exports = Tessitura;

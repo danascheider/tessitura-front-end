@@ -1,0 +1,644 @@
+$main-dark-gray: #333
+$panel-red-color: #d9534f
+$panel-yellow-color: #f0ad4e
+$panel-green-color: #5db85b
+$panel-blue-color: #418bca
+
+@import '_bootstrap.scss'
+
+/* Global Styles
+/*****************************************************************************************/
+* 
+  box-sizing: border-box
+
+html,
+body
+  height    : 100%
+  width     : 100%
+  overflow-x: hidden
+
+a 
+  background: transparent
+
+a:active,
+a:hover 
+  outline: 0
+
+a 
+  color          : #bbb
+  text-decoration: none
+
+a:hover,
+a:focus 
+  color          : #418bca
+  text-decoration: underline
+
+a:focus
+  outline       : thin dotted
+  outline       : 5px auto -webkit-focus-ring-color
+  outline-offset: -2px
+
+b
+  border   : 1px solid #c0c0c0
+
+h1
+  margin   : .67em 0
+  font-size: 2em
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6
+  font-family: inherit
+  font-weight: 500
+  line-height: 1.1
+  color      : inherit
+
+h1, h2, h3,
+.h1, .h2, .h3
+  margin-bottom: 10px
+  margin-top   : 20px
+
+h1, .h1 
+  font-size: 36px
+
+h2, .h2
+  font-size: 30px
+
+h2, h3, p
+  orphans: 3
+  widows : 3
+
+h2, h3
+  page-break-after: avoid
+
+h3, .h3
+  font-size: 24px
+
+h4, .h4
+  margin-top   : 10px 
+  margin-bottom: 10px
+
+h4, .h4 
+  font-size: 18px
+
+aside,
+footer,
+header,
+nav,
+section
+  display: block
+
+hr
+  margin-top     : 20px
+  margin-bottom  : 20px
+  border         : 0
+  border-top     : 1px solid #eee
+  height         : 0
+  -moz-box-sizing: content-box
+  box-sizing     : content-box
+
+
+input,
+button
+  margin     : 0
+  font       : inherit
+  color      : inherit
+  font-family: inherit
+  font-size  : inherit
+  line-height: normal
+
+  &::-moz-focus-inner
+    padding: 0
+    border : 0
+
+  &[type="checkbox"],
+  &[type="radio"]
+    box-sizing : border-box
+    padding    : 0
+    margin     : 4px 0 0
+    margin-top : 1px \9
+    line-height: normal /* IE 8-9 */
+
+label
+  display      : inline-block
+  margin-bottom: 5px
+  font-weight  : bold
+
+.bg-primary
+  color           : #fff
+  background-color: #74ABCC /* Previously #428bca */
+
+.btn 
+  vertical-align     : middle
+  margin-bottom      : 0
+  font-weight        : normal
+  line-height        : 1.428571429em
+  white-space        : nowrap
+  text-align         : center
+  display            : inline-block
+  cursor             : pointer
+  -webkit-user-select: none
+  -moz-user-select   : none
+  -ms-user-select    : none
+  -o-user-select     : none
+  user-select        : none
+  background-image   : none
+  border             : 1px solid transparent
+  border-radius      : 2px
+  padding            : 6px 12px
+  font-size          : 14px
+
+  &:focus 
+    outline        : thin dotted
+    outline        : 5px auto -webkit-focus-ring-color
+    outline-offset : -2px
+
+  &:hover,
+  &:focus
+    color          : $main-dark-gray
+    text-decoration: none
+
+  &:active,
+  &.active 
+    background-image  : none 
+    outline           : 0
+    -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125)
+    box-shadow        : inset 0 3px 5px rgba(0, 0, 0, .125)
+
+  &-lg 
+    padding      : 10px 16px
+    font-size    : 18px
+    line-height  : 1.33em
+    border-radius: 2px
+
+  &-block
+    display      : block 
+    width        : 100%
+    padding-right: 0
+    padding-left : 0
+
+  &-default 
+    background-color: #fff
+    color           : $main-dark-gray
+    border-color    : #ccc
+
+    &:active,
+    &.active
+      background-image: none
+
+    &:hover,
+    &:focus,
+    &:active,
+    &.active
+      background-color: #ebebeb
+      color           : $main-dark-gray
+      border-color    : #adadad
+
+.col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12, 
+.col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12, 
+.col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12, 
+.col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12
+  position     : relative
+  min-height   : 1px
+  padding-right: 15px
+  padding-left : 15px
+
+.col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12
+  float: left
+
+.col-xs-3
+  width: 25%
+
+.col-lg-6
+  width: 47%
+
+@media (min-width: 1200px)
+  .col-lg-6
+    width: 50%
+    float: left
+
+  .col-lg-4
+    width: percentage(1/3)
+    float: left
+
+@media (min-width: 992px)
+  .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12
+    float: left
+
+  .col-md-3
+    width: 50%
+
+.container 
+  padding-right: 15px
+  padding-left : 15px
+  margin-right : auto
+  margin-left  : auto
+
+@media (min-width: 768px)
+  .container
+    width: 750px
+
+@media (min-width: 992px)
+  .container 
+    width: 970px
+
+@media (min-width: 1200px)
+  .container 
+    width: 1170px
+
+.container:before, .container:after,
+.row:before, .row:after,
+.nav:before, .nav:after,
+.navbar:before, .navbar:after,
+.navbar-header:before, .navbar-header:after,
+.panel-body:before,
+.panel-body:after
+  display: table
+  content: " "
+
+.col-lg-6:after,
+.col-lg-4:after,
+.container:after,
+.nav:after,
+.navbar:after,
+.navbar-header:after,
+.panel-body:after,
+.row:after
+  clear: both
+
+.dropdown 
+  position: relative
+
+.dropdown-menu
+  position          : absolute
+  background-color  : #fff
+  background-clip   : padding-box
+  top               : 100%
+  left              : 0
+  z-index           : 1000
+  display           : none
+  float             : left
+  min-width         : 160px
+  padding           : 5px 0
+  margin            : 2px 0 0
+  font-size         : 14px
+  list-style        : none
+  border            : 1px solid #ccc
+  border            : 1px solid rgba(0, 0, 0, .15)
+  border-radius     : 2px
+  -webkit-box-shadow: 0 6px 12px rgba(0,0,0, 0.175)
+  box-shadow        : 0 6px 12px rgba(0,0,0, 0.175)
+  background-color  : rgba(0,0,0, 0.87)
+
+  & .divider
+    height          : 1px
+    margin          : 9px 0
+    overflow        : hidden 
+    background-color: #444
+
+  & > li > a
+    white-space: nowrap
+    display    : block 
+    padding    : 3px 20px
+    clear      : both
+    font-weight: normal 
+    line-height: 1.428571429
+    color      : $main-dark-gray
+
+    &:hover,
+    &:focus
+      text-decoration: none 
+      color          : #262626
+
+@media (min-width: 768px) 
+  .navbar-right .dropdown-menu 
+    right: 0
+    left : auto
+  
+  .navbar-right .dropdown-menu-left
+    right: auto
+    left : 0
+
+.dropdown-toggle:focus
+  outline: 0
+
+.form-control
+  display      : block
+  width        : 100%
+  border            : 1px solid #ccc
+
+.input-group
+  position       : relative
+  display        : table 
+  border-collapse: separate
+
+  & .form-control
+    float        : left
+    margin-bottom: 0
+    display      : table-cell
+
+    &:first-child
+      border-bottom-right-radius: 0
+      border-top-right-radius   : 0
+
+    &:last-child
+      border-bottom-left-radius: 0
+      border-top-left-radius   : 0
+
+  &-btn
+    display       : table-cell
+    width         : 1%
+    white-space   : nowrap
+    vertical-align: middle
+    position      : relative
+    font-size     : 0
+    white-space   : nowrap
+
+    & > .btn
+      position: relative 
+
+      &:focus,
+      &:hover,
+      &:active
+        z-index: 2
+
+    &:first-child > .btn
+      border-bottom-right-radius: 0
+      border-top-right-radius   : 0
+      margin-right              : -1px
+
+    &:last-child > .btn 
+      border-bottom-left-radius: 0
+      border-top-left-radius   : 0 
+      margin-left              : -1px
+
+  & .form-control:not(:first-child):not(:last-child),
+  &-btn:not(:first-child):not(:last-child)
+    border-radius: 0
+
+.list-inline
+  padding-left: 0
+  list-style: none
+
+.list-inline > li
+  display: inline-block
+  padding-right: 5px
+  padding-left: 5px
+
+.list-inline > li:first-child 
+  padding-left: 0
+
+
+.list-unstyled
+  padding-left: 0
+  list-style  : none
+
+.nav
+  padding-left : 0
+  margin-bottom: 0
+  list-style   : none
+
+  & > li 
+    position: relative
+    display : block
+
+    & > a
+      position: relative
+      display : block
+      padding : 10px 15px
+
+      & > img 
+        max-width: none
+
+      &:hover,
+      &:focus
+        color           : lighten($panel-blue-color, 25%)
+        text-decoration : none
+        background-color: #000
+
+.navbar
+  position     : relative
+  min-height   : 50px
+  margin-bottom: 20px
+  border       : 1px solid transparent
+
+@media (min-width: 768px)
+  .navbar 
+    border-radius: 2px
+
+  .navbar-header
+    float: left
+
+.navbar:after,
+.navbar-header:after
+  clear: both
+
+.navbar-brand 
+  float      : left
+  height     : 20px
+  padding    : 15px 15px
+  font-size  : 18px
+  line-height: 20px
+
+  &:hover,
+  &:focus
+    text-decoration: none
+
+.navbar-default
+  background-color: $main-dark-gray
+  border-color    : #282828
+
+  & .navbar-branc
+    color: #ccc
+
+    &:hover,
+    &:focus 
+      color: #72b1e5
+
+  & .navbar-toggle
+    border-color: #ddd
+
+    &:hover,
+    &:focus
+      background-color: #ddd
+
+.navbar-fixed-top
+  position    : fixed
+  right       : 0
+  left        : 0
+  top         : 0
+  border-width: 0 0 1px
+  z-index     : 1030
+
+@media (min-width: 768px)
+  .navbar-fixed-top,
+  .navbar-fixed-bottom
+    border-radius: 0
+
+.navbar-toggle
+  background-color: transparent
+  background-image: none
+  position        : relative
+  float           : right
+  padding         : 9px 10px
+  margin-top      : 8px
+  margin-right    : 15px
+  margin-bottom   : 8px
+  border          : 1px solid transparent
+  border-radius   : 2px
+
+  &:focus 
+    outline: none
+
+  & .icon-bar
+    border-radius: 1px
+    width        : 22px
+    height       : 2px
+    display      : block
+
+@media (min-width: 768px)
+  .navbar-toggle
+    display: none
+
+.panel 
+  -webkit-box-shadow: 0 2px 2px rgba(0,0,0,0.1)
+  box-shadow        : 0 2px 2px rgba(0,0,0,0.1)
+  margin-bottom     : 20px
+  background-color  : #fff
+  border            : 1px solid transparent
+  border-radius     : 2px
+
+  &-default > .panel-heading
+    color           : $main-dark-gray
+    background-color: #f5f5f5
+    border-color    : #ddd
+
+  &-heading 
+    border-top-right-radius: 2px 
+    border-top-left-radius : 2px 
+    padding                : 10px 15px
+    box-sizing             : border-box
+    -webkit-box-sizing     : border-box 
+    -moz-box-sizing        : border-box
+    border-bottom          : 1px solid transparent
+
+  &-primary
+    border: 1px solid transparent
+
+    & .panel-heading
+      color           : #fff 
+      background-color: #00998c
+      margin          : -1px
+
+.progress
+  height            : 20px
+  margin-bottom     : 20px
+  overflow          : hidden
+  background-color  : #f5f5f5
+  border-radius     : 2px
+  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1)
+  box-shadow        : inset 0 1px 2px rgba(0, 0, 0, .1)
+
+@-webkit-keyframes progress-bar-stripes 
+  from
+    background-position: 40px 0
+  to
+    background-position: 0 0
+
+@keyframes progress-bar-stripes 
+  from
+    background-position: 40px 0
+  to
+    background-position: 0 0
+
+.progress-bar
+  float             : left
+  width             : 0
+  height            : 100%
+  font-size         : 12px
+  line-height       : 20px
+  color             : #fff
+  text-align        : center
+  background-color  : #428bca
+  -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .15)
+  box-shadow        : inset 0 -1px 0 rgba(0, 0, 0, .15)
+  -webkit-transition: width .6s ease
+  transition        : width .6s ease
+
+.progress-striped .progress-bar
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent)
+  background-image:         linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent)
+  background-size : 40px 40px
+
+.progress.active .progress-bar
+  -webkit-animation: progress-bar-stripes 2s linear infinite
+  animation        : progress-bar-stripes 2s linear infinite
+
+.pull-right
+  float: right !important
+
+.radio,
+.checkbox 
+  display      : block
+  min-height   : 20px
+  padding-left : 20px
+  margin-top   : 10px
+  margin-bottom: 10px
+
+  & label
+    display    : inline
+    font-weight: normal
+    cursor     : pointer
+
+  & input[type=checkbox],
+  & input[type=radio],
+  &-inline input[type=checkbox],
+  &-inline input[type=radio]
+    float      : left
+    margin-left: -20px
+
+.row 
+  margin-right: -15px
+  margin-left : -15px
+
+small,
+.small
+  font-size: 85%
+
+.sr-only
+  position: absolute 
+  width   : 1px
+  height  : 1px
+  padding : 0
+  margin  : -1px
+  overflow: hidden
+  clip    : rect(0,0,0,0)
+  border  : 0
+
+.text-center
+  text-align: center
+
+.text-muted
+  color: #999
+
+ul.top-nav
+  list-style: none
+
+/* Media Queries
+/*****************************************************************************************/
+
+@media print
+  .navbar
+    display: none
+
+/* Test settings
+/*****************************************************************************************/
+
+.test
+  & #view
+    max-height: 85%
+
+/* Tessitura View-Specific Styles
+/*****************************************************************************************/
+
+@import 'homepage'
+@import 'dashboard'
