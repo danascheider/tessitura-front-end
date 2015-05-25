@@ -120,16 +120,21 @@ var DashboardTaskView = Tessitura.View.extend({
 
     _.each([that.newColumnView, that.inProgressColumnView, that.blockingColumnView], function(col) {
       if(col.data.headline === status) {
-        return col.collection;
+        console.log(col.collection);
+        col.collection = col.collection || new Tessitura.TaskCollection();
+        col.collection.add(task);
       }
     });
   },
 
   removeFromBacklog : function(task) {
     var that = this;
-    this.backlogColumnView.collection.remove(task);
-    var newCollection = this.findNewCollection(task);
-    newCollection.add([task]);
+
+    if(this.backlogColumnView.collection.models.indexOf(task) > -1) {
+      this.backlogColumnView.collection.remove(task);
+      var newCollection = this.findNewCollection(task);
+      newCollection.add([task]);
+    }
   },
 
   setUser : function(user) {
