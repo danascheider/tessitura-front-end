@@ -70,7 +70,6 @@ var ListItemView = Tessitura.View.extend({
     var that   = this;
 
     this.$el.draggable({
-      containment       : 'parent',
       connectToSortable : '.task-list',
 
       // FIX: This is untested. We need tests for the stop function
@@ -79,9 +78,7 @@ var ListItemView = Tessitura.View.extend({
       //      multiple elements.
 
       stop: function() {
-        var column = $(this).closest('.kanban-col').find('.panel-heading')[0];
-
-        console.log(column);
+        var column = ($(this).closest('.kanban-col').find('.panel-heading').first().text()).replace(/^ /, '');
 
         // At this point, sorting only works on the dashboard. On
         // the Kanban board, tasks change status when dragged and 
@@ -113,10 +110,11 @@ var ListItemView = Tessitura.View.extend({
               model.save({position: i});
             }
           });
-        } else if (column.innerText === 'Backlog') {
+        } else if (column === 'Backlog') {
           that.model.save({backlog: true});
         } else {
-          that.model.save({status: column.innerText}, {
+          console.log('Saving model with status ' + column);
+          that.model.save({status: column.replace(/^ /, '')}, {
             beforeSend: function(xhr) {
               xhr.addRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
             }

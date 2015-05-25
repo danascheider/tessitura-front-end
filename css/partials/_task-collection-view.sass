@@ -43,6 +43,10 @@ ul.task-list
       & th
         padding-right: 0.5em
 
+      &:hover > tbody > tr,
+      &:hover > table.task-details
+        background-color: #f6f6f6
+
     & > .edit-task
       display: none
 
@@ -103,3 +107,7 @@ ul.task-list
         span.edit-task
           visibility: visible
           color     : #ccc
+
+.task-list-item > table > tbody > tr:hover
+  background-color: #f6f6f6
+
