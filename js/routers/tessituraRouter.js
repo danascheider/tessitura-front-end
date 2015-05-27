@@ -55,6 +55,13 @@ Tessitura.Router = Backbone.Router.extend({
     this.navigate(obj.destination, {trigger: true});
   },
 
+  /* Special Functions
+  /****************************************************************************/
+
+  userLoggedIn       : function() {
+    return !!$.cookie('userID') && !!$.cookie('auth');
+  },
+
   /* Routes and Route Callbacks
   /****************************************************************************/
 
@@ -121,7 +128,7 @@ Tessitura.Router = Backbone.Router.extend({
   },
 
   rerouteIfLoggedIn: function(fragment, args, next) {
-    if ($.cookie('auth') && $.cookie('userID')) {
+    if (this.userLoggedIn()) {
       this.AppPresenter.removeAll();
       this.navigate('dashboard', {trigger: true});
     } else {
@@ -130,7 +137,7 @@ Tessitura.Router = Backbone.Router.extend({
   },
 
   verifyLoggedIn: function(fragment, args, next) {
-    if($.cookie('auth') && $.cookie('userID')) { 
+    if(this.userLoggedIn()) { 
       next(); 
     } else {
       this.navigate('/', {trigger: true});
