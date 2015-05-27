@@ -34,7 +34,6 @@ end
 
 Then(/^I should (not )?be routed to my dashboard$/) do |neg|
   wait_for_ajax
-  save_screenshot 'screenshot.png'
   if neg
     expect(page).not_to have_selector('#dashboard-wrapper')
   else
