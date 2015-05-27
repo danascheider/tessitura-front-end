@@ -108,7 +108,7 @@ var DashboardTaskView = Tessitura.View.extend({
   },
 
   changeStatus      : function(task) {
-    var newCollection = this.findNewCollection(task);
+    var newCollection = this.findNewCollection(task) || new Tessitura.TaskCollection();
     newCollection.add([task]);
   },
 
@@ -116,12 +116,13 @@ var DashboardTaskView = Tessitura.View.extend({
     var that   = this,
         status = task.get('status');
 
-    if(task.get('backlog') === true) { return this.backlogColumnView.collection; }
+    if(task.get('backlog') === true) { 
+      return this.backlogColumnView.collection; 
+    }
 
     _.each([that.newColumnView, that.inProgressColumnView, that.blockingColumnView], function(col) {
       if(col.data.headline === status) {
-        col.collection = col.collection || new Tessitura.TaskCollection();
-        col.collection.add(task);
+        return col.collection;
       }
     });
   },
