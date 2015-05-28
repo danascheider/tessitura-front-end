@@ -60,6 +60,11 @@ var DashboardHomeView = Tessitura.View.extend({
   /* Special Functions
   /**************************************************************************/
 
+  renderCalendar      : function() {
+    this.calendarView.render();
+    this.$('div.col-lg-8').first().html(this.calendarView.$el);
+  },
+
   renderTaskPanelView : function() {
     this.taskPanelView.render();
     this.$('div.col-lg-4').first().html(this.taskPanelView.$el);
@@ -84,7 +89,9 @@ var DashboardHomeView = Tessitura.View.extend({
       recommendationCount: 14
     });
 
-    this.childViews = [this.taskPanelView, this.topWidgetView];
+    this.calendarView = new Tessitura.CalendarView({user: this.user});
+
+    this.childViews = [this.calendarView, this.taskPanelView, this.topWidgetView];
 
     this.listenTo(this.topWidgetView, 'redirect', this.emitRedirect);
   },
@@ -116,6 +123,7 @@ var DashboardHomeView = Tessitura.View.extend({
     return Tessitura.View.prototype.render.call(that, that.template(), function() {
       that.renderTaskPanelView();
       that.renderTopWidgetView();
+      that.renderCalendar();
     });
   }
 

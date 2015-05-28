@@ -108,10 +108,6 @@ describe('dashboard calendar view', function() {
       expect(view.$el).toHaveClass('panel');
     });
 
-    it('has class .panel-primary #partialView #view #travis', function() {
-      expect(view.$el).toHaveClass('panel-primary');
-    });
-
     it('has class .dash-widget #partialView #view #travis', function() {
       expect(view.$el).toHaveClass('dash-widget');
     });

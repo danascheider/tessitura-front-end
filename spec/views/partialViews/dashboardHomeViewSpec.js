@@ -130,6 +130,10 @@ describe('Dashboard Home View', function() {
       expect(view.$('#dashboard-top-widgets')).toBeInDom();
     });
 
+    it('has a calendar #partialView #view #travis', function() {
+      expect(view.$('#calendar')).toBeInDom();
+    });
+
     it('has ID #page-wrapper #partialView #view #travis', function() {
       expect(view.$el).toHaveId('page-wrapper');
     });

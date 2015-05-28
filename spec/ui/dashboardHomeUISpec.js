@@ -51,6 +51,13 @@ describe('Dashboard Home View - Visual Elements', function() {
       });
     });
 
+    it('displays the calendar #dashboardHomeUI #ui', function(done) {
+      client.waitForVisible('#calendar', function(err, isVisible) {
+        expect(isVisible).toBe(true);
+        done();
+      });
+    });
+
     it('displays its top widget view #dashboardHomeUI #ui', function(done) {
       client.waitForVisible('#dashboard-top-widgets', function(err, isVisible) {
         expect(isVisible).toBe(true);
