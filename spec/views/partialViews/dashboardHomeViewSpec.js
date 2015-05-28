@@ -130,6 +130,10 @@ describe('Dashboard Home View', function() {
       expect(view.$('#dashboard-top-widgets')).toBeInDom();
     });
 
+    it('has a calendar #partialView #view #travis', function() {
+      expect(view.$('#calendar')).toBeInDom();
+    });
+
     it('has ID #page-wrapper #partialView #view #travis', function() {
       expect(view.$el).toHaveId('page-wrapper');
     });
@@ -191,10 +195,16 @@ describe('Dashboard Home View', function() {
         view.render();
         expect(view.renderTopWidgetView).toHaveBeenCalled();
       });
+
+      it('calls renderCalendarView #partialView, #view, #travis', function() {
+        spyOn(view, 'renderCalendarView');
+        view.render();
+        expect(view.renderCalendarView).toHaveBeenCalled();
+      });
     });
 
     describe('remove()', function() {
-      _.each(['taskPanelView', 'topWidgetView'], function(str) {
+      _.each(['taskPanelView', 'topWidgetView', 'calendarView'], function(str) {
         it('removes the ' + str, function() {
           spyOn(view[str], 'remove');
           view.remove();
@@ -232,6 +242,20 @@ describe('Dashboard Home View', function() {
 
       it('returns false with another argument #partialView #view #travis', function() {
         expect(view.isA('Corvette')).toBe(false);
+      });
+    });
+
+    describe('renderCalendarView()', function() {
+      it('calls render on the calendar view #partialView #view #travis', function() {
+        spyOn(view.calendarView, 'render');
+        view.renderCalendarView();
+        expect(view.calendarView.render).toHaveBeenCalled();
+      });
+
+      it('attaches the calendar view to the DOM', function() {
+        view.$el.html(view.template());
+        view.renderCalendarView();
+        expect(view.calendarView.$el).toBeInDom();
       });
     });
 
@@ -287,12 +311,20 @@ describe('Dashboard Home View', function() {
         expect(newView.topWidgetView.klass).toBe('DashboardTopWidgetView');
       });
 
+      it('creates a calendar widget #partialView #view #travis', function() {
+        expect(newView.calendarView.klass).toBe('CalendarView');
+      });
+
       it('puts the task panel in its childViews array #partialView #view #travis', function() {
         expect(newView.childViews).toContain(newView.topWidgetView);
       });
 
-      it('puts the top-widget view in ints childViews array #partialView #view #travis', function() {
+      it('puts the top-widget view in its childViews array #partialView #view #travis', function() {
         expect(newView.childViews).toContain(newView.topWidgetView);
+      });
+
+      it('puts the calendar view in its childViews array #partialView #view #travis', function() {
+        expect(newView.childViews).toContain(newView.calendarView);
       });
     });
   });

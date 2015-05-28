@@ -1,6 +1,7 @@
 var _ = require('underscore');
 
 var JST = {
+  'calendar'           : _.template(require('./partialTemplates/calendarTemplate.js')),
   'dashboard'          : _.template(require('./topLevelTemplates/dashboardTemplate.js')),
   'homepage'           : _.template(require('./topLevelTemplates/homepageTemplate.js')),
   'collections/task'   : _.template('<li class=\'quick-add-form not-sortable\'></li>'),
