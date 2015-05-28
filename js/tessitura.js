@@ -7,19 +7,19 @@ Tessitura.TaskModel              = require('./models/taskModel.js');
 Tessitura.UserModel              = require('./models/userModel.js');
 
 // Require collections
-Tessitura.ProtectedCollection = require('./collections/protectedCollection.js');
-Tessitura.TaskCollection      = require('./collections/taskCollection.js');
+Tessitura.ProtectedCollection   = require('./collections/protectedCollection.js');
+Tessitura.TaskCollection        = require('./collections/taskCollection.js');
 
 // Require top-level views
-Tessitura.View                = require('./views/appViews/tessituraView.js');
-Tessitura.DashboardView       = require('./views/appViews/dashboardView.js');
-Tessitura.HomepageView        = require('./views/appViews/homepageView.js');
+Tessitura.View                  = require('./views/appViews/tessituraView.js');
+Tessitura.DashboardView         = require('./views/appViews/dashboardView.js');
+Tessitura.HomepageView          = require('./views/appViews/homepageView.js');
 
 // Require model and collection views
-Tessitura.TaskModelView       = require('./views/modelViews/taskViews/taskModelView.js');
-Tessitura.QuickAddFormView    = require('./views/modelViews/taskViews/quickAddFormView.js');
-Tessitura.TaskListItemView    = require('./views/modelViews/taskViews/taskListItemView.js');
-Tessitura.TaskCollectionView  = require('./views/collectionViews/taskCollectionView.js');
+Tessitura.TaskModelView         = require('./views/modelViews/taskViews/taskModelView.js');
+Tessitura.QuickAddFormView      = require('./views/modelViews/taskViews/quickAddFormView.js');
+Tessitura.TaskListItemView      = require('./views/modelViews/taskViews/taskListItemView.js');
+Tessitura.TaskCollectionView    = require('./views/collectionViews/taskCollectionView.js');
 
 // Require partial views
 Tessitura.CalendarView           = require('./views/partialViews/calendarView.js');
@@ -33,9 +33,9 @@ Tessitura.RegistrationFormView   = require('./views/partialViews/registrationFor
 Tessitura.TaskPanelView          = require('./views/partialViews/taskPanelView.js');
 
 // Require presenters
-Tessitura.AppPresenter         = require('./presenters/appPresenter.js');
-Tessitura.DashboardPresenter   = require('./presenters/dashboardPresenter.js');
+Tessitura.AppPresenter           = require('./presenters/appPresenter.js');
+Tessitura.DashboardPresenter     = require('./presenters/dashboardPresenter.js');
 
 // Require router
-Tessitura.Router     = Tessitura.Router || require('./routers/tessituraRouter.js');
-Tessitura.TestRouter = require('../spec/support/testRouter.js');
+Tessitura.Router                 = Tessitura.Router || require('./routers/tessituraRouter.js');
+Tessitura.TestRouter             = require('../spec/support/testRouter.js');
