@@ -4,261 +4,119 @@
 </div>
 </div>
 <div class='panel-body'>
-  <% var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'] %>
-  <% var today = new Date() %>
   <div class='table-responsive'>
     <table class='calendar table'>
       <thead>
         <tr>
           <th></th>
-          <th><%= days[today.getDay() - 2] %></th>
-          <th><%= days[today.getDay() - 1] %></th>
-          <th class='current'><%= days[today.getDay()] %></th>
-          <th><%= days[today.getDay() + 1] %></th>
-          <th><%= days[today.getDay() + 2] %></th>
+          <th><%= days[0] %></th>
+          <th class='current'><%= days[1] %></th>
+          <th><%= days[2] %></th>
         </tr>
       </thead>
       <tbody>
         <tr class='time-slot'>
           <th class='row-header'>8:00 AM</th>
 
-          <td class='calendar-cell sunday'></td>
-
-          <td class='calendar-cell monday'></td>
-
+          <td class='calendar-cell <%= days[0] %>'></td>
           <td class='calendar-cell current'></td>
-
-          <td class='calendar-cell wednesday'></td>
-
-          <td class='calendar-cell thursday'></td>
+          <td class='calendar-cell <%= days[2] %>'></td>
         </tr>
 
         <tr class='time-slot'>
           <th class='row-header'>9:00 AM</th>
 
-          <!-- Sunday -->
-          <td class='calendar-cell sunday'></td>
-
-          <!-- Monday -->
-          <td class='calendar-cell monday'></td>
-
-          <!-- Tuesday -->
+          <td class='calendar-cell <%= days[0] %>'></td>
           <td class='calendar-cell current'></td>
-
-          <!-- Wednesday -->
-          <td class='calendar-cell wednesday'></td>
-
-          <!-- Thursday -->
-          <td class='calendar-cell thursday'></td>
+          <td class='calendar-cell <%= days[2] %>'></td>
         </tr>
 
         <tr class='time-slot'>
           <th class='row-header'>10:00 AM</th>
 
-          <!-- Sunday -->
-          <td class='calendar-cell sunday'></td>
-
-          <!-- Monday -->
-          <td class='calendar-cell monday'></td>
-
-          <!-- Tuesday -->
+          <td class='calendar-cell <%= days[0] %>'></td>
           <td class='calendar-cell current'></td>
-
-          <!-- Wednesday -->
-          <td class='calendar-cell wednesday'></td>
-
-          <!-- Thursday -->
-          <td class='calendar-cell thursday'></td>
+          <td class='calendar-cell <%= days[2] %>'></td>
         </tr>
 
         <tr class='time-slot'>
           <th class='row-header'>11:00 AM</th>
 
-          <!-- Sunday -->
-          <td class='calendar-cell sunday'></td>
-
-          <!-- Monday -->
-          <td class='calendar-cell monday'></td>
-
-          <!-- Tuesday -->
+          <td class='calendar-cell <%= days[0] %>'></td>
           <td class='calendar-cell current'></td>
-
-          <!-- Wednesday -->
-          <td class='calendar-cell wednesday'></td>
-
-          <!-- Thursday -->
-          <td class='calendar-cell thursday'></td>
+          <td class='calendar-cell <%= days[2] %>'></td>
         </tr>
 
         <tr class='time-slot'>
           <th class='row-header'>12:00 PM</th>
 
-          <!-- Sunday -->
-          <td class='calendar-cell sunday'></td>
-
-          <!-- Monday -->
-          <td class='calendar-cell monday'></td>
-
-          <!-- Tuesday -->
+          <td class='calendar-cell <%= days[0] %>'></td>
           <td class='calendar-cell current'></td>
-
-          <!-- Wednesday -->
-          <td class='calendar-cell wednesday'></td>
-
-          <!-- Thursday -->
-          <td class='calendar-cell thursday'></td>
+          <td class='calendar-cell <%= days[2] %>'></td>
         </tr>
 
         <tr class='time-slot'>
           <th class='row-header'>1:00 PM</th>
 
-          <!-- Sunday -->
-          <td class='calendar-cell sunday'></td>
-
-          <!-- Monday -->
-          <td class='calendar-cell monday'></td>
-
-          <!-- Tuesday -->
+          <td class='calendar-cell <%= days[0] %>'></td>
           <td class='calendar-cell current'></td>
-
-          <!-- Wednesday -->
-          <td class='calendar-cell wednesday'></td>
-
-          <!-- Thursday -->
-          <td class='calendar-cell thursday'></td>
+          <td class='calendar-cell <%= days[2] %>'></td>
         </tr>
 
         <tr class='time-slot'>
           <th class='row-header'>2:00 PM</th>
 
-          <!-- Sunday -->
-          <td class='calendar-cell sunday'></td>
-
-          <!-- Monday -->
-          <td class='calendar-cell monday'></td>
-
-          <!-- Tuesday -->
+          <td class='calendar-cell <%= days[0] %>'></td>
           <td class='calendar-cell current'></td>
-
-          <!-- Wednesday -->
-          <td class='calendar-cell wednesday'></td>
-
-          <!-- Thursday -->
-          <td class='calendar-cell thursday'></td>
+          <td class='calendar-cell <%= days[2] %>'></td>
         </tr>
 
         <tr class='time-slot'>
           <th class='row-header'>3:00 PM</th>
 
-          <!-- Sunday -->
-          <td class='calendar-cell sunday'></td>
-
-          <!-- Monday -->
-          <td class='calendar-cell monday'></td>
-
-          <!-- Tuesday -->
+          <td class='calendar-cell <%= days[0] %>'></td>
           <td class='calendar-cell current'></td>
-
-          <!-- Wednesday -->
-          <td class='calendar-cell wednesday'></td>
-
-          <!-- Thursday -->
-          <td class='calendar-cell thursday'></td>
+          <td class='calendar-cell <%= days[2] %>'></td>
         </tr>
 
         <tr class='time-slot'>
           <th class='row-header'>4:00 PM</th>
 
-          <!-- Sunday -->
-          <td class='calendar-cell sunday'></td>
-
-          <!-- Monday -->
-          <td class='calendar-cell monday'></td>
-
-          <!-- Tuesday -->
+          <td class='calendar-cell <%= days[0] %>'></td>
           <td class='calendar-cell current'></td>
-
-          <!-- Wednesday -->
-          <td class='calendar-cell wednesday'></td>
-
-          <!-- Thursday -->
-          <td class='calendar-cell thursday'></td>
+          <td class='calendar-cell <%= days[2] %>'></td>
         </tr>
 
         <tr class='time-slot'>
           <th class='row-header'>5:00 PM</th>
 
-          <!-- Sunday -->
-          <td class='calendar-cell sunday'></td>
-
-          <!-- Monday -->
-          <td class='calendar-cell monday'></td>
-
-          <!-- Tuesday -->
+          <td class='calendar-cell <%= days[0] %>'></td>
           <td class='calendar-cell current'></td>
-
-          <!-- Wednesday -->
-          <td class='calendar-cell wednesday'></td>
-
-          <!-- Thursday -->
-          <td class='calendar-cell thursday'></td>
+          <td class='calendar-cell <%= days[2] %>'></td>
         </tr>
 
         <tr class='time-slot'>
           <th class='row-header'>6:00 PM</th>
 
-          <!-- Sunday -->
-          <td class='calendar-cell sunday'></td>
-
-          <!-- Monday -->
-          <td class='calendar-cell monday'></td>
-
-          <!-- Tuesday -->
+          <td class='calendar-cell <%= days[0] %>'></td>
           <td class='calendar-cell current'></td>
-
-          <!-- Wednesday -->
-          <td class='calendar-cell wednesday'></td>
-
-          <!-- Thursday -->
-          <td class='calendar-cell thursday'></td>
+          <td class='calendar-cell <%= days[2] %>'></td>
         </tr>
 
         <tr class='time-slot'>
           <th class='row-header'>7:00 PM</th>
 
-          <!-- Sunday -->
-          <td class='calendar-cell sunday'></td>
-
-          <!-- Monday -->
-          <td class='calendar-cell monday'></td>
-
-          <!-- Tuesday -->
+          <td class='calendar-cell <%= days[0] %>'></td>
           <td class='calendar-cell current'></td>
-
-          <!-- Wednesday -->
-          <td class='calendar-cell wednesday'></td>
-
-          <!-- Thursday -->
-          <td class='calendar-cell thursday'></td>
+          <td class='calendar-cell <%= days[2] %>'></td>
         </tr>
 
         <tr class='time-slot'>
           <th class='row-header'>8:00 PM</th>
 
-          <!-- Sunday -->
-          <td class='calendar-cell sunday'></td>
-
-          <!-- Monday -->
-          <td class='calendar-cell monday'></td>
-
-          <!-- Tuesday -->
+          <td class='calendar-cell <%= days[0] %>'></td>
           <td class='calendar-cell current'></td>
-
-          <!-- Wednesday -->
-          <td class='calendar-cell wednesday'></td>
-
-          <!-- Thursday -->
-          <td class='calendar-cell thursday'></td>
+          <td class='calendar-cell <%= days[2] %>'></td>
         </tr>
       </tbody>
     </table>
