@@ -111,6 +111,10 @@ describe('dashboard calendar view', function() {
     it('has class .dash-widget #partialView #view #travis', function() {
       expect(view.$el).toHaveClass('dash-widget');
     });
+
+    it('has class .panel-primary #partialView #view #travis', function() {
+      expect(view.$el).toHaveClass('panel-primary');
+    });
   });
 
   /* Event Wiring

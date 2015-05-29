@@ -5,7 +5,7 @@ var CalendarView = Tessitura.View.extend({
 
   template    : JST['calendar'],
   id          : 'calendar',
-  className   : 'panel dash-widget',
+  className   : 'panel dash-widget panel-primary',
 
   /* Tessitura View Methods
   /**************************************************************************************/
