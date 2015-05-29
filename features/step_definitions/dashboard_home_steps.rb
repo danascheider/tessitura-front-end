@@ -36,6 +36,10 @@ Then(/^I should see my '(.*)' widget$/) do |name|
   expect(find("div[data-name=#{name}]")).to be_visible
 end
 
+Then(/^I should see my calendar$/) do
+  expect(find '#calendar').to be_visible
+end
+
 Then(/^I should see my task panel$/) do 
   expect(find('#task-panel')).to be_visible
 end

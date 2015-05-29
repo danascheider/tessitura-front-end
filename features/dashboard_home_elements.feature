@@ -40,3 +40,9 @@ Feature: Dashboard home elements
       | original | new     |
       | visible  | hidden  |
       | hidden   | visible |
+
+  Scenario: Calendar
+
+    Users should see their calendar when they log into the dashboard.
+
+    Then I should see my calendar
