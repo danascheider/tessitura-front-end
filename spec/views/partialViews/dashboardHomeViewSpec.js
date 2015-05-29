@@ -58,6 +58,7 @@ describe('Dashboard Home View', function() {
 
   beforeAll(function() {
     jasmine.addMatchers(matchers);
+    _.extend(global, fixtures);
   });
 
   beforeEach(function() {
@@ -66,12 +67,13 @@ describe('Dashboard Home View', function() {
   });
 
   afterEach(function() {
-    fixtures.restoreFixtures();
+    restoreFixtures();
     newView && newView.destroy();
   });
 
   afterAll(function() {
     view = null;
+    _.omit(global, fixtures);
   });
 
   /* Static Properties
@@ -218,10 +220,11 @@ describe('Dashboard Home View', function() {
         expect(Backbone.View.prototype.remove.call).toHaveBeenCalledWith(view);
       });
 
-      context('when the child views don\'t exist', function() {
+      fcontext('when the child views don\'t exist', function() {
         it('doesn\'t raise an error #partialView #view #travis', function() {
-          newView = new Tessitura.DashboardHomeView();
-          expect(view.remove).not.toThrow();
+          newView = new Tessitura.DashboardHomeView({user: user});
+          newView.render();
+          expect(newView.remove).not.toThrow();
         });
       });
     }); 

@@ -147,6 +147,16 @@
       & span.expand-form
         color: $panel-yellow-color
 
+  & .dash-widget > .panel-heading > span.toggle-widget
+    visibility: hidden
+
+  & .dash-widget > .panel-heading:hover > span.toggle-widget
+    visibility: visible
+    cursor    : pointer
+
+    & i 
+      color: #fff
+
 li.quick-add-form
   padding: 0.313em
 
@@ -156,3 +166,4 @@ li.quick-add-form
 @import "./partials/_dashboard-top-widgets"
 @import "./partials/_task-panel-view"
 @import "./partials/_kanban"
+@import "./partials/_calendar"

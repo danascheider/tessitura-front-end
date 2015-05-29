@@ -105,12 +105,21 @@ var DashboardHomeView = Tessitura.View.extend({
   },
 
   remove              : function() {
+
+    // This is fascinating and may be a bug in one of the tools I'm using.
+    // Attempting to iterate through the `childViews` array using underscore's
+    // `each` function causes the final statement (`Tessitura.View.prototype.remove.call(this)`)
+    // throw the error 'TypeError: Cannot read property `remove` of undefined'.
+    // 
+    // It is unclear why it does that, as logging `Tessitura.View.prototype` to the
+    // console still does work and does indicate the existence of a `remove` function.
+
     try {
+      this.calendarView.remove();
       this.taskPanelView.remove();
       this.topWidgetView.remove();
-      this.calendarView.remove();
     } catch(e) {
-      if(!(this.taskPanelView && this.topWidgetView)) { return; }
+      if (!(this.calendarView && this.taskPanelView && this.topWidgetView)) { return; }
     }
 
     Tessitura.View.prototype.remove.call(this);
@@ -122,12 +131,11 @@ var DashboardHomeView = Tessitura.View.extend({
     var that = this;
 
     return Tessitura.View.prototype.render.call(that, that.template(), function() {
-      that.renderTaskPanelView();
-      that.renderTopWidgetView();
-      that.renderCalendarView();
+      that.taskPanelView && that.renderTaskPanelView();
+      that.topWidgetView && that.renderTopWidgetView();
+      that.calendarView && that.renderCalendarView();
     });
   }
-
 });
 
 module.exports = DashboardHomeView;

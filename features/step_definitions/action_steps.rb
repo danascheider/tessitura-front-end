@@ -12,5 +12,5 @@ When(/^I click on the top widget '(.*)'$/) do |name|
 end
 
 Then(/^I should be on the tasks page$/) do
-  expect(current_url).to eql 'http://localhost/#tasks'
+  expect(current_url).to match /\#tasks$/
 end
