@@ -17,6 +17,13 @@ var CalendarView = Tessitura.View.extend({
     return Tessitura.View.prototype.types().concat(['CalendarView', 'PartialView']);
   },
 
+  /* Special functions
+  /**************************************************************************************/
+
+  displayDays : function() {
+    return ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday'];
+  },
+
   /* Core View Functions
   /**************************************************************************************/
 
