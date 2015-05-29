@@ -157,16 +157,28 @@ describe('dashboard calendar view', function() {
 
   describe('special functions', function() {
     describe('displayDays()', function() {
-      var days;
+      var days, today;
 
       context('simple and easy', function() {
         beforeEach(function() {
           days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday'];
-          var today = new Date('Tue May 26 2015 11:00:00 GMT-0700 (PDT)');
+          today = new Date('Tue May 26 2015 11:00:00 GMT-0700 (PDT)');
           jasmine.clock().mockDate(today);
         });
 
         it('displays the specified days #partialView #view #travis', function() {
+          expect(view.displayDays()).toEqual(days);
+        });
+      });
+
+      context('when today is at the beginning of the week', function() {
+        beforeEach(function() {
+          days = ['Friday', 'Saturday', 'Sunday', 'Monday', 'Tuesday'];
+          today = new Date('Sun May 24 2015 11:00:00 GMT-0700 (PDT)');
+          jasmine.clock().mockDate(today);
+        });
+
+        it('wraps to the end of the last week #partialView #view #travis', function() {
           expect(view.displayDays()).toEqual(days);
         });
       });

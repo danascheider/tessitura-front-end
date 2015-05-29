@@ -21,7 +21,16 @@ var CalendarView = Tessitura.View.extend({
   /**************************************************************************************/
 
   displayDays : function() {
-    return ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday'];
+    var days  = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    var date = new Date(), today = new Date();
+    var arr   = [];
+
+    for(var i = -2; i < 3; i++) {
+      var number = today.getDate() + i;
+      arr.push(days[(new Date(date.setDate(number)).getDay())]);
+    }
+
+    return arr;
   },
 
   /* Core View Functions
