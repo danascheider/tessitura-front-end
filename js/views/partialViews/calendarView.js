@@ -1,3 +1,5 @@
+var moment = require('moment');
+
 var CalendarView = Tessitura.View.extend({
   
   /* Backbone View Properties
@@ -21,13 +23,11 @@ var CalendarView = Tessitura.View.extend({
   /**************************************************************************************/
 
   displayDays : function() {
-    var days  = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    var date = new Date(), today = new Date();
-    var arr   = [];
+    var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'], 
+        arr = [];
 
     for(var i = -2; i < 3; i++) {
-      var number = today.getDate() + i;
-      arr.push(days[(new Date(date.setDate(number)).getDay())]);
+      arr.push(days[moment().add(i, 'days').day()]);
     }
 
     return arr;

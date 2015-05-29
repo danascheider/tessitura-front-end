@@ -27,7 +27,8 @@ require(process.cwd() + '/js/dependencies.js');
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/spec/support/env.js');
 
-var matchers       = _.extend(require('jasmine-jquery-matchers'), require(process.cwd() + '/spec/support/matchers/toBeA.js')),
+var moment         = require('moment'),
+    matchers       = _.extend(require('jasmine-jquery-matchers'), require(process.cwd() + '/spec/support/matchers/toBeA.js')),
     fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     context        = describe,
     fcontext       = fdescribe;
@@ -173,8 +174,8 @@ describe('dashboard calendar view', function() {
 
       context('when today is at the beginning of the week', function() {
         beforeEach(function() {
-          days = ['Friday', 'Saturday', 'Sunday', 'Monday', 'Tuesday'];
-          today = new Date('Sun May 24 2015 11:00:00 GMT-0700 (PDT)');
+          days = ['Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday'];
+          today = new Date('Mon Jun 1 2015 11:00:00 GMT-0700 (PDT)');
           jasmine.clock().mockDate(today);
         });
 
@@ -182,6 +183,8 @@ describe('dashboard calendar view', function() {
           expect(view.displayDays()).toEqual(days);
         });
       });
+
+      context('when today is at the end of the week')
     });
 
     describe('isA()', function() {
