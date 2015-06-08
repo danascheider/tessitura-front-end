@@ -26,7 +26,7 @@ var CalendarView = Tessitura.View.extend({
     var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'], 
         arr = [];
 
-    for(var i = -2; i < 3; i++) {
+    for(var i = -1; i < 2; i++) {
       arr.push(days[moment().add(i, 'days').day()]);
     }
 
@@ -41,7 +41,7 @@ var CalendarView = Tessitura.View.extend({
   },
 
   render      : function() {
-    this.$el.html(this.template());
+    this.$el.html(this.template({days: this.displayDays()}));
     return this;
   }
 });
