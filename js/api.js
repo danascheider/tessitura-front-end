@@ -1,5 +1,5 @@
 var test    = require('./apiOptions.js').useTestAPI;
-var BaseURL = test ? 'http://api.canto-test.com:3000' : 'http://localhost:3000';
+var BaseURL = test ? 'http://api.canto-test.com:3000' : 'https://api.tessitura.io';
 
 var API = {
   base  : BaseURL,
