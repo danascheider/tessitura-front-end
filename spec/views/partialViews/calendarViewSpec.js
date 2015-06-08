@@ -27,7 +27,8 @@ require(process.cwd() + '/js/dependencies.js');
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/spec/support/env.js');
 
-var matchers       = _.extend(require('jasmine-jquery-matchers'), require(process.cwd() + '/spec/support/matchers/toBeA.js')),
+var moment         = require('moment'),
+    matchers       = _.extend(require('jasmine-jquery-matchers'), require(process.cwd() + '/spec/support/matchers/toBeA.js')),
     fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     context        = describe,
     fcontext       = fdescribe;
@@ -111,6 +112,10 @@ describe('dashboard calendar view', function() {
     it('has class .dash-widget #partialView #view #travis', function() {
       expect(view.$el).toHaveClass('dash-widget');
     });
+
+    it('has class .panel-primary #partialView #view #travis', function() {
+      expect(view.$el).toHaveClass('panel-primary');
+    });
   });
 
   /* Event Wiring
@@ -152,6 +157,36 @@ describe('dashboard calendar view', function() {
   /**************************************************************************/
 
   describe('special functions', function() {
+    describe('displayDays()', function() {
+      var days, today;
+
+      context('simple and easy', function() {
+        beforeEach(function() {
+          days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday'];
+          today = new Date('Tue May 26 2015 11:00:00 GMT-0700 (PDT)');
+          jasmine.clock().mockDate(today);
+        });
+
+        it('displays the specified days #partialView #view #travis', function() {
+          expect(view.displayDays()).toEqual(days);
+        });
+      });
+
+      context('when today is at the beginning of the week', function() {
+        beforeEach(function() {
+          days = ['Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday'];
+          today = new Date('Mon Jun 1 2015 11:00:00 GMT-0700 (PDT)');
+          jasmine.clock().mockDate(today);
+        });
+
+        it('wraps to the end of the last week #partialView #view #travis', function() {
+          expect(view.displayDays()).toEqual(days);
+        });
+      });
+
+      context('when today is at the end of the week')
+    });
+
     describe('isA()', function() {
       it('returns true with argument CalendarView #partialView #view #travis', function() {
         expect(view.isA('CalendarView')).toBe(true);
