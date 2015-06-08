@@ -162,7 +162,7 @@ describe('dashboard calendar view', function() {
 
       context('simple and easy', function() {
         beforeEach(function() {
-          days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday'];
+          days = ['Monday', 'Tuesday', 'Wednesday'];
           today = new Date('Tue May 26 2015 11:00:00 GMT-0700 (PDT)');
           jasmine.clock().mockDate(today);
         });
@@ -174,8 +174,8 @@ describe('dashboard calendar view', function() {
 
       context('when today is at the beginning of the week', function() {
         beforeEach(function() {
-          days = ['Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday'];
-          today = new Date('Mon Jun 1 2015 11:00:00 GMT-0700 (PDT)');
+          days = ['Saturday', 'Sunday', 'Monday'];
+          today = new Date('Sun May 31 2015 11:00:00 GMT-0700 (PDT)');
           jasmine.clock().mockDate(today);
         });
 

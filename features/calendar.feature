@@ -8,5 +8,5 @@ Feature: Calendar
     Given I am on my dashboard
 
   Scenario: Date range
-    Then the calendar should show five days with today in the middle
-    And the calendar should not show the other two days
+    Then the calendar should show three days with today in the middle
+    And the calendar should not show the other four days
