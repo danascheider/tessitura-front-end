@@ -25,3 +25,9 @@ Feature: Actions and links
     When I click on the 'Dashboard' link in the sidebar
     Then I should be on my dashboard
     And I should not see the '.sidebar-collapse' element
+
+  Scenario: User clicks the '#user-profile' link in the top nav menu
+    Given I am on my dashboard
+    When I click the top nav menu called 'User'
+    And I click the '/#profile' link
+    Then I should be on the profile page
