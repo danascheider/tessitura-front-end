@@ -57,6 +57,20 @@
  *         renders the main dash view .............................. ---   *
  *         renders the home view ................................... ---   *
  *         attaches the home view to the DOM ....................... ---   *
+ *     showProfileView() ........................................... ---   *
+ *       when the main dash and profile view are visible ........... ---   *
+ *         doesn't re-render the main dash ......................... ---   *
+ *         renders the profile view ................................ ---   *
+ *         attaches the profile view to the DOM .................... ---   *
+ *       when the main dash is visible and the profile view isn't .. ---   *
+ *         doesn't re-render the main dash ......................... ---   *
+ *         removes the home view ................................... ---   *
+ *         renders the profile view ................................ ---   *
+ *         attaches the profile view to the DOM .................... ---   *
+ *       when the main dash isn't visible .......................... ---   *
+ *         renders the main dash view .............................. ---   *
+ *         renders the profile view ................................ ---   *
+ *         attaches the profile view to the DOM .................... ---   *
  *     showTaskView() .............................................. ---   *
  *       when the main dash and home view are visible .............. ---   *
  *         doesn't re-render the main dash ......................... ---   *
@@ -68,7 +82,7 @@
  *         renders the task view ................................... ---   *
  *         attaches the task view to the DOM ....................... ---   *
  *       when the main dash isn't visible .......................... ---   *
- *         doesn't re-render the main dash ......................... ---   *
+ *         renders the main dash ................................... ---   *
  *         renders the task view ................................... ---   *
  *         attaches the task view to the DOM ....................... ---   *
  *   Special Functions .............................................. 69   *
@@ -151,13 +165,17 @@ describe('Main Dashboard View', function() {
       expect(dashboard.homeView.klass).toEqual('DashboardHomeView');
     });
 
+    it('instantiates a profile view #appView #view #travis', function() {
+      expect(dashboard.profileView.klass).toEqual('UserProfileView');
+    });
+
     it('instantiates a task view #appView #view #travis', function() {
       expect(dashboard.taskView.klass).toBe('DashboardTaskView');
     });
 
     it('puts its child views in a childViews array #appView #view #travis', function() {
       expect(dashboard.childViews).toEqual([
-        dashboard.sidebarView, dashboard.homeView, dashboard.taskView
+        dashboard.sidebarView, dashboard.homeView, dashboard.profileView, dashboard.taskView
       ]);
     });
 
@@ -450,6 +468,81 @@ describe('Main Dashboard View', function() {
       });
     });
 
+    describe('showProfileView()', function() {
+      context('when the main dash and profile view are visible', function() {
+        beforeEach(function() {
+          spyOn(dashboard.profileView.$el, 'is').and.returnValue(true);
+          dashboard.render();
+          $('body').html(dashboard.$el);
+        });
+
+        it('doesn\'t re-render the main dash #appView #view #travis', function() {
+          spyOn(dashboard, 'render');
+          dashboard.showProfileView();
+          expect(dashboard.render).not.toHaveBeenCalled();
+        });
+
+        it('renders the profile view #appView #view #travis', function() {
+          spyOn(dashboard.profileView, 'render');
+          dashboard.showProfileView();
+          expect(dashboard.profileView.render).toHaveBeenCalled();
+        });
+
+        it('attaches the profile view to the DOM #appView #view #travis', function() {
+          dashboard.showProfileView();
+          expect(dashboard.profileView.$el).toBeInDom();
+        });
+      });
+
+      context('when the main dash is visible and the profile view isn\'t', function() {
+        beforeEach(function() {
+          spyOn(dashboard.profileView.$el, 'is').and.returnValue(false);
+          dashboard.render();
+          $('body').html(dashboard.$el);
+        });
+
+        it('doesn\'t re-render the main dash #appView #view #travis', function() {
+          spyOn(dashboard, 'render');
+          dashboard.showProfileView();
+          expect(dashboard.render).not.toHaveBeenCalled();
+        });
+
+        it('renders the profile view #appView #view #travis', function() {
+          spyOn(dashboard.profileView, 'render');
+          dashboard.showProfileView();
+          expect(dashboard.profileView.render).toHaveBeenCalled();
+        });
+
+        it('attaches the profile view to the DOM #appView #view #travis', function() {
+          dashboard.showProfileView();
+          expect(dashboard.profileView.$el).toBeInDom();
+        });
+      });
+
+      context('when the main dash is not visible', function() {
+        beforeEach(function() {
+          spyOn(dashboard.$el, 'is').and.returnValue(false);
+        });
+
+        it('renders the main dash #appView #view #travis', function() {
+          spyOn(dashboard, 'render');
+          dashboard.showProfileView();
+          expect(dashboard.render).toHaveBeenCalled();
+        });
+
+        it('renders the profile view #appView #view #travis', function() {
+          spyOn(dashboard.profileView, 'render');
+          dashboard.showProfileView();
+          expect(dashboard.profileView.render).toHaveBeenCalled();
+        });
+
+        it('attaches the profile view to the DOM #appView #view #travis', function() {
+          dashboard.showProfileView();
+          expect(dashboard.profileView.$el).toBeInDom();
+        });
+      });
+    });
+
     describe('showTaskView', function() {
       context('when the home view is visible', function() {
         beforeEach(function() {
@@ -538,6 +631,13 @@ describe('Main Dashboard View', function() {
         spyOn(newView.taskView, 'setUser');
         newView.setUser(user);
         expect(newView.taskView.setUser).toHaveBeenCalled();
+      });
+
+      it('calls setUser on the profile view #appView #view #travis', function() {
+        newView = new Tessitura.DashboardView();
+        spyOn(newView.profileView, 'setUser');
+        newView.setUser(user);
+        expect(newView.profileView.setUser).toHaveBeenCalled();
       });
     });
   });

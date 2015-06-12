@@ -72,6 +72,7 @@ Tessitura.Router = Backbone.Router.extend({
     'tasks(/)'       : 'displayDashboardTaskView',
     'logout(/)'      : 'logOut',
     'prepare(/)'     : 'prepareTestEnvironment',
+    'profile(/)'     : 'displayProfile',
     '*actions'       : 'defaultAction'
   },
 
@@ -112,6 +113,16 @@ Tessitura.Router = Backbone.Router.extend({
   displayHomepage: function() {
     this.DashboardPresenter.removeAll();
     this.AppPresenter.getHomepage();
+  },
+
+  displayProfile: function() {
+    var that = this;
+    var user = new Tessitura.UserModel({id: $.cookie('userID')});
+    user.tasks = new Tessitura.TaskCollection();
+
+    this.DashboardPresenter.setUser(user, function() {
+      that.DashboardPresenter.getProfile();
+    });
   },
 
   logOut: function() {

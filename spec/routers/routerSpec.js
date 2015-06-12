@@ -178,7 +178,7 @@ describe('Tessitura Router', function() {
   describe('event callbacks', function() {
     describe('navigateTo()', function() {
       context('general', function() {
-        it('navigates to the given route #router #travis #router #travis', function() {
+        it('navigates to the given route #router #travis', function() {
           var e = $.Event('redirect', {destination: 'tasks'});
           spyOn(router, 'navigate');
           router.navigateTo(e);
@@ -194,7 +194,7 @@ describe('Tessitura Router', function() {
 
         afterEach(function() { user.destroy(); });
 
-        it('calls setUser on the dashboard presenter #router #travis #router #travis', function() {
+        it('calls setUser on the dashboard presenter #router #travis', function() {
           e = $.Event('redirect', {destination: 'dashboard', user: user});
           router.navigateTo(e);
           expect(router.DashboardPresenter.setUser).toHaveBeenCalledWith(user);
@@ -262,6 +262,29 @@ describe('Tessitura Router', function() {
         spyOn(router.AppPresenter, 'getHomepage');
         router.displayHomepage();
         expect(router.AppPresenter.getHomepage).toHaveBeenCalled();
+      });
+    });
+
+    describe('displayProfile()', function() {
+      beforeEach(function() {
+        spyOn(router.DashboardPresenter.dashboardView.profileView, 'setUser');
+        spyOn($, 'cookie').and.returnValue(1);
+        spyOn($, 'ajax').and.callFake(function(args) {
+          args.success & args.success();
+        });
+      });
+
+      it('sets the user #router #travis', function() {
+        spyOn(router.DashboardPresenter, 'setUser');
+        router.displayProfile();
+        expect(router.DashboardPresenter.setUser).toHaveBeenCalled();
+      });
+
+      it('calls getProfile on the DashboardPresenter #router #travis', function(done) {
+        spyOn(router.DashboardPresenter, 'getProfile');
+        router.displayProfile();
+        expect(router.DashboardPresenter.getProfile).toHaveBeenCalled();
+        done();
       });
     });
 
