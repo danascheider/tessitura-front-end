@@ -109,6 +109,13 @@ describe('Dashboard Presenter', function() {
         expect(spy).toHaveBeenCalledWith({destination: 'tasks'});
       });
     });
+
+    describe('redirect:profile on the dashboard view', function() {
+      it('emits the redirect:profile event #presenter #travis', function() {
+        presenter.dashboardView.trigger('redirect', {destination: 'profile'});
+        expect(spy).toHaveBeenCalledWith({destination: 'profile'});
+      });
+    });
   });
 
   /* Event Callbacks
