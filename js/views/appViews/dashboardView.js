@@ -63,7 +63,8 @@ var DashboardView = Tessitura.View.extend({
     'click li.dropdown'      : 'toggleDropdownMenu',
     'click .navbar-header'   : 'toggleSidebar',
     'click a.dashboard-link' : 'redirectToDashboard',
-    'click a.task-page-link' : 'redirectToTaskPage'
+    'click a.task-page-link' : 'redirectToTaskPage',
+    'click a.link'           : 'redirectToHref'
   },
 
   /* Event Callbacks
@@ -93,6 +94,13 @@ var DashboardView = Tessitura.View.extend({
   redirectToDashboard: function() {
     this.trigger('redirect', {destination: 'dashboard'});
     this.$('.sidebar-collapse').slideUp();
+  },
+
+  redirectToHref     : function(e) {
+    var a = $(e.target).closest('a'),
+        destination = a.attr('href').replace('/#', '');
+
+    this.trigger('redirect', {destination: destination});
   },
 
   redirectToTaskPage : function() {

@@ -294,6 +294,13 @@ describe('Main Dashboard View', function() {
       });
     });
 
+    describe('click top nav link', function() {
+      it('redirects to the profile page #appView #view #travis', function() {
+        newView.$('a.link[href="/#profile"]').first().click();
+        expect(spy).toHaveBeenCalledWith({destination: 'profile'});
+      });
+    });
+
     describe('change user\'s first name', function() {
       afterEach(function() { newView.destroy(); });
 
@@ -317,10 +324,8 @@ describe('Main Dashboard View', function() {
     });
 
     describe('redirect from home view', function() {
-      it('triggers redirect', function() {
-        spy = jasmine.createSpy();
-        view.on('redirect', spy);
-        view.homeView.trigger('redirect', {destination: 'tasks'});
+      it('triggers redirect #appView #view #travis', function() {
+        newView.homeView.trigger('redirect', {destination: 'tasks'});
         expect(spy).toHaveBeenCalled();
       });
     });
