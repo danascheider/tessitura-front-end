@@ -28,6 +28,5 @@ Feature: Actions and links
 
   Scenario: User clicks the '#user-profile' link in the top nav menu
     Given I am on my dashboard
-    When I click the top nav menu called 'User'
-    And I click the '/#profile' link
+    When I click the 'User Profile' link in the top nav menu called 'User'
     Then I should be on the profile page
