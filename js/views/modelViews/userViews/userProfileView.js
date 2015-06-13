@@ -1,6 +1,6 @@
 var UserProfileView = Tessitura.View.extend({
   className   : 'user-profile',
-  template    : _.template('<div></div>'),
+  template    : JST['users/profile'],
 
   /* Tessitura View Properties
   /**************************************************************************************/
@@ -31,8 +31,12 @@ var UserProfileView = Tessitura.View.extend({
   },
 
   render      : function() {
-    this.$el.html(this.template());
-    return this;
+    var that = this;
+
+    return Tessitura.View.prototype.render.call(this, this.template({model: that.model}), function() {
+      that.modelView.render();
+      that.$('#profile-tab > h4').first().after(that.modelView.$el);
+    });
   }
 });
 

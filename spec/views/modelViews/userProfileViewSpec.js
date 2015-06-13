@@ -65,15 +65,15 @@ describe('Tessitura.UserProfileView', function() {
   /**************************************************************************/
 
   describe('properties', function() {
-    it('has klass UserProfileView #partialView #view #travis', function() {
+    it('has klass UserProfileView #modelView #view #travis', function() {
       expect(view.klass).toEqual('UserProfileView');
     });
 
-    it('has family Tessitura.View #partialView #view #travis', function() {
+    it('has family Tessitura.View #modelView #view #travis', function() {
       expect(view.family).toEqual('Tessitura.View');
     });
 
-    it('has superFamily Backbone.View #partialView #view #travis', function() {
+    it('has superFamily Backbone.View #modelView #view #travis', function() {
       expect(view.superFamily).toEqual('Backbone.View');
     });
   });
@@ -82,19 +82,19 @@ describe('Tessitura.UserProfileView', function() {
   /**************************************************************************/
 
   describe('constructor', function() {
-    it('does not call render #partialView #view #travis', function() {
+    it('does not call render #modelView #view #travis', function() {
       spyOn(Tessitura.UserProfileView.prototype, 'render');
       var newView = new Tessitura.UserProfileView();
       expect(Tessitura.UserProfileView.prototype.render).not.toHaveBeenCalled();
     });
 
-    it('calls setUser if a user is given #partialView #view #travis', function() {
+    it('calls setUser if a user is given #modelView #view #travis', function() {
       spyOn(Tessitura.UserProfileView.prototype, 'setUser');
       var newView = new Tessitura.UserProfileView({model: user});
       expect(Tessitura.UserProfileView.prototype.setUser).toHaveBeenCalled();
     });
 
-    it('doesn\'t call setUser if no user is given #partialView #view #travis', function() {
+    it('doesn\'t call setUser if no user is given #modelView #view #travis', function() {
       spyOn(Tessitura.UserProfileView.prototype, 'setUser');
       var newView = new Tessitura.UserProfileView();
       expect(Tessitura.UserProfileView.prototype.setUser).not.toHaveBeenCalled();
@@ -109,7 +109,7 @@ describe('Tessitura.UserProfileView', function() {
       view.setUser(user).render(); 
     });
 
-    it('has class .user-profile #partialView #view #travis', function() {
+    it('has class .user-profile #modelView #view #travis', function() {
       expect(view.$el[0].className).toEqual('user-profile');
     });
   });
@@ -133,7 +133,20 @@ describe('Tessitura.UserProfileView', function() {
 
   describe('core view functions', function() {
     describe('render()', function() {
-      //
+      beforeEach(function() {
+        view.setUser(user);
+      });
+
+      it('renders its model view', function() {
+        spyOn(view.modelView, 'render');
+        view.render();
+        expect(view.modelView.render).toHaveBeenCalled();
+      });
+
+      it('attaches the model view to its el', function() {
+        view.render();
+        expect(view.$el).toContain(view.modelView.$el);
+      });
     });
   });
 
@@ -142,19 +155,19 @@ describe('Tessitura.UserProfileView', function() {
 
   describe('special functions', function() {
     describe('isA()', function() {
-      it('returns true with argument UserProfileView #partialView #view #travis', function() {
+      it('returns true with argument UserProfileView #modelView #view #travis', function() {
         expect(view.isA('UserProfileView')).toBe(true);
       });
 
-      it('returns true with argument UserView #partialView #view #travis', function() {
+      it('returns true with argument UserView #modelView #view #travis', function() {
         expect(view.isA('UserView')).toBe(true);
       });
 
-      it('returns true with argument DashboardProfileView #partialView #view #travis', function() {
+      it('returns true with argument DashboardProfileView #modelView #view #travis', function() {
         expect(view.isA('DashboardProfileView')).toBe(true);
       });
 
-      it('returns false with another argument #partialView #view #travis', function() {
+      it('returns false with another argument #modelView #view #travis', function() {
         expect(view.isA('Corvette')).toBe(false);
       });
     });
@@ -165,15 +178,19 @@ describe('Tessitura.UserProfileView', function() {
       // sets the user automatically, but the setUser method is still being used
       // to instantiate the child view.
 
-      it('instantiates a userModelView #partialView #view #travis', function(done) {
+      it('instantiates a userModelView #modelView #view #travis', function(done) {
         view.setUser(user);
         expect(view.modelView.klass).toBe('UserModelView');
         done();
       });
 
-      it('puts the userModelView in the childViews array #partialView #view #travis', function() {
+      it('puts the modelView in the childViews array #modelView #view #travis', function() {
         view.setUser(user);
         expect(view.childViews).toEqual([view.modelView]);
+      });
+
+      it('returns itself #modelView #view #travis', function() {
+        expect(view.setUser(user)).toBe(view);
       });
     });
   });
