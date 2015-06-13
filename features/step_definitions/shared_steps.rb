@@ -8,6 +8,11 @@ Given(/^I am logged in$/) do
   page.driver.set_cookie('userID', 1)
 end
 
+Given(/^I am on the '(.*)' page$/) do |page|
+  step 'I am logged in'
+  step "I navigate to '#{page}'"
+end
+
 When(/^I click on the '(\S*)' element$/) do |selector|
   find(selector).click
 end
