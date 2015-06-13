@@ -74,6 +74,10 @@ describe('User Model View', function() {
     it('has class .user-model #modelView #view #travis', function() {
       expect(view.$el[0]).toHaveClass('user-model');
     });
+
+    it('displays the user\'s name #modelView #view #travis', function() {
+      expect(view.$el.html()).toContain('Test User');
+    });
   });
 
   describe('events', function() {
