@@ -32,8 +32,6 @@ var matchers       = _.extend(require('jasmine-jquery-matchers'), require(proces
     context        = describe,
     fcontext       = fdescribe;
 
-var SUT = require(process.cwd() + '/js/views/partialViews/userProfileView.js');
-
 /****************************************************************************
  * BEGIN SUITE                                                              *
 /****************************************************************************/
@@ -50,11 +48,7 @@ describe('Tessitura.UserProfileView', function() {
   })
 
   beforeEach(function() {
-
-    // Create an instance of the view under test
-    // Insert args here
-
-    view = new SUT();
+    view = new Tessitura.UserProfileView();
   });
 
   afterEach(function() {
@@ -89,21 +83,21 @@ describe('Tessitura.UserProfileView', function() {
 
   describe('constructor', function() {
     it('does not call render #partialView #view #travis', function() {
-      spyOn(SUT.prototype, 'render');
-      var newView = new SUT();
-      expect(SUT.prototype.render).not.toHaveBeenCalled();
+      spyOn(Tessitura.UserProfileView.prototype, 'render');
+      var newView = new Tessitura.UserProfileView();
+      expect(Tessitura.UserProfileView.prototype.render).not.toHaveBeenCalled();
     });
 
     it('calls setUser if a user is given #partialView #view #travis', function() {
-      spyOn(SUT.prototype, 'setUser');
-      var newView = new SUT({model: user});
-      expect(SUT.prototype.setUser).toHaveBeenCalled();
+      spyOn(Tessitura.UserProfileView.prototype, 'setUser');
+      var newView = new Tessitura.UserProfileView({model: user});
+      expect(Tessitura.UserProfileView.prototype.setUser).toHaveBeenCalled();
     });
 
     it('doesn\'t call setUser if no user is given #partialView #view #travis', function() {
-      spyOn(SUT.prototype, 'setUser');
-      var newView = new SUT();
-      expect(SUT.prototype.setUser).not.toHaveBeenCalled();
+      spyOn(Tessitura.UserProfileView.prototype, 'setUser');
+      var newView = new Tessitura.UserProfileView();
+      expect(Tessitura.UserProfileView.prototype.setUser).not.toHaveBeenCalled();
     });
   });
 
@@ -111,7 +105,13 @@ describe('Tessitura.UserProfileView', function() {
   /**************************************************************************/
 
   describe('view elements', function() {
-    //
+    beforeEach(function() { 
+      view.setUser(user).render(); 
+    });
+
+    it('has class .user-profile #partialView #view #travis', function() {
+      expect(view.$el[0].className).toEqual('user-profile');
+    });
   });
 
   /* Event Wiring
@@ -167,13 +167,13 @@ describe('Tessitura.UserProfileView', function() {
 
       it('instantiates a userModelView #partialView #view #travis', function(done) {
         view.setUser(user);
-        expect(view.userModelView.klass).toBe('UserModelView');
+        expect(view.modelView.klass).toBe('UserModelView');
         done();
       });
 
       it('puts the userModelView in the childViews array #partialView #view #travis', function() {
         view.setUser(user);
-        expect(view.childViews).toEqual([view.userModelView]);
+        expect(view.childViews).toEqual([view.modelView]);
       });
     });
   });
