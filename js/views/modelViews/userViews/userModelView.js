@@ -4,6 +4,7 @@ var UserModelView = Tessitura.View.extend({
   /**************************************************************************************/
 
   className    : 'user-model',
+  template     : _.template(''),
 
   /* Tessitura View Properties
   /**************************************************************************************/
@@ -27,6 +28,11 @@ var UserModelView = Tessitura.View.extend({
 
   initialize   : function() {
     this.listenTo(this.model, 'sync', this.renderOnSync);
+  },
+
+  render       : function() {
+    this.$el.html(this.template({model: this.user}))
+    return this;
   }
 });
 

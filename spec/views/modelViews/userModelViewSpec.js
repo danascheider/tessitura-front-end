@@ -124,4 +124,18 @@ describe('User Model View', function() {
       });
     });
   });
+
+  describe('core view functions', function() {
+    describe('render', function() {
+      it('sets the HTML of its el #modelView #view #travis', function() {
+        spyOn(view.$el, 'html');
+        view.render();
+        expect(view.$el.html).toHaveBeenCalledWith(view.template({model: user}));
+      });
+
+      it('returns itself #modelView #view #travis', function() {
+        expect(view.render()).toBe(view);
+      });
+    });
+  });
 });
