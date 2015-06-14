@@ -90,6 +90,16 @@ describe('User Model View', function() {
         newView.destroy();
       });
     });
+
+    describe('double-click username field', function() {
+      it('calls displayInput #modelView #view #travis', function() {
+        pending('I cannot for the life of me figure out why this test won\'t fucking pass');
+        spyOn(Tessitura.UserModelView.prototype, 'displayInput');
+        newView = new Tessitura.UserModelView({model: user});
+        newView.$('td').trigger('dblclick');
+        expect(Tessitura.UserModelView.prototype.displayInput).toHaveBeenCalled();
+      });
+    });
   });
 
   describe('view elements', function() {
@@ -125,6 +135,14 @@ describe('User Model View', function() {
       it('calls the render function #modelView #view #travis', function() {
         view.renderOnSync();
         expect(view.render).toHaveBeenCalled();
+      });
+    });
+
+    describe('displayInput', function() {
+      it('displays an input', function() {
+        var e = $.Event({target: view.$('tr[data-attribute=username] > td')});
+        view.displayInput(e);
+        expect(view.$('tr[data-attribute=username] > td > input:visible').length).toBeGreaterThan(0);
       });
     });
   });

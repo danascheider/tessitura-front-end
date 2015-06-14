@@ -1,31 +1,44 @@
 <% var imgURL = model.get('headshot') %>
-<img id='avatar' height='100' src="<%= imgURL || '/vendor/img/avatar.svg' %>">
+<img id='avatar' height='150' src="<%= imgURL || '/vendor/img/avatar.svg' %>">
 
 <table>
-  <tr>
+  <tr data-attribute='name'>
     <th>Name:</th>
     <td><span id='first_name'><%= model.get('first_name') %></span> <span id='last_name'><%=model.get('last_name') %></span></td>
   </tr>
-  <tr>
+  <tr data-attribute='username'>
     <th>Username:</th>
-    <td><%= model.get('username') %></td>
+    <td>
+      <span class='p'><%= model.get('username') %></span>
+      <span class='input'><input name='username' type='text' value='<%= model.get('username') %>'></span>
+    </td>
   </tr>
-  <tr>
+  <tr data-attribute='email'>
     <th>E-mail:</th>
-    <td><%= model.get('email') %></td>
+    <td>
+      <span class='p'><%= model.get('email') %></span>
+      <span class='input'><input name='email' type='email' value='<%= model.get('email') %>' /></span>
+    </td>
   </tr>
-  <tr>
+  <tr data-attribute='birthdate'>
     <th>Birthdate:</th>
-    <td><%= model.get('birthdate') || 'N/A' %></td>
+    <td>
+      <span class='p'><%= model.get('birthdate') || 'N/A' %></span>
+      <span class='input'><input name='birthdate' type='date' value='<%= model.get('birthdate') %>' /></span>
+    </td>
   </tr>
-  <tr>
+  <tr data-attribute='fach'>
     <th>Fach:</th>
-    <td><%= model.get('fach') || 'N/A' %></td>
-  </tr>
-  <tr>
+    <td>
+      <span class='p'><%= model.get('fach') || 'N/A' %></span>
+      <span class='input'><input name='fach' value='<%= model.get('fach') %>' /></span>
+    </td>  </tr>
+  <tr data-attribute='city'>
     <th>City:</th>
-    <td><%= model.get('city') || 'N/A' %></td>
-  </tr>
+    <td>
+      <span class='p'><%= model.get('city') || 'N/A' %></span>
+      <span class='input'><input name='city' value='<%= model.get('city') %>' /></span>
+    </td>  </tr>
   <tr>
     <th>Member Since:</th>
     <td><%= model.get('created_at') %></td>
