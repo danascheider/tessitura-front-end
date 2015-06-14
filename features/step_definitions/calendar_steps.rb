@@ -18,7 +18,7 @@ end
 
 Then(/^the calendar should not show the other four days$/) do 
   days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-  ok   = [days[Time.now.wday - 1], days[Time.now.wday], days[Time.now.wday + 1]]
+  ok   = [days[(today = Time.now.wday) - 1], days[today], days[today === 6 ? 0 : today + 1]]
   bad  = days.reject {|day| ok.include? day }
 
   bad.each do |day|

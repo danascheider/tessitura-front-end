@@ -1,8 +1,3 @@
-Given(/^I am on the '\/\#tasks' page$/) do 
-  step 'I am logged in'
-  step "I navigate to '/#tasks'"
-end
-
 When(/^I click the 'Backlog' icon for the first task in the '(\S+)' column$/) do |id|
   within "#{id} ul" do 
     first('.task-list-item').hover

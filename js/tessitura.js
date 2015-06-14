@@ -19,6 +19,8 @@ Tessitura.HomepageView          = require('./views/appViews/homepageView.js');
 Tessitura.TaskModelView         = require('./views/modelViews/taskViews/taskModelView.js');
 Tessitura.QuickAddFormView      = require('./views/modelViews/taskViews/quickAddFormView.js');
 Tessitura.TaskListItemView      = require('./views/modelViews/taskViews/taskListItemView.js');
+Tessitura.UserModelView         = require('./views/modelViews/userViews/userModelView.js');
+Tessitura.UserProfileView       = require('./views/modelViews/userViews/userProfileView.js');
 Tessitura.TaskCollectionView    = require('./views/collectionViews/taskCollectionView.js');
 
 // Require partial views
