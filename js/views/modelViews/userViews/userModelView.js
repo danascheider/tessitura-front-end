@@ -17,7 +17,7 @@ var UserModelView = Tessitura.View.extend({
   },
 
   events       : {
-    'dblclick td' : 'displayInput'
+    'dblclick span.p' : 'displayInput'
   },
 
   /* Event Callbacks
@@ -26,9 +26,9 @@ var UserModelView = Tessitura.View.extend({
   displayInput : function(e) {
     this.$('.input').hide();
     this.$('.p').show();
-    td = $(e.target).tagName === 'TD' ? $(e.target) : $(e.target).closest('td');
-    td.find('.input').show();
-    td.find('.p').hide();
+    span = ($(e.target)[0].className && $(e.target)[0].match(/profile-field/)) ? $(e.target) : $(e.target).closest('span.profile-field');
+    span.find('.input').show();
+    span.find('.p').hide();
   },
 
   renderOnSync : function() {
