@@ -6,7 +6,7 @@ Feature: User profile view
 
   Scenario Outline: Data
     Then I should see my '<attribute>' attribute
-    And I should see that my '<attribute>' is <value>
+    And I should see that my <attribute> is <value>
 
     Examples:
       | attribute | value                |
