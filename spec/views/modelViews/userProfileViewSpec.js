@@ -36,7 +36,7 @@ var matchers       = _.extend(require('jasmine-jquery-matchers'), require(proces
  * BEGIN SUITE                                                              *
 /****************************************************************************/
 
-describe('Tessitura.UserProfileView', function() {
+fdescribe('Tessitura.UserProfileView', function() {
   var view;
 
   /* Filters
@@ -109,6 +109,10 @@ describe('Tessitura.UserProfileView', function() {
       view.setUser(user).render(); 
     });
 
+    it('has ID #page-wrapper #modelView #view #travis', function() {
+      expect(view.$el[0].id).toEqual('page-wrapper');
+    });
+
     it('has class .user-profile #modelView #view #travis', function() {
       expect(view.$el[0].className).toEqual('user-profile');
     });
@@ -145,7 +149,7 @@ describe('Tessitura.UserProfileView', function() {
 
       it('attaches the model view to its el', function() {
         view.render();
-        expect(view.$el).toContain(view.modelView.$el);
+        expect(view.$el).toContain(view.modelView.el);
       });
     });
   });

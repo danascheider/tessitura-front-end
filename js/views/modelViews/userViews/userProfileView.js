@@ -1,5 +1,6 @@
 var UserProfileView = Tessitura.View.extend({
   className   : 'user-profile',
+  id          : 'page-wrapper',
   template    : JST['users/profile'],
 
   /* Tessitura View Properties

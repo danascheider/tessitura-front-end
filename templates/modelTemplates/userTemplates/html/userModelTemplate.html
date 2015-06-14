@@ -1,1 +1,33 @@
-<a href='' class='user-display-name'><%= model.get('first_name') %> <%= model.get('last_name') %></a>
+<% var imgURL = model.get('headshot') %>
+<img id='avatar' height='100' src="<%= imgURL || '/vendor/img/avatar.svg' %>">
+
+<table>
+  <tr>
+    <th>Name:</th>
+    <td><span id='first_name'><%= model.get('first_name') %></span> <span id='last_name'><%=model.get('last_name') %></span></td>
+  </tr>
+  <tr>
+    <th>Username:</th>
+    <td><%= model.get('username') %></td>
+  </tr>
+  <tr>
+    <th>E-mail:</th>
+    <td><%= model.get('email') %></td>
+  </tr>
+  <tr>
+    <th>Birthdate:</th>
+    <td><%= model.get('birthdate') || 'N/A' %></td>
+  </tr>
+  <tr>
+    <th>Fach:</th>
+    <td><%= model.get('fach') || 'N/A' %></td>
+  </tr>
+  <tr>
+    <th>City:</th>
+    <td><%= model.get('city') || 'N/A' %></td>
+  </tr>
+  <tr>
+    <th>Member Since:</th>
+    <td><%= model.get('created_at') %></td>
+  </tr>
+</table>
