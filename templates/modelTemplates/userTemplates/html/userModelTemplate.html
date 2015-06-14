@@ -4,40 +4,50 @@
 <table>
   <tr data-attribute='name'>
     <th>Name:</th>
-    <td><span id='first_name'><%= model.get('first_name') %></span> <span id='last_name'><%=model.get('last_name') %></span></td>
+    <td><span class='profile-field' id='first_name'><span class='p'><%= model.get('first_name') %></span><span class='input'><input name='first_name' type='text' value='<%= model.get('first_name') %>' /></span></span> <span class='profile-field' id='last_name'><span class='p'><%=model.get('last_name') %></span><span class='input'><input name='last_name' type='text' value='<%= model.get('last_name') %>' /></span></span></td>
   </tr>
   <tr data-attribute='username'>
     <th>Username:</th>
     <td>
-      <span class='p'><%= model.get('username') %></span>
-      <span class='input'><input name='username' type='text' value='<%= model.get('username') %>'></span>
+      <span class='profile-field' id='username'>
+        <span class='p'><%= model.get('username') %></span>
+        <span class='input'><input name='username' type='text' value='<%= model.get('username') %>'></span>
+      </span>
     </td>
   </tr>
   <tr data-attribute='email'>
     <th>E-mail:</th>
     <td>
-      <span class='p'><%= model.get('email') %></span>
-      <span class='input'><input name='email' type='email' value='<%= model.get('email') %>' /></span>
+      <span class='profile-field' id='email'>
+        <span class='p'><%= model.get('email') %></span>
+        <span class='input'><input name='email' type='email' value='<%= model.get('email') %>' /></span>
+      </span>
     </td>
   </tr>
   <tr data-attribute='birthdate'>
     <th>Birthdate:</th>
     <td>
-      <span class='p'><%= model.get('birthdate') || 'N/A' %></span>
-      <span class='input'><input name='birthdate' type='date' value='<%= model.get('birthdate') %>' /></span>
+      <span class='profile-field' id='birthdate'>
+        <span class='p'><%= model.get('birthdate') || 'N/A' %></span>
+        <span class='input'><input name='birthdate' type='date' value='<%= model.get('birthdate') %>' /></span>
+      </span>
     </td>
   </tr>
   <tr data-attribute='fach'>
     <th>Fach:</th>
     <td>
-      <span class='p'><%= model.get('fach') || 'N/A' %></span>
-      <span class='input'><input name='fach' value='<%= model.get('fach') %>' /></span>
+      <span class='profile-field' id='fach'>
+        <span class='p'><%= model.get('fach') || 'N/A' %></span>
+        <span class='input'><input name='fach' value='<%= model.get('fach') %>' /></span>
+      </span>
     </td>  </tr>
   <tr data-attribute='city'>
     <th>City:</th>
     <td>
-      <span class='p'><%= model.get('city') || 'N/A' %></span>
-      <span class='input'><input name='city' value='<%= model.get('city') %>' /></span>
+      <span class='profile-field' id='city'>
+        <span class='p'><%= model.get('city') || 'N/A' %></span>
+        <span class='input'><input name='city' value='<%= model.get('city') %>' /></span>
+      </span>
     </td>  </tr>
   <tr>
     <th>Member Since:</th>
