@@ -76,7 +76,7 @@ describe('User Model View', function() {
     });
 
     it('displays the user\'s name #modelView #view #travis', function() {
-      expect(view.$el.html()).toContain('Test User');
+      expect(view.$el.html()).toContain('Name:');
     });
   });
 
