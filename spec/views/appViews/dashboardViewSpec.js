@@ -541,9 +541,9 @@ describe('Main Dashboard View', function() {
           expect(dashboard.profileView.render).toHaveBeenCalled();
         });
 
-        it('attaches the profile view to the DOM #appView #view #travis', function() {
+        it('attaches the profile view to itself #appView #view #travis', function() {
           dashboard.showProfileView();
-          expect(dashboard.profileView.$el).toBeInDom();
+          expect(dashboard.$('#profile-info')).toExist();
         });
       });
     });
