@@ -63,7 +63,8 @@ var DashboardView = Tessitura.View.extend({
     'click li.dropdown'      : 'toggleDropdownMenu',
     'click .navbar-header'   : 'toggleSidebar',
     'click a.dashboard-link' : 'redirectToDashboard',
-    'click a.task-page-link' : 'redirectToTaskPage'
+    'click a.task-page-link' : 'redirectToTaskPage',
+    'click a.link'           : 'redirectToHref'
   },
 
   /* Event Callbacks
@@ -95,6 +96,13 @@ var DashboardView = Tessitura.View.extend({
     this.$('.sidebar-collapse').slideUp();
   },
 
+  redirectToHref     : function(e) {
+    var a = $(e.target).closest('a'),
+        destination = a.attr('href').replace('/#', '');
+
+    this.trigger('redirect', {destination: destination});
+  },
+
   redirectToTaskPage : function() {
     this.trigger('redirect', {destination: 'tasks'});
     this.$('.sidebar-collapse').slideUp();
@@ -117,20 +125,49 @@ var DashboardView = Tessitura.View.extend({
   setUser            : function(user) {
     this.user = user;
     this.homeView.setUser(user);
+    this.profileView.setUser(user);
     this.taskView.setUser(user);
 
     this.listenTo(this.user, 'change:first_name change:last_name', this.render);
   },
 
   showHomeView       : function() {
-    if(this.taskView.$el.is(':visible')) { this.taskView.remove(); }
-    this.homeView.render();
+    if(!this.$el.is(':visible')) { this.render(); }
 
+    var that = this;
+    _.each(this.childViews, function(view) {
+      if(view.$el.is(':visible') && view !== that.homeView && view !== that.sidebarView) {
+        view.remove();
+      }
+    })
+
+    this.homeView.render();
     this.$('nav').after(this.homeView.$el);
   },
 
+  showProfileView    : function() {
+    if(!this.$el.is(':visible')) { this.render(); }
+
+    var that = this;
+    _.each(this.childViews, function(view) {
+      if(view.$el.is(':visible') && view !== that.profileView && view !== that.sidebarView) {
+        view.remove();
+      }
+    });
+
+    this.profileView.render();
+    this.$('nav').after(this.profileView.$el);
+  },
+
   showTaskView       : function() {
-    if(this.homeView.$el.is(':visible')) { this.homeView.remove(); }
+    if(!this.$el.is(':visible')) { this.render(); }
+
+    var that = this;
+    _.each(this.childViews, function(view) {
+      if(view.$el.is(':visible') && view !== that.taskView && view!== that.sidebarView) {
+        view.remove();
+      }
+    });
 
     this.taskView.render();
     this.$('nav').after(this.taskView.$el);
@@ -144,9 +181,10 @@ var DashboardView = Tessitura.View.extend({
 
     this.sidebarView = new Tessitura.DashboardSidebarView();
     this.homeView    = new Tessitura.DashboardHomeView();
+    this.profileView = new Tessitura.UserProfileView();
     this.taskView    = new Tessitura.DashboardTaskView();
 
-    this.childViews  = [this.sidebarView, this.homeView, this.taskView];
+    this.childViews  = [this.sidebarView, this.homeView, this.profileView, this.taskView];
     if(opts.user) { this.setUser(opts.user); }
 
     this.listenTo(this.homeView, 'all', this.emitRedirect);

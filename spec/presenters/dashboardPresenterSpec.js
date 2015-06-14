@@ -109,6 +109,13 @@ describe('Dashboard Presenter', function() {
         expect(spy).toHaveBeenCalledWith({destination: 'tasks'});
       });
     });
+
+    describe('redirect:profile on the dashboard view', function() {
+      it('emits the redirect:profile event #presenter #travis', function() {
+        presenter.dashboardView.trigger('redirect', {destination: 'profile'});
+        expect(spy).toHaveBeenCalledWith({destination: 'profile'});
+      });
+    });
   });
 
   /* Event Callbacks
@@ -171,6 +178,42 @@ describe('Dashboard Presenter', function() {
           spyOn(presenter.dashboardView.$el, 'is').and.returnValue(false);
           spyOn(presenter.dashboardView, 'render');
           presenter.getTask();
+        });
+
+        it('renders the dashboard #presenter #travis', function() {
+          expect(presenter.dashboardView.render).toHaveBeenCalled();
+        });
+
+        it('attaches the dashboard view to the DOM #presenter #travis', function() {
+          expect(presenter.dashboardView.$el).toBeInDom();
+        });
+      });
+    });
+
+    describe('getProfile()', function() {
+      beforeEach(function() {
+        spyOn(presenter.dashboardView, 'showProfileView');
+      });
+
+      context('general', function() {
+        beforeEach(function() {
+          presenter.getProfile();
+        });
+
+        it('calls the dashboard\'s showProfileView method #presenter #travis', function() {
+          expect(presenter.dashboardView.showProfileView).toHaveBeenCalled();
+        });
+
+        it('sets the \'current\' property to \'profile\' #presenter #travis', function() {
+          expect(presenter.current).toBe('profile');
+        });
+      });
+
+      context('when the profile view is not already visible', function() {
+        beforeEach(function() {
+          spyOn(presenter.dashboardView.$el, 'is').and.returnValue(false);
+          spyOn(presenter.dashboardView, 'render');
+          presenter.getProfile();
         });
 
         it('renders the dashboard #presenter #travis', function() {

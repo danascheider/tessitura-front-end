@@ -21,6 +21,12 @@ var DashboardPresenter = Tessitura.Model.extend({
     this.current = 'home';
   },
 
+  getProfile   : function() {
+    this.showDash();
+    this.dashboardView.showProfileView();
+    this.current = 'profile';
+  },
+
   getTask      : function() {
     this.showDash();
     this.dashboardView.showTaskView();

@@ -16,9 +16,7 @@ Given(/^the sidebar is hidden$/) do
 end
 
 Given(/^the sidebar is visible$/) do 
-  unless page.has_selector? '#side-menu'
-    find('.navbar-header').click
-  end
+  find('.navbar-header').click unless page.has_selector? '#side-menu'
 end
 
 When(/^I click on the '(.*)' dropdown$/) do |title|

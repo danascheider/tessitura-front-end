@@ -220,7 +220,7 @@ describe('Dashboard Home View', function() {
         expect(Backbone.View.prototype.remove.call).toHaveBeenCalledWith(view);
       });
 
-      fcontext('when the child views don\'t exist', function() {
+      context('when the child views don\'t exist', function() {
         it('doesn\'t raise an error #partialView #view #travis', function() {
           newView = new Tessitura.DashboardHomeView({user: user});
           newView.render();

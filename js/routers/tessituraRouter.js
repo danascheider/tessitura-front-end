@@ -72,6 +72,7 @@ Tessitura.Router = Backbone.Router.extend({
     'tasks(/)'       : 'displayDashboardTaskView',
     'logout(/)'      : 'logOut',
     'prepare(/)'     : 'prepareTestEnvironment',
+    'profile(/)'     : 'displayProfile',
     '*actions'       : 'defaultAction'
   },
 
@@ -114,6 +115,16 @@ Tessitura.Router = Backbone.Router.extend({
     this.AppPresenter.getHomepage();
   },
 
+  displayProfile: function() {
+    var that = this;
+    var user = new Tessitura.UserModel({id: $.cookie('userID')});
+    user.tasks = new Tessitura.TaskCollection();
+
+    this.DashboardPresenter.setUser(user, function() {
+      that.DashboardPresenter.getProfile();
+    });
+  },
+
   logOut: function() {
     $.removeCookie('auth');
     $.removeCookie('userID');
@@ -122,8 +133,8 @@ Tessitura.Router = Backbone.Router.extend({
 
   prepareTestEnvironment: function() {
     $.ajax({
-      type: 'POST',
-      url: 'http://api.canto-test.com:3000/test/prepare'
+      type: 'DELETE',
+      url: 'http://api.canto-test.com:1025/destroy'
     });
   },
 
