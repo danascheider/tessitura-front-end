@@ -174,15 +174,6 @@ describe('Quick-Add Task Form', function() {
           expect(collection.unshift).toHaveBeenCalled();
         });
 
-        it('triggers the newTask event #modelView #view #travis', function() {
-          pending('Figure out if the app actually needs to do this');
-          var spy = jasmine.createSpy('spy');
-          view.on('newTask', spy);
-          view.createTask(e);
-          expect(spy).toHaveBeenCalled();
-          view.off();
-        });
-
         it('resets the form #modelView #view #travis', function() {
           spyOn(view.$el[0], 'reset');
           view.createTask(e);

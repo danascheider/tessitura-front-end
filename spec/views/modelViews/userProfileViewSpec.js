@@ -36,7 +36,7 @@ var matchers       = _.extend(require('jasmine-jquery-matchers'), require(proces
  * BEGIN SUITE                                                              *
 /****************************************************************************/
 
-fdescribe('Tessitura.UserProfileView', function() {
+describe('Tessitura.UserProfileView', function() {
   var view;
 
   /* Filters
@@ -149,7 +149,7 @@ fdescribe('Tessitura.UserProfileView', function() {
 
       it('attaches the model view to its el', function() {
         view.render();
-        expect(view.$el).toContain(view.modelView.el);
+        expect(view.$el.html()).toContain(view.modelView.$el.html());
       });
     });
   });
