@@ -20,7 +20,7 @@ describe('User Model View', function() {
       return name === 'userID' ? 1 : btoa('testuser:testuser');
     });
   
-    view = new Tessitura.UserModelView({model: user});
+    view = new Tessitura.UserModelView({model: fixtures.user});
   });
 
   afterEach(function() {

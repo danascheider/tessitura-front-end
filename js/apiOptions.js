@@ -1,5 +1,5 @@
 var opts = {
-  useTestRouter: false,
+  useTestRouter: true,
   useTestAPI   : true
 };
 
