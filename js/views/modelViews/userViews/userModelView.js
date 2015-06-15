@@ -17,7 +17,8 @@ var UserModelView = Tessitura.View.extend({
   },
 
   events       : {
-    'dblclick span.p' : 'displayInput'
+    'dblclick span.p' : 'displayInput',
+    'keypress input'  : 'triageKeypress'
   },
 
   /* Event Callbacks
@@ -26,13 +27,42 @@ var UserModelView = Tessitura.View.extend({
   displayInput : function(e) {
     this.$('.input').hide();
     this.$('.p').show();
-    span = ($(e.target)[0].className && $(e.target)[0].match(/profile-field/)) ? $(e.target) : $(e.target).closest('span.profile-field');
+    span = ($(e.target)[0] && $(e.target)[0].className.match(/profile-field/)) ? $(e.target) : $(e.target).closest('span.profile-field');
     span.find('.input').show();
     span.find('.p').hide();
   },
 
   renderOnSync : function() {
     this.render();
+  },
+
+  submitUpdate : function(e) {
+    e.preventDefault();
+
+    var data = {};
+    data[$(e.target).attr('name')] = $(e.target)[0].value;
+
+    this.model.save(data, {
+      beforeSend: function(xhr) {
+        xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
+      },
+      error  : function(model, response, options) {
+        console.log(response);
+      },
+      success: function() {
+        $(e.target).closest('span.input').hide();
+      },
+    });
+  },
+
+  triageKeypress: function(e) {
+    var theKeyWasEnter = e.keyCode === 13;
+    var attr           = $(e.target).attr('name');
+    var value          = $(e.target)[0].value;
+
+    if(theKeyWasEnter && value !== this.model.get(attr) && value !== '') {
+      this.submitUpdate(e);
+    }
   },
 
   /* Core View Functions 
