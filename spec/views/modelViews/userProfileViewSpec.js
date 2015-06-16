@@ -122,14 +122,50 @@ describe('Tessitura.UserProfileView', function() {
   /**************************************************************************/
 
   describe('view events', function() {
-    //
+    describe('click', function() {
+      it('calls hideInputs #modelView #view #travis', function() {
+        spyOn(Tessitura.UserProfileView.prototype, 'hideInputs');
+        newView = new Tessitura.UserProfileView({model: user});
+        newView.$el.click();
+        expect(Tessitura.UserProfileView.prototype.hideInputs).toHaveBeenCalled();
+      });
+    });
   });
 
   /* Event Callbacks
   /**************************************************************************/
 
   describe('event callbacks', function() {
-    //
+    describe('hideInputs', function() {
+      beforeEach(function() { 
+        view.setUser(user); 
+        spyOn(view.modelView, 'hideInputs');
+      });
+
+      context('when the target is not an input', function() {
+        beforeEach(function() {
+          spyOn($.prototype, 'is').and.returnValue(false);
+          e = $.Event('click', {target: view.$('#profile-info')});
+        });
+
+        it('calls hideInputs on its model view #modelView #view #travis', function() {
+          view.hideInputs(e);
+          expect(view.modelView.hideInputs).toHaveBeenCalled();
+        });
+      });
+
+      context('when the target is an input', function() {
+        beforeEach(function() {
+          spyOn($.prototype, 'is').and.returnValue(true);
+          e = $.Event('click', {target: view.$('input')});
+        });
+
+        it('doesn\'t call hideInputs on its model view #modelView #view #travis', function() {
+          view.hideInputs(e);
+          expect(view.modelView.hideInputs).not.toHaveBeenCalled();
+        });
+      });
+    });
   });
 
   /* Core View Functions

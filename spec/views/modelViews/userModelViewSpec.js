@@ -150,6 +150,22 @@ describe('User Model View', function() {
         expect(view.isA('TaskCollection')).toBe(false);
       });
     });
+
+    describe('hideInputs', function() {
+      beforeEach(function() {
+        view.render();
+        view.displayInput($.Event('dblclick', {target: view.$('#username')}));
+        view.hideInputs();
+      });
+
+      it('hides all the inputs #modelView #view #travis', function() {
+        expect(view.$('input')).not.toBeInDom();
+      });
+
+      it('shows the text #modelView #view #travis', function() {
+        expect(view.$('#username span.p').html()).toContain('testuser');
+      });
+    });
   });
 
   describe('event callbacks', function() {

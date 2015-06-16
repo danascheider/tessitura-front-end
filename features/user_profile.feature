@@ -5,7 +5,7 @@ Feature: User profile
     Given I am on the '/#profile' page
 
   Scenario Outline: Edit profile
-    When I double-click on the <element> field
+    When I double-click on the '<element>' field
     Then an input should appear in the <element> field
     And the input should contain the text <value>
     And I should not see the 'span.p' element in the <element> field
@@ -37,5 +37,5 @@ Feature: User profile
   Scenario: Click outside the input
     Given the input inside the 'last_name' field is visible
     When I click outside the 'last_name' field
-    Then the 'last_name' field should not be visible
-    And the text inside the '#last-name' element should be 'User'
+    Then the 'last_name' input should not be visible
+    And the text in the '#last_name' element should be 'User'

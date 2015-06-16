@@ -2,6 +2,10 @@ Given(/^the input inside the '(.*)' field is visible$/) do |field|
   step "I double-click on the '#{field}' field"
 end
 
+When(/^I click outside the '(.*)' field$/) do |field|
+  find('body').click
+end
+
 When(/^I submit the '(.*)' form with value '(.*)'$/) do |name, value|
   step "I double-click on the '#city' element"
   fill_in name, with: value
@@ -57,6 +61,10 @@ Then(/^I should see that my (.*) is (.*)$/) do |attribute, value|
   expect(page).to have_text "#{attribute}: #{value}"
 end
 
+Then(/^the '(.*)' input should not be visible$/) do |name|
+  expect(page).not_to have_selector "input[name=#{name}]"
+end
+
 Then(/^the input should contain the text (?:'?)([^']*)(?:'?)$/) do |text|
   within '#profile-info' do 
     expect(@input.value).to eq text
@@ -64,7 +72,5 @@ Then(/^the input should contain the text (?:'?)([^']*)(?:'?)$/) do |text|
 end
 
 Then(/^the text in the '(.*)' element should be '(.*)'$/) do |el, text|
-  within el do 
-    expect(page).to have_content text
-  end
+  expect(find(el)).to have_text text
 end
