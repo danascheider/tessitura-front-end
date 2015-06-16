@@ -38,4 +38,4 @@ Feature: User profile
     Given the input inside the 'last_name' field is visible
     When I click outside the 'last_name' field
     Then the 'last_name' input should not be visible
-    And the text inside the '#last_name' element should be 'User'
+    And the text in the '#last_name' element should be 'User'
