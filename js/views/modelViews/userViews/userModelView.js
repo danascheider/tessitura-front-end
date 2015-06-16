@@ -61,8 +61,12 @@ var UserModelView = Tessitura.View.extend({
     var attr           = $(e.target).attr('name');
     var value          = $(e.target)[0].value;
 
-    if(theKeyWasEnter && value !== this.model.get(attr) && value !== '') {
-      this.submitUpdate(e);
+    if(theKeyWasEnter) { 
+      this.hideInputs(); 
+
+      if(value !== this.model.get(attr) && value !== '') {
+        this.submitUpdate(e);
+      }
     }
   },
 
