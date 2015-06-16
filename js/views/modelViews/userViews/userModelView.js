@@ -25,11 +25,22 @@ var UserModelView = Tessitura.View.extend({
   /**************************************************************************************/
 
   displayInput : function(e) {
-    this.$('.input').hide();
-    this.$('.p').show();
+
+    // Conditionally assign the span variable to the element that was double-clicked
+    // if it had class .profile-field, or to the nearest parent that had that class
+    // if not.
+
     span = ($(e.target)[0] && $(e.target)[0].className.match(/profile-field/)) ? $(e.target) : $(e.target).closest('span.profile-field');
+
+    // Hide the text of the user's profile information and show the input
+
     span.find('.p').hide();
     span.find('.input').show();
+
+    this.resizeInputs(span);
+
+    // Focus on the input that has just been displayed and select the text inside
+
     span.find('input').focus().select();
   },
 
@@ -78,6 +89,19 @@ var UserModelView = Tessitura.View.extend({
     this.$('span.p').show();
   },
 
+  resizeInputs : function(span) {
+
+    // If the span has ID #first_name or #last_name, the input will need to be resized
+    // so as not to disrupt the layout excessively. Here we assign the variable `width`
+    // to the same width as the currently-visible span with the text of the user's first
+    // or last name.
+
+    if(['first_name', 'last_name'].indexOf(span.attr('id')) > -1) {
+      var width = parseInt(span.find('.p').css('width').match(/\d*/)[0]) + 10;
+      span.find('input').css('width', width + 'px');
+    }
+  },
+
   /* Core View Functions 
   /**************************************************************************************/
 
@@ -87,8 +111,8 @@ var UserModelView = Tessitura.View.extend({
 
   render       : function() {
     var that = this;
-    this.$el.html(this.template({model: that.model}));
-    return this;
+
+    return Tessitura.View.prototype.render.call(that, that.template({model: that.model}));
   }
 });
 
