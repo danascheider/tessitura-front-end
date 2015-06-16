@@ -82,20 +82,20 @@ describe('User Model View', function() {
 
   describe('events', function() {
     describe('save model', function() {
-      it('calls renderOnSync #modelView #view #travis', function() {
-        spyOn(Tessitura.UserModelView.prototype, 'renderOnSync');
+      it('calls render #modelView #view #travis', function() {
+        spyOn(Tessitura.UserModelView.prototype, 'render');
         newView = new Tessitura.UserModelView({model: user});
         user.trigger('sync');
-        expect(Tessitura.UserModelView.prototype.renderOnSync).toHaveBeenCalled();
+        expect(Tessitura.UserModelView.prototype.render).toHaveBeenCalled();
         newView.destroy();
       });
     });
 
     describe('double-click username field', function() {
       it('calls displayInput #modelView #view #travis', function() {
-        pending('I cannot for the life of me figure out why this test won\'t fucking pass');
         spyOn(Tessitura.UserModelView.prototype, 'displayInput');
         newView = new Tessitura.UserModelView({model: user});
+        newView.render();
         newView.$('span.profile-field#username span.p').trigger('dblclick');
         expect(Tessitura.UserModelView.prototype.displayInput).toHaveBeenCalled();
       });
@@ -103,9 +103,9 @@ describe('User Model View', function() {
 
     describe('keypress in input', function() {
       it('calls triageKeypress #modelView #view #travis', function() {
-        pending('FUFNR');
         spyOn(Tessitura.UserModelView.prototype, 'triageKeypress');
         newView = new Tessitura.UserModelView({model: user});
+        newView.render();
         newView.$('input').trigger('keypress');
         expect(Tessitura.UserModelView.prototype.triageKeypress).toHaveBeenCalled();
       });
@@ -169,15 +169,6 @@ describe('User Model View', function() {
   });
 
   describe('event callbacks', function() {
-    describe('renderOnSync', function() {
-      beforeEach(function() { spyOn(view, 'render'); });
-
-      it('calls the render function #modelView #view #travis', function() {
-        view.renderOnSync();
-        expect(view.render).toHaveBeenCalled();
-      });
-    });
-
     describe('displayInput', function() {
       beforeEach(function() { view.render(); });
 
@@ -194,14 +185,12 @@ describe('User Model View', function() {
       });
 
       it('hides other inputs #modelView #view #travis', function() {
-        pending('FUFNR');
-
-        var e1 = $.Event({target: view.$('#username span.p')}),
-            e2 = $.Event({target: view.$('#city span.p')});
+        var e1 = $.Event('dblclick', {target: view.$('#username span.p')}),
+            e2 = $.Event('dblclick', {target: view.$('#city span.p')});
 
         view.displayInput(e1);
         view.displayInput(e2);
-        expect(view.$('#username span.input')).not.toBeVisible();
+        expect(view.$('#username span.input')).not.toBeInDom();
       });
     });
 
@@ -230,23 +219,87 @@ describe('User Model View', function() {
           expect(view.$('#city span.input')).not.toBeVisible();
         });
 
-        it('changes the text to the new value #modelView #view #travis');
+        it('changes the text to the new value #modelView #view #travis', function() {
+          spyOn($, 'ajax').and.callFake(function(args) { args.success(); });
+          view.submitUpdate(e);
+          expect(view.$('#city span.p').html()).toContain('El Paso');
+        });
       });
     });
 
     describe('triageKeypress', function() {
+      beforeEach(function() {
+        view.render();
+      });
+
       context('when the key is enter', function() {
         beforeEach(function() {
           spyOn(view, 'submitUpdate');
-          input = view.$('input[name=city]');
-          var target = [{value: ''}, {attributes: {name: 'city'}}];
-          e = $.Event('keypress', {keyCode: 13, target: target});
+          input = view.$('input[name=username]');
+          input.show();
         });
 
         context('when the input is empty', function() {
+          beforeEach(function() {
+            spyOn($.prototype, 'attr').and.returnValue('username');
+            var target = [{value: ''}];
+            e = $.Event('keypress', {keyCode: 13, target: target});
+          });
+
           it('doesn\'t submit #modelView #view #travis', function() {
             view.triageKeypress(e);
             expect(view.submitUpdate).not.toHaveBeenCalled();
+          });
+        });
+
+        context('when the content of the field hasn\'t changed', function() {
+          beforeEach(function() {
+            spyOn($.prototype, 'attr').and.returnValue('username');
+            var target = [{value: 'testuser'}, {attributes: {name: 'username'}}];
+            e = $.Event('keypress', {keyCode: 13, target: target});
+          });
+
+          it('doesn\'t submit #modelView #view #travis', function() {
+            view.triageKeypress(e);
+            expect(view.submitUpdate).not.toHaveBeenCalled();
+          });
+        });
+
+        context('when the content of the field has changed', function() {
+          beforeEach(function() {
+            spyOn($.prototype, 'attr').and.returnValue('username');
+            var target = [{value: 'usertest'}, {attributes: {name: 'username'}}];
+            e = $.Event('keypress', {keyCode: 13, target: target});
+          });
+
+          it('submits #modelView #view #travis', function() {
+            view.triageKeypress(e);
+            expect(view.submitUpdate).toHaveBeenCalled();
+          });
+        });
+      });
+
+      context('when the key is tab', function() {
+        beforeEach(function() {
+          spyOn(view, 'submitUpdate');
+          input = view.$('input[name=username]');
+        });
+
+        context('when the input is empty', function() {
+          beforeEach(function() {
+            spyOn($.prototype, 'attr').and.returnValue('username');
+            var target = [{value: ''}]
+            e = $.Event('keypress', {keyCode: 9, target: target});
+          });
+
+          it('doesn\'t submit #modelView #view #travis', function() {
+            view.triageKeypress(e);
+            expect(view.submitUpdate).not.toHaveBeenCalled();
+          });
+
+          it('hides the input #modelView #view #travis', function() {
+            view.triageKeypress(e);
+            expect(view.$('#username input')).not.toBeInDom();
           });
         });
       });
