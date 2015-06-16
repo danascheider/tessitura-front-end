@@ -2,6 +2,10 @@ Given(/^the input inside the '(.*)' field is visible$/) do |field|
   step "I double-click on the '#{field}' field"
 end
 
+When(/^I click outside the '(.*)' field$/) do |field|
+  find('body').click
+end
+
 When(/^I submit the '(.*)' form with value '(.*)'$/) do |name, value|
   step "I double-click on the '#city' element"
   fill_in name, with: value
