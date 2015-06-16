@@ -3,6 +3,10 @@ var UserProfileView = Tessitura.View.extend({
   id          : 'page-wrapper',
   template    : JST['users/profile'],
 
+  events      : {
+    'click' : 'hideInputs'
+  },
+
   /* Tessitura View Properties
   /**************************************************************************************/
 
@@ -11,6 +15,13 @@ var UserProfileView = Tessitura.View.extend({
   superFamily : 'Backbone.View',
   types       : function() {
     return Tessitura.View.prototype.types().concat(this.klass, 'UserView', 'DashboardProfileView');
+  },
+
+  /* Event Callbacks
+  /**************************************************************************************/
+
+  hideInputs: function(e) {
+    if(!$(e.target).is('input')) { this.modelView.hideInputs(); }
   },
 
   /* Special Functions

@@ -28,8 +28,9 @@ var UserModelView = Tessitura.View.extend({
     this.$('.input').hide();
     this.$('.p').show();
     span = ($(e.target)[0] && $(e.target)[0].className.match(/profile-field/)) ? $(e.target) : $(e.target).closest('span.profile-field');
-    span.find('.input').show();
     span.find('.p').hide();
+    span.find('.input').show();
+    span.find('input').focus().select();
   },
 
   renderOnSync : function() {
@@ -63,6 +64,14 @@ var UserModelView = Tessitura.View.extend({
     if(theKeyWasEnter && value !== this.model.get(attr) && value !== '') {
       this.submitUpdate(e);
     }
+  },
+
+  /* Special Functions
+  /**************************************************************************************/
+
+  hideInputs   : function() {
+    this.$('span.input').hide();
+    this.$('span.p').show();
   },
 
   /* Core View Functions 

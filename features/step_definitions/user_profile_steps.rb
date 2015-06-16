@@ -61,6 +61,10 @@ Then(/^I should see that my (.*) is (.*)$/) do |attribute, value|
   expect(page).to have_text "#{attribute}: #{value}"
 end
 
+Then(/^the '(.*)' input should not be visible$/) do |name|
+  expect(page).not_to have_selector "input[name=#{name}]"
+end
+
 Then(/^the input should contain the text (?:'?)([^']*)(?:'?)$/) do |text|
   within '#profile-info' do 
     expect(@input.value).to eq text
