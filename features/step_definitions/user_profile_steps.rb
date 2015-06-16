@@ -71,8 +71,6 @@ Then(/^the input should contain the text (?:'?)([^']*)(?:'?)$/) do |text|
   end
 end
 
-Then(/^the text in the '(.*)' element should be '(.*)'$/) do |el, text|
-  within el do 
-    expect(page).to have_content text
-  end
+Then(/^the text inside the '(.*)' element should be '(.*)'$/) do |el, text|
+  expect(find(el)).to have_text text
 end
