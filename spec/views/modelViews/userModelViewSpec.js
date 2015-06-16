@@ -101,12 +101,12 @@ describe('User Model View', function() {
       });
     });
 
-    describe('keypress in input', function() {
+    describe('keydown in input', function() {
       it('calls triageKeypress #modelView #view #travis', function() {
         spyOn(Tessitura.UserModelView.prototype, 'triageKeypress');
         newView = new Tessitura.UserModelView({model: user});
         newView.render();
-        newView.$('input').trigger('keypress');
+        newView.$('input').trigger('keydown');
         expect(Tessitura.UserModelView.prototype.triageKeypress).toHaveBeenCalled();
       });
     });
@@ -202,7 +202,7 @@ describe('User Model View', function() {
           spyOn($, 'attr').and.returnValue('city');
           view.displayInput($.Event({target: view.$('#city span.p')}));
           target = [{value: 'El Paso'}];
-          e = $.Event('keypress', {keyCode: 13, target: target});
+          e = $.Event('keydown', {keyCode: 13, target: target});
         });
 
         it('calls save on the user model #modelView #view #travis', function() {
@@ -243,7 +243,7 @@ describe('User Model View', function() {
           beforeEach(function() {
             spyOn($.prototype, 'attr').and.returnValue('username');
             var target = [{value: ''}];
-            e = $.Event('keypress', {keyCode: 13, target: target});
+            e = $.Event('keydown', {keyCode: 13, target: target});
           });
 
           it('doesn\'t submit #modelView #view #travis', function() {
@@ -256,7 +256,7 @@ describe('User Model View', function() {
           beforeEach(function() {
             spyOn($.prototype, 'attr').and.returnValue('username');
             var target = [{value: 'testuser'}, {attributes: {name: 'username'}}];
-            e = $.Event('keypress', {keyCode: 13, target: target});
+            e = $.Event('keydown', {keyCode: 13, target: target});
           });
 
           it('doesn\'t submit #modelView #view #travis', function() {
@@ -269,7 +269,7 @@ describe('User Model View', function() {
           beforeEach(function() {
             spyOn($.prototype, 'attr').and.returnValue('username');
             var target = [{value: 'usertest'}, {attributes: {name: 'username'}}];
-            e = $.Event('keypress', {keyCode: 13, target: target});
+            e = $.Event('keydown', {keyCode: 13, target: target});
           });
 
           it('submits #modelView #view #travis', function() {
@@ -283,13 +283,14 @@ describe('User Model View', function() {
         beforeEach(function() {
           spyOn(view, 'submitUpdate');
           input = view.$('input[name=username]');
+          view.displayInput('dblclick', view.$('#username span.p'));
         });
 
         context('when the input is empty', function() {
           beforeEach(function() {
             spyOn($.prototype, 'attr').and.returnValue('username');
             var target = [{value: ''}]
-            e = $.Event('keypress', {keyCode: 9, target: target});
+            e = $.Event('keydown', {keyCode: 9, target: target});
           });
 
           it('doesn\'t submit #modelView #view #travis', function() {

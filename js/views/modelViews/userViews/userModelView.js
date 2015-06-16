@@ -18,7 +18,7 @@ var UserModelView = Tessitura.View.extend({
 
   events       : {
     'dblclick span.p' : 'displayInput',
-    'keypress input'  : 'triageKeypress'
+    'keydown input'   : 'triageKeypress'
   },
 
   /* Event Callbacks
@@ -30,7 +30,7 @@ var UserModelView = Tessitura.View.extend({
     // if it had class .profile-field, or to the nearest parent that had that class
     // if not.
 
-    span = ($(e.target)[0] && $(e.target)[0].className.match(/profile-field/)) ? $(e.target) : $(e.target).closest('span.profile-field');
+    span = ($(e.target).attr('class') && $(e.target).attr('class').match(/profile-field/)) ? $(e.target) : $(e.target).closest('span.profile-field');
 
     // Hide the text of the user's profile information and show the input
 
@@ -42,10 +42,6 @@ var UserModelView = Tessitura.View.extend({
     // Focus on the input that has just been displayed and select the text inside
 
     span.find('input').focus().select();
-  },
-
-  renderOnSync : function() {
-    this.render();
   },
 
   submitUpdate : function(e) {
@@ -69,6 +65,7 @@ var UserModelView = Tessitura.View.extend({
 
   triageKeypress: function(e) {
     var theKeyWasEnter = e.keyCode === 13;
+    var theKeyWasTab   = e.keyCode === 9;
     var attr           = $(e.target).attr('name');
     var value          = $(e.target)[0].value;
 
@@ -78,6 +75,10 @@ var UserModelView = Tessitura.View.extend({
       if(value !== this.model.get(attr) && value !== '') {
         this.submitUpdate(e);
       }
+    }
+
+    if(theKeyWasTab && (value === this.model.get(attr) || value === '')) {
+      this.hideInputs();
     }
   },
 
@@ -106,7 +107,7 @@ var UserModelView = Tessitura.View.extend({
   /**************************************************************************************/
 
   initialize   : function() {
-    this.listenTo(this.model, 'sync', this.renderOnSync);
+    this.listenTo(this.model, 'sync', this.render);
   },
 
   render       : function() {
