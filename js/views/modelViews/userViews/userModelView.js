@@ -31,13 +31,16 @@ var UserModelView = Tessitura.View.extend({
   // span containing the input to be displayed.
 
   displayInput : function(arg) {
-    var span = arg.target ? (($(arg.target).attr('class') && $(arg.target).attr('class').match(/profile-field/)) ? $(arg.target) : $(arg.target).closest('span.profile-field')) : arg;
+    var span = arg.target ? ($(arg.target).attr('class') && $(arg.target).attr('class').match(/profile-field/) ? $(arg.target) : $(arg.target).closest('.profile-field')) : $(arg);
 
     // Hide the text of the user's profile information and show the input
-
     span.find('.p').hide();
     span.find('.input').show();
 
+    // If the input being shown is the first- or last-name input, resize it to match
+    // the length of the user's current name. This prevents excessive resizing of the
+    // surrounding elements.
+    
     this.resizeInputs(span);
 
     // Focus on the input that has just been displayed and select the text inside
@@ -68,12 +71,12 @@ var UserModelView = Tessitura.View.extend({
     var theKeyWasEnter = e.keyCode === 13;
     var theKeyWasTab   = e.keyCode === 9;
     var attr           = $(e.target).attr('name');
-    var value          = $(e.target)[0].value;
+    var currentValue   = $(e.target)[0].value;
 
     if(theKeyWasEnter) { 
       this.hideInputs(); 
 
-      if(value !== this.model.get(attr) && value !== '') {
+      if(currentValue !== this.model.get(attr) && currentValue !== '') {
         this.submitUpdate(e);
       }
     }
@@ -81,10 +84,12 @@ var UserModelView = Tessitura.View.extend({
     if(theKeyWasTab) {
       e.preventDefault();
 
-      var nextField = $(e.target).closest('tr').next().find('td > span.profile-field');
-      nextField = $(e.target).closest('.profile-field').attr('id') === 'first_name' ? this.$('#last_name') : nextField;
+      // If the current field is first_name, the next field is last_name. Otherwise, it's
+      // the .profile-field element in the next row in the table.
 
-      if(value === this.model.get(attr) || value === '') {
+      var nextField = $(e.target).closest('.profile-field').attr('id') === 'first_name' ? this.$('#last_name') : $(e.target).closest('tr').next().find('td > span.profile-field');
+
+      if(currentValue === this.model.get(attr) || currentValue === '') {
         this.hideInputs();
       }
 
