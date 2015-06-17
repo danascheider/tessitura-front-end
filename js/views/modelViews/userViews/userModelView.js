@@ -80,7 +80,10 @@ var UserModelView = Tessitura.View.extend({
     if(theKeyWasTab) {
       e.preventDefault();
 
+      var nextField;
+
       var nextField = $(e.target).closest('tr').next().find('td > span.profile-field');
+      nextField = $(e.target).closest('.profile-field').attr('id') === 'first_name' ? this.$('#last_name') : nextField;
 
       if(value === this.model.get(attr) || value === '') {
         this.hideInputs();
@@ -92,6 +95,9 @@ var UserModelView = Tessitura.View.extend({
 
       nextField.find('.p').hide();
       nextField.find('.input').show();
+
+      this.resizeInputs(nextField);
+
       nextField.find('input').focus().select();
     }
   },
