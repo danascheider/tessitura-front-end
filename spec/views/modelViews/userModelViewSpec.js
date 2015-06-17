@@ -213,10 +213,9 @@ describe('User Model View', function() {
 
         it('hides the input #modelView #view #travis', function(done) {
           spyOn($, 'ajax').and.callFake(function(args) { args.success(); });
-
           view.submitUpdate(e);
+          expect(view.$('#city span.input')).not.toBeInDom();
           done();
-          expect(view.$('#city span.input')).not.toBeVisible();
         });
 
         it('changes the text to the new value #modelView #view #travis', function() {
@@ -301,6 +300,12 @@ describe('User Model View', function() {
           it('hides the input #modelView #view #travis', function() {
             view.triageKeypress(e);
             expect(view.$('#username input')).not.toBeInDom();
+          });
+
+          it('shows the next input #modelView #view #travis', function() {
+            pending('FUFNR');
+            view.triageKeypress(e);
+            expect(view.$('#email .input')).toBeInDom();
           });
         });
       });

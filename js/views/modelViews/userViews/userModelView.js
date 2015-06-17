@@ -77,8 +77,22 @@ var UserModelView = Tessitura.View.extend({
       }
     }
 
-    if(theKeyWasTab && (value === this.model.get(attr) || value === '')) {
-      this.hideInputs();
+    if(theKeyWasTab) {
+      e.preventDefault();
+
+      var nextField = $(e.target).closest('tr').next().find('td > span.profile-field');
+
+      if(value === this.model.get(attr) || value === '') {
+        this.hideInputs();
+      }
+
+      if(value === this.model.get(attr) || value === '') {
+        this.hideInputs();
+      }
+
+      nextField.find('.p').hide();
+      nextField.find('.input').show();
+      nextField.find('input').focus().select();
     }
   },
 
