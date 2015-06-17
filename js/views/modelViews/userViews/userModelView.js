@@ -24,13 +24,14 @@ var UserModelView = Tessitura.View.extend({
   /* Event Callbacks
   /**************************************************************************************/
 
-  displayInput : function(e) {
+  // The displayInput function can be used as an event callback or as a normal function. 
+  // When used as an event callback, it takes an event object as its argument and deduces
+  // the input to display based on the `target` property of the `jQuery.Event` object.
+  // Otherwise, its argument is presumed to be a jQuery object of the '.profile-field'
+  // span containing the input to be displayed.
 
-    // Conditionally assign the span variable to the element that was double-clicked
-    // if it had class .profile-field, or to the nearest parent that had that class
-    // if not.
-
-    span = ($(e.target).attr('class') && $(e.target).attr('class').match(/profile-field/)) ? $(e.target) : $(e.target).closest('span.profile-field');
+  displayInput : function(arg) {
+    var span = arg.target ? (($(arg.target).attr('class') && $(arg.target).attr('class').match(/profile-field/)) ? $(arg.target) : $(arg.target).closest('span.profile-field')) : arg;
 
     // Hide the text of the user's profile information and show the input
 
@@ -91,12 +92,7 @@ var UserModelView = Tessitura.View.extend({
         this.hideInputs();
       }
 
-      nextField.find('.p').hide();
-      nextField.find('.input').show();
-
-      this.resizeInputs(nextField);
-
-      nextField.find('input').focus().select();
+      this.displayInput(nextField);
     }
   },
 
