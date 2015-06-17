@@ -88,10 +88,6 @@ var UserModelView = Tessitura.View.extend({
         this.hideInputs();
       }
 
-      if(value === this.model.get(attr) || value === '') {
-        this.hideInputs();
-      }
-
       this.displayInput(nextField);
     }
   },
