@@ -308,6 +308,43 @@ describe('User Model View', function() {
             expect(view.$('#email .input')).toBeInDom();
           });
         });
+
+        context('when the value hasn\'t changed', function() {
+          beforeEach(function() {
+            spyOn($.prototype, 'attr').and.returnValue('username');
+            var target = [{value: 'testuser'}]
+            e = $.Event('keydown', {keyCode: 9, target: target});
+          });
+
+          it('doesn\'t submit #modelView #view #travis', function() {
+            view.triageKeypress(e);
+            expect(view.submitUpdate).not.toHaveBeenCalled();
+          });
+
+          it('hides the input #modelView #view #travis', function() {
+            view.triageKeypress(e);
+            expect(view.$('#username input')).not.toBeInDom();
+          });
+
+          it('shows the next input #modelView #view #travis', function() {
+            pending('FUFNR');
+            view.triageKeypress(e);
+            expect(view.$('#email .input')).toBeInDom();
+          });
+        });
+
+        context('when the value has changed', function() {
+          beforeEach(function() {
+            spyOn($.prototype, 'attr').and.returnValue('fach');
+            var target = [{value: 'Bass-baritone'}]
+            e = $.Event('keydown', {keyCode: 9, target: target});
+          });
+
+          it('submits #modelView #view #travis', function() {
+            view.triageKeypress(e);
+            expect(view.submitUpdate).toHaveBeenCalled();
+          });
+        });
       });
     });
   });
