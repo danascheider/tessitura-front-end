@@ -26,7 +26,14 @@
     padding: 1.313em
 
   .navbar-brand
-    color: #ccc
+    -webkit-touch-callout: none
+    -webkit-user-select  : none 
+    -khtml-user-select   : none 
+    -moz-user-select     : none 
+    -ms-user-select      : none 
+    user-select          : none
+    color                : #ccc
+    
     &:hover
       color: lighten($panel-blue-color, 25%)
 
@@ -89,8 +96,14 @@
   .panel-blue,
   .panel-yellow,
     & .panel-heading
-      color : #fff 
-      margin: 0
+      color                : #fff 
+      margin               : 0
+      -webkit-touch-callout: none
+      -webkit-user-select  : none 
+      -khtml-user-select   : none 
+      -moz-user-select     : none 
+      -ms-user-select      : none 
+      user-select          : none
 
     .panel-body span.pull-left,
     .panel-body span.pull-right

@@ -6,6 +6,12 @@ When(/^I click outside the '(.*)' field$/) do |field|
   find('body').click
 end
 
+When(/^I fill in the input '(.*)' with '(.*)' and press tab$/) do |field, value|
+  step "I double-click on the '#{field}' field"
+  fill_in field, with: value
+  find("input[name=#{field}]").native.send_key(:Tab)
+end
+
 When(/^I submit the '(.*)' form with value '(.*)'$/) do |name, value|
   step "I double-click on the '#city' element"
   fill_in name, with: value
@@ -63,6 +69,12 @@ end
 
 Then(/^the '(.*)' input should not be visible$/) do |name|
   expect(page).not_to have_selector "input[name=#{name}]"
+end
+
+Then(/^the '(.*)' input should be visible$/) do |name|
+  within '#profile-info' do 
+    expect(find("input[name=#{name}]")).to be_visible
+  end
 end
 
 Then(/^the input should contain the text (?:'?)([^']*)(?:'?)$/) do |text|

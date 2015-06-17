@@ -39,3 +39,14 @@ Feature: User profile
     When I click outside the 'last_name' field
     Then the 'last_name' input should not be visible
     And the text in the '#last_name' element should be 'User'
+
+  Scenario Outline: Tab between inputs changing values
+    When I fill in the input '<first>' with '<value>' and press tab
+    Then the '<first>' input should be visible
+    And the '<second>' input should be visible
+
+    Examples:
+      | first      | value       | second    |
+      | first_name | George      | last_name |
+      | last_name  | Smith       | username  |
+      | username   | georgesmith | email     |
