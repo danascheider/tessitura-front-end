@@ -80,8 +80,6 @@ var UserModelView = Tessitura.View.extend({
     if(theKeyWasTab) {
       e.preventDefault();
 
-      var nextField;
-
       var nextField = $(e.target).closest('tr').next().find('td > span.profile-field');
       nextField = $(e.target).closest('.profile-field').attr('id') === 'first_name' ? this.$('#last_name') : nextField;
 
