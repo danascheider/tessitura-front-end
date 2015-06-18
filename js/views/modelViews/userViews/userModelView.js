@@ -40,7 +40,7 @@ var UserModelView = Tessitura.View.extend({
     // If the input being shown is the first- or last-name input, resize it to match
     // the length of the user's current name. This prevents excessive resizing of the
     // surrounding elements.
-
+    
     this.resizeInputs(span);
 
     // Focus on the input that has just been displayed and select the text inside
@@ -89,11 +89,10 @@ var UserModelView = Tessitura.View.extend({
 
       var nextField = $(e.target).closest('.profile-field').attr('id') === 'first_name' ? this.$('#last_name') : $(e.target).closest('tr').next().find('td > span.profile-field');
 
-      if(currentValue !== this.model.get(attr) && currentValue !== '') {
-        this.submitUpdate(e);
+      if(currentValue === this.model.get(attr) || currentValue === '') {
+        this.hideInputs();
       }
 
-      this.hideInputs();
       this.displayInput(nextField);
     }
   },
