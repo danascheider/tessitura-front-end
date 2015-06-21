@@ -1,29 +1,7 @@
-/****************************************************************************
- *                                                                         *
- * META-INFORMATION AND THE TABLE OF CONTENTS                              *
- *                                                                         *
- * This is a place to share meta-information about the system under test.  *
- * It explains briefly what the purpose of that element of the app is      *  
- * and any other relevant information.                                     *
- *                                                                         *
- * CONTENTS                                                          LINE  *
- * Requires ......................................................... 26   *
- * Suite ............................................................ 44   *
- *   Filters ........................................................ 50   *
- *   Authorization and Authentication ............................... 60   *
- *     token()                                                             *
- *   Core Functions ................................................. 69   *
- *     fetch()                                                             *
- *   Special Functions .............................................. 91   *
- *     updateAll() .................................................. 92   *
- *     isA() ....................................................... 140   *
- *                                                                         *
-/****************************************************************************/
-
 /* Core Requires
 /****************************************************************************/
 
-require(process.cwd() + '/js/dependencies.js');
+require(process.cwd() + '/js/tessitura.js');
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/spec/support/env.js');
 
@@ -71,15 +49,15 @@ describe(/* ACTUAL VALUE */, function() {
   /**************************************************************************/
 
   describe('properties', function() {
-    it('has klass /* EXPECTED VALUE */', function() {
+    it('has klass /* EXPECTED VALUE */ #partialView #view #travis', function() {
       expect(view.klass).toEqual(/* Expected Value */);
     });
 
-    it('has family Tessitura.View', function() {
+    it('has family Tessitura.View #partialView #view #travis', function() {
       expect(view.family).toEqual('Tessitura.View');
     });
 
-    it('has superFamily Backbone.View', function() {
+    it('has superFamily Backbone.View #partialView #view #travis', function() {
       expect(view.superFamily).toEqual('Backbone.View');
     });
   });
@@ -88,7 +66,7 @@ describe(/* ACTUAL VALUE */, function() {
   /**************************************************************************/
 
   describe('constructor', function() {
-    it('does not call render', function() {
+    it('does not call render #partialView #view #travis', function() {
       spyOn(SUT.prototype, 'render');
       var newView = new SUT();
       expect(SUT.prototype.render).not.toHaveBeenCalled();
@@ -130,15 +108,15 @@ describe(/* ACTUAL VALUE */, function() {
 
   describe('special functions', function() {
     describe('isA()', function() {
-      it('returns true with argument /* ACTUAL VALUE HERE */', function() {
+      it('returns true with argument /* ACTUAL VALUE HERE */ #partialView #view #travis', function() {
         expect(view.isA(/* ACTUAL VALUE */)).toBe(true);
       });
 
-      it('returns true with argument /* ACTUAL VALUE HERE */', function() {
+      it('returns true with argument /* ACTUAL VALUE HERE */ #partialView #view #travis', function() {
         expect(view.isA(/* ACTUAL VALUE */)).toBe(true);
       });
 
-      it('returns false with another argument', function() {
+      it('returns false with another argument #partialView #view #travis', function() {
         expect(view.isA('Corvette')).toBe(false);
       });
     });
