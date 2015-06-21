@@ -1,4 +1,4 @@
-var ListItemView = Tessitura.View.extend({
+Tessitura.ListItemView = Tessitura.View.extend({
 
   /* Backbone View Properties
   /**************************************************************************************/
@@ -48,6 +48,11 @@ var ListItemView = Tessitura.View.extend({
     this.model.save({status: 'Complete'});
     this.$('.fa-square-o').removeClass('fa-square-o').addClass('fa-check-square-o');
     this.$('a.task-title').css('text-decoration', 'line-through');
+  },
+
+  renderOnSync      : function() {
+    if(this.model.get('status') === 'Complete') { return; }
+    this.render();
   },
 
   showEditForm      : function() {
@@ -130,25 +135,17 @@ var ListItemView = Tessitura.View.extend({
   /**************************************************************************************/
 
   initialize         : function() {
-    this.modelView = new Tessitura.TaskModelView({model: this.model});
-    this.childViews = [this.modelView];
-  },
-
-  remove             : function() {
-    this.modelView.remove();
-    Backbone.View.prototype.remove.call(this);
+    this.listenTo(this.model, 'sync', this.renderOnSync);
   },
 
   render             : function() {
     var that = this;
 
-    return Tessitura.View.prototype.render.call(this, this.template(), function() {
-      that.modelView.render();
-      that.$('td.task-listing').html(that.modelView.$el);
+    return Tessitura.View.prototype.render.call(this, this.template({model: that.model}), function() {
       that.configureDraggable();
       that.$el.removeAttr('style');
     });
   }
 });
 
-module.exports = ListItemView;
+module.exports = Tessitura.ListItemView;
