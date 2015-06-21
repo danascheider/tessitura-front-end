@@ -1,26 +1,7 @@
-/***************************************************************************
- *                                                                         *
- * ROUTER                                                                  *
- *                                                                         *                                                                         *
- * CONTENTS                                                          LINE  *
- * Core Requires .................................................... 28   *
- * Module-Specific Requires ......................................... 40   *
- * Suite ............................................................ 47   *
- *   Filters ........................................................ 50   *
- *   Authorization and Authentication ............................... 73   *
- *     token()                                                             *
- *   Core Functions ................................................. 69   *
- *     fetch()                                                             *
- *   Special Functions .............................................. 91   *
- *     updateAll() .................................................. 92   *
- *     isA() ....................................................... 140   *
- *                                                                         *
-/***************************************************************************/
-
 /* Core Requires
 /****************************************************************************/
 
-require(process.cwd() + '/js/dependencies.js');
+require(process.cwd() + '/js/tessitura.js');
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/spec/support/env.js');
 
@@ -35,8 +16,7 @@ Tessitura.Router = require(process.cwd() + '/js/routers/tessituraRouter.js');
 
 var DashboardPresenter = require(process.cwd() + '/js/presenters/dashboardPresenter.js');
 
-/******************************************************************************
- * Tessitura ROUTER SPEC                                                          *
+/* Tessitura Router Spec
 /******************************************************************************/
 
 describe('Tessitura Router', function() {
