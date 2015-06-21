@@ -1,4 +1,4 @@
-var TessituraView = Backbone.View.extend({
+Tessitura.View = Backbone.View.extend({
   klass       : 'Tessitura.View',
   family      : 'Backbone.View',
   superFamily : '',
@@ -17,4 +17,4 @@ var TessituraView = Backbone.View.extend({
   }
 });
 
-module.exports = TessituraView;
+module.exports = Tessitura.View;
