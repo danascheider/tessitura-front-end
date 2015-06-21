@@ -1,6 +1,4 @@
 #!/bin/bash
 
 mv spec/support/travis.js spec/support/env.js
-mv spec/support/travisAPIOpts.js js/apiOptions.js
-mv js/run-travis.js js/run.js
 browserify js/run.js -d -p [minifyify --map run.min.js.map --output js/run.min.js.map] > js/run.min.js
