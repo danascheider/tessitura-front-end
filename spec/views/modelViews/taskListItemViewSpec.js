@@ -1,13 +1,3 @@
-// NOTE: The following callbacks are tested partially or completely
-//       in the listItemUISpec.js file:
-//       - hideEditForm
-//       - showEditForm
-//       - hideEditIcons
-//       - showEditIcons
-//       - markComplete
-//       - toggleTaskDetails
-//       - render
-
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/js/tessitura.js');
 require(process.cwd() + '/spec/support/env.js');
@@ -15,6 +5,9 @@ require(process.cwd() + '/spec/support/env.js');
 var matchers  = require('jasmine-jquery-matchers'),
     context   = describe,
     fcontext  = fdescribe;
+
+/* Task List Item View Spec
+/****************************************************************************************/
 
 describe('List Item Task View', function() {
   var view, newView, task, e;
@@ -44,18 +37,6 @@ describe('List Item Task View', function() {
       newView = new Tessitura.TaskListItemView({model: task});
       expect(Tessitura.TaskListItemView.prototype.render).not.toHaveBeenCalled();
       newView.destroy();
-    });
-
-    it('creates a model view #modelView #view #travis', function() {
-      expect((view.modelView).klass).toEqual('TaskModelView');
-    });
-
-    it('includes the model view in its childViews array', function() {
-      expect(view.childViews).toContain(view.modelView);
-    });
-
-    it('creates an edit form #modelView #view #travis', function() {
-      pending('Need to implement the edit form view');
     });
   });
 
@@ -90,7 +71,37 @@ describe('List Item Task View', function() {
   });
 
   describe('elements', function() {
-    beforeEach(function() { view.render(); });
+    beforeEach(function() { 
+      task.set('deadline', new Date(2015, 8, 28));
+      task.set('description', 'Test Tessitura\'s front-end functionality')
+      view.render(); 
+    });
+    it('displays the task\'s title #modelView #view #travis', function() {
+      expect(view.$('a.task-title').html()).toEqual('Task 1');
+    });
+
+    it('displays the task\'s deadline #modelView #view #travis', function() {
+      expect(view.$('table.task-details').html()).toEqual(jasmine.stringMatching('Monday, September 28, 2015'));
+    });
+
+    it('displays the task\'s priority #modelView #view #travis', function() {
+      expect(view.$('.task-priority-row').html()).toEqual(jasmine.stringMatching('Low'));
+    });
+
+    it('displays the task\'s status #modelView #view #travis', function() {
+      expect(view.$('.task-status-row').html()).toEqual(jasmine.stringMatching('New'));
+    });
+
+    it('displays the task\'s description #modelView #view #travis', function() {
+      expect(view.$('.task-description-row').html()).toEqual(jasmine.stringMatching("Test Tessitura's front-end functionality"));
+    });
+
+    it('does not display blank fields #modelView #view #travis', function() {
+      task.unset('deadline');
+      view.render();
+      expect(view.$('tr.task-deadline-row').length).toEqual(0);
+      task.set('deadline', new Date(2015, 8, 28));
+    });
 
     it('has a mark-complete checkbox #modelView #view #travis', function() {
       expect(view.$('i[title="Mark complete"]')).toExist();
@@ -233,15 +244,6 @@ describe('List Item Task View', function() {
       });
     });
 
-    describe('hideEditForm', function() {
-      it('removes the edit form from the DOM #modelView #view #travis', function() {
-        pending('Define the edit form view');
-        spyOn(view.editForm, 'remove');
-        view.hideEditForm();
-        expect(view.editForm.remove).toHaveBeenCalled();
-      });
-    });
-
     describe('markComplete', function() {
       it('marks the task complete and saves #modelView #view #travis', function() {
         spyOn(task, 'save');
@@ -250,6 +252,24 @@ describe('List Item Task View', function() {
       });
     });
 
+    describe('renderOnSync', function() {
+      beforeEach(function() { spyOn(view, 'render'); });
+
+      context('when not marked complete', function() {
+        it('calls the render function #modelView #view #travis', function() {
+          view.renderOnSync();
+          expect(view.render).toHaveBeenCalled();
+        });
+      });
+
+      context('when marked complete', function() {
+        it('doesn\'t call render #modelView #view #travis', function() {
+          task.set('status', 'Complete');
+          view.renderOnSync();
+          expect(view.render).not.toHaveBeenCalled();
+        });
+      });
+    });
     describe('toggleTaskDetails', function() {
       it('calls preventDefault #modelView #view #travis', function() {
         var e = $.Event({target: view.$('.task-title')});
@@ -292,32 +312,12 @@ describe('List Item Task View', function() {
   });
 
   describe('core view functions', function() {
-    describe('remove()', function() {
-      it('removes the model view #modelView #view #travis', function() {
-        spyOn(view.modelView, 'remove');
-        view.remove();
-        expect(view.modelView.remove).toHaveBeenCalled();
-      });
-
-      it('removes itself #modelView #view #travis', function() {
-        spyOn(Backbone.View.prototype, 'remove');
-        view.remove();
-        expect(Backbone.View.prototype.remove).toHaveBeenCalled();
-      });
-    });
-
     describe('render()', function() {
       it('configures the draggable property #modelView #view #travis', function() {
         spyOn(view, 'configureDraggable', function() {
           view.render();
           expect(view.configureDraggable).toHaveBeenCalled();
         });
-      });
-
-      it('renders the model view #modelView #view #travis', function() {
-        spyOn(view.modelView, 'render');
-        view.render();
-        expect(view.modelView.render).toHaveBeenCalled();
       });
     });
   });
