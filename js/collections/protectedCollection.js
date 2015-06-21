@@ -1,8 +1,3 @@
-Tessitura = Tessitura || require('../dependencies.js');
-
-/* Protected Collection
-/****************************************************************************************/
-
 var ProtectedCollection = Backbone.Collection.extend({
   token     : function() {
     return 'Basic ' + $.cookie('auth');
@@ -12,8 +7,11 @@ var ProtectedCollection = Backbone.Collection.extend({
   /**************************************************************************************/
 
   klass     : 'ProtectedCollection',
-  family    : 'Backbone.Collection',
+  family    : 'ProtectedCollection',
   superFamily: 'Backbone.Collection',
+  types     : function() {
+    return Backbone.Collection.prototype.types().concat(['ProtectedCollection']);
+  },
 
   /* Special Functions
   /**************************************************************************************/
@@ -24,7 +22,7 @@ var ProtectedCollection = Backbone.Collection.extend({
   },
 
   isA       : function(type) {
-    return ['Backbone.Collection', 'ProtectedCollection'].indexOf(type) > -1 ? true : false;
+    return this.types().indexOf(type) > -1 ? true : false;
   },
 
   /* Core Collection Functions
