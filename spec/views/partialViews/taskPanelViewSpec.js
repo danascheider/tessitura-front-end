@@ -7,6 +7,9 @@ var Fixtures       = require('../../support/fixtures/fixtures.js'),
     context        = describe,
     fcontext       = fdescribe;
 
+/* Task Panel View Spec
+/****************************************************************************************/
+
 describe('Task Panel View', function() {
   var taskPanel, opts, e, spy;
 
@@ -231,34 +234,6 @@ describe('Task Panel View', function() {
       });
     });
 
-    describe('toggleWidget()', function() {
-      context('when the widget is visible', function() {
-        beforeEach(function() {
-          taskPanel.render();
-          spyOn($.prototype, 'slideToggle');
-          e = $.Event('click', {target: taskPanel.$('i.hide-widget')});
-          taskPanel.toggleWidget(e);
-        });
-
-        it('removes the .fa-minus class #partialView #view #travis', function(done) {
-          pending('Find out why this test keeps failing when the functionality unambiguously works');
-          expect(taskPanel.$('.panel-heading i').last()).not.toHaveClass('fa-minus');
-          done();
-        });
-
-        it('adds the .fa-plus class #partialView #view #travis', function(done) {
-          pending('Find out why this test keeps failing when the functionality unambiguously works');
-          expect(taskPanel.$('.panel-heading i').last()).toHaveClass('fa-plus');
-          done();
-        });
-
-        it('calls slideToggle on the widget #partialView #view #travis', function(done) {
-          expect($.prototype.slideToggle).toHaveBeenCalled();
-          done();
-        });
-      });
-    });
-
     describe('removeBacklog()', function() {
       context('when there is a backlogged task', function() {
         beforeEach(function() {
@@ -320,6 +295,10 @@ describe('Task Panel View', function() {
 
       it('returns true with argument \'PartialView\' #partialView #view #travis', function() {
         expect(taskPanel.isA('PartialView')).toBe(true);
+      });
+
+      it('returns true with argument \'DashWidgetView\' #partialView #view #travis', function() {
+        expect(taskPanel.isA('DashWidgetView')).toBe(true);
       });
 
       it('returns false with other arguments #partialView #view #travis', function() {
