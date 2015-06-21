@@ -1,27 +1,3 @@
-/****************************************************************************
- *                                                                         *
- * KANBAN COLUMN VIEW                                                      *
- *                                                                         *
- * The Kanban column view displays information about the user's tasks,     *
- * sorted by status. Each column has tasks of one status: In Progress,     *  
- * New, Blocking, or Backlogged. In the future, users may be able to       *
- * access their completed tasks as well.                                   *
- *                                                                         *
- * CONTENTS                                                          LINE  *
- * Core Requires .................................................... 28   *
- * Module-Specific Requires ......................................... 40   * 
- * Suite ............................................................ 47   *
- *   Filters ........................................................ 50   *
- *   Authorization and Authentication ............................... 73   *
- *     token()                                                             *
- *   Core Functions ................................................. 69   *
- *     fetch()                                                             *
- *   Special Functions .............................................. 91   *
- *     updateAll() .................................................. 92   *
- *     isA() ....................................................... 140   *
- *                                                                         *
-/***************************************************************************/
-
 /* Core Requires
 /****************************************************************************/
 
@@ -33,8 +9,7 @@ var matchers       = _.extend(require('jasmine-jquery-matchers')),
     context        = describe,
     fcontext       = fdescribe;
 
-/****************************************************************************
- * BEGIN SUITE                                                              *
+/* Kanban Column View Spec
 /****************************************************************************/
 
 describe('Kanban Column View', function() {
