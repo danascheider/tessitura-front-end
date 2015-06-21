@@ -1,6 +1,4 @@
-require('../dependencies.js');
-
-var UserModel = Tessitura.Model.extend({
+Tessitura.UserModel = Tessitura.Model.extend({
   urlRoot: Tessitura.API.users.collection,
   klass  : 'UserModel',
   types  : function() {
@@ -46,4 +44,4 @@ var UserModel = Tessitura.Model.extend({
   }
 });
 
-module.exports = UserModel;
+module.exports = Tessitura.UserModel;

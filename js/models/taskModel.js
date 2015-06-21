@@ -1,7 +1,4 @@
-Tessitura                        = Tessitura || require('../dependencies.js');
-Tessitura.ProtectedResourceModel = Tessitura.ProtectedResourceModel || require('./protectedResourceModel.js');
-
-var TaskModel = Tessitura.ProtectedResourceModel.extend({
+Tessitura.TaskModel = Tessitura.ProtectedResourceModel.extend({
   urlRoot : function() {
     return Tessitura.API.tasks.collection($.cookie('userID'));
   },
@@ -100,4 +97,4 @@ var TaskModel = Tessitura.ProtectedResourceModel.extend({
   }
 });
 
-module.exports = TaskModel;
+module.exports = Tessitura.TaskModel;
