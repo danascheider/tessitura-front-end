@@ -1,23 +1,9 @@
-var DashboardTopWidgetView = Tessitura.View.extend({
+Tessitura.DashboardTopWidgetView = Tessitura.View.extend({
   id                  : 'dashboard-top-widgets',
   template            : JST['partials/topWidgets'],
 
-  events              : {
-    'click .dash-widget'      : 'followLink'
-  },
-
-  // --------------- //
-  // Event Callbacks //
-  // --------------- //
-
-  followLink          : function(e) {
-    var widget = $(e.target).hasClass('dash-widget') ? $(e.target) : $(e.target).closest('.dash-widget');
-    this.trigger('redirect', {destination: widget.attr('data-target')});
-  },
-
-  // ----------------- //
-  // Special Functions //
-  // ----------------- //
+  /* Special Functions
+  /**************************************************************************************/
 
   klass               : 'DashboardTopWidgetView',
   family              : 'Tessitura.View',
@@ -27,9 +13,8 @@ var DashboardTopWidgetView = Tessitura.View.extend({
     return Tessitura.View.prototype.types().concat(['DashboardTopWidgetView', 'PartialView']);
   },
 
-  // ------------------- //
-  // Core View Functions //
-  // ------------------- //
+  /* Core View Functions
+  /**************************************************************************************/
 
   initialize          : function(data) {
     this.data = data || {};
@@ -47,4 +32,4 @@ var DashboardTopWidgetView = Tessitura.View.extend({
   }
 });
 
-module.exports = DashboardTopWidgetView;
+module.exports = Tessitura.DashboardTopWidgetView;
