@@ -1,41 +1,4 @@
-/***************************************************************************
- *                                                                         *
- * TOP-LEVEL DASHBOARD VIEW                                                *
- *                                                                         *
- * The dashboard is the user's main view from which they manage            *
- * everything. The dashboard displays summary information about their      *
- * affairs and links to all their other pages.                             *
- *                                                                         *
- * CONTENTS                                                          LINE  *
- * Core Requires .................................................... 33   *
- * Module-Specific Requires ......................................... 39   *
- * Module ........................................................... 47   *
- *   Backbone View Properties ....................................... 52   *
- *   Tessitura View Properties .......... ........................... 59   *
- *     klass                                                               *
- *     family                                                              *
- *     superFamily                                                         *
- *     types                                                               *
- *   View Events .................................................... --   *
- *   Event Callbacks ................................................ --   *
- *     hideDropdownMenus() .......................................... --   *
- *     toggleDropdownMenu() ......................................... 97   *
- *   Special Functions .............................................. 69   *
- *     setUser() .................................................... 69   *
- *     showHomeView() ............................................... 74   *
- *     showTaskView() ............................................... 85   *
- *   Core Functions ................................................. 97   *
- *     initialize() ................................................. 97   *
- *     remove() .................................................... 105   *
- *     render() .................................................... 111   *
- *                                                                         *
-/***************************************************************************/
-
-/****************************************************************************
- * BEGIN MODULE                                                             *
-/****************************************************************************/
-
-var DashboardView = Tessitura.View.extend({
+Tessitura.DashboardView = Tessitura.View.extend({
 
   /* Backbone View Properties
   /**************************************************************************/
@@ -59,12 +22,9 @@ var DashboardView = Tessitura.View.extend({
 
   events             : {
     'click'                  : 'hideDropdownMenus',
+    'click .internal-link'   : 'followLink',
     'dblclick'               : 'hideSidebar',
-    'click li.dropdown'      : 'toggleDropdownMenu',
     'click .navbar-header'   : 'toggleSidebar',
-    'click a.dashboard-link' : 'redirectToDashboard',
-    'click a.task-page-link' : 'redirectToTaskPage',
-    'click a.link'           : 'redirectToHref'
   },
 
   /* Event Callbacks
@@ -73,9 +33,17 @@ var DashboardView = Tessitura.View.extend({
   emitRedirect       : function(args) {
     if(args.destination === 'dashboard') { 
       this.redirectToDashboard(); 
-    } else {
+    } else if (args.destination === 'tasks') {
       this.redirectToTaskPage();
+    } else {
+      this.redirectToProfile();
     }
+  },
+
+  followLink         : function(e) {
+    var link = $(e.target).closest('.internal-link');
+    var target = link.attr('data-target');
+    this.emitRedirect({destination: target});
   },
 
   hideDropdownMenus  : function(e) {
@@ -96,22 +64,14 @@ var DashboardView = Tessitura.View.extend({
     this.$('.sidebar-collapse').slideUp();
   },
 
-  redirectToHref     : function(e) {
-    var a = $(e.target).closest('a'),
-        destination = a.attr('href').replace('/#', '');
-
-    this.trigger('redirect', {destination: destination});
+  redirectToProfile  : function() {
+    this.trigger('redirect', {destination: 'profile'});
+    this.$('.sidebar-collapse').slideUp();
   },
 
   redirectToTaskPage : function() {
     this.trigger('redirect', {destination: 'tasks'});
     this.$('.sidebar-collapse').slideUp();
-  },
-
-  toggleDropdownMenu : function(e) {
-    var li = $(e.target).has('li');
-    li.toggleClass('open');
-    $(e.target).blur();
   },
 
   toggleSidebar      : function() {
@@ -127,19 +87,17 @@ var DashboardView = Tessitura.View.extend({
     this.homeView.setUser(user);
     this.profileView.setUser(user);
     this.taskView.setUser(user);
-
-    this.listenTo(this.user, 'change:first_name change:last_name', this.render);
+    this.topNavView.setUser(user);
   },
 
   showHomeView       : function() {
     if(!this.$el.is(':visible')) { this.render(); }
 
-    var that = this;
     _.each(this.childViews, function(view) {
-      if(view.$el.is(':visible') && view !== that.homeView && view !== that.sidebarView) {
+      if(view.$el.is(':visible') && view !== this.sidebarView && view !== this.homeView) {
         view.remove();
       }
-    })
+    });
 
     this.homeView.render();
     this.$('nav').after(this.homeView.$el);
@@ -148,9 +106,8 @@ var DashboardView = Tessitura.View.extend({
   showProfileView    : function() {
     if(!this.$el.is(':visible')) { this.render(); }
 
-    var that = this;
     _.each(this.childViews, function(view) {
-      if(view.$el.is(':visible') && view !== that.profileView && view !== that.sidebarView) {
+      if(view.$el.is(':visible') && view !== this.sidebarView && view !== this.profileView) {
         view.remove();
       }
     });
@@ -162,9 +119,8 @@ var DashboardView = Tessitura.View.extend({
   showTaskView       : function() {
     if(!this.$el.is(':visible')) { this.render(); }
 
-    var that = this;
     _.each(this.childViews, function(view) {
-      if(view.$el.is(':visible') && view !== that.taskView && view!== that.sidebarView) {
+      if(view.$el.is(':visible') && view !== this.sidebarView && view !== this.taskView) {
         view.remove();
       }
     });
@@ -181,29 +137,35 @@ var DashboardView = Tessitura.View.extend({
 
     this.sidebarView = new Tessitura.DashboardSidebarView();
     this.homeView    = new Tessitura.DashboardHomeView();
-    this.profileView = new Tessitura.UserProfileView();
+    this.profileView = new Tessitura.DashboardProfileView();
     this.taskView    = new Tessitura.DashboardTaskView();
+    this.topNavView  = new Tessitura.DashboardTopNavView();
 
-    this.childViews  = [this.sidebarView, this.homeView, this.profileView, this.taskView];
+    this.childViews  = [this.sidebarView, this.topNavView, this.homeView, this.profileView, this.taskView];
     if(opts.user) { this.setUser(opts.user); }
 
     this.listenTo(this.homeView, 'all', this.emitRedirect);
+    this.listenTo(this.topNavView, 'redirect', this.emitRedirect);
   },
 
   remove             : function() {
-    this.sidebarView.remove();
+    _.each(this.childViews, function(view) {
+      view.remove();
+    });
+
     Tessitura.View.prototype.remove.call(this);
-    this.homeView.remove();
-    this.taskView.remove();
   },
 
   render             : function() {
     var that = this;
-    return Tessitura.View.prototype.render.call(this, this.template(that.user.attributes), function() {
+
+    return Tessitura.View.prototype.render.call(this, this.template(), function() {
       that.sidebarView.render();
+      that.topNavView.render();
       that.$('div.sidebar-collapse').html(that.sidebarView.$el);
+      that.$('.navbar-header').after(that.topNavView.$el);
     });
   }
 });
 
-module.exports = DashboardView;
+module.exports = Tessitura.DashboardView;
