@@ -1,4 +1,4 @@
-var TaskCollectionView = Tessitura.View.extend({
+Tessitura.TaskCollectionView = Tessitura.View.extend({
   tagName              : 'ul',
   className            : 'task-list',
   template             : JST['collections/task'],
@@ -143,4 +143,4 @@ var TaskCollectionView = Tessitura.View.extend({
   }
 });
 
-module.exports = TaskCollectionView;
+module.exports = Tessitura.TaskCollectionView;
