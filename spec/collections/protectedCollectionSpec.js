@@ -1,26 +1,3 @@
-/****************************************************************************
- *                                                                         *
- * PROTECTED COLLECTION                                                    *
- *                                                                         *
- * The ProtectedCollection is a higher-level collection extended into      *
- * Tessitura's other collections. Its main function is to affix the proper *  
- * authorization header to all Ajax requests.                              *
- *                                                                         *
- *                                                                         *
- * CONTENTS                                                          LINE  *
- * Requires ......................................................... 27   *
- * Suite ............................................................ 44   *
- *   Filters ........................................................ 50   *
- *   Authorization and Authentication ............................... 60   *
- *     token()                                                             *
- *   Core Functions ................................................. 69   *
- *     fetch()                                                             *
- *   Special Functions .............................................. 91   *
- *     updateAll() .................................................. 92   *
- *     isA() ....................................................... 140   *
- *                                                                         *
-/****************************************************************************/
-
 /* Core Requires
 /****************************************************************************/
 
@@ -33,8 +10,7 @@ var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
     context        = describe,
     fcontext       = fdescribe;
 
-/******************************************************************************
- * BEGIN SUITE                                                                *
+/* Suite
 /******************************************************************************/
 
 describe('Protected Collection', function() {
@@ -50,10 +26,6 @@ describe('Protected Collection', function() {
     spyOn($, 'cookie').and.returnValue(btoa('testuser:testuser'));
   });
 
-  // afterEach(function() {
-  //   collection.destroy();
-  // });
-
   /* Static Properties
   /***************************************************************************/
 
@@ -63,7 +35,7 @@ describe('Protected Collection', function() {
     });
 
     it('has family Backbone.Collection #collection #travis', function() {
-      expect(collection.family).toBe('Backbone.Collection');
+      expect(collection.family).toBe('ProtectedCollection');
     });
 
     it('has superFamily Backbone.Collection #collection #travis', function() {
