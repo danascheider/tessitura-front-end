@@ -1,28 +1,3 @@
-/***************************************************************************
- *                                                                         *
- * REGISTRATION FORM VIEW                                                  *
- *                                                                         *
- * The registration form is displayed on the homepage when the user        *
- * clicks the "sign up" link or scrolls to its location. It provides       *  
- * fields for them to sign up and validates they have entered the          *
- * required information and indicated they accept the terms of use.        *
- *                                                                         *
- * CONTENTS                                                          LINE  *
- * Requires ......................................................... 29   *
- * Suite ............................................................ 47   *
- *   Filters ........................................................ 50   *
- *   Static Properties .............................................. 67   *
- *     klass                                                               *
- *     family                                                              *
- *     superFamily                                                         *
- *   View Elements .................................................. 84   *
- *   Events ........................................................ 126   *
- *   Event Callbacks ............................................... 139   *
- *   Special Callbacks ............................................. 275   *
- *   Core View Functions ........................................... 468   *
- *                                                                         *
-/***************************************************************************/
-
 /* Core Requires
 /****************************************************************************/
 
@@ -34,8 +9,7 @@ var matchers       = _.extend(require('jasmine-jquery-matchers')),
     context        = describe,
     fcontext       = fdescribe;
 
-/****************************************************************************
- * BEGIN SUITE                                                              *
+/* Registration Form View Spec
 /****************************************************************************/
 
 describe('Registration Form View', function() {
