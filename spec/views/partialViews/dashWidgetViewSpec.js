@@ -1,29 +1,7 @@
-/****************************************************************************
- *                                                                         *
- * DASH WIDGET VIEW                                                        *
- *                                                                         *
- * The dash widget view is a parent view from which several other views    *
- * inherit characteristics. It has some key behaviors, such as displaying  *  
- * and hiding itself when the user clicks on the toggle icon.              *
- *                                                                         *
- * CONTENTS                                                          LINE  *
- * Requires ......................................................... 26   *
- * Suite ............................................................ 44   *
- *   Filters ........................................................ 50   *
- *   Authorization and Authentication ............................... 60   *
- *     token()                                                             *
- *   Core Functions ................................................. 69   *
- *     fetch()                                                             *
- *   Special Functions .............................................. 91   *
- *     updateAll() .................................................. 92   *
- *     isA() ....................................................... 140   *
- *                                                                         *
-/****************************************************************************/
-
 /* Core Requires
 /****************************************************************************/
 
-require(process.cwd() + '/js/dependencies.js');
+require(process.cwd() + '/js/tessitura.js');
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/spec/support/env.js');
 
@@ -32,10 +10,9 @@ var matchers       = _.extend(require('jasmine-jquery-matchers'), require(proces
     context        = describe,
     fcontext       = fdescribe;
 
-var DashWidgetView = require(process.cwd() + '/js/views/partialViews/dashWidgetView.js');
+var DashWidgetView = require(process.cwd() + '/js/views/appViews/dashWidgetView.js');
 
-/****************************************************************************
- * BEGIN SUITE                                                              *
+/* Dash Widget View Spec
 /****************************************************************************/
 
 describe('DashWidgetView', function() {
