@@ -1,10 +1,13 @@
 require(process.cwd() + '/spec/support/jsdom.js');
-require(process.cwd() + '/js/dependencies.js');
+require(process.cwd() + '/js/tessitura.js');
 require(process.cwd() + '/spec/support/env.js');
 
 var matchers       = require('jasmine-jquery-matchers'),
     context        = describe,
     fcontext       = fdescribe;
+
+/* Dashboard Sidebar View Spec
+/****************************************************************************************/
 
 describe('Dashboard Sidebar View', function() {
   var sidebar, newSidebar, e, link;
@@ -77,7 +80,7 @@ describe('Dashboard Sidebar View', function() {
     newSidebar;
 
     beforeEach(function() { 
-      _.each(['toggleSecondLevelNav', 'goToTaskPage', 'goToDashboard'], function(method) { spyOn(Tessitura.DashboardSidebarView.prototype, method); });
+      spyOn(Tessitura.DashboardSidebarView.prototype, 'toggleSecondLevelNav');
       newSidebar = new Tessitura.DashboardSidebarView();
       newSidebar.render();
     });
@@ -88,45 +91,11 @@ describe('Dashboard Sidebar View', function() {
         expect(Tessitura.DashboardSidebarView.prototype.toggleSecondLevelNav).toHaveBeenCalled();
       });
     });
-
-    describe('click li > .dashboard-link', function() {
-      it('calls goToDashboard #partialView #view #travis', function() {
-        newSidebar.$('li > .dashboard-link').first().click();
-        expect(Tessitura.DashboardSidebarView.prototype.goToDashboard).toHaveBeenCalled();
-      });
-    });
-
-    describe('click li > .task-page-link', function() {
-      it('calls goToTaskPage #partialView #view #travis', function() {
-        newSidebar.$('li > .task-page-link').first().click();
-        expect(Tessitura.DashboardSidebarView.prototype.goToTaskPage).toHaveBeenCalled();
-      });
-    })
   });
 
   describe('event callbacks', function() {
     beforeEach(function() { sidebar.render(); });
-
-    describe('goToDashboard', function() {
-      it('triggers the redirect:dashboard event on the view #partialView #view #travis', function() {
-        var spy = jasmine.createSpy();
-        sidebar.on('redirect', spy);
-        sidebar.goToDashboard();
-        expect(spy).toHaveBeenCalledWith({destination: 'dashboard'});
-        sidebar.off('redirect');
-      });
-    });
-
-    describe('goToTaskPage', function() {
-      it('triggers the redirect:tasks event on the view #partialView #view #travis', function() {
-        var spy = jasmine.createSpy();
-        sidebar.on('redirect', spy);
-        sidebar.goToTaskPage();
-        expect(spy).toHaveBeenCalledWith({destination: 'tasks'});
-        sidebar.off('redirect');
-      });
-    });
-
+    
     describe('toggleSecondLevelNav', function() {
       beforeEach(function() {
         link = sidebar.$('a[href=#]').first();
