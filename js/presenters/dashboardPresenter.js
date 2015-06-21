@@ -1,8 +1,4 @@
-/* ***************************************************************************************\
- * DASHBOARD PRESENTER                                                                   *
-\*****************************************************************************************/
-
-var DashboardPresenter = Tessitura.Model.extend({
+Tessitura.DashboardPresenter = Tessitura.Model.extend({
 
   /* Tessitura Model Properties
   /***************************************************************************************/
@@ -52,7 +48,7 @@ var DashboardPresenter = Tessitura.Model.extend({
 
     // Fetch the user using stored credentials
 
-    this.user.protectedFetch({
+    this.user.fetch({
       success: function() {
 
         // Once the user has been fetched successfully, send a request for their
@@ -98,4 +94,4 @@ var DashboardPresenter = Tessitura.Model.extend({
   }
 });
 
-module.exports = DashboardPresenter;
+module.exports = Tessitura.DashboardPresenter;

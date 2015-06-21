@@ -1,10 +1,4 @@
-Tessitura = Tessitura || require('../dependencies.js')
-
-/*****************************************************************************************
-/* APP PRESENTER                                                                         *
-/*****************************************************************************************/
-
-var AppPresenter = Tessitura.Model.extend({
+Tessitura.AppPresenter = Tessitura.Model.extend({
 
   /* Tessitura Model Properties
   /***************************************************************************************/
@@ -47,7 +41,8 @@ var AppPresenter = Tessitura.Model.extend({
     this.homepageView = new Tessitura.HomepageView();
 
     this.listenTo(this.homepageView, 'redirect', this.emitRedirect);
+    this.listenTo(this.homepageView, 'top', this.scrollToTop);
   }
 });
 
-module.exports = AppPresenter;
+module.exports = Tessitura.AppPresenter;
