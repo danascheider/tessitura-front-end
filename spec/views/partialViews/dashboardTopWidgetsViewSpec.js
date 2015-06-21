@@ -1,11 +1,14 @@
 require(process.cwd() + '/spec/support/jsdom.js');
-require(process.cwd() + '/js/dependencies.js');
+require(process.cwd() + '/js/tessitura.js');
 require(process.cwd() + '/spec/support/env.js');
 
 var matchers       = _.extend(require('jasmine-jquery-matchers'), require(process.cwd() + '/spec/support/matchers/toBeA.js')),
     XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
     context        = describe,
     fcontext       = fdescribe;
+
+/* Dashboard Top Widget View Spec
+/****************************************************************************************/
 
 describe('Dashboard Top Widget View', function() {
   var view, newView, collection, data, e, newView;
@@ -101,16 +104,8 @@ describe('Dashboard Top Widget View', function() {
 
   describe('events', function() {
     beforeEach(function() { 
-      spyOn(Tessitura.DashboardTopWidgetView.prototype, 'followLink');
       newView = new Tessitura.DashboardTopWidgetView(data);
       newView.render(); 
-    });
-
-    describe('click .dash-widget', function() {
-      it('calls followLink #partialView #view #travis', function() {
-        newView.$('.dash-widget').first().click();
-        expect(Tessitura.DashboardTopWidgetView.prototype.followLink).toHaveBeenCalled();
-      });
     });
 
     _.each(['add', 'remove'], function(event) {
@@ -123,22 +118,7 @@ describe('Dashboard Top Widget View', function() {
         });
       });
     });
-  });
-
-  describe('event callbacks', function() {
-    beforeEach(function() { view.render(); });
-
-    describe('followLink()', function() {
-      it('triggers a redirect event on the view #partialView #view #travis', function() {
-        e = $.Event('click', {target: view.$('.dash-widget[data-name=tasks]').first()});
-        var spy = jasmine.createSpy();
-        view.on('redirect', spy);
-        view.followLink(e);
-        expect(spy).toHaveBeenCalledWith({destination: 'tasks'});
-        view.off('redirect');
-      });
-    });
-  });
+  }); 
 
   describe('special functions', function() {
     describe('isA', function() {
