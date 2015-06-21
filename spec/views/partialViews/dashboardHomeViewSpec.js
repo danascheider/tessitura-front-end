@@ -1,39 +1,3 @@
-/***************************************************************************
- *                                                                         *
- * DASHBOARD HOME VIEW                                                     *
- *                                                                         *
- * The DashboardHomeView is the view the user sees when they first log     *
- * into their dashboard. It contains summary information about all their   *
- * activities and obligations.                                             *
- *                                                                         *
- * CONTENTS                                                          LINE  *
- * Requires ......................................................... 40   *
- * Suite ............................................................ 55   *
- *   Filters ........................................................ 61   *
- *   Static Properties .............................................. 83   *
- *     klass ........................................................ 84   *
- *     family ....................................................... 88   *
- *     superFamily .................................................. 92   *
- *   Constructor ................................................... 100   *
- *     does not call render                                                *
- *     calls setUser()                                                     *
- *     can be instantiated without a user                                  *
- *   Elements ...................................................... 122   *
- *     has a task panel ............................................ 128   *
- *     has a top widget section .................................... 132   *
- *     has ID #page-wrapper ........................................ 136   *
- *     has class .dashboard-home ................................... 140   *
- *   Core View Functions ........................................... 148   *
- *     render() .................................................... 149   *
- *     remove() .................................................... 163   *
- *   Special Functions ............................................. 183   *
- *     isA() ....................................................... 184   *
- *     renderTaskPanelView() ....................................... 198   *
- *     renderTopWidgetView() ....................................... 213   *
- *     setUser() ................................................... 228   *
- *                                                                         *
-/****************************************************************************/
-
 /* Core Requires
 /****************************************************************************/
 
@@ -46,8 +10,7 @@ var matchers       = require('jasmine-jquery-matchers'),
     context        = describe,
     fcontext       = fdescribe;
 
-/******************************************************************************
- * BEGIN SUITE                                                                *
+/* Dashboard Home View Spec
 /******************************************************************************/
 
 describe('Dashboard Home View', function() {
@@ -142,42 +105,6 @@ describe('Dashboard Home View', function() {
 
     it('has class .dashboard-home #partialView #view #travis', function() {
       expect(view.$el).toHaveClass('dashboard-home');
-    });
-  });
-
-  /* Events
-  /**************************************************************************/
-
-    describe('events', function() {
-      describe('redirect on top widgets', function() {
-        it('calls emitRedirect #partialView #view #travis', function() {
-          spyOn(Tessitura.DashboardHomeView.prototype, 'emitRedirect');
-          newView = new Tessitura.DashboardHomeView({user: fixtures.user});
-          newView.topWidgetView.trigger('redirect', {destination: 'tasks'});
-          expect(Tessitura.DashboardHomeView.prototype.emitRedirect).toHaveBeenCalled();
-        });
-      });
-    });
-
-  /* Event Callbacks
-  /**************************************************************************/
-
-  describe('event callbacks', function() {
-    describe('emitRedirect', function() {
-      beforeEach(function() {
-        spy = jasmine.createSpy();
-        view.on('redirect', spy);
-        e = $.Event('redirect', {destination: 'dashboard'});
-      });
-
-      afterEach(function() {
-        view.off('redirect');
-      });
-
-      it('triggers the redirect event', function() {
-        view.emitRedirect(e);
-        expect(spy).toHaveBeenCalled();
-      });
     });
   });
 
