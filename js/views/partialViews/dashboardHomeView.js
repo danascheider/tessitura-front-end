@@ -1,37 +1,4 @@
-/***************************************************************************
- *                                                                         *
- * DASHBOARD HOME VIEW                                                     *
- *                                                                         *
- * The DashboardHomeView is the view the user sees when they first log     *
- * into their dashboard. It contains summary information about all their   *
- * activities and obligations.                                             *
- *                                                                         *
- * CONTENTS                                                          LINE  *
- * Core Requires .................................................... 33   *
- * Module-Specific Requires ......................................... 39   *
- * Module ........................................................... 47   *
- *   Backbone View Properties ....................................... 52   *
- *   Tessitura View Properties .......... ........................... 59   *
- *     klass                                                               *
- *     family                                                              *
- *     superFamily                                                         *
- *     types                                                               *
- *   Special Functions .............................................. 69   *
- *     renderTaskPanelView() ........................................ 69   *
- *     renderTopWidgetView() ........................................ 74   *
- *     setUser() .................................................... 85   *
- *   Core Functions ................................................. 97   *
- *     initialize() ................................................. 97   *
- *     remove() .................................................... 105   *
- *     render() .................................................... 111   *
- *                                                                         *
-/***************************************************************************/
-
-/****************************************************************************
- * BEGIN MODULE                                                             *
-/****************************************************************************/
-
-var DashboardHomeView = Tessitura.View.extend({
+Tessitura.DashboardHomeView = Tessitura.View.extend({
 
   /* Backbone View Properties
   /**************************************************************************/
@@ -48,13 +15,6 @@ var DashboardHomeView = Tessitura.View.extend({
   superFamily      : 'Backbone.View',
   types            : function() {
     return Tessitura.View.prototype.types().concat(['DashboardHomeView', 'PartialView']);
-  },
-
-  /* Event Callbacks
-  /**************************************************************************/
-
-  emitRedirect        : function(args) {
-    this.trigger('redirect', {destination: args.destination});
   },
 
   /* Special Functions
@@ -92,8 +52,6 @@ var DashboardHomeView = Tessitura.View.extend({
     this.calendarView = new Tessitura.CalendarView({user: this.user});
 
     this.childViews = [this.calendarView, this.taskPanelView, this.topWidgetView];
-
-    this.listenTo(this.topWidgetView, 'redirect', this.emitRedirect);
   },
 
   /* Core View Functions
@@ -138,4 +96,4 @@ var DashboardHomeView = Tessitura.View.extend({
   }
 });
 
-module.exports = DashboardHomeView;
+module.exports = Tessitura.DashboardHomeView;
