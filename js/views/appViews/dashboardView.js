@@ -156,7 +156,7 @@ Tessitura.DashboardView = Tessitura.View.extend({
   render             : function() {
     var that = this;
 
-    return Tessitura.View.prototype.render.call(this, this.template(), function() {
+    return Tessitura.View.prototype.render.call(this, this.template(that.user.attributes), function() {
       that.sidebarView.render();
       that.$('div.sidebar-collapse').html(that.sidebarView.$el);
     });

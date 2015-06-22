@@ -1,4 +1,4 @@
-var UserModelView = Tessitura.View.extend({
+Tessitura.UserModelView = Tessitura.View.extend({
 
   /* Static Properties
   /**************************************************************************************/
@@ -49,11 +49,9 @@ var UserModelView = Tessitura.View.extend({
   },
 
   submitUpdate : function(e) {
-    e.preventDefault();
-
     var data = {};
     data[$(e.target).attr('name')] = $(e.target)[0].value;
-
+    
     this.model.save(data, {
       beforeSend: function(xhr) {
         xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
@@ -89,12 +87,23 @@ var UserModelView = Tessitura.View.extend({
 
       var nextField = $(e.target).closest('.profile-field').attr('id') === 'first_name' ? this.$('#last_name') : $(e.target).closest('tr').next().find('td > span.profile-field');
 
-      if(currentValue === this.model.get(attr) || currentValue === '') {
-        this.hideInputs();
+      if(this.model.get(attr) !== currentValue && currentValue !== '') {
+        this.submitUpdate(e);
       }
 
       this.displayInput(nextField);
     }
+  },
+
+  updateDisplay: function() {
+    var that = this;
+
+    this.$('.profile-field').each(function(num, el) {
+      var property = $(el).attr('id'), newValue = that.model.get(property);
+
+      $(el).find('.p').html(newValue || 'N/A');
+      $(el).find('input').attr('value', newValue);
+    });
   },
 
   /* Special Functions
@@ -122,7 +131,7 @@ var UserModelView = Tessitura.View.extend({
   /**************************************************************************************/
 
   initialize   : function() {
-    this.listenTo(this.model, 'sync', this.render);
+    this.listenTo(this.model, 'sync', this.updateDisplay);
   },
 
   render       : function() {
@@ -132,4 +141,4 @@ var UserModelView = Tessitura.View.extend({
   }
 });
 
-module.exports = UserModelView;
+module.exports = Tessitura.UserModelView;

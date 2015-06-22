@@ -10,8 +10,6 @@ var matchers       = _.extend(require('jasmine-jquery-matchers'), require(proces
     context        = describe,
     fcontext       = fdescribe;
 
-var DashboardTopNavView = require(process.cwd() + '/js/views/partialViews/dashboardTopNavView.js');
-
 /* Dashboard Top Nav View Spec
 /****************************************************************************/
 
@@ -27,7 +25,7 @@ describe('Tessitura.DashboardTopNavView', function() {
   })
 
   beforeEach(function() {
-    view = new DashboardTopNavView();
+    view = new Tessitura.DashboardTopNavView();
   });
 
   afterEach(function() {
@@ -63,13 +61,13 @@ describe('Tessitura.DashboardTopNavView', function() {
     afterEach(function() { newView.destroy(); });
 
     it('does not call render #partialView #view #travis', function() {
-      spyOn(DashboardTopNavView.prototype, 'render');
-      newView = new DashboardTopNavView();
-      expect(DashboardTopNavView.prototype.render).not.toHaveBeenCalled();
+      spyOn(Tessitura.DashboardTopNavView.prototype, 'render');
+      newView = new Tessitura.DashboardTopNavView();
+      expect(Tessitura.DashboardTopNavView.prototype.render).not.toHaveBeenCalled();
     });
 
     it('can be instantiated without a user #partialView #view #travis', function() {
-      newView = new DashboardTopNavView();
+      newView = new Tessitura.DashboardTopNavView();
       expect(newView.model).not.toExist();
     });
   });
@@ -86,9 +84,9 @@ describe('Tessitura.DashboardTopNavView', function() {
 
   describe('view events', function() {
     beforeEach(function() {
-      spyOn(DashboardTopNavView.prototype, 'toggleDropdownMenu');
-      spyOn(DashboardTopNavView.prototype, 'render');
-      newView = new DashboardTopNavView({model: user});
+      spyOn(Tessitura.DashboardTopNavView.prototype, 'toggleDropdownMenu');
+      spyOn(Tessitura.DashboardTopNavView.prototype, 'render');
+      newView = new Tessitura.DashboardTopNavView({model: user});
     });
 
     afterEach(function() { newView.destroy(); });
@@ -97,7 +95,7 @@ describe('Tessitura.DashboardTopNavView', function() {
       it('calls toggleDropdownMenu #partialView #view #travis', function() {
         newView.render();
         newView.$('li.dropdown').click();
-        expect(DashboardTopNavView.prototype.toggleDropdownMenu).toHaveBeenCalled();
+        expect(Tessitura.DashboardTopNavView.prototype.toggleDropdownMenu).toHaveBeenCalled();
       });
     });
 
@@ -108,7 +106,7 @@ describe('Tessitura.DashboardTopNavView', function() {
 
       it('calls render #partialView #view #travis', function() {
         user.save({first_name: 'Jim-Bob'});
-        expect(DashboardTopNavView.prototype.render).toHaveBeenCalled();
+        expect(Tessitura.DashboardTopNavView.prototype.render).toHaveBeenCalled();
       });
     });
 
@@ -119,7 +117,7 @@ describe('Tessitura.DashboardTopNavView', function() {
 
       it('calls render #partialView #view #travis', function() {
         user.save({last_name: 'Duggar'});
-        expect(DashboardTopNavView.prototype.render).toHaveBeenCalled();
+        expect(Tessitura.DashboardTopNavView.prototype.render).toHaveBeenCalled();
       })
     });
   });
@@ -189,7 +187,6 @@ describe('Tessitura.DashboardTopNavView', function() {
       });
 
       it('doesn\'t attach itself to the DOM #partialView #view #travis', function() {
-        view.render();
         expect(view.$el).not.toBeInDom();
       });
     });

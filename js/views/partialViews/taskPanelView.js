@@ -1,11 +1,6 @@
-var TaskPanelView = Tessitura.View.extend({
+Tessitura.TaskPanelView = Tessitura.DashWidgetView.extend({
   id                   : 'task-panel',
-  className            : 'panel panel-primary dash-widget',
   template             : JST['partials/taskPanel'],
-
-  events               : {
-    'click span.toggle-widget i' : 'toggleWidget',
-  },
 
   /* Tessitura View Properties
   /**************************************************************************************/
@@ -15,7 +10,7 @@ var TaskPanelView = Tessitura.View.extend({
   superFamily          : 'Backbone.View',
 
   types                : function() {
-    return Tessitura.View.prototype.types().concat(['TaskPanelView', 'TaskPanel', 'TaskView', 'PartialView']);
+    return Tessitura.DashWidgetView.prototype.types().concat(['TaskPanelView', 'TaskPanel', 'TaskView', 'PartialView']);
   },
 
   /* Event Callbacks
@@ -48,11 +43,6 @@ var TaskPanelView = Tessitura.View.extend({
     this.trigger('showTaskCreateForm', {collection: this.collection});
   },
 
-  toggleWidget         : function(e) {
-    this.$('.panel-body').slideToggle();
-    $(e.target).toggleClass('fa-minus fa-plus');
-  },
-
   /* Core View Functions 
   /**************************************************************************************/
 
@@ -82,4 +72,4 @@ var TaskPanelView = Tessitura.View.extend({
   }
 });
 
-module.exports = TaskPanelView;
+module.exports = Tessitura.TaskPanelView;

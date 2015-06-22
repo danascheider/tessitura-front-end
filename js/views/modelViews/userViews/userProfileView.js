@@ -1,10 +1,11 @@
-var UserProfileView = Tessitura.View.extend({
-  className   : 'user-profile',
-  id          : 'page-wrapper',
+Tessitura.UserProfileView = Tessitura.DashWidgetView.extend({
+  id          : 'profile-info',
   template    : JST['users/profile'],
 
-  events      : {
-    'click' : 'hideInputs'
+  events      : function() {
+    var events = Tessitura.DashWidgetView.prototype.events
+    events['click'] = 'hideInputs'
+    return events;
   },
 
   /* Tessitura View Properties
@@ -14,14 +15,14 @@ var UserProfileView = Tessitura.View.extend({
   family      : 'Tessitura.View',
   superFamily : 'Backbone.View',
   types       : function() {
-    return Tessitura.View.prototype.types().concat(this.klass, 'UserView', 'DashboardProfileView');
+    return Tessitura.View.prototype.types().concat(this.klass, 'UserView', 'ProfileView');
   },
 
   /* Event Callbacks
   /**************************************************************************************/
 
-  hideInputs: function(e) {
-    if(!$(e.target).is('input')) { this.modelView.hideInputs(); }
+  hideInputs: function() {
+    this.modelView.hideInputs();
   },
 
   /* Special Functions
@@ -52,4 +53,4 @@ var UserProfileView = Tessitura.View.extend({
   }
 });
 
-module.exports = UserProfileView;
+module.exports = Tessitura.UserProfileView;
