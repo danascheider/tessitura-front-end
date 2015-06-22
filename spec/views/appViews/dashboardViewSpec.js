@@ -371,6 +371,7 @@ describe('Main Dashboard View', function() {
 
         it('attaches the profile view to itself #appView #view #travis', function() {
           dashboard.showProfileView();
+          $('body').html(dashboard.$el);
           expect(dashboard.$('#profile-info')).toExist();
         });
       });
