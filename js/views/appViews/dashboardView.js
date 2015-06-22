@@ -87,7 +87,6 @@ Tessitura.DashboardView = Tessitura.View.extend({
     this.homeView.setUser(user);
     this.profileView.setUser(user);
     this.taskView.setUser(user);
-    this.topNavView.setUser(user);
   },
 
   showHomeView       : function() {
@@ -139,13 +138,11 @@ Tessitura.DashboardView = Tessitura.View.extend({
     this.homeView    = new Tessitura.DashboardHomeView();
     this.profileView = new Tessitura.DashboardProfileView();
     this.taskView    = new Tessitura.DashboardTaskView();
-    this.topNavView  = new Tessitura.DashboardTopNavView();
 
-    this.childViews  = [this.sidebarView, this.topNavView, this.homeView, this.profileView, this.taskView];
+    this.childViews  = [this.sidebarView, this.homeView, this.profileView, this.taskView];
     if(opts.user) { this.setUser(opts.user); }
 
     this.listenTo(this.homeView, 'all', this.emitRedirect);
-    this.listenTo(this.topNavView, 'redirect', this.emitRedirect);
   },
 
   remove             : function() {
@@ -161,9 +158,7 @@ Tessitura.DashboardView = Tessitura.View.extend({
 
     return Tessitura.View.prototype.render.call(this, this.template(), function() {
       that.sidebarView.render();
-      that.topNavView.render();
       that.$('div.sidebar-collapse').html(that.sidebarView.$el);
-      that.$('.navbar-header').after(that.topNavView.$el);
     });
   }
 });
