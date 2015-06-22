@@ -10,8 +10,6 @@ var matchers       = _.extend(require('jasmine-jquery-matchers'), require(proces
     context        = describe,
     fcontext       = fdescribe;
 
-var DashWidgetView = require(process.cwd() + '/js/views/appViews/dashWidgetView.js');
-
 /* Dash Widget View Spec
 /****************************************************************************/
 
@@ -27,7 +25,7 @@ describe('DashWidgetView', function() {
   })
 
   beforeEach(function() {
-    view = new DashWidgetView();
+    view = new Tessitura.DashWidgetView();
   });
 
   afterEach(function() {
@@ -43,15 +41,15 @@ describe('DashWidgetView', function() {
   /**************************************************************************/
 
   describe('properties', function() {
-    it('has klass DashWidgetView #partialView #view #travis', function() {
+    it('has klass DashWidgetView #appView #view #travis', function() {
       expect(view.klass).toEqual('DashWidgetView');
     });
 
-    it('has family Tessitura.View #partialView #view #travis', function() {
+    it('has family Tessitura.View #appView #view #travis', function() {
       expect(view.family).toEqual('Tessitura.View');
     });
 
-    it('has superFamily Backbone.View #partialView #view #travis', function() {
+    it('has superFamily Backbone.View #appView #view #travis', function() {
       expect(view.superFamily).toEqual('Backbone.View');
     });
   });
@@ -61,12 +59,12 @@ describe('DashWidgetView', function() {
 
   describe('view events', function() {
     describe('click on the toggle widget icon', function() {
-      it('calls toggleWidget #partialView #view #travis', function() {
-        spyOn(DashWidgetView.prototype, 'toggleWidget');
-        var newView = new DashWidgetView();
+      it('calls toggleWidget #appView #view #travis', function() {
+        spyOn(Tessitura.DashWidgetView.prototype, 'toggleWidget');
+        var newView = new Tessitura.DashWidgetView();
         newView.render();
         newView.$('span.toggle-widget > i').click();
-        expect(DashWidgetView.prototype.toggleWidget).toHaveBeenCalled();
+        expect(Tessitura.DashWidgetView.prototype.toggleWidget).toHaveBeenCalled();
       });
     });
   });
@@ -75,7 +73,7 @@ describe('DashWidgetView', function() {
   /**************************************************************************/
 
   describe('event callbacks', function() {
-    describe('toggleWidget #partialView #view #travis', function() {
+    describe('toggleWidget #appView #view #travis', function() {
       it('calls slideToggle', function() {
         var e = $.Event('click', {target: view.$('.toggle-widget')});
         spyOn($.prototype, 'slideToggle');
@@ -90,15 +88,15 @@ describe('DashWidgetView', function() {
 
   describe('special functions', function() {
     describe('isA()', function() {
-      it('returns true with argument DashWidgetView #partialView #view #travis', function() {
+      it('returns true with argument DashWidgetView #appView #view #travis', function() {
         expect(view.isA('DashWidgetView')).toBe(true);
       });
 
-      it('returns true with argument PartialView #partialView #view #travis', function() {
+      it('returns true with argument PartialView #appView #view #travis', function() {
         expect(view.isA('PartialView')).toBe(true);
       });
 
-      it('returns false with another argument #partialView #view #travis', function() {
+      it('returns false with another argument #appView #view #travis', function() {
         expect(view.isA('Corvette')).toBe(false);
       });
     });
