@@ -25,6 +25,7 @@ Tessitura.DashboardView = Tessitura.View.extend({
     'click .internal-link'   : 'followLink',
     'dblclick'               : 'hideSidebar',
     'click .navbar-header'   : 'toggleSidebar',
+    'click li.dropdown'      : 'toggleDropdownMenu',
   },
 
   /* Event Callbacks
@@ -72,6 +73,12 @@ Tessitura.DashboardView = Tessitura.View.extend({
   redirectToTaskPage : function() {
     this.trigger('redirect', {destination: 'tasks'});
     this.$('.sidebar-collapse').slideUp();
+  },
+
+  toggleDropdownMenu : function(e) {
+    var li = $(e.target).has('li');
+    li.toggleClass('open');
+    $(e.target).blur();
   },
 
   toggleSidebar      : function() {
