@@ -1,113 +1,3 @@
-/***************************************************************************
- *                                                                         *
- * TOP-LEVEL DASHBOARD VIEW                                                *
- *                                                                         *
- * The dashboard is the user's main view from which they manage            *
- * everything. The dashboard displays summary information about their      *
- * affairs and links to all their other pages.                             *
- *                                                                         *
- * CONTENTS                                                          LINE  *
- * Requires ......................................................... 97   *
- * Suite ........................................................... 116   *
- *   Filters ....................................................... 122   *
- *   Constructor ................................................... 144   *
- *     calls setUser() ............................................. 145   *
- *     instantiates a sidebar ...................................... 152   *
- *     instantiates a home view .................................... 156   *
- *     instantiates a task view .................................... 160   *
- *     doesn't call render ......................................... 164   *
- *     can be instantiated without a user .......................... 170   *
- *   Static Properties ............................................. 179   *
- *     klass ....................................................... 180   *
- *     family ...................................................... 184   *
- *     superFamily ................................................. 188   *
- *     types ....................................................... 192   *
- *   View Elements.................................................. 204   *
- *     has ID #dashboard-wrapper ................................... 210   *
- *     sidebar ..................................................... 214   *
- *   View Events ................................................... 224   *
- *     click $el ................................................... 234   *
- *     click li.dropdown ........................................... 241   *
- *   Event Callbacks ............................................... 252   *
- *     hideDropdownMenus() ......................................... 256   *
- *       when no menus are open .................................... 257   *
- *       when a menu is open ....................................... 266   *
- *       when the clicked-on object is inside the menu ............. 275   *
- *     toggleDropdownMenu() ........................................ 285   *
- *       when none of the menus is open ............................ 286   *
- *         adds the .open class to the target menu ................. 291   *
- *         doesn't add the .open class to the other menus .......... 296   *
- *       when another menu is open ................................. 301   *
- *         removes the .open class from the open menu .............. 308   *
- *         adds the .open class to the target menu ................. 312   *
- *       when the target menu is open .............................. 317   *
- *         removes the .open class from the target menu ............ 324   *
- *         doesn't open any other menus ............................ 328   *
- *     showHomeView() .............................................. 374   *
- *       when the main dash and home view are visible .............. ---   *
- *         doesn't re-render the main dash ......................... ---   *
- *         renders the home view ................................... ---   *
- *         attaches the home view to the DOM ....................... ---   *
- *       when the main dash and task view are visible .............. ---   *
- *         doesn't re-render the main dash ......................... ---   *
- *         removes the task view ................................... ---   *
- *         renders the home view ................................... ---   *
- *         attaches the home view to the DOM ....................... ---   *
- *       when the main dash isn't visible .......................... ---   *
- *         renders the main dash view .............................. ---   *
- *         renders the home view ................................... ---   *
- *         attaches the home view to the DOM ....................... ---   *
- *     showProfileView() ........................................... ---   *
- *       when the main dash and profile view are visible ........... ---   *
- *         doesn't re-render the main dash ......................... ---   *
- *         renders the profile view ................................ ---   *
- *         attaches the profile view to the DOM .................... ---   *
- *       when the main dash is visible and the profile view isn't .. ---   *
- *         doesn't re-render the main dash ......................... ---   *
- *         removes the home view ................................... ---   *
- *         renders the profile view ................................ ---   *
- *         attaches the profile view to the DOM .................... ---   *
- *       when the main dash isn't visible .......................... ---   *
- *         renders the main dash view .............................. ---   *
- *         renders the profile view ................................ ---   *
- *         attaches the profile view to the DOM .................... ---   *
- *     showTaskView() .............................................. ---   *
- *       when the main dash and home view are visible .............. ---   *
- *         doesn't re-render the main dash ......................... ---   *
- *         removes the home view ................................... ---   *
- *         renders the task view ................................... ---   *
- *         attaches the task view to the DOM ....................... ---   *
- *       when the main dash and task view are visible .............. ---   *
- *         doesn't re-render the main dash ......................... ---   *
- *         renders the task view ................................... ---   *
- *         attaches the task view to the DOM ....................... ---   *
- *       when the main dash isn't visible .......................... ---   *
- *         renders the main dash ................................... ---   *
- *         renders the task view ................................... ---   *
- *         attaches the task view to the DOM ....................... ---   *
- *   Special Functions .............................................. 69   *
- *     isA() ....................................................... ---   *
- *       returns true with argument * .............................. ---   *
- *       returns false with another argument ....................... ---   *
- *     setUser() .................................................... 69   *
- *       sets this.user ............................................ ---   *
- *       calls setUser on the home view ............................ ---   *
- *       calls setUser on the task view ............................ ---   *
- *   Core Functions ................................................. 97   *
- *     render() ..................................................... 97   *
- *       renders the sidebar view .................................. ---   *
- *       attaches the sidebar view to its .sidebar-collapse div .... ---   *
- *     remove() .................................................... 105   *
- *       removes the sidebar ....................................... ---   *
- *       removes the home view ..................................... ---   *
- *       removes the task view ..................................... ---   *
- *       removes itself using the Backbone.View.prototype .......... ---   *
- *                                                                         *
-/***************************************************************************/
-
-/* Requires
-/***************************************************************************/
-
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/js/tessitura.js');
 require(process.cwd() + '/spec/support/env.js');
@@ -116,8 +6,7 @@ var matchers       = require('jasmine-jquery-matchers'),
     context        = describe,
     fcontext       = fdescribe;
 
-/****************************************************************************
- * BEGIN SUITE                                                              *
+/* Main Dashboard View Spec
 /****************************************************************************/
 
 describe('Main Dashboard View', function() {
@@ -668,7 +557,7 @@ describe('Main Dashboard View', function() {
         spyOn(dashboard.homeView, 'remove').and.callThrough();
         spyOn(dashboard.taskView, 'remove').and.callThrough();
         spyOn(dashboard.sidebarView, 'remove').and.callThrough();
-        spyOn(Backbone.View.prototype.remove, 'call').and.callThrough();
+        spyOn(Tessitura.View.prototype, 'remove').and.callThrough();
         dashboard.remove();
       });
 
@@ -684,8 +573,8 @@ describe('Main Dashboard View', function() {
         expect(dashboard.sidebarView.remove).toHaveBeenCalled();
       });
 
-      it('removes itself through the Backbone.View prototype #appView #view #travis', function() {
-        expect(Backbone.View.prototype.remove.call.calls.argsFor(0)[0]).toBe(dashboard);
+      it('removes itself through the Tessitura.View prototype #appView #view #travis', function() {
+        expect(Tessitura.View.prototype.remove).toHaveBeenCalled();
       });
     });
   });
