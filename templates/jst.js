@@ -18,15 +18,6 @@ var JST = {
   'tasks/quickAdd'     : _.template(require('./modelTemplates/taskTemplates/quickAddFormTemplate.js')),
   'users/model'        : _.template(require('./modelTemplates/userTemplates/userModelTemplate.js')),
   'users/profile'      : _.template(require('./modelTemplates/userTemplates/userProfileTemplate.js')),
-  'spec/dashboard'     : _.template(require('./specTemplates/dashboardSpecTemplate.js')),
-  'spec/dashHome'      : _.template(require('./specTemplates/dashboardHomeSpecTemplate.js')),
-  'spec/dashTasks'     : _.template(require('./specTemplates/dashboardTaskSpecTemplate.js')),
-  'spec/homepage'      : _.template(require('./specTemplates/homepageSpecTemplate.js')),
-  'spec/listItem'      : _.template(require('./specTemplates/taskListItemSpecTemplate.js')),
-  'spec/sidebar'       : _.template(require('./specTemplates/dashboardSidebarSpecTemplate.js')),
-  'spec/collection'    : _.template(require('./specTemplates/taskCollectionSpecTemplate.js')),
-  'spec/taskPanel'     : _.template(require('./specTemplates/taskPanelSpecTemplate.js')),
-  'spec/topWidgets'    : _.template(require('./specTemplates/dashboardTopWidgetSpecTemplate.js'))
 };
 
 module.exports = JST;
