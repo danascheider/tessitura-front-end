@@ -81,12 +81,12 @@ describe('User Model View', function() {
   });
 
   describe('events', function() {
-    describe('save model', function() {
-      it('calls render #modelView #view #travis', function() {
-        spyOn(Tessitura.UserModelView.prototype, 'render');
+    describe('change model', function() {
+      it('calls updateDisplay #modelView #view #travis', function() {
+        spyOn(Tessitura.UserModelView.prototype, 'updateDisplay');
         newView = new Tessitura.UserModelView({model: user});
-        user.trigger('sync');
-        expect(Tessitura.UserModelView.prototype.render).toHaveBeenCalled();
+        user.trigger('change');
+        expect(Tessitura.UserModelView.prototype.updateDisplay).toHaveBeenCalled();
         newView.destroy();
       });
     });
