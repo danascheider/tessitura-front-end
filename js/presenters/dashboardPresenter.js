@@ -13,20 +13,29 @@ Tessitura.DashboardPresenter = Tessitura.Model.extend({
 
   getHome      : function() {
     this.showDash();
-    this.dashboardView.showHomeView();
-    this.current = 'home';
+    if(this.current !== 'home') {
+      this.dashboardHomeView.render();
+      this.dashboardView.$('nav').after(this.dashboardHomeView.$el);
+      this.current = 'home';
+    }
   },
 
   getProfile   : function() {
     this.showDash();
-    this.dashboardView.showProfileView();
-    this.current = 'profile';
+    if(this.current !== 'profile') {
+      this.dashboardProfileView.render();
+      this.dashboardView.$('nav').after(this.dashboardProfileView.$el);
+      this.current = 'profile';
+    }  
   },
 
   getTask      : function() {
     this.showDash();
-    this.dashboardView.showTaskView();
-    this.current = 'task';
+    if(this.current !== 'home') {
+      this.dashboardTaskView.render();
+      this.dashboardView.$('nav').after(this.dashboardTaskView.$el);
+      this.current = 'task';
+    }
   },
 
   emitRedirect : function(opts) {
@@ -64,7 +73,10 @@ Tessitura.DashboardPresenter = Tessitura.Model.extend({
             // to the setUser function, it will be executed with the task collection as
             // an argument.
 
-            that.dashboardView.setUser(user);
+            _.each(that.views, function(view) {
+              view.setUser && view.setUser(user);
+            });
+
             if(callback) { callback(collection); }
           }
         });
@@ -84,7 +96,19 @@ Tessitura.DashboardPresenter = Tessitura.Model.extend({
 
   initialize   : function(opts) {
     opts = opts || {};
-    this.dashboardView = new Tessitura.DashboardView();
+
+    // Instantiate views
+
+    this.dashboardView        = new Tessitura.DashboardView();
+    this.dashboardHomeView    = new Tessitura.DashboardHomeView();
+    this.dashboardTaskView    = new Tessitura.DashboardTaskView();
+    this.dashboardProfileView = new Tessitura.DashboardProfileView();
+    this.views                = [
+                                  this.dashboardView, 
+                                  this.dashboardHomeView,
+                                  this.dashboardTaskView,
+                                  this.dashboardProfileView
+                                ];
     
     if(!!opts.user) { this.setUser(opts.user) }
 
