@@ -15,7 +15,7 @@ Tessitura.DashboardNavView = Tessitura.View.extend({
   superFamily        : 'Backbone.View',
 
   types              : function() {
-    return Tessitura.View.prototype.types().concat(['DashboardView', 'MainDashboardView', 'Dashboard', 'MainDashboard', 'TopLevelView']);
+    return Tessitura.View.prototype.types().concat(['DashboardView', 'DashboardNavView', 'PartialView']);
   },
 
   /* View Events                  
