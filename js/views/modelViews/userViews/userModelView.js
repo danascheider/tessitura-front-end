@@ -137,7 +137,7 @@ Tessitura.UserModelView = Tessitura.View.extend({
   /**************************************************************************************/
 
   initialize   : function() {
-    this.listenTo(this.model, 'sync', this.updateDisplay);
+    this.listenTo(this.model, 'change', this.updateDisplay);
   },
 
   render       : function() {
