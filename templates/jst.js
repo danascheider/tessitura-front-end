@@ -2,10 +2,11 @@ var _ = require('underscore');
 
 var JST = {
   'calendar'           : _.template(require('./partialTemplates/calendarTemplate.js')),
-  'dashboard'          : _.template(require('./topLevelTemplates/dashboardTemplate.js')),
+  'dashboard'          : _.template('<div id=\'shade\'></div>'),
   'homepage'           : _.template(require('./topLevelTemplates/homepageTemplate.js')),
   'collections/task'   : _.template('<li class=\'quick-add-form not-sortable\'></li>'),
   'partials/dashHome'  : _.template(require('./partialTemplates/dashboardHomeTemplate.js')),
+  'partials/dashNav'   : _.template(require('./partialTemplates/dashboardNavTemplate.js')),
   'partials/dashTasks' : _.template(require('./partialTemplates/dashboardTaskTemplate.js')),
   'partials/kanbanCol' : _.template(require('./partialTemplates/kanbanColumnTemplate.js')),
   'partials/loginForm' : _.template(require('./partialTemplates/loginFormTemplate.js')),

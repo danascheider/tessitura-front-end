@@ -53,6 +53,7 @@ Tessitura.TaskCollectionView    = require('./views/collectionViews/taskCollectio
 // Require partial views
 Tessitura.CalendarView           = require('./views/partialViews/calendarView.js');
 Tessitura.DashboardHomeView      = require('./views/partialViews/dashboardHomeView.js');
+Tessitura.DashboardNavView       = require('./views/partialViews/dashboardNavView.js');
 Tessitura.DashboardProfileView   = require('./views/partialViews/dashboardProfileView.js');
 Tessitura.DashboardSidebarView   = require('./views/partialViews/dashboardSidebarView.js');
 Tessitura.DashboardTopWidgetView = require('./views/partialViews/dashboardTopWidgetView.js');

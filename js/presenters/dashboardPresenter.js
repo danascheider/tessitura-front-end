@@ -13,27 +13,44 @@ Tessitura.DashboardPresenter = Tessitura.Model.extend({
 
   getHome      : function() {
     this.showDash();
-    if(this.current !== this.dashboardHomeView) {
+
+    var needToChange = this.current !== this.dashboardHomeView;
+    this.current = this.dashboardHomeView;
+
+    this.clearViews();
+
+    if(needToChange) {
       this.dashboardHomeView.render();
-      this.dashboardView.$('nav').after(this.dashboardHomeView.$el);
-      this.current = this.dashboardHomeView;
+      this.dashboardView.$el.append(this.dashboardHomeView.$el);
     }
   },
 
   getProfile   : function() {
     this.showDash();
-    if(this.current !== this.dashboardProfileView) {
+
+    var needToChange = this.current !== this.dashboardProfileView;
+    this.current = this.dashboardProfileView;
+
+    this.clearViews();
+
+    if(needToChange) {
       this.dashboardProfileView.render();
-      this.dashboardView.$el.after(this.dashboardProfileView.$el);
-      this.current = this.dashboardProfileView;
+      this.dashboardView.$el.append(this.dashboardProfileView.$el);
     }  
   },
 
   getTask      : function() {
     this.showDash();
-    if(this.current !== this.dashboardTaskView) {
+
+    var needToChange = this.current !== this.dashboardTaskView;
+
+    this.current = this.dashboardTaskView;
+
+    this.clearViews();
+
+    if(needToChange) {
       this.dashboardTaskView.render();
-      this.dashboardView.$('nav').after(this.dashboardTaskView.$el);
+      this.dashboardView.$el.append(this.dashboardTaskView.$el);
       this.current = this.dashboardTaskView;
     }
   },
@@ -45,16 +62,16 @@ Tessitura.DashboardPresenter = Tessitura.Model.extend({
   /* Special Functions
   /***************************************************************************************/
 
-  removeAll    : function() {
-    this.dashboardView.remove();
+  clearViews   : function() {
+    var that = this;
+
+    _.each(this.views, function(view) {
+      if (view !== that.current && view !== that.dashboardView) { view.remove(); }
+    });
   },
 
-  rerender     : function() {
-    if (this.current) {
-      this.current.remove();
-      this.dashboardView.render();
-      this.dashboardView.$('nav').after(this.current.$el);
-    }
+  removeAll    : function() {
+    this.dashboardView.remove();
   },
 
   setUser      : function(user, callback) {
@@ -92,8 +109,6 @@ Tessitura.DashboardPresenter = Tessitura.Model.extend({
         });
       }
     });
-
-    this.listenTo(this.user, 'change:first_name change:last_name', this.rerender);
   },
 
   showDash     : function() {
@@ -115,6 +130,7 @@ Tessitura.DashboardPresenter = Tessitura.Model.extend({
     this.dashboardHomeView    = new Tessitura.DashboardHomeView();
     this.dashboardTaskView    = new Tessitura.DashboardTaskView();
     this.dashboardProfileView = new Tessitura.DashboardProfileView();
+
     this.views                = [
                                   this.dashboardView, 
                                   this.dashboardHomeView,
