@@ -68,6 +68,7 @@ Tessitura.UserModelView = Tessitura.View.extend({
   triageKeypress: function(e) {
     var theKeyWasEnter = e.keyCode === 13;
     var theKeyWasTab   = e.keyCode === 9;
+    var theKeyWasEsc   = e.keyCode === 27;
     var attr           = $(e.target).attr('name');
     var currentValue   = $(e.target)[0].value;
 
@@ -91,7 +92,12 @@ Tessitura.UserModelView = Tessitura.View.extend({
         this.submitUpdate(e);
       }
 
+      this.hideInputs();
       this.displayInput(nextField);
+    }
+
+    if(theKeyWasEsc) {
+      this.hideInputs();
     }
   },
 

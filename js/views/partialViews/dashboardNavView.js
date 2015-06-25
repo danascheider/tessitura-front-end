@@ -22,8 +22,6 @@ Tessitura.DashboardNavView = Tessitura.View.extend({
   /**************************************************************************/
 
   events             : {
-    'click'                  : 'hideDropdownMenus',
-    'dblclick'               : 'hideSidebar',
     'click .navbar-header'   : 'toggleSidebar',
     'click li.dropdown'      : 'toggleDropdownMenu',
   },
@@ -38,19 +36,6 @@ Tessitura.DashboardNavView = Tessitura.View.extend({
       this.redirectToTaskPage();
     } else {
       this.redirectToProfile();
-    }
-  },
-
-  hideDropdownMenus  : function(e) {
-    var li = this.$('li.dropdown');
-    if(!li.is(e.target) && !li.has(e.target).length) { li.removeClass('open'); }
-  },
-
-  hideSidebar        : function(e) {
-    var target = $(e.target);
-
-    if(target != this.sidebarView.$el && this.$('.navbar-static-side').has(target).length === 0 && this.sidebarView.$el.is(':visible')) {
-      this.$('.sidebar-collapse').hide();
     }
   },
 
