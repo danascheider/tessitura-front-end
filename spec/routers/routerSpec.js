@@ -190,7 +190,6 @@ describe('Tessitura Router', function() {
     describe('displayDashboardHome()', function() {
       beforeEach(function() { 
         // This was actually causing a problem
-        spyOn(router.DashboardPresenter.dashboardView.homeView, 'setUser');
         spyOn($, 'cookie').and.returnValue(1);
         spyOn($, 'ajax').and.callFake(function(args) {
           args.success && args.success();
@@ -247,7 +246,6 @@ describe('Tessitura Router', function() {
 
     describe('displayProfile()', function() {
       beforeEach(function() {
-        spyOn(router.DashboardPresenter.dashboardView.profileView, 'setUser');
         spyOn($, 'cookie').and.returnValue(1);
         spyOn($, 'ajax').and.callFake(function(args) {
           args.success & args.success();

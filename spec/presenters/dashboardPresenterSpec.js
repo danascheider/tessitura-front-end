@@ -28,7 +28,7 @@ describe('Dashboard Presenter', function() {
 
   beforeEach(function() {
     user      = new Tessitura.UserModel({id: 1, username: 'testuser', password: 'testuser', email: 'testuser@example.com', first_name: 'Test', last_name: 'User'});
-    presenter = new Tessitura.DashboardPresenter({user: user});
+    presenter = new Tessitura.DashboardPresenter({model: user});
   });
 
   afterEach(function() {
@@ -123,27 +123,25 @@ describe('Dashboard Presenter', function() {
 
   describe('event callbacks', function() {
     describe('getHome()', function() {
-      beforeEach(function() { spyOn(presenter.dashboardView, 'showHomeView'); });
-
       context('general', function() {
         beforeEach(function() {
+          presenter.setUser(user);
           presenter.getHome();
         });
 
-        it('calls the dashboard\'s showHomeView method #presenter #travis', function() {
-          expect(presenter.dashboardView.showHomeView).toHaveBeenCalled();
-        });
-
-        it('sets the \'current\' property to \'home\' #presenter #travis', function() {
-          expect(presenter.current).toBe('home');
+        it('sets the \'current\' property to the home view #presenter #travis', function() {
+          expect(presenter.current).toBe(presenter.dashboardHomeView);
         });
       });
 
       context('when the dashboard view is not already visible', function() {
-        beforeEach(function() {
+        beforeEach(function(done) {
+          presenter.dashboardProfileView.setUser(user);
+          presenter.dashboardTaskView.setUser(user);
           spyOn(presenter.dashboardView.$el, 'is').and.returnValue(false);
           spyOn(presenter.dashboardView, 'render');
           presenter.getHome();
+          done();
         });
 
         it('renders the dashboard view #presenter #travis', function() {
@@ -157,27 +155,25 @@ describe('Dashboard Presenter', function() {
     });
 
     describe('getTask()', function() {
-      beforeEach(function() { spyOn(presenter.dashboardView, 'showTaskView'); });
-
       context('general', function() {
-        beforeEach(function() {
+        beforeEach(function(done) {
+          presenter.dashboardTaskView.setUser(user);
           presenter.getTask();
+          done();
         });
 
-        it('calls the dashboard\'s showTaskView method #presenter #travis', function() {
-          expect(presenter.dashboardView.showTaskView).toHaveBeenCalled();
-        });
-
-        it('sets the \'current\' property to \'task\' #presenter #travis', function() {
-          expect(presenter.current).toBe('task');
+        it('sets the \'current\' property to the task view #presenter #travis', function() {
+          expect(presenter.current).toBe(presenter.dashboardTaskView);
         });
       });
 
       context('when the dashboard view is not already visible', function() {
-        beforeEach(function() {
+        beforeEach(function(done) {
           spyOn(presenter.dashboardView.$el, 'is').and.returnValue(false);
           spyOn(presenter.dashboardView, 'render');
+          presenter.dashboardTaskView.setUser(user);
           presenter.getTask();
+          done();
         });
 
         it('renders the dashboard #presenter #travis', function() {
@@ -191,26 +187,25 @@ describe('Dashboard Presenter', function() {
     });
 
     describe('getProfile()', function() {
-      beforeEach(function() {
-        spyOn(presenter.dashboardView, 'showProfileView');
-      });
-
       context('general', function() {
-        beforeEach(function() {
+        beforeEach(function(done) {
+          presenter.dashboardProfileView.setUser(user);
           presenter.getProfile();
+          done();
         });
 
-        it('calls the dashboard\'s showProfileView method #presenter #travis', function() {
-          expect(presenter.dashboardView.showProfileView).toHaveBeenCalled();
-        });
-
-        it('sets the \'current\' property to \'profile\' #presenter #travis', function() {
-          expect(presenter.current).toBe('profile');
+        it('sets the \'current\' property to the profile view #presenter #travis', function() {
+          expect(presenter.current).toBe(presenter.dashboardProfileView);
         });
       });
 
       context('when the profile view is not already visible', function() {
         beforeEach(function() {
+          spyOn($, 'ajax').and.callFake(function(args) {
+            args.success();
+          });
+
+          presenter.setUser(user);
           spyOn(presenter.dashboardView.$el, 'is').and.returnValue(false);
           spyOn(presenter.dashboardView, 'render');
           presenter.getProfile();
