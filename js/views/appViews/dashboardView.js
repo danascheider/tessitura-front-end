@@ -75,6 +75,10 @@ Tessitura.DashboardView = Tessitura.View.extend({
     this.$('.sidebar-collapse').slideUp();
   },
 
+  rerender           : function() {
+    //
+  },
+
   toggleDropdownMenu : function(e) {
     var li = $(e.target).has('li');
     li.toggleClass('open');

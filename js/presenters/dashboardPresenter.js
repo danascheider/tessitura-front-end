@@ -13,28 +13,28 @@ Tessitura.DashboardPresenter = Tessitura.Model.extend({
 
   getHome      : function() {
     this.showDash();
-    if(this.current !== 'home') {
+    if(this.current !== this.dashboardHomeView) {
       this.dashboardHomeView.render();
       this.dashboardView.$('nav').after(this.dashboardHomeView.$el);
-      this.current = 'home';
+      this.current = this.dashboardHomeView;
     }
   },
 
   getProfile   : function() {
     this.showDash();
-    if(this.current !== 'profile') {
+    if(this.current !== this.dashboardProfileView) {
       this.dashboardProfileView.render();
-      this.dashboardView.$('nav').after(this.dashboardProfileView.$el);
-      this.current = 'profile';
+      this.dashboardView.$el.after(this.dashboardProfileView.$el);
+      this.current = this.dashboardProfileView;
     }  
   },
 
   getTask      : function() {
     this.showDash();
-    if(this.current !== 'home') {
+    if(this.current !== this.dashboardTaskView) {
       this.dashboardTaskView.render();
       this.dashboardView.$('nav').after(this.dashboardTaskView.$el);
-      this.current = 'task';
+      this.current = this.dashboardTaskView;
     }
   },
 
@@ -49,8 +49,18 @@ Tessitura.DashboardPresenter = Tessitura.Model.extend({
     this.dashboardView.remove();
   },
 
+  rerender     : function() {
+    if (this.current) {
+      this.current.remove();
+      this.dashboardView.render();
+      this.dashboardView.$('nav').after(this.current.$el);
+    }
+  },
+
   setUser      : function(user, callback) {
     var that = this;
+
+    // If this.user is already set, don't change it
 
     if(this.user && this.user.get('id') === user.get('id')) { return; }
     this.user = user;
@@ -82,6 +92,8 @@ Tessitura.DashboardPresenter = Tessitura.Model.extend({
         });
       }
     });
+
+    this.listenTo(this.user, 'change:first_name change:last_name', this.rerender);
   },
 
   showDash     : function() {
