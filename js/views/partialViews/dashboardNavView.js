@@ -10,7 +10,7 @@ Tessitura.DashboardNavView = Tessitura.View.extend({
   /* Tessitura View Properties   
   /**************************************************************************/
 
-  klass              : 'DashboardView',
+  klass              : 'DashboardNavView',
   family             : 'Tessitura.View',
   superFamily        : 'Backbone.View',
 
