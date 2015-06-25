@@ -21,7 +21,7 @@ describe('Main Dashboard View', function() {
 
   beforeEach(function() {
     user = new Tessitura.UserModel({id: 1, username: 'testuser', password: 'testuser', email: 'testuser@example.com', first_name: 'Test', last_name: 'User'});
-    dashboard = new Tessitura.DashboardView({user: user});
+    dashboard = new Tessitura.DashboardView({model: user});
   });
 
   afterEach(function() {
@@ -41,36 +41,22 @@ describe('Main Dashboard View', function() {
 
     it('calls setUser #appView #view #travis', function() {
       spyOn(Tessitura.DashboardView.prototype, 'setUser');
-      newView = new Tessitura.DashboardView({user: user});
+      newView = new Tessitura.DashboardView({model: user});
       expect(Tessitura.DashboardView.prototype.setUser).toHaveBeenCalled();
       expect(Tessitura.DashboardView.prototype.setUser.calls.argsFor(0)[0]).toEqual(user);
     });
 
-    it('instantiates a sidebar #appView #view #travis', function() {
-      expect(dashboard.sidebarView).toBeA('DashboardSidebarView');
-    });
-
-    it('instantiates a home view #appView #view #travis', function() {
-      expect(dashboard.homeView.klass).toEqual('DashboardHomeView');
-    });
-
-    it('instantiates a profile view #appView #view #travis', function() {
-      expect(dashboard.profileView.klass).toEqual('UserProfileView');
-    });
-
-    it('instantiates a task view #appView #view #travis', function() {
-      expect(dashboard.taskView.klass).toBe('DashboardTaskView');
+    it('instantiates a nav view #appView #view #travis', function() {
+      expect(dashboard.navView).toBeA('DashboardNavView');
     });
 
     it('puts its child views in a childViews array #appView #view #travis', function() {
-      expect(dashboard.childViews).toEqual([
-        dashboard.sidebarView, dashboard.homeView, dashboard.profileView, dashboard.taskView
-      ]);
+      expect(dashboard.childViews).toEqual([dashboard.navView]);
     });
 
     it('doesn\'t call render #appView #view #travis', function() {
       spyOn(Tessitura.DashboardView.prototype, 'render');
-      newView = new Tessitura.DashboardView({user: user});
+      newView = new Tessitura.DashboardView({model: user});
       expect(Tessitura.DashboardView.prototype.render).not.toHaveBeenCalled();
     });
 
@@ -85,7 +71,7 @@ describe('Main Dashboard View', function() {
 
   describe('properties', function() {
     it('has klass DashboardView #appView #view #travis', function() {
-      expect(dashboard.klass).toEqual('DashboardView');
+      expect(dashboard.klass).toEqual('MainDashboardView');
     });
 
     it('has family Tessitura.View #appView #view #travis', function() {
@@ -110,24 +96,13 @@ describe('Main Dashboard View', function() {
 
   describe('elements', function() {
     beforeEach(function() {
+      dashboard.setUser(user);
       dashboard.render();
       $('body').html(dashboard.el);
     });
 
     it('has ID #dashboard-wrapper #appView #view #travis', function() {
       expect(dashboard.$el).toHaveId('dashboard-wrapper');
-    });
-
-    describe('sidebar', function() {
-      it('is attached to div.sidebar-collapse element #appView #view #travis', function() {
-        expect(dashboard.$('div.sidebar-collapse')).toHaveDescendant('#side-menu');
-      });
-    });
-
-    describe('side-menu icon', function() {
-      it('is present in the navbar-brand element #appView #view #travis', function() {
-        expect(dashboard.$('.navbar-brand')).toHaveDescendant('i.fa-bars');
-      });
     });
   });
 
@@ -138,16 +113,12 @@ describe('Main Dashboard View', function() {
     beforeEach(function() {
       spyOn(Tessitura.DashboardView.prototype, 'hideDropdownMenus');
       spyOn(Tessitura.DashboardView.prototype, 'hideSidebar');
-      spy = jasmine.createSpy();
-
+      spyOn(Tessitura.DashboardView.prototype, 'followLink');
       newView = new Tessitura.DashboardView({model: user});
-
-      newView.on('redirect', spy);
       newView.render();
     });
 
     afterEach(function() { 
-      newView.off('redirect');
       newView.destroy(); 
     });
 
@@ -166,9 +137,10 @@ describe('Main Dashboard View', function() {
     });
 
     describe('click top nav link', function() {
-      it('redirects to the profile page #appView #view #travis', function() {
-        newView.$('a.internal-link[data-target="profile"]').click();
-        expect(spy).toHaveBeenCalledWith({destination: 'profile'});
+      it('calls followLink #appView #view #travis', function() {
+        pending('FUFNR');
+        newView.$('a.internal-link[data-target="profile"]').first().click();
+        expect(Tessitura.DashboardView.prototype.followLink).toHaveBeenCalled();
       });
     });
   });

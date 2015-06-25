@@ -57,6 +57,7 @@ Tessitura.DashboardView = Tessitura.View.extend({
 
   initialize : function() {
     this.navView = new Tessitura.DashboardNavView();
+    this.childViews = [this.navView];
 
     if (this.model) { this.setUser(this.model); }
   },
