@@ -30,15 +30,9 @@ Tessitura.DashboardNavView = Tessitura.View.extend({
   /**************************************************************************/
 
   emitRedirect       : function(args) {
+    args = args || {};
     this.$('.sidebar-collapse').slideUp();
-
-    if(args.destination === 'dashboard') { 
-      this.redirectToDashboard(); 
-    } else if (args.destination === 'tasks') {
-      this.redirectToTaskPage();
-    } else {
-      this.redirectToProfile();
-    }
+    this.trigger('redirect', {destination: args.destination});
   },
 
   redirectToDashboard: function() {

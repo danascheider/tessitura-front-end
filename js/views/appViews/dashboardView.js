@@ -39,7 +39,7 @@ Tessitura.DashboardView = Tessitura.View.extend({
   hideSidebar        : function(e) {
     if(e) { var target = $(e.target); }
 
-    if(target != this.$('#side-menu') && this.$('.navbar-static-side').has(target).length === 0 && this.$('#side-menu').is(':visible')) {
+    if(target !== this.$('#side-menu') && this.$('.navbar-static-side').has(target).length === 0 && this.$('#side-menu').is(':visible')) {
       this.$('.sidebar-collapse').slideUp();
     }
   },
