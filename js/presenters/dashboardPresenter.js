@@ -54,7 +54,6 @@ Tessitura.DashboardPresenter = Tessitura.Model.extend({
       this.dashboardView.hideSidebar();
       this.dashboardTaskView.render();
       this.dashboardView.$el.append(this.dashboardTaskView.$el);
-      this.current = this.dashboardTaskView;
     }
   },
 

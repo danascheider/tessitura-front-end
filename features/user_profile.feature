@@ -42,7 +42,7 @@ Feature: User profile
 
   Scenario Outline: Tab between inputs changing values
     When I fill in the input '<first>' with '<value>' and press tab
-    Then the '<first>' input should be visible
+    Then the '<first>' input should not be visible
     And the '<second>' input should be visible
 
     Examples:
