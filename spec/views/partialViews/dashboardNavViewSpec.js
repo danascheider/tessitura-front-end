@@ -84,7 +84,7 @@ describe('Dashboard Nav View', function() {
   });
 
   /* Elements
-  /**************************************************************************/
+  /****************************************************************************/
 
   describe('DOM elements', function() {
     beforeEach(function() {
@@ -113,8 +113,23 @@ describe('Dashboard Nav View', function() {
     });
   });
 
+  /* Event Wiring
+  /****************************************************************************/
+
+  describe('events', function() {
+    describe('click .navbar-header', function() {
+      it('calls toggleSidebar() #partialView #view #travis', function() {
+        spyOn(Tessitura.DashboardNavView.prototype, 'toggleSidebar');
+        newView = new Tessitura.DashboardNavView();
+        newView.render();
+        newView.$('.navbar-header').first().click();
+        expect(Tessitura.DashboardNavView.prototype.toggleSidebar).toHaveBeenCalled();
+      });
+    });
+  });
+
   /* Core View Functions
-  /**************************************************************************/
+  /****************************************************************************/
 
   describe('core view functions', function() {
     describe('render()', function() {
@@ -141,7 +156,7 @@ describe('Dashboard Nav View', function() {
   });
 
   /* Special Functions
-  /**************************************************************************/
+  /****************************************************************************/
 
   describe('special functions', function() {
     describe('isA()', function() {
