@@ -120,10 +120,20 @@ describe('Dashboard Nav View', function() {
     describe('click .navbar-header', function() {
       it('calls toggleSidebar() #partialView #view #travis', function() {
         spyOn(Tessitura.DashboardNavView.prototype, 'toggleSidebar');
-        newView = new Tessitura.DashboardNavView();
+        newView = new Tessitura.DashboardNavView({model: user});
         newView.render();
         newView.$('.navbar-header').first().click();
         expect(Tessitura.DashboardNavView.prototype.toggleSidebar).toHaveBeenCalled();
+      });
+    });
+
+    describe('click li.dropdown', function() {
+      it('calls toggleDropdownMenu #partialView #view #travis', function() {
+        spyOn(Tessitura.DashboardNavView.prototype, 'toggleDropdownMenu');
+        newView = new Tessitura.DashboardNavView({model: user});
+        newView.render();
+        newView.$('li.dropdown').first().click();
+        expect(Tessitura.DashboardNavView.prototype.toggleDropdownMenu).toHaveBeenCalled();
       });
     });
   });
