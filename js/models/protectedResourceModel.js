@@ -1,4 +1,4 @@
-var ProtectedResource = Tessitura.Model.extend({
+Tessitura.ProtectedResource = Tessitura.Model.extend({
   token   : function() {
     return 'Basic ' + $.cookie('auth');
   },
@@ -47,4 +47,4 @@ var ProtectedResource = Tessitura.Model.extend({
   }
 });
 
-module.exports = ProtectedResource;
+module.exports = Tessitura.ProtectedResource;

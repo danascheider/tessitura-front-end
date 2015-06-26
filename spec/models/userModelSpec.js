@@ -52,11 +52,12 @@ describe('User Model', function() {
         expect(Backbone.Model.prototype.fetch).toHaveBeenCalled();
       });
 
-      it('sets the auth header for the requested user #model #travis', function() {
+      it('sets the auth header from the stored cookie #model #travis', function() {
         xhr.open('GET', user.url());
+        spyOn($, 'cookie').and.returnValue(btoa(user.get('username') + ':' + user.get('password')));
         user.fetch();
         $.ajax.calls.argsFor(0)[0].beforeSend(xhr);
-        expect(xhr.getRequestHeader('Authorization')).toEqual('Basic ' + btoa('testuser:testuser'));
+        expect(xhr.getRequestHeader('Authorization')).toEqual('Basic ' + btoa(user.get('username') + ':' + user.get('password')));
       });
 
       it('sends the request to the requested user\'s endpoint #model #travis', function() {
@@ -120,26 +121,6 @@ describe('User Model', function() {
         newUser.login();
         $.ajax.calls.argsFor(0)[0].beforeSend(xhr);
         expect(xhr.getRequestHeader('Authorization')).toEqual('Basic ' + btoa('testuser:testuser'));
-      });
-    });
-
-    describe('protectedFetch', function() {
-      it('calls Backbone fetch function #model #travis', function() {
-        spyOn(Backbone.Model.prototype, 'fetch');
-        user.protectedFetch();
-        expect(Backbone.Model.prototype.fetch).toHaveBeenCalled();
-      });
-
-      it('sets the auth header for the requested user #model #travis', function() {
-        xhr.open('GET', user.url);
-        user.protectedFetch();
-        $.ajax.calls.argsFor(0)[0].beforeSend(xhr);
-        expect(xhr.getRequestHeader('Authorization')).toEqual('Basic ' + btoa('danascheider:danascheider'));
-      });
-
-      it('sends the request to the requested user\'s endpoint #model #travis', function() {
-        user.protectedFetch();
-        expect($.ajax.calls.argsFor(0)[0].url).toEqual(Tessitura.API.base + '/users/1');
       });
     });
   });

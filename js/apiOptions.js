@@ -1,6 +1,5 @@
 var opts = {
-  useTestRouter: false,
-  useTestAPI   : false
+  useTestAPI   : true
 };
 
 module.exports = opts;

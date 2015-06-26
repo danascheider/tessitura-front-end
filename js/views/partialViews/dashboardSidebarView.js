@@ -1,13 +1,11 @@
-var DashboardSidebarView = Tessitura.View.extend({
+Tessitura.DashboardSidebarView = Tessitura.View.extend({
   tagName              : 'ul',
   className            : 'nav',
   id                   : 'side-menu',
   template             : JST['partials/sidebar'],
 
   events               : {
-    'click a.sidebar-link'       : 'toggleSecondLevelNav',
-    'click li > .dashboard-link' : 'goToDashboard',
-    'click li > .task-page-link' : 'goToTaskPage'
+    'click a.sidebar-link' : 'toggleSecondLevelNav'
   },
 
   /* Tessitura View Properties
@@ -24,14 +22,6 @@ var DashboardSidebarView = Tessitura.View.extend({
   /* Event Callbacks
   /*************************************************************************************/
 
-  goToDashboard        : function() {
-    this.trigger('redirect', {destination: 'dashboard'});
-  },
-
-  goToTaskPage         : function() {
-    this.trigger('redirect', {destination: 'tasks'});
-  },
-
   toggleSecondLevelNav : function(e) {
     var li = $(e.target).closest('li');
 
@@ -46,9 +36,8 @@ var DashboardSidebarView = Tessitura.View.extend({
     if(li.className === '') { li.removeAttr('class'); }
   },
 
-  // ----------------- //
-  // Special Functions //
-  // ----------------- //
+  /* Special Functions
+  /**************************************************************************************/
 
   // For testing purposes - location.hash can't be stubbed
   // directly, so this has to be called in the methods that 
@@ -58,13 +47,12 @@ var DashboardSidebarView = Tessitura.View.extend({
     return location.hash;
   },
 
-  // ------------------- //
-  // Core View Functions //
-  // ------------------- //
+  /* Core View Functions
+  /**************************************************************************************/
 
   render               : function() {
     return Tessitura.View.prototype.render.call(this, this.template());
   }
 });
 
-module.exports = DashboardSidebarView;
+module.exports = Tessitura.DashboardSidebarView;

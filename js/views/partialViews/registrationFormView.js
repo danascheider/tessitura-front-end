@@ -1,4 +1,4 @@
-var RegistrationFormView = Tessitura.View.extend({
+Tessitura.RegistrationFormView = Tessitura.View.extend({
 
   /* Backbone View Properties
   /**************************************************************************/
@@ -121,4 +121,4 @@ var RegistrationFormView = Tessitura.View.extend({
   }
 });
 
-module.exports = RegistrationFormView;
+module.exports = Tessitura.RegistrationFormView;

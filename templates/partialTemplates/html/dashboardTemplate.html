@@ -16,7 +16,7 @@
       </a>
       <ul class='dropdown-menu dropdown-messages'>
         <li>
-          <a class='link' href='#'>
+          <a class='internal-link' href='#'>
             <div>
               <strong><%- first_name %> <%- last_name %></strong>
               <span class='pull-right text-muted'>
@@ -28,7 +28,7 @@
         </li>
         <li class='divider'></li>
         <li>
-          <a class='link' href='#'>
+          <a class='internal-link' href='#'>
             <div>
               <strong><%- first_name %> <%- last_name %></strong>
               <span class='pull-right text-muted'>
@@ -40,7 +40,7 @@
         </li>
         <li class='divider'></li>
         <li>
-          <a class='link' href='#'>
+          <a class='internal-link' href='#'>
             <div>
               <strong><%- first_name %> <%- last_name %></strong>
               <span class='pull-right text-muted'>
@@ -202,13 +202,13 @@
         <i class='fa fa-user fa-fw'></i>  <%- first_name %> <%- last_name %>  <i class='fa fa-caret-down'></i>
       </a>
       <ul class='dropdown-menu dropdown-user'>
-        <li><a class='link' href='/#profile' onclick='return false'><i class='fa fa-user fa-fw'></i> User Profile</a></li>
+        <li><a class='internal-link' href='/#profile' data-target='profile' onclick='return false'><i class='fa fa-user fa-fw'></i> User Profile</a></li>
         <li class='divider'></li>
-        <li><a class='link' href='/#dashboard' onclick='return false'><i class='fa fa-dashboard fa-fw'></i>  Dashboard</a></li>
+        <li><a class='internal-link' href='/#dashboard' data-target='dashboard' onclick='return false'><i class='fa fa-dashboard fa-fw'></i>  Dashboard</a></li>
         <li class='divider'></li>
-        <li><a class='link' href='#'><i class='fa fa-gear fa-fw'></i> Settings</a></li>
+        <li><a class='internal-link' href='#'><i class='fa fa-gear fa-fw'></i> Settings</a></li>
         <li class='divider'></li>
-        <li><a class='link' href='/#logout'><i class='fa fa-sign-out fa-fw'></i> Logout</a></li>
+        <li><a class='internal-link' href='/#logout' data-target='logout'><i class='fa fa-sign-out fa-fw'></i> Logout</a></li>
       </ul> <!-- end dropdown-user -->
     </li> <!-- end profile dropdown -->
   </ul> <!-- end navbar-top-links -->
@@ -217,5 +217,3 @@
     <div class='sidebar-collapse'></div>
   </div> <!-- end navbar-static-side -->
 </nav>
-<!-- Pop-up forms and things go here -->
-<div id='shade'></div>

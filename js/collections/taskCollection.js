@@ -9,18 +9,8 @@ var TaskCollection = Tessitura.ProtectedCollection.extend({
   /**************************************************************************************/
 
   klass       : 'TaskCollection',
-  family      : 'ProtectedCollection',
-  superFamily : 'Backbone.Collection',
-
-  /* Special Functions
-  /**************************************************************************************/
-
-  // The isA() function returns true if passed one of the following
-  // strings: 'TaskCollection', 'Backbone.Collection', 'ProtectedCollection'
-
-  isA        : function(type) {
-    var trueTypes = ['TaskCollection', 'Backbone.Collection', 'ProtectedCollection'];
-    return trueTypes.indexOf(type) > -1 ? true : false;
+  types       : function() {
+    return Tessitura.ProtectedCollection.prototype.types().concat(['TaskCollection']);
   },
 
   /* Core Collection Functions

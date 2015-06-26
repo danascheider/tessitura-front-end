@@ -1,4 +1,4 @@
-var QuickAddFormView = Tessitura.View.extend({
+Tessitura.QuickAddFormView = Tessitura.View.extend({
   tagName    : 'form',
   className  : 'task-form create-form quick-add-form',
   template   : JST['tasks/quickAdd'],
@@ -81,4 +81,4 @@ var QuickAddFormView = Tessitura.View.extend({
   }
 });
 
-module.exports = QuickAddFormView;
+module.exports = Tessitura.QuickAddFormView;

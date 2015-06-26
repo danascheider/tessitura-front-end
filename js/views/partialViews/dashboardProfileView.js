@@ -1,28 +1,27 @@
-Tessitura.UserProfileView = Tessitura.DashWidgetView.extend({
-  id          : 'profile-info',
-  template    : JST['users/profile'],
+Tessitura.DashboardProfileView = Tessitura.View.extend({
+  className   : 'user-profile',
+  id          : 'page-wrapper',
+  template    : JST['partials/profile'],
 
-  events      : function() {
-    var events = Tessitura.DashWidgetView.prototype.events
-    events['click'] = 'hideInputs'
-    return events;
+  events      : {
+    'click' : 'hideInputs'
   },
 
   /* Tessitura View Properties
   /**************************************************************************************/
 
-  klass       : 'UserProfileView',
+  klass       : 'DashboardProfileView',
   family      : 'Tessitura.View',
   superFamily : 'Backbone.View',
   types       : function() {
-    return Tessitura.View.prototype.types().concat(this.klass, 'UserView', 'ProfileView');
+    return Tessitura.View.prototype.types().concat(this.klass, 'DashboardView', 'DashboardProfileView');
   },
 
   /* Event Callbacks
   /**************************************************************************************/
 
-  hideInputs: function() {
-    this.modelView.hideInputs();
+  hideInputs: function(e) {
+    if(!$(e.target).is('input')) { this.profileView.hideInputs(); }
   },
 
   /* Special Functions
@@ -30,8 +29,8 @@ Tessitura.UserProfileView = Tessitura.DashWidgetView.extend({
 
   setUser   : function(user) {
     this.model = user;
-    this.modelView = new Tessitura.UserModelView({model: user});
-    this.childViews = [this.modelView];
+    this.profileView = new Tessitura.UserProfileView({model: user});
+    this.childViews = [this.profileView];
     return this;
   },
 
@@ -41,16 +40,17 @@ Tessitura.UserProfileView = Tessitura.DashWidgetView.extend({
   initialize  : function(args) {
     args = args || {};
     if(args.model) { this.setUser(args.model); }
+    _.bindAll(this, 'hideInputs');
   },
 
   render      : function() {
     var that = this;
 
-    return Tessitura.View.prototype.render.call(this, this.template({model: that.model}), function() {
-      that.modelView.render();
-      that.$('#profile-tab > h4').first().after(that.modelView.$el);
+    return Tessitura.View.prototype.render.call(this, this.template(), function() {
+      that.profileView.render();
+      that.$('.col-md-8').html(that.profileView.$el);
     });
   }
 });
 
-module.exports = Tessitura.UserProfileView;
+module.exports = Tessitura.DashboardProfileView;

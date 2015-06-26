@@ -1,30 +1,4 @@
-/****************************************************************************
- *                                                                         *
- * LOGIN FORM VIEW                                                         *
- *                                                                         *
- * The login form is displayed on the homepage when the user clicks the    *
- * .login-link item on the homepage top nav. It provides fields for the    *  
- * username and password, a "remember-me" checkbox, and a login help link. *
- *                                                                         *
- * CONTENTS                                                          LINE  *
- * Requires ......................................................... 26   *
- * Suite ............................................................ 44   *
- *   Filters ........................................................ 50   *
- *   Authorization and Authentication ............................... 60   *
- *     token()                                                             *
- *   Core Functions ................................................. 69   *
- *     fetch()                                                             *
- *   Special Functions .............................................. 91   *
- *     updateAll() .................................................. 92   *
- *     isA() ....................................................... 140   *
- *                                                                         *
-/****************************************************************************/
-
-/****************************************************************************
- * BEGIN MODULE                                                             *
-/****************************************************************************/
-
-var LoginFormView = Tessitura.View.extend({
+Tessitura.LoginFormView = Tessitura.View.extend({
 
   /* Backbone View Properties
   /**************************************************************************/
@@ -81,4 +55,4 @@ var LoginFormView = Tessitura.View.extend({
   }
 });
 
-module.exports = LoginFormView;
+module.exports = Tessitura.LoginFormView;

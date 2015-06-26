@@ -1,29 +1,7 @@
-/****************************************************************************
- *                                                                         *
- * DASHBOARD CALENDAR VIEW                                                 *
- *                                                                         *
- * When the user logs into their dashboard, they see a calendar under the  *
- * top widgets and to the right of the task panel. Their calendar will be  *
- * able to be synced with Google calendars.                                *
- *                                                                         *
- * CONTENTS                                                          LINE  *
- * Requires ......................................................... 26   *
- * Suite ............................................................ 41   *
- *   Filters ........................................................ 47   *
- *   Static properties .............................................. 69   *
- *     token                                                               *
- *   Core Functions ................................................. 69   *
- *     initialize()                                                        *
- *   Special Functions .............................................. 91   *
- *     updateAll() .................................................. 92   *
- *     isA() ....................................................... 140   *
- *                                                                         *
-/****************************************************************************/
-
 /* Core Requires
 /****************************************************************************/
 
-require(process.cwd() + '/js/dependencies.js');
+require(process.cwd() + '/js/tessitura.js');
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/spec/support/env.js');
 
@@ -35,8 +13,7 @@ var moment         = require('moment'),
 
 var CalendarView   = Tessitura.CalendarView;
 
-/****************************************************************************
- * BEGIN SUITE                                                              *
+/* Calendar View Spec
 /****************************************************************************/
 
 describe('dashboard calendar view', function() {

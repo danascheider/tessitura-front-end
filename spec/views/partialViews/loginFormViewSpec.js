@@ -1,27 +1,3 @@
-/****************************************************************************
- *                                                                         *
- * LOGIN FORM VIEW                                                         *
- *                                                                         *
- * The login form is displayed on the homepage when the user clicks the    *
- * .login-link item on the homepage top nav. It provides fields for the    *  
- * username and password, a "remember-me" checkbox, and a login help link. *
- *                                                                         *
- * CONTENTS                                                          LINE  *
- * Requires ......................................................... 26   *
- * Suite ............................................................ 44   *
- *   Filters ........................................................ 50   *
- *   Static Properties .............................................. 60   *
- *     klass                                                               *
- *     family                                                              *
- *     superFamily                                                         *
- *   Core Functions ................................................. 69   *
- *     fetch()                                                             *
- *   Special Functions .............................................. 91   *
- *     updateAll() .................................................. 92   *
- *     isA() ....................................................... 140   *
- *                                                                         *
-/****************************************************************************/
-
 /* Core Requires
 /****************************************************************************/
 
@@ -34,8 +10,7 @@ var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
     context        = describe,
     fcontext       = fdescribe;
 
-/****************************************************************************
- * BEGIN SUITE                                                              *
+/* Login Form View Spec
 /****************************************************************************/
 
 describe('Login Form View', function() {

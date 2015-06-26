@@ -1,6 +1,4 @@
-require('../dependencies.js');
-
-var UserModel = Tessitura.Model.extend({
+Tessitura.UserModel = Tessitura.Model.extend({
   urlRoot: Tessitura.API.users.collection,
   klass  : 'UserModel',
   types  : function() {
@@ -23,7 +21,10 @@ var UserModel = Tessitura.Model.extend({
     return Tessitura.Model.prototype.fetch.call(this, settings);
   },
 
-  protectedFetch : function(settings) {
+  /* Core Model Functions
+  /**************************************************************************************/
+
+  fetch          : function(settings) {
     settings = settings || {};
     var that = this;
 
@@ -36,22 +37,6 @@ var UserModel = Tessitura.Model.extend({
     return Backbone.Model.prototype.fetch.call(this, settings);
   },
 
-  /* Core Model Functions
-  /**************************************************************************************/
-
-  fetch          : function(settings) {
-    settings = settings || {};
-
-    var string = this.get('username') + ':' + this.get('password');
-    var token  = 'Basic ' + new Buffer(string).toString('base64');
-
-    settings.beforeSend = (settings.beforeSend) || function(xhr) {
-      xhr.setRequestHeader('Authorization', token);
-    };
-
-    return Backbone.Model.prototype.fetch.call(this, settings);
-  },
-
   initialize     : function(attrs, opts) {
     opts = opts || {};
 
@@ -59,4 +44,4 @@ var UserModel = Tessitura.Model.extend({
   }
 });
 
-module.exports = UserModel;
+module.exports = Tessitura.UserModel;

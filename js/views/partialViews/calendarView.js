@@ -1,13 +1,12 @@
 var moment = require('moment');
 
-var CalendarView = Tessitura.View.extend({
+Tessitura.CalendarView = Tessitura.DashWidgetView.extend({
   
   /* Backbone View Properties
   /**************************************************************************************/
 
   template    : JST['calendar'],
   id          : 'calendar',
-  className   : 'panel dash-widget panel-primary',
 
   /* Tessitura View Methods
   /**************************************************************************************/
@@ -16,7 +15,7 @@ var CalendarView = Tessitura.View.extend({
   family      : 'Tessitura.View',
   superFamily : 'Backbone.View',
   types       : function() {
-    return Tessitura.View.prototype.types().concat(['CalendarView', 'PartialView']);
+    return Tessitura.DashWidgetView.prototype.types().concat(['CalendarView', 'PartialView']);
   },
 
   /* Special functions
@@ -46,4 +45,4 @@ var CalendarView = Tessitura.View.extend({
   }
 });
 
-module.exports = CalendarView;
+module.exports = Tessitura.CalendarView;

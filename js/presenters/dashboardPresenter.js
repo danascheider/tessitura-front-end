@@ -1,8 +1,4 @@
-/* ***************************************************************************************\
- * DASHBOARD PRESENTER                                                                   *
-\*****************************************************************************************/
-
-var DashboardPresenter = Tessitura.Model.extend({
+Tessitura.DashboardPresenter = Tessitura.Model.extend({
 
   /* Tessitura Model Properties
   /***************************************************************************************/
@@ -17,20 +13,46 @@ var DashboardPresenter = Tessitura.Model.extend({
 
   getHome      : function() {
     this.showDash();
-    this.dashboardView.showHomeView();
-    this.current = 'home';
+
+    var needToChange = this.current !== this.dashboardHomeView;
+    this.current = this.dashboardHomeView;
+
+    this.clearViews();
+
+    if(needToChange) {
+      this.dashboardHomeView.render();
+      this.dashboardView.$el.append(this.dashboardHomeView.$el);
+    }
   },
 
   getProfile   : function() {
     this.showDash();
-    this.dashboardView.showProfileView();
-    this.current = 'profile';
+
+    var needToChange = this.current !== this.dashboardProfileView;
+    this.current = this.dashboardProfileView;
+
+    this.clearViews();
+
+    if(needToChange) {
+      this.dashboardProfileView.render();
+      this.dashboardView.$el.append(this.dashboardProfileView.$el);
+    }  
   },
 
   getTask      : function() {
     this.showDash();
-    this.dashboardView.showTaskView();
-    this.current = 'task';
+
+    var needToChange = this.current !== this.dashboardTaskView;
+
+    this.current = this.dashboardTaskView;
+
+    this.clearViews();
+
+    if(needToChange) {
+      this.dashboardTaskView.render();
+      this.dashboardView.$el.append(this.dashboardTaskView.$el);
+      this.current = this.dashboardTaskView;
+    }
   },
 
   emitRedirect : function(opts) {
@@ -40,6 +62,14 @@ var DashboardPresenter = Tessitura.Model.extend({
   /* Special Functions
   /***************************************************************************************/
 
+  clearViews   : function() {
+    var that = this;
+
+    _.each(this.views, function(view) {
+      if (view !== that.current && view !== that.dashboardView) { view.remove(); }
+    });
+  },
+
   removeAll    : function() {
     this.dashboardView.remove();
   },
@@ -47,12 +77,14 @@ var DashboardPresenter = Tessitura.Model.extend({
   setUser      : function(user, callback) {
     var that = this;
 
+    // If this.user is already set, don't change it
+
     if(this.user && this.user.get('id') === user.get('id')) { return; }
     this.user = user;
 
     // Fetch the user using stored credentials
 
-    this.user.protectedFetch({
+    this.user.fetch({
       success: function() {
 
         // Once the user has been fetched successfully, send a request for their
@@ -68,7 +100,10 @@ var DashboardPresenter = Tessitura.Model.extend({
             // to the setUser function, it will be executed with the task collection as
             // an argument.
 
-            that.dashboardView.setUser(user);
+            _.each(that.views, function(view) {
+              view.setUser && view.setUser(user);
+            });
+
             if(callback) { callback(collection); }
           }
         });
@@ -88,7 +123,20 @@ var DashboardPresenter = Tessitura.Model.extend({
 
   initialize   : function(opts) {
     opts = opts || {};
-    this.dashboardView = new Tessitura.DashboardView();
+
+    // Instantiate views
+
+    this.dashboardView        = new Tessitura.DashboardView();
+    this.dashboardHomeView    = new Tessitura.DashboardHomeView();
+    this.dashboardTaskView    = new Tessitura.DashboardTaskView();
+    this.dashboardProfileView = new Tessitura.DashboardProfileView();
+
+    this.views                = [
+                                  this.dashboardView, 
+                                  this.dashboardHomeView,
+                                  this.dashboardTaskView,
+                                  this.dashboardProfileView
+                                ];
     
     if(!!opts.user) { this.setUser(opts.user) }
 
@@ -98,4 +146,4 @@ var DashboardPresenter = Tessitura.Model.extend({
   }
 });
 
-module.exports = DashboardPresenter;
+module.exports = Tessitura.DashboardPresenter;

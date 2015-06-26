@@ -1,4 +1,4 @@
-var UserModelView = Tessitura.View.extend({
+Tessitura.UserModelView = Tessitura.View.extend({
 
   /* Static Properties
   /**************************************************************************************/
@@ -24,19 +24,23 @@ var UserModelView = Tessitura.View.extend({
   /* Event Callbacks
   /**************************************************************************************/
 
-  displayInput : function(e) {
+  // The displayInput function can be used as an event callback or as a normal function. 
+  // When used as an event callback, it takes an event object as its argument and deduces
+  // the input to display based on the `target` property of the `jQuery.Event` object.
+  // Otherwise, its argument is presumed to be a jQuery object of the '.profile-field'
+  // span containing the input to be displayed.
 
-    // Conditionally assign the span variable to the element that was double-clicked
-    // if it had class .profile-field, or to the nearest parent that had that class
-    // if not.
-
-    span = ($(e.target).attr('class') && $(e.target).attr('class').match(/profile-field/)) ? $(e.target) : $(e.target).closest('span.profile-field');
+  displayInput : function(arg) {
+    var span = arg.target ? ($(arg.target).attr('class') && $(arg.target).attr('class').match(/profile-field/) ? $(arg.target) : $(arg.target).closest('.profile-field')) : $(arg);
 
     // Hide the text of the user's profile information and show the input
-
     span.find('.p').hide();
     span.find('.input').show();
 
+    // If the input being shown is the first- or last-name input, resize it to match
+    // the length of the user's current name. This prevents excessive resizing of the
+    // surrounding elements.
+    
     this.resizeInputs(span);
 
     // Focus on the input that has just been displayed and select the text inside
@@ -45,11 +49,9 @@ var UserModelView = Tessitura.View.extend({
   },
 
   submitUpdate : function(e) {
-    e.preventDefault();
-
     var data = {};
     data[$(e.target).attr('name')] = $(e.target)[0].value;
-
+    
     this.model.save(data, {
       beforeSend: function(xhr) {
         xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
@@ -66,13 +68,14 @@ var UserModelView = Tessitura.View.extend({
   triageKeypress: function(e) {
     var theKeyWasEnter = e.keyCode === 13;
     var theKeyWasTab   = e.keyCode === 9;
+    var theKeyWasEsc   = e.keyCode === 27;
     var attr           = $(e.target).attr('name');
-    var value          = $(e.target)[0].value;
+    var currentValue   = $(e.target)[0].value;
 
     if(theKeyWasEnter) { 
       this.hideInputs(); 
 
-      if(value !== this.model.get(attr) && value !== '') {
+      if(currentValue !== this.model.get(attr) && currentValue !== '') {
         this.submitUpdate(e);
       }
     }
@@ -80,24 +83,33 @@ var UserModelView = Tessitura.View.extend({
     if(theKeyWasTab) {
       e.preventDefault();
 
-      var nextField = $(e.target).closest('tr').next().find('td > span.profile-field');
-      nextField = $(e.target).closest('.profile-field').attr('id') === 'first_name' ? this.$('#last_name') : nextField;
+      // If the current field is first_name, the next field is last_name. Otherwise, it's
+      // the .profile-field element in the next row in the table.
 
-      if(value === this.model.get(attr) || value === '') {
-        this.hideInputs();
+      var nextField = $(e.target).closest('.profile-field').attr('id') === 'first_name' ? this.$('#last_name') : $(e.target).closest('tr').next().find('td > span.profile-field');
+
+      if(this.model.get(attr) !== currentValue && currentValue !== '') {
+        this.submitUpdate(e);
       }
 
-      if(value === this.model.get(attr) || value === '') {
-        this.hideInputs();
-      }
-
-      nextField.find('.p').hide();
-      nextField.find('.input').show();
-
-      this.resizeInputs(nextField);
-
-      nextField.find('input').focus().select();
+      this.hideInputs();
+      this.displayInput(nextField);
     }
+
+    if(theKeyWasEsc) {
+      this.hideInputs();
+    }
+  },
+
+  updateDisplay: function() {
+    var that = this;
+
+    this.$('.profile-field').each(function(num, el) {
+      var property = $(el).attr('id'), newValue = that.model.get(property);
+
+      $(el).find('.p').html(newValue || 'N/A');
+      $(el).find('input').attr('value', newValue);
+    });
   },
 
   /* Special Functions
@@ -125,7 +137,7 @@ var UserModelView = Tessitura.View.extend({
   /**************************************************************************************/
 
   initialize   : function() {
-    this.listenTo(this.model, 'sync', this.render);
+    this.listenTo(this.model, 'change', this.updateDisplay);
   },
 
   render       : function() {
@@ -135,4 +147,4 @@ var UserModelView = Tessitura.View.extend({
   }
 });
 
-module.exports = UserModelView;
+module.exports = Tessitura.UserModelView;

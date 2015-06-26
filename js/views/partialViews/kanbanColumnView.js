@@ -1,36 +1,4 @@
-/****************************************************************************
- *                                                                         *
- * KANBAN COLUMN VIEW                                                      *
- *                                                                         *
- * The Kanban column view displays information about the user's tasks,     *
- * sorted by status. Each column has tasks of one status: In Progress,     *  
- * New, Blocking, or Backlogged. In the future, users may be able to       *
- * access their completed tasks as well.                                   *
- *                                                                         *
- * CONTENTS                                                          LINE  *
- * Core Requires .................................................... 33   *
- * Module-Specific Requires ......................................... 39   *
- * Module ........................................................... 47   *
- *   Backbone View Properties ....................................... 52   *
- *   Tessitura View Properties .......... ............................... 59   *
- *     klass                                                               *
- *     family                                                              *
- *     superFamily                                                         *
- *     types                                                               *
- *   Special Functions .............................................. 69   *
- *     setCollection() .............................................. 85   *
- *   Core Functions ................................................. 97   *
- *     initialize() ................................................. 97   *
- *     remove() .................................................... 105   * 
- *     render() .................................................... 111   *
- *                                                                         *
-/***************************************************************************/
-
-/****************************************************************************
- * BEGIN MODULE                                                             *
-/****************************************************************************/
-
-var KanbanColumnView = Tessitura.View.extend({
+Tessitura.KanbanColumnView = Tessitura.View.extend({
 
   /* Backbone View Properties
   /**************************************************************************/
@@ -125,4 +93,4 @@ var KanbanColumnView = Tessitura.View.extend({
   }
 });
 
-module.exports = KanbanColumnView;
+module.exports = Tessitura.KanbanColumnView;
