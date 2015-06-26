@@ -40,8 +40,8 @@ Tessitura.DashboardNavView = Tessitura.View.extend({
   },
 
   redirectToDashboard: function() {
-    this.trigger('redirect', {destination: 'dashboard'});
     this.$('.sidebar-collapse').slideUp();
+    this.trigger('redirect', {destination: 'dashboard'});
   },
 
   redirectToProfile  : function() {
