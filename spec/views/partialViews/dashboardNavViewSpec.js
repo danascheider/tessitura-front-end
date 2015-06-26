@@ -142,6 +142,31 @@ describe('Dashboard Nav View', function() {
   /****************************************************************************/
 
   describe('event callbacks', function() {
+    describe('toggleDropdownMenu()', function() {
+      beforeEach(function() {
+        view.render();
+        e = $.Event('click', {target: view.$('li.dropdown').first()});
+      });
+
+      context('when the dropdown menu is closed', function() {
+        it('adds the .open class #partialView #view #travis', function() {
+          view.toggleDropdownMenu(e);
+          expect(view.$('li.dropdown').first().attr('class')).toContain('open');
+        });
+      });
+
+      context('when the dropdown menu is open', function() {
+        beforeEach(function() {
+          view.toggleDropdownMenu(e);
+        });
+
+        it('removes the .open class #partialView #view #travis', function() {
+          view.toggleDropdownMenu(e);
+          expect(view.$('li.dropdown').first().attr('class')).not.toContain('open');
+        });
+      });
+    });
+
     describe('toggleSidebar()', function() {
       it('calls slideToggle #partialView #view #travis', function() {
         spyOn($.prototype, 'slideToggle');
@@ -153,7 +178,7 @@ describe('Dashboard Nav View', function() {
       it('hides any visible dropdown menus #partialView #view #travis', function() {
         view.$('li.dropdown').first().click();
         view.toggleSidebar();
-        expect(view.$('li.dropdown').first().attr('class')).not.toContain('open');
+        expect(view.$('li.dropdown').first().attr('class')).not.toContain('open')
       });
     });
   });
