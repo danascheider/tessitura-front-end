@@ -136,6 +136,26 @@ describe('Dashboard Nav View', function() {
         expect(Tessitura.DashboardNavView.prototype.toggleDropdownMenu).toHaveBeenCalled();
       });
     });
+
+    describe('change user first name', function() {
+      it('calls render #partialView #view #travis', function() {
+        pending('FUFNR');
+        spyOn(Tessitura.DashboardNavView.prototype, 'render');
+        newView = new Tessitura.DashboardNavView({model: user});
+        newView.model.set({first_name: 'Charles'});
+        expect(Tessitura.DashboardNavView.prototype.render).toHaveBeenCalled();
+      });
+    });
+
+    describe('change user last name', function() {
+      it('calls render #partialView #view #travis', function() {
+        pending('FUFNR');
+        spyOn(Tessitura.DashboardNavView.prototype, 'render');
+        newView = new Tessitura.DashboardNavView({model: user});
+        newView.model.set({last_name: 'Callum'});
+        expect(Tessitura.DashboardNavView.prototype.render).toHaveBeenCalled();
+      });
+    });
   });
 
   /* Event Callbacks
