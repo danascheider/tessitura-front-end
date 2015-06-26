@@ -30,6 +30,8 @@ Tessitura.DashboardNavView = Tessitura.View.extend({
   /**************************************************************************/
 
   emitRedirect       : function(args) {
+    this.$('.sidebar-collapse').slideUp();
+
     if(args.destination === 'dashboard') { 
       this.redirectToDashboard(); 
     } else if (args.destination === 'tasks') {
@@ -40,18 +42,15 @@ Tessitura.DashboardNavView = Tessitura.View.extend({
   },
 
   redirectToDashboard: function() {
-    this.$('.sidebar-collapse').slideUp();
     this.trigger('redirect', {destination: 'dashboard'});
   },
 
   redirectToProfile  : function() {
     this.trigger('redirect', {destination: 'profile'});
-    this.$('.sidebar-collapse').slideUp();
   },
 
   redirectToTaskPage : function() {
     this.trigger('redirect', {destination: 'tasks'});
-    this.$('.sidebar-collapse').slideUp();
   },
 
   toggleDropdownMenu : function(e) {
