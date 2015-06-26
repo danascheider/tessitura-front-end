@@ -138,6 +138,26 @@ describe('Dashboard Nav View', function() {
     });
   });
 
+  /* Event Callbacks
+  /****************************************************************************/
+
+  describe('event callbacks', function() {
+    describe('toggleSidebar()', function() {
+      it('calls slideToggle #partialView #view #travis', function() {
+        spyOn($.prototype, 'slideToggle');
+        view.$('.sidebar-collapse').hide();
+        view.toggleSidebar();
+        expect($.prototype.slideToggle).toHaveBeenCalled();
+      });
+
+      it('hides any visible dropdown menus #partialView #view #travis', function() {
+        view.$('li.dropdown').first().click();
+        view.toggleSidebar();
+        expect(view.$('li.dropdown').first().attr('class')).not.toContain('open');
+      });
+    });
+  });
+
   /* Core View Functions
   /****************************************************************************/
 
