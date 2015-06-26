@@ -7,9 +7,11 @@ When(/^I click outside the '(.*)' field$/) do |field|
 end
 
 When(/^I fill in the input '(.*)' with '(.*)' and press tab$/) do |field, value|
-  step "I double-click on the '#{field}' field"
-  fill_in field, with: value
-  find("input[name=#{field}]").native.send_key(:Tab)
+  step "I double-click on the '##{field}' element"
+  within "##{field} > span.input" do 
+    fill_in field, with: value
+    find("input").native.send_key(:Tab)
+  end
 end
 
 When(/^I submit the '(.*)' form with value '(.*)'$/) do |name, value|
@@ -73,7 +75,7 @@ end
 
 Then(/^the '(.*)' input should be visible$/) do |name|
   within '#profile-info' do 
-    expect(find("input[name=#{name}]")).to be_visible
+    expect(find("##{name} .input")).to be_visible
   end
 end
 

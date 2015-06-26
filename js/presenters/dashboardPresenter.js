@@ -20,6 +20,7 @@ Tessitura.DashboardPresenter = Tessitura.Model.extend({
     this.clearViews();
 
     if(needToChange) {
+      this.dashboardView.hideSidebar();
       this.dashboardHomeView.render();
       this.dashboardView.$el.append(this.dashboardHomeView.$el);
     }
@@ -34,6 +35,7 @@ Tessitura.DashboardPresenter = Tessitura.Model.extend({
     this.clearViews();
 
     if(needToChange) {
+      this.dashboardView.hideSidebar();
       this.dashboardProfileView.render();
       this.dashboardView.$el.append(this.dashboardProfileView.$el);
     }  
@@ -49,9 +51,9 @@ Tessitura.DashboardPresenter = Tessitura.Model.extend({
     this.clearViews();
 
     if(needToChange) {
+      this.dashboardView.hideSidebar();
       this.dashboardTaskView.render();
       this.dashboardView.$el.append(this.dashboardTaskView.$el);
-      this.current = this.dashboardTaskView;
     }
   },
 
