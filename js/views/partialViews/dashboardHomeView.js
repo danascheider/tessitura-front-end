@@ -69,8 +69,7 @@ Tessitura.DashboardHomeView = Tessitura.View.extend({
     // `each` function causes the final statement (`Tessitura.View.prototype.remove.call(this)`)
     // throw the error 'TypeError: Cannot read property `remove` of undefined'.
     // 
-    // It is unclear why it does that, as logging `Tessitura.View.prototype` to the
-    // console still does work and does indicate the existence of a `remove` function.
+    // It is unclear why it is apparently finding a null element in the array.
 
     try {
       this.calendarView.remove();
