@@ -19,14 +19,7 @@ describe('Task Panel View', function() {
   });
 
   beforeEach(function() {
-    opts = {
-      collection : collection,
-      grouping   : {
-        backlog : false
-      }
-    };
-
-    taskPanel = new Tessitura.TaskPanelView(opts);
+    taskPanel = new Tessitura.TaskPanelView({collection: collection});
   });
 
   afterEach(function() {
@@ -45,7 +38,7 @@ describe('Task Panel View', function() {
     it('doesn\'t call render #taskPanelView #partialView #view #travis', function() {
       spyOn(Tessitura.TaskPanelView.prototype, 'render');
       task1.set('status', 'Blocking');
-      var newPanel = new Tessitura.TaskPanelView(opts);
+      var newPanel = new Tessitura.TaskPanelView({collection: collection});
       expect(Tessitura.TaskPanelView.prototype.render).not.toHaveBeenCalled();
       newPanel.remove();
     });
@@ -115,21 +108,21 @@ describe('Task Panel View', function() {
   });
 
   describe('events', function() {
-    describe('click .toggle-widget i', function() {
-      it(' calls toggleWidget() #taskPanelView #partialView #view #travis', function() {
-        spyOn(Tessitura.TaskPanelView.prototype, 'toggleWidget');
-        var newView = new Tessitura.TaskPanelView({collection: collection});
-        newView.render().$('.toggle-widget i').trigger('click');
-        expect(Tessitura.TaskPanelView.prototype.toggleWidget).toHaveBeenCalled();
-      });
-    });
-
     describe('change task backlog', function() {
       it('calls render() #taskPanelView #partialView #view #travis', function() {
         spyOn(Tessitura.TaskPanelView.prototype, 'render');
         var newView = new Tessitura.TaskPanelView({collection: collection});
         newView.collection.trigger('change:backlog');
         expect(Tessitura.TaskPanelView.prototype.render).toHaveBeenCalled();
+      });
+    });
+
+    describe('change task status', function() {
+      it('calls crossOff() #taskPanelView #partialView #view #travis', function() {
+        spyOn(Tessitura.TaskPanelView.prototype, 'crossOff');
+        var newView = new Tessitura.TaskPanelView({collection: collection});
+        newView.collection.models[0].set('status', 'In Progress');
+        expect(Tessitura.TaskPanelView.prototype.crossOff).toHaveBeenCalled();
       });
     });
   });
@@ -178,65 +171,44 @@ describe('Task Panel View', function() {
           }, 750);
         });
       });
-    });
 
-    context('when the task is incomplete', function() {
-        beforeEach(function() {
-          taskPanel.render();
-          task1.set({status: 'New'}, {silent: true});
+
+      context('when the task is incomplete', function() {
+          beforeEach(function() {
+            taskPanel.render();
+            task1.set({status: 'New'}, {silent: true});
+          });
+
+        it('doesn\'t call destroy on the child view #taskPanelView #partialView #view #travis', function(done) {
+          var child = taskPanel.retrieveViewForModel(task1);
+          spyOn(child, 'destroy');
+          taskPanel.crossOff(task1);
+
+          setTimeout(function() {
+            expect(child.destroy).not.toHaveBeenCalled();
+            done();
+          }, 750);
         });
 
-      it('doesn\'t call destroy on the child view #taskPanelView #partialView #view #travis', function(done) {
-        var child = taskPanel.retrieveViewForModel(task1);
-        spyOn(child, 'destroy');
-        taskPanel.crossOff(task1);
-
-        setTimeout(function() {
-          expect(child.destroy).not.toHaveBeenCalled();
-          done();
-        }, 750);
-      });
-
-      it('doesn\'t remove the view from the childViews array #taskPanelView #partialView #view #travis', function(done) { 
-        var child = taskPanel.retrieveViewForModel(task1);
-        taskPanel.crossOff(task1);
-        setTimeout(function() {
-          expect(taskPanel.childViews).toContain(child);
-          done();
+        it('doesn\'t remove the view from the childViews array #taskPanelView #partialView #view #travis', function(done) { 
+          var child = taskPanel.retrieveViewForModel(task1);
+          taskPanel.crossOff(task1);
+          setTimeout(function() {
+            expect(taskPanel.childViews).toContain(child);
+            done();
+          });
         });
-      });
 
-      it('doesn\'t remove the task from the collection #taskPanelView #partialView #view #travis', function(done) {
-        var spy = jasmine.createSpy();
-        taskPanel.collection.on('remove', spy);
-        taskPanel.crossOff(task1);
+        it('doesn\'t remove the task from the collection #taskPanelView #partialView #view #travis', function(done) {
+          var spy = jasmine.createSpy();
+          taskPanel.collection.on('remove', spy);
+          taskPanel.crossOff(task1);
 
-        setTimeout(function() {
-          expect(spy).not.toHaveBeenCalled();
-          done();
-        }, 750);
-      });
-    });
-
-    describe('filterCollection()', function() {
-      beforeEach(function() {
-        spyOn($, 'ajax');
-
-        for(var i = 4; i < 13; i++) {
-          taskPanel.collection.create({title: 'My Task ' + i, position: i}, {sync: false, silent: true});
-        }
-      });
-
-      it('doesn\'t display blocking tasks #taskPanelView #partialView #view #travis', function() {
-        var newView = new Tessitura.TaskListItemView({model: task2});
-        spyOn(Tessitura.TaskCollectionView.prototype, 'retrieveViewForModel').and.returnValue(newView);
-        task2.set({status: 'Blocking'});
-        expect(taskPanel.filterCollection(collection).indexOf(task2)).toBe(-1);
-      });
-
-      it('doesn\'t display backlogged tasks #taskPanelView #partialView #view #travis', function() {
-        task2.set({backlog: true});
-        expect(taskPanel.filterCollection(collection).indexOf(task2)).toBe(-1);
+          setTimeout(function() {
+            expect(spy).not.toHaveBeenCalled();
+            done();
+          }, 750);
+        });
       });
     });
   });

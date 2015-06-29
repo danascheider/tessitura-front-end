@@ -55,6 +55,7 @@ Tessitura.DashboardTaskView = Tessitura.View.extend({
 
   setUser : function(user) {
     this.user = user;
+    this.user.tasks = this.user.tasks || new Tessitura.TaskCollection();
   },
 
   /* Core View Functions
@@ -80,21 +81,17 @@ Tessitura.DashboardTaskView = Tessitura.View.extend({
 
     this.user.tasks.fetch({
       success: function(collection) {
-        collection = new Tessitura.TaskCollection(collection.models);
-
         that.backlogColumnView = new Tessitura.KanbanColumnView({
           el         : that.$('#backlog-tasks'),
-          collection : new Tessitura.TaskCollection(collection.where({backlog: true})),
+          collection : that.user.tasks,
           color      : 'red',
           icon       : 'fa-exclamation-circle',
           headline   : 'Backlog'
         });
 
-        collection.remove(that.backlogColumnView.collection.models);
-
         that.newColumnView = new Tessitura.KanbanColumnView({
           el         : that.$('#new-tasks'),
-          collection : new Tessitura.TaskCollection(collection.where({status: 'New'})),
+          collection : that.user.tasks,
           color      : 'blue',
           icon       : 'fa-certificate',
           headline   : 'New'
@@ -102,7 +99,7 @@ Tessitura.DashboardTaskView = Tessitura.View.extend({
 
         that.inProgressColumnView = new Tessitura.KanbanColumnView({
           el         : that.$('#in-progress-tasks'),
-          collection : new Tessitura.TaskCollection(collection.where({status: 'In Progress'})),
+          collection : that.user.tasks,
           color      : 'green',
           icon       : 'fa-road',
           headline   : 'In Progress'
@@ -110,7 +107,7 @@ Tessitura.DashboardTaskView = Tessitura.View.extend({
 
         that.blockingColumnView = new Tessitura.KanbanColumnView({
           el         : that.$('#blocking-tasks'),
-          collection : new Tessitura.TaskCollection(collection.where({status: 'Blocking'})),
+          collection : that.user.tasks,
           color      : 'yellow',
           icon       : 'fa-minus-circle',
           headline   : 'Blocking'

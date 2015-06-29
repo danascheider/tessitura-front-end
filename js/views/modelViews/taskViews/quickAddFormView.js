@@ -32,7 +32,7 @@ Tessitura.QuickAddFormView = Tessitura.View.extend({
 
     // Make sure the task being created has the attributes 
     // common to this form's collection
-    _.each(this.grouping, function(val, key) {
+    _.each(this.groupedBy, function(val, key) {
       attrs[key] = val;
     });
 

@@ -26,3 +26,7 @@ Feature: Task List Items
       | title   |
       | Backlog |
       | Delete  |
+
+  Scenario: Edit form
+    When I click on the 'Edit' icon inside the '#task-1' element
+    Then I should see the '#edit-form' element

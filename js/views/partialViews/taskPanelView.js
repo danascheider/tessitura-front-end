@@ -32,22 +32,6 @@ Tessitura.TaskPanelView = Tessitura.DashWidgetView.extend({
     }, 750);
   },
 
-  filterCollection     : function() {
-    var tasks = _.filter(this.collection.models, function(task) {
-      return task.get('status') !== 'Blocking' && !task.get('backlog');
-    });
-
-    return tasks;
-  },
-
-  removeChildAndRender : function(task) {
-    var view  = this.retrieveViewForModel(task),
-        index = this.childViews.indexOf(view);
-
-    this.childViews.slice(index, 1);
-    this.render();
-  },
-
   retrieveViewForModel : function(task) {
     if(!this.childViews.length) { return; }
 
@@ -102,7 +86,7 @@ Tessitura.TaskPanelView = Tessitura.DashWidgetView.extend({
     this.listenTo(this.collection, 'change:status', this.crossOff);
     this.listenTo(this.collection, 'change:backlog', this.render);
     this.listenTo(this.collection, 'drop', this.removeStyles);
-    this.listenTo(this.collection, 'remove', this.removeChildAndRender);
+    this.listenTo(this.collection, 'remove', this.render);
     this.listenTo(this.quickAddForm, 'showTaskCreateForm', this.showTaskCreateForm);
   },
 
