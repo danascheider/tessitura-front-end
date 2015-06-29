@@ -42,15 +42,15 @@ describe('Dashboard Task View', function() {
   /**************************************************************************/
 
   describe('properties', function() {
-    it('#partialView #view #travis has klass DashboardTaskView', function() {
+    it('#dashboardTaskView #partialView #view #travis has klass DashboardTaskView', function() {
       expect(view.klass).toEqual('DashboardTaskView');
     });
 
-    it('has family Tessitura.View #partialView #view #travis', function() {
+    it('has family Tessitura.View #dashboardTaskView #partialView #view #travis', function() {
       expect(view.family).toEqual('Tessitura.View');
     });
 
-    it('has superFamily Backbone.View #partialView #view #travis', function() {
+    it('has superFamily Backbone.View #dashboardTaskView #partialView #view #travis', function() {
       expect(view.superFamily).toEqual('Backbone.View');
     });
   });
@@ -59,20 +59,20 @@ describe('Dashboard Task View', function() {
   /**************************************************************************/
 
   describe('constructor', function() {
-    it('calls setUser #partialView #view #travis', function() {
+    it('calls setUser #dashboardTaskView #partialView #view #travis', function() {
       spyOn(Tessitura.DashboardTaskView.prototype, 'setUser');
       newView = new Tessitura.DashboardTaskView({user: user});
       expect(Tessitura.DashboardTaskView.prototype.setUser).toHaveBeenCalled();
       expect(Tessitura.DashboardTaskView.prototype.setUser.calls.argsFor(0)[0]).toEqual(user);
     });
 
-    it('doesn\'t call render #partialView #view #travis', function() {
+    it('doesn\'t call render #dashboardTaskView #partialView #view #travis', function() {
       spyOn(Tessitura.DashboardTaskView.prototype, 'render');
       newView = new Tessitura.DashboardTaskView({user: user});
       expect(Tessitura.DashboardTaskView.prototype.render).not.toHaveBeenCalled();
     });
 
-    it('can be instantiated without a user #partialView #view #travis', function() {
+    it('can be instantiated without a user #dashboardTaskView #partialView #view #travis', function() {
       newView = new Tessitura.DashboardTaskView();
       expect(newView.user).not.toExist();
     });

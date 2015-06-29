@@ -4,7 +4,7 @@ Tessitura.ListItemView = Tessitura.View.extend({
   /**************************************************************************************/
 
   tagName    : 'li',
-  className  : 'task-list-item ui-widget-content ui-draggable',
+  className  : 'task-list-item ui-widget-content ui-draggable ui-draggable-handle ui-sortable-handle',
   id         : function() { return 'task-' + this.model.get('id'); },
   template   : JST['tasks/listItem'],
 

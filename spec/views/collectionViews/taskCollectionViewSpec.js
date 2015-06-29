@@ -33,59 +33,6 @@ describe('Task Collection View', function() {
     view = null;
   });
 
-  describe('constructor', function() {
-    afterEach(function() { newView && newView.destroy(); });
-
-    it('does not call the render function', function() {
-      spyOn(Tessitura.TaskCollectionView.prototype, 'render');
-      newView = new Tessitura.TaskCollectionView({collection: collection});
-      expect(Tessitura.TaskCollectionView.prototype.render).not.toHaveBeenCalled();
-    });
-
-    it('creates a childViews array containing its quick-add form #collectionView #view #travis', function() {
-      expect(view.childViews).toEqual([view.quickAddForm]);
-    });
-
-    it('creates a quick-add form #collectionView #view #travis', function() {
-      expect(view.quickAddForm.klass).toEqual('QuickAddTaskFormView');
-    });
-  });
-
-  describe('properties', function() {
-    it('is a Tessitura.View #collectionView #view #travis', function() {
-      expect(view.isA('Tessitura.View')).toBe(true);
-    });
-
-    it('has klass TaskCollectionView #collectionView #view #travis', function() {
-      expect(view.klass).toEqual('TaskCollectionView');
-    });
-
-    it('has family Tessitura.View #collectionView #view #travis', function() {
-      expect(view.family).toEqual('Tessitura.View');
-    });
-
-    it('has superFamily Backbone.View #collectionView #view #travis', function() {
-      expect(view.superFamily).toEqual('Backbone.View');
-    });
-  });
-
-  describe('elements', function() {
-    beforeEach(function() { view.render(); });
-    afterEach(function()  { view.remove(); });
-
-    it('is a ul #collectionView #view #travis', function() {
-      expect(view.$el[0]).toHaveTag('UL');
-    });
-
-    it('has class .task-list #collectionView #view #travis', function() {
-      expect(view.$el[0]).toHaveClass('task-list');
-    });
-
-    it('has a list item for each task #collectionView #view #travis', function() {
-      expect(view.$('.task-list-item')).toHaveLength(3);
-    });
-  });
-
   describe('events', function() {
     beforeEach(function() {
       _.each(['render', 'crossOff', 'removeChildAndRender', 'showTaskCreateForm'], function(method) {
@@ -139,111 +86,6 @@ describe('Task Collection View', function() {
   });
 
   describe('event callbacks', function() {
-    describe('crossOff()', function() {
-      context('when the task is complete', function() {
-        it('retrieves the view associated with the given task #collectionView #view #travis', function() {
-          spyOn(view, 'retrieveViewForModel');
-          view.crossOff(task3);
-          expect(view.retrieveViewForModel).toHaveBeenCalledWith(task3);
-        });
-
-        it('destroys the view #collectionView #view #travis', function(done) {
-          view.render();
-          var child = view.retrieveViewForModel(task3);
-          spyOn(child, 'destroy');
-          view.crossOff(task3);
-          setTimeout(function() {
-            expect(child.destroy).toHaveBeenCalled();
-            done();
-          }, 750);
-        });
-
-        it('removes the task from the collection #collectionView #view #travis', function(done) {
-          spyOn(view.collection, 'remove');
-          view.crossOff(task3);
-          setTimeout(function() {
-            expect(view.collection.remove).toHaveBeenCalledWith(task3);
-            done();
-          }, 750);
-        });
-
-        it('removes the view from the childViews array #collectionView #view #travis', function() {
-          var child = view.retrieveViewForModel(task3);
-          view.crossOff(task3);
-          expect(view.childViews).not.toContain(child);
-        });
-      });
-
-      context('when the task is incomplete', function() {
-        it('doesn\'t call destroy on the view #collectionView #view #travis', function() {
-          view.render();
-          var child = view.retrieveViewForModel(task2);
-          spyOn(child, 'destroy');
-          view.crossOff(task2);
-          expect(child.destroy).not.toHaveBeenCalled();
-        });
-        
-        it('doesn\'t remove the view from the childViews array #collectionView #view #travis', function() {
-          view.render();
-          var child = view.retrieveViewForModel(task2);
-          view.crossOff(task2);
-          expect(view.childViews).toContain(child);
-        });
-
-        it('doesn\'t remove the task from the collection #collectionView #view #travis', function() {
-          view.crossOff(task2);
-          expect(view.collection.get(2)).toBe(task2);
-        });
-      });
-    });
-
-    describe('removeBacklog()', function() {
-      context('when there is a backlogged task', function() {
-        beforeEach(function() { 
-          spyOn(Tessitura.TaskModel.prototype, 'displayTitle').and.returnValue('foobar');
-          spyOn(task2, 'get').and.returnValue(true);
-        });
-
-        it('removes the backlogged task from the collection #collectionView #view #travis', function() {
-          view.removeBacklog();
-          expect(view.collection.models).not.toContain(task2);
-        });
-
-        it('destroys the task\'s view #collectionView #view #travis', function() {
-          view.render();
-          var child = view.retrieveViewForModel(task2);
-          spyOn(child, 'destroy');
-          view.removeBacklog();
-          expect(child.destroy).toHaveBeenCalled();
-        });
-
-        it('removes the view from the childViews array #collectionView #view #travis', function() {
-          view.render();
-          view.removeBacklog();
-          expect(view.childViews.length).toBe(3);
-        });
-      });
-
-      context('when there is no backlogged task', function() {
-        it('does not remove any tasks from the collection #collectionView #view #travis', function() {
-          view.removeBacklog();
-          expect(view.collection.length).toBe(3);
-        });
-
-        it('does not remove child views from the child view array #collectionView #view #travis', function() {
-          view.render();
-          view.removeBacklog();
-          expect(view.childViews.length).toBe(4);
-        });
-
-        it('doesn\'t delete any child views #collectionView #view #travis', function() {
-          spyOn(Tessitura.TaskListItemView.prototype, 'destroy');
-          view.removeBacklog();
-          expect(Tessitura.TaskListItemView.prototype.destroy).not.toHaveBeenCalled();
-        });
-      });
-    });
-
     describe('removeChildAndRender()', function() {
       it('removes the child view from the array #collectionView #view #travis', function() {
         var child = childViews[1];
@@ -315,30 +157,9 @@ describe('Task Collection View', function() {
         });
       });
     });
-  
-    describe('renderCollection()', function() {
-      it('renders the collection #collectionView #view #travis', function() {
-        view.renderCollection();
-        expect(view.$('li.task-list-item')).toHaveLength(3);
-      });
-    });
   });
 
   describe('special functions', function() {
-    describe('isA', function() {
-      it('returns true with the argument TaskCollectionView #collectionView #view #travis', function() {
-        expect(view.isA('TaskCollectionView')).toBe(true);
-      });
-
-      it('returns true with the argument TaskView #collectionView #view #travis', function() {
-        expect(view.isA('TaskView')).toBe(true);
-      });
-
-      it('returns false with other arguments #collectionView #view #travis', function() {
-        expect(view.isA('deposed Nigerian warlord')).toBe(false);
-      });
-    });
-
     describe('retrieveViewForModel()', function() {
       context('when there is no view for the model', function() {
         beforeEach(function() { view.childViews = []; });

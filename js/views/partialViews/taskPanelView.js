@@ -16,14 +16,20 @@ Tessitura.TaskPanelView = Tessitura.DashWidgetView.extend({
   /* Event Callbacks
   /**************************************************************************************/
 
-  addTaskToDisplay     : function() {
+  crossOff             : function(task) {
+    if(task.get('status') !== 'Complete') { return; }
 
-    if (this.collection.length > this.collectionView.collection.length) {
-      var index = (this.collectionView.collection.length - 1) + 1,
-          model = this.collection.at(index);
+    var that = this, 
+        view = this.retrieveViewForModel(task);
 
-      this.collectionView.collection.add(model);
-    }
+    setTimeout(function() {
+      if (view) {
+        that.childViews.splice(that.childViews.indexOf(view), 1);
+        view.destroy();
+      }
+
+      that.collection.remove(task);
+    }, 750);
   },
 
   filterCollection     : function() {
@@ -34,27 +40,70 @@ Tessitura.TaskPanelView = Tessitura.DashWidgetView.extend({
     return tasks;
   },
 
-  removeBacklog        : function() {
-    this.collectionView.removeBacklog();
+  removeChildAndRender : function(task) {
+    var view  = this.retrieveViewForModel(task),
+        index = this.childViews.indexOf(view);
+
+    this.childViews.slice(index, 1);
+    this.render();
+  },
+
+  retrieveViewForModel : function(task) {
+    if(!this.childViews.length) { return; }
+
+    var child = _.filter(this.childViews, function(view) {
+      return view.model === task;
+    });
+
+    return child[0];
   },
 
   showTaskCreateForm   : function(e) {
-    var c = this.collectionView.collection;
     this.trigger('showTaskCreateForm', {collection: this.collection});
+  },
+
+  /* Special Functions 
+  /**************************************************************************************/
+
+  renderCollection     : function() {
+    var that = this;
+    var i    = 0
+    var container = document.createDocumentFragment();
+
+    this.collection.each(function(task) {
+      if (i > 9) { return; }
+
+      if (task.get('status') !== 'Blocking' && task.get('status') !== 'Complete' && !task.get('backlog')) {
+        var view = that.retrieveViewForModel(task) || new Tessitura.TaskListItemView({model: task});
+        
+        if (that.childViews.indexOf(view) === -1) {
+          that.childViews.push(view);
+        }
+
+        view.render();
+        container.appendChild(view.el);
+        i++;
+      }
+    });
+
+    this.$('ul.task-list').append(container);
+    return this;
   },
 
   /* Core View Functions 
   /**************************************************************************************/
 
   initialize           : function(opts) {
-    this.collection       = new Tessitura.TaskCollection(this.filterCollection());
-    var displayCollection = new Tessitura.TaskCollection(this.collection.slice(0,10));
-    this.collectionView   = new Tessitura.TaskCollectionView({collection: displayCollection});
+    this.quickAddForm     = new Tessitura.QuickAddFormView({collection: this.collection});
 
-    this.childViews = [this.collectionView];
+    this.childViews = [this.quickAddForm];
 
-    this.listenTo(this.collection, 'change:backlog', this.removeBacklog);
-    this.listenTo(this.collectionView.collection, 'remove', this.addTaskToDisplay);
+    this.listenTo(this.collection, 'add fetch', this.render);
+    this.listenTo(this.collection, 'change:status', this.crossOff);
+    this.listenTo(this.collection, 'change:backlog', this.render);
+    this.listenTo(this.collection, 'drop', this.removeStyles);
+    this.listenTo(this.collection, 'remove', this.removeChildAndRender);
+    this.listenTo(this.quickAddForm, 'showTaskCreateForm', this.showTaskCreateForm);
   },
 
   remove               : function() {
@@ -66,8 +115,13 @@ Tessitura.TaskPanelView = Tessitura.DashWidgetView.extend({
     var that = this;
 
     return Tessitura.View.prototype.render.call(this, this.template(), function() {
-      that.collectionView.render();
-      that.$('.panel-body').html(that.collectionView.$el);
+      that.quickAddForm.render();
+      that.$('.quick-add-form').prepend(that.quickAddForm.$el);
+      that.renderCollection();
+
+      that.$('ul').sortable({
+        items: '>*:not(.not-sortable)'
+      });
     });
   }
 });

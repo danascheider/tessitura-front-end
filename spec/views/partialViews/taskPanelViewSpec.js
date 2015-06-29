@@ -42,7 +42,7 @@ describe('Task Panel View', function() {
   });
 
   describe('constructor', function() {
-    it('doesn\'t call render #partialView #view #travis', function() {
+    it('doesn\'t call render #taskPanelView #partialView #view #travis', function() {
       spyOn(Tessitura.TaskPanelView.prototype, 'render');
       task1.set('status', 'Blocking');
       var newPanel = new Tessitura.TaskPanelView(opts);
@@ -50,43 +50,40 @@ describe('Task Panel View', function() {
       newPanel.remove();
     });
 
-    it('sets a collection #partialView #view #travis', function() {
+    it('sets a collection #taskPanelView #partialView #view #travis', function() {
       // expect(...).toBe(collection) caused a stack level error
       expect(taskPanel.collection.isA('TaskCollection')).toBe(true);
     });
 
-    it('instantiates a collection view #partialView #view #travis', function() {
-      expect(taskPanel.collectionView.klass).toBe('TaskCollectionView');
+    it('has a quick-add form #taskPanelView #partialView #view #travis', function() {
+      expect(taskPanel.quickAddForm.isA('QuickAddForm')).toBe(true);
     });
 
-    it('creates a childViews array', function() {
-      expect(_.isArray(taskPanel.childViews)).toBe(true);
+    it('creates a childViews array with its list items #taskPanelView #partialView #view #travis', function() {
+      expect(taskPanel.childViews.length).toBe(1); // because of the quick-add form
     });
 
-    it('adds the collection view to its childViews array', function() {
-      expect(taskPanel.childViews).toContain(taskPanel.collectionView);
-    });
-
-    it('passes a maximum of 10 models to the collection view #partialView #view #travis', function() {
+    it('displays a maximum of 10 tasks #taskPanelView #partialView #view #travis', function() {
       for(var i = 4; i < 13; i++) {
         collection.create({title: 'My Task ' + i, position: i}, {sync: false, silent: true});
       }
 
       var newPanel = new Tessitura.TaskPanelView({collection: collection});
-      expect(newPanel.collectionView.collection.length).toBe(10);
+      newPanel.render();
+      expect(newPanel.$('li.task-list-item').length).toBe(10);  // because of the quick-add form
     });
   });
 
   describe('properties', function() {
-    it('has klass \'TaskPanelView\' #partialView #view #travis', function() {
+    it('has klass \'TaskPanelView\' #taskPanelView #partialView #view #travis', function() {
       expect(taskPanel.klass).toBe('TaskPanelView');
     });
 
-    it('has family \'Tessitura.View\' #partialView #view #travis', function() {
+    it('has family \'Tessitura.View\' #taskPanelView #partialView #view #travis', function() {
       expect(taskPanel.family).toBe('Tessitura.View');
     });
 
-    it('has superFamily \'Backbone.View\' #partialView #view #travis', function() {
+    it('has superFamily \'Backbone.View\' #taskPanelView #partialView #view #travis', function() {
       expect(taskPanel.superFamily).toBe('Backbone.View');
     });
   });
@@ -96,30 +93,30 @@ describe('Task Panel View', function() {
       taskPanel.render();
     });
 
-    it('has ID #task-panel #partialView #view #travis', function() {
+    it('has ID #task-panel #taskPanelView #partialView #view #travis', function() {
       expect(taskPanel.$el).toHaveId('task-panel');
     });
 
-    it('has class \'panel\' #partialView #view #travis', function() {
+    it('has class \'panel\' #taskPanelView #partialView #view #travis', function() {
       expect(taskPanel.$el).toHaveClass('panel');
     });
 
-    it('has class \'panel-primary\' #partialView #view #travis', function() {
+    it('has class \'panel-primary\' #taskPanelView #partialView #view #travis', function() {
       expect(taskPanel.$el).toHaveClass('panel-primary');
     });
 
-    it('has class \'dash-widget\' #partialView #view #travis', function() {
+    it('has class \'dash-widget\' #taskPanelView #partialView #view #travis', function() {
       expect(taskPanel.$el).toHaveClass('dash-widget');
     });
 
-    it('has a collection view #partialView #view #travis', function() {
+    it('displays the collection #taskPanelView #partialView #view #travis', function() {
       expect(taskPanel.$('ul.task-list')).toExist();
     });
   });
 
   describe('events', function() {
     describe('click .toggle-widget i', function() {
-      it(' calls toggleWidget() #partialView #view #travis', function() {
+      it(' calls toggleWidget() #taskPanelView #partialView #view #travis', function() {
         spyOn(Tessitura.TaskPanelView.prototype, 'toggleWidget');
         var newView = new Tessitura.TaskPanelView({collection: collection});
         newView.render().$('.toggle-widget i').trigger('click');
@@ -128,67 +125,98 @@ describe('Task Panel View', function() {
     });
 
     describe('change task backlog', function() {
-      it('calls removeBacklog() #partialView #view #travis', function() {
-        spyOn(Tessitura.TaskPanelView.prototype, 'removeBacklog');
+      it('calls render() #taskPanelView #partialView #view #travis', function() {
+        spyOn(Tessitura.TaskPanelView.prototype, 'render');
         var newView = new Tessitura.TaskPanelView({collection: collection});
         newView.collection.trigger('change:backlog');
-        expect(Tessitura.TaskPanelView.prototype.removeBacklog).toHaveBeenCalled();
-      });
-    });
-
-    describe('remove task from collection display', function() {
-      it('calls addTaskToDisplay() #partialView #view #travis', function() {
-        spyOn(Tessitura.TaskPanelView.prototype, 'addTaskToDisplay');
-        var newView = new Tessitura.TaskPanelView({collection: collection});
-        newView.collectionView.collection.remove(task1);
-        expect(Tessitura.TaskPanelView.prototype.addTaskToDisplay).toHaveBeenCalled();
+        expect(Tessitura.TaskPanelView.prototype.render).toHaveBeenCalled();
       });
     });
   });
 
   describe('event callbacks', function() {
-    describe('addTaskToDisplay()', function() {
-      context('when there are more tasks than are in the child\'s collection', function() {
-        var newView;
-
+    describe('crossOff', function() {
+      context('when the task is complete', function() {
         beforeEach(function() {
-          for(var i = 5; i < 13; i++) {
-            collection.create({title: 'My Task ' + i, position: i}, {sync: false, silent: true});
-          }
-
-          newView = new Tessitura.TaskPanelView({collection: collection});
+          taskPanel.render();
+          task1.set({status: 'Complete'}, {silent: true});
         });
 
-        it('adds a task to the collection view\'s collection #partialView #view #travis', function() {
-          newView.addTaskToDisplay();
-          expect(newView.collectionView.collection.length).toBe(11);
+        it('retrieves the view for the task #taskPanelView #partialView #view #travis', function() {
+          spyOn(taskPanel, 'retrieveViewForModel');
+          taskPanel.crossOff(task1);
+          expect(taskPanel.retrieveViewForModel).toHaveBeenCalledWith(task1);
         });
-      });
 
-      context('when there are not more tasks than in the child\'s collection', function() {
-        it('doesn\'t give any trouble #partialView #view #travis', function() {
-          taskPanel.addTaskToDisplay();
-          expect(taskPanel.collectionView.collection.length).toBe(3);
+        it('removes the task from the collection #taskPanelView #partialView #view #travis', function(done) {
+          var spy = jasmine.createSpy();
+          taskPanel.collection.on('remove', spy);
+          taskPanel.crossOff(task1);
+          setTimeout(function() {
+            expect(spy).toHaveBeenCalled();
+            taskPanel.off('remove', spy);
+            done();
+          }, 750);
+        });
+
+        it('destroys the view #taskPanelView #partialView #view #travis', function(done) {
+          var child = taskPanel.retrieveViewForModel(task1);
+          spyOn(child, 'destroy');
+          taskPanel.crossOff(task1);
+          setTimeout(function() {
+            expect(child.destroy).toHaveBeenCalled();
+            done();
+          }, 750);
+        });
+
+        it('removes the view from the childViews array #taskPanelView #partialView #view #travis', function(done) {
+          var child = taskPanel.retrieveViewForModel(task1);
+          taskPanel.crossOff(task1);
+          setTimeout(function() {
+            expect(taskPanel.childViews.indexOf(child)).toEqual(-1);
+            done();
+          }, 750);
         });
       });
     });
 
-    // describe('crossOffComplete()', function() {
-    //   beforeEach(function() {
-    //     task1.set({status: 'Complete'}, {silent: true});
-    //     taskPanel.render();
-    //   });
+    context('when the task is incomplete', function() {
+        beforeEach(function() {
+          taskPanel.render();
+          task1.set({status: 'New'}, {silent: true});
+        });
 
-    //   afterEach(function() {
-    //     task1.set({status: 'New'}, {silent: true});
-    //   })
+      it('doesn\'t call destroy on the child view #taskPanelView #partialView #view #travis', function(done) {
+        var child = taskPanel.retrieveViewForModel(task1);
+        spyOn(child, 'destroy');
+        taskPanel.crossOff(task1);
 
-    //   it('calls crossOff on the collection view #partialView #view #travis', function() {
-    //     spyOn(taskPanel.collectionView, 'crossOff');
-    //     taskPanel.crossOffComplete();
-    //     expect(taskPanel.collectionView.crossOff).toHaveBeenCalledWith(task1);
-    //   });
-    // });
+        setTimeout(function() {
+          expect(child.destroy).not.toHaveBeenCalled();
+          done();
+        }, 750);
+      });
+
+      it('doesn\'t remove the view from the childViews array #taskPanelView #partialView #view #travis', function(done) { 
+        var child = taskPanel.retrieveViewForModel(task1);
+        taskPanel.crossOff(task1);
+        setTimeout(function() {
+          expect(taskPanel.childViews).toContain(child);
+          done();
+        });
+      });
+
+      it('doesn\'t remove the task from the collection #taskPanelView #partialView #view #travis', function(done) {
+        var spy = jasmine.createSpy();
+        taskPanel.collection.on('remove', spy);
+        taskPanel.crossOff(task1);
+
+        setTimeout(function() {
+          expect(spy).not.toHaveBeenCalled();
+          done();
+        }, 750);
+      });
+    });
 
     describe('filterCollection()', function() {
       beforeEach(function() {
@@ -199,110 +227,67 @@ describe('Task Panel View', function() {
         }
       });
 
-      it('doesn\'t include blocking tasks #partialView #view #travis', function() {
+      it('doesn\'t display blocking tasks #taskPanelView #partialView #view #travis', function() {
         var newView = new Tessitura.TaskListItemView({model: task2});
         spyOn(Tessitura.TaskCollectionView.prototype, 'retrieveViewForModel').and.returnValue(newView);
         task2.set({status: 'Blocking'});
         expect(taskPanel.filterCollection(collection).indexOf(task2)).toBe(-1);
       });
 
-      it('doesn\'t include backlogged tasks #partialView #view #travis', function() {
+      it('doesn\'t display backlogged tasks #taskPanelView #partialView #view #travis', function() {
         task2.set({backlog: true});
         expect(taskPanel.filterCollection(collection).indexOf(task2)).toBe(-1);
-      });
-    });
-
-    describe('showTaskCreateForm()', function() {
-      beforeEach(function() {
-        spy = jasmine.createSpy();
-        taskPanel.on('showTaskCreateForm', spy);
-        e = $.Event('showTaskCreateForm', {tasks: collection});
-      });
-
-      afterEach(function() {
-        taskPanel.off('showTaskCreateForm');
-      });
-
-      it('triggers the \'showTaskCreateForm\' event #partialView #view #travis', function() {
-        taskPanel.showTaskCreateForm(e);
-        expect(spy).toHaveBeenCalled();
-      });
-
-      xit('passes its collection through #partialView #view #travis', function() {
-        taskPanel.showTaskCreateForm(e);
-        expect(spy.calls.argsFor(0)[0]).toBe({collection: collection});
-      });
-    });
-
-    describe('removeBacklog()', function() {
-      context('when there is a backlogged task', function() {
-        beforeEach(function() {
-          spyOn(task1, 'get').and.returnValue(true);
-        });
-
-        it('calls removeBacklog on its collection view #partialView #view #travis', function() {
-          spyOn(taskPanel.collectionView, 'removeBacklog');
-          taskPanel.removeBacklog();
-          expect(taskPanel.collectionView.removeBacklog).toHaveBeenCalled();
-        });
       });
     });
   });
 
   describe('core view functions', function() {
     describe('remove()', function() {
-      it('removes the collection view from the DOM #partialView #view #travis', function() {
-        spyOn(taskPanel.collectionView, 'remove');
+      it('removes its child views from the DOM #taskPanelView #partialView #view #travis', function() {
         taskPanel.remove();
-        expect(taskPanel.collectionView.remove).toHaveBeenCalled();
+        expect(taskPanel.$('.task-list-item')).not.toBeInDom();
       });
 
-      it('removes itself from the DOM #partialView #view #travis', function() {
+      it('removes itself from the DOM #taskPanelView #partialView #view #travis', function() {
         spyOn(Backbone.View.prototype.remove, 'call');
         taskPanel.remove();
         expect(Backbone.View.prototype.remove.call).toHaveBeenCalledWith(taskPanel);
-      });
-    });
-
-    describe('render()', function() {
-      it('renders its collection view #partialView #view #travis', function() {
-        spyOn(taskPanel.collectionView, 'render');
-        taskPanel.render();
-        expect(taskPanel.collectionView.render).toHaveBeenCalled();
-      });
-
-      it('attaches the collection view to the DOM #partialView #view #travis', function() {
-        spyOn($.prototype, 'html');
-        taskPanel.render();
-        expect($.prototype.html.calls.argsFor(1)).toContain(taskPanel.collectionView.template());
       });
     });
   });
 
   describe('special functions', function() {
     describe('isA', function() {
-      it('returns true with argument \'TaskPanelView\' #partialView #view #travis', function() {
+      it('returns true with argument \'TaskPanelView\' #taskPanelView #partialView #view #travis', function() {
         expect(taskPanel.isA('TaskPanelView')).toBe(true);
       });
 
-      it('returns true with argument \'TaskPanel\' #partialView #view #travis', function() {
+      it('returns true with argument \'TaskPanel\' #taskPanelView #partialView #view #travis', function() {
         expect(taskPanel.isA('TaskPanel')).toBe(true);
       });
 
-      it('returns true with argument \'TaskView\' #partialView #view #travis', function() {
+      it('returns true with argument \'TaskView\' #taskPanelView #partialView #view #travis', function() {
         expect(taskPanel.isA('TaskView')).toBe(true);
       });
 
-      it('returns true with argument \'PartialView\' #partialView #view #travis', function() {
+      it('returns true with argument \'PartialView\' #taskPanelView #partialView #view #travis', function() {
         expect(taskPanel.isA('PartialView')).toBe(true);
       });
 
-      it('returns true with argument \'DashWidgetView\' #partialView #view #travis', function() {
+      it('returns true with argument \'DashWidgetView\' #taskPanelView #partialView #view #travis', function() {
         expect(taskPanel.isA('DashWidgetView')).toBe(true);
       });
 
-      it('returns false with other arguments #partialView #view #travis', function() {
+      it('returns false with other arguments #taskPanelView #partialView #view #travis', function() {
         expect(taskPanel.isA('TaskCollectionView')).toBe(false);
+      });
+    });
+
+    describe('renderCollection', function() {
+      it('renders the collection #taskPanelView #partialView #view #travis', function() {
+        pending('Figure out the right way to test this');
+        taskPanel.renderCollection();
+        expect(taskPanel.childViews.length).toBe(4);
       });
     });
   });

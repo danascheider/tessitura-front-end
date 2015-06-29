@@ -135,10 +135,12 @@ Tessitura.TaskCollectionView = Tessitura.View.extend({
     return Tessitura.View.prototype.render.call(this, this.template(), function() {
       that.quickAddForm.render();
       that.$('li.quick-add-form').html(that.quickAddForm.$el);
-      that.renderCollection();
+
       that.$el.sortable({
         items : '>*:not(.not-sortable)'
       });
+
+      that.renderCollection();
     });
   }
 });

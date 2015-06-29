@@ -17,3 +17,8 @@ Feature: Dashboard Home
     When I submit the quick-add form with 'Another Task'
     Then my task panel should show 3 tasks
     And the first list item should contain the text 'Another Task'
+    And my 'tasks' widget should say I have 5 incomplete tasks
+
+  Scenario: Mark a task complete from the task panel
+    Given I am on my dashboard
+    When I click the checkbox in the '#task-1' element

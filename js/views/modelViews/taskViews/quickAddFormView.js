@@ -29,7 +29,6 @@ Tessitura.QuickAddFormView = Tessitura.View.extend({
     // Declare variable `that` for use inside Ajax block
     var that  = this;
     var attrs = Tessitura.Utils.getAttributes(this.$el);
-    var TaskModel = require('../../../models/taskModel.js');
 
     // Make sure the task being created has the attributes 
     // common to this form's collection

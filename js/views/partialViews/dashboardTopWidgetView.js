@@ -24,9 +24,9 @@ Tessitura.DashboardTopWidgetView = Tessitura.View.extend({
 
     _.extend(this, this.data); 
 
-    this.listenTo(this.taskCollection, 'add remove sync', this.render);
+    this.listenTo(this.taskCollection, 'add remove change:status', this.render);
   },
-
+  
   render              : function() {
     Tessitura.View.prototype.render.call(this, this.template(this.data));
   }

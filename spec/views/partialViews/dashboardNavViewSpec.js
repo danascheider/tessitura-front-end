@@ -42,15 +42,15 @@ describe('Dashboard Nav View', function() {
   /****************************************************************************/
 
   describe('properties', function() {
-    it('has klass DashboardNavView #partialView #view #travis', function() {
+    it('has klass DashboardNavView #dashboardNavView #partialView #view #travis', function() {
       expect(view.klass).toEqual('DashboardNavView');
     });
 
-    it('has family Tessitura.View #partialView #view #travis', function() {
+    it('has family Tessitura.View #dashboardNavView #partialView #view #travis', function() {
       expect(view.family).toEqual('Tessitura.View');
     });
 
-    it('has superFamily Backbone.View #partialView #view #travis', function() {
+    it('has superFamily Backbone.View #dashboardNavView #partialView #view #travis', function() {
       expect(view.superFamily).toEqual('Backbone.View');
     });
   });
@@ -59,25 +59,25 @@ describe('Dashboard Nav View', function() {
   /**************************************************************************/
 
   describe('constructor', function() {
-    it('does not call render #partialView #view #travis', function() {
+    it('does not call render #dashboardNavView #partialView #view #travis', function() {
       spyOn(Tessitura.DashboardNavView.prototype, 'render');
       newView = new Tessitura.DashboardNavView({model: fixtures.user});
       expect(Tessitura.DashboardNavView.prototype.render).not.toHaveBeenCalled();
     });
 
-    it('calls setUser #partialView #view #travis', function() {
+    it('calls setUser #dashboardNavView #partialView #view #travis', function() {
       pending('FUFNR');
       spyOn(Tessitura.DashboardNavView.prototype, 'setUser');
       newView = new Tessitura.DashboardNavView({model: fixtures.user});
       expect(Tessitura.DashboardNavView.prototype.setUser).toHaveBeenCalled();
     });
 
-    it('can be instantiated without a user #partialView #view #travis', function() {
+    it('can be instantiated without a user #dashboardNavView #partialView #view #travis', function() {
       newView = new Tessitura.DashboardNavView();
       expect(newView.user).not.toExist();
     });
 
-    it('is instantiated with a sidebar #partialView #view #travis', function() {
+    it('is instantiated with a sidebar #dashboardNavView #partialView #view #travis', function() {
       newView = new Tessitura.DashboardNavView();
       expect(newView.sidebar).toBeA('DashboardSidebarView');
     });
@@ -92,23 +92,23 @@ describe('Dashboard Nav View', function() {
       $('body').html(view.$el);
     });
 
-    it('is a nav #partialView #view #travis', function() {
+    it('is a nav #dashboardNavView #partialView #view #travis', function() {
       expect(view.$el[0].tagName).toEqual('NAV');
     })
 
-    it('has a sidebar #partialView #view #travis', function() {
+    it('has a sidebar #dashboardNavView #partialView #view #travis', function() {
       expect(view.$('#side-menu')).toBeInDom();
     });
 
-    it('has class .navbar #partialView #view #travis', function() {
+    it('has class .navbar #dashboardNavView #partialView #view #travis', function() {
       expect(view.$el.attr('class')).toContain('navbar');
     });
 
-    it('has class .navbar-default #partialView #view #travis', function() {
+    it('has class .navbar-default #dashboardNavView #partialView #view #travis', function() {
       expect(view.$el.attr('class')).toContain('navbar-default');
     });
 
-    it('has class navbar-fixed-top #partialView #view #travis', function() {
+    it('has class navbar-fixed-top #dashboardNavView #partialView #view #travis', function() {
       expect(view.$el.attr('class')).toContain('navbar-fixed-top');
     });
   });
@@ -118,7 +118,7 @@ describe('Dashboard Nav View', function() {
 
   describe('events', function() {
     describe('click .navbar-header', function() {
-      it('calls toggleSidebar() #partialView #view #travis', function() {
+      it('calls toggleSidebar() #dashboardNavView #partialView #view #travis', function() {
         spyOn(Tessitura.DashboardNavView.prototype, 'toggleSidebar');
         newView = new Tessitura.DashboardNavView({model: user});
         newView.render();
@@ -128,7 +128,7 @@ describe('Dashboard Nav View', function() {
     });
 
     describe('click li.dropdown', function() {
-      it('calls toggleDropdownMenu #partialView #view #travis', function() {
+      it('calls toggleDropdownMenu #dashboardNavView #partialView #view #travis', function() {
         spyOn(Tessitura.DashboardNavView.prototype, 'toggleDropdownMenu');
         newView = new Tessitura.DashboardNavView({model: user});
         newView.render();
@@ -138,7 +138,7 @@ describe('Dashboard Nav View', function() {
     });
 
     describe('change user first name', function() {
-      it('calls render #partialView #view #travis', function() {
+      it('calls render #dashboardNavView #partialView #view #travis', function() {
         pending('FUFNR');
         spyOn(Tessitura.DashboardNavView.prototype, 'render');
         newView = new Tessitura.DashboardNavView({model: user});
@@ -148,7 +148,7 @@ describe('Dashboard Nav View', function() {
     });
 
     describe('change user last name', function() {
-      it('calls render #partialView #view #travis', function() {
+      it('calls render #dashboardNavView #partialView #view #travis', function() {
         pending('FUFNR');
         spyOn(Tessitura.DashboardNavView.prototype, 'render');
         newView = new Tessitura.DashboardNavView({model: user});
@@ -169,7 +169,7 @@ describe('Dashboard Nav View', function() {
       });
 
       context('when the dropdown menu is closed', function() {
-        it('adds the .open class #partialView #view #travis', function() {
+        it('adds the .open class #dashboardNavView #partialView #view #travis', function() {
           view.toggleDropdownMenu(e);
           expect(view.$('li.dropdown').first().attr('class')).toContain('open');
         });
@@ -180,7 +180,7 @@ describe('Dashboard Nav View', function() {
           view.toggleDropdownMenu(e);
         });
 
-        it('removes the .open class #partialView #view #travis', function() {
+        it('removes the .open class #dashboardNavView #partialView #view #travis', function() {
           view.toggleDropdownMenu(e);
           expect(view.$('li.dropdown').first().attr('class')).not.toContain('open');
         });
@@ -188,14 +188,14 @@ describe('Dashboard Nav View', function() {
     });
 
     describe('toggleSidebar()', function() {
-      it('calls slideToggle #partialView #view #travis', function() {
+      it('calls slideToggle #dashboardNavView #partialView #view #travis', function() {
         spyOn($.prototype, 'slideToggle');
         view.$('.sidebar-collapse').hide();
         view.toggleSidebar();
         expect($.prototype.slideToggle).toHaveBeenCalled();
       });
 
-      it('hides any visible dropdown menus #partialView #view #travis', function() {
+      it('hides any visible dropdown menus #dashboardNavView #partialView #view #travis', function() {
         view.$('li.dropdown').first().click();
         view.toggleSidebar();
         expect(view.$('li.dropdown').first().attr('class')).not.toContain('open')
@@ -208,7 +208,7 @@ describe('Dashboard Nav View', function() {
 
   describe('core view functions', function() {
     describe('render()', function() {
-      it('calls render on its sidebar #partialView #view #travis', function() {
+      it('calls render on its sidebar #dashboardNavView #partialView #view #travis', function() {
         spyOn(view.sidebarView, 'render');
         view.render();
         expect(view.sidebarView.render).toHaveBeenCalled();
@@ -222,7 +222,7 @@ describe('Dashboard Nav View', function() {
         expect(view.navView.remove).toHaveBeenCalled();
       });
 
-      it('calls Backbone.View.prototype.remove on itself #partialView #view #travis', function() {
+      it('calls Backbone.View.prototype.remove on itself #dashboardNavView #partialView #view #travis', function() {
         spyOn(Tessitura.View.prototype.remove, 'call');
         view.remove();
         expect(Backbone.View.prototype.remove.call).toHaveBeenCalledWith(view);
@@ -235,15 +235,15 @@ describe('Dashboard Nav View', function() {
 
   describe('special functions', function() {
     describe('isA()', function() {
-      it('returns true with argument DashboardNavView #partialView #view #travis', function() {
+      it('returns true with argument DashboardNavView #dashboardNavView #partialView #view #travis', function() {
         expect(view.isA('DashboardNavView')).toBe(true);
       });
 
-      it('returns true with argument PartialView #partialView #view #travis', function() {
+      it('returns true with argument PartialView #dashboardNavView #partialView #view #travis', function() {
         expect(view.isA('PartialView')).toBe(true);
       });
 
-      it('returns false with another argument #partialView #view #travis', function() {
+      it('returns false with another argument #dashboardNavView #partialView #view #travis', function() {
         expect(view.isA('Corvette')).toBe(false);
       });
     });
@@ -254,7 +254,7 @@ describe('Dashboard Nav View', function() {
         newView.setUser(fixtures.user);
       });
 
-      it('sets the user #partialView #view #travis', function() {
+      it('sets the user #dashboardNavView #partialView #view #travis', function() {
         expect(newView.model).toBe(fixtures.user);
       });
     });

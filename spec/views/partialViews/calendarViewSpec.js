@@ -45,15 +45,15 @@ describe('dashboard calendar view', function() {
   /**************************************************************************/
 
   describe('properties', function() {
-    it('has klass CalendarView #partialView #view #travis', function() {
+    it('has klass CalendarView #calendarView #partialView #view #travis', function() {
       expect(view.klass).toEqual('CalendarView');
     });
 
-    it('has family Tessitura.View #partialView #view #travis', function() {
+    it('has family Tessitura.View #calendarView #partialView #view #travis', function() {
       expect(view.family).toEqual('Tessitura.View');
     });
 
-    it('has superFamily Backbone.View #partialView #view #travis', function() {
+    it('has superFamily Backbone.View #calendarView #partialView #view #travis', function() {
       expect(view.superFamily).toEqual('Backbone.View');
     });
   });
@@ -62,7 +62,7 @@ describe('dashboard calendar view', function() {
   /**************************************************************************/
 
   describe('constructor', function() {
-    it('does not call render #partialView #view #travis', function() {
+    it('does not call render #calendarView #partialView #view #travis', function() {
       spyOn(CalendarView.prototype, 'render');
       var newView = new CalendarView();
       expect(CalendarView.prototype.render).not.toHaveBeenCalled();
@@ -78,19 +78,19 @@ describe('dashboard calendar view', function() {
       $('body').html(view.$el);
     });
 
-    it('has ID #calendar #partialView #view #travis', function() {
+    it('has ID #calendar #calendarView #partialView #view #travis', function() {
       expect(view.$el).toHaveId('calendar');
     });
 
-    it('has class .panel #partialView #view #travis', function() {
+    it('has class .panel #calendarView #partialView #view #travis', function() {
       expect(view.$el).toHaveClass('panel');
     });
 
-    it('has class .dash-widget #partialView #view #travis', function() {
+    it('has class .dash-widget #calendarView #partialView #view #travis', function() {
       expect(view.$el).toHaveClass('dash-widget');
     });
 
-    it('has class .panel-primary #partialView #view #travis', function() {
+    it('has class .panel-primary #calendarView #partialView #view #travis', function() {
       expect(view.$el).toHaveClass('panel-primary');
     });
   });
@@ -118,13 +118,13 @@ describe('dashboard calendar view', function() {
     });
 
     describe('render()', function() {
-      it('sets the HTML of its el #partialView #view #travis', function() {
+      it('sets the HTML of its el #calendarView #partialView #view #travis', function() {
         spyOn(view.$el, 'html');
         view.render();
         expect(view.$el.html).toHaveBeenCalled();
       });
 
-      it('returns itself #partialView #view #travis', function() {
+      it('returns itself #calendarView #partialView #view #travis', function() {
         expect(view.render()).toBe(view);
       });
     });
@@ -144,7 +144,7 @@ describe('dashboard calendar view', function() {
           jasmine.clock().mockDate(today);
         });
 
-        it('displays the specified days #partialView #view #travis', function() {
+        it('displays the specified days #calendarView #partialView #view #travis', function() {
           expect(view.displayDays()).toEqual(days);
         });
       });
@@ -156,7 +156,7 @@ describe('dashboard calendar view', function() {
           jasmine.clock().mockDate(today);
         });
 
-        it('wraps to the end of the last week #partialView #view #travis', function() {
+        it('wraps to the end of the last week #calendarView #partialView #view #travis', function() {
           expect(view.displayDays()).toEqual(days);
         });
       });
@@ -165,15 +165,15 @@ describe('dashboard calendar view', function() {
     });
 
     describe('isA()', function() {
-      it('returns true with argument CalendarView #partialView #view #travis', function() {
+      it('returns true with argument CalendarView #calendarView #partialView #view #travis', function() {
         expect(view.isA('CalendarView')).toBe(true);
       });
 
-      it('returns true with argument PartialView #partialView #view #travis', function() {
+      it('returns true with argument PartialView #calendarView #partialView #view #travis', function() {
         expect(view.isA('PartialView')).toBe(true);
       });
 
-      it('returns false with another argument #partialView #view #travis', function() {
+      it('returns false with another argument #calendarView #partialView #view #travis', function() {
         expect(view.isA('Corvette')).toBe(false);
       });
     });

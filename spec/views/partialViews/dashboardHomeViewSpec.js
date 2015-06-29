@@ -60,19 +60,19 @@ describe('Dashboard Home View', function() {
   /**************************************************************************/
 
   describe('constructor', function() {
-    it('does not call render #partialView #view #travis', function() {
+    it('does not call render #dashboardHomeView #partialView #view #travis', function() {
       spyOn(Tessitura.DashboardHomeView.prototype, 'render');
       newView = new Tessitura.DashboardHomeView({user: fixtures.user});
       expect(Tessitura.DashboardHomeView.prototype.render).not.toHaveBeenCalled();
     });
 
-    it('calls setUser #partialView #view #travis', function() {
+    it('calls setUser #dashboardHomeView #partialView #view #travis', function() {
       spyOn(Tessitura.DashboardHomeView.prototype, 'setUser');
       newView = new Tessitura.DashboardHomeView({user: fixtures.user});
       expect(Tessitura.DashboardHomeView.prototype.setUser).toHaveBeenCalled();
     });
 
-    it('can be instantiated without a user #partialView #view #travis', function() {
+    it('can be instantiated without a user #dashboardHomeView #partialView #view #travis', function() {
       newView = new Tessitura.DashboardHomeView();
       expect(newView.user).not.toExist();
     });
@@ -87,23 +87,23 @@ describe('Dashboard Home View', function() {
       $('body').html(view.$el);
     });
 
-    it('has a task panel #partialView #view #travis', function() {
+    it('has a task panel #dashboardHomeView #partialView #view #travis', function() {
       expect(view.$('#task-panel')).toBeInDom();
     });
 
-    it('has a top widget section #partialView #view #travis', function() {
+    it('has a top widget section #dashboardHomeView #partialView #view #travis', function() {
       expect(view.$('#dashboard-top-widgets')).toBeInDom();
     });
 
-    it('has a calendar #partialView #view #travis', function() {
+    it('has a calendar #dashboardHomeView #partialView #view #travis', function() {
       expect(view.$('#calendar')).toBeInDom();
     });
 
-    it('has ID #page-wrapper #partialView #view #travis', function() {
+    it('has ID #page-wrapper #dashboardHomeView #partialView #view #travis', function() {
       expect(view.$el).toHaveId('page-wrapper');
     });
 
-    it('has class .dashboard-home #partialView #view #travis', function() {
+    it('has class .dashboard-home #dashboardHomeView #partialView #view #travis', function() {
       expect(view.$el).toHaveClass('dashboard-home');
     });
   });
@@ -113,19 +113,19 @@ describe('Dashboard Home View', function() {
 
   describe('core view functions', function() {
     describe('render()', function() {
-      it('calls renderTaskPanelView #partialView #view #travis', function() {
+      it('calls renderTaskPanelView #dashboardHomeView #partialView #view #travis', function() {
         spyOn(view, 'renderTaskPanelView');
         view.render();
         expect(view.renderTaskPanelView).toHaveBeenCalled();
       });
 
-      it('calls renderTopWidgetView #partialView #view #travis', function() {
+      it('calls renderTopWidgetView #dashboardHomeView #partialView #view #travis', function() {
         spyOn(view, 'renderTopWidgetView');
         view.render();
         expect(view.renderTopWidgetView).toHaveBeenCalled();
       });
 
-      it('calls renderCalendarView #partialView, #view, #travis', function() {
+      it('calls renderCalendarView #dashboardHomeView #partialView, #view, #travis', function() {
         spyOn(view, 'renderCalendarView');
         view.render();
         expect(view.renderCalendarView).toHaveBeenCalled();
@@ -141,14 +141,14 @@ describe('Dashboard Home View', function() {
         });
       });
 
-      it('calls Backbone.View.prototype.remove on itself #partialView #view #travis', function() {
+      it('calls Backbone.View.prototype.remove on itself #dashboardHomeView #partialView #view #travis', function() {
         spyOn(Backbone.View.prototype.remove, 'call');
         view.remove();
         expect(Backbone.View.prototype.remove.call).toHaveBeenCalledWith(view);
       });
 
       context('when the child views don\'t exist', function() {
-        it('doesn\'t raise an error #partialView #view #travis', function() {
+        it('doesn\'t raise an error #dashboardHomeView #partialView #view #travis', function() {
           newView = new Tessitura.DashboardHomeView({user: user});
           newView.render();
           expect(newView.remove).not.toThrow();
@@ -162,21 +162,21 @@ describe('Dashboard Home View', function() {
 
   describe('special functions', function() {
     describe('isA()', function() {
-      it('returns true with argument DashboardHomeView #partialView #view #travis', function() {
+      it('returns true with argument DashboardHomeView #dashboardHomeView #partialView #view #travis', function() {
         expect(view.isA('DashboardHomeView')).toBe(true);
       });
 
-      it('returns true with argument PartialView #partialView #view #travis', function() {
+      it('returns true with argument PartialView #dashboardHomeView #partialView #view #travis', function() {
         expect(view.isA('PartialView')).toBe(true);
       });
 
-      it('returns false with another argument #partialView #view #travis', function() {
+      it('returns false with another argument #dashboardHomeView #partialView #view #travis', function() {
         expect(view.isA('Corvette')).toBe(false);
       });
     });
 
     describe('renderCalendarView()', function() {
-      it('calls render on the calendar view #partialView #view #travis', function() {
+      it('calls render on the calendar view #dashboardHomeView #partialView #view #travis', function() {
         spyOn(view.calendarView, 'render');
         view.renderCalendarView();
         expect(view.calendarView.render).toHaveBeenCalled();
@@ -190,13 +190,13 @@ describe('Dashboard Home View', function() {
     });
 
     describe('renderTaskPanelView()', function() {
-      it('calls render on the task panel view #partialView #view #travis', function() {
+      it('calls render on the task panel view #dashboardHomeView #partialView #view #travis', function() {
         spyOn(view.taskPanelView, 'render');
         view.renderTaskPanelView();
         expect(view.taskPanelView.render).toHaveBeenCalled();
       });
 
-      it('attaches the task panel view to the DOM #partialView #view #travis', function() {
+      it('attaches the task panel view to the DOM #dashboardHomeView #partialView #view #travis', function() {
         view.$el.html(view.template());
         view.renderTaskPanelView();
         $('body').html(view.$el);
@@ -205,13 +205,13 @@ describe('Dashboard Home View', function() {
     });
 
     describe('renderTopWidgetView()', function() {
-      it('calls render on the top-widget view #partialView #view #travis', function() {
+      it('calls render on the top-widget view #dashboardHomeView #partialView #view #travis', function() {
         spyOn(view.topWidgetView, 'render');
         view.renderTopWidgetView();
         expect(view.topWidgetView.render).toHaveBeenCalled();
       });
 
-      it('attaches the top widget view to the DOM #partialView #view #travis', function() {
+      it('attaches the top widget view to the DOM #dashboardHomeView #partialView #view #travis', function() {
         view.$el.html(view.template());
         view.renderTopWidgetView();
         $('body').html(view.$el);
@@ -225,35 +225,35 @@ describe('Dashboard Home View', function() {
         newView.setUser(fixtures.user);
       });
 
-      it('sets the user #partialView #view #travis', function() {
+      it('sets the user #dashboardHomeView #partialView #view #travis', function() {
         expect(newView.user).toBe(fixtures.user);
       });
 
-      it('sets the collection #partialView #view #travis', function() {
+      it('sets the collection #dashboardHomeView #partialView #view #travis', function() {
         expect(newView.collection).toBe(fixtures.user.tasks);
       });
 
-      it('creates the task panel #partialView #view #travis', function() {
+      it('creates the task panel #dashboardHomeView #partialView #view #travis', function() {
         expect(newView.taskPanelView.klass).toBe('TaskPanelView');
       });
 
-      it('creates a top widget view #partialView #view #travis', function() {
+      it('creates a top widget view #dashboardHomeView #partialView #view #travis', function() {
         expect(newView.topWidgetView.klass).toBe('DashboardTopWidgetView');
       });
 
-      it('creates a calendar widget #partialView #view #travis', function() {
+      it('creates a calendar widget #dashboardHomeView #partialView #view #travis', function() {
         expect(newView.calendarView.klass).toBe('CalendarView');
       });
 
-      it('puts the task panel in its childViews array #partialView #view #travis', function() {
+      it('puts the task panel in its childViews array #dashboardHomeView #partialView #view #travis', function() {
         expect(newView.childViews).toContain(newView.topWidgetView);
       });
 
-      it('puts the top-widget view in its childViews array #partialView #view #travis', function() {
+      it('puts the top-widget view in its childViews array #dashboardHomeView #partialView #view #travis', function() {
         expect(newView.childViews).toContain(newView.topWidgetView);
       });
 
-      it('puts the calendar view in its childViews array #partialView #view #travis', function() {
+      it('puts the calendar view in its childViews array #dashboardHomeView #partialView #view #travis', function() {
         expect(newView.childViews).toContain(newView.calendarView);
       });
     });

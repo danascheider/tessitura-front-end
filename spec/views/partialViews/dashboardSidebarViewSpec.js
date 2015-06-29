@@ -21,7 +21,7 @@ describe('Dashboard Sidebar View', function() {
   afterAll(function()   { sidebar = null; });
 
   describe('constructor', function() {
-    it('doesn\'t call render #partialView #view #travis', function() {
+    it('doesn\'t call render #dashboardSidebarView #partialView #view #travis', function() {
       spyOn(Tessitura.DashboardSidebarView.prototype, 'render');
       newSidebar = new Tessitura.DashboardSidebarView();
       expect(Tessitura.DashboardSidebarView.prototype.render).not.toHaveBeenCalled();
@@ -29,19 +29,19 @@ describe('Dashboard Sidebar View', function() {
   });
 
   describe('properties', function() {
-    it('is a Tessitura.View #partialView #view #travis', function() {
+    it('is a Tessitura.View #dashboardSidebarView #partialView #view #travis', function() {
       expect(sidebar).toBeA('Tessitura.View');
     });
 
-    it('has klass DashboardSidebarView #partialView #view #travis', function() {
+    it('has klass DashboardSidebarView #dashboardSidebarView #partialView #view #travis', function() {
       expect(sidebar.klass).toBe('DashboardSidebarView');
     });
 
-    it('has family Tessitura.View #partialView #view #travis', function() {
+    it('has family Tessitura.View #dashboardSidebarView #partialView #view #travis', function() {
       expect(sidebar.family).toBe('Tessitura.View');
     });
 
-    it('has superFamily Backbone.View #partialView #view #travis', function() {
+    it('has superFamily Backbone.View #dashboardSidebarView #partialView #view #travis', function() {
       expect(sidebar.superFamily).toBe('Backbone.View');
     });
   });
@@ -51,27 +51,27 @@ describe('Dashboard Sidebar View', function() {
       sidebar.render();
     });
 
-    it('is a ul #partialView #view #travis', function() {
+    it('is a ul #dashboardSidebarView #partialView #view #travis', function() {
       expect(sidebar.$el[0].tagName).toEqual('UL');
     });
 
-    it('has class .nav #partialView #view #travis', function() {
+    it('has class .nav #dashboardSidebarView #partialView #view #travis', function() {
       expect(sidebar.$el).toHaveClass('nav');
     });
 
-    it('has ID #side-menu #partialView #view #travis', function() {
+    it('has ID #side-menu #dashboardSidebarView #partialView #view #travis', function() {
       expect(sidebar.$el).toHaveId('side-menu');
     });
 
-    it('has a search field #partialView #view #travis', function() {
+    it('has a search field #dashboardSidebarView #partialView #view #travis', function() {
       expect(sidebar.$('.custom-search-form')).toExist();
     });
 
-    it('has a link to the dashboard #partialView #view #travis', function() {
+    it('has a link to the dashboard #dashboardSidebarView #partialView #view #travis', function() {
       expect(sidebar.$('.dashboard-link')).toExist();
     });
 
-    it('has a link to the task page #partialView #view #travis', function() {
+    it('has a link to the task page #dashboardSidebarView #partialView #view #travis', function() {
       expect(sidebar.$('.task-page-link')).toExist();
     });
   });
@@ -86,7 +86,7 @@ describe('Dashboard Sidebar View', function() {
     });
 
     describe('click sidebar link', function() {
-      it('calls toggleSecondLevelNav #partialView #view #travis', function() {
+      it('calls toggleSecondLevelNav #dashboardSidebarView #partialView #view #travis', function() {
         newSidebar.$('a.sidebar-link').last().click();
         expect(Tessitura.DashboardSidebarView.prototype.toggleSecondLevelNav).toHaveBeenCalled();
       });
@@ -103,12 +103,12 @@ describe('Dashboard Sidebar View', function() {
       });
 
       context('when the menu clicked is closed', function() {
-        it('adds the `active` class to its parent #partialView #view #travis', function() {
+        it('adds the `active` class to its parent #dashboardSidebarView #partialView #view #travis', function() {
           sidebar.toggleSecondLevelNav(e);
           expect(link.closest('li')).toHaveClass('active');
         });
 
-        it('removes the `active` class from any other li\'s #partialView #view #travis', function() {
+        it('removes the `active` class from any other li\'s #dashboardSidebarView #partialView #view #travis', function() {
           sidebar.$('a[href=#]').last().closest('li').addClass('active');
           sidebar.toggleSecondLevelNav(e);
           expect(sidebar.$('a[href=#]').last().closest('li')).not.toHaveClass('active');
@@ -116,7 +116,7 @@ describe('Dashboard Sidebar View', function() {
       });
 
       context('when the menu clicked is open', function() {
-        it('removes the `active` class from all the menus #partialView #view #travis', function() {
+        it('removes the `active` class from all the menus #dashboardSidebarView #partialView #view #travis', function() {
           link.closest('li').addClass('active');
           sidebar.toggleSecondLevelNav(e);
           expect(sidebar.$('li.active').length).toEqual(0);
@@ -127,19 +127,19 @@ describe('Dashboard Sidebar View', function() {
 
   describe('special functions', function() {
     describe('isA', function() {
-      it('returns true with argument DashboardSidebarView #partialView #view #travis', function() {
+      it('returns true with argument DashboardSidebarView #dashboardSidebarView #partialView #view #travis', function() {
         expect(sidebar.isA('DashboardSidebarView')).toBe(true);
       });
 
-      it('returns true with argument DashboardView #partialView #view #travis', function() {
+      it('returns true with argument DashboardView #dashboardSidebarView #partialView #view #travis', function() {
         expect(sidebar.isA('DashboardView')).toBe(true);
       });
 
-      it('returns true with argument PartialView #partialView #view #travis', function() {
+      it('returns true with argument PartialView #dashboardSidebarView #partialView #view #travis', function() {
         expect(sidebar.isA('PartialView')).toBe(true);
       });
 
-      it('returns false with other argument #partialView #view #travis', function() {
+      it('returns false with other argument #dashboardSidebarView #partialView #view #travis', function() {
         expect(sidebar.isA('Backbone.Router')).toBe(false);
       });
     });
