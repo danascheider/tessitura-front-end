@@ -18,6 +18,12 @@ When(/^I click on the title in the '\#task\-(\d+)' element$/) do |id|
   end
 end
 
+When(/^I click the checkbox in the '(.*)' element$/) do |id|
+  within id do 
+    find('i.fa-square-o').click
+  end
+end
+
 Then(/^the mark\-complete checkbox should be checked$/) do 
   expect(page).to have_selector 'i.fa-check-square-o[title="Mark complete"]'
 end
