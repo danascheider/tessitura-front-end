@@ -6,6 +6,7 @@ require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/spec/support/env.js');
 
 var matchers       = _.extend(require('jasmine-jquery-matchers')),
+    fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     context        = describe,
     fcontext       = fdescribe;
 
@@ -13,23 +14,17 @@ var matchers       = _.extend(require('jasmine-jquery-matchers')),
 /****************************************************************************/
 
 describe('Kanban Column View', function() {
-  var view, newView, user, collection, task1, task2, task3, data;
+  var view, newView, data;
 
   /* Filters
   /**************************************************************************/
 
   beforeAll(function() {
     jasmine.addMatchers(matchers);
+    _.extend(global, fixtures);
   });
 
   beforeEach(function() {
-    user = new Tessitura.UserModel({id: 1, username: 'testuser', password: 'testuser', email: 'testuser@example.com', first_name: 'Test', last_name: 'User'});
-
-    task1 = new Tessitura.TaskModel({id: 1, owner_id: 1, title: 'Task 1', status: 'New', priority: 'Low', position: 1});
-    task2 = new Tessitura.TaskModel({id: 2, owner_id: 1, title: 'Task 2', status: 'New', priority: 'Normal', position: 2});
-    task3 = new Tessitura.TaskModel({id: 3, owner_id: 1, title: 'Task 3', status: 'Complete', priority: 'Normal', position: 3});
-
-    collection = user.tasks = new Tessitura.TaskCollection([task1, task2, task3]);
     data = {collection: collection, color: 'blue', icon: 'fa-exclamation-circle', headline: 'New'};
 
     spyOn(Tessitura.TaskModel.prototype, 'displayTitle').and.returnValue('foobar');
@@ -37,12 +32,13 @@ describe('Kanban Column View', function() {
   });
 
   afterEach(function() {
-    _.each([view, user, task1, task2, task3, collection], function(ob) { ob.destroy(); });
+    restoreFixtures();
     newView && newView.destroy(); 
   });
 
   afterAll(function() {
     view = null;
+    _.omit(global, fixtures);
   });
 
   /* Static Properties
