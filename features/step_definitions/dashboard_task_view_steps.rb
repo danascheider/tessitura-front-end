@@ -23,6 +23,7 @@ end
 Then(/^the '(\S+)' column should contain (\d+) tasks$/) do |id, count|
   within id do 
     wait_for_ajax
+    save_screenshot 'screenshot.png'
     expect(page).to have_selector('li.task-list-item', count: count)
   end
 end

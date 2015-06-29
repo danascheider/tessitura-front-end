@@ -51,6 +51,7 @@ Tessitura.QuickAddFormView = Tessitura.View.extend({
       // wrong and aesthetically offensive.
 
       var task = new Tessitura.TaskModel();
+
       task.save(attrs, {
         success    : function(model) {
           that.$el[0].reset();

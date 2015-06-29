@@ -25,7 +25,7 @@ describe('Kanban Column View', function() {
   });
 
   beforeEach(function() {
-    data = {collection: collection, color: 'blue', icon: 'fa-exclamation-circle', headline: 'New'};
+    data = {collection: collection, models: collection.models, color: 'blue', icon: 'fa-exclamation-circle', headline: 'New', groupedBy: {status: 'New'}};
 
     spyOn(Tessitura.TaskModel.prototype, 'displayTitle').and.returnValue('foobar');
     view = new Tessitura.KanbanColumnView(data);
@@ -67,17 +67,24 @@ describe('Kanban Column View', function() {
       newView = new Tessitura.KanbanColumnView(data);
     });
 
-    it('calls setCollection #kanbanColumnView #partialView #view #travis', function () {
-      spyOn(Tessitura.KanbanColumnView.prototype, 'setCollection');
+    it('sets the color property #kanbanColumnView #partialView #view #travis', function() {
       newView = new Tessitura.KanbanColumnView(data);
-      expect(Tessitura.KanbanColumnView.prototype.setCollection.calls.argsFor(0)[0]).toEqual(collection);
+      expect(newView.color).toEqual(data.color);
     });
 
-    it('sets the data property #kanbanColumnView #partialView #view #travis', function() {
+    it('sets the icon property #kanbanColumnView #partialView #view #travis', function() {
       newView = new Tessitura.KanbanColumnView(data);
-      _.each(['color', 'icon', 'headline'], function(prop) {
-        expect(newView.data[prop]).toEqual(data[prop]);
-      });
+      expect(newView.icon).toEqual(data.icon);
+    });
+
+    it('sets the headline property #kanbanColumnView #partialView #view #travis', function() {
+      newView = new Tessitura.KanbanColumnView(data);
+      expect(newView.headline).toEqual(data.headline);
+    });
+
+    it('sets the groupedBy property #kanbanColumnView #partialView #view #travis', function() {
+      newView = new Tessitura.KanbanColumnView(data);
+      expect(newView.groupedBy).toEqual({status: 'New'});
     });
 
     it('can be instantiated without a collection #kanbanColumnView #partialView #view #travis', function() {
@@ -95,24 +102,6 @@ describe('Kanban Column View', function() {
     it('creates a childViews array #kanbanColumnView #partialView #view #travis', function() {
       newView = new Tessitura.KanbanColumnView(data);
       expect(newView.childViews).toExist();
-    });
-
-    describe('groupedBy property', function() {
-      context('when grouped by backlog', function() {
-        it('sets groupedBy to Backlog #kanbanColumnView #partialView #view #travis', function() {
-          data.headline = 'Backlog';
-          newView = new Tessitura.KanbanColumnView(data);
-          expect(newView.groupedBy).toEqual({backlog: true});
-          data.headline = 'New';
-        });
-      });
-
-      context('when grouped by status', function() {
-        it('sets groupedBy to the appropriate status #kanbanColumnView #partialView #view #travis', function() {
-          newView = new Tessitura.KanbanColumnView(data);
-          expect(newView.groupedBy).toEqual({status: 'New'});
-        });
-      });
     });
   });
 
@@ -146,30 +135,6 @@ describe('Kanban Column View', function() {
 
     it('has a task list UL #kanbanColumnView #partialView #view #travis', function() {
       expect(view.$('.task-list')).toExist();
-    });
-  });
-
-  /* Event Wiring
-  /**************************************************************************/
-
-  describe('view events', function() {
-    describe('add task to collection', function() {
-      it('calls updateTask #kanbanColumnView #partialView #view #travis', function() {
-        spyOn(Tessitura.KanbanColumnView.prototype, 'updateTask');
-        newView = new Tessitura.KanbanColumnView(data);
-        var newTask = new Tessitura.TaskModel({id: 4, owner_id: 1, title: 'Hello World'});
-        newView.collection.trigger('add', newTask);
-        expect(Tessitura.KanbanColumnView.prototype.updateTask).toHaveBeenCalled();
-      });
-    });
-
-    describe('change:backlog', function() {
-      it('calls removeTask #kanbanColumnView #partialView #view #travis', function() {
-        spyOn(Tessitura.KanbanColumnView.prototype, 'removeTask');
-        newView = new Tessitura.KanbanColumnView(data);
-        newView.collection.trigger('change:backlog', task1);
-        expect(Tessitura.KanbanColumnView.prototype.removeTask).toHaveBeenCalledWith(task1);
-      });
     });
   });
 
@@ -260,59 +225,16 @@ describe('Kanban Column View', function() {
         });
       });
     });
-
-    describe('removeTask()', function() {
-      it('removes the task #kanbanColumnView #partialView #view #travis', function() {
-        spyOn(collection, 'remove');
-        view.removeTask(view.collection.models[0]);
-        expect(collection.remove.calls.argsFor(0)[0]).toEqual(view.collection.models[0]);
-      });
-    });
-
-    describe('updateTask()', function() {
-      it('modifies the task with the column\'s groupedBy property #kanbanColumnView #partialView #view #travis', function() {
-        spyOn(task3, 'save');
-        view.updateTask(task3);
-        expect(task3.save).toHaveBeenCalledWith({status: 'New'});
-      });
-
-      context('when the attributes already match', function() {
-        it('doesn\'t call save on the task #kanbanColumnView #partialView #view #travis', function() {
-          spyOn(task1, 'save');
-          view.updateTask(task1);
-          expect(task1.save).not.toHaveBeenCalled();
-        });
-      });
-    });
   });
 
   /* Special Functions
   /**************************************************************************/
 
   describe('special functions', function() {
-    describe('setCollection()', function() {
-      newView;
-
-      beforeEach(function() { 
-        delete data.collection;
-        newView = new Tessitura.KanbanColumnView();
-      });
-
-      afterAll(function() {
-        data.collection = collection;
-      });
-
-      it('sets the collection #kanbanColumnView #partialView #view #travis', function() {
-        newView.setCollection(collection);
-        expect(newView.collection).toBe(collection);
-      });
-    });
-
-
-    describe('renderCollection', function() {
-      it('renders the collection #taskPanelView #partialView #view #travis', function() {
+    describe('renderModels', function() {
+      it('renders the models #taskPanelView #partialView #view #travis', function() {
         pending('Figure out the right way to test this');
-        view.renderCollection();
+        view.renderModels();
         expect(view.childViews.length).toBe(4);
       });
     });

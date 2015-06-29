@@ -106,8 +106,8 @@ Tessitura.TaskCollectionView = Tessitura.View.extend({
   initialize          : function(opts) {
     opts = opts || {};
 
-    this.grouping     = opts.grouping;
-    this.quickAddForm = new Tessitura.QuickAddFormView({collection: this.collection, grouping: this.grouping});
+    this.groupedBy    = opts.groupedBy;
+    this.quickAddForm = new Tessitura.QuickAddFormView({collection: this.collection, groupedBy: this.groupedBy});
     this.childViews   = [this.quickAddForm];
 
     this.listenTo(this.collection, 'add fetch', this.render);

@@ -47,78 +47,60 @@ Tessitura.KanbanColumnView = Tessitura.View.extend({
     }
   },
 
-  updateTask           : function(task) {
-    var needsUpdate = false;
-
-    _.each(this.groupedBy, function(val, key) {
-      if(task.get(key) != val) { 
-        needsUpdate = true;
-      }
-    });
-
-    if(needsUpdate) { 
-      task.save(this.groupedBy); 
-    }
-  },
-
   /* Special Functions
   /**************************************************************************/
 
-  renderCollection     : function() {
+  renderModels         : function() {
     var that      = this;
     var container = document.createDocumentFragment();
     var key       = Object.keys(this.groupedBy)[0];
 
+    for (var i = 0; i < this.models.length; i++) {
+      var task = this.models[i]
 
-    this.collection.each(function(task) {
-      var skip      = task.get('backlog') && Object.keys(that.groupedBy).indexOf('backlog') === -1;
+      if(task.get('backlog') && key !== 'backlog') { continue; }
 
-      if (task.get(key) === that.groupedBy[key] && !skip) {
-        var view = that.retrieveViewForModel(task) || new Tessitura.TaskListItemView({model: task});
-        
-        if (that.childViews.indexOf(view) === -1) {
-          that.childViews.push(view);
-        }
+      var view = that.retrieveViewForModel(task) || new Tessitura.TaskListItemView({model: task});
 
-        view.render();
-        container.appendChild(view.el);
+      if (that.childViews.indexOf(view) === -1) {
+        that.childViews.push(view);
       }
-    });
+
+      view.render();
+      container.appendChild(view.el);
+    }
 
     this.$('ul.task-list').append(container);
-    return this;  },
+    return this;  
+  },
 
   retrieveViewForModel : function(task) {
     if (!this.childViews.length) { return; }
 
-    var child = _.filter(this.childViews, function(view) {
-      return view.model === task;
+    var child;
+
+    _.each(this.childViews, function(view) {
+      if(view.model && view.model.get('id') === task.get('id')) {
+        child = view;
+      }
     });
 
-    return child[0];
-  },
-
-  setCollection        : function(collection) {
-    this.collection = collection;
-    this.quickAddForm = new Tessitura.QuickAddFormView({collection: this.collection, groupedBy: this.groupedBy});
-    this.childViews.push(this.quickAddForm);
-
-    this.listenTo(this.collection, 'add remove', this.render);
-    this.listenTo(this.collection, 'change:backlog', this.removeTask);
-    this.listenTo(this.collection, 'change:status', this.crossOff);
+    return child;
   },
 
   /* Core View Functions
   /**************************************************************************/
 
   initialize           : function(data) {
-    this.data       = data || {};
-    this.childViews = [];
-    this.data.color = this.data.color || 'primary';
-    this.$el.addClass('panel-' + this.data.color);
-    this.groupedBy  = this.data.headline === 'Backlog' ?  {backlog: true} : {status: this.data.headline};
+    data            = data || {};
+    _.extend(this, data);
 
-    if(this.collection) { this.setCollection(this.collection); }
+    var that = this;
+
+    this.quickAddForm = new Tessitura.QuickAddFormView({collection: that.collection, groupedBy: this.groupedBy});
+    this.childViews = [this.quickAddForm];
+
+    this.$el.addClass('panel-' + this.color);
   },
 
   remove               : function() {
@@ -134,11 +116,11 @@ Tessitura.KanbanColumnView = Tessitura.View.extend({
   render               : function() {
     var that = this;
 
-    Tessitura.View.prototype.render.call(this, this.template({data: that.data}), function() {
+    Tessitura.View.prototype.render.call(this, this.template({data: this}), function() {
       that.quickAddForm.render();
       that.$('.quick-add-form').prepend(that.quickAddForm.$el);
 
-      that.renderCollection();
+      that.renderModels();
 
       that.$('ul.task-list').sortable({
         items: '>*:not(.not-sortable)'

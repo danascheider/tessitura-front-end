@@ -34,12 +34,15 @@ Tessitura.TaskPanelView = Tessitura.DashWidgetView.extend({
 
   retrieveViewForModel : function(task) {
     if(!this.childViews.length) { return; }
+    var that = this, child;
 
-    var child = _.filter(this.childViews, function(view) {
-      return view.model === task;
+    _.each(that.childViews, function(view) {
+
+      // You might be wondering why this hack is necessary. I wish I knew...
+      if(view.model && (view.model.get('id') === task.get('id'))) { child = view; }
     });
 
-    return child[0];
+    return child;
   },
 
   showTaskCreateForm   : function(e) {
@@ -59,8 +62,8 @@ Tessitura.TaskPanelView = Tessitura.DashWidgetView.extend({
 
       if (task.get('status') !== 'Blocking' && task.get('status') !== 'Complete' && !task.get('backlog')) {
         var view = that.retrieveViewForModel(task) || new Tessitura.TaskListItemView({model: task});
-        
-        if (that.childViews.indexOf(view) === -1) {
+
+        if(that.childViews.indexOf(view) == -1) {
           that.childViews.push(view);
         }
 

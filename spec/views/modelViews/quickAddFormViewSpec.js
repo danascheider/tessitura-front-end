@@ -8,7 +8,7 @@ var matchers       = require('jasmine-jquery-matchers'),
     fcontext       = fdescribe;
 
 describe('Quick-Add Task Form', function() {
-  var view, newView, collection, task1, task2, task3, xhr, e, spy;
+  var view, newView, xhr, e, spy;
 
   beforeAll(function() {
     jasmine.addMatchers(matchers);
@@ -21,7 +21,7 @@ describe('Quick-Add Task Form', function() {
 
     collection = new Tessitura.TaskCollection([task1, task2, task3]);
 
-    view = new Tessitura.QuickAddFormView({collection: collection, grouping: {status: 'Blocking'}});
+    view = new Tessitura.QuickAddFormView({collection: collection, groupedBy: {status: 'Blocking'}});
   });
 
   afterEach(function() {
@@ -41,13 +41,13 @@ describe('Quick-Add Task Form', function() {
 
     it('doesn\'t call render() #modelView #view #travis', function() {
       spyOn(Tessitura.QuickAddFormView.prototype, 'render');
-      newView = new Tessitura.QuickAddFormView({collection: collection});
+      newView = new Tessitura.QuickAddFormView({collection: collection, groupedBy: {status: 'Blocking'}});
       expect(Tessitura.QuickAddFormView.prototype.render).not.toHaveBeenCalled();
       newView.destroy();
     });
 
-    it('sets the `grouping` property #modelView #view #travis', function() {
-      expect(view.grouping).toEqual({status: 'Blocking'});
+    it('sets the `groupedBy` property #modelView #view #travis', function() {
+      expect(view.groupedBy).toEqual({status: 'Blocking'});
     });
   });
 

@@ -79,7 +79,7 @@ describe('Dashboard Task View', function() {
   });
 
   /* View Elements
-  /**************************************************************************/
+  /**************************************************************************************/
 
   describe('elements', function() {
     beforeEach(function() {
@@ -97,7 +97,7 @@ describe('Dashboard Task View', function() {
   });
 
   /* Core View Functions
-  /**************************************************************************/
+  /*************************************************************************
 
   describe('core view functions', function() {
     describe('remove', function() {
