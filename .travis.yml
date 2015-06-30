@@ -1,7 +1,6 @@
-language: ruby
-rvm:
-  - "2.2.2"
+language: node_js
+node_js:
+  - "iojs"
 before_script: 'bin/travis-before'
-script: 'bundle exec cucumber; npm test'
 notifications:
   email: false
