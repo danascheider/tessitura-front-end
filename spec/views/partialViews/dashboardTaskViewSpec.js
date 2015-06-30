@@ -80,12 +80,12 @@ describe('Dashboard Task View', function() {
   });
 
   /* Core View Functions
-  /*************************************************************************
+  /**************************************************************************************/
 
   describe('core view functions', function() {
     describe('remove', function() {
       _.each(['newColumnView', 'inProgressColumnView', 'blockingColumnView', 'backlogColumnView'], function(column) {
-        it('#view #travis removes its ' + column, function(done) {
+        it('removes its ' + column + '#dashboardTaskView #partialView #view #travis', function(done) {
           pending('Iron out some other aspects of the app and hope this works after that');
           view.render();
           done();
@@ -96,7 +96,7 @@ describe('Dashboard Task View', function() {
         });
       });
 
-      it('#view #travis removes itself using the Backbone.View.prototype', function() {
+      it('removes itself using the Backbone.View.prototype #dashboardTaskView #partialView #view #travis', function() {
         spyOn(Backbone.View.prototype.remove, 'call');
         view.remove();
         expect(Backbone.View.prototype.remove.call).toHaveBeenCalledWith(view);
@@ -104,14 +104,14 @@ describe('Dashboard Task View', function() {
     });
 
     describe('render', function() {
-      it('#view #travis fetches the task collection', function() {
+      it('fetches the task collection #dashboardTaskView #partialView #view #travis', function() {
         spyOn(user.tasks, 'fetch');
         view.render();
         expect(user.tasks.fetch).toHaveBeenCalled();
       });
 
       _.each(['newColumnView', 'inProgressColumnView', 'blockingColumnView', 'backlogColumnView'], function(column) {
-        it('#view #travis creates the ' + column, function() {
+        it('creates the ' + column + '#dashboardTaskView #partialView #view #travis', function() {
           spyOn(Tessitura.TaskModel.prototype, 'displayTitle').and.returnValue('foobar')
           spyOn($, 'ajax').and.callFake(function(args) {
             args.success(user.tasks);
@@ -128,18 +128,8 @@ describe('Dashboard Task View', function() {
   /**************************************************************************/
 
   describe('special functions', function() {
-    describe('isA()', function() {
-      it('#view #travis returns true with argument DashboardTaskView', function() {
-        expect(view.isA('DashboardTaskView')).toBe(true);
-      });
-
-      it('#view #travis returns false with another argument', function() {
-        expect(view.isA('Corvette')).toBe(false);
-      });
-    });
-
     describe('setUser()', function() {
-      it('#view #travis sets the user', function() {
+      it('sets the user #dashboardTaskView #partialView #view #travis', function() {
         newView = new Tessitura.DashboardTaskView();
         newView.setUser(user);
         expect(newView.user).toBe(user);

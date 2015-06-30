@@ -14,7 +14,7 @@ var matchers       = require('jasmine-jquery-matchers'),
 /******************************************************************************/
 
 describe('Dashboard Home View', function() {
-  var view, newView, user, collection, task1, task2, task3;
+  var view, newView;
 
   /* Filters
   /****************************************************************************/
@@ -225,7 +225,7 @@ describe('Dashboard Home View', function() {
       });
 
       it('creates a calendar widget #dashboardHomeView #partialView #view #travis', function() {
-        expect(newView.calendarView.klass).toBe('CalendarView');
+        expect(newView.calendarView.isA('CalendarView')).toBe(true);
       });
 
       it('puts the task panel in its childViews array #dashboardHomeView #partialView #view #travis', function() {

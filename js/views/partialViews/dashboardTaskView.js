@@ -6,22 +6,8 @@ Tessitura.DashboardTaskView = Tessitura.View.extend({
   template    : JST['partials/dashTasks'],
   id          : 'page-wrapper',
 
-  /* Tessitura View Properties
-  /**************************************************************************/
-
-  klass       : 'DashboardTaskView',
-  family      : 'Tessitura.View',
-  superFamily : 'Backbone.View',
-  types       : function() {
-    return Tessitura.View.prototype.types().concat(['DashboardTaskView']);
-  },
-
   /* Special Functions
   /**************************************************************************/
-
-  addToBacklog      : function(task) {
-    this.backlogColumnView.collection.add([task]);
-  },
 
   allocate          : function(task) {
     var newView = this.findNewCollection(task);
@@ -34,16 +20,6 @@ Tessitura.DashboardTaskView = Tessitura.View.extend({
     
     var newCollection = this.findNewCollection(task) || new Tessitura.TaskCollection();
     newCollection.models.push([task]);
-  },
-
-  currentView       : function(task) {
-    var current;
-
-    _.each(this.childViews, function(view) {
-      if (view.models.indexOf(view) > -1) { current = view; }
-    });
-
-    return current;
   },
 
   findNewCollection : function(task) {

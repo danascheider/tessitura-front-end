@@ -11,9 +11,6 @@ Tessitura.CalendarView = Tessitura.DashWidgetView.extend({
   /* Tessitura View Methods
   /**************************************************************************************/
 
-  klass       : 'CalendarView',
-  family      : 'Tessitura.View',
-  superFamily : 'Backbone.View',
   types       : function() {
     return Tessitura.DashWidgetView.prototype.types().concat(['CalendarView', 'PartialView']);
   },

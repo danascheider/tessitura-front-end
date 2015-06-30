@@ -10,9 +10,6 @@ Tessitura.DashboardProfileView = Tessitura.View.extend({
   /* Tessitura View Properties
   /**************************************************************************************/
 
-  klass       : 'DashboardProfileView',
-  family      : 'Tessitura.View',
-  superFamily : 'Backbone.View',
   types       : function() {
     return Tessitura.View.prototype.types().concat(this.klass, 'DashboardView', 'DashboardProfileView');
   },

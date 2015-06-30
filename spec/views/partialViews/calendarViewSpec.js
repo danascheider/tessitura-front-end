@@ -146,19 +146,5 @@ describe('dashboard calendar view', function() {
 
       context('when today is at the end of the week')
     });
-
-    describe('isA()', function() {
-      it('returns true with argument CalendarView #calendarView #partialView #view #travis', function() {
-        expect(view.isA('CalendarView')).toBe(true);
-      });
-
-      it('returns true with argument PartialView #calendarView #partialView #view #travis', function() {
-        expect(view.isA('PartialView')).toBe(true);
-      });
-
-      it('returns false with another argument #calendarView #partialView #view #travis', function() {
-        expect(view.isA('Corvette')).toBe(false);
-      });
-    });
   });
 });

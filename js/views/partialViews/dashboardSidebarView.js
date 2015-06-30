@@ -8,17 +8,6 @@ Tessitura.DashboardSidebarView = Tessitura.View.extend({
     'click a.sidebar-link' : 'toggleSecondLevelNav'
   },
 
-  /* Tessitura View Properties
-  /*************************************************************************************/
-
-  klass                : 'DashboardSidebarView',
-  family               : 'Tessitura.View',
-  superFamily          : 'Backbone.View',
-
-  types                : function() {
-    return Tessitura.View.prototype.types().concat(['DashboardView', 'DashboardSidebarView', 'PartialView']);
-  },
-
   /* Event Callbacks
   /*************************************************************************************/
 

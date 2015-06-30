@@ -106,24 +106,4 @@ describe('Dashboard Sidebar View', function() {
       });
     });
   });
-
-  describe('special functions', function() {
-    describe('isA', function() {
-      it('returns true with argument DashboardSidebarView #dashboardSidebarView #partialView #view #travis', function() {
-        expect(sidebar.isA('DashboardSidebarView')).toBe(true);
-      });
-
-      it('returns true with argument DashboardView #dashboardSidebarView #partialView #view #travis', function() {
-        expect(sidebar.isA('DashboardView')).toBe(true);
-      });
-
-      it('returns true with argument PartialView #dashboardSidebarView #partialView #view #travis', function() {
-        expect(sidebar.isA('PartialView')).toBe(true);
-      });
-
-      it('returns false with other argument #dashboardSidebarView #partialView #view #travis', function() {
-        expect(sidebar.isA('Backbone.Router')).toBe(false);
-      });
-    });
-  });
 });

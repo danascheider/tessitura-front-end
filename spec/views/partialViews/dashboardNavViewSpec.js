@@ -10,7 +10,7 @@ var matchers       = require('jasmine-jquery-matchers'),
     context        = describe,
     fcontext       = fdescribe;
 
-/* Dashboard Home View Spec
+/* Dashboard Nav View Spec
 /******************************************************************************/
 
 describe('Dashboard Nav View', function() {
