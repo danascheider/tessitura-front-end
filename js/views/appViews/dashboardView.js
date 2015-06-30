@@ -7,17 +7,7 @@ Tessitura.DashboardView = Tessitura.View.extend({
     'dblclick'             : 'hideSidebar',
     'click .internal-link' : 'followLink'
   },
-
-  /* Tessitura View Properties
-  /**************************************************************************************/
-
-  klass       : 'MainDashboardView',
-  family      : 'Tessitura.View',
-  superFamily : 'Backbone.View',
-  types       : function() {
-    return Tessitura.View.prototype.types().concat('MainDashboardView', 'DashboardView', 'Dashboard', 'AppView', 'TopLevelView');
-  },
-
+  
   /* Event Callbacks
   /**************************************************************************************/
 

@@ -40,24 +40,6 @@ describe('List Item Task View', function() {
     });
   });
 
-  describe('properties', function() {
-    it('is a Tessitura.View #modelView #view #travis', function() {
-      expect(view).toBeA('Tessitura.View');
-    });
-
-    it('has klass TaskListItemView #modelView #view #travis', function() {
-      expect(view.klass).toBe('TaskListItemView');
-    });
-
-    it('has family Tessitura.View #modelView #view #travis', function() {
-      expect(view.family).toBe('Tessitura.View');
-    });
-
-    it('has superFamily Backbone.View #modelView #view #travis', function() {
-      expect(view.superFamily).toBe('Backbone.View');
-    });
-  });
-
   describe('el', function() {
     beforeEach(function() { view.render(); });
 
@@ -293,20 +275,6 @@ describe('List Item Task View', function() {
       
       it('connects to the sortable task list #modelView #view #travis', function() {
         expect(view.$el.draggable.calls.argsFor(0)[0].connectToSortable).toEqual('.task-list');
-      });
-    });
-
-    describe('isA', function() {
-      it('returns true with arg \'TaskListItemView\' #modelView #view #travis', function() {
-        expect(view.isA('TaskListItemView')).toBe(true);
-      });
-
-      it('returns true with arg \'ListItemView\' #modelView #view #travis', function() {
-        expect(view.isA('ListItemView')).toBe(true);
-      });
-
-      it('returns false with other arg #modelView #view #travis', function() {
-        expect(view.isA('Backbone.Router')).toBe(false);
       });
     });
   });

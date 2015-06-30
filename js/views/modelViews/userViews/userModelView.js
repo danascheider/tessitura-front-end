@@ -5,17 +5,6 @@ Tessitura.UserModelView = Tessitura.View.extend({
 
   className    : 'user-model',
   template     : JST['users/model'],
-
-  /* Tessitura View Properties
-  /**************************************************************************************/
-
-  klass        : 'UserModelView',
-  family       : 'Tessitura.View',
-  superFamily  : 'Backbone.View',
-  types        : function() {
-    return Tessitura.View.prototype.types().concat(this.klass, 'UserView', 'ModelView');
-  },
-
   events       : {
     'dblclick span.p' : 'displayInput',
     'keydown input'   : 'triageKeypress'
@@ -47,6 +36,10 @@ Tessitura.UserModelView = Tessitura.View.extend({
 
     span.find('input').focus().select();
   },
+
+  // The `submitUpdate` function updates the user's profile with whatever the
+  // user has entered into the input. It automatically adds the authorization 
+  // header to the request and, if the request is successful, hides the input.
 
   submitUpdate : function(e) {
     var data = {};

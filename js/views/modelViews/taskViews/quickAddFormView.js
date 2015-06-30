@@ -8,17 +8,6 @@ Tessitura.QuickAddFormView = Tessitura.View.extend({
     'submit'                    : 'createTask'
   },
 
-  /* Tessitura View Properties
-  /**************************************************************************************/
-
-  klass      : 'QuickAddTaskFormView',
-  family     : 'Tessitura.View',
-  superFamily: 'Backbone.View',
-
-  types      : function() {
-    return Tessitura.View.prototype.types().concat(['QuickAddForm', 'QuickAddFormView', 'TaskCollectionView', 'TaskFormView', 'TaskCreateFormView']);
-  },
-
   /* Event Callbacks
   /**************************************************************************************/
 

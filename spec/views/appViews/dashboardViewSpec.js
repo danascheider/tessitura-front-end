@@ -163,18 +163,6 @@ describe('Main Dashboard View', function() {
   });
 
   describe('special functions', function() {
-    describe('isA()', function() {
-      _.each(['DashboardView', 'Dashboard', 'MainDashboardView', 'TopLevelView'], function(type) {
-        it('returns true with argument ' + type + ' #appView #view #travis', function() {
-          expect(dashboard.isA(type)).toBe(true);
-        });
-      });
-
-      it('returns false with another argument #appView #view #travis', function() {
-        expect(dashboard.isA('duck')).toBe(false);
-      });
-    });
-
     describe('setUser()', function() {
       afterEach(function() { newView.destroy(); });
 

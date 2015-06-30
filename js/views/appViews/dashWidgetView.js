@@ -9,16 +9,6 @@ Tessitura.DashWidgetView = Tessitura.View.extend({
     'click span.toggle-widget > i' : 'toggleWidget'
   },
 
-  /* Tessitura View Properties
-  /**************************************************************************************/
-
-  klass       : 'DashWidgetView',
-  family      : 'Tessitura.View',
-  superFamily : 'Backbone.View',
-  types       : function() {
-    return Tessitura.View.prototype.types().concat(['DashWidgetView', 'PartialView']);
-  },
-
   /* Event Callbacks
   /**************************************************************************************/
 

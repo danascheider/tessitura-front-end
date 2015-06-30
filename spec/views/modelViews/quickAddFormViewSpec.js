@@ -46,24 +46,6 @@ describe('Quick-Add Task Form', function() {
     });
   });
 
-  describe('properties', function() {
-    it('is a Tessitura.View #modelView #view #travis', function() {
-      expect(view).toBeA('Tessitura.View');
-    });
-
-    it('has klass QuickAddTaskFormView #modelView #view #travis', function() {
-      expect(view.klass).toBe('QuickAddTaskFormView');
-    });
-
-    it('has family Tessitura.View #modelView #view #travis', function() {
-      expect(view.family).toBe('Tessitura.View');
-    });
-
-    it('has superFamily Backbone.View #modelView #view #travis', function() {
-      expect(view.superFamily).toBe('Backbone.View');
-    });
-  });
-
   describe('elements', function() {
     beforeEach(function() {
       view.render();
@@ -199,34 +181,6 @@ describe('Quick-Add Task Form', function() {
       it('triggers the `showTaskCreateForm` event #modelView #view #travis', function() {
         view.showTaskCreateForm();
         expect(spy).toHaveBeenCalled();
-      });
-    });
-  });
-
-  describe('special methods', function() {
-    describe('isA', function() {
-      it('returns true with arg \'QuickAddFormView\' #modelView #view #travis', function() {
-        expect(view.isA('QuickAddFormView')).toBe(true);
-      });
-
-      it('returns true with arg \'QuickAddForm\' #modelView #view #travis', function() {
-        expect(view.isA('QuickAddForm')).toBe(true);
-      });
-
-      it('returns true with arg \'TaskCollectionView\' #modelView #view #travis', function() {
-        expect(view.isA('TaskCollectionView')).toBe(true);
-      });
-
-      it('returns true with arg \'TaskCreateFormView\' #modelView #view #travis', function() {
-        expect(view.isA('TaskCreateFormView')).toBe(true);
-      });
-
-      it('returns true with arg \'TaskForm\' #modelView #view #travis', function() {
-        expect(view.isA('TaskFormView')).toBe(true);
-      });
-
-      it('returns false with other arg #modelView #view #travis', function() {
-        expect(view.isA('Backbone.Model')).toBe(false);
       });
     });
   });

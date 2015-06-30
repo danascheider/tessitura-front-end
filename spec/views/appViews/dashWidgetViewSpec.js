@@ -65,23 +65,4 @@ describe('DashWidgetView', function() {
       });
     });
   });
-
-  /* Special Functions
-  /**************************************************************************/
-
-  describe('special functions', function() {
-    describe('isA()', function() {
-      it('returns true with argument DashWidgetView #appView #view #travis', function() {
-        expect(view.isA('DashWidgetView')).toBe(true);
-      });
-
-      it('returns true with argument PartialView #appView #view #travis', function() {
-        expect(view.isA('PartialView')).toBe(true);
-      });
-
-      it('returns false with another argument #appView #view #travis', function() {
-        expect(view.isA('Corvette')).toBe(false);
-      });
-    });
-  });
 });

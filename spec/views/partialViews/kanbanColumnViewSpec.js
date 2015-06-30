@@ -79,7 +79,7 @@ describe('Kanban Column View', function() {
 
     it('has a quick-add form #kanbanColumnView #partialView #view #travis', function() {
       newView = new Tessitura.KanbanColumnView(data);
-      expect(newView.quickAddForm.isA('QuickAddForm')).toBe(true);
+      expect(newView.quickAddForm.isA('Tessitura.View')).toBe(true);
     });
 
     it('creates a childViews array #kanbanColumnView #partialView #view #travis', function() {

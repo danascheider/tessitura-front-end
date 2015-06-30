@@ -1,28 +1,3 @@
-/****************************************************************************
- *                                                                         *
- * HOMEPAGE VIEW                                                           *
- *                                                                         *
- * The homepage is the place where users who are not logged in land when   *
- * they visit the site. It is the place where they can get information     *  
- * about the product or log into their dashboard.                          *
- *                                                                         *
- * CONTENTS                                                          LINE  *
- * Requires ......................................................... 26   *
- * Suite ............................................................ 44   *
- *   Filters ........................................................ 50   *
- *   Authorization and Authentication ............................... 60   *
- *     token()                                                             *
- *   Core Functions ................................................. 69   *
- *     fetch()                                                             *
- *   Special Functions .............................................. 91   *
- *     updateAll() .................................................. 92   *
- *     isA() ....................................................... 140   *
- *                                                                         *
-/****************************************************************************/
-
-/* Core Requires
-/****************************************************************************/
-
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/spec/support/env.js');
 require(process.cwd() + '/js/tessitura.js');
@@ -30,10 +5,6 @@ require(process.cwd() + '/js/tessitura.js');
 var matchers       = _.extend(require('jasmine-jquery-matchers')),
     context        = describe,
     fcontext       = fdescribe;
-
-/****************************************************************************
- * BEGIN SUITE                                                              *
-/****************************************************************************/
 
 describe('Tessitura Homepage View', function() {
   var view, e, spy, newView, user;
@@ -203,25 +174,6 @@ describe('Tessitura Homepage View', function() {
       it('inserts its login form into its #shade element #appView #view #travis', function() {
         view.render();
         expect(view.$('#shade')).toHaveDescendant(view.loginForm.$el);
-      });
-    });
-  });
-
-  /* Special Functions
-  /**************************************************************************/
-
-  describe('special functions', function() {
-    describe('isA()', function() {
-      it('returns true with argument HomepageView #appView #view #travis', function() {
-        expect(view.isA('HomepageView')).toBe(true);
-      });
-
-      it('returns true with argument TopLevelView #appView #view #travis', function() {
-        expect(view.isA('TopLevelView')).toBe(true);
-      });
-
-      it('returns false with another argument #appView #view #travis', function() {
-        expect(view.isA('Corvette')).toBe(false);
       });
     });
   });

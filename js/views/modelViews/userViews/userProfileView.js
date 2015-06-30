@@ -8,16 +8,6 @@ Tessitura.UserProfileView = Tessitura.DashWidgetView.extend({
     return events;
   },
 
-  /* Tessitura View Properties
-  /**************************************************************************************/
-
-  klass       : 'UserProfileView',
-  family      : 'Tessitura.View',
-  superFamily : 'Backbone.View',
-  types       : function() {
-    return Tessitura.View.prototype.types().concat(this.klass, 'UserView', 'ProfileView');
-  },
-
   /* Event Callbacks
   /**************************************************************************************/
 

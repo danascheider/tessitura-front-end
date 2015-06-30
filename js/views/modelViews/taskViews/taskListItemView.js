@@ -18,17 +18,6 @@ Tessitura.ListItemView = Tessitura.View.extend({
     'mouseleave'             : 'hideEditIcons'
   },
 
-  /* Tessitura View Properties
-  /**************************************************************************************/
-
-  klass      : 'TaskListItemView',
-  family     : 'Tessitura.View',
-  superFamily: 'Backbone.View',
-
-  types      : function() {
-    return Tessitura.View.prototype.types().concat(['TaskListItemView', 'ListItemView']);
-  },
-
   /* Event Callbacks
   /**************************************************************************************/
 

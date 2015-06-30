@@ -46,24 +46,6 @@ describe('User Model View', function() {
     });
   });
 
-  describe('properties', function() {
-    it('is a Tessitura.View #modelView #view #travis', function() {
-      expect(view).toBeA('Tessitura.View');
-    });
-
-    it('has klass UserModelView #modelView #view #travis', function() {
-      expect(view.klass).toBe('UserModelView');
-    });
-
-    it('has family Tessitura.View #modelView #view #travis', function() {
-      expect(view.family).toBe('Tessitura.View');
-    });
-
-    it('has superFamily Backbone.View #modelView #view #travis', function() {
-      expect(view.superFamily).toBe('Backbone.View');
-    });
-  });
-
   describe('el', function() {
     beforeEach(function() { view.render(); });
 
@@ -133,24 +115,6 @@ describe('User Model View', function() {
   });
 
   describe('special functions', function() {
-    describe('isA', function() {
-      it('returns true with arg \'UserModelView\' #modelView #view #travis', function() {
-        expect(view.isA('UserModelView')).toBe(true);
-      });
-
-      it('returns true with arg \'ModelView\' #modelView #view #travis', function() {
-        expect(view.isA('ModelView')).toBe(true);
-      });
-
-      it('returns true with arg \'UserView\' #modelView #view #travis', function() {
-        expect(view.isA('UserView')).toBe(true);
-      });
-
-      it('returns false with another string #modelView #view #travis', function() {
-        expect(view.isA('TaskCollection')).toBe(false);
-      });
-    });
-
     describe('hideInputs', function() {
       beforeEach(function() {
         view.render();
