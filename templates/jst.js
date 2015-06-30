@@ -1,5 +1,6 @@
-var _ = require('underscore');
+/* istanbul ignore next */ var _ = require('underscore');
 
+/* istanbul ignore next */
 var JST = {
   'calendar'           : _.template(require('./partialTemplates/calendarTemplate.js')),
   'dashboard'          : _.template('<div id=\'shade\'></div>'),
@@ -22,4 +23,4 @@ var JST = {
   'users/profile'      : _.template(require('./modelTemplates/userTemplates/userProfileTemplate.js')),
 };
 
-module.exports = JST;
+/* istanbul ignore next */ module.exports = JST;
