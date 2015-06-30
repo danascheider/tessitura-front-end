@@ -37,23 +37,6 @@ describe('DashWidgetView', function() {
     global = _.omit(global, fixtures);
   });
 
-  /* Static Properties
-  /**************************************************************************/
-
-  describe('properties', function() {
-    it('has klass DashWidgetView #appView #view #travis', function() {
-      expect(view.klass).toEqual('DashWidgetView');
-    });
-
-    it('has family Tessitura.View #appView #view #travis', function() {
-      expect(view.family).toEqual('Tessitura.View');
-    });
-
-    it('has superFamily Backbone.View #appView #view #travis', function() {
-      expect(view.superFamily).toEqual('Backbone.View');
-    });
-  });
-
   /* Event Wiring
   /**************************************************************************/
 

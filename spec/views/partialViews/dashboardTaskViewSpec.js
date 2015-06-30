@@ -38,23 +38,6 @@ describe('Dashboard Task View', function() {
     view = null;
   });
 
-  /* Static Properties
-  /**************************************************************************/
-
-  describe('properties', function() {
-    it('#dashboardTaskView #partialView #view #travis has klass DashboardTaskView', function() {
-      expect(view.klass).toEqual('DashboardTaskView');
-    });
-
-    it('has family Tessitura.View #dashboardTaskView #partialView #view #travis', function() {
-      expect(view.family).toEqual('Tessitura.View');
-    });
-
-    it('has superFamily Backbone.View #dashboardTaskView #partialView #view #travis', function() {
-      expect(view.superFamily).toEqual('Backbone.View');
-    });
-  });
-
   /* Constructor             
   /**************************************************************************/
 

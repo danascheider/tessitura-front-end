@@ -3,6 +3,7 @@ require(process.cwd() + '/js/tessitura.js');
 require(process.cwd() + '/spec/support/env.js');
 
 var matchers       = require('jasmine-jquery-matchers'),
+    fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
     context        = describe,
     fcontext       = fdescribe;
@@ -12,26 +13,20 @@ describe('Quick-Add Task Form', function() {
 
   beforeAll(function() {
     jasmine.addMatchers(matchers);
+    _.extend(global, fixtures);
   });
 
   beforeEach(function() {
-    task1 = new Tessitura.TaskModel({id: 1, owner_id: 1, title: 'Task 1', status: 'Blocking', priority: 'Low', position: 1});
-    task2 = new Tessitura.TaskModel({id: 2, owner_id: 1, title: 'Task 2', status: 'Blocking', priority: 'Normal', position: 2});
-    task3 = new Tessitura.TaskModel({id: 3, owner_id: 1, title: 'Task 3', status: 'Blocking', priority: 'Normal', position: 3});
-
-    collection = new Tessitura.TaskCollection([task1, task2, task3]);
-
     view = new Tessitura.QuickAddFormView({collection: collection, groupedBy: {status: 'Blocking'}});
   });
 
   afterEach(function() {
-    _.each([view, task1, task2, task3, collection], function(obj) { obj.destroy(); });
+    restoreFixtures();
   })
 
   afterAll(function() {
-    _.each([view, task1, task2, task3, collection], function(variable) {
-      variable = null;
-    });
+    view = null;
+    _.omit(global, fixtures);
   });
 
  describe('constructor', function() {

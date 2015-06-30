@@ -3,32 +3,33 @@ require(process.cwd() + '/js/tessitura.js');
 require(process.cwd() + '/spec/support/env.js');
 
 var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
+    fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     context        = describe,
     fcontext       = fdescribe;
 
 describe('Task Collection', function() {
-  var collection, task1, task2, task3
+  beforeAll(function() {
+    _.extend(global, fixtures);
+  });
 
   beforeEach(function() {
-    task1 = new Tessitura.TaskModel({title: 'New Task', owner_id: 1});
-    task2 = new Tessitura.TaskModel({title: 'New Task', owner_id: 1});
-    task3 = new Tessitura.TaskModel({title: 'New Task', owner_id: 1});
-    collection = new Tessitura.TaskCollection([task1, task2, task3]);
+    taskCollection = new Tessitura.TaskCollection(collection.models);
     spyOn($, 'cookie').and.callFake(function(name) {
       return name === 'userID' ? 1 : btoa('testuser:testuser');
     });
   });
 
   afterEach(function() {
-    task1.destroy();
-    task2.destroy();
-    task3.destroy();
-    collection.destroy();
+    restoreFixtures();
+  });
+
+  afterAll(function() {
+    _.omit(global, fixtures);
   });
 
   describe('constructor', function() {
     it('sets the models #collection #travis', function() {
-      expect(collection.models).toEqual([task1, task2, task3]);
+      expect(taskCollection.models).toEqual(collection.models);
     });
   });
 
@@ -36,37 +37,23 @@ describe('Task Collection', function() {
     beforeEach(function() {
       task1.set('position', 2);
       task2.set('position', 1);
-      collection.sort();
+      taskCollection.sort();
     });
 
     afterEach(function() {
       task1.set('position', 1);
       task2.set('position', 2);
-      collection.sort();
+      taskCollection.sort();
     });
 
     it('orders the tasks by position #collection #travis', function() {
-      expect(collection.models).toEqual([task2, task1, task3]);
-    });
-  });
-
-  describe('static properties', function() {
-    it('has klass TaskCollection #collection #travis', function() {
-      expect(collection.klass).toBe('TaskCollection');
-    });
-
-    it('has family ProtectedCollection #collection #travis', function() {
-      expect(collection.family).toBe('ProtectedCollection');
-    });
-
-    it('has superFamily Backbone.Collection #collection #travis', function() {
-      expect(collection.superFamily).toBe('Backbone.Collection');
+      expect(taskCollection.models).toEqual([task2, task1, task3]);
     });
   });
 
   describe('URL', function() {
     it('gets the URL for the logged-in user #collection #travis', function() {
-      expect(collection.url()).toEqual(Tessitura.API.base + '/users/1/tasks');
+      expect(taskCollection.url()).toEqual(Tessitura.API.base + '/users/1/tasks');
     });
   });
 
@@ -78,20 +65,20 @@ describe('Task Collection', function() {
 
       context('normal', function() {
         it('sends the request to the collection URL #collection #travis', function() {
-          collection.fetch();
-          expect(Tessitura.ProtectedCollection.prototype.fetch.calls.argsFor(0)[0].url).toEqual(collection.url());
+          taskCollection.fetch();
+          expect(Tessitura.ProtectedCollection.prototype.fetch.calls.argsFor(0)[0].url).toEqual(taskCollection.url());
         });
 
         it('calls fetch on the collection prototype', function() {
-          collection.fetch();
+          taskCollection.fetch();
           expect(Tessitura.ProtectedCollection.prototype.fetch).toHaveBeenCalled();
         });
       });
 
       context('with option `all` set to `true`', function() {
         it('sends the request to the `all` route #collection #travis', function() {
-          collection.fetch({all: true});
-          expect(Tessitura.ProtectedCollection.prototype.fetch.calls.argsFor(0)[0].url).toEqual(collection.url() + '/all');
+          taskCollection.fetch({all: true});
+          expect(Tessitura.ProtectedCollection.prototype.fetch.calls.argsFor(0)[0].url).toEqual(taskCollection.url() + '/all');
         });
       });
     });
@@ -99,19 +86,19 @@ describe('Task Collection', function() {
 
   describe('special functions', function() {
     it('returns true with arg \'TaskCollection\' #collection #travis', function() {
-      expect(collection.isA('TaskCollection')).toBe(true);
+      expect(taskCollection.isA('TaskCollection')).toBe(true);
     });
 
     it('returns true with arg \'Backbone.Collection\' #collection #travis', function() {
-      expect(collection.isA('Backbone.Collection')).toBe(true);
+      expect(taskCollection.isA('Backbone.Collection')).toBe(true);
     });
 
     it('returns true with arg \'ProtectedCollection\' #collection #travis', function() {
-      expect(collection.isA('ProtectedCollection')).toBe(true);
+      expect(taskCollection.isA('ProtectedCollection')).toBe(true);
     });
 
     it('returns false with wrong type #collection #travis', function() {
-      expect(collection.isA('UserCollection')).toBe(false);
+      expect(taskCollection.isA('UserCollection')).toBe(false);
     });
   });
 });

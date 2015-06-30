@@ -34,24 +34,7 @@ describe('Registration Form View', function() {
   afterAll(function() {
     form = null;
   });
-
-  /* Static Properties
-  /**************************************************************************/
-
-  describe('static properties', function() {
-    it('has klass RegistrationFormView #registrationFormView #partialView #view #travis', function() {
-      expect(form.klass).toBe('RegistrationFormView');
-    });
-
-    it('has family Tessitura.View #registrationFormView #partialView #view #travis', function() {
-      expect(form.family).toBe('Tessitura.View');
-    });
-
-    it('has superFamily Backbone.View #registrationFormView #partialView #view #travis', function() {
-      expect(form.superFamily).toBe('Backbone.View');
-    });
-  });
-
+  
   /* View Elements
   /**************************************************************************/
 

@@ -66,31 +66,6 @@ describe('Main Dashboard View', function() {
     });
   });
 
-  /* Static Properties
-  /****************************************************************************/
-
-  describe('properties', function() {
-    it('has klass DashboardView #appView #view #travis', function() {
-      expect(dashboard.klass).toEqual('MainDashboardView');
-    });
-
-    it('has family Tessitura.View #appView #view #travis', function() {
-      expect(dashboard.family).toEqual('Tessitura.View');
-    });
-
-    it('has superFamily Backbone.View #appView #view #travis', function() {
-      expect(dashboard.superFamily).toEqual('Backbone.View');
-    });
-
-    describe('types', function() {
-      _.each(['DashboardView', 'Dashboard', 'MainDashboardView', 'TopLevelView'], function(type) {
-        it('includes ' + type + ' #appView #view #travis', function() {
-          expect(dashboard.types()).toContain(type);
-        });
-      });
-    });
-  });
-
   /* View Elements
   /****************************************************************************/
 

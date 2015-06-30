@@ -38,23 +38,6 @@ describe('Dashboard Nav View', function() {
     _.omit(global, fixtures);
   });
 
-  /* Static Properties
-  /****************************************************************************/
-
-  describe('properties', function() {
-    it('has klass DashboardNavView #dashboardNavView #partialView #view #travis', function() {
-      expect(view.klass).toEqual('DashboardNavView');
-    });
-
-    it('has family Tessitura.View #dashboardNavView #partialView #view #travis', function() {
-      expect(view.family).toEqual('Tessitura.View');
-    });
-
-    it('has superFamily Backbone.View #dashboardNavView #partialView #view #travis', function() {
-      expect(view.superFamily).toEqual('Backbone.View');
-    });
-  });
-
   /* Constructor
   /**************************************************************************/
 

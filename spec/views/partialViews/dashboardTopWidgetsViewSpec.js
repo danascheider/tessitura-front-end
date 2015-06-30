@@ -54,20 +54,6 @@ describe('Dashboard Top Widget View', function() {
     });
   });
 
-  describe('properties', function() {
-    it('has klass DashboardTopWidgetView #dashboardTopWidgetView #partialView #view #travis', function() {
-      expect(view.klass).toBe('DashboardTopWidgetView');
-    });
-
-    it('has family Tessitura.View #dashboardTopWidgetView #partialView #view #travis', function() {
-      expect(view.family).toBe('Tessitura.View');
-    });
-
-    it('has superFamily Backbone.View #dashboardTopWidgetView #partialView #view #travis', function() {
-      expect(view.superFamily).toBe('Backbone.View');
-    });
-  });
-
   describe('elements', function() {
     beforeEach(function() {
       view.render();

@@ -12,20 +12,6 @@ describe('Tessitura.View', function() {
   afterEach(function()  { view.destroy(); });
   afterAll(function()   { view = null; });
 
-  describe('properties', function() {
-    it('has klass Tessitura.View #appView #view #travis', function() {
-      expect(view.klass).toEqual('Tessitura.View');
-    });
-
-    it('has family Backbone.View #appView #view #travis', function() {
-      expect(view.family).toEqual('Backbone.View');
-    });
-
-    it('has blank superFamily #appView #view #travis', function() {
-      expect(view.superFamily).toEqual('');
-    });
-  });
-
   describe('types', function() {
     it('includes Backbone.View #appView #view #travis', function() {
       expect(view.types()).toContain('Backbone.View');

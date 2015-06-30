@@ -25,24 +25,7 @@ describe('Protected Collection', function() {
     xhr = new XMLHttpRequest();
     spyOn($, 'cookie').and.returnValue(btoa('testuser:testuser'));
   });
-
-  /* Static Properties
-  /***************************************************************************/
-
-  describe('static properties', function() {
-    it('has klass \'ProtectedCollection\' #collection #travis', function() {
-      expect(collection.klass).toBe('ProtectedCollection');
-    });
-
-    it('has family Backbone.Collection #collection #travis', function() {
-      expect(collection.family).toBe('ProtectedCollection');
-    });
-
-    it('has superFamily Backbone.Collection #collection #travis', function() {
-      expect(collection.superFamily).toBe('Backbone.Collection');
-    });
-  });
-
+  
   /* Authorization and Authentication
   /***************************************************************************/
 

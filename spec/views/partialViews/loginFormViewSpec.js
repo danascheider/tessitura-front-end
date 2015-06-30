@@ -36,23 +36,6 @@ describe('Login Form View', function() {
     view = null;
   });
 
-  /* Static Properties
-  /**************************************************************************/
-
-  describe('properties', function() {
-    it('has klass LoginFormView #loginFormView #partialView #view #travis', function() {
-      expect(view.klass).toEqual('LoginFormView');
-    });
-
-    it('has family Tessitura.View #loginFormView #partialView #view #travis', function() {
-      expect(view.family).toEqual('Tessitura.View');
-    });
-
-    it('has superFamily Backbone.View #loginFormView #partialView #view #travis', function() {
-      expect(view.superFamily).toEqual('Backbone.View');
-    });
-  });
-
   /* View Constructor
   /**************************************************************************/
 

@@ -41,23 +41,6 @@ describe('Kanban Column View', function() {
     _.omit(global, fixtures);
   });
 
-  /* Static Properties
-  /**************************************************************************/
-
-  describe('properties', function() {
-    it('has klass KanbanColumnView #kanbanColumnView #partialView #view #travis', function() {
-      expect(view.klass).toEqual('KanbanColumnView');
-    });
-
-    it('has family Tessitura.View #kanbanColumnView #partialView #view #travis', function() {
-      expect(view.family).toEqual('Tessitura.View');
-    });
-
-    it('has superFamily Backbone.View #kanbanColumnView #partialView #view #travis', function() {
-      expect(view.superFamily).toEqual('Backbone.View');
-    });
-  });
-
   /* View Constructor
   /**************************************************************************/
 

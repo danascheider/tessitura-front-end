@@ -38,15 +38,6 @@ describe('Tessitura Router', function() {
     router = null;
   });
 
-  /* Static Properties
-  /****************************************************************************/
-
-  describe('static properties', function() {
-    it('has klass Tessitura.Router #router #travis', function() {
-      expect(router.klass).toBe('Tessitura.Router');
-    });
-  });
-
   /* Constructor
   /****************************************************************************/
 

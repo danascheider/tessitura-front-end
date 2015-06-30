@@ -41,23 +41,6 @@ describe('dashboard calendar view', function() {
     global = _.omit(global, fixtures);
   });
 
-  /* Static Properties
-  /**************************************************************************/
-
-  describe('properties', function() {
-    it('has klass CalendarView #calendarView #partialView #view #travis', function() {
-      expect(view.klass).toEqual('CalendarView');
-    });
-
-    it('has family Tessitura.View #calendarView #partialView #view #travis', function() {
-      expect(view.family).toEqual('Tessitura.View');
-    });
-
-    it('has superFamily Backbone.View #calendarView #partialView #view #travis', function() {
-      expect(view.superFamily).toEqual('Backbone.View');
-    });
-  });
-
   /* View Constructor
   /**************************************************************************/
 

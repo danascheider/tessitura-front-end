@@ -39,23 +39,6 @@ describe('Dashboard Home View', function() {
     _.omit(global, fixtures);
   });
 
-  /* Static Properties
-  /****************************************************************************/
-
-  describe('properties', function() {
-    it('has klass DashboardHomeView', function() {
-      expect(view.klass).toEqual('DashboardHomeView');
-    });
-
-    it('has family Tessitura.View', function() {
-      expect(view.family).toEqual('Tessitura.View');
-    });
-
-    it('has superFamily Backbone.View', function() {
-      expect(view.superFamily).toEqual('Backbone.View');
-    });
-  });
-
   /* Constructor
   /**************************************************************************/
 

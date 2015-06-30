@@ -27,25 +27,7 @@ describe('Dashboard Sidebar View', function() {
       expect(Tessitura.DashboardSidebarView.prototype.render).not.toHaveBeenCalled();
     });
   });
-
-  describe('properties', function() {
-    it('is a Tessitura.View #dashboardSidebarView #partialView #view #travis', function() {
-      expect(sidebar).toBeA('Tessitura.View');
-    });
-
-    it('has klass DashboardSidebarView #dashboardSidebarView #partialView #view #travis', function() {
-      expect(sidebar.klass).toBe('DashboardSidebarView');
-    });
-
-    it('has family Tessitura.View #dashboardSidebarView #partialView #view #travis', function() {
-      expect(sidebar.family).toBe('Tessitura.View');
-    });
-
-    it('has superFamily Backbone.View #dashboardSidebarView #partialView #view #travis', function() {
-      expect(sidebar.superFamily).toBe('Backbone.View');
-    });
-  });
-
+  
   describe('elements', function() {
     beforeEach(function() {
       sidebar.render();

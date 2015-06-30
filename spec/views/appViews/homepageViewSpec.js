@@ -46,23 +46,6 @@ describe('Tessitura Homepage View', function() {
   afterEach(function()  { view.destroy(); });
   afterAll(function()   { view = null; });
 
-  /* Static Properties
-  /**************************************************************************/
-
-  describe('properties', function() {
-    it('#view #travis has klass \'HomepageView\'', function() {
-      expect(view.klass).toEqual('HomepageView');
-    });
-
-    it('#view #travis has family Tessitura.View', function() {
-      expect(view.family).toEqual('Tessitura.View');
-    });
-
-    it('#view #travis has superFamily Backbone.View', function() {
-      expect(view.superFamily).toEqual('Backbone.View');
-    });
-  });
-
   /* View Constructor
   /**************************************************************************/
 

@@ -57,20 +57,6 @@ describe('Task Panel View', function() {
     });
   });
 
-  describe('properties', function() {
-    it('has klass \'TaskPanelView\' #taskPanelView #partialView #view #travis', function() {
-      expect(taskPanel.klass).toBe('TaskPanelView');
-    });
-
-    it('has family \'Tessitura.View\' #taskPanelView #partialView #view #travis', function() {
-      expect(taskPanel.family).toBe('Tessitura.View');
-    });
-
-    it('has superFamily \'Backbone.View\' #taskPanelView #partialView #view #travis', function() {
-      expect(taskPanel.superFamily).toBe('Backbone.View');
-    });
-  });
-
   describe('elements', function() {
     beforeEach(function() {
       taskPanel.render();
