@@ -17,6 +17,7 @@ var JST = {
   'partials/topWidgets': _.template(require('./partialTemplates/dashboardTopWidgetTemplate.js')),
   'tasks/listItem'     : _.template(require('./modelTemplates/taskTemplates/taskListItemTemplate.js')),
   'tasks/quickAdd'     : _.template(require('./modelTemplates/taskTemplates/quickAddFormTemplate.js')),
+  'tasks/editForm'     : _.template(require('./modelTemplates/taskTemplates/taskEditFormTemplate.js')),
   'users/model'        : _.template(require('./modelTemplates/userTemplates/userModelTemplate.js')),
   'users/profile'      : _.template(require('./modelTemplates/userTemplates/userProfileTemplate.js')),
 };
