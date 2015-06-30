@@ -3,6 +3,8 @@
 * Includes: core.js, widget.js, mouse.js, position.js, draggable.js, droppable.js, sortable.js, autocomplete.js, button.js, datepicker.js, menu.js, tabs.js, tooltip.js, effect.js, effect-size.js
 * Copyright 2015 jQuery Foundation and other contributors; Licensed MIT */
 
+/* istanbul ignore next */
+
 (function( factory ) {
 	if ( typeof define === "function" && define.amd ) {
 
@@ -13,7 +15,7 @@
 		// Browser globals
 		factory( jQuery );
 	}
-}(function( $ ) {
+}/* istanbul ignore next */(function( $ ) {
 /*!
  * jQuery UI Core 1.11.4
  * http://jqueryui.com

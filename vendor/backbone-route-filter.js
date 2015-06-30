@@ -6,6 +6,7 @@
  * @author Maksim Horbachevsky
  */
 
+/* istanbul ignore next */
 (function(factory) {
   if (typeof define === 'function' && define.amd) {
     define(['backbone', 'underscore'], factory);
@@ -14,7 +15,7 @@
   } else {
     factory(window.Backbone, window._);
   }
-})(function(Backbone, _) {
+})(/* istanbul ignore next */ function(Backbone, _) {
 
   var extend = Backbone.Router.extend;
 
