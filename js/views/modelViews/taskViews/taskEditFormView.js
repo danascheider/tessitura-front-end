@@ -1,5 +1,6 @@
 Tessitura.TaskEditFormView = Tessitura.View.extend({
   tagName  : 'form',
+  id       : 'task-edit-form',
   template : JST['tasks/editForm'],
 
   render   : function() {

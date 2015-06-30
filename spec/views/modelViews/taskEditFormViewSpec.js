@@ -45,6 +45,10 @@ describe('Task Edit Form View', function() {
     it('is a form #taskEditFormView #modelView #view #travis', function() {
       expect(view.$el[0].tagName).toBe('FORM');
     });
+
+    it('has ID #task-edit-form #taskEditFormView #modelView #view #travis', function() {
+      expect(view.$el.attr('id')).toBe('task-edit-form');
+    });
   });
 
   describe('render()', function() {
