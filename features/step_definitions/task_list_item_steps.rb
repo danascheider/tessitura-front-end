@@ -29,7 +29,6 @@ Then(/^the mark\-complete checkbox should be checked$/) do
 end
 
 Then(/^the '\#task\-(\d+)' element should be removed from the DOM$/) do |id|
-  save_screenshot 'screenshot.png'
   expect(page).not_to have_selector("#task-#{id}")
 end
 
