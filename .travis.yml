@@ -3,5 +3,6 @@ node_js:
   - "iojs"
 before_script: 'bin/travis-before'
 script: 'npm test --coverage'
+after_script: 'CODECLIMATE_REPO_TOKEN=3e808e09f4950d80011b4a4d3ffb8bdb144945c780b85cb0aca2e1e945568832 codeclimate < coverage/lcov.info'
 notifications:
   email: false
