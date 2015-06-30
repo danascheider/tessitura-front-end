@@ -221,7 +221,7 @@ describe('Dashboard Home View', function() {
       });
 
       it('creates a top widget view #dashboardHomeView #partialView #view #travis', function() {
-        expect(newView.topWidgetView.klass).toBe('DashboardTopWidgetView');
+        expect(newView.topWidgetView.isA('DashboardTopWidgetView')).toBe(true);
       });
 
       it('creates a calendar widget #dashboardHomeView #partialView #view #travis', function() {

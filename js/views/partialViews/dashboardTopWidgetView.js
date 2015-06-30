@@ -1,14 +1,6 @@
 Tessitura.DashboardTopWidgetView = Tessitura.View.extend({
   id                  : 'dashboard-top-widgets',
   template            : JST['partials/topWidgets'],
-
-  /* Special Functions
-  /**************************************************************************************/
-
-  klass               : 'DashboardTopWidgetView',
-  family              : 'Tessitura.View',
-  superFamily         : 'Backbone.View',
-
   types               : function() {
     return Tessitura.View.prototype.types().concat(['DashboardTopWidgetView', 'PartialView']);
   },

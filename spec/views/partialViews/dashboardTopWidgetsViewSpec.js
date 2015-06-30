@@ -114,20 +114,4 @@ describe('Dashboard Top Widget View', function() {
       });
     });
   }); 
-
-  describe('special functions', function() {
-    describe('isA', function() {
-      it('returns true with arg DashboardTopWidgetView #dashboardTopWidgetView #partialView #view #travis', function() {
-        expect(view.isA('DashboardTopWidgetView')).toBe(true);
-      });
-
-      it('returns true with arg PartialView #dashboardTopWidgetView #partialView #view #travis', function() {
-        expect(view.isA('PartialView')).toBe(true);
-      });
-
-      it('returns false with another argument #dashboardTopWidgetView #partialView #view #travis', function() {
-        expect(view.isA('dachshund')).toBe(false);
-      });
-    });
-  });
 });
