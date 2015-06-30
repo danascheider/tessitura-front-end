@@ -221,24 +221,6 @@ describe('Kanban Column View', function() {
         expect(view.childViews.length).toBe(4);
       });
     });
-
-    describe('isA()', function() {
-      it('returns true with argument KanbanColumnView #kanbanColumnView #partialView #view #travis', function() {
-        expect(view.isA('KanbanColumnView')).toBe(true);
-      });
-
-      it('returns true with argument KanbanColumn #kanbanColumnView #partialView #view #travis', function() {
-        expect(view.isA('KanbanColumn')).toBe(true);
-      });
-
-      it('returns true with argument PartialView #kanbanColumnView #partialView #view #travis', function() {
-        expect(view.isA('PartialView')).toBe(true);
-      });
-
-      it('returns false with another argument #kanbanColumnView #partialView #view #travis', function() {
-        expect(view.isA('Corvette')).toBe(false);
-      });
-    });
   });
 
   /* Core View Functions

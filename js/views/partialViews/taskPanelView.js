@@ -2,17 +2,6 @@ Tessitura.TaskPanelView = Tessitura.DashWidgetView.extend({
   id                   : 'task-panel',
   template             : JST['partials/taskPanel'],
 
-  /* Tessitura View Properties
-  /**************************************************************************************/
-
-  klass                : 'TaskPanelView',
-  family               : 'Tessitura.View',
-  superFamily          : 'Backbone.View',
-
-  types                : function() {
-    return Tessitura.DashWidgetView.prototype.types().concat(['TaskPanelView', 'TaskPanel', 'TaskView', 'PartialView']);
-  },
-
   /* Event Callbacks
   /**************************************************************************************/
 

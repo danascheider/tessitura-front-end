@@ -29,8 +29,6 @@ describe('Task Panel View', function() {
 
   afterAll(function() {
     taskPanel.destroy();
-
-    // Scrub up the pollution
     global = _.omit(global, Fixtures);
   });
 
@@ -45,11 +43,11 @@ describe('Task Panel View', function() {
 
     it('sets a collection #taskPanelView #partialView #view #travis', function() {
       // expect(...).toBe(collection) caused a stack level error
-      expect(taskPanel.collection.isA('TaskCollection')).toBe(true);
+      expect(taskPanel.collection).toExist();
     });
 
     it('has a quick-add form #taskPanelView #partialView #view #travis', function() {
-      expect(taskPanel.quickAddForm.isA('QuickAddForm')).toBe(true);
+      expect(taskPanel.quickAddForm.isA('Tessitura.View')).toBe(true);
     });
 
     it('creates a childViews array with its list items #taskPanelView #partialView #view #travis', function() {
@@ -203,32 +201,6 @@ describe('Task Panel View', function() {
   });
 
   describe('special functions', function() {
-    describe('isA', function() {
-      it('returns true with argument \'TaskPanelView\' #taskPanelView #partialView #view #travis', function() {
-        expect(taskPanel.isA('TaskPanelView')).toBe(true);
-      });
-
-      it('returns true with argument \'TaskPanel\' #taskPanelView #partialView #view #travis', function() {
-        expect(taskPanel.isA('TaskPanel')).toBe(true);
-      });
-
-      it('returns true with argument \'TaskView\' #taskPanelView #partialView #view #travis', function() {
-        expect(taskPanel.isA('TaskView')).toBe(true);
-      });
-
-      it('returns true with argument \'PartialView\' #taskPanelView #partialView #view #travis', function() {
-        expect(taskPanel.isA('PartialView')).toBe(true);
-      });
-
-      it('returns true with argument \'DashWidgetView\' #taskPanelView #partialView #view #travis', function() {
-        expect(taskPanel.isA('DashWidgetView')).toBe(true);
-      });
-
-      it('returns false with other arguments #taskPanelView #partialView #view #travis', function() {
-        expect(taskPanel.isA('TaskCollectionView')).toBe(false);
-      });
-    });
-
     describe('renderCollection', function() {
       it('renders the collection #taskPanelView #partialView #view #travis', function() {
         pending('Figure out the right way to test this');

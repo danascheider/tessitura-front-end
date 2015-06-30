@@ -258,27 +258,4 @@ describe('Login Form View', function() {
       //
     });
   });
-
-  /* Special Functions
-  /**************************************************************************/
-
-  describe('special functions', function() {
-    describe('isA()', function() {
-      it('returns true with argument LoginFormView #loginFormView #partialView #view #travis', function() {
-        expect(view.isA('LoginFormView')).toBe(true);
-      });
-
-      it('returns true with argument LoginForm #loginFormView #partialView #view #travis', function() {
-        expect(view.isA('LoginForm')).toBe(true);
-      });
-
-      it('returns true with argument PartialView #loginFormView #partialView #view #travis', function() {
-        expect(view.isA('PartialView')).toBe(true);
-      });
-
-      it('returns false with another argument #loginFormView #partialView #view #travis', function() {
-        expect(view.isA('Corvette')).toBe(false);
-      });
-    });
-  });
 });

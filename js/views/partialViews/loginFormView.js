@@ -12,16 +12,6 @@ Tessitura.LoginFormView = Tessitura.View.extend({
     'click .login-help-link' : 'loginHelp'
   },
 
-  /* Tessitura View Properties
-  /**************************************************************************/
-
-  klass       : 'LoginFormView',
-  family      : 'Tessitura.View',
-  superFamily : 'Backbone.View',
-  types       : function() {
-    return Tessitura.View.prototype.types().concat(['LoginFormView', 'LoginForm', 'PartialView']);
-  },
-
   /* Event Callbacks
   /**************************************************************************/
 

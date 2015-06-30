@@ -6,17 +6,6 @@ Tessitura.KanbanColumnView = Tessitura.View.extend({
   template             : JST['partials/kanbanCol'],
   className            : 'panel dash-widget kanban-column',
 
-  /* Tessitura View Properties
-  /**************************************************************************/
-
-  klass                : 'KanbanColumnView',
-  family               : 'Tessitura.View',
-  superFamily          : 'Backbone.View',
-
-  types                : function() {
-    return Tessitura.View.prototype.types().concat(['KanbanColumnView', 'KanbanColumn', 'PartialView']);
-  },
-
   /* Event Callbacks
   /**************************************************************************/
 

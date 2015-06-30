@@ -13,16 +13,6 @@ Tessitura.RegistrationFormView = Tessitura.View.extend({
     'submit'                       : 'createUser'
   },
 
-  /* Tessitura View Properties
-  /**************************************************************************/
-
-  klass       : 'RegistrationFormView',
-  family      : 'Tessitura.View',
-  superFamily : 'Backbone.View',
-  types       : function() {
-    return Tessitura.View.prototype.types().concat(['RegistrationFormView', 'RegistrationForm', 'FormView', 'PartialView']);
-  },
-
   /* Special Properties
   /**************************************************************************/
 

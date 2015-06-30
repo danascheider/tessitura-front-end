@@ -217,7 +217,7 @@ describe('Dashboard Home View', function() {
       });
 
       it('creates the task panel #dashboardHomeView #partialView #view #travis', function() {
-        expect(newView.taskPanelView.klass).toBe('TaskPanelView');
+        expect(newView.taskPanelView.isA('Tessitura.View')).toBe(true);
       });
 
       it('creates a top widget view #dashboardHomeView #partialView #view #travis', function() {

@@ -247,28 +247,6 @@ describe('Registration Form View', function() {
   /**************************************************************************/
 
   describe('special functions', function() {
-    describe('isA', function() {
-      it('returns true with argument \'RegistrationFormView\' #registrationFormView #partialView #view #travis', function() {
-        expect(form.isA('RegistrationFormView')).toBe(true);
-      });
-
-      it('returns true with argument \'RegistrationForm\' #registrationFormView #partialView #view #travis', function() {
-        expect(form.isA('RegistrationForm')).toBe(true);
-      });
-
-      it('returns true with argument \'FormView\' #registrationFormView #partialView #view #travis', function() {
-        expect(form.isA('FormView')).toBe(true);
-      });
-
-      it('returns true with argument \'PartialView\' #registrationFormView #partialView #view #travis', function() {
-        expect(form.isA('PartialView')).toBe(true);
-      });
-
-      it('returns false with another argument #registrationFormView #partialView #view #travis', function() {
-        expect(form.isA('very model of a modern major general')).toBe(false);
-      });
-    });
-
     describe('validateForm', function() {
       var formData;
 
