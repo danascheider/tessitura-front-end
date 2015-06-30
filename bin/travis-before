@@ -2,3 +2,4 @@
 
 mv spec/support/travis.js spec/support/env.js
 browserify js/run.js -d -p [minifyify --map run.min.js.map --output js/run.min.js.map] > js/run.min.js
+CODECLIMATE_REPO_TOKEN=3e808e09f4950d80011b4a4d3ffb8bdb144945c780b85cb0aca2e1e945568832 codeclimate < coverage/lcov.info
