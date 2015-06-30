@@ -1,6 +1,7 @@
-var test    = require('./apiOptions.js').useTestAPI;
-var BaseURL = test ? 'http://api.canto-test.com:3000' : 'https://api.tessitura.io';
+/* istanbul ignore next */ var test    = require('./apiOptions.js').useTestAPI;
+/* istanbul ignore next */ var BaseURL = test ? 'http://api.canto-test.com:3000' : 'https://api.tessitura.io';
 
+/* istanbul ignore next */
 var API = {
   base  : BaseURL,
   login : BaseURL + '/login',
@@ -17,4 +18,4 @@ var API = {
   },
 };
 
-module.exports = API;
+/* istanbul ignore next */ module.exports = API;

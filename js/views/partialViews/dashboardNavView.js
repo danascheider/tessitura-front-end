@@ -36,15 +36,15 @@ Tessitura.DashboardNavView = Tessitura.View.extend({
   },
 
   redirectToDashboard: function() {
-    this.trigger('redirect', {destination: 'dashboard'});
+    this.emitRedirect({destination: 'dashboard'});
   },
 
   redirectToProfile  : function() {
-    this.trigger('redirect', {destination: 'profile'});
+    this.emitRedirect({destination: 'profile'});
   },
 
   redirectToTaskPage : function() {
-    this.trigger('redirect', {destination: 'tasks'});
+    this.emitRedirect({destination: 'tasks'});
   },
 
   toggleDropdownMenu : function(e) {

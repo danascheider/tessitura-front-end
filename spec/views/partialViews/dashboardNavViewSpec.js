@@ -1,10 +1,12 @@
 /* Core Requires
 /****************************************************************************/
 
+/* istanbul ignore require */
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/js/tessitura.js');
 require(process.cwd() + '/spec/support/env.js');
 
+/* istanbul ignore next */
 var matchers       = require('jasmine-jquery-matchers'),
     fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     context        = describe,
@@ -13,6 +15,7 @@ var matchers       = require('jasmine-jquery-matchers'),
 /* Dashboard Nav View Spec
 /******************************************************************************/
 
+/* istanbul ignore next */
 describe('Dashboard Nav View', function() {
   var view, newView;
 
@@ -44,14 +47,14 @@ describe('Dashboard Nav View', function() {
   describe('constructor', function() {
     it('does not call render #dashboardNavView #partialView #view #travis', function() {
       spyOn(Tessitura.DashboardNavView.prototype, 'render');
-      newView = new Tessitura.DashboardNavView({model: fixtures.user});
+      newView = new Tessitura.DashboardNavView({model: user});
       expect(Tessitura.DashboardNavView.prototype.render).not.toHaveBeenCalled();
     });
 
     it('calls setUser #dashboardNavView #partialView #view #travis', function() {
       pending('FUFNR');
       spyOn(Tessitura.DashboardNavView.prototype, 'setUser');
-      newView = new Tessitura.DashboardNavView({model: fixtures.user});
+      newView = new Tessitura.DashboardNavView({model: user});
       expect(Tessitura.DashboardNavView.prototype.setUser).toHaveBeenCalled();
     });
 
@@ -145,6 +148,39 @@ describe('Dashboard Nav View', function() {
   /****************************************************************************/
 
   describe('event callbacks', function() {
+    describe('emitRedirect()', function() {
+      it('triggers the redirect event #dashboardNavView #partialView #view #travis', function() {
+        var spy = jasmine.createSpy();
+        view.on('redirect', spy);
+        view.emitRedirect({destination: 'dashboard'});
+        expect(spy).toHaveBeenCalled();
+      });
+    });
+
+    describe('redirectToDashboard()', function() {
+      it('calls emitRedirect with destination dashboard #dashboardNavView #partialView #view #travis', function() {
+        spyOn(view, 'emitRedirect');
+        view.redirectToDashboard();
+        expect(view.emitRedirect).toHaveBeenCalledWith({destination: 'dashboard'});
+      });
+    });
+
+    describe('redirectToProfile()', function() {
+      it('calls emitRedirect with destination profile #dashboardNavView #partialView #view #travis', function() {
+        spyOn(view, 'emitRedirect');
+        view.redirectToProfile();
+        expect(view.emitRedirect).toHaveBeenCalledWith({destination: 'profile'});
+      });
+    });
+
+    describe('redirectToTaskPage()', function() {
+      it('calls emitRedirect with destination tasks #dashboardNavView #partialView #view #travis', function() {
+        spyOn(view, 'emitRedirect');
+        view.redirectToTaskPage();
+        expect(view.emitRedirect).toHaveBeenCalledWith({destination: 'tasks'});
+      });
+    });
+
     describe('toggleDropdownMenu()', function() {
       beforeEach(function() {
         view.render();

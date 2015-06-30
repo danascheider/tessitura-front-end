@@ -1,10 +1,16 @@
+/* istanbul ignore require */
+
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/js/tessitura.js');
 require(process.cwd() + '/spec/support/env.js');
 
+/* istanbul ignore next */ 
+
 var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
     context        = describe,
     fcontext       = fdescribe;
+
+/* istanbul ignore next */
 
 describe('Protected Resource Model', function() {
   var resource, xhr;

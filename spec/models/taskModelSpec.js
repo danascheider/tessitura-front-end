@@ -1,9 +1,14 @@
+/* istanbul ignore require */
+
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/spec/support/env.js');
 require(process.cwd() + '/js/tessitura.js');
 
+/* istanbul ignore next */
 var context           = describe,
     fcontext          = fdescribe;
+
+/* istanbul ignore next */
 
 describe('Task Model', function() {
   var task;

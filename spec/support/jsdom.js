@@ -1,4 +1,6 @@
-var jsdom = require('jsdom');
+/* istanbul ignore global */
+
+/* istanbul ignore next */ var jsdom = require('jsdom');
 
 global.document = jsdom.jsdom('<html><head><meta charset="utf8"></head><body></body></html>');
 global.window   = document.defaultView;

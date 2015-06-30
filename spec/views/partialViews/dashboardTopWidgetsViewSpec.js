@@ -1,7 +1,9 @@
+/* istanbul ignore require */
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/js/tessitura.js');
 require(process.cwd() + '/spec/support/env.js');
 
+/* istanbul ignore next */
 var matchers       = _.extend(require('jasmine-jquery-matchers'), require(process.cwd() + '/spec/support/matchers/toBeA.js')),
     XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
     context        = describe,
@@ -9,6 +11,8 @@ var matchers       = _.extend(require('jasmine-jquery-matchers'), require(proces
 
 /* Dashboard Top Widget View Spec
 /****************************************************************************************/
+
+/* istanbul ignore next */
 
 describe('Dashboard Top Widget View', function() {
   var view, newView, collection, data, e, newView;

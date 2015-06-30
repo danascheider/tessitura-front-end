@@ -1,11 +1,14 @@
+/* istanbul ignore require */
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/spec/support/env.js');
 require(process.cwd() + '/js/tessitura.js');
 
+/* istanbul ignore next */
 var matchers       = _.extend(require('jasmine-jquery-matchers')),
     context        = describe,
     fcontext       = fdescribe;
 
+/* istanbul ignore next */
 describe('Tessitura Homepage View', function() {
   var view, e, spy, newView, user;
 

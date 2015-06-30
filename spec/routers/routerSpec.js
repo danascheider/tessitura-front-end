@@ -1,24 +1,20 @@
 /* Core Requires
 /****************************************************************************/
 
+/* istanbul ignore require */
 require(process.cwd() + '/js/tessitura.js');
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/spec/support/env.js');
 
+/* istanbul ignore next */
 var matchers       = require('jasmine-jquery-matchers'),
     context        = describe,
     fcontext       = fdescribe;
 
-/* Module-Specific Requires
-/******************************************************************************/
-
-Tessitura.Router = require(process.cwd() + '/js/routers/tessituraRouter.js');
-
-var DashboardPresenter = require(process.cwd() + '/js/presenters/dashboardPresenter.js');
-
 /* Tessitura Router Spec
 /******************************************************************************/
 
+/* istanbul ignore next */
 describe('Tessitura Router', function() {
 
   var router, user, spy;

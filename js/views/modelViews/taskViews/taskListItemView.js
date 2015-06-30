@@ -71,7 +71,7 @@ Tessitura.ListItemView = Tessitura.View.extend({
       //      involving unit-testing functionality that encompasses
       //      multiple elements.
 
-      stop: function() {
+      stop:       /* istanbul ignore next */ function() {
         var column = ($(this).closest('.kanban-col').find('.panel-heading').first().text()).replace(/^ /, '');
 
         // At this point, sorting only works on the dashboard. On

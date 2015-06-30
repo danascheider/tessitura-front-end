@@ -1,6 +1,7 @@
 /* Core Requires
 /*****************************************************************************************/
 
+/* istanbul ignore require */
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/spec/support/env.js');
 require(process.cwd() + '/js/tessitura.js');
@@ -8,6 +9,7 @@ require(process.cwd() + '/js/tessitura.js');
 /* Configuration
 /*****************************************************************************************/
 
+/* istanbul ignore next */
 var matchers = require('jasmine-jquery-matchers'),
     context  = describe,
     fcontext = fdescribe;
@@ -16,6 +18,7 @@ var matchers = require('jasmine-jquery-matchers'),
 /* DASHBOARD PRESENTER SPEC                                                              *
 /*****************************************************************************************/
 
+/* istanbul ignore next */
 describe('Dashboard Presenter', function() {
   var presenter, user, collection, spy;
 

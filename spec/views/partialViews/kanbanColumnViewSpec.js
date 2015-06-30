@@ -1,10 +1,12 @@
 /* Core Requires
 /****************************************************************************/
 
+/* istanbul ignore require */
 require(process.cwd() + '/js/tessitura.js');
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/spec/support/env.js');
 
+/* istanbul ignore next */
 var matchers       = _.extend(require('jasmine-jquery-matchers')),
     fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     context        = describe,
@@ -13,6 +15,7 @@ var matchers       = _.extend(require('jasmine-jquery-matchers')),
 /* Kanban Column View Spec
 /****************************************************************************/
 
+/* istanbul ignore next */
 describe('Kanban Column View', function() {
   var view, newView, data;
 

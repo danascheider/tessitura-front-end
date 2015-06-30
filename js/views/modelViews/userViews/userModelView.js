@@ -49,7 +49,7 @@ Tessitura.UserModelView = Tessitura.View.extend({
       beforeSend: function(xhr) {
         xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
       },
-      error  : function(model, response, options) {
+      error  : function(model, response) {
         console.log(response);
       },
       success: function() {

@@ -3,9 +3,10 @@ Tessitura.DashboardView = Tessitura.View.extend({
   template   : JST['dashboard'],
 
   events     : {
-    'click'                : 'hideDropdownMenus',
-    'dblclick'             : 'hideSidebar',
-    'click .internal-link' : 'followLink'
+    'click'                            : 'hideDropdownMenus',
+    'dblclick'                         : 'hideSidebar',
+    'click .internal-link'             : 'followLink',
+    'click .task-list-item .fa-pencil' : 'showEditForm'
   },
   
   /* Event Callbacks
@@ -32,6 +33,10 @@ Tessitura.DashboardView = Tessitura.View.extend({
     if(target !== this.$('#side-menu') && this.$('.navbar-static-side').has(target).length === 0 && this.$('#side-menu').is(':visible')) {
       this.$('.sidebar-collapse').slideUp();
     }
+  },
+
+  showEditForm       : function() {
+    //
   },
 
   /* Special Functions

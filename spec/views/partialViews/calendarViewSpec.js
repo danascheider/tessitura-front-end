@@ -1,21 +1,22 @@
 /* Core Requires
 /****************************************************************************/
 
+/* istanbul ignore require */
 require(process.cwd() + '/js/tessitura.js');
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/spec/support/env.js');
 
+/* istanbul ignore next */
 var moment         = require('moment'),
     matchers       = _.extend(require('jasmine-jquery-matchers'), require(process.cwd() + '/spec/support/matchers/toBeA.js')),
     fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     context        = describe,
     fcontext       = fdescribe;
 
-var CalendarView   = Tessitura.CalendarView;
-
 /* Calendar View Spec
 /****************************************************************************/
 
+/* istanbul ignore next */
 describe('dashboard calendar view', function() {
   var view, spy, e;
 
@@ -28,7 +29,7 @@ describe('dashboard calendar view', function() {
   })
 
   beforeEach(function() {
-    view = new CalendarView();
+    view = new Tessitura.CalendarView();
   });
 
   afterEach(function() {
@@ -46,9 +47,9 @@ describe('dashboard calendar view', function() {
 
   describe('constructor', function() {
     it('does not call render #calendarView #partialView #view #travis', function() {
-      spyOn(CalendarView.prototype, 'render');
-      var newView = new CalendarView();
-      expect(CalendarView.prototype.render).not.toHaveBeenCalled();
+      spyOn(Tessitura.CalendarView.prototype, 'render');
+      var newView = new Tessitura.CalendarView();
+      expect(Tessitura.CalendarView.prototype.render).not.toHaveBeenCalled();
     });
   });
 

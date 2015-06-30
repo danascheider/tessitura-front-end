@@ -1,10 +1,12 @@
 /* Core Requires
 /****************************************************************************/
 
+/* istanbul ignore require */
 require(process.cwd() + '/js/tessitura.js');
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/spec/support/env.js');
 
+/* istanbul ignore next */
 var matchers       = _.extend(require('jasmine-jquery-matchers')),
     context        = describe,
     fcontext       = fdescribe;
@@ -12,6 +14,7 @@ var matchers       = _.extend(require('jasmine-jquery-matchers')),
 /* Registration Form View Spec
 /****************************************************************************/
 
+/* istanbul ignore next */
 describe('Registration Form View', function() {
   var form, newForm, e, spy, obj;
 

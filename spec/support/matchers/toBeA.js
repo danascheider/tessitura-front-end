@@ -1,3 +1,4 @@
+/* istanbul ignore next */
 module.exports = {
   toBeA: function(util, customEqualityTesters) {
     return {

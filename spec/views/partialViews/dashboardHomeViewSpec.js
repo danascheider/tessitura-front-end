@@ -1,10 +1,12 @@
 /* Core Requires
 /****************************************************************************/
 
+/* istanbul ignore require */
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/js/tessitura.js');
 require(process.cwd() + '/spec/support/env.js');
 
+/* istanbul ignore next */
 var matchers       = require('jasmine-jquery-matchers'),
     fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     context        = describe,
@@ -13,6 +15,7 @@ var matchers       = require('jasmine-jquery-matchers'),
 /* Dashboard Home View Spec
 /******************************************************************************/
 
+/* istanbul ignore next */
 describe('Dashboard Home View', function() {
   var view, newView;
 

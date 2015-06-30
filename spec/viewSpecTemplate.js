@@ -1,21 +1,21 @@
 /* Core Requires
 /****************************************************************************/
-
+/* istanbul ignore next */
 require(process.cwd() + '/js/tessitura.js');
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/spec/support/env.js');
 
+/* istanbul ignore next */
 var matchers       = _.extend(require('jasmine-jquery-matchers'), require(process.cwd() + '/spec/support/matchers/toBeA.js')),
     fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     context        = describe,
     fcontext       = fdescribe;
 
-var SUT = require(process.cwd() + '/js/views/appViews/dashboardView.js');
-
 /****************************************************************************
  * BEGIN SUITE                                                              *
 /****************************************************************************/
 
+/* istanbul ignore next */
 describe(/* ACTUAL VALUE */, function() {
   var view;
 

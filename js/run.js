@@ -1,6 +1,4 @@
-require('./tessitura.js');
+/* istanbul ignore next */ require('./tessitura.js');
 
-var test = require('./apiOptions.js').useTestRouter;
-
-global.Router = test === true ? new Tessitura.TestRouter() : new Tessitura.Router();
-Backbone.history.start();
+/* istanbul ignore next */ global.Router = new Tessitura.Router();
+/* istanbul ignore next */ Backbone.history.start();

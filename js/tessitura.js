@@ -1,26 +1,26 @@
 // Set globals
-global.document  = window.document;
-global.navigator = window.navigator;
-global.$         = global.jQuery = require('jquery');
-global._         = require('underscore');
-global.Backbone  = require('backbone');
-global.JST       = require('../templates/jst.js');
+/* istanbul ignore next */ global.document  = window.document;
+/* istanbul ignore next */ global.navigator = window.navigator;
+/* istanbul ignore next */ global.$         = global.jQuery = require('jquery');
+/* istanbul ignore next */ global._         = require('underscore');
+/* istanbul ignore next */ global.Backbone  = require('backbone');
+/* istanbul ignore next */ global.JST       = require('../templates/jst.js');
 
-global.btoa      = function(string) {
+/* istanbul ignore next */ global.btoa      = function(string) {
   return new Buffer(string).toString('base64');
 };
 
-Backbone.$       = $;
+/* istanbul ignore next */ Backbone.$       = $;
 
 // Basic requires that don't need references stored
-require('jquery.cookie');
-require('bootstrap-sass');
-require('../vendor/jquery-ui-1.11.4.custom/jquery-ui.min.js');
-require('../vendor/backbone-route-filter.js');
-require('./views/backboneViewMods.js');
-require('./collections/backboneCollectionMods.js');
+/* istanbul ignore next */ require('jquery.cookie');
+/* istanbul ignore next */ require('bootstrap-sass');
+/* istanbul ignore next */ require('../vendor/jquery-ui-1.11.4.custom/jquery-ui.min.js');
+/* istanbul ignore next */ require('../vendor/backbone-route-filter.js');
+/* istanbul ignore next */ require('./views/backboneViewMods.js');
+/* istanbul ignore next */ require('./collections/backboneCollectionMods.js');
 
-global.Tessitura = {};
+/* istanbul ignore next */ global.Tessitura = {};
 
 // Auxiliary Tessitura modules
 Tessitura.API                    = require('./api.js');

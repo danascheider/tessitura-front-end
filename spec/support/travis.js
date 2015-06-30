@@ -1,3 +1,6 @@
+/* istanbul ignore global */
+/* istanbul ignore require */
+
 // Since Travis requires special treatment in the test environment, 
 // its is configured to replace /spec/support/env.js with this file 
 // before each build.
@@ -11,6 +14,7 @@ global.btoa  = function(string) {
 // break the build, so only specs with the #travis tag will run there.
 
 require('jasmine-tagged');
-var jasmineEnv = jasmine.getEnv();
-jasmineEnv.setIncludedTags(['partialView']);
-jasmineEnv.includeSpecsWithoutTags(false);
+
+/* istanbul ignore next */ var jasmineEnv = jasmine.getEnv();
+/* istanbul ignore next */ jasmineEnv.setIncludedTags(['travis']);
+/* istanbul ignore next */ jasmineEnv.includeSpecsWithoutTags(false);

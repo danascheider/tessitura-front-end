@@ -1,13 +1,16 @@
+/* istanbul ignore <require> */
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/js/tessitura.js');
 require(process.cwd() + '/spec/support/env.js');
 
+/* istanbul ignore next */
 var matchers       = require('jasmine-jquery-matchers'),
     fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
     context        = describe,
     fcontext       = fdescribe;
 
+/* istanbul ignore next */
 describe('Task Edit Form View', function() {
   var view, newView;
 
@@ -42,12 +45,20 @@ describe('Task Edit Form View', function() {
   });
 
   describe('elements', function() {
+    beforeEach(function() {
+      view.render();
+    });
+
     it('is a form #taskEditFormView #modelView #view #travis', function() {
       expect(view.$el[0].tagName).toBe('FORM');
     });
 
     it('has ID #task-edit-form #taskEditFormView #modelView #view #travis', function() {
       expect(view.$el.attr('id')).toBe('task-edit-form');
+    });
+
+    it('has a title field #taskEditFormView #modelView #view #travis', function() {
+      expect(view.$('input[name=title]')).toExist();
     });
   });
 

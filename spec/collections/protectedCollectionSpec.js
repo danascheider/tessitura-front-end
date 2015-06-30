@@ -1,3 +1,5 @@
+/* istanbul ignore require */
+
 /* Core Requires
 /****************************************************************************/
 
@@ -9,6 +11,8 @@ var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
     Model          = Tessitura.Model.extend({}),
     context        = describe,
     fcontext       = fdescribe;
+
+/* istanbul ignore next */
 
 /* Suite
 /******************************************************************************/
