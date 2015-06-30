@@ -1,5 +1,4 @@
 .sass-cache
 *.log
-.notes/*
-.orig/*
+coverage/*
 screenshot.png
