@@ -30,7 +30,7 @@ Tessitura.DashboardNavView = Tessitura.View.extend({
   /**************************************************************************/
 
   emitRedirect       : function(args) {
-    args = args || {};
+    args = args || /* istanbul ignore next */ {};
     this.$('.sidebar-collapse').slideUp();
     this.trigger('redirect', {destination: args.destination});
   },
@@ -76,7 +76,7 @@ Tessitura.DashboardNavView = Tessitura.View.extend({
     this.sidebarView = new Tessitura.DashboardSidebarView();
 
     this.childViews  = [this.sidebarView];
-    if(opts.user) { this.setUser(opts.user); }
+    if(opts.user) { /* istanbul ignore next */ this.setUser(opts.user); }
   },
 
   remove             : function() {

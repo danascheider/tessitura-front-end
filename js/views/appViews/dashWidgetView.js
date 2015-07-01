@@ -12,9 +12,9 @@ Tessitura.DashWidgetView = Tessitura.View.extend({
   /* Event Callbacks
   /**************************************************************************************/
 
-  toggleWidget: function(e) {
-    /* istanbul ignore next */ this.$('.panel-body').slideToggle();
-    /* istanbul ignore next */ $(e.target).toggleClass('fa-minus fa-plus');
+  toggleWidget: /* istanbul ignore next */ function(e) {
+    this.$('.panel-body').slideToggle();
+    $(e.target).toggleClass('fa-minus fa-plus');
   },
 
   render      : function() {

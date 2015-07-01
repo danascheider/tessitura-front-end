@@ -38,4 +38,46 @@ describe('Dashboard Profile View', function() {
       expect(Tessitura.DashboardProfileView.prototype.render).not.toHaveBeenCalled();
     });
   });
+
+  describe('properties', function() {
+    describe('types', function() {
+      it('includes DashboardProfileView #dashboardProfileView #partialView #view #travis', function() {
+        expect(view.types().indexOf('DashboardProfileView')).not.toEqual(-1);
+      });
+    });
+  });
+
+  describe('event wiring', function() {
+    describe('click $el', function() {
+      it('calls hideInputs() #dashboardProfileView #partialView #view #travis', function() {
+        spyOn(Tessitura.DashboardProfileView.prototype, 'hideInputs');
+        newView = new Tessitura.DashboardProfileView({model: user});
+        newView.render();
+        newView.$el.click();
+        expect(Tessitura.DashboardProfileView.prototype.hideInputs).toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('event callbacks', function() {
+    describe('hideInputs()', function() {
+      context('when the click is inside an input', function() {
+        it('does not call hideInputs on its profileView #dashboardProfileView #partialView #view #travis', function() {
+          spyOn(view.profileView, 'hideInputs');
+          e = $.Event('click', {target: view.$('input')});
+          view.hideInputs(e);
+          expect(view.profileView.hideInputs).toHaveBeenCalled();
+        });
+      });
+
+      context('when the click is not inside an input', function() {
+        it('calls hideInputs on its profileView #dashboardProfileView #partialView #view #travis', function() {
+          spyOn(view.profileView, 'hideInputs');
+          e = $.Event('click', {target: view.$el});
+          view.hideInputs(e);
+          expect(view.profileView.hideInputs).toHaveBeenCalled();
+        });
+      })
+    });
+  });
 });

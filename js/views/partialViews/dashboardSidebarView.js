@@ -21,8 +21,6 @@ Tessitura.DashboardSidebarView = Tessitura.View.extend({
     } else {
       li.removeClass('active').find('.nav-second-level').slideUp();
     }
-
-    if(li.className === '') { li.removeAttr('class'); }
   },
 
   /* Special Functions
@@ -32,7 +30,7 @@ Tessitura.DashboardSidebarView = Tessitura.View.extend({
   // directly, so this has to be called in the methods that 
   // require the information.
 
-  getLocationHash      : function() {
+  getLocationHash      : /* istanbul ignore next*/ function() {
     return location.hash;
   },
 

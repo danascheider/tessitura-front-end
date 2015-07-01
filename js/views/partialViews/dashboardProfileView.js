@@ -11,13 +11,14 @@ Tessitura.DashboardProfileView = Tessitura.View.extend({
   /**************************************************************************************/
 
   types       : function() {
-    return Tessitura.View.prototype.types().concat(this.klass, 'DashboardView', 'DashboardProfileView');
+    return Tessitura.View.prototype.types().concat('DashboardView', 'DashboardProfileView');
   },
 
   /* Event Callbacks
   /**************************************************************************************/
 
   hideInputs: function(e) {
+    /* istanbul ignore else */
     if(!$(e.target).is('input')) { this.profileView.hideInputs(); }
   },
 

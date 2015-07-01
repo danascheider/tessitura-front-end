@@ -6,7 +6,7 @@ Backbone.View.prototype.types = function() {
   return ['Backbone.View'];
 };
 
-Backbone.View.prototype.destroyChildren = function() {
+Backbone.View.prototype.destroyChildren = /* istanbul ignore next */ function() {
   if(this.childViews) {
     var len = this.childViews.length;
     for(var i=0; i < len; i++) {
@@ -15,6 +15,7 @@ Backbone.View.prototype.destroyChildren = function() {
   }
 }
 
+/* istanbul ignore next */
 Backbone.View.prototype.destroy = function() {
   if(this.beforeClose) { 
     this.beforeClose();
@@ -32,6 +33,7 @@ Backbone.View.prototype.destroy = function() {
   Backbone.View.prototype.remove.call(this);
 };
 
+/* istanbul ignore next */
 Backbone.View.prototype.isA   = function(type) {
   return this.types().indexOf(type) > -1 ? true : false;
 };
