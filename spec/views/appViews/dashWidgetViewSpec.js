@@ -17,7 +17,7 @@ var matchers       = _.extend(require('jasmine-jquery-matchers'), require(proces
 
 /* istanbul ignore next */
 describe('DashWidgetView', function() {
-  var view;
+  var view, e;
 
   /* Filters
   /**************************************************************************/
@@ -45,7 +45,7 @@ describe('DashWidgetView', function() {
 
   describe('view events', function() {
     describe('click on the toggle widget icon', function() {
-      it('calls toggleWidget #appView #view #travis', function() {
+      it('calls toggleWidget #dashWidgetView #appView #view #travis', function() {
         spyOn(Tessitura.DashWidgetView.prototype, 'toggleWidget');
         var newView = new Tessitura.DashWidgetView();
         newView.render();
@@ -59,9 +59,12 @@ describe('DashWidgetView', function() {
   /**************************************************************************/
 
   describe('event callbacks', function() {
-    describe('toggleWidget #appView #view #travis', function() {
+    describe('toggleWidget #dashWidgetView #appView #view #travis', function() {
+      beforeEach(function() {
+        e = $.Event('click', {target: view.$('.toggle-widget > i.fa-minus')});
+      });
+
       it('calls slideToggle', function() {
-        var e = $.Event('click', {target: view.$('.toggle-widget')});
         spyOn($.prototype, 'slideToggle');
         view.toggleWidget(e);
         expect($.prototype.slideToggle).toHaveBeenCalled();

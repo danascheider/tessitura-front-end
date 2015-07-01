@@ -143,6 +143,27 @@ describe('Main Dashboard View', function() {
 
     afterEach(function()  { dashboard.remove(); });
 
+    describe('emitRedirect', function() {
+      it('triggers the redirect event #dashboardView #appView #view #travis', function() {
+        spy = jasmine.createSpy();
+        dashboard.on('redirect', spy);
+        dashboard.emitRedirect({destination: 'dashboard'});
+        expect(spy).toHaveBeenCalledWith({destination: 'dashboard'});
+      });
+    });
+
+    describe('followLink', function() {
+      beforeEach(function() {
+        spyOn(dashboard, 'emitRedirect');
+        spyOn($.prototype, 'attr').and.returnValue('profile');
+        dashboard.followLink($.Event('click', {target: dashboard.$('.internal-link').first()}));
+      });
+
+      it('calls emitRedirect #dashboardView #appView #view #travis', function() {
+        expect(dashboard.emitRedirect).toHaveBeenCalledWith({destination: 'profile'});
+      });
+    });
+
     describe('hideDropdownMenus', function() {
       context('when none of the menus is open', function() {
         it('doesn\'t open the menus #dashboardView #appView #view #travis', function() {
@@ -169,6 +190,26 @@ describe('Main Dashboard View', function() {
           e = $.Event('click', {target: dashboard.$('li.dropdown').first().find('ul.dropdown-menu')});
           dashboard.hideDropdownMenus(e);
           expect(dashboard.navView.$('li.dropdown').attr('class')).toContain('open');
+        });
+      });
+    });
+
+    describe('hideSidebar', function() {
+      context('when the target is in the sidebar', function() {
+        it('doesn\'t call slideUp #dashboardView #appView #view #travis', function() {
+          spyOn($.prototype, 'slideUp');
+          e = $.Event('dblclick', {target: dashboard.navView.sidebarView.$el});
+          dashboard.hideSidebar(e);
+          expect($.prototype.slideUp).not.toHaveBeenCalled();
+        });
+      });
+
+      context('when the target isn\'t in the sidebar', function() {
+        it('calls slideUp #dashboardView #appView #view #travis', function() {
+          pending('FUFNR');
+          spyOn($.prototype, 'slideUp');
+          dashboard.hideSidebar();
+          expect($.prototype.slideUp).toHaveBeenCalled();
         });
       });
     });
