@@ -29,6 +29,7 @@ var TaskCollection = Tessitura.ProtectedCollection.extend({
   fetch      : function(opts) {
     opts = opts || {};
 
+    /* istanbul ignore else */ 
     if(!opts.url) {
       opts.url = opts.all === true ? Tessitura.API.tasks.fullCollection($.cookie('userID')) : this.url();
     }

@@ -61,7 +61,7 @@ Tessitura.QuickAddFormView = Tessitura.View.extend({
   /**************************************************************************************/
 
   initialize : function(opts) {
-    opts = opts || {};
+    opts = opts || /* istanbul ignore next */ {};
     _.extend(this, opts);
   },
 

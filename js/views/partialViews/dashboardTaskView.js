@@ -10,40 +10,44 @@ Tessitura.DashboardTaskView = Tessitura.View.extend({
   /**************************************************************************/
 
   allocate          : function(task) {
-    var newView = this.findNewCollection(task);
+    var newView = this.findNewView(task);
     newView.models.unshift(task);
     newView.render();
   },
 
-  changeStatus      : function(task) {
-    if(task.get('status') === 'Complete') { this.collection.remove(task); }
-    
-    var newCollection = this.findNewCollection(task) || new Tessitura.TaskCollection();
-    newCollection.models.push([task]);
+  changeBacklog : function() {
+    this.render();
   },
 
-  findNewCollection : function(task) {
+  changeStatus      : function(task) {
+    if(task.get('status') === 'Complete') { 
+      this.collection.remove(task); 
+    } else {
+      var newView = this.findNewView(task);
+      newView.models.push([task]);
+    }
+  },
+
+  findNewView       : function(task) {
     var that   = this,
         status = task.get('status'),
         view;
 
+    /* istanbul ignore if */
     if(task.get('backlog') === true) { 
       return this.backlogColumnView; 
     }
 
     _.each([that.newColumnView, that.inProgressColumnView, that.blockingColumnView], function(col) {
+    /* istanbul ignore if */
       if(col.headline === status) { view = col; }
     });
 
     return view;
   },
 
-  changeBacklog : function(task) {
-    this.render();
-  },
-
   removeAndRender: function(task) {
-    var view = this.findNewCollection(task);
+    var view = this.findNewView(task);
     view.models.splice(view.models.indexOf(task), 1);
     view.render();
   },

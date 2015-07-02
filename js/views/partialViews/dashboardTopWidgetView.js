@@ -1,15 +1,12 @@
 Tessitura.DashboardTopWidgetView = Tessitura.View.extend({
   id                  : 'dashboard-top-widgets',
   template            : JST['partials/topWidgets'],
-  types               : function() {
-    return Tessitura.View.prototype.types().concat(['DashboardTopWidgetView', 'PartialView']);
-  },
 
   /* Core View Functions
   /**************************************************************************************/
 
   initialize          : function(data) {
-    this.data = data || {};
+    this.data = data || /* istanbul ignore next */ {};
 
     // For convenience, make the data available as own properties
     // of the view.

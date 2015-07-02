@@ -16,7 +16,7 @@ var matchers       = require('jasmine-jquery-matchers'),
 
 /* istanbul ignore next */
 describe('Dashboard Task View', function() {
-  var view, newView, e, spy;
+  var view, newView, newTask, e, spy;
 
   /* Filters
   /**************************************************************************/
@@ -28,6 +28,8 @@ describe('Dashboard Task View', function() {
 
   beforeEach(function() {
     view = new Tessitura.DashboardTaskView({user: user, collection: collection});
+    spyOn($, 'ajax').and.callFake(function(args) { args.success(collection); });
+    spyOn(Tessitura.TaskModel.prototype, 'displayTitle').and.returnValue('foobar')
   });
 
   afterEach(function() {
@@ -82,6 +84,171 @@ describe('Dashboard Task View', function() {
     });
   });
 
+  /* Events 
+  /**************************************************************************************/
+
+  describe('event wiring', function() {
+    describe('add task to collection', function() {
+      it('calls allocate() #dashboardTaskView #partialView #view #travis', function() {
+        pending('FUFNR');
+        spyOn(Tessitura.DashboardTaskView.prototype, 'allocate');
+        newView = new Tessitura.DashboardTaskView({user: user});
+        newView.render();
+        newTask = new Tessitura.TaskModel({title: 'Foobar'});
+        newView.user.tasks.add(newTask);
+        expect(Tessitura.DashboardTaskView.prototype.allocate).toHaveBeenCalled();
+      });
+    });
+
+    describe('change task status', function() {
+      it('calls changeStatus() #dashboardTaskView #partialView #view #travis', function() {
+        pending('FUFNR');
+        spyOn(Tessitura.DashboardTaskView.prototype, 'changeStatus');
+        newView = new Tessitura.DashboardTaskView({user: user});
+        newView.render();
+        task1.set({status: 'In Progress'});
+        expect(Tessitura.DashboardTaskView.prototype.changeStatus).toHaveBeenCalled();
+      });
+    });
+
+    describe('change task backlog status', function() {
+      it('calls changeBacklog() #dashboardTaskView #partialView #view #travis', function() {
+        pending('FUFNR');
+      });
+    });
+
+    describe('remove task from collection', function() {
+      it('calls removeAndRender() #dashboardTaskView #partialView #view #travis', function() {
+        pending('FUFNR');
+      });
+    });
+  });
+
+  /* Event Callbacks
+  /**************************************************************************************/
+
+  describe('event callbacks', function() {
+    describe('allocate()', function() {
+      beforeEach(function() {
+        newTask = new Tessitura.TaskModel({title: 'Foobar', status: 'In Progress'});
+        view.render();
+        spyOn(view, 'findNewView').and.returnValue(view.inProgressColumnView);
+        view.allocate(newTask);
+      });
+
+      it('calls findNewView #dashboardTaskView #partialView #view #travis', function() {
+        expect(view.findNewView).toHaveBeenCalled();
+      });
+
+      it('adds the task to the new view\'s models #dashboardTaskView #partialView #view #travis', function() {
+        expect(view.inProgressColumnView.models.indexOf(newTask)).toBeGreaterThan(-1);
+      });
+
+      it('renders the view #dashboardTaskView #partialView #view #travis', function() {
+        pending('FUFNR');
+        expect(view.render).toHaveBeenCalled();
+      });
+    });
+
+    describe('changeBacklog()', function() {
+      it('calls render #dashboardTaskView #partialView #view #travis', function(done) {
+        view.render();
+        spyOn(view, 'render');
+        view.changeBacklog();
+        expect(view.render).toHaveBeenCalled();
+        done();
+      });
+    });
+
+    describe('changeStatus()', function() {
+      it('checks the task status #dashboardTaskView #partialView #view #travis', function() {
+        spyOn(task1, 'get');
+        view.render();
+        spyOn(view, 'findNewView').and.returnValue(view.backlogColumnView);
+        view.changeStatus(task1);
+        expect(task1.get).toHaveBeenCalledWith('status');
+      });
+
+      context('when the task status is \'Complete\'', function() {
+        it('removes the task from the collection #dashboardTaskView #partialView #view #travis', function() {
+          task1.set({status: 'Complete'}, {silent: true});
+          spyOn(collection, 'remove');
+          view.changeStatus(task1);
+          expect(collection.remove).toHaveBeenCalledWith(task1);
+        });
+      });
+
+      context('when the task status is not \'Complete\'', function() {
+        beforeEach(function() {
+          task1.set({status: 'Blocking'}, {silent: true});
+          spyOn(view, 'findNewView').and.returnValue(view.blockingColumnView);
+          view.changeStatus(task1);
+        });
+
+        it('calls findNewView #dashboardTaskView #partialView #view #travis', function() {
+          expect(view.findNewView).toHaveBeenCalledWith(task1);
+        });
+
+        it('adds the task to the new view\'s models #dashboardTaskView #partialView #view #travis', function() {
+          expect(view.blockingColumnView.models.indexOf(task1)).toBeGreaterThan(-1);
+        });
+      });
+    });
+
+    describe('findNewView()', function() {
+      beforeEach(function(done) {
+        view.render();
+        done();
+      });
+
+      it('checks the task\'s status #dashboardTaskView #partialView #view #travis', function() {
+        spyOn(task1, 'get');
+        view.findNewView(task1);
+        expect(task1.get).toHaveBeenCalledWith('status');
+      });
+
+      it('checks the task\'s backlog status #dashboardTaskView #partialView #view #travis', function() {
+        spyOn(task1, 'get');
+        view.findNewView(task1);
+        expect(task1.get).toHaveBeenCalledWith('backlog');
+      });
+
+      context('task is backlogged', function() {
+        it('returns the backlog column #dashboardTaskView #partialView #view #travis', function() {
+          expect(view.findNewView(task4)).toEqual(view.backlogColumnView);
+        });
+      });
+
+      context('task has status \'New\'', function() {
+        it('returns the new column #dashboardTaskView #partialView #view #travis', function() {
+          expect(view.findNewView(task1)).toBe(view.newColumnView);
+        });
+      })
+    });
+
+    describe('removeAndRender()', function() {
+      beforeEach(function(done) {
+        view.render();
+        spyOn(view.newColumnView, 'render');
+        spyOn(view, 'findNewView').and.returnValue(view.newColumnView);
+        view.removeAndRender(task1);
+        done();
+      });
+
+      it('finds the task\'s view #dashboardTaskView #partialView #view #travis', function() {
+        expect(view.findNewView).toHaveBeenCalledWith(task1);
+      });
+
+      it('removes the view from the view\'s models array #dashboardTaskView #partialView #view #travis', function() {
+        expect(view.newColumnView.models.indexOf(task1)).toEqual(-1);
+      });
+
+      it('renders the child view #dashboardTaskView #partialView #view #travis', function() {
+        expect(view.newColumnView.render).toHaveBeenCalled();
+      });
+    });
+  });
+
   /* Core View Functions
   /**************************************************************************************/
 
@@ -115,10 +282,6 @@ describe('Dashboard Task View', function() {
 
       _.each(['newColumnView', 'inProgressColumnView', 'blockingColumnView', 'backlogColumnView'], function(column) {
         it('creates the ' + column + '#dashboardTaskView #partialView #view #travis', function() {
-          spyOn(Tessitura.TaskModel.prototype, 'displayTitle').and.returnValue('foobar')
-          spyOn($, 'ajax').and.callFake(function(args) {
-            args.success(user.tasks);
-          });
 
           view.render();
           expect(view[column]).toExist();

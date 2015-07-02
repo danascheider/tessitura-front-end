@@ -224,7 +224,7 @@ describe('Dashboard Home View', function() {
       });
 
       it('creates a top widget view #dashboardHomeView #partialView #view #travis', function() {
-        expect(newView.topWidgetView.isA('DashboardTopWidgetView')).toBe(true);
+        expect(newView.topWidgetView.isA('Tessitura.View')).toBe(true);
       });
 
       it('creates a calendar widget #dashboardHomeView #partialView #view #travis', function() {
