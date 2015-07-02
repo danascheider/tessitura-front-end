@@ -24,14 +24,16 @@ Tessitura.DashboardView = Tessitura.View.extend({
 
   hideDropdownMenus  : function(e) {
     var li = this.$('li.dropdown');
+    /* istanbul ignore next */
     if(!li.is(e.target) && !li.has(e.target).length) { li.removeClass('open'); }
   },
 
   hideSidebar        : function(e) {
     if(e) { var target = $(e.target); }
 
+    /* istanbul ignore if */
     if(target !== this.$('#side-menu') && this.$('.navbar-static-side').has(target).length === 0 && this.$('#side-menu').is(':visible')) {
-      /* istanbul ignore next */ this.$('.sidebar-collapse').slideUp();
+      this.$('.sidebar-collapse').slideUp();
     }
   },
 
@@ -62,7 +64,7 @@ Tessitura.DashboardView = Tessitura.View.extend({
 
     return Tessitura.View.prototype.render.call(this, '', function() {
       that.navView.render();
-      if(!that.navView.$el.is(':visible')) { /* istanbul ignore next */ that.$el.prepend(that.navView.$el); }
+      /* istanbul ignore next */ if(!that.navView.$el.is(':visible')) { that.$el.prepend(that.navView.$el); }
     });
   }
 });

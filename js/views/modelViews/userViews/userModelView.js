@@ -46,11 +46,11 @@ Tessitura.UserModelView = Tessitura.View.extend({
     data[$(e.target).attr('name')] = $(e.target)[0].value;
     
     this.model.save(data, {
-      beforeSend: function(xhr) {
-        xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
+      beforeSend:  /* istanbul ignore next */ function(xhr) {
+        /* istanbul ignore next */ xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
       },
-      error  : function(model, response) {
-        console.log(response);
+      error  : /* istanbul ignore next */ function(model, response) {
+        /* istanbul ignore next */ console.log(response);
       },
       success: function() {
         $(e.target).closest('span.input').hide();

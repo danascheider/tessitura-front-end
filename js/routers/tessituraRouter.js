@@ -130,6 +130,7 @@ Tessitura.Router = Backbone.Router.extend({
   },
 
   rerouteIfLoggedIn: function(fragment, args, next) {
+    /* istanbul ignore else */
     if (this.userLoggedIn()) {
       this.AppPresenter.removeAll();
       this.navigate('dashboard', {trigger: true});
@@ -139,6 +140,7 @@ Tessitura.Router = Backbone.Router.extend({
   },
 
   verifyLoggedIn: function(fragment, args, next) {
+    /* istanbul ignore if */
     if(this.userLoggedIn()) { 
       next(); 
     } else {

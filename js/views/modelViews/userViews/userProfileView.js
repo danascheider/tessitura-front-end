@@ -30,6 +30,7 @@ Tessitura.UserProfileView = Tessitura.DashWidgetView.extend({
 
   initialize  : function(args) {
     args = args || /* istanbul ignore next */ {};
+    /* istanbul ignore else */
     if(args.model) { this.setUser(args.model); }
   },
 

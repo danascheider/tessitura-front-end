@@ -267,6 +267,17 @@ describe('Tessitura Router', function() {
         expect(router.navigate).toHaveBeenCalledWith('', {trigger: true});
       });
     });
+
+    describe('prepareTestEnvironment()', function() {
+      it('sends a DELETE request to the database destroyer #router #travis', function() {
+        spyOn($, 'ajax').and.callFake(function(args) { args.success && args.success(); });
+        router.prepareTestEnvironment();
+        expect($.ajax).toHaveBeenCalledWith(jasmine.objectContaining({
+          type: 'DELETE',
+          url: 'http://api.canto-test.com:1025/destroy'
+        }));
+      });
+    });
   });
 
   /* Special Functions

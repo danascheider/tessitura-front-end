@@ -1,4 +1,4 @@
-/* istanbul ignore <require> */
+/* istanbul ignore require */
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/js/tessitura.js');
 require(process.cwd() + '/spec/support/env.js');
@@ -255,7 +255,7 @@ describe('User Model View', function() {
         context('when the input is empty', function() {
           beforeEach(function() {
             spyOn($.prototype, 'attr').and.returnValue('username');
-            var target = [{value: ''}]
+            var target = [{value: ''}];
             e = $.Event('keydown', {keyCode: 9, target: target});
           });
 
@@ -274,6 +274,47 @@ describe('User Model View', function() {
             view.triageKeypress(e);
             expect(view.$('#email .input')).toBeInDom();
           });
+        });
+
+        context('when the first input is first_name #modelView #view #travis', function() {
+          beforeEach(function() {
+            spyOn($.prototype, 'attr').and.returnValue('first_name');
+            var target = [{value: ''}];
+            e = $.Event('keydown', {keyCode: 9, target: target});
+          });
+
+          it('goes to the last_name field #modelView #view #travis', function() {
+            pending('FUFNR');
+            view.triageKeypress(e);
+            expect(view.$('#last_name .input')).toBeInDom();
+          });
+        });
+
+        context('when the input doesn\'t match the current attribute value', function() {
+          beforeEach(function() {
+            var target = [{value: 'Foobar'}];
+            e = $.Event('keydown', {keyCode: 9, target: target});
+            view.displayInput('dblclick', view.$('#username span.p'));
+            });
+
+          it('calls submitUpdate #modelView #view #travis', function() {
+            view.triageKeypress(e);
+            expect(view.submitUpdate).toHaveBeenCalled();
+          });
+        });
+      });
+      
+      context('when the key is escape', function() {
+        beforeEach(function() {
+          spyOn(view, 'hideInputs');
+          view.displayInput('dblclick', view.$('input[name=username]'));
+          var target = [{value: ''}];
+          e = $.Event('keydown', {keyCode: 27, target: target});
+        });
+
+        it('calls hideInputs #modelView #view #travis', function() {
+          view.triageKeypress(e);
+          expect(view.hideInputs).toHaveBeenCalled();
         });
       });
     });

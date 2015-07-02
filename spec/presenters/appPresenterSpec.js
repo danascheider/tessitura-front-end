@@ -118,6 +118,13 @@ describe('App Presenter', function() {
         presenter.getHomepage();
         expect(presenter.homepageView.render).toHaveBeenCalled();
       });
+
+      it('sets the HTML of the body element #presenter #travis', function() {
+        spyOn($.prototype, 'is').and.returnValue(false);
+        presenter.homepageView.render();
+        presenter.getHomepage();
+        expect(presenter.homepageView.$el).toBeInDom();
+      });
     });
 
     describe('isA()', function() {

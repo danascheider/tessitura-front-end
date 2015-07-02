@@ -14,12 +14,13 @@ Tessitura.DashboardPresenter = Tessitura.Model.extend({
   getHome      : function() {
     this.showDash();
 
-    var needToChange = this.current !== this.dashboardHomeView;
+    var theViewNeedsToChange = this.current !== this.dashboardHomeView;
     this.current = this.dashboardHomeView;
 
     this.clearViews();
 
-    if(needToChange) {
+    /* istanbul ignore else */
+    if(theViewNeedsToChange) {
       this.dashboardView.hideSidebar();
       this.dashboardHomeView.render();
       this.dashboardView.$el.append(this.dashboardHomeView.$el);
@@ -29,12 +30,13 @@ Tessitura.DashboardPresenter = Tessitura.Model.extend({
   getProfile   : function() {
     this.showDash();
 
-    var needToChange = this.current !== this.dashboardProfileView;
+    var theViewNeedsToChange = this.current !== this.dashboardProfileView;
     this.current = this.dashboardProfileView;
 
     this.clearViews();
 
-    if(needToChange) {
+    /* istanbul ignore else */
+    if(theViewNeedsToChange) {
       this.dashboardView.hideSidebar();
       this.dashboardProfileView.render();
       this.dashboardView.$el.append(this.dashboardProfileView.$el);
@@ -44,13 +46,14 @@ Tessitura.DashboardPresenter = Tessitura.Model.extend({
   getTask      : function() {
     this.showDash();
 
-    var needToChange = this.current !== this.dashboardTaskView;
+    var theViewNeedsToChange = this.current !== this.dashboardTaskView;
 
     this.current = this.dashboardTaskView;
 
     this.clearViews();
 
-    if(needToChange) {
+    /* istanbul ignore else */
+    if(theViewNeedsToChange) {
       this.dashboardView.hideSidebar();
       this.dashboardTaskView.render();
       this.dashboardView.$el.append(this.dashboardTaskView.$el);

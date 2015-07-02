@@ -3,6 +3,7 @@ module.exports = {
     var formData = form.serializeArray();
     var attributes = {};
 
+    /* istanbul ignore next */
     for(var key in formData) {
       if (formData.hasOwnProperty(key)) {
         var chiave = formData[key].name;
