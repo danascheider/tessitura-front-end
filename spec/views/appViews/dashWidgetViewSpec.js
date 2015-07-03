@@ -8,7 +8,6 @@ require(process.cwd() + '/spec/support/env.js');
 
 /* istanbul ignore next */
 var matchers       = _.extend(require('jasmine-jquery-matchers'), require(process.cwd() + '/spec/support/matchers/toBeA.js')),
-    fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     context        = describe,
     fcontext       = fdescribe;
 
@@ -17,37 +16,32 @@ var matchers       = _.extend(require('jasmine-jquery-matchers'), require(proces
 
 /* istanbul ignore next */
 describe('DashWidgetView', function() {
-  var view, e;
+  var view, newView, e;
 
   /* Filters
   /**************************************************************************/
 
   beforeAll(function() {
+    parseIntCopy = parseInt;
     jasmine.addMatchers(matchers);
-    _.extend(global, fixtures);
-  })
+  });
 
   beforeEach(function() {
     view = new Tessitura.DashWidgetView();
   });
 
-  afterEach(function() {
-    restoreFixtures();
-  });
-
   afterAll(function() {
     view.destroy();
-    global = _.omit(global, fixtures);
   });
 
-  /* Event Wiring
-  /**************************************************************************/
+  /* Event Callbacks
+  /**************************************************************************************/
 
-  describe('view events', function() {
-    describe('click on the toggle widget icon', function() {
-      it('calls toggleWidget #dashWidgetView #appView #view #travis', function() {
+  describe('event wiring', function() {
+    describe('click on the toggleWidget icon', function() {
+      it('calls toggleWidget() #dashWidgetView #appView #view #travis', function() {
         spyOn(Tessitura.DashWidgetView.prototype, 'toggleWidget');
-        var newView = new Tessitura.DashWidgetView();
+        newView = new Tessitura.DashWidgetView();
         newView.render();
         newView.$('span.toggle-widget > i').click();
         expect(Tessitura.DashWidgetView.prototype.toggleWidget).toHaveBeenCalled();
@@ -55,16 +49,16 @@ describe('DashWidgetView', function() {
     });
   });
 
-  /* Event Callbacks
-  /**************************************************************************/
+  /* Event Wiring
+  /**************************************************************************************/
 
   describe('event callbacks', function() {
-    describe('toggleWidget #dashWidgetView #appView #view #travis', function() {
+    describe('toggleWidget()', function() {
       beforeEach(function() {
         e = $.Event('click', {target: view.$('.toggle-widget > i.fa-minus')});
       });
 
-      it('calls slideToggle', function() {
+      it('calls slideToggle #dashWidgetView #appView #view #travis', function() {
         spyOn($.prototype, 'slideToggle');
         view.toggleWidget(e);
         expect($.prototype.slideToggle).toHaveBeenCalled();
