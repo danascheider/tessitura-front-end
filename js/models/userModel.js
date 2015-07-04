@@ -21,6 +21,10 @@ Tessitura.UserModel = Tessitura.Model.extend({
     return Tessitura.Model.prototype.fetch.call(this, settings);
   },
 
+  prettyCreateDate: function() {
+    return Tessitura.Utils.prettyDate(this.escape('created_at'));
+  },
+
   /* Core Model Functions
   /**************************************************************************************/
 
