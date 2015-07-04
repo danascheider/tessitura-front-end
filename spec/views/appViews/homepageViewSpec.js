@@ -64,6 +64,7 @@ describe('Tessitura Homepage View', function() {
       spy = jasmine.createSpy();
       spyOn(Tessitura.HomepageView.prototype, 'hideLoginForm');
       spyOn(Tessitura.HomepageView.prototype, 'toggleLoginForm');
+      spyOn(Tessitura.HomepageView.prototype, 'goToDashboard');
       newView = new Tessitura.HomepageView();
       newView.render();
       newView.on('redirect', spy);
@@ -82,6 +83,13 @@ describe('Tessitura Homepage View', function() {
       it('calls hideLoginForm #homepageView #appView #view #travis', function() {
         newView.$('#shade').dblclick();
         expect(Tessitura.HomepageView.prototype.hideLoginForm).toHaveBeenCalled();
+      });
+    });
+
+    describe('userCreated on registration form', function() {
+      it('calls goToDashboard #homepageView #appView #view #travis', function() {
+        newView.registrationForm.trigger('userCreated');
+        expect(Tessitura.HomepageView.prototype.goToDashboard).toHaveBeenCalled();
       });
     });
   });

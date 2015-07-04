@@ -105,7 +105,7 @@ describe('Task Panel View', function() {
   });
 
   describe('event callbacks', function() {
-    describe('crossOff', function() {
+    describe('crossOff()', function() {
       context('when the task is complete', function() {
         beforeEach(function() {
           taskPanel.render();
@@ -184,6 +184,15 @@ describe('Task Panel View', function() {
             expect(spy).not.toHaveBeenCalled();
           }, 750);
         });
+      });
+    });
+
+    describe('showTaskCreateForm()', function() {
+      it('triggers the showTaskCreateForm event #taskPanelView #partialView #view #travis', function() {
+        spy = jasmine.createSpy();
+        taskPanel.on('showTaskCreateForm', spy);
+        taskPanel.showTaskCreateForm();
+        expect(spy).toHaveBeenCalled();
       });
     });
   });

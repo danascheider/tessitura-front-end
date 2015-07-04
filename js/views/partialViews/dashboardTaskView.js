@@ -54,7 +54,7 @@ Tessitura.DashboardTaskView = Tessitura.View.extend({
 
   setUser : function(user) {
     this.user = user;
-    this.user.tasks = this.user.tasks || new Tessitura.TaskCollection();
+    this.user.tasks = this.user.tasks || /* istanbul ignore next */ new Tessitura.TaskCollection();
   },
 
   /* Core View Functions

@@ -22,6 +22,7 @@ Tessitura.TaskPanelView = Tessitura.DashWidgetView.extend({
   },
 
   retrieveViewForModel : function(task) {
+    /* istanbul ignore next */  
     if(!this.childViews.length) { return; }
     var that = this, child;
 
@@ -34,7 +35,7 @@ Tessitura.TaskPanelView = Tessitura.DashWidgetView.extend({
     return child;
   },
 
-  showTaskCreateForm   : function(e) {
+  showTaskCreateForm   : function() {
     this.trigger('showTaskCreateForm', {collection: this.collection});
   },
 
@@ -47,7 +48,7 @@ Tessitura.TaskPanelView = Tessitura.DashWidgetView.extend({
     var container = document.createDocumentFragment();
 
     this.collection.each(function(task) {
-      if (i > 9) { return; }
+      /* istanbul ignore next */ if (i > 9) { return; }
 
       if (task.get('status') !== 'Blocking' && task.get('status') !== 'Complete' && !task.get('backlog')) {
         var view = that.retrieveViewForModel(task) || new Tessitura.TaskListItemView({model: task});

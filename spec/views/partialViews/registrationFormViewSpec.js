@@ -99,7 +99,7 @@ describe('Registration Form View', function() {
   /**************************************************************************/
 
   describe('event callbacks', function() {
-    describe('createUser', function() {
+    describe('createUser()', function() {
       beforeEach(function() {
         obj = {
           username: 'testuser245', password: '245usertest', passwordConfirmation: '245usertest', 
@@ -242,6 +242,41 @@ describe('Registration Form View', function() {
           expect(spy).not.toHaveBeenCalled();
           done();
         });
+      });
+    });
+
+    describe('removeError()', function() {
+      beforeEach(function() {
+        form.$('fieldset.terms').addClass('has-error');
+      });
+
+      it('removes the .has-error class #registrationFormView #partialView #view #travis', function() {
+        form.removeError();
+        expect(form.$('.has-error')).not.toExist();
+      });
+    });
+
+    describe('toggleCheckbox()', function() {
+      beforeEach(function() {
+        form.render();
+      });
+
+      it('calls removeError #registrationFormView #partialView #view #travis', function() {
+        spyOn(form, 'removeError');
+        form.toggleCheckbox();
+        expect(form.removeError).toHaveBeenCalled();
+      });
+
+      it('checks an unchecked checkbox #registrationFormView #partialView #view #travis', function() {
+        form.$('input[name=acceptTerms]').prop('checked', false);
+        form.toggleCheckbox();
+        expect(form.$('input[name=acceptTerms]')).toBeChecked();
+      });
+
+      it('unchecks a checked checkbox #registrationFormView #partialView #view #travis', function() {
+        form.$('input[name=acceptTerms]').prop('checked', true);
+        form.toggleCheckbox();
+        expect(form.$('input[name=acceptTerms]')).not.toBeChecked();
       });
     });
   });

@@ -1,4 +1,4 @@
-Tessitura.DashboardNavView = Tessitura.View.extend({
+  Tessitura.DashboardNavView = Tessitura.View.extend({
 
   /* Backbone View Properties
   /**************************************************************************/
@@ -76,7 +76,7 @@ Tessitura.DashboardNavView = Tessitura.View.extend({
     this.sidebarView = new Tessitura.DashboardSidebarView();
 
     this.childViews  = [this.sidebarView];
-    if(opts.user) { /* istanbul ignore next */ this.setUser(opts.user); }
+    /* istanbul ignore next */ if(opts.user) { this.setUser(opts.user); }
   },
 
   remove             : function() {

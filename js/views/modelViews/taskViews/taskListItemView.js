@@ -52,7 +52,7 @@ Tessitura.ListItemView = Tessitura.View.extend({
   },
 
   toggleTaskDetails : function(e) {
-    if(e) { e.preventDefault(); }
+    /* istanbul ignore next */ if(e) { e.preventDefault(); }
     this.$el.toggleClass('open', {duration: 400});
     this.$('.task-details').slideToggle();
   },

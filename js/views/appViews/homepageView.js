@@ -31,6 +31,8 @@ Tessitura.HomepageView = Tessitura.View.extend({
 
   hideLoginForm: function(e) {
     var t = $(e.target);
+
+    /* istanbul ignore else */
     if (t.attr('id') !== 'login-form' && this.loginForm.$el.has(t).length === 0) {
       this.$('#shade').hide();
       this.$('div.text-vertical-center').children().show();
@@ -55,10 +57,7 @@ Tessitura.HomepageView = Tessitura.View.extend({
 
     this.childViews       = [this.loginForm, this.registrationForm];
     
-    this.listenTo(this.registrationForm, 'userCreated', function() {
-      this.trigger('redirect', {destination: 'dashboard'});
-    });
-
+    this.listenTo(this.registrationForm, 'userCreated', this.goToDashboard);
     this.listenTo(this.loginForm, 'userLoggedIn', this.goToDashboard);
   },
 

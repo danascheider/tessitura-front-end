@@ -79,7 +79,7 @@ Tessitura.UserModelView = Tessitura.View.extend({
       // If the current field is first_name, the next field is last_name. Otherwise, it's
       // the .profile-field element in the next row in the table.
 
-      var nextField = $(e.target).closest('.profile-field').attr('id') === 'first_name' ? this.$('#last_name') : $(e.target).closest('tr').next().find('td > span.profile-field');
+      var nextField = $(e.target).closest('.profile-field').attr('id') === 'first_name' ? /* istanbul ignore next */ this.$('#last_name') : $(e.target).closest('tr').next().find('td > span.profile-field');
 
       if(this.model.get(attr) !== currentValue && currentValue !== '') {
         this.submitUpdate(e);

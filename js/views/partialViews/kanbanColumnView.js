@@ -47,10 +47,11 @@ Tessitura.KanbanColumnView = Tessitura.View.extend({
     for (var i = 0; i < this.models.length; i++) {
       var task = this.models[i]
 
-      if(task.get('backlog') && key !== 'backlog') { continue; }
+      /* istanbul ignore next */ if(task.get('backlog') && key !== 'backlog') { continue; }
 
       var view = that.retrieveViewForModel(task) || new Tessitura.TaskListItemView({model: task});
 
+      /* istanbul ignore else */
       if (that.childViews.indexOf(view) === -1) {
         that.childViews.push(view);
       }
@@ -64,7 +65,7 @@ Tessitura.KanbanColumnView = Tessitura.View.extend({
   },
 
   retrieveViewForModel : function(task) {
-    if (!this.childViews.length) { return; }
+    /* istanbul ignore next */ if (!this.childViews.length) { return; }
 
     var child;
 
@@ -81,7 +82,7 @@ Tessitura.KanbanColumnView = Tessitura.View.extend({
   /**************************************************************************/
 
   initialize           : function(data) {
-    data            = data || {};
+    data            = data || /* istanbul ignore next */ {};
     _.extend(this, data);
 
     var that = this;
@@ -93,6 +94,7 @@ Tessitura.KanbanColumnView = Tessitura.View.extend({
   },
 
   remove               : function() {
+    /* istanbul ignore else */
     if(!!this.childViews.length) { 
       _.each(this.childViews, function(view) {
         view.remove(); 

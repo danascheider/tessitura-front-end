@@ -73,6 +73,7 @@ Tessitura.DashboardHomeView = Tessitura.View.extend({
       this.taskPanelView.remove();
       this.topWidgetView.remove();
     } catch(e) {
+      /* istanbul ignore next */
       if (!(this.calendarView && this.taskPanelView && this.topWidgetView)) { return; }
     }
 

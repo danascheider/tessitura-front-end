@@ -128,7 +128,7 @@ describe('Kanban Column View', function() {
   /**************************************************************************/
 
   describe('event callbacks', function() {
-    describe('crossOff', function() {
+    describe('crossOff()', function() {
       context('when the task is complete', function() {
         beforeEach(function() {
           view.render();
@@ -211,6 +211,36 @@ describe('Kanban Column View', function() {
         });
       });
     });
+
+    describe('removeTask()', function() {
+      context('when grouped by backlog', function() {
+        beforeEach(function() {
+          view.groupedBy = {backlog: true};
+          spyOn(collection, 'remove');
+        });
+
+        it('doesn\'t remove a backlogged task #taskPanelView #partialView #view #travis', function() {
+          view.removeTask(task4);
+          expect(collection.remove).not.toHaveBeenCalled();
+        });
+
+        it('removes a non-backlogged task #taskPanel #partialView #view #travis', function() {
+          view.removeTask(task1);
+          expect(collection.remove).toHaveBeenCalledWith(task1);
+        });
+      });
+
+      context('when not grouped by backlog', function() {
+        beforeEach(function() {
+          spyOn(collection, 'remove');
+        });
+
+        it('removes the task #taskPanelView #partialView #view #travis', function() {
+          view.removeTask(task2);
+          expect(collection.remove).toHaveBeenCalledWith(task2);
+        });
+      });
+    });
   });
 
   /* Special Functions
@@ -218,10 +248,28 @@ describe('Kanban Column View', function() {
 
   describe('special functions', function() {
     describe('renderModels', function() {
+      beforeEach(function() {
+        view.groupedBy = {status: 'New'};
+      });
+
       it('renders the models #taskPanelView #partialView #view #travis', function() {
-        pending('Figure out the right way to test this');
         view.renderModels();
-        expect(view.childViews.length).toBe(4);
+        var task1View = _.findWhere(view.childViews, {model: task1});
+        expect(task1View).toExist();
+      });
+
+      it('skips the backlogged tasks #taskPanelView #partialView #view #travis', function() {
+        view.renderModels();
+        var task4View = _.findWhere(view.childViews, {model: task4});
+        expect(task4View).not.toExist();
+      });
+
+      it('doesn\'t skip the backlogged tasks when grouped by backlog #taskPanelView #partialView #view #travis', function() {
+        pending('FUFNR');
+        view.groupedBy = {blocking: true};
+        view.renderModels();
+        var task4View = _.findWhere(view.childViews, {model: task4});
+        expect(task4View).toExist();
       });
     });
   });

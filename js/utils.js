@@ -1,5 +1,5 @@
 module.exports = {
-  getAttributes: function(form) {
+  getAttributes: /* istanbul ignore next */ function(form) {
     var formData = form.serializeArray();
     var attributes = {};
 
