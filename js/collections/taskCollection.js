@@ -13,8 +13,58 @@ var TaskCollection = Tessitura.ProtectedCollection.extend({
     return Tessitura.ProtectedCollection.prototype.types().concat(['TaskCollection']);
   },
 
+  /* Event Callbacks
+  /**************************************************************************************/
+
+  passThroughAdd : function(task) {
+    if (this.models.indexOf(task) === -1) { this.add(task); }
+  },
+
+  passThroughRemove: function(task) {
+    this.remove(task);
+  },
+
+  /* Special Functions 
+  /**************************************************************************************/
+
+  addAll     : function(collection) {
+    var that = this;
+    
+    collection.each(function(task) { 
+      if(that.models.indexOf(task) === -1) { that.add(task); }
+    });
+
+    return this;
+  },
+
+  setChildren: function(collections) {
+    this.children = collections;
+
+    var that = this;
+
+    _.each(collections, function(child) {
+      that.addAll(child);
+      that.listenTo(child, 'add', that.passThroughAdd);
+    });
+  },
+
   /* Core Collection Functions
   /**************************************************************************************/
+
+  initialize : function(models, opts) {
+    opts = opts || /* istanbul ignore next */ {};
+    _.extend(this, opts);
+
+    if(this.children) {
+      var that = this; 
+
+      _.each(this.children, function(collection, key) {
+        that.addAll(collection);
+        that.listenTo(collection, 'add', that.passThroughAdd);
+        that.listenTo(collection, 'remove', that.passThroughRemove);
+      });
+    }
+  },
 
   // There are two routes for fetching a task collection: One to fetch only
   // the incomplete tasks (which is the default) and one for fetching all the

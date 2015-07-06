@@ -145,7 +145,9 @@ describe('dashboard calendar view', function() {
         });
       });
 
-      context('when today is at the end of the week')
+      context('when today is at the end of the week', function() {
+        //
+      });
     });
   });
 });

@@ -123,14 +123,16 @@ Tessitura.ListItemView = Tessitura.View.extend({
   /* Core View Functions
   /**************************************************************************************/
 
-  initialize         : function() {
+  initialize         : function(opts) {
+    opts = opts || {};
+    _.extend(this, opts);
     this.listenTo(this.model, 'sync', this.renderOnSync);
   },
 
   render             : function() {
     var that = this;
 
-    return Tessitura.View.prototype.render.call(this, this.template({model: that.model}), function() {
+    return Tessitura.View.prototype.render.call(this, this.template({model: that.model, width: that.width}), function() {
       that.configureDraggable();
       that.$el.removeAttr('style');
     });

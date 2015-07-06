@@ -10,7 +10,7 @@ Tessitura.KanbanColumnView = Tessitura.View.extend({
   /**************************************************************************/
 
   crossOff             : function(task) {
-    if(task.get('status') !== 'Complete') { return; }
+    if(task.get('status') !== 'Complete') { this.collection.remove(task); }
 
     var that = this, 
         view = this.retrieveViewForModel(task);
@@ -26,14 +26,22 @@ Tessitura.KanbanColumnView = Tessitura.View.extend({
   },
 
   // The `removeTask` callback is called when the backlog status of a task
-  // in the collection is changed. If this column is the backlog column, the
-  // task is not removed from the collection if its backlog status is changed
-  // TO `true`. Otherwise, the task is removed.
+  // in the collection is changed. If this column is the backlog column and
+  // the task's backlog status has been changed TO true, then it is not removed.
+  // Otherwise, it is removed.
 
   removeTask           : function(task) {
     if(!(this.groupedBy.backlog && task.get('backlog'))) { 
       this.collection.remove(task);
     }
+  },
+
+  updateAndRender      : function(task) {
+    var attributes = this.groupedBy;
+
+    if(!this.groupedBy.backlog && task.get('backlog')) { attributes.backlog = false; }
+
+    task.save(attributes);
   },
 
   /* Special Functions
@@ -44,12 +52,12 @@ Tessitura.KanbanColumnView = Tessitura.View.extend({
     var container = document.createDocumentFragment();
     var key       = Object.keys(this.groupedBy)[0];
 
-    for (var i = 0; i < this.models.length; i++) {
-      var task = this.models[i]
+    for (var i = 0; i < this.collection.length; i++) {
+      var task = this.collection.models[i]
 
       /* istanbul ignore next */ if(task.get('backlog') && key !== 'backlog') { continue; }
 
-      var view = that.retrieveViewForModel(task) || new Tessitura.TaskListItemView({model: task});
+      var view = that.retrieveViewForModel(task) || new Tessitura.TaskListItemView({model: task, width: 30});
 
       /* istanbul ignore else */
       if (that.childViews.indexOf(view) === -1) {
@@ -84,13 +92,15 @@ Tessitura.KanbanColumnView = Tessitura.View.extend({
   initialize           : function(data) {
     data            = data || /* istanbul ignore next */ {};
     _.extend(this, data);
+    _.extend(this.models, Backbone.Events);
 
-    var that = this;
-
-    this.quickAddForm = new Tessitura.QuickAddFormView({collection: that.collection, groupedBy: this.groupedBy});
+    this.quickAddForm = new Tessitura.QuickAddFormView({collection: this.collection, groupedBy: this.groupedBy});
     this.childViews = [this.quickAddForm];
 
     this.$el.addClass('panel-' + this.color);
+    this.listenTo(this.collection, 'add', this.updateAndRender);
+    this.listenTo(this.collection, 'remove', this.render);
+    this.listenTo(this.collection, 'change:status', this.crossOff);
   },
 
   remove               : function() {

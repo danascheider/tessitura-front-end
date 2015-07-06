@@ -11,20 +11,16 @@ Tessitura.DashboardTaskView = Tessitura.View.extend({
 
   allocate          : function(task) {
     var newView = this.findNewView(task);
-    newView.models.unshift(task);
-    newView.render();
-  },
-
-  changeBacklog : function() {
-    this.render();
+    newView.collection.add(task);
   },
 
   changeStatus      : function(task) {
-    if(task.get('status') === 'Complete') { 
-      this.collection.remove(task); 
-    } else {
-      var newView = this.findNewView(task);
-      newView.models.push([task]);
+    var that = this;
+    if(task.get('status') !== 'Complete') {
+      var newView =  this.findNewView(task);
+      if (newView.collection) { 
+        newView.collection.add([task]); 
+      }
     }
   },
 
@@ -46,15 +42,17 @@ Tessitura.DashboardTaskView = Tessitura.View.extend({
     return view;
   },
 
-  removeAndRender: function(task) {
-    var view = this.findNewView(task);
-    view.models.splice(view.models.indexOf(task), 1);
-    view.render();
-  },
-
   setUser : function(user) {
     this.user = user;
-    this.user.tasks = this.user.tasks || /* istanbul ignore next */ new Tessitura.TaskCollection();
+    this.collection = this.user.tasks || /* istanbul ignore next */ new Tessitura.TaskCollection();
+    var collections = {
+      newCollection        : new Tessitura.TaskCollection(this.collection.where({status: 'New'})),
+      inProgressCollection : new Tessitura.TaskCollection(this.collection.where({status: 'In Progress'})),
+      blockingCollection   : new Tessitura.TaskCollection(this.collection.where({status: 'Blocking'})),
+      backlogCollection    : new Tessitura.TaskCollection(this.collection.where({backlog: true}))
+    };
+
+    this.collection.setChildren(collections);
   },
 
   /* Core View Functions
@@ -78,12 +76,11 @@ Tessitura.DashboardTaskView = Tessitura.View.extend({
   render     : function() {
     var that = this;
 
-    this.user.tasks.fetch({
+    this.collection.fetch({
       success: function(collection) {
         that.backlogColumnView = new Tessitura.KanbanColumnView({
-          collection : that.user.tasks,
+          collection : that.collection.children.backlogCollection,
           el         : that.$('#backlog-tasks'),
-          models     : that.user.tasks.where({backlog: true}),
           color      : 'red',
           icon       : 'fa-exclamation-circle',
           headline   : 'Backlog',
@@ -91,9 +88,8 @@ Tessitura.DashboardTaskView = Tessitura.View.extend({
         });
 
         that.newColumnView = new Tessitura.KanbanColumnView({
-          collection : that.user.tasks,
+          collection : that.collection.children.newCollection,
           el         : that.$('#new-tasks'),
-          models     : that.user.tasks.where({status: 'New'}),
           color      : 'blue',
           icon       : 'fa-certificate',
           headline   : 'New',
@@ -101,9 +97,8 @@ Tessitura.DashboardTaskView = Tessitura.View.extend({
         });
 
         that.inProgressColumnView = new Tessitura.KanbanColumnView({
-          collection : that.user.tasks,
+          collection : that.collection.children.inProgressCollection,
           el         : that.$('#in-progress-tasks'),
-          models     : that.user.tasks.where({status: 'In Progress'}),
           color      : 'green',
           icon       : 'fa-road',
           headline   : 'In Progress',
@@ -111,9 +106,8 @@ Tessitura.DashboardTaskView = Tessitura.View.extend({
         });
 
         that.blockingColumnView = new Tessitura.KanbanColumnView({
-          collection : that.user.tasks,
+          collection : that.collection.children.blockingCollection,
           el         : that.$('#blocking-tasks'),
-          models     : that.user.tasks.where({status: 'Blocking'}),
           color      : 'yellow',
           icon       : 'fa-minus-circle',
           headline   : 'Blocking',
@@ -129,11 +123,8 @@ Tessitura.DashboardTaskView = Tessitura.View.extend({
           col.render();
         });
 
-        that.listenTo(that.user.tasks, 'change:backlog', that.changeBacklog);
-        that.listenTo(that.user.tasks, 'change:status', that.changeStatus);
-        that.listenTo(that.user.tasks, 'remove', that.renderOnRemove);
-        that.listenTo(that.user.tasks, 'add', that.allocate);
-        that.listenTo(that.user.tasks, 'remove', that.removeAndRender);
+        that.listenTo(that.collection, 'change:status', that.changeStatus);
+        that.listenTo(that.collection, 'add', that.allocate);
       }
     });
 

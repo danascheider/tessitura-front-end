@@ -61,6 +61,37 @@ describe('Task Collection', function() {
     });
   });
 
+  describe('child collections', function() {
+    var collection1, collection2;
+
+    beforeEach(function() {
+      collection1 = new Tessitura.TaskCollection(collection.where({status: 'New'}));
+      collection2 = new Tessitura.TaskCollection(collection.where({status: 'In Progress'}));
+      taskCollection = new Tessitura.TaskCollection(null, {children: [collection1, collection2]});
+    });
+
+    it('can have a child collection #collection #travis', function() {
+      expect(taskCollection.children).not.toBeNull();
+    });
+
+    it('adds the tasks from the child collections #collection #travis', function() {
+      expect(taskCollection.models.indexOf(task1)).toBeGreaterThan(-1);
+    });
+
+    it('listens to the add event #collection #travis', function() {
+      collection1.add(task5);
+      expect(taskCollection.models.indexOf(task5)).toBeGreaterThan(-1);
+    });
+
+    it('doesn\'t add things more than once #collection #travis', function() {
+      collection2.add(task1);
+
+      var i = 0;
+      taskCollection.each(function(task) { if (task === task1) { i++; }});
+      expect(i).toEqual(1);
+    });
+  });
+
   describe('core functions', function() {
     describe('fetch', function() {
       beforeEach(function() {

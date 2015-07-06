@@ -51,7 +51,7 @@ Tessitura.TaskPanelView = Tessitura.DashWidgetView.extend({
       /* istanbul ignore next */ if (i > 9) { return; }
 
       if (task.get('status') !== 'Blocking' && task.get('status') !== 'Complete' && !task.get('backlog')) {
-        var view = that.retrieveViewForModel(task) || new Tessitura.TaskListItemView({model: task});
+        var view = that.retrieveViewForModel(task) || new Tessitura.TaskListItemView({model: task, width: 40});
 
         if(that.childViews.indexOf(view) == -1) {
           that.childViews.push(view);
