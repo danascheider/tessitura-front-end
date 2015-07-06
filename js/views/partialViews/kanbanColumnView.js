@@ -86,6 +86,13 @@ Tessitura.KanbanColumnView = Tessitura.View.extend({
     return child;
   },
 
+  setCollection         : function(collection) {
+    this.collection = collection;
+    this.listenTo(this.collection, 'add', this.updateAndRender);
+    this.listenTo(this.collection, 'remove', this.render);
+    this.listenTo(this.collection, 'change:status', this.crossOff);
+  },
+
   /* Core View Functions
   /**************************************************************************/
 
@@ -98,9 +105,8 @@ Tessitura.KanbanColumnView = Tessitura.View.extend({
     this.childViews = [this.quickAddForm];
 
     this.$el.addClass('panel-' + this.color);
-    this.listenTo(this.collection, 'add', this.updateAndRender);
-    this.listenTo(this.collection, 'remove', this.render);
-    this.listenTo(this.collection, 'change:status', this.crossOff);
+
+    if(this.collection) { this.setCollection(this.collection); }
   },
 
   remove               : function() {
