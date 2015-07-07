@@ -14,42 +14,42 @@ var matchers  = require('jasmine-jquery-matchers'),
 
 /* istanbul ignore next */
 describe('List Item Task View', function() {
-  var view, newView, spy, e;
+  var view, html, spy, e;
 
   beforeAll(function() {
     jasmine.addMatchers(matchers);
     _.extend(global, fixtures);
   });
 
-  beforeEach(function() { 
-    view = new Tessitura.TaskListItemView({model: task1}); 
-  });
-
   afterEach(function() { 
     restoreFixtures();
-    view.destroy(); 
   });
 
   afterAll(function() { 
-    view   = null; 
+    view.destroy(); 
     _.omit(global, fixtures);
   });
 
   describe('constructor', function() {
+    beforeAll(function() {
+      spyOn(Tessitura.TaskListItemView.prototype, 'render');
+      view = new Tessitura.TaskListItemView({model: task1});
+    });
+
     it('sets the model #taskListItemView #modelView #view #travis', function() {
       expect(view.model).toBe(task1);
     });
 
     it('doesn\'t call render #taskListItemView #modelView #view #travis', function() {
-      spyOn(Tessitura.TaskListItemView.prototype, 'render');
-      newView = new Tessitura.TaskListItemView({model: task1});
       expect(Tessitura.TaskListItemView.prototype.render).not.toHaveBeenCalled();
-      newView.destroy();
     });
   });
 
   describe('el', function() {
-    beforeEach(function() { view.render(); });
+    beforeAll(function() { 
+      view = view || new Tessitura.TaskListItemView({model: task1});
+      view.render(); 
+    });
 
     it('is an li #taskListItemView #modelView #view #travis', function() {
       expect(view.$el).toHaveTag('li');
@@ -61,11 +61,13 @@ describe('List Item Task View', function() {
   });
 
   describe('elements', function() {
-    beforeEach(function() { 
+    beforeAll(function() {
       task1.set('deadline', new Date(2015, 8, 28));
       task1.set('description', 'Test Tessitura\'s front-end functionality')
-      view.render(); 
+      view = view || new Tessitura.TaskListItemView({model: task1});
+      view.render();
     });
+
     it('displays the task\'s title #taskListItemView #modelView #view #travis', function() {
       expect(view.$('a.task-title').html()).toEqual('Task 1');
     });
@@ -95,10 +97,6 @@ describe('List Item Task View', function() {
 
     it('has a mark-complete checkbox #taskListItemView #modelView #view #travis', function() {
       expect(view.$('i[title="Mark complete"]')).toExist();
-    });
-
-    it('doesn\'t display its edit form by default #taskListItemView #modelView #view #travis', function() {
-      pending('Need to implement the edit form view');
     });
 
     describe('draggable functionality', function() {
@@ -195,15 +193,14 @@ describe('List Item Task View', function() {
         expect(Tessitura.TaskListItemView.prototype.hideEditIcons).toHaveBeenCalled();
       });
     });
-
-    describe('done event on edit form', function() {
-      it('calls render #taskListItemView #modelView #view #travis', function() {
-        pending('Need to implement the edit form view');
-      });
-    });
   });
 
   describe('event callbacks', function() {
+    beforeAll(function() {
+      view = view || new Tessitura.TaskListItemView({model: task1});
+      $('body').html(view.render().$el);
+    });
+
     describe('backlogTask', function() {
       beforeEach(function() {
         spyOn(task1, 'save').and.callFake(function(args) { args.success && args.success(task1); });
@@ -283,16 +280,28 @@ describe('List Item Task View', function() {
     });
 
     describe('toggleTaskDetails', function() {
+      beforeAll(function() {
+        e = $.Event({target: view.$('.task-title')});
+      });
+
       it('calls preventDefault #taskListItemView #modelView #view #travis', function() {
-        var e = $.Event({target: view.$('.task-title')});
         spyOn(e, 'preventDefault');
         view.toggleTaskDetails(e);
         expect(e.preventDefault).toHaveBeenCalled();
+      });
+
+      it('shows the .task-details element #taskListItemView #modelView #view #travis', function() {
+        view.toggleTaskDetails(e);
+        expect(view.$('.task-details')).toBeInDom();
       });
     });
   });
 
   describe('special functions', function() {
+    beforeAll(function() {
+      view = view || new Tessitura.TaskListItemView({model: task1});
+    });
+
     describe('configureDraggable', function() {
       beforeEach(function() {
         spyOn(view.$el, 'draggable');
@@ -311,11 +320,14 @@ describe('List Item Task View', function() {
 
   describe('core view functions', function() {
     describe('render()', function() {
+      beforeAll(function() {
+        view = view || new Tessitura.TaskListItemView({model: model});
+      });
+
       it('configures the draggable property #taskListItemView #modelView #view #travis', function() {
-        spyOn(view, 'configureDraggable', function() {
-          view.render();
-          expect(view.configureDraggable).toHaveBeenCalled();
-        });
+        spyOn(view, 'configureDraggable');
+        view.render();
+        expect(view.configureDraggable).toHaveBeenCalled();
       });
     });
   });

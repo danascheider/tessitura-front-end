@@ -10,7 +10,7 @@ var matchers  = require('jasmine-jquery-matchers'),
     fcontext  = fdescribe;
 
 /* istanbul ignore next */
-fdescribe('User Model View', function() {
+describe('User Model View', function() {
   var view, newView, e, html, input;
 
   beforeAll(function() {

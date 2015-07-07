@@ -49,6 +49,8 @@ Tessitura.DashboardHomeView = Tessitura.View.extend({
     this.calendarView = new Tessitura.CalendarView({user: this.user});
 
     this.childViews = [this.calendarView, this.taskPanelView, this.topWidgetView];
+
+    return this;
   },
 
   /* Core View Functions
