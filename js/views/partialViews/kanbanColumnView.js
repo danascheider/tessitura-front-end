@@ -41,7 +41,12 @@ Tessitura.KanbanColumnView = Tessitura.View.extend({
 
     if(!this.groupedBy.backlog && task.get('backlog')) { attributes.backlog = false; }
 
-    task.save(attributes);
+    var that = this;
+    task.save(attributes, {
+      success: function() {
+        that.render();
+      }
+    });
   },
 
   /* Special Functions
@@ -91,6 +96,7 @@ Tessitura.KanbanColumnView = Tessitura.View.extend({
     this.listenTo(this.collection, 'add', this.updateAndRender);
     this.listenTo(this.collection, 'remove', this.render);
     this.listenTo(this.collection, 'change:status', this.crossOff);
+    this.listenTo(this.collection, 'change:backlog', this.removeTask);
   },
 
   /* Core View Functions

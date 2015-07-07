@@ -124,7 +124,7 @@ Tessitura.DashboardTaskView = Tessitura.View.extend({
         });
 
         that.listenTo(that.collection, 'change:status', that.changeStatus);
-        that.listenTo(that.collection, 'add', that.allocate);
+        that.listenTo(that.collection, 'change:backlog add', that.allocate);
       }
     });
 

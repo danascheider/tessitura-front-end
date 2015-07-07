@@ -89,7 +89,7 @@ describe('Task Panel View', function() {
       it('calls render() #taskPanelView #partialView #view #travis', function() {
         spyOn(Tessitura.TaskPanelView.prototype, 'render');
         var newView = new Tessitura.TaskPanelView({collection: collection});
-        newView.collection.trigger('change:backlog');
+        newView.collection.trigger('change:backlog', task1);
         expect(Tessitura.TaskPanelView.prototype.render).toHaveBeenCalled();
       });
     });
