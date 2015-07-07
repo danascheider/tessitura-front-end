@@ -1,7 +1,7 @@
 /* istanbul ignore next */
 
 var opts = {
-  useTestAPI   : true
+  useTestAPI   : false
 };
 
 /* istanbul ignore next */ module.exports = opts;
