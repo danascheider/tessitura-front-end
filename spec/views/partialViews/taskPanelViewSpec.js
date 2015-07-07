@@ -89,7 +89,7 @@ describe('Task Panel View', function() {
       it('calls render() #taskPanelView #partialView #view #travis', function() {
         spyOn(Tessitura.TaskPanelView.prototype, 'render');
         var newView = new Tessitura.TaskPanelView({collection: collection});
-        newView.collection.trigger('change:backlog');
+        newView.collection.trigger('change:backlog', task1);
         expect(Tessitura.TaskPanelView.prototype.render).toHaveBeenCalled();
       });
     });
@@ -119,12 +119,11 @@ describe('Task Panel View', function() {
         });
 
         it('removes the task from the collection #taskPanelView #partialView #view #travis', function(done) {
-          var spy = jasmine.createSpy();
-          taskPanel.collection.on('remove', spy);
+          spyOn(taskPanel.collection, 'remove');
           taskPanel.crossOff(task1);
+          
           setTimeout(function() {
-            expect(spy).toHaveBeenCalled();
-            taskPanel.off('remove', spy);
+            expect(taskPanel.collection.remove).toHaveBeenCalledWith(task1);
             done();
           }, 750);
         });

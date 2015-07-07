@@ -41,7 +41,7 @@ Tessitura.RegistrationFormView = Tessitura.View.extend({
       success: function(model) {
         $.cookie('auth', hash);
         $.cookie('userID', model.id);
-        that.trigger('userCreated');
+        that.trigger('userCreated', {user: user});
       } 
     });
   },

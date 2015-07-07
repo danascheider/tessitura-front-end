@@ -235,10 +235,10 @@ describe('Dashboard Nav View', function() {
     });
 
     describe('remove()', function() {
-      it('removes the nav view', function() {
-        spyOn(view.navView, 'remove');
+      it('removes the sidebar view', function() {
+        spyOn(view.sidebarView, 'remove');
         view.remove();
-        expect(view.navView.remove).toHaveBeenCalled();
+        expect(view.sidebarView.remove).toHaveBeenCalled();
       });
 
       it('calls Backbone.View.prototype.remove on itself #dashboardNavView #partialView #view #travis', function() {

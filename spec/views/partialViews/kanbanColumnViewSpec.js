@@ -162,50 +162,22 @@ describe('Kanban Column View', function() {
           }, 750);
         });
 
-        it('removes the view from the childViews array #viewView #partialView #view #travis', function(done) {
-          var child = view.retrieveViewForModel(task1);
-          view.crossOff(task1);
-          setTimeout(function() {
-            expect(view.childViews.indexOf(child)).toEqual(-1);
-            done();
-          }, 750);
-        });
-      });
-
-
-      context('when the task is incomplete', function() {
-          beforeEach(function() {
-            view.render();
-            task1.set({status: 'New'}, {silent: true});
-          });
-
-        it('doesn\'t call destroy on the child view #viewView #partialView #view #travis', function(done) {
+        it('calls destroy on the child view #viewView #partialView #view #travis', function(done) {
           var child = view.retrieveViewForModel(task1);
           spyOn(child, 'destroy');
           view.crossOff(task1);
 
           setTimeout(function() {
-            expect(child.destroy).not.toHaveBeenCalled();
+            expect(child.destroy).toHaveBeenCalled();
             done();
           }, 750);
         });
 
-        it('doesn\'t remove the view from the childViews array #viewView #partialView #view #travis', function(done) { 
+        it('removes the view from the childViews array #viewView #partialView #view #travis', function(done) {
           var child = view.retrieveViewForModel(task1);
           view.crossOff(task1);
           setTimeout(function() {
-            expect(view.childViews).toContain(child);
-            done();
-          });
-        });
-
-        it('doesn\'t remove the task from the collection #viewView #partialView #view #travis', function(done) {
-          var spy = jasmine.createSpy();
-          view.collection.on('remove', spy);
-          view.crossOff(task1);
-
-          setTimeout(function() {
-            expect(spy).not.toHaveBeenCalled();
+            expect(view.childViews.indexOf(child)).toEqual(-1);
             done();
           }, 750);
         });

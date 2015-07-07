@@ -168,9 +168,10 @@ describe('Dashboard Home View', function() {
         expect(view.calendarView.render).toHaveBeenCalled();
       });
 
-      it('attaches the calendar view to the DOM', function() {
+      it('attaches the calendar view to the DOM #dashboardHomeView #partialView #view #travis', function() {
         view.$el.html(view.template());
         view.renderCalendarView();
+        $('body').html(view.$el);
         expect(view.calendarView.$el).toBeInDom();
       });
     });
