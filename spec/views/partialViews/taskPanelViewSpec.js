@@ -224,7 +224,7 @@ describe('Task Panel View', function() {
           collection.create({title: 'My Task ' + i, status: 'New', priority: 'Normal', position: i});
         }
 
-        taskPanel.render();
+        taskPanel.renderCollection();
         expect(taskPanel.childViews.length).toBe(11);  // because of the quick-add form
       });
     });
