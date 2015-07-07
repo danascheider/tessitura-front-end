@@ -211,7 +211,7 @@ describe('Task Panel View', function() {
     });
   });
 
-  fdescribe('special functions', function() {
+  describe('special functions', function() {
     describe('renderCollection', function() {
       it('renders the collection #taskPanelView #partialView #view #travis', function() {
         taskPanel.renderCollection();
