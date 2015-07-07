@@ -124,7 +124,7 @@ Tessitura.ListItemView = Tessitura.View.extend({
   /**************************************************************************************/
 
   initialize         : function(opts) {
-    opts = opts || {};
+    opts = opts || /* istanbul ignore next */ {};
     _.extend(this, opts);
     this.listenTo(this.model, 'sync', this.renderOnSync);
   },

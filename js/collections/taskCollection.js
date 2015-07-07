@@ -20,10 +20,6 @@ var TaskCollection = Tessitura.ProtectedCollection.extend({
     if (this.models.indexOf(task) === -1) { this.add(task); }
   },
 
-  passThroughRemove: function(task) {
-    this.remove(task);
-  },
-
   /* Special Functions 
   /**************************************************************************************/
 
@@ -61,7 +57,7 @@ var TaskCollection = Tessitura.ProtectedCollection.extend({
       _.each(this.children, function(collection, key) {
         that.addAll(collection);
         that.listenTo(collection, 'add', that.passThroughAdd);
-        that.listenTo(collection, 'remove', that.passThroughRemove);
+        that.listenTo(collection, 'remove', that.remove);
       });
     }
   },
