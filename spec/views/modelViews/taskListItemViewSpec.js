@@ -5,6 +5,7 @@ require(process.cwd() + '/spec/support/env.js');
 
 /* istanbul ignore next */
 var matchers  = require('jasmine-jquery-matchers'),
+    fixtures  = require(process.cwd() + '/spec/support/fixtures/fixtures.js');
     context   = describe,
     fcontext  = fdescribe;
 
@@ -13,31 +14,35 @@ var matchers  = require('jasmine-jquery-matchers'),
 
 /* istanbul ignore next */
 describe('List Item Task View', function() {
-  var view, newView, task, e;
+  var view, newView, spy, e;
 
   beforeAll(function() {
     jasmine.addMatchers(matchers);
+    _.extend(global, fixtures);
   });
 
   beforeEach(function() { 
-    task = new Tessitura.TaskModel({id: 1, owner_id: 1, title: 'Task 1', status: 'New', priority: 'Low', position: 1});
-    view = new Tessitura.TaskListItemView({model: task}); 
+    view = new Tessitura.TaskListItemView({model: task1}); 
   });
 
-  afterEach(function() { view.destroy(); });
+  afterEach(function() { 
+    restoreFixtures();
+    view.destroy(); 
+  });
 
   afterAll(function() { 
     view   = null; 
+    _.omit(global, fixtures);
   });
 
   describe('constructor', function() {
     it('sets the model #taskListItemView #modelView #view #travis', function() {
-      expect(view.model).toBe(task);
+      expect(view.model).toBe(task1);
     });
 
     it('doesn\'t call render #taskListItemView #modelView #view #travis', function() {
       spyOn(Tessitura.TaskListItemView.prototype, 'render');
-      newView = new Tessitura.TaskListItemView({model: task});
+      newView = new Tessitura.TaskListItemView({model: task1});
       expect(Tessitura.TaskListItemView.prototype.render).not.toHaveBeenCalled();
       newView.destroy();
     });
@@ -57,8 +62,8 @@ describe('List Item Task View', function() {
 
   describe('elements', function() {
     beforeEach(function() { 
-      task.set('deadline', new Date(2015, 8, 28));
-      task.set('description', 'Test Tessitura\'s front-end functionality')
+      task1.set('deadline', new Date(2015, 8, 28));
+      task1.set('description', 'Test Tessitura\'s front-end functionality')
       view.render(); 
     });
     it('displays the task\'s title #taskListItemView #modelView #view #travis', function() {
@@ -82,10 +87,10 @@ describe('List Item Task View', function() {
     });
 
     it('does not display blank fields #taskListItemView #modelView #view #travis', function() {
-      task.unset('deadline');
+      task1.unset('deadline');
       view.render();
       expect(view.$('tr.task-deadline-row').length).toEqual(0);
-      task.set('deadline', new Date(2015, 8, 28));
+      task1.set('deadline', new Date(2015, 8, 28));
     });
 
     it('has a mark-complete checkbox #taskListItemView #modelView #view #travis', function() {
@@ -130,7 +135,7 @@ describe('List Item Task View', function() {
       var arr = ['showEditForm', 'markComplete', 'deleteTask', 'backlogTask', 'toggleTaskDetails', 'showEditIcons', 'hideEditIcons'];
       _.each(arr, function(method) { spyOn(Tessitura.TaskListItemView.prototype, method); });
 
-      newView = new Tessitura.TaskListItemView({model: task});
+      newView = new Tessitura.TaskListItemView({model: task1});
       newView.render();
     });
 
@@ -201,31 +206,20 @@ describe('List Item Task View', function() {
   describe('event callbacks', function() {
     describe('backlogTask', function() {
       beforeEach(function() {
-
-        // It is necessary to stub both $.ajax and task.save, because otherwise
-        // the program waits for the server to respond, which, of course, it won't.
-
-        spyOn($, 'ajax');
-        spyOn(task, 'save').and.callThrough();
+        spyOn(task1, 'save').and.callFake(function(args) { args.success && args.success(task1); });
         view.backlogTask();
       });
 
-      afterEach(function() { task.unset('backlog'); });
-
-      it('changes the task\'s backlog status to true #taskListItemView #modelView #view #travis', function() {
-        expect(task.get('backlog')).toBe(true);
-      });
-
       it('saves the task #taskListItemView #modelView #view #travis', function() {
-        expect(task.save).toHaveBeenCalled();
+        expect(task1.save.calls.argsFor(0)).toContain({backlog: true});
       });
     });
 
     describe('deleteTask', function() {
       it('destroys the task #taskListItemView #modelView #view #travis', function() {
-        spyOn(task, 'destroy');
+        spyOn(task1, 'destroy');
         view.deleteTask();
-        expect(task.destroy).toHaveBeenCalled();
+        expect(task1.destroy).toHaveBeenCalled();
       });
     });
 
@@ -239,9 +233,9 @@ describe('List Item Task View', function() {
 
     describe('markComplete', function() {
       it('marks the task complete and saves #taskListItemView #modelView #view #travis', function() {
-        spyOn(task, 'save');
+        spyOn(task1, 'save');
         view.markComplete();
-        expect(task.save.calls.argsFor(0)[0]).toEqual({status: 'Complete'});
+        expect(task1.save.calls.argsFor(0)[0]).toEqual({status: 'Complete'});
       });
     });
 
@@ -257,10 +251,26 @@ describe('List Item Task View', function() {
 
       context('when marked complete', function() {
         it('doesn\'t call render #taskListItemView #modelView #view #travis', function() {
-          task.set('status', 'Complete');
+          task1.set('status', 'Complete');
           view.renderOnSync();
           expect(view.render).not.toHaveBeenCalled();
         });
+      });
+    });
+
+    describe('showEditForm', function() {
+      beforeEach(function() {
+        spy = jasmine.createSpy();
+        view.on('showEditForm', spy);
+      });
+
+      afterEach(function() {
+        view.off('showEditForm', spy);
+      });
+
+      it('triggers the showEditForm event #taskListItemView #modelView #view #travis', function() {
+        view.showEditForm();
+        expect(spy).toHaveBeenCalledWith(task1);
       });
     });
 
