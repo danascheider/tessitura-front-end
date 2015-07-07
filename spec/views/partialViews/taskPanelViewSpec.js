@@ -211,12 +211,11 @@ describe('Task Panel View', function() {
     });
   });
 
-  describe('special functions', function() {
+  fdescribe('special functions', function() {
     describe('renderCollection', function() {
       it('renders the collection #taskPanelView #partialView #view #travis', function() {
-        pending('Figure out the right way to test this');
         taskPanel.renderCollection();
-        expect(taskPanel.childViews.length).toBe(4);
+        expect(taskPanel.childViews.length).toBe(3);
       });
 
       it('displays a maximum of 10 tasks #taskPanelView #partialView #view #travis', function() {
