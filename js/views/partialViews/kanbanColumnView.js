@@ -73,6 +73,7 @@ Tessitura.KanbanColumnView = Tessitura.View.extend({
         that.childViews.push(view);
       }
 
+      that.listenTo(view, 'showEditForm', that.showEditForm);
       view.render();
       container.appendChild(view.el);
     }

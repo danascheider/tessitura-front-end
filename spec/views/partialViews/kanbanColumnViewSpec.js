@@ -38,7 +38,7 @@ describe('Kanban Column View', function() {
   });
 
   afterAll(function() {
-    view.destroy();
+    view && view.destroy();
     _.omit(global, fixtures);
   });
 
@@ -123,8 +123,24 @@ describe('Kanban Column View', function() {
     });
   });
 
+  /* Event Wiring
+  /*******************************************88*****************************************/
+
+  describe('events', function() {
+    describe('showEditForm on child view', function() {
+      it('calls showEditForm() #kanbanColumnView #partialView #view #travis', function() {
+        spyOn(Tessitura.KanbanColumnView.prototype, 'showEditForm');
+        newView = new Tessitura.KanbanColumnView(data);
+        newView.render();
+        var child = newView.retrieveViewForModel(task1);
+        child.showEditForm(task1);
+        expect(Tessitura.KanbanColumnView.prototype.showEditForm).toHaveBeenCalledWith(task1);
+      });
+    });
+  });
+
   /* Event Callbacks
-  /**************************************************************************/
+  /**************************************************************************************/
 
   describe('event callbacks', function() {
     beforeAll(function() {
