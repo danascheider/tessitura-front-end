@@ -35,7 +35,8 @@ Tessitura.TaskPanelView = Tessitura.DashWidgetView.extend({
     return child;
   },
 
-  showEditForm         : function() {
+  showEditForm         : function(task) {
+    this.trigger('showEditForm', task);
   },
 
   showTaskCreateForm   : function() {

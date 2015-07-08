@@ -159,7 +159,6 @@ describe('Task Panel View', function() {
         });
       });
 
-
       context('when the task is incomplete', function() {
           beforeEach(function() {
             taskPanel.render();
@@ -194,6 +193,15 @@ describe('Task Panel View', function() {
             expect(spy).not.toHaveBeenCalled();
           }, 750);
         });
+      });
+    });
+
+    describe('showEditForm()', function() {
+      it('triggers the showEditForm event #taskPanelView #partialView #view #travis', function() {
+        spy = jasmine.createSpy();
+        taskPanel.on('showEditForm', spy);
+        taskPanel.showEditForm(task1);
+        expect(spy).toHaveBeenCalledWith(task1);
       });
     });
 
