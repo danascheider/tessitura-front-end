@@ -147,6 +147,33 @@ describe('Kanban Column View', function() {
         expect(Tessitura.KanbanColumnView.prototype.updateAndRender).toHaveBeenCalled();
       });
     });
+
+    describe('remove from collection', function() {
+      it('calls render() #kanbanColumnView #partialView #view #travis', function() {
+        spyOn(Tessitura.KanbanColumnView.prototype, 'render');
+        newView = new Tessitura.KanbanColumnView(data);
+        newView.collection.remove([task1]);
+        expect(Tessitura.KanbanColumnView.prototype.render).toHaveBeenCalled();
+      });
+    });
+
+    describe('change task status', function() {
+      it('calls crossOff() #kanbanColumnView #partialView #view #travis', function() {
+        spyOn(Tessitura.KanbanColumnView.prototype, 'crossOff');
+        newView = new Tessitura.KanbanColumnView(data);
+        newView.collection.trigger('change:status', task1);
+        expect(Tessitura.KanbanColumnView.prototype.crossOff).toHaveBeenCalled();
+      });
+    });
+
+    describe('change task backlog status', function() {
+      it('calls removeTask() #kanbanColumnView #partialView #view #travis', function() {
+        spyOn(Tessitura.KanbanColumnView.prototype, 'removeTask');
+        newView = new Tessitura.KanbanColumnView(data);
+        newView.collection.trigger('change:backlog', task1);
+        expect(Tessitura.KanbanColumnView.prototype.removeTask).toHaveBeenCalled();
+      });
+    });
   });
 
   /* Event Callbacks
