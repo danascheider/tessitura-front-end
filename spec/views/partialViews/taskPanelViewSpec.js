@@ -102,6 +102,17 @@ describe('Task Panel View', function() {
         expect(Tessitura.TaskPanelView.prototype.crossOff).toHaveBeenCalled();
       });
     });
+
+    describe('showEditForm on child view', function() {
+      it('calls showEditForm() #taskPanelView #partialView #view #travis', function() {
+        spyOn(Tessitura.TaskPanelView.prototype, 'showEditForm');
+        newView = new Tessitura.TaskPanelView({collection: collection});
+        newView.render();
+        var child = newView.retrieveViewForModel(task1);
+        child.showEditForm();
+        expect(Tessitura.TaskPanelView.prototype.showEditForm.calls.argsFor(0)).toContain(task1);
+      });
+    });
   });
 
   describe('event callbacks', function() {
