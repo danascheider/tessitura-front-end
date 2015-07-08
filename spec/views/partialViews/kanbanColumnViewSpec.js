@@ -137,6 +137,16 @@ describe('Kanban Column View', function() {
         expect(Tessitura.KanbanColumnView.prototype.showEditForm).toHaveBeenCalledWith(task1);
       });
     });
+
+    describe('add to collection', function() {
+      it('calls updateAndRender() #kanbanColumnView #partialView #view #travis', function() {
+        spyOn(Tessitura.KanbanColumnView.prototype, 'updateAndRender');
+        newView = new Tessitura.KanbanColumnView(data);
+        var newTask = new Tessitura.TaskModel({title: 'New Task'});
+        newView.collection.add([newTask]);
+        expect(Tessitura.KanbanColumnView.prototype.updateAndRender).toHaveBeenCalled();
+      });
+    });
   });
 
   /* Event Callbacks
