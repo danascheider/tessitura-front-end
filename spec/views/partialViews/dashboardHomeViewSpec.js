@@ -36,7 +36,7 @@ describe('Dashboard Home View', function() {
   });
 
   afterAll(function() {
-    view.destroy();
+    view && view.destroy();
     _.omit(global, fixtures);
   });
 
@@ -63,7 +63,7 @@ describe('Dashboard Home View', function() {
   });
 
   /* Elements
-  /**************************************************************************/
+  /****************************************************************************/
 
   describe('DOM elements', function() {
     beforeAll(function() {
@@ -98,8 +98,41 @@ describe('Dashboard Home View', function() {
     });
   });
 
+  /* Event Wiring
+  /****************************************************************************/
+
+  describe('event wiring', function() {
+    describe('showEditForm on task panel element', function() {
+      it('calls showEditForm() #dashboardHomeView #partialView #view #travis', function() {
+        spyOn(Tessitura.DashboardHomeView.prototype, 'showEditForm');
+        view = new Tessitura.DashboardHomeView({user: user});
+        view.render();
+        view.taskPanelView.showEditForm(task1);
+        expect(Tessitura.DashboardHomeView.prototype.showEditForm).toHaveBeenCalledWith(task1);
+      });
+    });
+  });
+
+  /* Event Callbacks *
+  /****************************************************************************/
+
+  describe('event callbacks', function() {
+    beforeAll(function() {
+      view = view || new Tessitura.DashboardHomeView({user: user});
+    });
+
+    describe('showEditForm()', function() {
+      it('triggers the showEditForm event #dashboardHomeView #partialView #view #travis', function() {
+        var spy = jasmine.createSpy();
+        view.on('showEditForm', spy);
+        view.showEditForm(task1);
+        expect(spy).toHaveBeenCalledWith(task1);
+      });
+    });
+  });
+
   /* Core View Functions
-  /**************************************************************************/
+  /****************************************************************************/
 
   describe('core view functions', function() {
     beforeAll(function() {
@@ -151,7 +184,7 @@ describe('Dashboard Home View', function() {
   });
 
   /* Special Functions
-  /**************************************************************************/
+  /****************************************************************************/
 
   describe('special functions', function() {
     beforeAll(function() {
