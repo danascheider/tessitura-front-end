@@ -36,6 +36,10 @@ Tessitura.KanbanColumnView = Tessitura.View.extend({
     }
   },
 
+  showEditForm         : function(task) {
+    this.trigger('showEditForm', task);
+  },
+
   updateAndRender      : function(task) {
     var attributes = this.groupedBy;
 
