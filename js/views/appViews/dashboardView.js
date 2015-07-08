@@ -37,10 +37,6 @@ Tessitura.DashboardView = Tessitura.View.extend({
     }
   },
 
-  showEditForm       : function() {
-    //
-  },
-
   /* Special Functions
   /**************************************************************************************/
 

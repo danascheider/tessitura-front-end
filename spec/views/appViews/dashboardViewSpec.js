@@ -29,7 +29,7 @@ describe('Main Dashboard View', function() {
 
   afterEach(function() {
     user.destroy(); 
-    dashboard.destroy();
+    dashboard && dashboard.destroy();
   });
 
   afterAll(function() {
@@ -91,10 +91,8 @@ describe('Main Dashboard View', function() {
     beforeEach(function() {
       spyOn(Tessitura.DashboardView.prototype, 'hideDropdownMenus');
       spyOn(Tessitura.DashboardView.prototype, 'hideSidebar');
-      spyOn(Tessitura.DashboardView.prototype, 'showEditForm');
       spyOn(Tessitura.DashboardView.prototype, 'followLink');
       newView = new Tessitura.DashboardView({model: user});
-      newView.render();
     });
 
     afterEach(function() { 
@@ -116,18 +114,10 @@ describe('Main Dashboard View', function() {
     });
 
     describe('click top nav link', function() {
-      it('calls followLink #dashboardView #appView #view #travis', function() {
+      it('calls followLink() #dashboardView #appView #view #travis', function() {
         pending('FUFNR');
         newView.$('a.internal-link[data-target="profile"]').first().click();
         expect(Tessitura.DashboardView.prototype.followLink).toHaveBeenCalled();
-      });
-    });
-
-    describe('click task edit icon', function() {
-      it('calls showEditForm() #dashboardView #appView #view #travis', function() {
-        pending('FUFNR');
-        newView.$('.task-list-item .fa-pencil').click();
-        expect(Tessitura.DashboardView.prototype.showEditForm).toHaveBeenCalled();
       });
     });
   });

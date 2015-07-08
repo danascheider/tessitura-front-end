@@ -11,6 +11,7 @@ require(process.cwd() + '/js/tessitura.js');
 
 /* istanbul ignore next */
 var matchers = require('jasmine-jquery-matchers'),
+    fixtures = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     context  = describe,
     fcontext = fdescribe;
 
@@ -20,27 +21,28 @@ var matchers = require('jasmine-jquery-matchers'),
 
 /* istanbul ignore next */
 describe('Dashboard Presenter', function() {
-  var presenter, user, collection, spy;
+  var presenter, spy;
 
   /* Filters
   /***************************************************************************************/
 
   beforeAll(function() {
     jasmine.addMatchers(matchers);
+    _.extend(global, fixtures);
   });
 
   beforeEach(function() {
-    user      = new Tessitura.UserModel({id: 1, username: 'testuser', password: 'testuser', email: 'testuser@example.com', first_name: 'Test', last_name: 'User'});
-    presenter = new Tessitura.DashboardPresenter({model: user});
+    presenter = new Tessitura.DashboardPresenter({user: user});
   });
 
   afterEach(function() {
+    restoreFixtures();
     presenter.destroy();
-    user.destroy();
   });
 
   afterAll(function() {
     presenter = null;
+    _.omit(global, fixtures);
   });
 
   /* Tessitura Model Properties
@@ -95,6 +97,7 @@ describe('Dashboard Presenter', function() {
     beforeEach(function() {
       spy = jasmine.createSpy();
       presenter.on('redirect', spy);
+      spyOn(Tessitura.DashboardPresenter.prototype, 'showTaskEditForm');
     });
 
     afterEach(function() { presenter.off('redirect'); });
@@ -117,6 +120,22 @@ describe('Dashboard Presenter', function() {
       it('emits the redirect:profile event #presenter #travis', function() {
         presenter.dashboardView.trigger('redirect', {destination: 'profile'});
         expect(spy).toHaveBeenCalledWith({destination: 'profile'});
+      });
+    });
+
+    describe('showEditForm on the dashboard task view', function() {
+      it('calls showTaskEditForm() #presenter #travis', function() {
+        newPresenter = new Tessitura.DashboardPresenter({user: user});
+        newPresenter.dashboardHomeView.showEditForm(task1);
+        expect(Tessitura.DashboardPresenter.prototype.showTaskEditForm).toHaveBeenCalledWith(task1);
+      });
+    });
+
+    describe('showEditForm on the dashboard home view', function() {
+      it('calls showTaskEditForm() #presenter #travis', function() {
+        newPresenter = new Tessitura.DashboardPresenter({user: user});
+        newPresenter.dashboardHomeView.showEditForm(task1);
+        expect(Tessitura.DashboardPresenter.prototype.showTaskEditForm).toHaveBeenCalledWith(task1);
       });
     });
   });
@@ -151,7 +170,7 @@ describe('Dashboard Presenter', function() {
           expect(presenter.dashboardView.render).toHaveBeenCalled();
         });
 
-        it('attaches the dashboard view to the DOM #presenter #travis', function() {
+        it('aaches the dashboard view to the DOM #presenter #travis', function() {
           expect(presenter.dashboardView.$el).toBeInDom();
         });
       });
@@ -203,15 +222,17 @@ describe('Dashboard Presenter', function() {
       });
 
       context('when the profile view is not already visible', function() {
-        beforeEach(function() {
+        beforeEach(function(done) {
           spyOn($, 'ajax').and.callFake(function(args) {
             args.success();
           });
 
-          presenter.setUser(user);
+          presenter.dashboardView.setUser(user);
+          presenter.dashboardProfileView.setUser(user);
           spyOn(presenter.dashboardView.$el, 'is').and.returnValue(false);
-          spyOn(presenter.dashboardView, 'render');
+          spyOn(presenter.dashboardView, 'render').and.callThrough();
           presenter.getProfile();
+          done();
         });
 
         it('renders the dashboard #presenter #travis', function() {
