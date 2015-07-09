@@ -58,7 +58,7 @@ Tessitura.DashboardView = Tessitura.View.extend({
   render     : function() {
     var that = this;
 
-    return Tessitura.View.prototype.render.call(this, '', function() {
+    return Tessitura.View.prototype.render.call(this, this.template(), function() {
       that.navView.render();
       /* istanbul ignore next */ if(!that.navView.$el.is(':visible')) { that.$el.prepend(that.navView.$el); }
     });

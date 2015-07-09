@@ -64,7 +64,10 @@ Tessitura.DashboardPresenter = Tessitura.Model.extend({
   },
 
   showTaskEditForm: function(task) {
-    //
+    this.editForm = this.editForm || new Tessitura.TaskEditFormView();
+    this.editForm.setModel(task).render();
+    this.dashboardView.$('#shade').show();
+    this.dashboardView.$('#shade').html(this.editForm.$el);
   },
 
   /* Special Functions

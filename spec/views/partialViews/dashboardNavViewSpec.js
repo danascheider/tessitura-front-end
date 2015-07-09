@@ -44,7 +44,7 @@ describe('Dashboard Nav View', function() {
   /* Constructor
   /**************************************************************************/
 
-  describe('constructor', function() {
+  fdescribe('constructor', function() {
     it('does not call render #dashboardNavView #partialView #view #travis', function() {
       spyOn(Tessitura.DashboardNavView.prototype, 'render');
       newView = new Tessitura.DashboardNavView({model: user});

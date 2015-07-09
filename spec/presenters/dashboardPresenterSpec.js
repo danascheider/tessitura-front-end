@@ -170,7 +170,7 @@ describe('Dashboard Presenter', function() {
           expect(presenter.dashboardView.render).toHaveBeenCalled();
         });
 
-        it('aaches the dashboard view to the DOM #presenter #travis', function() {
+        it('attaches the dashboard view to the DOM #presenter #travis', function() {
           expect(presenter.dashboardView.$el).toBeInDom();
         });
       });
@@ -269,6 +269,40 @@ describe('Dashboard Presenter', function() {
         spyOn(presenter.dashboardView, 'remove');
         presenter.removeAll();
         expect(presenter.dashboardView.remove).toHaveBeenCalled();
+      });
+    });
+
+    describe('showTaskEditForm()', function() {
+      beforeEach(function() {
+        presenter.showDash();
+      });
+
+      it('shows the #shade element #presenter #travis', function() {
+        presenter.showTaskEditForm(task1);
+        expect($('#shade')).toBeInDom();
+      });
+
+      it('sets this.editForm #presenter #travis', function() {
+        presenter.showTaskEditForm(task1);
+        expect(presenter.editForm.isA('Tessitura.View')).toBe(true);
+      });
+
+      it('sets the model on the edit form #presenter #travis', function() {
+        presenter.showTaskEditForm(task1);
+        expect(presenter.editForm.model).toEqual(task1);
+      });
+
+      it('renders the edit form #presenter #travis', function() {
+        spyOn(Tessitura.TaskEditFormView.prototype, 'render');
+        presenter.showTaskEditForm(task1);
+        expect(Tessitura.TaskEditFormView.prototype.render).toHaveBeenCalled();
+      });
+
+      it('attaches the edit form view to the DOM #presenter #travis', function() {
+        pending('FUFNR');
+        $('body').html(presenter.dashboardView.$el);
+        presenter.showTaskEditForm(task1);
+        expect(presenter.editForm.$el).toBeInDom();
       });
     });
   });
