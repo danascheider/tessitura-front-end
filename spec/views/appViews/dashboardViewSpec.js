@@ -195,6 +195,10 @@ describe('Main Dashboard View', function() {
       });
 
       context('when the target isn\'t in the sidebar', function() {
+        beforeEach(function() {
+          $('body').html(dashboard.render().$el);
+        });
+
         it('calls slideUp #dashboardView #appView #view #travis', function() {
           pending('FUFNR');
           spyOn($.prototype, 'slideUp');
@@ -202,10 +206,6 @@ describe('Main Dashboard View', function() {
           expect($.prototype.slideUp).toHaveBeenCalled();
         });
       });
-    });
-
-    describe('showEditForms', function() {
-      //
     });
   });
 
@@ -216,7 +216,7 @@ describe('Main Dashboard View', function() {
       it('sets this.model #dashboardView #appView #view #travis', function() {
         newView = new Tessitura.DashboardView(); // we already know this won't set the user
         newView.setUser(user);
-        expect(newView.model        ).toBe(user);
+        expect(newView.model).toBe(user);
       });
     });
   });

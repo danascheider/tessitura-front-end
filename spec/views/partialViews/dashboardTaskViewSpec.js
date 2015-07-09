@@ -35,7 +35,7 @@ describe('Dashboard Task View', function() {
 
   afterEach(function() {
     restoreFixtures();
-    view.remove();
+    view && view.remove();
     newView && newView.destroy();
   });
 
@@ -208,14 +208,11 @@ describe('Dashboard Task View', function() {
   describe('core view functions', function() {
     describe('remove', function() {
       _.each(['newColumnView', 'inProgressColumnView', 'blockingColumnView', 'backlogColumnView'], function(column) {
-        it('removes its ' + column + '#dashboardTaskView #partialView #view #travis', function(done) {
-          pending('Iron out some other aspects of the app and hope this works after that');
+        it('removes its ' + column + '#dashboardTaskView #partialView #view #travis', function() {
           view.render();
-          done();
-          setTimeout(function() {spyOn(view[column], 'remove');
-            view.remove();
-            expect(view[column].remove).toHaveBeenCalled();
-          }, 50);
+          spyOn(view[column], 'remove');
+          view.remove();
+          expect(view[column].remove).toHaveBeenCalled();
         });
       });
 
