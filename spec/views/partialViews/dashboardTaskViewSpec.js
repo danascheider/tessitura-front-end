@@ -140,11 +140,6 @@ describe('Dashboard Task View', function() {
       it('adds the task to the new view\'s models #dashboardTaskView #partialView #view #travis', function() {
         expect(view.inProgressColumnView.collection.models.indexOf(newTask)).toBeGreaterThan(-1);
       });
-
-      it('renders the view #dashboardTaskView #partialView #view #travis', function() {
-        pending('FUFNR');
-        expect(view.render).toHaveBeenCalled();
-      });
     });
 
     describe('changeStatus()', function() {
