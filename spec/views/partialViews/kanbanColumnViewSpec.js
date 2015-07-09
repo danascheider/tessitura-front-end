@@ -29,9 +29,7 @@ describe('Kanban Column View', function() {
 
   beforeEach(function() {
     data = {collection: collection, models: collection.models, color: 'blue', icon: 'fa-exclamation-circle', headline: 'New', groupedBy: {status: 'New'}};
-
     spyOn(Tessitura.TaskModel.prototype, 'displayTitle').and.returnValue('foobar');
-    view = new Tessitura.KanbanColumnView(data);
   });
 
   afterEach(function() {
@@ -95,7 +93,8 @@ describe('Kanban Column View', function() {
   /**************************************************************************/
 
   describe('view elements', function() {
-    beforeEach(function() {
+    beforeAll(function() {
+      view = view || new Tessitura.KanbanColumnView(data);
       view.render();
     });
 
@@ -128,10 +127,17 @@ describe('Kanban Column View', function() {
   /**************************************************************************/
 
   describe('event callbacks', function() {
+    beforeAll(function() {
+      view = view || new Tessitura.KanbanColumnView(data);
+    });
+
     describe('crossOff()', function() {
+      beforeEach(function() {
+        view.render();
+      });
+
       context('when the task is complete', function() {
         beforeEach(function() {
-          view.render();
           task1.set({status: 'Complete'}, {silent: true});
         });
 

@@ -45,6 +45,7 @@ Tessitura.ListItemView = Tessitura.View.extend({
   },
 
   showEditForm      : function() {
+    this.trigger('showEditForm', this.model);
   },
 
   showEditIcons     : function() {

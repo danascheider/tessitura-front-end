@@ -214,9 +214,8 @@ describe('Task Panel View', function() {
   describe('special functions', function() {
     describe('renderCollection', function() {
       it('renders the collection #taskPanelView #partialView #view #travis', function() {
-        pending('Figure out the right way to test this');
         taskPanel.renderCollection();
-        expect(taskPanel.childViews.length).toBe(4);
+        expect(taskPanel.childViews.length).toBe(3);
       });
 
       it('displays a maximum of 10 tasks #taskPanelView #partialView #view #travis', function() {
@@ -225,7 +224,7 @@ describe('Task Panel View', function() {
           collection.create({title: 'My Task ' + i, status: 'New', priority: 'Normal', position: i});
         }
 
-        taskPanel.render();
+        taskPanel.renderCollection();
         expect(taskPanel.childViews.length).toBe(11);  // because of the quick-add form
       });
     });
