@@ -59,6 +59,11 @@ Tessitura.DashboardPresenter = Tessitura.Model.extend({
     }
   },
 
+  hideShade    : function() {
+    if(this.editForm) { this.editForm.remove(); }
+    this.dashboardView.$('#shade').hide();
+  },
+
   emitRedirect : function(opts) {
     this.trigger('redirect', opts);
   },
@@ -155,6 +160,7 @@ Tessitura.DashboardPresenter = Tessitura.Model.extend({
     _.bindAll(this, 'showDash', 'getHome', 'getTask', 'getProfile', 'setUser', 'emitRedirect', 'removeAll');
   
     this.listenTo(this.dashboardView, 'redirect', this.emitRedirect);
+    this.listenTo(this.dashboardView, 'hideShade', this.hideShade);
     this.listenTo(this.dashboardTaskView, 'showEditForm', this.showTaskEditForm);
     this.listenTo(this.dashboardHomeView, 'showEditForm', this.showTaskEditForm);
   }

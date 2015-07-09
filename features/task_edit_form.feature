@@ -10,9 +10,9 @@ Feature: Task Edit Form
 
       Examples: 
         | element                |
-        | 'Title'       input    | 
-        | 'Deadline'      input  |
-        | 'Status'      select   |
-        | 'Priority'      select | 
-        | 'Notes'      textarea  |
+        | 'Title' input          | 
+        | 'Deadline' input       |
+        | 'Status' select        |
+        | 'Priority' select      | 
+        | 'Notes' textarea       |
         | 'Update Task' button   |

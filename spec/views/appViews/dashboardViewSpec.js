@@ -91,6 +91,7 @@ describe('Main Dashboard View', function() {
     beforeEach(function() {
       spyOn(Tessitura.DashboardView.prototype, 'hideDropdownMenus');
       spyOn(Tessitura.DashboardView.prototype, 'hideSidebar');
+      spyOn(Tessitura.DashboardView.prototype, 'hideShade');
       spyOn(Tessitura.DashboardView.prototype, 'followLink');
       newView = new Tessitura.DashboardView({model: user});
     });
@@ -100,14 +101,14 @@ describe('Main Dashboard View', function() {
     });
 
     describe('click $el', function() {
-      it('calls hideDropdownMenus #dashboardView #appView #view #travis', function() {
+      it('calls hideDropdownMenus() #dashboardView #appView #view #travis', function() {
         newView.$el.click();
         expect(Tessitura.DashboardView.prototype.hideDropdownMenus).toHaveBeenCalled();
       });
     });
 
     describe('dblclick $el', function() {
-      it('calls hideSidebar #dashboardView #appView #view #travis', function() {
+      it('calls hideSidebar() #dashboardView #appView #view #travis', function() {
         newView.$el.dblclick();
         expect(Tessitura.DashboardView.prototype.hideSidebar).toHaveBeenCalled();
       });
@@ -118,6 +119,22 @@ describe('Main Dashboard View', function() {
         pending('FUFNR');
         newView.$('a.internal-link[data-target="profile"]').first().click();
         expect(Tessitura.DashboardView.prototype.followLink).toHaveBeenCalled();
+      });
+    });
+
+    describe('dblclick #shade', function() {
+      beforeEach(function() {
+        $('body').html(newView.render().$el);
+        newView.$('#shade').show();
+      });
+
+      afterEach(function() {
+        newView.remove();
+      });
+
+      it('calls hideShade() #dashboardView #appView #view #travis', function() {
+        newView.$('#shade').dblclick();
+        expect(Tessitura.DashboardView.prototype.hideShade).toHaveBeenCalled();
       });
     });
   });
@@ -133,7 +150,7 @@ describe('Main Dashboard View', function() {
 
     afterEach(function()  { dashboard.remove(); });
 
-    describe('emitRedirect', function() {
+    describe('emitRedirect()', function() {
       it('triggers the redirect event #dashboardView #appView #view #travis', function() {
         spy = jasmine.createSpy();
         dashboard.on('redirect', spy);
@@ -142,7 +159,7 @@ describe('Main Dashboard View', function() {
       });
     });
 
-    describe('followLink', function() {
+    describe('followLink()', function() {
       beforeEach(function() {
         spyOn(dashboard, 'emitRedirect');
         spyOn($.prototype, 'attr').and.returnValue('profile');
@@ -154,7 +171,7 @@ describe('Main Dashboard View', function() {
       });
     });
 
-    describe('hideDropdownMenus', function() {
+    describe('hideDropdownMenus()', function() {
       context('when none of the menus is open', function() {
         it('doesn\'t open the menus #dashboardView #appView #view #travis', function() {
           dashboard.$('li.dropdown').removeClass('open');
@@ -184,7 +201,16 @@ describe('Main Dashboard View', function() {
       });
     });
 
-    describe('hideSidebar', function() {
+    describe('hideShade()', function() {
+      it('triggers the hideShade event #dashboardView #appView #view #travis', function() {
+        spy = jasmine.createSpy();
+        dashboard.on('hideShade', spy);
+        dashboard.hideShade();
+        expect(spy).toHaveBeenCalled();
+      });
+    });
+
+    describe('hideSidebar()', function() {
       context('when the target is in the sidebar', function() {
         it('doesn\'t call slideUp #dashboardView #appView #view #travis', function() {
           spyOn($.prototype, 'slideUp');

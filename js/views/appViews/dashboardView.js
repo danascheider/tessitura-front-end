@@ -6,7 +6,8 @@ Tessitura.DashboardView = Tessitura.View.extend({
     'click'                            : 'hideDropdownMenus',
     'dblclick'                         : 'hideSidebar',
     'click .internal-link'             : 'followLink',
-    'click .task-list-item .fa-pencil' : 'showEditForm'
+    'click .task-list-item .fa-pencil' : 'showEditForm',
+    'dblclick #shade'                  : 'hideShade'
   },
   
   /* Event Callbacks
@@ -26,6 +27,10 @@ Tessitura.DashboardView = Tessitura.View.extend({
     var li = this.$('li.dropdown');
     /* istanbul ignore next */
     if(!li.is(e.target) && !li.has(e.target).length) { li.removeClass('open'); }
+  },
+
+  hideShade          : function() {
+    this.trigger('hideShade');
   },
 
   hideSidebar        : function(e) {

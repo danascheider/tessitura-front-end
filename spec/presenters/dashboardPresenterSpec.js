@@ -1,6 +1,3 @@
-/* Core Requires
-/*****************************************************************************************/
-
 /* istanbul ignore require */
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/spec/support/env.js');
@@ -14,10 +11,6 @@ var matchers = require('jasmine-jquery-matchers'),
     fixtures = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     context  = describe,
     fcontext = fdescribe;
-
-/*****************************************************************************************
-/* DASHBOARD PRESENTER SPEC                                                              *
-/*****************************************************************************************/
 
 /* istanbul ignore next */
 describe('Dashboard Presenter', function() {
@@ -97,6 +90,7 @@ describe('Dashboard Presenter', function() {
     beforeEach(function() {
       spy = jasmine.createSpy();
       presenter.on('redirect', spy);
+      spyOn(Tessitura.DashboardPresenter.prototype, 'hideShade');
       spyOn(Tessitura.DashboardPresenter.prototype, 'showTaskEditForm');
     });
 
@@ -120,6 +114,14 @@ describe('Dashboard Presenter', function() {
       it('emits the redirect:profile event #presenter #travis', function() {
         presenter.dashboardView.trigger('redirect', {destination: 'profile'});
         expect(spy).toHaveBeenCalledWith({destination: 'profile'});
+      });
+    });
+
+    describe('hideShade on the dashboard view', function() {
+      it('calls hideShade() #presenter #travis', function() {
+        newPresenter = new Tessitura.DashboardPresenter({user: user});
+        newPresenter.dashboardView.hideShade();
+        expect(Tessitura.DashboardPresenter.prototype.hideShade).toHaveBeenCalled();
       });
     });
 
@@ -261,6 +263,24 @@ describe('Dashboard Presenter', function() {
       it('emits the redirect:tasks event #presenter #travis', function() {
         presenter.emitRedirect({destination: 'tasks'});
         expect(spy).toHaveBeenCalledWith({destination: 'tasks'});
+      });
+    });
+
+    describe('hideShade()', function() {
+      beforeEach(function() {
+        presenter.getHome();
+        presenter.showTaskEditForm(task1);
+      });
+
+      it('removes the edit form #presenter #travis', function() {
+        spyOn(presenter.editForm, 'remove');
+        presenter.hideShade();
+        expect(presenter.editForm.remove).toHaveBeenCalled();
+      });
+
+      it('hides the #shade element #presenter #travis', function() {
+        presenter.hideShade();
+        expect(presenter.dashboardView.$('#shade')).not.toBeInDom();
       });
     });
 
