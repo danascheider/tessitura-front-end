@@ -17,6 +17,10 @@ Tessitura.DashboardHomeView = Tessitura.View.extend({
   /* Event Callbacks
   /****************************************************************************/
 
+  showTaskCreateForm  : function(collection) {
+    this.trigger('showTaskCreateForm', collection);
+  },
+
   showEditForm        : function(task) {
     this.trigger('showEditForm', task);
   },
@@ -58,6 +62,7 @@ Tessitura.DashboardHomeView = Tessitura.View.extend({
     this.childViews = [this.calendarView, this.taskPanelView, this.topWidgetView];
 
     this.listenTo(this.taskPanelView, 'showEditForm', this.showEditForm);
+    this.listenTo(this.taskPanelView, 'showTaskCreateForm', this.showTaskCreateForm);
 
     return this;
   },

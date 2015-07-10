@@ -102,6 +102,17 @@ describe('Dashboard Home View', function() {
   /****************************************************************************/
 
   describe('event wiring', function() {
+    describe('showTaskCreateForm on task panel element', function() {
+      it('calls showTaskCreateForm() #dashboardHomeView #partialView #view #travis', function() {
+        pending('FUFNR');
+        spyOn(Tessitura.DashboardHomeView.prototype, 'showTaskCreateForm');
+        view = new Tessitura.DashboardHomeView({user: user});
+        view.render();
+        view.taskPanelView.showTaskCreateForm(collection);
+        expect(Tessitura.DashboardHomeView.prototype.showTaskCreateForm).toHaveBeenCalledWith(collection);
+      });
+    });
+
     describe('showEditForm on task panel element', function() {
       it('calls showEditForm() #dashboardHomeView #partialView #view #travis', function() {
         spyOn(Tessitura.DashboardHomeView.prototype, 'showEditForm');
@@ -119,6 +130,15 @@ describe('Dashboard Home View', function() {
   describe('event callbacks', function() {
     beforeAll(function() {
       view = view || new Tessitura.DashboardHomeView({user: user});
+    });
+
+    describe('showTaskCreateForm()', function() {
+      it('triggers the showTaskCreateForm event #dashboardHomeView #partialView #view #travis', function() {
+        var spy = jasmine.createSpy();
+        view.on('showTaskCreateForm', spy);
+        view.showTaskCreateForm(collection);
+        expect(spy).toHaveBeenCalledWith(collection);
+      });
     });
 
     describe('showEditForm()', function() {

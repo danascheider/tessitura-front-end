@@ -1,3 +1,9 @@
+When(/^I click on the 'Expand' icon inside the '.quick-add-form' element$/) do
+  within 'form.quick-add-form .form-group' do 
+    find('i[title=Expand]').click
+  end
+end
+
 When(/^I fill out the '#task-edit-form' with valid attributes$/) do
   within '#task-edit-form' do 
     fill_in 'title', with: 'Give tasks better titles'
@@ -14,8 +20,8 @@ When(/^I submit the '(\S*)'$/) do |form_id|
   click_button 'Update Task'
 end
 
-Then(/^I should see the '(.*)' (input|select|textarea|button)$/) do |title, tag|
-  within '#task-edit-form' do 
+Then(/^I should see the '(.*)' (input|select|textarea|button) inside the '(.*)'$/) do |title, tag, el|
+  within el do 
     expect(page).to have_css("#{tag}[title='#{title}']", visible: true)
   end
 end

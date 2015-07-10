@@ -110,6 +110,16 @@ describe('Dashboard Task View', function() {
       });
     });
 
+    describe('showTaskCreateForm on kanban column', function() {
+      it('calls showTaskCreateForm() #dashboardTaskView #partialView #view #travis', function() {
+        spyOn(Tessitura.DashboardTaskView.prototype, 'showTaskCreateForm');
+        newView = new Tessitura.DashboardTaskView({user: user, collection: collection});
+        newView.render();
+        newView.newColumnView.showTaskCreateForm(task1);
+        expect(Tessitura.DashboardTaskView.prototype.showTaskCreateForm).toHaveBeenCalled();
+      });
+    });
+
     describe('showEditForm on kanban column', function() {
       it('calls showEditForm() #dashboardTaskView #partialView #view #travis', function() {
         spyOn(Tessitura.DashboardTaskView.prototype, 'showEditForm');
@@ -192,12 +202,23 @@ describe('Dashboard Task View', function() {
       })
     });
 
+    describe('showTaskCreateForm()', function() {
+      it('triggers the showTaskCreateForm event #dashboardTaskView #partialView #view #travis', function() {
+        var spy = jasmine.createSpy();
+        view.on('showTaskCreateForm', spy);
+        view.showTaskCreateForm(collection);
+        expect(spy).toHaveBeenCalledWith(collection);
+        view.off('showTaskCreateForm');
+      });
+    });
+
     describe('showEditForm()', function() {
       it('triggers the showEditForm event #dashboardTaskView #partialView #view #travis', function() {
         var spy = jasmine.createSpy();
         view.on('showEditForm', spy);
         view.showEditForm(task1);
         expect(spy).toHaveBeenCalledWith(task1);
+        view.off('showTaskCreateForm');
       });
     });
   });

@@ -36,6 +36,10 @@ Tessitura.KanbanColumnView = Tessitura.View.extend({
     }
   },
 
+  showTaskCreateForm   : function() {
+    this.trigger('showTaskCreateForm', this.collection);
+  },
+
   showEditForm         : function(task) {
     this.trigger('showEditForm', task);
   },
@@ -114,6 +118,7 @@ Tessitura.KanbanColumnView = Tessitura.View.extend({
 
     this.quickAddForm = new Tessitura.QuickAddFormView({collection: this.collection, groupedBy: this.groupedBy});
     this.childViews = [this.quickAddForm];
+    this.listenTo(this.quickAddForm, 'showTaskCreateForm', this.showTaskCreateForm);
 
     this.$el.addClass('panel-' + this.color);
 

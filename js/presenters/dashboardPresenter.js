@@ -43,7 +43,7 @@ Tessitura.DashboardPresenter = Tessitura.Model.extend({
     }  
   },
 
-  getTask      : function() {
+  getTask            : function() {
     this.showDash();
 
     var theViewNeedsToChange = this.current !== this.dashboardTaskView;
@@ -59,16 +59,26 @@ Tessitura.DashboardPresenter = Tessitura.Model.extend({
     }
   },
 
-  hideShade    : function() {
+  hideShade          : function() {
     if(this.editForm) { this.editForm.remove(); }
     this.dashboardView.$('#shade').hide();
   },
 
-  emitRedirect : function(opts) {
+  emitRedirect       : function(opts) {
     this.trigger('redirect', opts);
   },
 
-  showTaskEditForm: function(task) {
+  showTaskCreateForm : function(collection) {
+    this.taskCreateForm = this.taskCreateForm || new Tessitura.TaskCreateFormView();
+    this.taskCreateForm.setCollection(collection).render();
+    this.dashboardView.$('#shade').show();
+    this.dashboardView.$('#shade').html(this.taskCreateForm.$el);
+    this.taskCreateForm.$('input').first().focus();
+
+    this.listenTo(this.taskCreateForm, 'hideShade', this.hideShade);
+  },
+
+  showTaskEditForm   : function(task) {
     this.editForm = this.editForm || new Tessitura.TaskEditFormView();
     this.editForm.setModel(task).render();
     this.dashboardView.$('#shade').show();
@@ -81,7 +91,7 @@ Tessitura.DashboardPresenter = Tessitura.Model.extend({
   /* Special Functions
   /***************************************************************************************/
 
-  clearViews   : function() {
+  clearViews         : function() {
     var that = this;
 
     _.each(this.views, function(view) {
@@ -89,11 +99,11 @@ Tessitura.DashboardPresenter = Tessitura.Model.extend({
     });
   },
 
-  removeAll    : function() {
+  removeAll          : function() {
     this.dashboardView.remove();
   },
 
-  setUser      : function(user, callback) {
+  setUser            : function(user, callback) {
     var that = this;
 
     // If this.user is already set, don't change it
@@ -130,7 +140,7 @@ Tessitura.DashboardPresenter = Tessitura.Model.extend({
     });
   },
 
-  showDash     : function() {
+  showDash           : function() {
     if(!this.dashboardView.$el.is(':visible')) {
       this.dashboardView.render();
       $('body').html(this.dashboardView.$el);
@@ -140,7 +150,7 @@ Tessitura.DashboardPresenter = Tessitura.Model.extend({
   /* Core Model Functions
   /***************************************************************************************/
 
-  initialize   : function(opts) {
+  initialize         : function(opts) {
     opts = opts || {};
 
     // Instantiate views
@@ -163,6 +173,8 @@ Tessitura.DashboardPresenter = Tessitura.Model.extend({
   
     this.listenTo(this.dashboardView, 'redirect', this.emitRedirect);
     this.listenTo(this.dashboardView, 'hideShade', this.hideShade);
+    this.listenTo(this.dashboardHomeView, 'showTaskCreateForm', this.showTaskCreateForm);
+    this.listenTo(this.dashboardTaskView, 'showTaskCreateForm', this.showTaskCreateForm);
     this.listenTo(this.dashboardTaskView, 'showEditForm', this.showTaskEditForm);
     this.listenTo(this.dashboardHomeView, 'showEditForm', this.showTaskEditForm);
   }

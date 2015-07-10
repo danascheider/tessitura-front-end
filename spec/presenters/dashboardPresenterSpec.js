@@ -92,6 +92,7 @@ describe('Dashboard Presenter', function() {
       presenter.on('redirect', spy);
       spyOn(Tessitura.DashboardPresenter.prototype, 'hideShade');
       spyOn(Tessitura.DashboardPresenter.prototype, 'showTaskEditForm').and.callThrough();
+      spyOn(Tessitura.DashboardPresenter.prototype, 'showTaskCreateForm').and.callThrough();
     });
 
     afterEach(function() { presenter.off('redirect'); });
@@ -135,8 +136,27 @@ describe('Dashboard Presenter', function() {
       });
     });
 
+    describe('showTaskCreateForm on the dashboard task view', function() {
+      it('calls showTaskCreateForm() #presenter #travis', function() {
+        pending('FUFNR');
+        newPresenter = new Tessitura.DashboardPresenter({user: user});
+        newPresenter.dashboardHomeView.showEditForm(collection);
+        expect(Tessitura.DashboardPresenter.prototype.showTaskCreateForm).toHaveBeenCalledWith(collection);
+      });
+    });
+
+    describe('showTaskCreateForm on the dashboard home view', function() {
+      it('calls showTaskCreateForm() #presenter #travis', function() {
+        pending('FUFNR');
+        newPresenter = new Tessitura.DashboardPresenter({user: user});
+        newPresenter.dashboardTaskView.showEditForm(collection);
+        expect(Tessitura.DashboardPresenter.prototype.showTaskCreateForm).toHaveBeenCalledWith(collection);
+      });
+    });
+
     describe('showEditForm on the dashboard task view', function() {
       it('calls showTaskEditForm() #presenter #travis', function() {
+        pending('FUFNR');
         newPresenter = new Tessitura.DashboardPresenter({user: user});
         newPresenter.dashboardHomeView.showEditForm(task1);
         expect(Tessitura.DashboardPresenter.prototype.showTaskEditForm).toHaveBeenCalledWith(task1);
@@ -302,6 +322,35 @@ describe('Dashboard Presenter', function() {
       });
     });
 
+    describe('showTaskCreateForm()', function() {
+      it('shows the #shade element #presenter #travis', function() {
+        presenter.showTaskCreateForm(collection);
+        expect($('#shade')).toBeInDom();
+      });
+
+      it('sets this.taskCreateForm #presenter #travis', function() {
+        presenter.showTaskCreateForm(collection);
+        expect(presenter.taskCreateForm.isA('Tessitura.View')).toBe(true);
+      });
+
+      it('sets the collection on the create form #presenter #travis', function() {
+        presenter.showTaskCreateForm(collection);
+        expect(presenter.taskCreateForm.collection).toBe(collection);
+      });
+
+      it('renders the create form #presenter #travis', function() {
+        spyOn(Tessitura.TaskCreateFormView.prototype, 'render');
+        presenter.showTaskCreateForm(collection);
+        expect(Tessitura.TaskCreateFormView.prototype.render).toHaveBeenCalled();
+      });
+
+      it('attaches the create form to the DOM #presenter #travis', function() {
+        pending('FUFNR');
+        presenter.showTaskCreateForm(collection);
+        expect(presenter.taskCreateForm.$el).toBeInDom();
+      });
+    });
+
     describe('showTaskEditForm()', function() {
       beforeEach(function() {
         presenter.showDash();
@@ -330,7 +379,6 @@ describe('Dashboard Presenter', function() {
 
       it('attaches the edit form view to the DOM #presenter #travis', function() {
         pending('FUFNR');
-        $('body').html(presenter.dashboardView.$el);
         presenter.showTaskEditForm(task1);
         expect(presenter.editForm.$el).toBeInDom();
       });
