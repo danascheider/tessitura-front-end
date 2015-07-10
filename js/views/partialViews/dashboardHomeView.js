@@ -7,13 +7,6 @@ Tessitura.DashboardHomeView = Tessitura.View.extend({
   id               : 'page-wrapper',
   className        : 'dashboard-home',
 
-  /* Tessitura View Properties
-  /****************************************************************************/
-
-  types            : function() {
-    return Tessitura.View.prototype.types().concat(['DashboardHomeView', 'PartialView']);
-  },
-
   /* Event Callbacks
   /****************************************************************************/
 
