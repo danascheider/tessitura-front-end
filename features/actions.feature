@@ -29,6 +29,6 @@ Feature: Actions and links
   Scenario: User hides the '#task-edit-form' element
     Given I am on my dashboard
     And I click on the 'Edit' icon inside the '#task-1' element
-    When I double-click on the '#shade' element
+    When I double-click the '#shade' element
     Then I should not see the '#task-edit-form' element
     And I should not see the '#shade' element

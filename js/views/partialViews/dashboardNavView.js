@@ -76,7 +76,7 @@
     this.sidebarView = new Tessitura.DashboardSidebarView();
 
     this.childViews  = [this.sidebarView];
-    /* istanbul ignore next */ if(opts.user) { this.setUser(opts.user); }
+    /* istanbul ignore next */ if(opts.user || opts.model) { this.setUser(opts.user || opts.model); }
   },
 
   remove             : function() {

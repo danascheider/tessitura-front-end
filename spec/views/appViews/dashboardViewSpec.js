@@ -5,6 +5,7 @@ require(process.cwd() + '/spec/support/env.js');
 
 /* istanbul ignore next */
 var matchers       = require('jasmine-jquery-matchers'),
+    fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     context        = describe,
     fcontext       = fdescribe;
 
@@ -13,27 +14,28 @@ var matchers       = require('jasmine-jquery-matchers'),
 
 /* istanbul ignore next */
 describe('Main Dashboard View', function() {
-  var dashboard, newView, user, e, spy;
+  var dashboard, newView, e, spy;
 
   /* Filters                 
   /**************************************************************************/
 
   beforeAll(function() {
     jasmine.addMatchers(matchers);
+    _.extend(global, fixtures);
   });
 
   beforeEach(function() {
-    user = new Tessitura.UserModel({id: 1, username: 'testuser', password: 'testuser', email: 'testuser@example.com', first_name: 'Test', last_name: 'User'});
     dashboard = new Tessitura.DashboardView({model: user});
   });
 
   afterEach(function() {
-    user.destroy(); 
+    restoreFixtures();
     dashboard && dashboard.destroy();
   });
 
   afterAll(function() {
     dashboard = null;
+    _.omit(global, fixtures);
   });
 
   /* Constructor             
@@ -74,9 +76,8 @@ describe('Main Dashboard View', function() {
 
   describe('elements', function() {
     beforeEach(function() {
-      dashboard.setUser(user);
       dashboard.render();
-      $('body').html(dashboard.el);
+      $('body').html(dashboard.$el);
     });
 
     it('has ID #dashboard-wrapper #dashboardView #appView #view #travis', function() {
@@ -137,6 +138,15 @@ describe('Main Dashboard View', function() {
         expect(Tessitura.DashboardView.prototype.hideShade).toHaveBeenCalled();
       });
     });
+
+    describe('submit form', function() {
+      it('calls hideShade() #dashboardView #appView #view #travis', function() {
+        pending('FUFNR');
+        var form = new Tessitura.TaskEditFormView({model: task1});
+        newView.$el.append(form);
+        expect(Tessitura.DashboardView.prototype.hideShade).toHaveBeenCalled();
+      });
+    });
   });
 
   /* Event Callbacks
@@ -144,7 +154,6 @@ describe('Main Dashboard View', function() {
 
   describe('event callbacks', function() {
     beforeEach(function() { 
-      dashboard.setUser(user);
       dashboard.render(); 
     });
 
@@ -205,7 +214,7 @@ describe('Main Dashboard View', function() {
       it('triggers the hideShade event #dashboardView #appView #view #travis', function() {
         spy = jasmine.createSpy();
         dashboard.on('hideShade', spy);
-        dashboard.hideShade();
+        dashboard.hideShade($.Event('dblclick'));
         expect(spy).toHaveBeenCalled();
       });
     });
@@ -249,10 +258,6 @@ describe('Main Dashboard View', function() {
 
   describe('core functions', function() {
     describe('render()', function() {
-      beforeEach(function() {
-        dashboard.setUser(user);
-      });
-
       it('renders the nav view #dashboardView #appView #view #travis', function() {
         spyOn(dashboard.navView, 'render');
         dashboard.render();

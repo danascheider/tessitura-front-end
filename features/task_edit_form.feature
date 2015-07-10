@@ -16,3 +16,14 @@ Feature: Task Edit Form
         | 'Priority' select      | 
         | 'Notes' textarea       |
         | 'Update Task' button   |
+
+  Scenario: Fill out the edit form
+    When I fill out the '#task-edit-form' with valid attributes
+    When I submit the '#task-edit-form'
+    Then the form should be hidden
+
+  Scenario: Try to delete the task's title
+    When I fill out the '#task-edit-form' with no title
+    When I submit the '#task-edit-form'
+    Then the form should not be hidden
+    And the 'Title' row of the '#task-edit-form' should have class 'has-error'

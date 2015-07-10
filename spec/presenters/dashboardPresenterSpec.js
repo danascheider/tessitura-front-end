@@ -91,7 +91,7 @@ describe('Dashboard Presenter', function() {
       spy = jasmine.createSpy();
       presenter.on('redirect', spy);
       spyOn(Tessitura.DashboardPresenter.prototype, 'hideShade');
-      spyOn(Tessitura.DashboardPresenter.prototype, 'showTaskEditForm');
+      spyOn(Tessitura.DashboardPresenter.prototype, 'showTaskEditForm').and.callThrough();
     });
 
     afterEach(function() { presenter.off('redirect'); });
@@ -120,7 +120,17 @@ describe('Dashboard Presenter', function() {
     describe('hideShade on the dashboard view', function() {
       it('calls hideShade() #presenter #travis', function() {
         newPresenter = new Tessitura.DashboardPresenter({user: user});
-        newPresenter.dashboardView.hideShade();
+        newPresenter.dashboardView.hideShade($.Event('dblclick'));
+        expect(Tessitura.DashboardPresenter.prototype.hideShade).toHaveBeenCalled();
+      });
+    });
+
+    describe('hideShade on the editForm view', function() {
+      it('calls hideShade() #presenter #travis', function() {
+        newPresenter = new Tessitura.DashboardPresenter({user: user});
+        newPresenter.getHome();
+        newPresenter.showTaskEditForm(task1);
+        newPresenter.editForm.trigger('hideShade');
         expect(Tessitura.DashboardPresenter.prototype.hideShade).toHaveBeenCalled();
       });
     });

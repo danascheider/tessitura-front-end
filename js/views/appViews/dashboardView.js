@@ -7,7 +7,7 @@ Tessitura.DashboardView = Tessitura.View.extend({
     'dblclick'                         : 'hideSidebar',
     'click .internal-link'             : 'followLink',
     'click .task-list-item .fa-pencil' : 'showEditForm',
-    'dblclick #shade'                  : 'hideShade'
+    'dblclick #shade'                  : 'hideShade',
   },
   
   /* Event Callbacks
@@ -29,8 +29,9 @@ Tessitura.DashboardView = Tessitura.View.extend({
     if(!li.is(e.target) && !li.has(e.target).length) { li.removeClass('open'); }
   },
 
-  hideShade          : function() {
-    this.trigger('hideShade');
+  hideShade          : function(e) {
+    var theUserClickedOnTheForm = e.type === 'dblclick' && $('form').has(e.target).length;
+    if (!theUserClickedOnTheForm) { this.trigger('hideShade'); }
   },
 
   hideSidebar        : function(e) {
@@ -48,6 +49,7 @@ Tessitura.DashboardView = Tessitura.View.extend({
   setUser    : function(model) {
     this.model = model;
     this.navView.setUser(model);
+    return this;
   },
 
   /* Core View Functions 

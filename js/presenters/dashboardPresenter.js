@@ -74,6 +74,8 @@ Tessitura.DashboardPresenter = Tessitura.Model.extend({
     this.dashboardView.$('#shade').show();
     this.dashboardView.$('#shade').html(this.editForm.$el);
     this.editForm.$('input').first().focus().select();
+
+    this.listenTo(this.editForm, 'hideShade', this.hideShade);
   },
 
   /* Special Functions
