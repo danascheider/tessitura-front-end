@@ -47,6 +47,6 @@ Then(/^I should (not )?be routed to my dashboard$/) do |neg|
 end
 
 Then(/^I should (not )?see the '(\S+)' element$/) do |neg, selector|
-  if neg then expect(page).not_to have_css(selector) 
+  if neg then expect(page).not_to have_selector(selector) 
   else expect(page).to have_selector(selector, visible: true); end
 end

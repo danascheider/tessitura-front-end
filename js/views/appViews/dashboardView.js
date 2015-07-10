@@ -6,7 +6,8 @@ Tessitura.DashboardView = Tessitura.View.extend({
     'click'                            : 'hideDropdownMenus',
     'dblclick'                         : 'hideSidebar',
     'click .internal-link'             : 'followLink',
-    'click .task-list-item .fa-pencil' : 'showEditForm'
+    'click .task-list-item .fa-pencil' : 'showEditForm',
+    'dblclick #shade'                  : 'hideShade',
   },
   
   /* Event Callbacks
@@ -28,6 +29,11 @@ Tessitura.DashboardView = Tessitura.View.extend({
     if(!li.is(e.target) && !li.has(e.target).length) { li.removeClass('open'); }
   },
 
+  hideShade          : function(e) {
+    var theUserClickedOnTheForm = e.type === 'dblclick' && $('form').has(e.target).length;
+    if (!theUserClickedOnTheForm) { this.trigger('hideShade'); }
+  },
+
   hideSidebar        : function(e) {
     if(e) { var target = $(e.target); }
 
@@ -37,16 +43,13 @@ Tessitura.DashboardView = Tessitura.View.extend({
     }
   },
 
-  showEditForm       : function() {
-    //
-  },
-
   /* Special Functions
   /**************************************************************************************/
 
   setUser    : function(model) {
     this.model = model;
     this.navView.setUser(model);
+    return this;
   },
 
   /* Core View Functions 
@@ -62,7 +65,7 @@ Tessitura.DashboardView = Tessitura.View.extend({
   render     : function() {
     var that = this;
 
-    return Tessitura.View.prototype.render.call(this, '', function() {
+    return Tessitura.View.prototype.render.call(this, this.template(), function() {
       that.navView.render();
       /* istanbul ignore next */ if(!that.navView.$el.is(':visible')) { that.$el.prepend(that.navView.$el); }
     });

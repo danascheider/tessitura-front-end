@@ -1,13 +1,20 @@
 Tessitura.DashboardTaskView = Tessitura.View.extend({
 
   /* Backbone View Properties
-  /**************************************************************************/
+  /**************************************************************************************/
 
   template    : JST['partials/dashTasks'],
   id          : 'page-wrapper',
 
+  /* Event Callbacks
+  /**************************************************************************************/
+
+  showEditForm      : function(task) {
+    this.trigger('showEditForm', task);
+  },
+
   /* Special Functions
-  /**************************************************************************/
+  /**************************************************************************************/
 
   allocate          : function(task) {
     var newView = this.findNewView(task);
@@ -121,6 +128,7 @@ Tessitura.DashboardTaskView = Tessitura.View.extend({
 
         _.each(that.childViews, function(col) {
           col.render();
+          that.listenTo(col, 'showEditForm', that.showEditForm);
         });
 
         that.listenTo(that.collection, 'change:status', that.changeStatus);

@@ -13,7 +13,7 @@ var matchers  = require('jasmine-jquery-matchers'),
 /****************************************************************************************/
 
 /* istanbul ignore next */
-describe('List Item Task View', function() {
+describe('TaskListItemView', function() {
   var view, html, spy, e;
 
   beforeAll(function() {
@@ -171,12 +171,6 @@ describe('List Item Task View', function() {
       it('calls toggleTaskDetails() #taskListItemView #modelView #view #travis', function() {
         newView.$('a.task-title').click();
         expect(Tessitura.TaskListItemView.prototype.toggleTaskDetails).toHaveBeenCalled();
-      });
-    });
-
-    describe('click reset button', function() {
-      it('calls hideEditForm() #taskListItemView #modelView #view #travis', function() {
-        pending('Need to implement the edit form view');
       });
     });
 

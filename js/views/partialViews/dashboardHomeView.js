@@ -1,21 +1,28 @@
 Tessitura.DashboardHomeView = Tessitura.View.extend({
 
   /* Backbone View Properties
-  /**************************************************************************/
+  /****************************************************************************/
 
   template         : JST['partials/dashHome'],
   id               : 'page-wrapper',
   className        : 'dashboard-home',
 
   /* Tessitura View Properties
-  /**************************************************************************/
+  /****************************************************************************/
 
   types            : function() {
     return Tessitura.View.prototype.types().concat(['DashboardHomeView', 'PartialView']);
   },
 
+  /* Event Callbacks
+  /****************************************************************************/
+
+  showEditForm        : function(task) {
+    this.trigger('showEditForm', task);
+  },
+
   /* Special Functions
-  /**************************************************************************/
+  /****************************************************************************/
 
   renderCalendarView  : function() {
     this.calendarView.render();
@@ -50,11 +57,13 @@ Tessitura.DashboardHomeView = Tessitura.View.extend({
 
     this.childViews = [this.calendarView, this.taskPanelView, this.topWidgetView];
 
+    this.listenTo(this.taskPanelView, 'showEditForm', this.showEditForm);
+
     return this;
   },
 
   /* Core View Functions
-  /**************************************************************************/
+  /****************************************************************************/
 
   initialize          : function(opts) {
     opts = opts || {};

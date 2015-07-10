@@ -35,6 +35,10 @@ Tessitura.TaskPanelView = Tessitura.DashWidgetView.extend({
     return child;
   },
 
+  showEditForm         : function(task) {
+    this.trigger('showEditForm', task);
+  },
+
   showTaskCreateForm   : function() {
     this.trigger('showTaskCreateForm', {collection: this.collection});
   },
@@ -52,6 +56,8 @@ Tessitura.TaskPanelView = Tessitura.DashWidgetView.extend({
 
       if (task.get('status') !== 'Blocking' && task.get('status') !== 'Complete' && !task.get('backlog')) {
         var view = that.retrieveViewForModel(task) || new Tessitura.TaskListItemView({model: task, width: 40});
+
+        that.listenTo(view, 'showEditForm', that.showEditForm);
 
         if(that.childViews.indexOf(view) == -1) {
           that.childViews.push(view);

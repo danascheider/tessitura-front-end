@@ -73,7 +73,7 @@ Then(/^the dashboard should have my name on it$/) do
   expect(page).to have_text('New User')
 end
 
-Then(/^the '(.*)' (.*) should have class '(.*)'$/) do |klass1, tag, klass2|
+Then(/^the '(.\S+)' (\S*) should have class '(\S*)'$/) do |klass1, tag, klass2|
   selector = "#registration-form #{tag}.#{klass1}"
   expect(find(selector)['class']).to include(klass2)
 end

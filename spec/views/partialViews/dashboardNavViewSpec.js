@@ -45,16 +45,18 @@ describe('Dashboard Nav View', function() {
   /**************************************************************************/
 
   describe('constructor', function() {
-    it('does not call render #dashboardNavView #partialView #view #travis', function() {
+    beforeEach(function() {
       spyOn(Tessitura.DashboardNavView.prototype, 'render');
-      newView = new Tessitura.DashboardNavView({model: user});
+      spyOn(Tessitura.DashboardNavView.prototype, 'setUser');
+    });
+
+    it('does not call render #dashboardNavView #partialView #view #travis', function() {
+      newView = new Tessitura.DashboardNavView({user: user});
       expect(Tessitura.DashboardNavView.prototype.render).not.toHaveBeenCalled();
     });
 
-    it('calls setUser #dashboardNavView #partialView #view #travis', function() {
-      pending('FUFNR');
-      spyOn(Tessitura.DashboardNavView.prototype, 'setUser');
-      newView = new Tessitura.DashboardNavView({model: user});
+    it('calls setUser when a user is given #dashboardNavView #partialView #view #travis', function() {
+      newView = new Tessitura.DashboardNavView({user: user});
       expect(Tessitura.DashboardNavView.prototype.setUser).toHaveBeenCalled();
     });
 
@@ -125,9 +127,8 @@ describe('Dashboard Nav View', function() {
 
     describe('change user first name', function() {
       it('calls render #dashboardNavView #partialView #view #travis', function() {
-        pending('FUFNR');
         spyOn(Tessitura.DashboardNavView.prototype, 'render');
-        newView = new Tessitura.DashboardNavView({model: user});
+        newView = new Tessitura.DashboardNavView({user: user});
         newView.model.set({first_name: 'Charles'});
         expect(Tessitura.DashboardNavView.prototype.render).toHaveBeenCalled();
       });
@@ -135,9 +136,8 @@ describe('Dashboard Nav View', function() {
 
     describe('change user last name', function() {
       it('calls render #dashboardNavView #partialView #view #travis', function() {
-        pending('FUFNR');
         spyOn(Tessitura.DashboardNavView.prototype, 'render');
-        newView = new Tessitura.DashboardNavView({model: user});
+        newView = new Tessitura.DashboardNavView({user: user});
         newView.model.set({last_name: 'Callum'});
         expect(Tessitura.DashboardNavView.prototype.render).toHaveBeenCalled();
       });

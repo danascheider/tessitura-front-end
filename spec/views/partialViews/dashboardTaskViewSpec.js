@@ -35,7 +35,7 @@ describe('Dashboard Task View', function() {
 
   afterEach(function() {
     restoreFixtures();
-    view.remove();
+    view && view.remove();
     newView && newView.destroy();
   });
 
@@ -91,30 +91,32 @@ describe('Dashboard Task View', function() {
   describe('event wiring', function() {
     describe('add task to collection', function() {
       it('calls allocate() #dashboardTaskView #partialView #view #travis', function() {
-        pending('FUFNR');
         spyOn(Tessitura.DashboardTaskView.prototype, 'allocate');
         newView = new Tessitura.DashboardTaskView({user: user});
         newView.render();
         newTask = new Tessitura.TaskModel({title: 'Foobar'});
-        newView.user.tasks.add(newTask);
+        newView.collection.add(newTask);
         expect(Tessitura.DashboardTaskView.prototype.allocate).toHaveBeenCalled();
       });
     });
 
     describe('change task status', function() {
       it('calls changeStatus() #dashboardTaskView #partialView #view #travis', function() {
-        pending('FUFNR');
         spyOn(Tessitura.DashboardTaskView.prototype, 'changeStatus');
         newView = new Tessitura.DashboardTaskView({user: user});
         newView.render();
-        task1.set({status: 'In Progress'});
+        newView.collection.trigger('change:status', task1);
         expect(Tessitura.DashboardTaskView.prototype.changeStatus).toHaveBeenCalled();
       });
     });
 
-    describe('remove task from collection', function() {
-      it('calls removeAndRender() #dashboardTaskView #partialView #view #travis', function() {
-        pending('FUFNR');
+    describe('showEditForm on kanban column', function() {
+      it('calls showEditForm() #dashboardTaskView #partialView #view #travis', function() {
+        spyOn(Tessitura.DashboardTaskView.prototype, 'showEditForm');
+        newView = new Tessitura.DashboardTaskView({user: user, collection: collection});
+        newView.render();
+        newView.newColumnView.showEditForm(task1);
+        expect(Tessitura.DashboardTaskView.prototype.showEditForm).toHaveBeenCalled();
       });
     });
   });
@@ -137,11 +139,6 @@ describe('Dashboard Task View', function() {
 
       it('adds the task to the new view\'s models #dashboardTaskView #partialView #view #travis', function() {
         expect(view.inProgressColumnView.collection.models.indexOf(newTask)).toBeGreaterThan(-1);
-      });
-
-      it('renders the view #dashboardTaskView #partialView #view #travis', function() {
-        pending('FUFNR');
-        expect(view.render).toHaveBeenCalled();
       });
     });
 
@@ -194,6 +191,15 @@ describe('Dashboard Task View', function() {
         });
       })
     });
+
+    describe('showEditForm()', function() {
+      it('triggers the showEditForm event #dashboardTaskView #partialView #view #travis', function() {
+        var spy = jasmine.createSpy();
+        view.on('showEditForm', spy);
+        view.showEditForm(task1);
+        expect(spy).toHaveBeenCalledWith(task1);
+      });
+    });
   });
 
   /* Core View Functions
@@ -202,14 +208,11 @@ describe('Dashboard Task View', function() {
   describe('core view functions', function() {
     describe('remove', function() {
       _.each(['newColumnView', 'inProgressColumnView', 'blockingColumnView', 'backlogColumnView'], function(column) {
-        it('removes its ' + column + '#dashboardTaskView #partialView #view #travis', function(done) {
-          pending('Iron out some other aspects of the app and hope this works after that');
+        it('removes its ' + column + '#dashboardTaskView #partialView #view #travis', function() {
           view.render();
-          done();
-          setTimeout(function() {spyOn(view[column], 'remove');
-            view.remove();
-            expect(view[column].remove).toHaveBeenCalled();
-          }, 50);
+          spyOn(view[column], 'remove');
+          view.remove();
+          expect(view[column].remove).toHaveBeenCalled();
         });
       });
 

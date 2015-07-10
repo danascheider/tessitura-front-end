@@ -18,7 +18,7 @@ Feature: Task List Items
     And there should be a line through the title in the '#task-1' element
     And the '#task-1' element should be removed from the DOM after a short time
 
-  Scenario Outline: Click on the icons
+  Scenario Outline: Click on the backlog and delete icons
     When I click on the '<title>' icon inside the '#task-1' element
     Then the '#task-1' element should be removed from the DOM
 
@@ -27,6 +27,6 @@ Feature: Task List Items
       | Backlog |
       | Delete  |
 
-  Scenario: Edit form
+  Scenario: Click on the edit icon
     When I click on the 'Edit' icon inside the '#task-1' element
-    Then I should see the '#edit-form' element
+    Then I should see the '#task-edit-form' element

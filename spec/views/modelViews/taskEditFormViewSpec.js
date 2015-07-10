@@ -12,7 +12,7 @@ var matchers       = require('jasmine-jquery-matchers'),
 
 /* istanbul ignore next */
 describe('Task Edit Form View', function() {
-  var view, newView;
+  var view, newView, e, xhr;
 
   beforeAll(function() {
     jasmine.addMatchers(matchers);
@@ -59,6 +59,93 @@ describe('Task Edit Form View', function() {
 
     it('has a title field #taskEditFormView #modelView #view #travis', function() {
       expect(view.$('input[name=title]')).toExist();
+    });
+
+    it('has a deadline field #taskEditFormView #modelView #view #travis', function() {
+      expect(view.$('input[name=deadline]')).toExist();
+    });
+
+    it('has a status field #taskEditFormView #modelView #view #travis', function() {
+      expect(view.$('select[name=status]')).toExist();
+    });
+
+    it('has a priority field #taskEditFormView #modelView #view #travis', function() {
+      expect(view.$('select[name=priority]')).toExist();
+    });
+
+    it('has a submit button #taskEditFormView #modelView #view #travis', function() {
+      expect(view.$('button[type=submit]')).toExist();
+    });
+  });
+
+  describe('events', function() {
+    describe('submit form', function() {
+      it('calls updateTask() #taskEditFormView #modelView #view #travis', function() {
+        pending('FUFNR');
+        spyOn(Tessitura.TaskEditFormView.prototype, 'updateTask');
+        newView = new Tessitura.TaskEditFormView({model: task1});
+        newView.render();
+        view.$el.submit();
+        expect(Tessitura.TaskEditFormView.prototype.updateTask).toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('event callbacks', function() {
+    describe('updateTask()', function() {
+      beforeEach(function() {
+        view.render();
+        e = $.Event('submit', {target: view.$el});
+        xhr = new XMLHttpRequest();
+        xhr.open('PUT', Tessitura.API.tasks.single(1));
+        spyOn($, 'ajax');
+      });
+
+      context('valid attributes', function() {
+        beforeEach(function() {
+          spyOn(Tessitura.Utils, 'getAttributes').and.returnValue({title: 'Change the task title', status: 'New', priority: 'Low'});
+        });
+
+        it('doesn\'t refresh #taskEditFormView #modelView #view #travis', function() {
+          spyOn(e, 'preventDefault');
+          view.updateTask(e);
+          expect(e.preventDefault).toHaveBeenCalled();
+        });
+
+        it('takes the attributes from the form #taskEditFormView #modelView #view #travis', function() {
+          view.updateTask(e);
+          expect(Tessitura.Utils.getAttributes).toHaveBeenCalled();
+        });
+
+        it('calls save on the task #taskEditFormView #modelView #view #travis', function() {
+          spyOn(task1, 'save');
+          view.updateTask(e);
+          expect(task1.save).toHaveBeenCalled();
+        });
+      });
+
+      context('missing title', function() {
+        beforeEach(function() {
+          spyOn(Tessitura.Utils, 'getAttributes').and.returnValue({title: '', status: 'New', priority: 'Low'});
+        });
+
+        it('doesn\'t refresh #taskEditFormView #modelView #view #travis', function() {
+          spyOn(e, 'preventDefault');
+          view.updateTask(e);
+          expect(e.preventDefault).toHaveBeenCalled();
+        });
+
+        it('doesn\'t save the task #taskEditFormView #modelView #view #travis', function() {
+          spyOn(task1, 'save');
+          view.updateTask(e);
+          expect(task1.save).not.toHaveBeenCalled();
+        });
+
+        it('adds the .has-error class to the title input #taskEditFormView #modelView #view #travis', function() {
+          view.updateTask(e);
+          expect(view.$('input[name=title]').closest('tr')).toHaveClass('has-error');
+        });
+      });
     });
   });
 

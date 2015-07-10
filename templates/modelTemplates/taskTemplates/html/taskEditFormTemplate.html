@@ -1,1 +1,40 @@
-<input type='text' name='title' value='<%= model.get('title') || 'N/A' %>'>
+<h3 class='form-title'>Edit Task</h3>
+  <table>
+    <tr class='form-group'>
+      <td><label for='title'>Title: </label></td>
+      <td><input class='form-control' type='text' name='title' title='Title' value='<%= model.get('title') %>' placeholder='Title (required)'></td>
+    </tr>
+    <tr class='form-group'>
+      <td><label for='deadline'>Deadline: </label></td>
+      <td><input class='form-control' type='date' name='deadline' title='Deadline' value='<%= model.get('deadline') %>' placeholder='Deadline'></td>
+    </tr>
+    <tr class='form-group'>
+      <td><label for='status'>Status: </label></td>
+      <td>
+        <select class='form-control half-width left' name='status' title='Status' value='<%= model.get('status') %>' placeholder='Status'>
+          <option>New</option>
+          <option>In Progress</option>
+          <option>Blocking</option>
+          <option>Complete</option>
+        </select>
+      </td>
+    </tr>
+    <tr class='form-group'>
+      <td><label for='priority'>Priority: </label></td>
+      <td>
+        <select class='form-control half-width right' name='priority' title='Priority' value='<%= model.get('priority') %>' placeholder='Priority'>
+          <option>Urgent</option>
+          <option>High</option>
+          <option>Normal</option>
+          <option>Low</option>
+          <option>Not Important</option>
+        </select>
+      </td>
+    </tr>
+    <tr class='form-group'>
+      <td><label for='description'>Notes: </label></td>
+      <td><textarea class='form-control' name='description' title='Notes' value='<%= model.get('description') %>' placeholder='Notes'></textarea></td>
+    </tr>
+  </table>
+  <button type='submit' title='Update Task' class='btn btn-dark btn-lg btn-block'>Update Task</button>
+</div>

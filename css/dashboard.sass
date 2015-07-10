@@ -4,6 +4,23 @@
   height          : 100%
   padding         : 1.313em
 
+  #shade
+    display         : none
+    position        : fixed
+    z-index         : 2
+    background-color: rgba(0,0,0,0.4)
+    top             : 0
+    bottom          : 0
+    left            : 0 
+    right           : 0
+    margin          : auto
+
+  #shade, #task-edit-form
+    user-select        : none
+    -moz-user-select   : none
+    -webkit-user-select: none
+    -ms-user-select    : none
+
   & .btn
     background-color: #000
 
@@ -181,3 +198,4 @@ li.quick-add-form
 @import "./partials/_kanban"
 @import "./partials/_calendar"
 @import "./partials/_user-profile-view"
+@import "./partials/_task-edit-form"

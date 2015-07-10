@@ -102,6 +102,17 @@ describe('Task Panel View', function() {
         expect(Tessitura.TaskPanelView.prototype.crossOff).toHaveBeenCalled();
       });
     });
+
+    describe('showEditForm on child view', function() {
+      it('calls showEditForm() #taskPanelView #partialView #view #travis', function() {
+        spyOn(Tessitura.TaskPanelView.prototype, 'showEditForm');
+        newView = new Tessitura.TaskPanelView({collection: collection});
+        newView.render();
+        var child = newView.retrieveViewForModel(task1);
+        child.showEditForm();
+        expect(Tessitura.TaskPanelView.prototype.showEditForm.calls.argsFor(0)).toContain(task1);
+      });
+    });
   });
 
   describe('event callbacks', function() {
@@ -148,7 +159,6 @@ describe('Task Panel View', function() {
         });
       });
 
-
       context('when the task is incomplete', function() {
           beforeEach(function() {
             taskPanel.render();
@@ -183,6 +193,15 @@ describe('Task Panel View', function() {
             expect(spy).not.toHaveBeenCalled();
           }, 750);
         });
+      });
+    });
+
+    describe('showEditForm()', function() {
+      it('triggers the showEditForm event #taskPanelView #partialView #view #travis', function() {
+        spy = jasmine.createSpy();
+        taskPanel.on('showEditForm', spy);
+        taskPanel.showEditForm(task1);
+        expect(spy).toHaveBeenCalledWith(task1);
       });
     });
 

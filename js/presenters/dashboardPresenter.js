@@ -47,7 +47,6 @@ Tessitura.DashboardPresenter = Tessitura.Model.extend({
     this.showDash();
 
     var theViewNeedsToChange = this.current !== this.dashboardTaskView;
-
     this.current = this.dashboardTaskView;
 
     this.clearViews();
@@ -60,8 +59,23 @@ Tessitura.DashboardPresenter = Tessitura.Model.extend({
     }
   },
 
+  hideShade    : function() {
+    if(this.editForm) { this.editForm.remove(); }
+    this.dashboardView.$('#shade').hide();
+  },
+
   emitRedirect : function(opts) {
     this.trigger('redirect', opts);
+  },
+
+  showTaskEditForm: function(task) {
+    this.editForm = this.editForm || new Tessitura.TaskEditFormView();
+    this.editForm.setModel(task).render();
+    this.dashboardView.$('#shade').show();
+    this.dashboardView.$('#shade').html(this.editForm.$el);
+    this.editForm.$('input').first().focus().select();
+
+    this.listenTo(this.editForm, 'hideShade', this.hideShade);
   },
 
   /* Special Functions
@@ -145,9 +159,12 @@ Tessitura.DashboardPresenter = Tessitura.Model.extend({
     
     if(!!opts.user) { this.setUser(opts.user) }
 
-    _.bindAll(this, 'showDash', 'getHome', 'getTask', 'setUser', 'emitRedirect', 'removeAll');
+    _.bindAll(this, 'showDash', 'getHome', 'getTask', 'getProfile', 'setUser', 'emitRedirect', 'removeAll');
   
     this.listenTo(this.dashboardView, 'redirect', this.emitRedirect);
+    this.listenTo(this.dashboardView, 'hideShade', this.hideShade);
+    this.listenTo(this.dashboardTaskView, 'showEditForm', this.showTaskEditForm);
+    this.listenTo(this.dashboardHomeView, 'showEditForm', this.showTaskEditForm);
   }
 });
 
