@@ -98,7 +98,7 @@ describe('Task Edit Form View', function() {
         e = $.Event('submit', {target: view.$el});
         xhr = new XMLHttpRequest();
         xhr.open('PUT', Tessitura.API.tasks.single(1));
-        spyOn($, 'ajax');
+        spyOn($, 'ajax').and.callFake(function(args) { args.success(); });
       });
 
       context('valid attributes', function() {
@@ -121,6 +121,14 @@ describe('Task Edit Form View', function() {
           spyOn(task1, 'save');
           view.updateTask(e);
           expect(task1.save).toHaveBeenCalled();
+        });
+
+        it('triggers the hideShade event #taskEditFormView #modelView #view #travis', function(done) {
+          spy = jasmine.createSpy();
+          view.on('hideShade', spy);
+          view.updateTask(e);
+          expect(spy).toHaveBeenCalled();
+          done();
         });
       });
 
