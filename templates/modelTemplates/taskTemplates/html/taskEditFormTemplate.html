@@ -2,19 +2,19 @@
   <table>
     <tr class='form-group'>
       <td><label for='title'>Title: </label></td>
-      <td><input class='form-control' type='text' name='title' title='Title' value='<%= model.get('title') %>' placeholder='Title (required)'></td>
+      <td><input class='form-control' type='text' name='title' title='Title' value='<%- model.get('title') %>' placeholder='Title (required)'></td>
     </tr>
     <tr class='form-group'>
       <td><label for='deadline'>Deadline: </label></td>
-      <td><input class='form-control' type='date' name='deadline' title='Deadline' value='<%= model.get('deadline') %>' placeholder='Deadline'></td>
+      <td><input class='form-control' type='date' name='deadline' title='Deadline' value='<%- model.get('deadline') %>' placeholder='Deadline'></td>
     </tr>
     <tr class='form-group'>
       <td><label for='status'>Status: </label></td>
       <td>
         <select class='form-control half-width left' name='status' title='Status'>
-          <option<%= model.get('status') === 'New' ? ' selected' : ''%>>New</option>
-          <option<%= model.get('status') === 'In Progress' ? ' selected' : ''%>>In Progress</option>
-          <option<%= model.get('status') === 'Blocking' ? ' selected' : ''%>>Blocking</option>
+          <option<%- model.get('status') === 'New' ? ' selected' : ''%>>New</option>
+          <option<%- model.get('status') === 'In Progress' ? ' selected' : ''%>>In Progress</option>
+          <option<%- model.get('status') === 'Blocking' ? ' selected' : ''%>>Blocking</option>
           <option>Complete</option>
         </select>
       </td>
@@ -23,17 +23,17 @@
       <td><label for='priority'>Priority: </label></td>
       <td>
         <select class='form-control half-width right' name='priority' title='Priority'>
-          <option<%= model.get('priority') === 'Urgent' ? ' selected' : ''%>>Urgent</option>
-          <option<%= model.get('priority') === 'High' ? ' selected' : ''%>>High</option>
-          <option<%= model.get('priority') === 'Normal' ? ' selected' : ''%>>Normal</option>
-          <option<%= model.get('priority') === 'Low' ? ' selected' : ''%>>Low</option>
-          <option<%= model.get('priority') === 'Not Important' ? ' selected' : ''%>>Not Important</option>
+          <option<%- model.get('priority') === 'Urgent' ? ' selected' : ''%>>Urgent</option>
+          <option<%- model.get('priority') === 'High' ? ' selected' : ''%>>High</option>
+          <option<%- model.get('priority') === 'Normal' ? ' selected' : ''%>>Normal</option>
+          <option<%- model.get('priority') === 'Low' ? ' selected' : ''%>>Low</option>
+          <option<%- model.get('priority') === 'Not Important' ? ' selected' : ''%>>Not Important</option>
         </select>
       </td>
     </tr>
     <tr class='form-group'>
       <td><label for='description'>Notes: </label></td>
-      <td><textarea class='form-control' name='description' title='Notes' value='<%= model.get('description') %>' placeholder='Notes'></textarea></td>
+      <td><textarea class='form-control' name='description' title='Notes' value='<%- model.get('description') %>' placeholder='Notes'></textarea></td>
     </tr>
   </table>
   <button type='submit' title='Update Task' class='btn btn-dark btn-lg btn-block'>Update Task</button>
