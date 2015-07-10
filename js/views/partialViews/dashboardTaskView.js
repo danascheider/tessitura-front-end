@@ -147,4 +147,4 @@ Tessitura.DashboardTaskView = Tessitura.View.extend({
   }
 });
 
-module.exports = Tessitura.DashboardTaskView
+module.exports = Tessitura.DashboardTaskView;

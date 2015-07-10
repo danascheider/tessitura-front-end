@@ -16,9 +16,19 @@ Tessitura.TaskCreateFormView = Tessitura.View.extend({
       this.$('input[name=title]').closest('.form-group').addClass('has-error');
       return;
     } else {
-      that.collection.create(attributes, {
-        success: function() {
+
+      // It is necessary to do it this way instead of using
+      // `this.collection.create` because the latter triggers the `add` event
+      // on the collection before the task is assigned an ID, which causes it
+      // to be added to the view in `'li#task-undefined'`, which is obviously
+      // wrong and aesthetically offensive.
+
+      var task = new Tessitura.TaskModel();
+
+      task.save(attributes, {
+        success: function(task) {
           that.trigger('hideShade');
+          that.collection.add(task);
         }
       });
     }
