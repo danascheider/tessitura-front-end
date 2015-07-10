@@ -31,6 +31,8 @@ Tessitura.DashboardView = Tessitura.View.extend({
 
   hideShade          : function(e) {
     var theUserClickedOnTheForm = e.type === 'dblclick' && $('form').has(e.target).length;
+
+    /* istanbul ignore else */
     if (!theUserClickedOnTheForm) { this.trigger('hideShade'); }
   },
 

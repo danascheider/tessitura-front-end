@@ -47,7 +47,8 @@ Tessitura.RegistrationFormView = Tessitura.View.extend({
   },
 
   removeError : function() {
-    if(this.$('fieldset.terms').hasClass('has-error')) { this.$('fieldset.terms').removeClass('has-error'); }
+    /* istanbul ignore next */
+    if(this.$('fieldset.terms').hasClass('has-error')) { /* istanbul ignore next */ this.$('fieldset.terms').removeClass('has-error'); }
   },
 
   toggleCheckbox: function() {

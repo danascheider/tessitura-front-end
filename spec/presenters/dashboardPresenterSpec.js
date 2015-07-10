@@ -312,6 +312,13 @@ describe('Dashboard Presenter', function() {
         presenter.hideShade();
         expect(presenter.dashboardView.$('#shade')).not.toBeInDom();
       });
+
+      it('doesn\'t call remove on a nonexistent edit form #presenter #travis', function() {
+        newPresenter = new Tessitura.DashboardPresenter({user: user});
+        spyOn(Tessitura.TaskEditFormView.prototype, 'remove');
+        newPresenter.hideShade();
+        expect(Tessitura.TaskEditFormView.prototype.remove).not.toHaveBeenCalled();
+      });
     });
 
     describe('removeAll()', function() {
