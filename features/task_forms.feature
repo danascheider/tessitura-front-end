@@ -1,5 +1,5 @@
 @javascript
-Feature: Task Edit Form
+Feature: Task Forms
 
   Background:
     Given I am on my dashboard
