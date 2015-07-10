@@ -154,20 +154,38 @@ describe('Dashboard Task View', function() {
 
     describe('changeStatus()', function() {
       beforeEach(function() {
-        task1.set({status: 'Blocking'}, {silent: true});
-        spyOn(task1, 'get').and.callThrough();
         view.render();
-        view.changeStatus(task1);
+        spyOn(task1, 'get').and.callThrough();
       });
 
       it('checks the task status #dashboardTaskView #partialView #view #travis', function() {
+        view.changeStatus(task1);
         expect(task1.get).toHaveBeenCalledWith('status');
       });
 
+      context('when the new status is not \'Complete\'', function() {
+        beforeEach(function() {
+          task1.set({status: 'Blocking'}, {silent: true});
+          view.changeStatus(task1);
+        });
 
-      it('adds the task to the new view\'s collection #dashboardTaskView #partialView #view #travis', function() {
-        pending('Raises a call stack size error, not sure why');
-        expect(view.blockingColumnView.collection.models.indexOf(task1)).not.toEqual(-1);
+
+        it('adds the task to the new view\'s collection #dashboardTaskView #partialView #view #travis', function() {
+          pending('Raises a call stack size error, not sure why');
+          expect(view.blockingColumnView.collection.models.indexOf(task1)).not.toEqual(-1);
+        });
+      });
+
+      context('when the new status is \'Complete\'', function() {
+        beforeEach(function() {
+          spyOn(Tessitura.TaskCollection.prototype, 'add');
+          task1.set({status: 'Complete'}, {silent: true});
+          view.changeStatus(task1);
+        });
+
+        it('doesn\'t add the task to any collection #dashboardTaskView #partialView #view #travis', function() {
+          expect(Tessitura.TaskCollection.prototype.add).not.toHaveBeenCalled();
+        });
       });
     });
 

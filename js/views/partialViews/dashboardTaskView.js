@@ -29,6 +29,8 @@ Tessitura.DashboardTaskView = Tessitura.View.extend({
     var that = this;
     if(task.get('status') !== 'Complete') {
       var newView =  this.findNewView(task);
+
+      /* istanbul ignore else */
       if (newView.collection) { 
         newView.collection.add([task]); 
       }
