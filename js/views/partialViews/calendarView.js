@@ -8,13 +8,6 @@ Tessitura.CalendarView = Tessitura.DashWidgetView.extend({
   template    : JST['calendar'],
   id          : 'calendar',
 
-  /* Tessitura View Methods
-  /**************************************************************************************/
-
-  types       : function() {
-    return Tessitura.DashWidgetView.prototype.types().concat(['CalendarView', 'PartialView']);
-  },
-
   /* Special functions
   /**************************************************************************************/
 
