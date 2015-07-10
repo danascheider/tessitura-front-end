@@ -3,9 +3,9 @@ Tessitura.DashboardHomeView = Tessitura.View.extend({
   /* Backbone View Properties
   /****************************************************************************/
 
-  template         : JST['partials/dashHome'],
-  id               : 'page-wrapper',
-  className        : 'dashboard-home',
+  template            : JST['partials/dashHome'],
+  id                  : 'page-wrapper',
+  className           : 'dashboard-home',
 
   /* Event Callbacks
   /****************************************************************************/

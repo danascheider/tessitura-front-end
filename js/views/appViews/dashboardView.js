@@ -6,8 +6,7 @@ Tessitura.DashboardView = Tessitura.View.extend({
     'click'                            : 'hideDropdownMenus',
     'dblclick'                         : 'hideSidebar',
     'click .internal-link'             : 'followLink',
-    'click .task-list-item .fa-pencil' : 'showEditForm',
-    'dblclick #shade'                  : 'hideShade',
+    'dblclick #shade'                  : 'hideShade'
   },
   
   /* Event Callbacks

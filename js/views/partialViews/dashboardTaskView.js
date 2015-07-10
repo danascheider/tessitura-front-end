@@ -3,8 +3,9 @@ Tessitura.DashboardTaskView = Tessitura.View.extend({
   /* Backbone View Properties
   /**************************************************************************************/
 
-  template    : JST['partials/dashTasks'],
-  id          : 'page-wrapper',
+  template          : JST['partials/dashTasks'],
+  id                : 'page-wrapper',
+  className         : 'dashboard-tasks',
 
   /* Event Callbacks
   /**************************************************************************************/
