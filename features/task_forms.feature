@@ -25,13 +25,21 @@ Feature: Task Forms
 
   Scenario: Fill out the edit form
     When I click on the 'Edit' icon inside the '#task-1' element
-    When I fill out the '#task-edit-form' with valid attributes
-    When I submit the '#task-edit-form'
+    And I fill out the '#task-edit-form' with valid attributes
+    And I submit the '#task-edit-form'
     Then the form should be hidden
 
   Scenario: Try to delete the task's title
-    And I click on the 'Edit' icon inside the '#task-1' element
-    When I fill out the '#task-edit-form' with no title
-    When I submit the '#task-edit-form'
+    When I click on the 'Edit' icon inside the '#task-1' element
+    And I fill out the '#task-edit-form' with no title
+    And I submit the '#task-edit-form'
     Then the form should not be hidden
     And the 'Title' row of the '#task-edit-form' should have class 'has-error'
+
+  Scenario: Create a task with valid attributes
+    When I click on the 'Expand' icon inside the '.quick-add-form' element
+    And I fill out the '#task-create-form' with valid attributes
+    And I submit the '#task-create-form'
+    Then the form should be hidden
+    And my task panel should show 3 tasks
+    And my 'tasks' widget should say I have 5 incomplete tasks

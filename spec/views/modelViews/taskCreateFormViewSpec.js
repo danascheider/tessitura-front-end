@@ -70,6 +70,106 @@ describe('TaskCreateFormView', function() {
     });
   });
 
+  describe('events', function() {
+    describe('submit', function() {
+      beforeEach(function() {
+        spyOn(Tessitura.TaskCreateFormView.prototype, 'createTask');
+        newView = new Tessitura.TaskCreateFormView({collection: collection});
+        newView.render();
+      });
+
+      it('calls createTask() #taskCreateFormView #modelView #view #travis', function() {
+        newView.render();
+        newView.$el.submit();
+        expect(Tessitura.TaskCreateFormView.prototype.createTask).toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('event callbacks', function() {
+    describe('createTask()', function() {
+      beforeEach(function() {
+        view.render();
+        e = $.Event('submit', {target: view.$el});
+        xhr = new XMLHttpRequest();
+        xhr.open('PUT', Tessitura.API.tasks.collection(1));
+        spyOn($, 'ajax').and.callFake(function(args) { args.success(); });
+      });
+
+      context('valid attributes', function() {
+        beforeEach(function() {
+          spyOn(Tessitura.Utils, 'getAttributes').and.returnValue({
+            title: 'Another Task',
+            status: 'New',
+            priority: 'Normal'
+          });
+        });
+
+        it('doesn\'t refresh  #taskCreateFormView #modelView #view #travis', function() {
+          spyOn(e, 'preventDefault');
+          view.createTask(e);
+          expect(e.preventDefault).toHaveBeenCalled();
+        });
+
+        it('takes the attributes from the form #taskCreateFormView #modelView #view #travis', function() {
+          view.createTask(e);
+          expect(Tessitura.Utils.getAttributes).toHaveBeenCalled();
+        });
+
+        it('creates a task #taskCreateFormView #modelView #view #travis', function() {
+          spyOn(Tessitura.TaskModel.prototype, 'initialize');
+          view.createTask(e);
+          expect(Tessitura.TaskModel.prototype.initialize).toHaveBeenCalled();
+        });
+
+        it('adds the task to the collection #taskCreateFormView #modelView #view #travis', function(done) {
+          var spy = jasmine.createSpy();
+          view.listenTo(view.collection, 'add', spy);
+          view.createTask(e);
+          expect(spy).toHaveBeenCalled();
+          view.stopListening(view.collection, 'add');
+          done();
+        });
+
+        it('triggers the hideShade event #taskCreateFormView #modelView #view #travis', function(done) {
+          var spy = jasmine.createSpy();
+          view.on('hideShade', spy);
+          view.createTask(e);
+          expect(spy).toHaveBeenCalled();
+          view.off('hideShade');
+          done();
+        });
+      });
+
+      context('missing title', function() {
+        beforeEach(function() {
+          spyOn(Tessitura.Utils, 'getAttributes').and.returnValue({
+            title: '',
+            status: 'New',
+            priority: 'Normal'
+          });
+        });
+
+        it('doesn\'t refresh #taskCreateFormView #modelView #view #travis', function() {
+          spyOn(e, 'preventDefault');
+          view.createTask(e);
+          expect(e.preventDefault).toHaveBeenCalled();
+        });
+
+        it('doesn\'t create a task #taskCreateFormView #modelView #view #travis', function() {
+          spyOn(Tessitura.TaskModel.prototype, 'initialize');
+          view.createTask(e);
+          expect(Tessitura.TaskModel.prototype.initialize).not.toHaveBeenCalled();
+        });
+
+        it('adds the .has-error class to the title input #taskEditFormView #modelView #view #travis', function() {
+          view.createTask(e);
+          expect(view.$('input[name=title]').closest('tr')).toHaveClass('has-error');
+        });
+      });
+    });
+  });
+
   describe('setCollection', function() {
     it('sets the collection #taskCreateFormView #modelView #view #travis', function() {
       view.setCollection(collection);
