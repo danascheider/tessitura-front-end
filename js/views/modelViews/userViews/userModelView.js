@@ -42,7 +42,7 @@ Tessitura.UserModelView = Tessitura.View.extend({
   // header to the request and, if the request is successful, hides the input.
 
   submitUpdate : function(e) {
-    var data = {};
+    var data = {}, that = this;
     data[$(e.target).attr('name')] = $(e.target)[0].value;
     
     this.model.save(data, {
@@ -52,7 +52,13 @@ Tessitura.UserModelView = Tessitura.View.extend({
       error  : /* istanbul ignore next */ function(model, response) {
         /* istanbul ignore next */ console.log(response);
       },
-      success: function() {
+      success: function(model) {
+        if(data['username']) {
+          var token = btoa(model.get('username') + ':' + model.get('password'));
+          $.removeCookie('auth');
+          $.cookie('auth', token, {expires: 365});
+        }
+
         $(e.target).closest('span.input').hide();
       },
     });

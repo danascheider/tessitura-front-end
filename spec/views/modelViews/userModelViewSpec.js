@@ -18,12 +18,6 @@ describe('User Model View', function() {
     _.extend(global, fixtures);
   });
 
-  beforeEach(function() {
-    spyOn($, 'cookie').and.callFake(function(name) {
-      return name === 'userID' ? 1 : btoa('testuser:testuser');
-    });
-  });
-
   afterEach(function() {
     restoreFixtures();
   }); 
@@ -222,6 +216,22 @@ describe('User Model View', function() {
           spyOn($, 'ajax').and.callFake(function(args) { args.success(); });
           view.submitUpdate(e);
           expect(view.$('#city span.p').html()).toContain('El Paso');
+        });
+      });
+
+      context('changing username', function() {
+        beforeEach(function() {
+          spyOn($, 'attr').and.returnValue('username');
+          view.displayInput($.Event({target: view.$('#username span.p')}));
+          target = [{value: 'newusername51'}];
+          e = $.Event('keydown', {keyCode: 13, target: target});
+        });
+
+        it('resets the cookie #userModelView #modelView #view #travis', function(done) {
+          spyOn($, 'ajax').and.callFake(function(args) { args.success(user); });
+          view.submitUpdate(e);
+          expect($.cookie('auth')).toEqual(btoa('newusername51:testuser'));
+          done();
         });
       });
     });

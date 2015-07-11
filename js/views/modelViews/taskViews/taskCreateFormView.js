@@ -8,8 +8,6 @@ Tessitura.TaskCreateFormView = Tessitura.View.extend({
   },
 
   createTask    : function(e) {
-    console.log('createTask called');
-    
     e.preventDefault();
 
     var attributes = Tessitura.Utils.getAttributes(this.$el), that = this;
