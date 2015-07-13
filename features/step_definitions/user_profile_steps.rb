@@ -8,7 +8,7 @@ end
 
 When(/^I fill in the input '(.*)' with '(.*)' and press tab$/) do |field, value|
   step "I double-click on the '##{field}' element"
-  within "##{field} > span.input" do 
+  within "##{field} > span.form" do 
     fill_in field, with: value
     find("input").native.send_key(:Tab)
   end
@@ -37,7 +37,7 @@ end
 
 Then(/^an input should appear in the (.*) field$/) do |element|
   within "tr[data-attribute=#{element}] .profile-field" do 
-    @input = find('span.input > input')
+    @input = find('span.form input')
     expect(@input).to be_truthy
   end
 end
@@ -75,7 +75,7 @@ end
 
 Then(/^the '(.*)' input should be visible$/) do |name|
   within '#profile-info' do 
-    expect(find("##{name} .input")).to be_visible
+    expect(find("##{name} .form")).to be_visible
   end
 end
 
