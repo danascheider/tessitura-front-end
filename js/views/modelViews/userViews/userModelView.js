@@ -6,25 +6,26 @@ Tessitura.UserModelView = Tessitura.View.extend({
   className    : 'user-model',
   template     : JST['users/model'],
   events       : {
-    'dblclick span.p' : 'displayInput',
-    'keydown input'   : 'triageKeypress'
+    'dblclick span.p' : 'displayForm',
+    'keydown input'   : 'triageKeypress',
+    'submit form'     : 'submitUpdate'
   },
 
   /* Event Callbacks
   /**************************************************************************************/
 
-  // The displayInput function can be used as an event callback or as a normal function. 
+  // The displayForm function can be used as an event callback or as a normal function. 
   // When used as an event callback, it takes an event object as its argument and deduces
   // the input to display based on the `target` property of the `jQuery.Event` object.
   // Otherwise, its argument is presumed to be a jQuery object of the '.profile-field'
   // span containing the input to be displayed.
 
-  displayInput : function(arg) {
+  displayForm : function(arg) {
     var span = arg.target ? ($(arg.target).attr('class') && $(arg.target).attr('class').match(/profile-field/) ? $(arg.target) : $(arg.target).closest('.profile-field')) : $(arg);
 
     // Hide the text of the user's profile information and show the input
     span.find('.p').hide();
-    span.find('.input').show();
+    span.find('.form').show();
 
     // If the input being shown is the first- or last-name input, resize it to match
     // the length of the user's current name. This prevents excessive resizing of the
@@ -34,7 +35,7 @@ Tessitura.UserModelView = Tessitura.View.extend({
 
     // Focus on the input that has just been displayed and select the text inside
 
-    span.find('input').focus().select();
+    span.find('form > input').focus().select();
   },
 
   // The `submitUpdate` function updates the user's profile with whatever the
@@ -42,24 +43,37 @@ Tessitura.UserModelView = Tessitura.View.extend({
   // header to the request and, if the request is successful, hides the input.
 
   submitUpdate : function(e) {
+    e.preventDefault();
+
     var data = {}, that = this;
-    data[$(e.target).attr('name')] = $(e.target)[0].value;
-    
+    var data = Tessitura.Utils.getAttributes($(e.target));
+
     this.model.save(data, {
       beforeSend:  /* istanbul ignore next */ function(xhr) {
         /* istanbul ignore next */ xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
       },
-      error  : /* istanbul ignore next */ function(model, response) {
-        /* istanbul ignore next */ console.log(response);
+      error  : /* istanbul ignore next */ function(model, response, options) {
+        /* istanbul ignore next */ console.log('Model: ', model);
+        /* istanbul ignore next */ console.log('Response: ', response);
+        /* istanbul ignore next */ console.log('Options: ', options);
       },
       success: function(model) {
-        if(data['username']) {
-          var token = btoa(model.get('username') + ':' + model.get('password'));
-          $.removeCookie('auth');
-          $.cookie('auth', token, {expires: 365});
+        if(data['username'] || data['password']) {
+          var cookies = $.cookie();
+
+          var oldAuthCookie = $.cookie('auth');
+
+          for(var cookie in cookies) {
+            $.removeCookie(cookie);
+          }
+
+          var password = data.password || atob(oldAuthCookie).split(':')[1];
+
+          $.cookie('auth', btoa(model.get('username') + ':' + password));
+          $.cookie('userID', model.get('id'));
         }
 
-        $(e.target).closest('span.input').hide();
+        $(e.target).closest('span.form').hide();
       },
     });
   },
@@ -69,13 +83,15 @@ Tessitura.UserModelView = Tessitura.View.extend({
     var theKeyWasTab   = e.keyCode === 9;
     var theKeyWasEsc   = e.keyCode === 27;
     var attr           = $(e.target).attr('name');
-    var currentValue   = $(e.target)[0].value;
+    var currentValue   = encodeURIComponent($(e.target)[0].value);
 
     if(theKeyWasEnter) { 
+      e.preventDefault();
+
       this.hideInputs(); 
 
-      if(currentValue !== this.model.get(attr) && currentValue !== '') {
-        this.submitUpdate(e);
+      if(this.model.get(attr) !== currentValue && currentValue !== '') {
+        $(e.target).closest('form').submit();
       }
     }
 
@@ -88,11 +104,11 @@ Tessitura.UserModelView = Tessitura.View.extend({
       var nextField = $(e.target).closest('.profile-field').attr('id') === 'first_name' ? /* istanbul ignore next */ this.$('#last_name') : $(e.target).closest('tr').next().find('td > span.profile-field');
 
       if(this.model.get(attr) !== currentValue && currentValue !== '') {
-        this.submitUpdate(e);
+        $(e.target).closest('form').submit();
       }
 
       this.hideInputs();
-      this.displayInput(nextField);
+      this.displayForm(nextField);
     }
 
     if(theKeyWasEsc) {
@@ -115,7 +131,7 @@ Tessitura.UserModelView = Tessitura.View.extend({
   /**************************************************************************************/
 
   hideInputs   : function() {
-    this.$('span.input').hide();
+    this.$('span.form').hide();
     this.$('span.p').show();
   },
 

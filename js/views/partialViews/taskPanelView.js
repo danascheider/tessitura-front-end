@@ -40,7 +40,6 @@ Tessitura.TaskPanelView = Tessitura.DashWidgetView.extend({
   },
 
   showTaskCreateForm   : function() {
-    console.log('showTaskCreateForm triggered on the task panel');
     this.trigger('showTaskCreateForm', this.collection);
   },
 
