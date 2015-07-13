@@ -11,10 +11,10 @@
     <tr class='form-group'>
       <td><label for='status'>Status: </label></td>
       <td>
-        <select class='form-control half-width left' name='status' title='Status' value='<%= model.get('status') %>' placeholder='Status'>
-          <option>New</option>
-          <option>In Progress</option>
-          <option>Blocking</option>
+        <select class='form-control half-width left' name='status' title='Status'>
+          <option<%= model.get('status') === 'New' ? ' selected' : ''%>>New</option>
+          <option<%= model.get('status') === 'In Progress' ? ' selected' : ''%>>In Progress</option>
+          <option<%= model.get('status') === 'Blocking' ? ' selected' : ''%>>Blocking</option>
           <option>Complete</option>
         </select>
       </td>
@@ -22,12 +22,12 @@
     <tr class='form-group'>
       <td><label for='priority'>Priority: </label></td>
       <td>
-        <select class='form-control half-width right' name='priority' title='Priority' value='<%= model.get('priority') %>' placeholder='Priority'>
-          <option>Urgent</option>
-          <option>High</option>
-          <option>Normal</option>
-          <option>Low</option>
-          <option>Not Important</option>
+        <select class='form-control half-width right' name='priority' title='Priority'>
+          <option<%= model.get('priority') === 'Urgent' ? ' selected' : ''%>>Urgent</option>
+          <option<%= model.get('priority') === 'High' ? ' selected' : ''%>>High</option>
+          <option<%= model.get('priority') === 'Normal' ? ' selected' : ''%>>Normal</option>
+          <option<%= model.get('priority') === 'Low' ? ' selected' : ''%>>Low</option>
+          <option<%= model.get('priority') === 'Not Important' ? ' selected' : ''%>>Not Important</option>
         </select>
       </td>
     </tr>

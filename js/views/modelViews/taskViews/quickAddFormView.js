@@ -54,7 +54,7 @@ Tessitura.QuickAddFormView = Tessitura.View.extend({
   // will know to show the shade element and the task form.
 
   showTaskCreateForm: function() {
-    this.trigger('showTaskCreateForm');
+    this.trigger('showTaskCreateForm', this.collection);
   },
 
   /* Core View Functions

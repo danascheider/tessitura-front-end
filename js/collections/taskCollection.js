@@ -17,7 +17,9 @@ var TaskCollection = Tessitura.ProtectedCollection.extend({
   /**************************************************************************************/
 
   passThroughAdd : function(task) {
-    if (this.models.indexOf(task) === -1) { this.add(task); }
+    if (this.models.indexOf(task) === -1) { 
+      this.add(task); 
+    }
   },
 
   /* Special Functions 

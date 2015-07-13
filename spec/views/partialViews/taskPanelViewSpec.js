@@ -103,6 +103,16 @@ describe('Task Panel View', function() {
       });
     });
 
+    describe('showTaskCreateForm on quickAddForm', function() {
+      it('calls showTaskCreateForm() #taskPanelView #partialView #view #travis', function() {
+        spyOn(Tessitura.TaskPanelView.prototype, 'showTaskCreateForm');
+        newView = new Tessitura.TaskPanelView({collection: collection});
+        newView.render();
+        newView.quickAddForm.showTaskCreateForm();
+        expect(Tessitura.TaskPanelView.prototype.showTaskCreateForm).toHaveBeenCalledWith(collection);
+      });
+    });
+
     describe('showEditForm on child view', function() {
       it('calls showEditForm() #taskPanelView #partialView #view #travis', function() {
         spyOn(Tessitura.TaskPanelView.prototype, 'showEditForm');

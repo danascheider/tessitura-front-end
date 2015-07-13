@@ -127,6 +127,16 @@ describe('Kanban Column View', function() {
   /*******************************************88*****************************************/
 
   describe('events', function() {
+    describe('showCreateForm on quick-add form', function() {
+      it('calls showTaskCreateForm() #kanbanColumnView #partialView #view #travis', function() {
+        spyOn(Tessitura.KanbanColumnView.prototype, 'showTaskCreateForm');
+        newView = new Tessitura.KanbanColumnView(data);
+        newView.render();
+        newView.quickAddForm.showTaskCreateForm(collection);
+        expect(Tessitura.KanbanColumnView.prototype.showTaskCreateForm).toHaveBeenCalledWith(collection);
+      });
+    });
+
     describe('showEditForm on child view', function() {
       it('calls showEditForm() #kanbanColumnView #partialView #view #travis', function() {
         spyOn(Tessitura.KanbanColumnView.prototype, 'showEditForm');
@@ -271,6 +281,16 @@ describe('Kanban Column View', function() {
           view.removeTask(task2);
           expect(collection.remove).toHaveBeenCalledWith(task2);
         });
+      });
+    });
+
+    describe('showTaskCreateForm()', function() {
+      it('triggers the showTaskCreateForm event #kanbanColumnView #partialView #view #travis', function() {
+        spy = jasmine.createSpy();
+        view.on('showTaskCreateForm', spy);
+        view.showTaskCreateForm(collection);
+        expect(spy).toHaveBeenCalledWith(view.collection);
+        view.off('showTaskCreateForm');
       });
     });
 

@@ -252,7 +252,7 @@ describe('Registration Form View', function() {
 
       it('removes the .has-error class #registrationFormView #partialView #view #travis', function() {
         form.removeError();
-        expect(form.$('.has-error')).not.toExist();
+        expect(form.$('fieldset.terms')).not.toHaveClass('has-error');
       });
     });
 
