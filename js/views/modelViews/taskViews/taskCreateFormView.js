@@ -40,7 +40,9 @@ Tessitura.TaskCreateFormView = Tessitura.View.extend({
   },
   
   render        : function() {
-    return Tessitura.View.prototype.render.call(this, this.template());
+    var that = this;
+
+    return Tessitura.View.prototype.render.call(this, this.template({status: that.status}));
   }
 });
 

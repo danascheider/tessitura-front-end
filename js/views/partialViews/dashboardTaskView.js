@@ -10,8 +10,8 @@ Tessitura.DashboardTaskView = Tessitura.View.extend({
   /* Event Callbacks
   /**************************************************************************************/
 
-  showTaskCreateForm: function(collection) {
-    this.trigger('showTaskCreateForm', collection);
+  showTaskCreateForm: function(collection, opts) {
+    this.trigger('showTaskCreateForm', collection, opts);
   },
 
   showEditForm      : function(task) {
