@@ -7,27 +7,21 @@ require(process.cwd() + '/spec/support/env.js');
 var matchers = require('jasmine-jquery-matchers'),
     fixtures = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     context  = describe,
-    fcontext = fdescribe;
+    ccontext = ddescribe;
 
 /* istanbul ignore next */
 describe('Dashboard Profile View', function() {
   var view, newView;
 
-  beforeAll(function() {
-    jasmine.addMatchers(matchers);
-    _.extend(global, fixtures);
-  });
-
   beforeEach(function() {
+    this.addMatchers(matchers);
+    _.extend(global, fixtures);
     view = new Tessitura.DashboardProfileView({model: user});
   });
 
   afterEach(function() {
     restoreFixtures();
-  });
-
-  afterAll(function() {
-    view = null;
+    view.destroy();
     _.omit(global, fixtures);
   });
 

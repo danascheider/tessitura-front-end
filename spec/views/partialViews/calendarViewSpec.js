@@ -11,7 +11,7 @@ var moment         = require('moment'),
     matchers       = _.extend(require('jasmine-jquery-matchers'), require(process.cwd() + '/spec/support/matchers/toBeA.js')),
     fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     context        = describe,
-    fcontext       = fdescribe;
+    ccontext       = ddescribe;
 
 /* Calendar View Spec
 /****************************************************************************/
@@ -23,22 +23,15 @@ describe('dashboard calendar view', function() {
   /* Filters
   /**************************************************************************/
 
-  beforeAll(function() {
-    jasmine.addMatchers(matchers);
-    _.extend(global, fixtures);
-  })
-
   beforeEach(function() {
+    this.addMatchers(matchers);
+    _.extend(global, fixtures);
     view = new Tessitura.CalendarView();
   });
 
   afterEach(function() {
     restoreFixtures();
-  });
-
-  afterAll(function() {
-    view.remove();
-    view = null;
+    view.destroy();
     global = _.omit(global, fixtures);
   });
 
@@ -125,7 +118,7 @@ describe('dashboard calendar view', function() {
         beforeEach(function() {
           days = ['Monday', 'Tuesday', 'Wednesday'];
           today = new Date('Tue May 26 2015 11:00:00 GMT-0700 (PDT)');
-          jasmine.clock().mockDate(today);
+          this.Clock().mockDate(today);
         });
 
         it('displays the specified days #calendarView #partialView #view #travis', function() {
@@ -137,7 +130,7 @@ describe('dashboard calendar view', function() {
         beforeEach(function() {
           days = ['Saturday', 'Sunday', 'Monday'];
           today = new Date('Sun May 31 2015 11:00:00 GMT-0700 (PDT)');
-          jasmine.clock().mockDate(today);
+          this.Clock().mockDate(today);
         });
 
         it('wraps to the end of the last week #calendarView #partialView #view #travis', function() {

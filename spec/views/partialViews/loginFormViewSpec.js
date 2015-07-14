@@ -10,7 +10,7 @@ require(process.cwd() + '/spec/support/env.js');
 var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
     matchers       = require('jasmine-jquery-matchers'),
     context        = describe,
-    fcontext       = fdescribe;
+    ccontext       = ddescribe;
 
 /* Login Form View Spec
 /****************************************************************************/
@@ -22,21 +22,14 @@ describe('Login Form View', function() {
   /* Filters
   /**************************************************************************/
 
-  beforeAll(function() {
-    jasmine.addMatchers(matchers);
-  });
-
   beforeEach(function() {
+    this.addMatchers(matchers);
     view = new Tessitura.LoginFormView();
   });
 
   afterEach(function() {
     view.destroy();
     newView && newView.destroy();
-  });
-
-  afterAll(function() {
-    view = null;
   });
 
   /* View Constructor
@@ -127,7 +120,7 @@ describe('Login Form View', function() {
 
   describe('event callbacks', function() {
     describe('loginHelp()', function() {
-      it('does not log "Haha, you\'re boned!" to the console #loginFormView #partialView #view #travis', function() {
+      xit('does not log "Haha, you\'re boned!" to the console #loginFormView #partialView #view #travis', function() {
         pending('Fuller implementation');
       });
     });
@@ -143,11 +136,11 @@ describe('Login Form View', function() {
       describe('general', function() {
         beforeEach(function() { 
           spyOn($, 'ajax'); 
-          spyOn(Tessitura.Utils, 'getAttributes').and.returnValue({username: 'testuser', password: 'testuser', remember: 'Remember Me'});
+          spyOn(Tessitura.Utils, 'getAttributes').andReturn({username: 'testuser', password: 'testuser', remember: 'Remember Me'});
         });
 
         it('doesn\'t refresh the page #loginFormView #partialView #view #travis', function() {
-          spyOn(e, 'preventDefault').and.callThrough();
+          spyOn(e, 'preventDefault').andCallThrough();
           view.loginUser(e);
           expect(e.preventDefault).toHaveBeenCalled();
         });
@@ -172,14 +165,14 @@ describe('Login Form View', function() {
           view.on('userLoggedIn', spy);
         });
 
-        afterAll(function() {
+        afterEach(function() {
           view.off('userLoggedIn');
         });
 
         context('successful login', function() {
           beforeEach(function() {
             user = new Tessitura.UserModel({id: 1, username: 'testuser', password: 'testuser'});
-            spyOn($, 'ajax').and.callFake(function(args) {
+            spyOn($, 'ajax').andCallFake(function(args) {
               args.success(user);
             });
           });
@@ -188,7 +181,7 @@ describe('Login Form View', function() {
 
           context('with remember me true', function() {
             beforeEach(function() {
-              spyOn(Tessitura.Utils, 'getAttributes').and.returnValue({username: 'testuser', password: 'testuser', remember: 'Remember Me'});
+              spyOn(Tessitura.Utils, 'getAttributes').andReturn({username: 'testuser', password: 'testuser', remember: 'Remember Me'});
               view.loginUser(e);
             });
 
@@ -213,7 +206,7 @@ describe('Login Form View', function() {
 
           context('with remember me false', function() {
             beforeEach(function() {
-              spyOn(Tessitura.Utils, 'getAttributes').and.returnValue({username: 'testuser', password: 'testuser', remember: null});
+              spyOn(Tessitura.Utils, 'getAttributes').andReturn({username: 'testuser', password: 'testuser', remember: null});
               view.loginUser(e);
             });
 
@@ -238,7 +231,7 @@ describe('Login Form View', function() {
 
         context('unsuccessful login', function() {
           beforeEach(function() {
-            spyOn($, 'ajax').and.callFake(function(args) { args.error(); });
+            spyOn($, 'ajax').andCallFake(function(args) { args.error(); });
           });
 
           it('doesn\'t set cookies #loginFormView #partialView #view #travis', function() {

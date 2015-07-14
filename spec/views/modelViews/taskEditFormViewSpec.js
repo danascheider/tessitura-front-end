@@ -8,26 +8,20 @@ var matchers       = require('jasmine-jquery-matchers'),
     fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
     context        = describe,
-    fcontext       = fdescribe;
+    ccontext       = ddescribe;
 
 /* istanbul ignore next */
 describe('Task Edit Form View', function() {
   var view, newView, e, xhr;
 
-  beforeAll(function() {
-    jasmine.addMatchers(matchers);
-    _.extend(global, fixtures);
-  });
-
   beforeEach(function() {
+    this.addMatchers(matchers);
+    _.extend(global, fixtures);
     view = new Tessitura.TaskEditFormView({model: task1});
   });
 
   afterEach(function() {
     restoreFixtures();
-  });
-
-  afterAll(function() {
     view.destroy();
     _.omit(global, fixtures);
   });
@@ -80,8 +74,8 @@ describe('Task Edit Form View', function() {
 
   describe('events', function() {
     describe('submit form', function() {
-      it('calls updateTask() #taskEditFormView #modelView #view #travis', function() {
-        pending('FUFNR');
+      xit('calls updateTask() #taskEditFormView #modelView #view #travis', function() {
+        // FUFNR
         spyOn(Tessitura.TaskEditFormView.prototype, 'updateTask');
         newView = new Tessitura.TaskEditFormView({model: task1});
         newView.render();
@@ -98,12 +92,12 @@ describe('Task Edit Form View', function() {
         e = $.Event('submit', {target: view.$el});
         xhr = new XMLHttpRequest();
         xhr.open('PUT', Tessitura.API.tasks.single(1));
-        spyOn($, 'ajax').and.callFake(function(args) { args.success(); });
+        spyOn($, 'ajax').andCallFake(function(args) { args.success(); });
       });
 
       context('valid attributes', function() {
         beforeEach(function() {
-          spyOn(Tessitura.Utils, 'getAttributes').and.returnValue({title: 'Change the task title', status: 'New', priority: 'Low'});
+          spyOn(Tessitura.Utils, 'getAttributes').andReturn({title: 'Change the task title', status: 'New', priority: 'Low'});
         });
 
         it('doesn\'t refresh #taskEditFormView #modelView #view #travis', function() {
@@ -134,7 +128,7 @@ describe('Task Edit Form View', function() {
 
       context('missing title', function() {
         beforeEach(function() {
-          spyOn(Tessitura.Utils, 'getAttributes').and.returnValue({title: '', status: 'New', priority: 'Low'});
+          spyOn(Tessitura.Utils, 'getAttributes').andReturn({title: '', status: 'New', priority: 'Low'});
         });
 
         it('doesn\'t refresh #taskEditFormView #modelView #view #travis', function() {

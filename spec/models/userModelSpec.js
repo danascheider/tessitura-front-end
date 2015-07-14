@@ -8,7 +8,7 @@ var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
 
 /* istanbul ignore next */
 var context        = describe,
-    fcontext       = fdescribe;
+    ccontext       = ddescribe;
 
 /* istanbul ignore next */
 describe('User Model', function() {
@@ -21,10 +21,6 @@ describe('User Model', function() {
 
   afterEach(function() {
     user.destroy();
-  });
-
-  afterAll(function() {
-    user = null;
   });
 
   describe('properties', function() {
@@ -58,22 +54,22 @@ describe('User Model', function() {
 
       it('sets the auth header from the stored cookie #model #travis', function() {
         xhr.open('GET', user.url());
-        spyOn($, 'cookie').and.returnValue(btoa(user.get('username') + ':' + user.get('password')));
+        spyOn($, 'cookie').andReturn(btoa(user.get('username') + ':' + user.get('password')));
         user.fetch();
-        $.ajax.calls.argsFor(0)[0].beforeSend(xhr);
+        $.ajax.calls[0].args[0].beforeSend(xhr);
         expect(xhr.getRequestHeader('Authorization')).toEqual('Basic ' + btoa(user.get('username') + ':' + user.get('password')));
       });
 
       it('sends the request to the requested user\'s endpoint #model #travis', function() {
         user.fetch();
-        expect($.ajax.calls.argsFor(0)[0].url).toEqual(user.url());
+        expect($.ajax.calls[0].args[0].url).toEqual(user.url());
       });
     });
   });
 
   describe('special functions', function() {
     beforeEach(function() {
-      spyOn($, 'cookie').and.returnValue(btoa('danascheider:danascheider'));
+      spyOn($, 'cookie').andReturn(btoa('danascheider:danascheider'));
       spyOn($, 'ajax');
     });
 
@@ -100,7 +96,7 @@ describe('User Model', function() {
 
       it('sends a POST request #model #travis', function() {
         newUser.login();
-        expect($.ajax.calls.argsFor(0)[0].type).toEqual('POST');
+        expect($.ajax.calls[0].args[0].type).toEqual('POST');
       });
 
       it('calls `fetch` #model #travis', function() {
@@ -112,18 +108,18 @@ describe('User Model', function() {
       it('calls `fetch` with itself #model #travis', function() {
         spyOn(Tessitura.Model.prototype.fetch, 'call');
         newUser.login();
-        expect(Tessitura.Model.prototype.fetch.call.calls.argsFor(0)[0]).toEqual(newUser);
+        expect(Tessitura.Model.prototype.fetch.call.calls[0].args[0]).toEqual(newUser);
       });
 
       it('sends the request to the login endpoint #model #travis', function() {
         newUser.login();
-        expect($.ajax.calls.argsFor(0)[0].url).toEqual(Tessitura.API.login);
+        expect($.ajax.calls[0].args[0].url).toEqual(Tessitura.API.login);
       });
 
       it('attaches the auth header #model #travis', function() {
         xhr.open('POST', Tessitura.API.login)
         newUser.login();
-        $.ajax.calls.argsFor(0)[0].beforeSend(xhr);
+        $.ajax.calls[0].args[0].beforeSend(xhr);
         expect(xhr.getRequestHeader('Authorization')).toEqual('Basic ' + btoa('testuser:testuser'));
       });
     });

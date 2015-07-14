@@ -10,7 +10,7 @@ require(process.cwd() + '/spec/support/env.js');
 var matchers       = require('jasmine-jquery-matchers'),
     fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     context        = describe,
-    fcontext       = fdescribe;
+    ccontext       = ddescribe;
 
 /* Dashboard Home View Spec
 /******************************************************************************/
@@ -22,22 +22,17 @@ describe('Dashboard Home View', function() {
   /* Filters
   /****************************************************************************/
 
-  beforeAll(function() {
-    jasmine.addMatchers(matchers);
-    _.extend(global, fixtures);
-  });
-
   beforeEach(function() {
-    spyOn(Tessitura.TaskModel.prototype, 'displayTitle').and.returnValue('foobar');
+    this.addMatchers(matchers);
+    _.extend(global, fixtures);
+    spyOn(Tessitura.TaskModel.prototype, 'displayTitle').andReturn('foobar');
   });
 
   afterEach(function() {
     restoreFixtures();
-  });
-
-  afterAll(function() {
     view && view.destroy();
     _.omit(global, fixtures);
+
   });
 
   /* Constructor
@@ -58,7 +53,7 @@ describe('Dashboard Home View', function() {
 
     it('can be instantiated without a user #dashboardHomeView #partialView #view #travis', function() {
       view = new Tessitura.DashboardHomeView();
-      expect(view.user).not.toExist();
+      expect(typeof view.user).toBe('undefined');
     });
   });
 
@@ -66,7 +61,7 @@ describe('Dashboard Home View', function() {
   /****************************************************************************/
 
   describe('DOM elements', function() {
-    beforeAll(function() {
+    beforeEach(function() {
       if(view) {
         view = view.setUser(user);
       } else {
@@ -75,6 +70,10 @@ describe('Dashboard Home View', function() {
 
       view.render();
       $('body').html(view.$el);
+    });
+
+    afterEach(function() {
+      view.remove();
     });
 
     it('has a task panel #dashboardHomeView #partialView #view #travis', function() {
@@ -103,8 +102,8 @@ describe('Dashboard Home View', function() {
 
   describe('event wiring', function() {
     describe('showTaskCreateForm on task panel element', function() {
-      it('calls showTaskCreateForm() #dashboardHomeView #partialView #view #travis', function() {
-        pending('FUFNR');
+      xit('calls showTaskCreateForm() #dashboardHomeView #partialView #view #travis', function() {
+        // FUFNR
         spyOn(Tessitura.DashboardHomeView.prototype, 'showTaskCreateForm');
         view = new Tessitura.DashboardHomeView({user: user});
         view.render();
@@ -128,7 +127,7 @@ describe('Dashboard Home View', function() {
   /****************************************************************************/
 
   describe('event callbacks', function() {
-    beforeAll(function() {
+    beforeEach(function() {
       view = view || new Tessitura.DashboardHomeView({user: user});
     });
 
@@ -155,13 +154,15 @@ describe('Dashboard Home View', function() {
   /****************************************************************************/
 
   describe('core view functions', function() {
-    beforeAll(function() {
+    beforeEach(function() {
       if(view) {
         view.setUser(user);
       } else {
         view = new Tessitura.DashboardHomeView({user: user});
       }
     });
+
+    afterEach(function() { view.remove(); });
 
     describe('render()', function() {
       beforeEach(function() {
@@ -207,7 +208,7 @@ describe('Dashboard Home View', function() {
   /****************************************************************************/
 
   describe('special functions', function() {
-    beforeAll(function() {
+    beforeEach(function() {
       if(view) {
         view.setUser(user);
       } else {
@@ -216,6 +217,8 @@ describe('Dashboard Home View', function() {
 
       $('body').html(view.render().$el);
     });
+
+    afterEach(function() { view.remove(); });
 
     describe('renderCalendarView()', function() {
       it('calls render on the calendar view #dashboardHomeView #partialView #view #travis', function() {

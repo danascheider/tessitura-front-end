@@ -7,7 +7,7 @@ require(process.cwd() + '/spec/support/env.js');
 var matchers       = require('jasmine-jquery-matchers'),
     fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     context        = describe,
-    fcontext       = fdescribe;
+    ccontext       = ddescribe;
 
 /* Main Dashboard View Spec
 /****************************************************************************/
@@ -19,22 +19,15 @@ describe('Main Dashboard View', function() {
   /* Filters                 
   /**************************************************************************/
 
-  beforeAll(function() {
-    jasmine.addMatchers(matchers);
-    _.extend(global, fixtures);
-  });
-
   beforeEach(function() {
+    this.addMatchers(matchers);
+    _.extend(global, fixtures);
     dashboard = new Tessitura.DashboardView({model: user});
   });
 
   afterEach(function() {
     restoreFixtures();
     dashboard && dashboard.destroy();
-  });
-
-  afterAll(function() {
-    dashboard = null;
     _.omit(global, fixtures);
   });
 
@@ -48,7 +41,7 @@ describe('Main Dashboard View', function() {
       spyOn(Tessitura.DashboardView.prototype, 'setUser');
       newView = new Tessitura.DashboardView({model: user});
       expect(Tessitura.DashboardView.prototype.setUser).toHaveBeenCalled();
-      expect(Tessitura.DashboardView.prototype.setUser.calls.argsFor(0)[0]).toEqual(user);
+      expect(Tessitura.DashboardView.prototype.setUser.calls[0].args[0]).toEqual(user);
     });
 
     it('instantiates a nav view #dashboardView #appView #view #travis', function() {
@@ -67,7 +60,7 @@ describe('Main Dashboard View', function() {
 
     it('can be instantiated without a user #dashboardView #appView #view #travis', function() {
       newView = new Tessitura.DashboardView();
-      expect(newView.user).not.toExist();
+      expect(typeof newView.user).toBe('undefined');
     });
   });
 
@@ -116,8 +109,8 @@ describe('Main Dashboard View', function() {
     });
 
     describe('click top nav link', function() {
-      it('calls followLink() #dashboardView #appView #view #travis', function() {
-        pending('FUFNR');
+      xit('calls followLink() #dashboardView #appView #view #travis', function() {
+        // FUFNR
         newView.$('a.internal-link[data-target="profile"]').first().click();
         expect(Tessitura.DashboardView.prototype.followLink).toHaveBeenCalled();
       });
@@ -140,8 +133,8 @@ describe('Main Dashboard View', function() {
     });
 
     describe('submit form', function() {
-      it('calls hideShade() #dashboardView #appView #view #travis', function() {
-        pending('FUFNR');
+      xit('calls hideShade() #dashboardView #appView #view #travis', function() {
+        // FUFNR
         var form = new Tessitura.TaskEditFormView({model: task1});
         newView.$el.append(form);
         expect(Tessitura.DashboardView.prototype.hideShade).toHaveBeenCalled();
@@ -171,7 +164,7 @@ describe('Main Dashboard View', function() {
     describe('followLink()', function() {
       beforeEach(function() {
         spyOn(dashboard, 'emitRedirect');
-        spyOn($.prototype, 'attr').and.returnValue('profile');
+        spyOn($.prototype, 'attr').andReturn('profile');
         dashboard.followLink($.Event('click', {target: dashboard.$('.internal-link').first()}));
       });
 
@@ -200,8 +193,8 @@ describe('Main Dashboard View', function() {
       });
 
       context('when the clicked-on object is inside the menu', function() {
-        it('doesn\'t hide the menu #dashboardView #appView #view #travis', function() {
-          pending('Decide if this is actually how I want this to work');
+        xit('doesn\'t hide the menu #dashboardView #appView #view #travis', function() {
+          // pending('Decide if this is actually how I want this to work');
           dashboard.$('li.dropdown').first().addClass('open');
           e = $.Event('click', {target: dashboard.$('li.dropdown').first().find('ul.dropdown-menu')});
           dashboard.hideDropdownMenus(e);
@@ -234,8 +227,8 @@ describe('Main Dashboard View', function() {
           $('body').html(dashboard.render().$el);
         });
 
-        it('calls slideUp #dashboardView #appView #view #travis', function() {
-          pending('FUFNR');
+        xit('calls slideUp #dashboardView #appView #view #travis', function() {
+          // FUFNR
           spyOn($.prototype, 'slideUp');
           dashboard.hideSidebar();
           expect($.prototype.slideUp).toHaveBeenCalled();
@@ -264,8 +257,8 @@ describe('Main Dashboard View', function() {
         expect(dashboard.navView.render).toHaveBeenCalled();
       });
 
-      it('inserts the nav view into its el #dashboardView #appView #view #travis', function() {
-        pending('FUFNR');
+      xit('inserts the nav view into its el #dashboardView #appView #view #travis', function() {
+        // FUFNR
         dashboard.render();
         $('body').html(dashboard.$el);
         expect(dashboard.navView.$el).toBeInDom();
@@ -275,7 +268,7 @@ describe('Main Dashboard View', function() {
 
     describe('remove', function() {
       beforeEach(function() {
-        spyOn(Tessitura.View.prototype, 'remove').and.callThrough();
+        spyOn(Tessitura.View.prototype, 'remove').andCallThrough();
         dashboard.remove();
       });
 

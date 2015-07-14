@@ -6,7 +6,7 @@ require(process.cwd() + '/spec/support/env.js');
 /* istanbul ignore next */
 var matchers       = require('jasmine-jquery-matchers'),
     context        = describe,
-    fcontext       = fdescribe;
+    ccontext       = ddescribe;
 
 /* Dashboard Sidebar View Spec
 /****************************************************************************************/
@@ -15,13 +15,15 @@ var matchers       = require('jasmine-jquery-matchers'),
 describe('Dashboard Sidebar View', function() {
   var sidebar, newSidebar, e, link;
 
-  beforeAll(function()  { jasmine.addMatchers(matchers); });
-  beforeEach(function() { sidebar = new Tessitura.DashboardSidebarView(); });
+  beforeEach(function() { 
+    this.addMatchers(matchers);
+    sidebar = new Tessitura.DashboardSidebarView(); 
+  });
+
   afterEach(function()  { 
     sidebar.destroy(); 
     newSidebar && newSidebar.destroy();
   });
-  afterAll(function()   { sidebar = null; });
 
   describe('constructor', function() {
     it('doesn\'t call render #dashboardSidebarView #partialView #view #travis', function() {

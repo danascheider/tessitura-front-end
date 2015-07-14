@@ -6,7 +6,7 @@ require(process.cwd() + '/js/tessitura.js');
 
 /* istanbul ignore next */
 var context           = describe,
-    fcontext          = fdescribe;
+    ccontext          = ddescribe;
 
 /* istanbul ignore next */
 
@@ -15,7 +15,7 @@ describe('Task Model', function() {
 
   beforeEach(function() {
     task = new Tessitura.TaskModel({id: 1, title: 'My Task'});
-    var cookie = spyOn($, 'cookie').and.callFake(function(name) {
+    var cookie = spyOn($, 'cookie').andCallFake(function(name) {
       return name === 'userID' ? 1 : 'Basic ' + btoa('testuser:testuser');
     });
     
@@ -63,7 +63,7 @@ describe('Task Model', function() {
     describe('fetch', function() {
       it('sends the request to the task\'s individual endpoint #model #travis', function() {
         task.fetch();
-        expect($.ajax.calls.argsFor(0)[0].url).toEqual(task.url());
+        expect($.ajax.calls[0].args[0].url).toEqual(task.url());
       });
 
       it('calls fetch on the ProtectedResource prototype #model #travis', function() {
@@ -88,31 +88,31 @@ describe('Task Model', function() {
 
       context('when the task is new', function() {
         beforeEach(function() {
-          spyOn(task, 'isNew').and.returnValue(true);
+          spyOn(task, 'isNew').andReturn(true);
           task.save();
         });
 
         it('sends the request to the collection endpoint #model #travis', function() {
-          expect($.ajax.calls.argsFor(0)[0].url).toEqual(task.urlRoot());
+          expect($.ajax.calls[0].args[0].url).toEqual(task.urlRoot());
         });
 
         it('sends a POST request #model #travis', function() {
-          expect($.ajax.calls.argsFor(0)[0].type).toEqual('POST');
+          expect($.ajax.calls[0].args[0].type).toEqual('POST');
         });
       });
 
       context('when the task is not new', function() {
         beforeEach(function() { 
-          spyOn(task, 'isNew').and.returnValue(false); 
+          spyOn(task, 'isNew').andReturn(false); 
           task.save();
         });
 
         it('sends the request to the individual endpoint #model #travis', function() {
-          expect($.ajax.calls.argsFor(0)[0].url).toEqual(task.url());
+          expect($.ajax.calls[0].args[0].url).toEqual(task.url());
         });
 
         it('sends a PUT request #model #travis', function() {
-          expect($.ajax.calls.argsFor(0)[0].type).toEqual('PUT');
+          expect($.ajax.calls[0].args[0].type).toEqual('PUT');
         });
       });
     });

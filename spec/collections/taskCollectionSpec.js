@@ -7,27 +7,21 @@ require(process.cwd() + '/spec/support/env.js');
 var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
     fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     context        = describe,
-    fcontext       = fdescribe;
+    ccontext       = ddescribe;
 
 /* istanbul ignore next */
 
 describe('Task Collection', function() {
-  beforeAll(function() {
-    _.extend(global, fixtures);
-  });
-
   beforeEach(function() {
+    _.extend(global, fixtures);
     taskCollection = new Tessitura.TaskCollection(collection.models);
-    spyOn($, 'cookie').and.callFake(function(name) {
+    spyOn($, 'cookie').andCallFake(function(name) {
       return name === 'userID' ? 1 : btoa('testuser:testuser');
     });
   });
 
   afterEach(function() {
     restoreFixtures();
-  });
-
-  afterAll(function() {
     _.omit(global, fixtures);
   });
 
@@ -101,7 +95,7 @@ describe('Task Collection', function() {
       context('normal', function() {
         it('sends the request to the collection URL #collection #travis', function() {
           taskCollection.fetch();
-          expect(Tessitura.ProtectedCollection.prototype.fetch.calls.argsFor(0)[0].url).toEqual(taskCollection.url());
+          expect(Tessitura.ProtectedCollection.prototype.fetch.calls[0].args[0].url).toEqual(taskCollection.url());
         });
 
         it('calls fetch on the collection prototype', function() {
@@ -113,7 +107,7 @@ describe('Task Collection', function() {
       context('with option `all` set to `true`', function() {
         it('sends the request to the `all` route #collection #travis', function() {
           taskCollection.fetch({all: true});
-          expect(Tessitura.ProtectedCollection.prototype.fetch.calls.argsFor(0)[0].url).toEqual(taskCollection.url() + '/all');
+          expect(Tessitura.ProtectedCollection.prototype.fetch.calls[0].args[0].url).toEqual(taskCollection.url() + '/all');
         });
       });
     });

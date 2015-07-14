@@ -10,7 +10,7 @@ require(process.cwd() + '/spec/support/env.js');
 var matchers       = _.extend(require('jasmine-jquery-matchers')),
     fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     context        = describe,
-    fcontext       = fdescribe;
+    ccontext       = ddescribe;
 
 /* Kanban Column View Spec
 /****************************************************************************/
@@ -22,23 +22,17 @@ describe('Kanban Column View', function() {
   /* Filters
   /**************************************************************************/
 
-  beforeAll(function() {
-    jasmine.addMatchers(matchers);
-    _.extend(global, fixtures);
-  });
-
   beforeEach(function() {
+    this.addMatchers(matchers);
+    _.extend(global, fixtures);
     data = {collection: collection, color: 'blue', icon: 'fa-exclamation-circle', headline: 'New', groupedBy: {status: 'New'}};
-    spyOn(Tessitura.TaskModel.prototype, 'displayTitle').and.returnValue('foobar');
+    spyOn(Tessitura.TaskModel.prototype, 'displayTitle').andReturn('foobar');
   });
 
   afterEach(function() {
     restoreFixtures();
-    newView && newView.destroy(); 
-  });
-
-  afterAll(function() {
     view && view.destroy();
+    newView && newView.destroy(); 
     _.omit(global, fixtures);
   });
 
@@ -74,7 +68,7 @@ describe('Kanban Column View', function() {
     it('can be instantiated without a collection #kanbanColumnView #partialView #view #travis', function() {
       delete data.collection;
       newView = new Tessitura.KanbanColumnView(data)
-      expect(newView.collection).not.toExist();
+      expect(typeof newView.collection).toBe('undefined');
       data.collection = user.tasks;
     });
 
@@ -93,10 +87,12 @@ describe('Kanban Column View', function() {
   /**************************************************************************/
 
   describe('view elements', function() {
-    beforeAll(function() {
+    beforeEach(function() {
       view = view || new Tessitura.KanbanColumnView(data);
       view.render();
     });
+
+    afterEach(function() { view.remove(); });
 
     it('is a div #kanbanColumnView #partialView #view #travis', function() {
       expect(view.$el).toHaveTag('div');
@@ -127,7 +123,7 @@ describe('Kanban Column View', function() {
   /*******************************************88*****************************************/
 
   describe('events', function() {
-    describe('showCreateForm on quick-add form', function() {
+    describe('showTaskCreateForm on quick-add form', function() {
       it('calls showTaskCreateForm() #kanbanColumnView #partialView #view #travis', function() {
         spyOn(Tessitura.KanbanColumnView.prototype, 'showTaskCreateForm');
         newView = new Tessitura.KanbanColumnView(data);
@@ -190,7 +186,7 @@ describe('Kanban Column View', function() {
   /**************************************************************************************/
 
   describe('event callbacks', function() {
-    beforeAll(function() {
+    beforeEach(function() {
       view = view || new Tessitura.KanbanColumnView(data);
     });
 
@@ -198,6 +194,8 @@ describe('Kanban Column View', function() {
       beforeEach(function() {
         view.render();
       });
+
+      afterEach(function() { view.remove(); });
 
       context('when the task is complete', function() {
         beforeEach(function() {
@@ -210,8 +208,8 @@ describe('Kanban Column View', function() {
           expect(view.retrieveViewForModel).toHaveBeenCalledWith(task1);
         });
 
-        it('removes the task from the collection #viewView #partialView #view #travis', function(done) {
-          pending('Breaking Travis builds but passing locally');
+        xit('removes the task from the collection #viewView #partialView #view #travis', function(done) {
+          // 'Breaking Travis builds but passing locally'
           var spy = jasmine.createSpy();
           view.collection.on('remove', spy);
           view.crossOff(task1);
@@ -289,7 +287,7 @@ describe('Kanban Column View', function() {
         spy = jasmine.createSpy();
         view.on('showTaskCreateForm', spy);
         view.showTaskCreateForm(collection);
-        expect(spy).toHaveBeenCalledWith(view.collection);
+        expect(spy).toHaveBeenCalledWith(view.collection, view.groupedBy);
         view.off('showTaskCreateForm');
       });
     });
@@ -311,6 +309,7 @@ describe('Kanban Column View', function() {
   describe('special functions', function() {
     describe('renderModels', function() {
       beforeEach(function() {
+        view = new Tessitura.KanbanColumnView(data);
         view.groupedBy = {status: 'New'};
       });
 
@@ -323,11 +322,11 @@ describe('Kanban Column View', function() {
       it('skips the backlogged tasks #kanbanColumnView #partialView #view #travis', function() {
         view.renderModels();
         var task4View = _.findWhere(view.childViews, {model: task4});
-        expect(task4View).not.toExist();
+        expect(typeof task4View).toBe('undefined');
       });
 
-      it('doesn\'t skip the backlogged tasks when grouped by backlog #kanbanColumnView #partialView #view #travis', function() {
-        pending('FUFNR');
+      xit('doesn\'t skip the backlogged tasks when grouped by backlog #kanbanColumnView #partialView #view #travis', function() {
+        // FUFNR
         view.groupedBy = {blocking: true};
         view.renderModels();
         var task4View = _.findWhere(view.childViews, {model: task4});
@@ -340,6 +339,10 @@ describe('Kanban Column View', function() {
   /**************************************************************************/
 
   describe('remove()', function() {
+    beforeEach(function() {
+      view = new Tessitura.KanbanColumnView(data);
+    });
+
     it('removes the quick-add form #kanbanColumnView #partialView #view #travis', function() {
       spyOn(view.quickAddForm, 'remove');
       view.remove();

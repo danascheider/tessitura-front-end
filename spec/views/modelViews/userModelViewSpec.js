@@ -7,26 +7,24 @@ require(process.cwd() + '/spec/support/env.js');
 var matchers  = require('jasmine-jquery-matchers'),
     fixtures  = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     context   = describe,
-    fcontext  = fdescribe;
+    ccontext  = ddescribe;
 
 /* istanbul ignore next */
 describe('User Model View', function() {
   var view, newView, e, html, input;
 
-  beforeAll(function() {
-    jasmine.addMatchers(matchers);
+  beforeEach(function() {
+    this.addMatchers(matchers);
     _.extend(global, fixtures);
   });
 
   afterEach(function() {
     restoreFixtures();
-  }); 
-
-  afterAll(function() {
     view.destroy();
     newView && newView.destroy();
     _.omit(global, fixtures);
-  });
+
+  }); 
 
   describe('constructor', function() {
     beforeEach(function() {
@@ -44,7 +42,7 @@ describe('User Model View', function() {
   });
 
   describe('el', function() {
-    beforeAll(function() { 
+    beforeEach(function() { 
       view = new Tessitura.UserModelView({model: user});
       view.render(); 
       html = view.$el.html();
@@ -103,7 +101,7 @@ describe('User Model View', function() {
   });
 
   describe('view elements', function() {
-    beforeAll(function() { 
+    beforeEach(function() { 
       view = new Tessitura.UserModelView({model: user});
       view.render();
       $('body').html(view.$el);
@@ -127,7 +125,7 @@ describe('User Model View', function() {
 
   describe('special functions', function() {
     describe('hideInputs', function() {
-      beforeAll(function() {
+      beforeEach(function() {
         view = new Tessitura.UserModelView({model: user});
         view.render();
         view.displayForm($.Event('dblclick', {target: view.$('#username')}));
@@ -146,14 +144,15 @@ describe('User Model View', function() {
 
   describe('event callbacks', function() {
     describe('displayForm()', function() {
-      beforeAll(function() {
+      beforeEach(function() {
         view = new Tessitura.UserModelView({model: user});
         $('body').html(view.render().$el);
       });
 
-      afterEach(function() { view.hideInputs(); });
-
-      afterAll(function() { view.remove()});
+      afterEach(function() { 
+        view.hideInputs(); 
+        view.remove();
+      });
 
       it('displays an input #userModelView #modelView #view #travis', function() {
         e = $.Event({target: view.$('#username span.p')});
@@ -169,14 +168,14 @@ describe('User Model View', function() {
     });
 
     describe('resizeInputs()', function() {
-      beforeAll(function() { 
+      beforeEach(function() { 
         view = new Tessitura.UserModelView({model: user});
         view.render(); 
       });
 
       context('when the input is the first_name input', function() {
         it('sets the width #userModelView #modelView #view #travis', function() {
-          spyOn(global, 'parseInt').and.returnValue(11);
+          spyOn(global, 'parseInt').andReturn(11);
           var span = view.$('#first_name');
           view.displayForm('dblclick', {target: [{value: span}]});
           view.resizeInputs(span);
@@ -186,16 +185,16 @@ describe('User Model View', function() {
     });
 
     describe('submitUpdate()', function() {
-      beforeAll(function() { 
+      beforeEach(function() { 
         view = new Tessitura.UserModelView({model: user});
         view.render(); 
       });
 
       context('general', function() {
         beforeEach(function() {
-          spyOn($, 'attr').and.returnValue('city');
-          spyOn(Tessitura.Utils, 'getAttributes').and.returnValue({city: 'El Paso'});
-          spyOn($, 'ajax').and.callFake(function(args) { args.success(); });
+          spyOn($, 'attr').andReturn('city');
+          spyOn(Tessitura.Utils, 'getAttributes').andReturn({city: 'El Paso'});
+          spyOn($, 'ajax').andCallFake(function(args) { args.success(); });
           view.displayForm($.Event({target: view.$('#city span.p')}));
           target = [{value: 'El Paso'}];
           e = $.Event('keydown', {keyCode: 13, target: target});
@@ -204,7 +203,7 @@ describe('User Model View', function() {
         it('calls save on the user model #userModelView #modelView #view #travis', function() {
           spyOn(view.model, 'save');
           view.submitUpdate(e);
-          expect(view.model.save.calls.argsFor(0)).toContain({city: 'El Paso'});
+          expect(view.model.save.calls[0].args).toContain({city: 'El Paso'});
         });
 
         it('hides the input #userModelView #modelView #view #travis', function(done) {
@@ -222,17 +221,17 @@ describe('User Model View', function() {
 
       context('changing username', function() {
         beforeEach(function() {
-          spyOn($, 'attr').and.returnValue('username');
+          spyOn($, 'attr').andReturn('username');
           spyOn($, 'cookie');
-          spyOn(global, 'atob').and.returnValue('testuser:testuser');
-          spyOn(Tessitura.Utils, 'getAttributes').and.returnValue({username: 'newusername51'});
+          spyOn(global, 'atob').andReturn('testuser:testuser');
+          spyOn(Tessitura.Utils, 'getAttributes').andReturn({username: 'newusername51'});
           view.displayForm($.Event({target: view.$('#username span.p')}));
           target = [{value: 'newusername51'}];
           e = $.Event('keydown', {keyCode: 13, target: target});
         });
 
         it('resets the cookie #userModelView #modelView #view #travis', function() {
-          spyOn($, 'ajax').and.callFake(function(args) { args.success(); });
+          spyOn($, 'ajax').andCallFake(function(args) { args.success(); });
           view.submitUpdate(e);
           expect($.cookie).toHaveBeenCalledWith('auth', btoa('newusername51:testuser'));
         });
@@ -240,7 +239,7 @@ describe('User Model View', function() {
     });
 
     describe('triageKeypress()', function() {
-      beforeAll(function() {
+      beforeEach(function() {
         view = new Tessitura.UserModelView({model: user});
         view.render();
         $('body').html(view.render().$el);
@@ -255,7 +254,7 @@ describe('User Model View', function() {
 
         context('when the input is empty', function() {
           beforeEach(function() {
-            spyOn($.prototype, 'attr').and.returnValue('username');
+            spyOn($.prototype, 'attr').andReturn('username');
             var target = [{value: ''}];
             e = $.Event('keydown', {keyCode: 13, target: target});
           });
@@ -268,7 +267,7 @@ describe('User Model View', function() {
 
         context('when the content of the field hasn\'t changed', function() {
           beforeEach(function() {
-            spyOn($.prototype, 'attr').and.returnValue('username');
+            spyOn($.prototype, 'attr').andReturn('username');
             var target = [{value: 'testuser'}, {attributes: {name: 'username'}}];
             e = $.Event('keydown', {keyCode: 13, target: target});
           });
@@ -281,7 +280,7 @@ describe('User Model View', function() {
 
         context('when the content of the field has changed', function() {
           beforeEach(function() {
-            spyOn($.prototype, 'attr').and.returnValue('username');
+            spyOn($.prototype, 'attr').andReturn('username');
             spyOn($.prototype, 'submit');
             var target = [{value: 'usertest'}, {attributes: {name: 'username'}}];
             e = $.Event('keydown', {keyCode: 13, target: target});
@@ -303,7 +302,7 @@ describe('User Model View', function() {
 
         context('when the input is empty', function() {
           beforeEach(function() {
-            spyOn($.prototype, 'attr').and.returnValue('username');
+            spyOn($.prototype, 'attr').andReturn('username');
             var target = [{value: ''}];
             e = $.Event('keydown', {keyCode: 9, target: target});
             view.triageKeypress(e);
@@ -313,8 +312,8 @@ describe('User Model View', function() {
             expect(view.submitUpdate).not.toHaveBeenCalled();
           });
 
-          it('hides the input #userModelView #modelView #view #travis', function() {
-            pending('FUFNR');
+          xit('hides the input #userModelView #modelView #view #travis', function() {
+            // pending('FUFNR');
             expect(view.$('#username input')).not.toBeVisible();
           });
 
@@ -325,7 +324,7 @@ describe('User Model View', function() {
 
         context('when the first input is first_name #userModelView #modelView #view #travis', function() {
           beforeEach(function() {
-            spyOn($.prototype, 'attr').and.returnValue('first_name');
+            spyOn($.prototype, 'attr').andReturn('first_name');
             var target = [{value: ''}];
             e = $.Event('keydown', {keyCode: 9, target: target});
           });
@@ -369,7 +368,7 @@ describe('User Model View', function() {
     describe('updateDisplay()', function() {
       beforeEach(function() {
         view.render();
-        spyOn(view.model, 'get').and.returnValue(null);
+        spyOn(view.model, 'get').andReturn(null);
         spyOn($.prototype, 'html');
       });
 
@@ -381,7 +380,7 @@ describe('User Model View', function() {
   });
 
   describe('core view functions', function() {
-    beforeAll(function() {
+    beforeEach(function() {
       view = view || new Tessitura.UserModelView({model: user});
     });
 

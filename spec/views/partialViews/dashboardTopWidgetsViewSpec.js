@@ -7,7 +7,7 @@ require(process.cwd() + '/spec/support/env.js');
 var matchers       = _.extend(require('jasmine-jquery-matchers'), require(process.cwd() + '/spec/support/matchers/toBeA.js')),
     XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
     context        = describe,
-    fcontext       = fdescribe;
+    ccontext       = ddescribe;
 
 /* Dashboard Top Widget View Spec
 /****************************************************************************************/
@@ -17,11 +17,8 @@ var matchers       = _.extend(require('jasmine-jquery-matchers'), require(proces
 describe('Dashboard Top Widget View', function() {
   var view, newView, collection, data, e, newView;
 
-  beforeAll(function() {
-    jasmine.addMatchers(matchers);
-  });
-
   beforeEach(function() {
+    this.addMatchers(matchers);
     var task = new Tessitura.TaskModel({title: 'Hello World'});
     collection = new Tessitura.TaskCollection([task]);
     data = {
@@ -38,10 +35,6 @@ describe('Dashboard Top Widget View', function() {
     view.destroy();
     collection.destroy();
     newView && newView.destroy();
-  });
-
-  afterAll(function() {
-    view = null;
   });
 
   describe('constructor', function() {

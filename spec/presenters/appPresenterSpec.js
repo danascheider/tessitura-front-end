@@ -12,7 +12,7 @@ require(process.cwd() + '/js/tessitura.js');
 /* istanbul ignore next */
 var matchers       = require('jasmine-jquery-matchers'),
     context        = describe,
-    fcontext       = fdescribe;
+    ccontext       = ddescribe;
 
 /*****************************************************************************************
 /* APP PRESENTER SPEC                                                                    *
@@ -25,17 +25,13 @@ describe('App Presenter', function() {
   /* Filters
   /***************************************************************************************/
 
-  beforeAll(function() {
-    jasmine.addMatchers(matchers);
-  });
-
   beforeEach(function() { 
+    this.addMatchers(matchers);
     presenter = new Tessitura.AppPresenter(); 
   });
 
-  afterAll(function() { 
+  afterEach(function() { 
     presenter.destroy();
-    presenter = null; 
   });
 
   /* Tessitura Model Properties
@@ -120,7 +116,7 @@ describe('App Presenter', function() {
       });
 
       it('sets the HTML of the body element #presenter #travis', function() {
-        spyOn($.prototype, 'is').and.returnValue(false);
+        spyOn($.prototype, 'is').andReturn(false);
         presenter.homepageView.render();
         presenter.getHomepage();
         expect(presenter.homepageView.$el).toBeInDom();

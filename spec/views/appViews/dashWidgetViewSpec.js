@@ -9,7 +9,7 @@ require(process.cwd() + '/spec/support/env.js');
 /* istanbul ignore next */
 var matchers       = _.extend(require('jasmine-jquery-matchers'), require(process.cwd() + '/spec/support/matchers/toBeA.js')),
     context        = describe,
-    fcontext       = fdescribe;
+    ccontext       = ddescribe;
 
 /* Dash Widget View Spec
 /****************************************************************************/
@@ -21,16 +21,12 @@ describe('DashWidgetView', function() {
   /* Filters
   /**************************************************************************/
 
-  beforeAll(function() {
-    parseIntCopy = parseInt;
-    jasmine.addMatchers(matchers);
-  });
-
   beforeEach(function() {
+    this.addMatchers(matchers);
     view = new Tessitura.DashWidgetView();
   });
 
-  afterAll(function() {
+  afterEach(function() {
     view.destroy();
   });
 

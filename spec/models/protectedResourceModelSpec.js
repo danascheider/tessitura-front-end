@@ -8,7 +8,7 @@ require(process.cwd() + '/spec/support/env.js');
 
 var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
     context        = describe,
-    fcontext       = fdescribe;
+    ccontext       = ddescribe;
 
 /* istanbul ignore next */
 
@@ -25,12 +25,8 @@ describe('Protected Resource Model', function() {
     resource.destroy();
   });
 
-  afterAll(function() {
-    resource = null;
-  });
-
   it('returns its token #model #travis', function() {
-    spyOn($, 'cookie').and.returnValue(btoa('testuser:testuser'));
+    spyOn($, 'cookie').andReturn(btoa('testuser:testuser'));
     var string = 'Basic ' + btoa('testuser:testuser');
     expect(resource.token()).toEqual(string);
   });
@@ -42,7 +38,7 @@ describe('Protected Resource Model', function() {
   });
 
   describe('destroy() method', function() {
-    beforeEach(function() { spyOn(resource, 'token').and.returnValue('Basic ' + btoa('testuser:testuser')); });
+    beforeEach(function() { spyOn(resource, 'token').andReturn('Basic ' + btoa('testuser:testuser')); });
 
     it('attaches an authorization header #model #travis', function() {
 
@@ -59,7 +55,7 @@ describe('Protected Resource Model', function() {
       // on the XHR object passed to it to the value of "token", the 
       // resource's authorization token.
 
-      $.ajax.calls.argsFor(0)[0].beforeSend(xhr);
+      $.ajax.calls[0].args[0].beforeSend(xhr);
       expect(xhr.getRequestHeader('Authorization')).toEqual(resource.token());
     });
 
@@ -71,7 +67,7 @@ describe('Protected Resource Model', function() {
   });
 
   describe('fetch() method', function() {
-    beforeEach(function() { spyOn(resource, 'token').and.returnValue('Basic ' + btoa('testuser:testuser')); });
+    beforeEach(function() { spyOn(resource, 'token').andReturn('Basic ' + btoa('testuser:testuser')); });
 
     it('attaches an authorization header #model #travis', function() {
       xhr.open('GET', resource.url);
@@ -79,7 +75,7 @@ describe('Protected Resource Model', function() {
       spyOn($, 'ajax');
       resource.fetch();
 
-      $.ajax.calls.argsFor(0)[0].beforeSend(xhr);
+      $.ajax.calls[0].args[0].beforeSend(xhr);
       expect(xhr.getRequestHeader('Authorization')).toEqual(resource.token());
     });
 
@@ -105,7 +101,7 @@ describe('Protected Resource Model', function() {
   });
 
   describe('save() method', function() {
-    beforeEach(function() { spyOn(resource, 'token').and.returnValue('Basic ' + btoa('testuser:testuser')); });
+    beforeEach(function() { spyOn(resource, 'token').andReturn('Basic ' + btoa('testuser:testuser')); });
 
     it('attaches an authorization header #model #travis', function() {
       xhr.open('PUT', resource.url);
@@ -113,7 +109,7 @@ describe('Protected Resource Model', function() {
       spyOn($, 'ajax');
       resource.save();
 
-      $.ajax.calls.argsFor(0)[0].beforeSend(xhr);
+      $.ajax.calls[0].args[0].beforeSend(xhr);
       expect(xhr.getRequestHeader('Authorization')).toEqual(resource.token());
     });
 

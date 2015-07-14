@@ -10,7 +10,7 @@ require(process.cwd() + '/spec/support/env.js');
 var matchers       = require('jasmine-jquery-matchers'),
     fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     context        = describe,
-    fcontext       = fdescribe;
+    ccontext       = ddescribe;
 
 /* Dashboard Nav View Spec
 /******************************************************************************/
@@ -22,25 +22,19 @@ describe('Dashboard Nav View', function() {
   /* Filters
   /****************************************************************************/
 
-  beforeAll(function() {
-    jasmine.addMatchers(matchers);
-    _.extend(global, fixtures);
-  });
-
   beforeEach(function() {
+    this.addMatchers(matchers);
+    _.extend(global, fixtures);
     view = new Tessitura.DashboardNavView({model: fixtures.user});
   });
 
   afterEach(function() {
     restoreFixtures();
     newView && newView.destroy();
-  });
-
-  afterAll(function() {
-    view.destroy();
+    view && view.destroy();
     _.omit(global, fixtures);
   });
-
+  
   /* Constructor
   /**************************************************************************/
 

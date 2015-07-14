@@ -5,7 +5,7 @@ require(process.cwd() + '/spec/support/env.js');
 
 /* istanbul ignore next */
 var context        = describe,
-    fcontext       = fdescribe;
+    ccontext       = ddescribe;
 
 /* istanbul ignore next */
 describe('Tessitura.View', function() {
@@ -13,7 +13,6 @@ describe('Tessitura.View', function() {
 
   beforeEach(function() { view = new Tessitura.View(); });
   afterEach(function()  { view.destroy(); });
-  afterAll(function()   { view = null; });
 
   describe('types', function() {
     it('includes Backbone.View #appView #view #travis', function() {
@@ -87,8 +86,6 @@ describe('Tessitura.View', function() {
         }
       }); 
     });
-
-    afterAll(function() { ChildClass = null; });
 
     it('inherits its types #appView #view #travis', function() {
       var newView = new ChildClass();
