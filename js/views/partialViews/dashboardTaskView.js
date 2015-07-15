@@ -10,6 +10,15 @@ Tessitura.DashboardTaskView = Tessitura.View.extend({
   /* Event Callbacks
   /**************************************************************************************/
 
+  reassign          : function(taskID, attributes, newColumn) {
+    taskID            = parseInt(taskID);
+    var task          = this.collection.get(taskID);
+    var currentColumn = this.findNewView(task);
+
+    currentColumn.collection.remove(task);
+    newColumn.collection.add(task);
+  },
+
   showTaskCreateForm: function(collection, opts) {
     this.trigger('showTaskCreateForm', collection, opts);
   },
@@ -137,6 +146,7 @@ Tessitura.DashboardTaskView = Tessitura.View.extend({
           col.render();
           that.listenTo(col, 'showEditForm', that.showEditForm);
           that.listenTo(col, 'showTaskCreateForm', that.showTaskCreateForm);
+          that.listenTo(col, 'reassign', that.reassign);
         });
 
         that.listenTo(that.collection, 'change:status', that.changeStatus);

@@ -102,7 +102,7 @@ describe('Dashboard Task View', function() {
         expect(Tessitura.DashboardTaskView.prototype.changeStatus).toHaveBeenCalled();
       });
     });
-
+    
     describe('showTaskCreateForm on kanban column', function() {
       it('calls showTaskCreateForm() #dashboardTaskView #partialView #view #travis', function() {
         spyOn(Tessitura.DashboardTaskView.prototype, 'showTaskCreateForm');
