@@ -61,6 +61,7 @@ Tessitura.DashboardPresenter = Tessitura.Model.extend({
 
   hideShade          : function() {
     if(this.editForm) { this.editForm.remove(); }
+    if(this.taskCreateForm) { this.taskCreateForm.remove(); }
     this.dashboardView.$('#shade').hide();
   },
 

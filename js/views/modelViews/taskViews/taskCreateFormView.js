@@ -11,7 +11,7 @@ Tessitura.TaskCreateFormView = Tessitura.View.extend({
     e.preventDefault();
 
     var attributes = Tessitura.Utils.getAttributes(this.$el), that = this;
-
+    
     if(!attributes.title) {
       this.$('input[name=title]').closest('.form-group').addClass('has-error');
       return;
@@ -28,7 +28,7 @@ Tessitura.TaskCreateFormView = Tessitura.View.extend({
       task.save(attributes, {
         success: function(task) {
           that.trigger('hideShade');
-          that.collection.add(task);
+          that.collection.unshift(task);
         }
       });
     }

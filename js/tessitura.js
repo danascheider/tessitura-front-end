@@ -10,6 +10,10 @@
   return new Buffer(string).toString('base64');
 };
 
+/* istanbul ignore next */ global.atob      = function(string) {
+  return new Buffer(string, 'base64').toString('binary');
+};
+
 /* istanbul ignore next */ Backbone.$       = $;
 
 // Basic requires that don't need references stored
