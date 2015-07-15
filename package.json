@@ -4,7 +4,7 @@
   "repository"  : "https://github.com/danascheider/tessitura-front-end",
   "description" : "Career management app for classical singers",
   "scripts"     : {
-    "test" : "istanbul cover --include-all-sources jasmine-node spec"
+    "test" : "istanbul cover --include-all-sources jasmine-node spec --forceexit"
   },
 
   "dependencies" : {
