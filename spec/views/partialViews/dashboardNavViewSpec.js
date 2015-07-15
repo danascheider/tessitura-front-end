@@ -56,7 +56,7 @@ describe('Dashboard Nav View', function() {
 
     it('can be instantiated without a user #dashboardNavView #partialView #view #travis', function() {
       newView = new Tessitura.DashboardNavView();
-      expect(newView.user).not.toExist();
+      expect(typeof newView.user).toBe('undefined');
     });
 
     it('is instantiated with a sidebar #dashboardNavView #partialView #view #travis', function() {
@@ -211,7 +211,7 @@ describe('Dashboard Nav View', function() {
       it('hides any visible dropdown menus #dashboardNavView #partialView #view #travis', function() {
         view.$('li.dropdown').first().click();
         view.toggleSidebar();
-        expect(view.$('li.dropdown').first().attr('class')).not.toContain('open')
+        expect(view.$('li.dropdown').first().attr('class')).not.toMatch('open')
       });
     });
   });

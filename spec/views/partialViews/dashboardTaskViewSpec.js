@@ -217,8 +217,8 @@ describe('Dashboard Task View', function() {
       it('triggers the showTaskCreateForm event #dashboardTaskView #partialView #view #travis', function() {
         var spy = jasmine.createSpy();
         view.on('showTaskCreateForm', spy);
-        view.showTaskCreateForm(collection);
-        expect(spy.calls[0].args).toContain(collection);
+        view.showTaskCreateForm(collection, {status: 'New'});
+        expect(spy).toHaveBeenCalledWith(collection, {status: 'New'});
         view.off('showTaskCreateForm');
       });
     });

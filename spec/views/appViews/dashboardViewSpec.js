@@ -188,7 +188,7 @@ describe('Main Dashboard View', function() {
           dashboard.$('li.dropdown').first().addClass('open');
           e = $.Event('click', {target: dashboard.$el});
           dashboard.hideDropdownMenus(e);
-          expect(dashboard.$('li.dropdown').attr('class')).not.toContain('open');
+          expect(dashboard.$('li.dropdown').attr('class')).not.toMatch('open');
         });
       });
 

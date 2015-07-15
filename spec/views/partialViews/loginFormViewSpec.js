@@ -199,7 +199,7 @@ describe('Login Form View', function() {
             });
 
             it('passes the user with the event #loginFormView #partialView #view #travis', function(done) {
-              expect(typeof (spy.calls.argsFor(0)[0].user)).not.toBe('undefined');
+              expect(typeof (spy.calls[0].args[0].user)).not.toBe('undefined');
               done();
             });
           });
@@ -223,7 +223,7 @@ describe('Login Form View', function() {
             });
 
             it('passes the user with the event #loginFormView #partialView #view #travis', function(done) {
-              expect(typeof (spy.calls.argsFor(0)[0].user)).not.toBe('undefined');
+              expect(typeof spy.calls[0].args[0].user).not.toBe('undefined');
               done();
             });
           });

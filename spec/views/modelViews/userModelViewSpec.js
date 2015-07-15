@@ -133,7 +133,7 @@ describe('User Model View', function() {
       });
 
       it('hides all the inputs #userModelView #modelView #view #travis', function() {
-        expect(view.$('input')).not.toBeInDom();
+        expect(view.$('input')).toBeHidden();
       });
 
       it('shows the text #userModelView #modelView #view #travis', function() {
@@ -163,7 +163,7 @@ describe('User Model View', function() {
       it('hides the text #userModelView #modelView #view #travis', function() {
         e = $.Event({target: view.$('#username span.p')});
         view.displayForm(e);
-        expect(e.target).not.toBeVisible();
+        expect(view.$('#username span.p')).toBeHidden();
       });
     });
 
@@ -208,7 +208,7 @@ describe('User Model View', function() {
 
         it('hides the input #userModelView #modelView #view #travis', function(done) {
           view.submitUpdate(e);
-          expect(view.$('#city span.form')).not.toBeInDom();
+          expect(view.$('#city span.form')).toBeHidden();
           done();
         });
 

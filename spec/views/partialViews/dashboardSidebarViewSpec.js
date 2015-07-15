@@ -98,7 +98,7 @@ describe('Dashboard Sidebar View', function() {
         it('removes the `active` class from any other li\'s #dashboardSidebarView #partialView #view #travis', function() {
           sidebar.$('a[href=#]').last().closest('li').addClass('active');
           sidebar.toggleSecondLevelNav(e);
-          expect(sidebar.$('a[href=#]').last().closest('li')).not.toHaveClass('active');
+          expect(sidebar.$('a[href=#]').last().closest('li').attr('class')).not.toMatch('active');
         });
       });
 

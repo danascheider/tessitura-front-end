@@ -303,7 +303,7 @@ describe('Dashboard Presenter', function() {
 
       it('hides the #shade element #presenter #travis', function() {
         presenter.hideShade();
-        expect(presenter.dashboardView.$('#shade')).not.toBeInDom();
+        expect(presenter.dashboardView.$('#shade:visible').length).toBe(0);
       });
 
       it('doesn\'t call remove on a nonexistent edit form #presenter #travis', function() {

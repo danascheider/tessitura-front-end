@@ -102,7 +102,7 @@ describe('Task Panel View', function() {
         newView = new Tessitura.TaskPanelView({collection: collection});
         newView.render();
         newView.quickAddForm.showTaskCreateForm();
-        expect(Tessitura.TaskPanelView.prototype.showTaskCreateForm).toHaveBeenCalledWith(collection);
+        expect(Tessitura.TaskPanelView.prototype.showTaskCreateForm).toHaveBeenCalled();
       });
     });
 
@@ -213,7 +213,7 @@ describe('Task Panel View', function() {
         spy = jasmine.createSpy();
         taskPanel.on('showTaskCreateForm', spy);
         taskPanel.showTaskCreateForm();
-        expect(spy).toHaveBeenCalled();
+        expect(spy).toHaveBeenCalledWith(taskPanel.collection);
       });
     });
   });
@@ -222,7 +222,7 @@ describe('Task Panel View', function() {
     describe('remove()', function() {
       it('removes its child views from the DOM #taskPanelView #partialView #view #travis', function() {
         taskPanel.remove();
-        expect(taskPanel.$('.task-list-item')).not.toBeInDom();
+        expect(taskPanel.$('.task-list-item:visible').length).toBe(0);
       });
 
       it('removes itself from the DOM #taskPanelView #partialView #view #travis', function() {
