@@ -179,7 +179,7 @@ describe('Quick-Add Task Form', function() {
 
       it('triggers the `showTaskCreateForm` event #modelView #view #travis', function() {
         view.showTaskCreateForm();
-        expect(spy).toHaveBeenCalledWith(collection);
+        expect(spy).toHaveBeenCalledWith(collection, view.groupedBy);
       });
     });
   });

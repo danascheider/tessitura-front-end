@@ -129,7 +129,7 @@ describe('Kanban Column View', function() {
         newView = new Tessitura.KanbanColumnView(data);
         newView.render();
         newView.quickAddForm.showTaskCreateForm(collection);
-        expect(Tessitura.KanbanColumnView.prototype.showTaskCreateForm).toHaveBeenCalledWith(collection);
+        expect(Tessitura.KanbanColumnView.prototype.showTaskCreateForm).toHaveBeenCalledWith(collection, newView.groupedBy);
       });
     });
 
@@ -220,7 +220,7 @@ describe('Kanban Column View', function() {
           }, 750);
         });
 
-        it('destroys the view #viewView #partialView #view #travis', function(done) {
+        it('destroys the view #kanbanColumnView #partialView #view #travis', function(done) {
           var child = view.retrieveViewForModel(task1);
           spyOn(child, 'destroy');
           view.crossOff(task1);
@@ -230,7 +230,7 @@ describe('Kanban Column View', function() {
           }, 750);
         });
 
-        it('calls destroy on the child view #viewView #partialView #view #travis', function(done) {
+        it('calls destroy on the child view #kanbanColumnView #partialView #view #travis', function(done) {
           var child = view.retrieveViewForModel(task1);
           spyOn(child, 'destroy');
           view.crossOff(task1);
@@ -241,7 +241,7 @@ describe('Kanban Column View', function() {
           }, 750);
         });
 
-        it('removes the view from the childViews array #viewView #partialView #view #travis', function(done) {
+        it('removes the view from the childViews array #kanbanColumnView #partialView #view #travis', function(done) {
           var child = view.retrieveViewForModel(task1);
           view.crossOff(task1);
           setTimeout(function() {
