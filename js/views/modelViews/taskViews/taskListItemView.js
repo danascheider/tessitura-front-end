@@ -4,7 +4,7 @@ Tessitura.ListItemView = Tessitura.View.extend({
   /**************************************************************************************/
 
   tagName    : 'li',
-  className  : 'task-list-item ui-widget-content ui-draggable ui-draggable-handle ui-sortable-handle',
+  className  : 'task-list-item ui-widget-content ui-sortable-handle',
   id         : function() { return 'task-' + this.model.get('id'); },
   template   : JST['tasks/listItem'],
 
@@ -58,20 +58,6 @@ Tessitura.ListItemView = Tessitura.View.extend({
     this.$('.task-details').slideToggle();
   },
 
-  /* Special Functions
-  /**************************************************************************************/
-
-  configureDraggable : function() {
-    var that   = this;
-
-    this.$el.draggable({
-      connectToSortable : '.task-list',
-      stop              :       /* istanbul ignore next */ function() {
-        that.render();
-      }
-    });
-  },
-
   /* Core View Functions
   /**************************************************************************************/
 
@@ -85,7 +71,6 @@ Tessitura.ListItemView = Tessitura.View.extend({
     var that = this;
 
     return Tessitura.View.prototype.render.call(this, this.template({model: that.model, width: that.width}), function() {
-      that.configureDraggable();
       that.$el.removeAttr('style');
     });
   }

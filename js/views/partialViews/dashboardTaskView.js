@@ -149,6 +149,11 @@ Tessitura.DashboardTaskView = Tessitura.View.extend({
           that.listenTo(col, 'reassign', that.reassign);
         });
 
+        // that.$('#backlog-tasks > .panel-body > ul.task-list, #new-tasks > .panel-body > ul.task-list, #in-progress-tasks > .panel-body > ul.task-list, #blocking-tasks > .panel-body > ul.task-list').sortable({
+        //   connectWith : '.ui-sortable',
+        //   items       : '>*:not(.not-sortable)'
+        // });
+
         that.listenTo(that.collection, 'change:status', that.changeStatus);
         that.listenTo(that.collection, 'change:backlog add', that.allocate);
       }

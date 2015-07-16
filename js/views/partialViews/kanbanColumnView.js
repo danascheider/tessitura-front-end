@@ -70,7 +70,7 @@ Tessitura.KanbanColumnView = Tessitura.View.extend({
   /* Special Functions
   /**************************************************************************/
 
-  handleDrop           : function(e,ui) {
+  receiveItem          : function(e,ui) {
     var id = ui.item.attr('id').match(/\d+$/)[0];
     this.trigger('reassign', id, this.groupedBy, this);
   },
@@ -135,7 +135,7 @@ Tessitura.KanbanColumnView = Tessitura.View.extend({
     this.childViews = [this.quickAddForm];
     this.listenTo(this.quickAddForm, 'showTaskCreateForm', this.showTaskCreateForm);
 
-    _.bindAll(this, 'handleDrop');
+    _.bindAll(this, 'receiveItem');
 
     this.$el.addClass('panel-' + this.color);
 
@@ -163,8 +163,9 @@ Tessitura.KanbanColumnView = Tessitura.View.extend({
       that.renderModels();
 
       that.$('ul.task-list').sortable({
-        items: '>*:not(.not-sortable)',
-        stop : that.handleDrop
+        connectWith : '.ui-sortable',
+        items       : '>*:not(.not-sortable)',
+        receive     : that.receiveItem
       });
     });
   }
