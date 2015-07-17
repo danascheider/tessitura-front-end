@@ -10,7 +10,7 @@ require(process.cwd() + '/spec/support/env.js');
 var matchers       = require('jasmine-jquery-matchers'),
     fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     context        = describe,
-    fcontext       = fdescribe;
+    ccontext       = ddescribe;
 
 /* Dashboard Task View Spec
 /****************************************************************************/
@@ -22,26 +22,19 @@ describe('Dashboard Task View', function() {
   /* Filters
   /**************************************************************************/
 
-  beforeAll(function() {
-    jasmine.addMatchers(matchers);
-    _.extend(global, fixtures);
-  });
-
   beforeEach(function() {
+    this.addMatchers(matchers);
+    _.extend(global, fixtures);
     view = new Tessitura.DashboardTaskView({user: user, collection: collection});
-    spyOn($, 'ajax').and.callFake(function(args) { args.success(collection); });
-    spyOn(Tessitura.TaskModel.prototype, 'displayTitle').and.returnValue('foobar')
+    spyOn($, 'ajax').andCallFake(function(args) { args.success(collection); });
+    spyOn(Tessitura.TaskModel.prototype, 'displayTitle').andReturn('foobar')
   });
 
   afterEach(function() {
     restoreFixtures();
-    view && view.remove();
+    view && view.destroy();
     newView && newView.destroy();
-  });
-
-  afterAll(function() {
     _.omit(global, fixtures);
-    view = null;
   });
 
   /* Constructor             
@@ -52,7 +45,7 @@ describe('Dashboard Task View', function() {
       spyOn(Tessitura.DashboardTaskView.prototype, 'setUser');
       newView = new Tessitura.DashboardTaskView({user: user});
       expect(Tessitura.DashboardTaskView.prototype.setUser).toHaveBeenCalled();
-      expect(Tessitura.DashboardTaskView.prototype.setUser.calls.argsFor(0)[0]).toEqual(user);
+      expect(Tessitura.DashboardTaskView.prototype.setUser.calls[0].args[0]).toEqual(user);
     });
 
     it('doesn\'t call render #dashboardTaskView #partialView #view #travis', function() {
@@ -63,7 +56,7 @@ describe('Dashboard Task View', function() {
 
     it('can be instantiated without a user #dashboardTaskView #partialView #view #travis', function() {
       newView = new Tessitura.DashboardTaskView();
-      expect(newView.user).not.toExist();
+      expect(typeof newView.user).toBe('undefined');
     });
   });
 
@@ -72,7 +65,7 @@ describe('Dashboard Task View', function() {
 
   describe('elements', function() {
     beforeEach(function() {
-      spyOn(user.tasks, 'fetch').and.returnValue(user.tasks);
+      spyOn(user.tasks, 'fetch').andReturn(user.tasks);
       view.render();
     });
 
@@ -139,7 +132,7 @@ describe('Dashboard Task View', function() {
       beforeEach(function() {
         newTask = new Tessitura.TaskModel({title: 'Foobar', status: 'In Progress'});
         view.render();
-        spyOn(view, 'findNewView').and.returnValue(view.inProgressColumnView);
+        spyOn(view, 'findNewView').andReturn(view.inProgressColumnView);
         view.allocate(newTask);
       });
 
@@ -155,7 +148,7 @@ describe('Dashboard Task View', function() {
     describe('changeStatus()', function() {
       beforeEach(function() {
         view.render();
-        spyOn(task1, 'get').and.callThrough();
+        spyOn(task1, 'get').andCallThrough();
       });
 
       it('checks the task status #dashboardTaskView #partialView #view #travis', function() {
@@ -170,7 +163,7 @@ describe('Dashboard Task View', function() {
         });
 
 
-        it('adds the task to the new view\'s collection #dashboardTaskView #partialView #view #travis', function() {
+        xit('adds the task to the new view\'s collection #dashboardTaskView #partialView #view #travis', function() {
           pending('Raises a call stack size error, not sure why');
           expect(view.blockingColumnView.collection.models.indexOf(task1)).not.toEqual(-1);
         });
@@ -224,8 +217,8 @@ describe('Dashboard Task View', function() {
       it('triggers the showTaskCreateForm event #dashboardTaskView #partialView #view #travis', function() {
         var spy = jasmine.createSpy();
         view.on('showTaskCreateForm', spy);
-        view.showTaskCreateForm(collection);
-        expect(spy).toHaveBeenCalledWith(collection);
+        view.showTaskCreateForm(collection, {status: 'New'});
+        expect(spy).toHaveBeenCalledWith(collection, {status: 'New'});
         view.off('showTaskCreateForm');
       });
     });

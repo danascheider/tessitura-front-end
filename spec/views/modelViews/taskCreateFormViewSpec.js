@@ -8,26 +8,20 @@ var matchers       = require('jasmine-jquery-matchers'),
     fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
     context        = describe,
-    fcontext       = fdescribe;
+    ccontext       = ddescribe;
 
 /* istanbul ignore next */
 describe('TaskCreateFormView', function() {
   var view, newView, e, xhr;
 
-  beforeAll(function() {
-    jasmine.addMatchers(matchers);
-    _.extend(global, fixtures);
-  });
-
   beforeEach(function() {
+    this.addMatchers(matchers);
+    _.extend(global, fixtures);
     view = new Tessitura.TaskCreateFormView({collection: collection});
   });
 
   afterEach(function() {
     restoreFixtures();
-  });
-
-  afterAll(function() {
     view.destroy();
     _.omit(global, fixtures);
   });
@@ -93,12 +87,12 @@ describe('TaskCreateFormView', function() {
         e = $.Event('submit', {target: view.$el});
         xhr = new XMLHttpRequest();
         xhr.open('PUT', Tessitura.API.tasks.collection(1));
-        spyOn($, 'ajax').and.callFake(function(args) { args.success(); });
+        spyOn($, 'ajax').andCallFake(function(args) { args.success(); });
       });
 
       context('valid attributes', function() {
         beforeEach(function() {
-          spyOn(Tessitura.Utils, 'getAttributes').and.returnValue({
+          spyOn(Tessitura.Utils, 'getAttributes').andReturn({
             title: 'Another Task',
             status: 'New',
             priority: 'Normal'
@@ -143,7 +137,7 @@ describe('TaskCreateFormView', function() {
 
       context('missing title', function() {
         beforeEach(function() {
-          spyOn(Tessitura.Utils, 'getAttributes').and.returnValue({
+          spyOn(Tessitura.Utils, 'getAttributes').andReturn({
             title: '',
             status: 'New',
             priority: 'Normal'

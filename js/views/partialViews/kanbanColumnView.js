@@ -37,7 +37,7 @@ Tessitura.KanbanColumnView = Tessitura.View.extend({
   },
 
   showTaskCreateForm   : function() {
-    this.trigger('showTaskCreateForm', this.collection);
+    this.trigger('showTaskCreateForm', this.collection, this.groupedBy);
   },
 
   showEditForm         : function(task) {
@@ -47,14 +47,23 @@ Tessitura.KanbanColumnView = Tessitura.View.extend({
   updateAndRender      : function(task) {
     var attributes = this.groupedBy;
 
+    var theStatusNeedsToBeChanged = this.groupedBy.status && this.groupedBy.status !== task.get('status');
+    var theBacklogStatusNeedsToBeChanged = this.groupedBy.backlog && !task.get('backlog');
+    
+    var theTaskNeedsToBeUpdated = theStatusNeedsToBeChanged || theBacklogStatusNeedsToBeChanged;
+
     if(!this.groupedBy.backlog && task.get('backlog')) { attributes.backlog = false; }
 
-    var that = this;
-    task.save(attributes, {
-      success: function() {
-        that.render();
-      }
-    });
+    if(theTaskNeedsToBeUpdated) {
+      var that = this;
+      task.save(attributes, {
+        success: function() {
+          that.render();
+        }
+      });
+    } else {
+      this.render();
+    }
   },
 
   /* Special Functions

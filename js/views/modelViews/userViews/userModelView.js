@@ -21,7 +21,7 @@ Tessitura.UserModelView = Tessitura.View.extend({
   // span containing the input to be displayed.
 
   displayForm : function(arg) {
-    var span = arg.target ? ($(arg.target).attr('class') && $(arg.target).attr('class').match(/profile-field/) ? $(arg.target) : $(arg.target).closest('.profile-field')) : $(arg);
+    var span = arg.target ? ($(arg.target).attr('class') && $(arg.target).attr('class').match(/profile-field/) ? $(arg.target) : /* istanbul ignore next */ $(arg.target).closest('.profile-field')) : $(arg);
 
     // Hide the text of the user's profile information and show the input
     span.find('.p').hide();

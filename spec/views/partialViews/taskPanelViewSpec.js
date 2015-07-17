@@ -7,7 +7,7 @@ require(process.cwd() + '/spec/support/env.js');
 var Fixtures       = require('../../support/fixtures/fixtures.js'),
     matchers       = require('jasmine-jquery-matchers'),
     context        = describe,
-    fcontext       = fdescribe;
+    ccontext       = ddescribe;
 
 /* Task Panel View Spec
 /****************************************************************************************/
@@ -16,22 +16,15 @@ var Fixtures       = require('../../support/fixtures/fixtures.js'),
 describe('Task Panel View', function() {
   var taskPanel, opts, e, spy;
 
-  beforeAll(function() {
-    jasmine.addMatchers(matchers);
-    _.extend(global, Fixtures);
-  });
-
   beforeEach(function() {
+    this.addMatchers(matchers);
+    _.extend(global, Fixtures);
     taskPanel = new Tessitura.TaskPanelView({collection: collection});
   });
 
   afterEach(function() {
-    taskPanel.remove();
     restoreFixtures();
-  });
-
-  afterAll(function() {
-    taskPanel.destroy();
+    taskPanel && taskPanel.destroy();
     global = _.omit(global, Fixtures);
   });
 
@@ -109,7 +102,7 @@ describe('Task Panel View', function() {
         newView = new Tessitura.TaskPanelView({collection: collection});
         newView.render();
         newView.quickAddForm.showTaskCreateForm();
-        expect(Tessitura.TaskPanelView.prototype.showTaskCreateForm).toHaveBeenCalledWith(collection);
+        expect(Tessitura.TaskPanelView.prototype.showTaskCreateForm).toHaveBeenCalled();
       });
     });
 
@@ -120,7 +113,7 @@ describe('Task Panel View', function() {
         newView.render();
         var child = newView.retrieveViewForModel(task1);
         child.showEditForm();
-        expect(Tessitura.TaskPanelView.prototype.showEditForm.calls.argsFor(0)).toContain(task1);
+        expect(Tessitura.TaskPanelView.prototype.showEditForm.calls[0].args).toContain(task1);
       });
     });
   });
@@ -220,7 +213,7 @@ describe('Task Panel View', function() {
         spy = jasmine.createSpy();
         taskPanel.on('showTaskCreateForm', spy);
         taskPanel.showTaskCreateForm();
-        expect(spy).toHaveBeenCalled();
+        expect(spy).toHaveBeenCalledWith(taskPanel.collection);
       });
     });
   });
@@ -229,7 +222,7 @@ describe('Task Panel View', function() {
     describe('remove()', function() {
       it('removes its child views from the DOM #taskPanelView #partialView #view #travis', function() {
         taskPanel.remove();
-        expect(taskPanel.$('.task-list-item')).not.toBeInDom();
+        expect(taskPanel.$('.task-list-item:visible').length).toBe(0);
       });
 
       it('removes itself from the DOM #taskPanelView #partialView #view #travis', function() {
@@ -242,13 +235,19 @@ describe('Task Panel View', function() {
 
   describe('special functions', function() {
     describe('renderCollection', function() {
+      beforeEach(function() {
+        taskPanel = new Tessitura.TaskPanelView({collection: collection});
+      });
+
       it('renders the collection #taskPanelView #partialView #view #travis', function() {
         taskPanel.renderCollection();
         expect(taskPanel.childViews.length).toBe(3);
       });
 
-      it('displays a maximum of 10 tasks #taskPanelView #partialView #view #travis', function() {
-        pending('FUFNR');
+      xit('displays a maximum of 10 tasks #taskPanelView #partialView #view #travis', function() {
+
+        // FUFNR
+
         for(var i = 4; i < 13; i++) {
           collection.create({title: 'My Task ' + i, status: 'New', priority: 'Normal', position: i});
         }

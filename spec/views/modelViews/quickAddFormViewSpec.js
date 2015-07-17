@@ -8,27 +8,22 @@ var matchers       = require('jasmine-jquery-matchers'),
     fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
     context        = describe,
-    fcontext       = fdescribe;
+    ccontext       = ddescribe;
+
+_.extend(global, fixtures);
 
 /* istanbul ignore next */
 describe('Quick-Add Task Form', function() {
   var view, newView, xhr, e, spy;
 
-  beforeAll(function() {
-    jasmine.addMatchers(matchers);
-    _.extend(global, fixtures);
-  });
-
   beforeEach(function() {
+    this.addMatchers(matchers);
     view = new Tessitura.QuickAddFormView({collection: collection, groupedBy: {status: 'Blocking'}});
   });
 
   afterEach(function() {
     restoreFixtures();
-  })
-
-  afterAll(function() {
-    view = null;
+    view.destroy();
     _.omit(global, fixtures);
   });
 
@@ -112,9 +107,9 @@ describe('Quick-Add Task Form', function() {
         beforeEach(function() {
           xhr = new XMLHttpRequest();
 
-          spyOn(Tessitura.Utils, 'getAttributes').and.returnValue({title: 'Finish writing tests'});
+          spyOn(Tessitura.Utils, 'getAttributes').andReturn({title: 'Finish writing tests'});
 
-          spyOn($, 'ajax').and.callFake(function(args) {
+          spyOn($, 'ajax').andCallFake(function(args) {
             args.success();
           });
         });
@@ -132,20 +127,20 @@ describe('Quick-Add Task Form', function() {
         });
 
         it('attaches an auth header #modelView #view #travis', function() {
-          spyOn($, 'cookie').and.callFake(function(args) {
+          spyOn($, 'cookie').andCallFake(function(args) {
             return args === 'userID' ? 1 : btoa('testuser:testuser');
           });
 
           xhr.open('POST', Tessitura.API.tasks.collection(1));
           view.createTask(e);
-          $.ajax.calls.argsFor(0)[0].beforeSend(xhr);
+          $.ajax.calls[0].args[0].beforeSend(xhr);
           expect(xhr.getRequestHeader('Authorization')).toEqual('Basic ' + btoa('testuser:testuser'));
         });
 
         it('sets the new task\'s attributes according to its grouping #modelView #view #travis', function() {
           spyOn(Tessitura.TaskModel.prototype, 'save');
           view.createTask(e);
-          expect(Tessitura.TaskModel.prototype.save.calls.argsFor(0)[0].status).toEqual('Blocking');
+          expect(Tessitura.TaskModel.prototype.save.calls[0].args[0].status).toEqual('Blocking');
         });
 
         it('adds the new task to the beginning of the collection #modelView #view #travis', function() {
@@ -163,7 +158,7 @@ describe('Quick-Add Task Form', function() {
 
       context('when no title given', function() {
         it('doesn\'t create a task #modelView #view #travis', function() {
-          spyOn(Tessitura.Utils, 'getAttributes').and.returnValue({title: ''});
+          spyOn(Tessitura.Utils, 'getAttributes').andReturn({title: ''});
           spyOn(collection, 'create');
           spyOn(Tessitura.TaskModel.prototype, 'initialize');
           view.createTask(e);
@@ -183,7 +178,7 @@ describe('Quick-Add Task Form', function() {
 
       it('triggers the `showTaskCreateForm` event #modelView #view #travis', function() {
         view.showTaskCreateForm();
-        expect(spy).toHaveBeenCalledWith(collection);
+        expect(spy).toHaveBeenCalledWith(collection, view.groupedBy);
       });
     });
   });

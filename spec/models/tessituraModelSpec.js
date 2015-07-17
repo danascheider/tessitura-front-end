@@ -5,7 +5,7 @@ require(process.cwd() + '/spec/support/env.js');
 
 /* istanbul ignore next */
 var context        = describe,
-    fcontext       = fdescribe;
+    ccontext       = ddescribe;
 
 /* istanbul ignore next */
 describe('Tessitura.Model', function() {

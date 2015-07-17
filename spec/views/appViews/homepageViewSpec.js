@@ -6,7 +6,7 @@ require(process.cwd() + '/js/tessitura.js');
 /* istanbul ignore next */
 var matchers       = _.extend(require('jasmine-jquery-matchers')),
     context        = describe,
-    fcontext       = fdescribe;
+    ccontext       = ddescribe;
 
 /* istanbul ignore next */
 describe('Tessitura Homepage View', function() {
@@ -15,10 +15,12 @@ describe('Tessitura Homepage View', function() {
   /* Filters
   /**************************************************************************/
 
-  beforeAll(function()  { jasmine.addMatchers(matchers); });
-  beforeEach(function() { view = new Tessitura.HomepageView(); });
+  beforeEach(function() { 
+    this.addMatchers(matchers);
+    view = new Tessitura.HomepageView(); 
+  });
+
   afterEach(function()  { view.destroy(); });
-  afterAll(function()   { view = null; });
 
   /* View Constructor
   /**************************************************************************/
@@ -115,12 +117,12 @@ describe('Tessitura Homepage View', function() {
 
       it('passes the user through #homepageView #appView #view #travis', function() {
         view.goToDashboard(e);
-        expect(spy.calls.argsFor(0)[0]).toEqual(jasmine.objectContaining({user: user}));
+        expect(spy.calls[0].args[0]).toEqual(jasmine.objectContaining({user: user}));
       });
 
       it('sends the destination #homepageView #appView #view #travis', function() {
         view.goToDashboard(e);
-        expect(spy.calls.argsFor(0)[0]).toEqual(jasmine.objectContaining({destination: 'dashboard'}));
+        expect(spy.calls[0].args[0]).toEqual(jasmine.objectContaining({destination: 'dashboard'}));
       });
     });
 
@@ -135,7 +137,7 @@ describe('Tessitura Homepage View', function() {
     describe('toggleLoginForm()', function() {
       context('when the user is logged in', function() {
         beforeEach(function() {
-          spyOn($, 'cookie').and.returnValue(btoa('testuser:testuser'));
+          spyOn($, 'cookie').andReturn(btoa('testuser:testuser'));
         });
 
         it('triggers redirect #homepageView #appView #view #travis', function() {
@@ -148,7 +150,7 @@ describe('Tessitura Homepage View', function() {
 
       context('when the user is not logged in', function() {
         beforeEach(function() {
-          spyOn($, 'cookie').and.returnValue(null);
+          spyOn($, 'cookie').andReturn(null);
         });
 
         it('doesn\'t trigger redirect #homepageView #appView #view #travis', function() {

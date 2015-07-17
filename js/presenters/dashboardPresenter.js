@@ -69,9 +69,13 @@ Tessitura.DashboardPresenter = Tessitura.Model.extend({
     this.trigger('redirect', opts);
   },
 
-  showTaskCreateForm : function(collection) {
+  showTaskCreateForm : function(collection, opts) {
+    opts = opts || {};
+
     this.taskCreateForm = this.taskCreateForm || new Tessitura.TaskCreateFormView();
+    this.taskCreateForm.status = opts.status;
     this.taskCreateForm.setCollection(collection).render();
+
     this.dashboardView.$('#shade').show();
     this.dashboardView.$('#shade').html(this.taskCreateForm.$el);
     this.taskCreateForm.$('input').first().focus();

@@ -10,7 +10,7 @@ require(process.cwd() + '/spec/support/jsdom.js');
 var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
     Model          = Tessitura.Model.extend({}),
     context        = describe,
-    fcontext       = fdescribe;
+    ccontext       = ddescribe;
 
 /* istanbul ignore next */
 
@@ -27,7 +27,7 @@ describe('Protected Collection', function() {
     collection     = new Tessitura.ProtectedCollection({model: Model});
     collection.url = Tessitura.API.base + '/models';
     xhr = new XMLHttpRequest();
-    spyOn($, 'cookie').and.returnValue(btoa('testuser:testuser'));
+    spyOn($, 'cookie').andReturn(btoa('testuser:testuser'));
   });
   
   /* Authorization and Authentication
@@ -49,14 +49,14 @@ describe('Protected Collection', function() {
       it('attaches the auth header #collection #travis', function() {
         xhr.open('GET', collection.url);
         collection.fetch();
-        $.ajax.calls.argsFor(0)[0].beforeSend(xhr);
+        $.ajax.calls[0].args[0].beforeSend(xhr);
         expect(xhr.getRequestHeader('Authorization')).toEqual(collection.token());
       });
 
       it('calls Backbone.Sync #collection #travis', function() {
         spyOn(Backbone, 'sync');
         collection.fetch();
-        expect(Backbone.sync.calls.argsFor(0)[1]).toBe(collection);
+        expect(Backbone.sync.calls[0].args[1]).toBe(collection);
       });
     });
   });

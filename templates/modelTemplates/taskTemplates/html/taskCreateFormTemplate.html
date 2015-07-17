@@ -12,10 +12,10 @@
       <td><label for='status'>Status: </label></td>
       <td>
         <select class='form-control half-width left' name='status' title='Status' placeholder='Status'>
-          <option selected="selected">New</option>
-          <option>In Progress</option>
-          <option>Blocking</option>
-          <option>Complete</option>
+          <option<%= !status || status === 'New' ? ' selected' : ''%>>New</option>
+          <option<%= status === 'In Progress' ? ' selected' : '' %>>In Progress</option>
+          <option<%= status === 'Blocking' ? ' selected' : '' %>>Blocking</option>
+          <option<%= status === 'Complete' ? ' selected' : '' %>>Complete</option>
         </select>
       </td>
     </tr>

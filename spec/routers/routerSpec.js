@@ -9,7 +9,7 @@ require(process.cwd() + '/spec/support/env.js');
 /* istanbul ignore next */
 var matchers       = require('jasmine-jquery-matchers'),
     context        = describe,
-    fcontext       = fdescribe;
+    ccontext       = ddescribe;
 
 /* Tessitura Router Spec
 /******************************************************************************/
@@ -22,16 +22,9 @@ describe('Tessitura Router', function() {
   /* Filters
   /****************************************************************************/
 
-  beforeAll(function() {
-    jasmine.addMatchers(matchers);
-  });
-
   beforeEach(function() {
+    this.addMatchers(matchers);
     router = new Tessitura.Router();
-  });
-
-  afterAll(function() {
-    router = null;
   });
 
   /* Constructor
@@ -53,7 +46,7 @@ describe('Tessitura Router', function() {
   describe('before filters', function() {
     describe('rerouteIfLoggedIn()', function() {
       context('when logged in', function() {
-        beforeEach(function() { spyOn($, 'cookie').and.returnValue('Basic ' + btoa('testuser:testuser')); });
+        beforeEach(function() { spyOn($, 'cookie').andReturn('Basic ' + btoa('testuser:testuser')); });
 
         it('calls remove on the app presenter #router #travis', function() {
           spyOn(router.AppPresenter, 'removeAll');
@@ -69,17 +62,17 @@ describe('Tessitura Router', function() {
       });
 
       context('when not logged in', function() {
-        beforeEach(function() { spyOn($, 'cookie').and.returnValue(null); });
+        beforeEach(function() { spyOn($, 'cookie').andReturn(null); });
 
-        it('doesn\'t reroute #router #travis', function() {
-          pending('Raises error "next is not a function" when app won\'t actually work without next()');
+        xit('doesn\'t reroute #router #travis', function() {
+          // "next is not a function"
           spyOn(router, 'navigate');
           router.rerouteIfLoggedIn();
           expect(router.navigate).not.toHaveBeenCalled();
         });
 
-        it('doesn\'t remove app views #router #travis', function() {
-          pending('Raises error "next is not a function" when app won\'t actually work without next()');
+        xit('doesn\'t remove app views #router #travis', function() {
+          // "next is not a function"
           spyOn(router.AppPresenter, 'removeAll');
           router.rerouteIfLoggedIn();
           expect(router.AppPresenter.removeAll).not.toHaveBeenCalled();
@@ -89,7 +82,7 @@ describe('Tessitura Router', function() {
 
     describe('verifyLoggedIn()', function() {
       context('when not logged in', function() {
-        beforeEach(function() { spyOn($, 'cookie').and.returnValue(null); });
+        beforeEach(function() { spyOn($, 'cookie').andReturn(null); });
 
         it('redirects to the homepage #router #travis', function() {
           spyOn(router, 'navigate');
@@ -99,10 +92,10 @@ describe('Tessitura Router', function() {
       });
 
       context('when logged in', function() {
-        beforeEach(function() { spyOn($, 'cookie').and.returnValue('Basic ' + btoa('testuser:testuser')); });
+        beforeEach(function() { spyOn($, 'cookie').andReturn('Basic ' + btoa('testuser:testuser')); });
         
-        it('doesn\'t redirect #router #travis', function() {
-          pending('Raises error "next is not a function" when app won\'t actually work without next()');
+        xit('doesn\'t redirect #router #travis', function() {
+          // "next is not a function"
           spyOn(router, 'navigate');
           router.verifyLoggedIn();
           expect(router.navigate).not.toHaveBeenCalled();
@@ -177,8 +170,8 @@ describe('Tessitura Router', function() {
     describe('displayDashboardHome()', function() {
       beforeEach(function() { 
         // This was actually causing a problem
-        spyOn($, 'cookie').and.returnValue(1);
-        spyOn($, 'ajax').and.callFake(function(args) {
+        spyOn($, 'cookie').andReturn(1);
+        spyOn($, 'ajax').andCallFake(function(args) {
           args.success && args.success();
         });
       });
@@ -200,7 +193,7 @@ describe('Tessitura Router', function() {
     describe('displayDashboardTaskView()', function() {
       beforeEach(function() { 
         spyOn(router.DashboardPresenter, 'getTask');
-        spyOn($, 'ajax').and.callFake(function(args) { args.success(); });
+        spyOn($, 'ajax').andCallFake(function(args) { args.success(); });
       });
 
       it('calls setUser on the DashboardPresenter #router #travis', function(done) {
@@ -233,8 +226,8 @@ describe('Tessitura Router', function() {
 
     describe('displayProfile()', function() {
       beforeEach(function() {
-        spyOn($, 'cookie').and.returnValue(1);
-        spyOn($, 'ajax').and.callFake(function(args) {
+        spyOn($, 'cookie').andReturn(1);
+        spyOn($, 'ajax').andCallFake(function(args) {
           args.success & args.success();
         });
       });
@@ -270,7 +263,7 @@ describe('Tessitura Router', function() {
 
     describe('prepareTestEnvironment()', function() {
       it('sends a DELETE request to the database destroyer #router #travis', function() {
-        spyOn($, 'ajax').and.callFake(function(args) { args.success && args.success(); });
+        spyOn($, 'ajax').andCallFake(function(args) { args.success && args.success(); });
         router.prepareTestEnvironment();
         expect($.ajax).toHaveBeenCalledWith(jasmine.objectContaining({
           type: 'DELETE',

@@ -10,7 +10,7 @@ require(process.cwd() + '/spec/support/env.js');
 var matchers       = require('jasmine-jquery-matchers'),
     fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     context        = describe,
-    fcontext       = fdescribe;
+    ccontext       = ddescribe;
 
 /* Dashboard Nav View Spec
 /******************************************************************************/
@@ -22,25 +22,19 @@ describe('Dashboard Nav View', function() {
   /* Filters
   /****************************************************************************/
 
-  beforeAll(function() {
-    jasmine.addMatchers(matchers);
-    _.extend(global, fixtures);
-  });
-
   beforeEach(function() {
+    this.addMatchers(matchers);
+    _.extend(global, fixtures);
     view = new Tessitura.DashboardNavView({model: fixtures.user});
   });
 
   afterEach(function() {
     restoreFixtures();
     newView && newView.destroy();
-  });
-
-  afterAll(function() {
-    view.destroy();
+    view && view.destroy();
     _.omit(global, fixtures);
   });
-
+  
   /* Constructor
   /**************************************************************************/
 
@@ -62,7 +56,7 @@ describe('Dashboard Nav View', function() {
 
     it('can be instantiated without a user #dashboardNavView #partialView #view #travis', function() {
       newView = new Tessitura.DashboardNavView();
-      expect(newView.user).not.toExist();
+      expect(typeof newView.user).toBe('undefined');
     });
 
     it('is instantiated with a sidebar #dashboardNavView #partialView #view #travis', function() {
@@ -217,7 +211,7 @@ describe('Dashboard Nav View', function() {
       it('hides any visible dropdown menus #dashboardNavView #partialView #view #travis', function() {
         view.$('li.dropdown').first().click();
         view.toggleSidebar();
-        expect(view.$('li.dropdown').first().attr('class')).not.toContain('open')
+        expect(view.$('li.dropdown').first().attr('class')).not.toMatch('open')
       });
     });
   });
