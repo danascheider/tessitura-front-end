@@ -38,7 +38,73 @@
     <td>
       <span class='profile-field' id='fach'>
         <span class='p'><%= model.get('fach') || 'N/A' %></span>
-        <span class='form'><form><input name='fach' value='<%= model.get('fach') %>' /></form></span>
+        <span class='form'>
+          <form>
+            <% var fach = model.escape('fach') %>
+            <select name='fach'>
+              <option<%- fach === 'Soprano - lyric coloratura' ? ' selected' : '' %>>
+                Soprano - lyric coloratura
+              </option>
+              <option<%- fach === 'Soprano - dramatic coloratura' ? ' selected' : '' %>>
+                Soprano - dramatic coloratura
+              </option>
+              <option<%- fach === 'Soprano - lyric' ? ' selected' : '' %>>
+                Soprano - lyric
+              </option>
+              <option<%- fach === 'Soprano - spinto' ? ' selected' : '' %>>
+                Soprano - spinto
+              </option>
+              <option<%- fach === 'Soprano - dramatic' ? ' selected' : '' %>>
+                Soprano - dramatic
+              </option>
+              <option<%- fach === 'Mezzo-soprano - Rossini' ? ' selected' : '' %>>
+                Mezzo-soprano - Rossini
+              </option>
+              <option<%- fach === 'Mezzo-soprano - lyric' ? ' selected' : '' %>>
+                Mezzo-soprano - lyric
+              </option>
+              <option<%- fach === 'Mezzo-soprano - dramatic' ? ' selected' : '' %>>
+                Mezzo-soprano - dramatic
+              </option>
+              <option<%- fach === 'Contralto' ? ' selected' : '' %>>
+                Contralto
+              </option>
+              <option<%- fach === 'Countertenor' ? ' selected' : '' %>>
+                Countertenor
+              </option>
+              <option<%- fach === 'Tenor leggiero' ? ' selected' : '' %>>
+                Tenor leggiero
+              </option>
+              <option<%- fach === 'Tenor - lyric' ? ' selected' : '' %>>
+                Tenor - lyric
+              </option>
+              <option<%- fach === 'Tenor - spinto' ? ' selected' : '' %>>
+                Tenor - spinto
+              </option>
+              <option<%- fach === 'Heldentenor' ? ' selected' : '' %>>
+                Heldentenor
+              </option>
+              <option<%- fach === 'Lyric baritone' ? ' selected' : '' %>>
+                Lyric baritone
+              </option>
+              <option<%- fach === 'Dramatic baritone' ? ' selected' : '' %>>
+                Dramatic baritone
+              </option>
+              <option<%- fach === 'Lyric bass' ? ' selected' : '' %>>
+                Lyric bass
+              </option>
+              <option<%- fach === 'Basso buffo' ? ' selected' : '' %>>
+                Basso buffo
+              </option>
+              <option<%- fach === 'Basso profondo' ? ' selected' : '' %>>
+                Basso profondo
+              </option>
+              <option<%- fach === 'Other' ? ' selected' : '' %>>
+                Other
+              </option>
+            </select>
+          </form>
+        </span>
       </span>
     </td>  </tr>
   <tr data-attribute='city'>
