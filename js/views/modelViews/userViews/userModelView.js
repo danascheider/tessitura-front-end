@@ -20,7 +20,7 @@ Tessitura.UserModelView = Tessitura.View.extend({
   // Otherwise, its argument is presumed to be a jQuery object of the '.profile-field'
   // span containing the input to be displayed.
 
-  displayForm : function(arg) {
+  displayForm    : function(arg) {
     var span = arg.target ? ($(arg.target).attr('class') && $(arg.target).attr('class').match(/profile-field/) ? $(arg.target) : /* istanbul ignore next */ $(arg.target).closest('.profile-field')) : $(arg);
 
     // Hide the text of the user's profile information and show the input
@@ -38,11 +38,32 @@ Tessitura.UserModelView = Tessitura.View.extend({
     span.find('form > input').focus().select();
   },
 
+  handleTab      : function(e) {
+    e.preventDefault();
+
+    // If the current field is first_name, the next field is last_name. Otherwise, it's
+    // the .profile-field element in the next row in the table.
+
+    var attr                        = $(e.target).attr('name');
+    var currentValue                = encodeURIComponent($(e.target)[0].value);
+    var nextField                   = $(e.target).closest('.profile-field').attr('id') === 'first_name' ? /* istanbul ignore next */ this.$('#last_name') : $(e.target).closest('tr').next().find('td > span.profile-field');
+    var theAttributeValueHasChanged = this.model.get(attr) !== currentValue;
+    var theFieldIsBlank             = !currentValue || currentValue === '';
+    var theFieldCanBeBlank          = ['username', 'password', 'email', 'first_name', 'last_name'].indexOf(attr) === -1;
+
+    if(theAttributeValueHasChanged && !(theFieldIsBlank && theFieldCanBeBlank)) {
+      $(e.target).closest('form').submit();
+    }
+
+    this.hideInputs();
+    this.displayForm(nextField);  
+  },
+
   // The `submitUpdate` function updates the user's profile with whatever the
   // user has entered into the input. It automatically adds the authorization 
   // header to the request and, if the request is successful, hides the input.
 
-  submitUpdate : function(e) {
+  submitUpdate   : function(e) {
     e.preventDefault();
 
     var data = {}, that = this;
@@ -78,7 +99,7 @@ Tessitura.UserModelView = Tessitura.View.extend({
     });
   },
 
-  triageKeypress: function(e) {
+  triageKeypress : function(e) {
     var theKeyWasEnter = e.keyCode === 13;
     var theKeyWasTab   = e.keyCode === 9;
     var theKeyWasEsc   = e.keyCode === 27;
@@ -87,28 +108,19 @@ Tessitura.UserModelView = Tessitura.View.extend({
 
     if(theKeyWasEnter) { 
       e.preventDefault();
-
+      var attributeValueChanged = this.model.get(attr) !== currentValue;
+      var theFieldIsBlank       = currentValue === ''
+      var theFieldCanBeBlank    = ['username', 'email', 'password', 'first_name', 'last_name'].indexOf(attr) === -1
+      
       this.hideInputs(); 
 
-      if(this.model.get(attr) !== currentValue && currentValue !== '') {
+      if(attributeValueChanged && !(theFieldIsBlank && theFieldCanBeBlank)) {
         $(e.target).closest('form').submit();
       }
     }
 
     if(theKeyWasTab) {
-      e.preventDefault();
-
-      // If the current field is first_name, the next field is last_name. Otherwise, it's
-      // the .profile-field element in the next row in the table.
-
-      var nextField = $(e.target).closest('.profile-field').attr('id') === 'first_name' ? /* istanbul ignore next */ this.$('#last_name') : $(e.target).closest('tr').next().find('td > span.profile-field');
-
-      if(this.model.get(attr) !== currentValue && currentValue !== '') {
-        $(e.target).closest('form').submit();
-      }
-
-      this.hideInputs();
-      this.displayForm(nextField);
+      this.handleTab(e);
     }
 
     if(theKeyWasEsc) {
@@ -116,7 +128,7 @@ Tessitura.UserModelView = Tessitura.View.extend({
     }
   },
 
-  updateDisplay: function() {
+  updateDisplay  : function() {
     var that = this;
 
     this.$('.profile-field').each(function(num, el) {
