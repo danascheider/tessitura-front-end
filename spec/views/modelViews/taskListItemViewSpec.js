@@ -287,39 +287,4 @@ describe('TaskListItemView', function() {
       });
     });
   });
-
-  describe('special functions', function() {
-    beforeEach(function() {
-      view = view || new Tessitura.TaskListItemView({model: task1});
-    });
-
-    describe('configureDraggable', function() {
-      beforeEach(function() {
-        spyOn(view.$el, 'draggable');
-        view.configureDraggable();
-      });
-
-      it('makes the view draggable #taskListItemView #modelView #view #travis', function() {
-        expect(view.$el.draggable).toHaveBeenCalled();
-      });
-      
-      it('connects to the sortable task list #taskListItemView #modelView #view #travis', function() {
-        expect(view.$el.draggable.calls[0].args[0].connectToSortable).toEqual('.task-list');
-      });
-    });
-  });
-
-  describe('core view functions', function() {
-    describe('render()', function() {
-      beforeEach(function() {
-        view = view || new Tessitura.TaskListItemView({model: model});
-      });
-
-      it('configures the draggable property #taskListItemView #modelView #view #travis', function() {
-        spyOn(view, 'configureDraggable');
-        view.render();
-        expect(view.configureDraggable).toHaveBeenCalled();
-      });
-    });
-  });
 });

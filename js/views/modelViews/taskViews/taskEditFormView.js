@@ -4,7 +4,8 @@ Tessitura.TaskEditFormView = Tessitura.View.extend({
   template   : JST['tasks/editForm'],
 
   events     : {
-    'submit' : 'updateTask'
+    'click button' : 'updateTask',
+    'submit'       : 'updateTask'
   },
 
   setModel   : function(model) {

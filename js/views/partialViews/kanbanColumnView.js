@@ -10,7 +10,8 @@ Tessitura.KanbanColumnView = Tessitura.View.extend({
   /**************************************************************************/
 
   crossOff             : function(task) {
-    if(task.get('status') !== 'Complete') { this.collection.remove(task); }
+
+    if(task.get('status') !== 'Complete') { return; }
 
     var that = this, 
         view = this.retrieveViewForModel(task);
@@ -47,7 +48,7 @@ Tessitura.KanbanColumnView = Tessitura.View.extend({
   updateAndRender      : function(task) {
     var attributes = this.groupedBy;
 
-    var theStatusNeedsToBeChanged = this.groupedBy.status && this.groupedBy.status !== task.get('status');
+    var theStatusNeedsToBeChanged        = this.groupedBy.status && this.groupedBy.status !== task.get('status');
     var theBacklogStatusNeedsToBeChanged = this.groupedBy.backlog && !task.get('backlog');
     
     var theTaskNeedsToBeUpdated = theStatusNeedsToBeChanged || theBacklogStatusNeedsToBeChanged;
@@ -68,6 +69,11 @@ Tessitura.KanbanColumnView = Tessitura.View.extend({
 
   /* Special Functions
   /**************************************************************************/
+
+  receiveItem          : function(e,ui) {
+    var id = ui.item.attr('id').match(/\d+$/)[0];
+    this.trigger('reassign', id, this.groupedBy, this);
+  },
 
   renderModels         : function() {
     var that      = this;
@@ -129,6 +135,8 @@ Tessitura.KanbanColumnView = Tessitura.View.extend({
     this.childViews = [this.quickAddForm];
     this.listenTo(this.quickAddForm, 'showTaskCreateForm', this.showTaskCreateForm);
 
+    _.bindAll(this, 'receiveItem');
+
     this.$el.addClass('panel-' + this.color);
 
     if(this.collection) { this.setCollection(this.collection); }
@@ -155,7 +163,9 @@ Tessitura.KanbanColumnView = Tessitura.View.extend({
       that.renderModels();
 
       that.$('ul.task-list').sortable({
-        items: '>*:not(.not-sortable)'
+        connectWith : '.ui-sortable',
+        items       : '>*:not(.not-sortable)',
+        receive     : that.receiveItem
       });
     });
   }

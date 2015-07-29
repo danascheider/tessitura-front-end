@@ -21,6 +21,27 @@ Tessitura.TaskPanelView = Tessitura.DashWidgetView.extend({
     }, 750);
   },
 
+  reorder              : function(e, ui) {
+    var taskID = parseInt(ui.item.attr('id').match(/\d+$/)[0]);
+    var i      = 1;
+    var that   = this;
+
+    _.each(this.$('.task-list-item'), function(child) {
+
+      // Look in the collection for the model that belongs to this child view
+      // by searching for it by ID using the ID taken from the ID #task-<n> of
+      // the list item
+
+      var model = that.collection.get($(child).attr('id').match(/\d+$/)[0]);
+
+      if(model.get('postion') !== i) {
+        model.save({position: i});
+      }
+
+      i++;
+    });
+  },
+
   retrieveViewForModel : function(task) {
     /* istanbul ignore next */  
     if(!this.childViews.length) { return; }
@@ -81,6 +102,8 @@ Tessitura.TaskPanelView = Tessitura.DashWidgetView.extend({
 
     this.childViews = [this.quickAddForm];
 
+    _.bindAll(this, 'reorder');
+
     this.listenTo(this.collection, 'add fetch', this.render);
     this.listenTo(this.collection, 'change:status', this.crossOff);
     this.listenTo(this.collection, 'change:backlog', this.render);
@@ -103,7 +126,8 @@ Tessitura.TaskPanelView = Tessitura.DashWidgetView.extend({
       that.renderCollection();
 
       that.$('ul').sortable({
-        items: '>*:not(.not-sortable)'
+        items: '>*:not(.not-sortable)',
+        stop : that.reorder
       });
     });
   }
