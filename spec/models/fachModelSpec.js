@@ -31,10 +31,10 @@ describe('Fach Model', function() {
       expect(fach.displayTitle()).toEqual('Baritone, lyric, coloratura');
     });
 
-    it('doesn\'t display the quality if not present #model #travis', function() {
-      fach.set({type: 'contralto', coloratura: true});
-      fach.unset('quality');
-      expect(fach.displayTitle()).toEqual('Contralto, coloratura');
+    it('doesn\'t display missing values #model #travis', function() {
+      fach.set({type: 'contralto'});
+      fach.unset('quality', 'coloratura');
+      expect(fach.displayTitle()).toEqual('Contralto');
     });
   });
 });
