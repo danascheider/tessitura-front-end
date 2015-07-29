@@ -30,8 +30,9 @@
 Tessitura.API                    = require('./api.js');
 Tessitura.Utils                  = require('./utils.js');
 
-// Require models
+// Require model
 Tessitura.Model                  = require('./models/tessituraModel.js');
+Tessitura.FachModel              = require('./models/fachModel.js');
 Tessitura.ProtectedResourceModel = require('./models/protectedResourceModel.js');
 Tessitura.TaskModel              = require('./models/taskModel.js');
 Tessitura.UserModel              = require('./models/userModel.js');
@@ -48,6 +49,7 @@ Tessitura.DashWidgetView        = require('./views/appViews/dashWidgetView.js');
 
 
 // Require model and collection views
+Tessitura.FachFormView          = require('./views/modelViews/fachViews/fachFormView.js');
 Tessitura.QuickAddFormView      = require('./views/modelViews/taskViews/quickAddFormView.js');
 Tessitura.TaskCreateFormView    = require('./views/modelViews/taskViews/taskCreateFormView.js');
 Tessitura.TaskEditFormView      = require('./views/modelViews/taskViews/taskEditFormView.js');
