@@ -53,5 +53,17 @@ describe('Fach Form View', function() {
     it('is a form #fachFormView #modelView #view #travis', function() {
       expect(view.$el[0].tagName).toEqual('FORM');
     });
+
+    it('has a select for voice type #fachFormView #modelView #view #travis', function() {
+      expect(view.$('select[name=type]').length).toEqual(1);
+    });
+
+    it('has a select for voice quality #fachFormView #modelView #view #travis', function() {
+      expect(view.$('select[name=quality]').length).toEqual(1);
+    });
+
+    it('has a checkbox for coloratura #fachFormView #modelView #view #travis', function() {
+      expect(view.$('input[name=coloratura]').attr('type')).toEqual('checkbox');
+    });
   });
 });
