@@ -42,6 +42,13 @@ Then(/^an input should appear in the (.*) field$/) do |element|
   end
 end
 
+Then(/^a select should appear in the (.*) field$/) do |element|
+  within "tr[data-attribute=#{element}] .profile-field" do 
+    @select = find('span.form select')
+    expect(@select).to be_truthy
+  end
+end
+
 Then(/^I should not see an input called '(.*)'$/) do |name|
   expect(page).to have_no_selector "input[name=#{name}]"
 end

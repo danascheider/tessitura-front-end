@@ -8,6 +8,7 @@ Tessitura.UserModelView = Tessitura.View.extend({
   events       : {
     'dblclick span.p' : 'displayForm',
     'keydown input'   : 'triageKeypress',
+    'keydown select'  : 'triageKeypress',
     'submit form'     : 'submitUpdate'
   },
 
@@ -35,7 +36,7 @@ Tessitura.UserModelView = Tessitura.View.extend({
 
     // Focus on the input that has just been displayed and select the text inside
 
-    span.find('form > input').focus().select();
+    span.find('form > input, form > select').focus().select();
   },
 
   handleTab      : function(e) {

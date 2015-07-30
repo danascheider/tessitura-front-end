@@ -2,10 +2,8 @@ Tessitura.UserProfileView = Tessitura.DashWidgetView.extend({
   id          : 'profile-info',
   template    : JST['users/profile'],
 
-  events      : function() {
-    var events = Tessitura.DashWidgetView.prototype.events
-    events['click'] = 'hideInputs'
-    return events;
+  events      : {
+    'click' : 'hideInputs'
   },
 
   /* Event Callbacks
@@ -30,6 +28,9 @@ Tessitura.UserProfileView = Tessitura.DashWidgetView.extend({
 
   initialize  : function(args) {
     args = args || /* istanbul ignore next */ {};
+
+    _.extend(this.events, Tessitura.DashWidgetView.prototype.events);
+
     /* istanbul ignore else */
     if(args.model) { this.setUser(args.model); }
   },

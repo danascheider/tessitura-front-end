@@ -4,11 +4,11 @@
 <table>
   <tr data-attribute='name'>
     <th>Name:</th>
-    <td><span class='profile-field' id='first_name'><span class='p'><%= model.get('first_name') %></span><span class='form'><form><input name='first_name' type='text' value='<%= model.get('first_name') %>' /></form></span></span> <span class='profile-field' id='last_name'><span class='p'><%=model.get('last_name') %></span><span class='form'><form><input name='last_name' type='text' value='<%= model.get('last_name') %>' /></form></span></span></td>
+    <td title='Double-click to edit'><span class='profile-field' id='first_name'><span class='p'><%= model.get('first_name') %></span><span class='form'><form><input name='first_name' type='text' value='<%= model.get('first_name') %>' /></form></span></span> <span class='profile-field' id='last_name'><span class='p'><%=model.get('last_name') %></span><span class='form'><form><input name='last_name' type='text' value='<%= model.get('last_name') %>' /></form></span></span></td>
   </tr>
   <tr data-attribute='username'>
     <th>Username:</th>
-    <td>
+    <td title='Double-click to edit'>
       <span class='profile-field' id='username'>
         <span class='p'><%= model.get('username') %></span>
         <span class='form'><form><input name='username' type='text' value='<%= model.get('username') %>'></form></span>
@@ -18,7 +18,7 @@
   <tr data-attribute='email'>
     <th>E-mail:</th>
     <td>
-      <span class='profile-field' id='email'>
+      <span class='profile-field' id='email' title='Double-click to edit'>
         <span class='p'><%= model.get('email') %></span>
         <span class='form'><form><input name='email' type='email' value='<%= model.get('email') %>' /></form></span>
       </span>
@@ -26,7 +26,7 @@
   </tr>
   <tr data-attribute='birthdate'>
     <th>Birthdate:</th>
-    <td>
+    <td title='Double-click to edit'>
       <span class='profile-field' id='birthdate'>
         <span class='p'><%= model.get('birthdate') || 'N/A' %></span>
         <span class='form'><form><input name='birthdate' type='date' value='<%= model.get('birthdate') %>' /></form></span>
@@ -35,15 +35,81 @@
   </tr>
   <tr data-attribute='fach'>
     <th>Fach:</th>
-    <td>
+    <td title='Double-click to edit'>
       <span class='profile-field' id='fach'>
         <span class='p'><%= model.get('fach') || 'N/A' %></span>
-        <span class='form'><form><input name='fach' value='<%= model.get('fach') %>' /></form></span>
+        <span class='form'>
+          <form>
+            <% var fach = model.escape('fach') %>
+            <select name='fach'>
+              <option<%- fach === 'Soprano - lyric coloratura' ? ' selected' : '' %>>
+                Soprano - lyric coloratura
+              </option>
+              <option<%- fach === 'Soprano - dramatic coloratura' ? ' selected' : '' %>>
+                Soprano - dramatic coloratura
+              </option>
+              <option<%- fach === 'Soprano - lyric' ? ' selected' : '' %>>
+                Soprano - lyric
+              </option>
+              <option<%- fach === 'Soprano - spinto' ? ' selected' : '' %>>
+                Soprano - spinto
+              </option>
+              <option<%- fach === 'Soprano - dramatic' ? ' selected' : '' %>>
+                Soprano - dramatic
+              </option>
+              <option<%- fach === 'Mezzo-soprano - Rossini' ? ' selected' : '' %>>
+                Mezzo-soprano - Rossini
+              </option>
+              <option<%- fach === 'Mezzo-soprano - lyric' ? ' selected' : '' %>>
+                Mezzo-soprano - lyric
+              </option>
+              <option<%- fach === 'Mezzo-soprano - dramatic' ? ' selected' : '' %>>
+                Mezzo-soprano - dramatic
+              </option>
+              <option<%- fach === 'Contralto' ? ' selected' : '' %>>
+                Contralto
+              </option>
+              <option<%- fach === 'Countertenor' ? ' selected' : '' %>>
+                Countertenor
+              </option>
+              <option<%- fach === 'Tenor leggiero' ? ' selected' : '' %>>
+                Tenor leggiero
+              </option>
+              <option<%- fach === 'Tenor - lyric' ? ' selected' : '' %>>
+                Tenor - lyric
+              </option>
+              <option<%- fach === 'Tenor - spinto' ? ' selected' : '' %>>
+                Tenor - spinto
+              </option>
+              <option<%- fach === 'Heldentenor' ? ' selected' : '' %>>
+                Heldentenor
+              </option>
+              <option<%- fach === 'Lyric baritone' ? ' selected' : '' %>>
+                Lyric baritone
+              </option>
+              <option<%- fach === 'Dramatic baritone' ? ' selected' : '' %>>
+                Dramatic baritone
+              </option>
+              <option<%- fach === 'Lyric bass' ? ' selected' : '' %>>
+                Lyric bass
+              </option>
+              <option<%- fach === 'Basso buffo' ? ' selected' : '' %>>
+                Basso buffo
+              </option>
+              <option<%- fach === 'Basso profondo' ? ' selected' : '' %>>
+                Basso profondo
+              </option>
+              <option<%- fach === 'Other' ? ' selected' : '' %>>
+                Other
+              </option>
+            </select>
+          </form>
+        </span>
       </span>
     </td>  </tr>
   <tr data-attribute='city'>
     <th>City:</th>
-    <td>
+    <td title='Double-click to edit'>
       <span class='profile-field' id='city'>
         <span class='p'><%= model.get('city') || 'N/A' %></span>
         <span class='form'><form><input name='city' value='<%= model.get('city') %>' /></form></span>
