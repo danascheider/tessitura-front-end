@@ -6,7 +6,7 @@ Tessitura.FachFormView = Tessitura.View.extend({
   /****************************************************************************/
 
   render   : function() {
-    return Tessitura.View.prototype.render.call(this, this.template());
+    return Tessitura.View.prototype.render.call(this, this.template({model: this.model}));
   }
 });
 
