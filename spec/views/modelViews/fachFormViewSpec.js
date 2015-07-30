@@ -41,4 +41,17 @@ describe('Fach Form View', function() {
       expect(Tessitura.FachFormView.prototype.render).not.toHaveBeenCalled();
     });
   });
+
+  /* Elements
+  /****************************************************************************/
+
+  describe('elements', function() {
+    beforeEach(function() {
+      view.render();
+    });
+
+    it('is a form #fachFormView #modelView #view #travis', function() {
+      expect(view.$el[0].tagName).toEqual('FORM');
+    });
+  });
 });
