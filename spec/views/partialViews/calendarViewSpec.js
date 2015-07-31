@@ -1,6 +1,3 @@
-/* Core Requires
-/****************************************************************************/
-
 /* istanbul ignore require */
 require(process.cwd() + '/js/tessitura.js');
 require(process.cwd() + '/spec/support/jsdom.js');

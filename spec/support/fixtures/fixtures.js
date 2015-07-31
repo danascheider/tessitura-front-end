@@ -18,6 +18,8 @@ var task1 = new Tessitura.TaskModel({id: 1, owner_id: 1, title: 'Task 1', status
 /* istanbul ignore next */
 var collection = user.tasks = new Tessitura.TaskCollection([task1, task2, task3, task4, task5]);
 
+var fach  = new Tessitura.FachModel({id: 1, type: 'soprano', quality: 'lyric', coloratura: true});
+
 /* istanbul ignore next */
 Fixtures = {
   user            : user,
@@ -27,6 +29,7 @@ Fixtures = {
   task4           : task4,
   task5           : task5,
   collection      : collection,
+  fach            : fach,
 
   restoreFixtures : function() {
     var that = this;
@@ -36,6 +39,7 @@ Fixtures = {
     this.task2.set({id: 2, owner_id: 1, title: 'Task 2', status: 'New', priority: 'Normal', position: 2}, {silent: true});
     this.task3.set({id: 3, owner_id: 1, title: 'Task 3', status: 'Complete', priority: 'Normal', position: 3}, {silent: true});
     this.collection.reset([task1, task2, task3]);
+    this.fach.set({id: 1, type: 'soprano', quality: 'lyric', coloratura: true});
   }
 }
 
