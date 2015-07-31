@@ -120,15 +120,15 @@ describe('User Model View', function() {
       expect(view.$('#avatar')).toBeInDom();
     });
 
-    it('displays the user\'s fach #userModelView #modelView #view #travis', function() {
-      pending();
+    xit('displays the user\'s fach #userModelView #modelView #view #travis', function() {
+      // pending('Not yet implemented');
       expect(view.$('#fach').html()).toContain('Soprano, lyric, coloratura');
     });
 
     _.each(['username', 'first_name', 'last_name', 'email', 'fach', 'city'], function(field) {
       it('displays the user\'s ' + field + ' #userModelView #modelView #view #travis', function() {
         value = user.get(field) || 'N/A'
-        expect(view.$('#' + field).html()).toContain('Soprano, lyric, coloratura');
+        expect(view.$('#' + field).html()).toContain(value);
       });
     });
   });
