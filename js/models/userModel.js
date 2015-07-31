@@ -1,7 +1,7 @@
 Tessitura.UserModel = Tessitura.Model.extend({
-  urlRoot: Tessitura.API.users.collection,
-  klass  : 'UserModel',
-  types  : function() {
+  urlRoot        : Tessitura.API.users.collection,
+  klass          : 'UserModel',
+  types          : function() {
     return Tessitura.Model.prototype.types().concat(['UserModel', 'User']);
   },
 
@@ -38,12 +38,20 @@ Tessitura.UserModel = Tessitura.Model.extend({
       xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
     };
 
+    var successFunction = settings.success;
+
+    settings.success = function(model, response, options) {
+      successFunction(model, response, options);
+      if (model.get('fach_id')) {
+        that.Fach = new Tessitura.FachModel({id: model.get('fach_id')});
+        that.Fach.fetch();
+      }
+    }
+
     return Backbone.Model.prototype.fetch.call(this, settings);
   },
 
-  initialize     : function(attrs, opts) {
-    opts = opts || {};
-
+  initialize     : function(attrs) {
     this.tasks = new Tessitura.TaskCollection();
   }
 });

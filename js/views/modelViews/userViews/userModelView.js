@@ -165,6 +165,7 @@ Tessitura.UserModelView = Tessitura.View.extend({
   /**************************************************************************************/
 
   initialize   : function() {
+    this.fachForm = new Tessitura.FachFormView({model: this.model.fach});
     this.listenTo(this.model, 'change', this.updateDisplay);
   },
 

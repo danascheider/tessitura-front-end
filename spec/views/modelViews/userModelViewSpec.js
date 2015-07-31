@@ -29,6 +29,7 @@ describe('User Model View', function() {
   describe('constructor', function() {
     beforeEach(function() {
       spyOn(Tessitura.UserModelView.prototype, 'render');
+      spyOn(Tessitura.FachFormView.prototype, 'initialize');
       view = new Tessitura.UserModelView({model: user});
     });
 
@@ -38,6 +39,10 @@ describe('User Model View', function() {
 
     it('does not call render #userModelView #modelView #view #travis', function() {
       expect(Tessitura.UserModelView.prototype.render).not.toHaveBeenCalled();
+    });
+
+    it('instantiates a fach form #userModelView #modelView #view #travis', function() {
+      expect(Tessitura.FachFormView.prototype.initialize).toHaveBeenCalled();
     });
   });
 
@@ -113,6 +118,11 @@ describe('User Model View', function() {
 
     it('displays the user\'s headshot #userModelView #modelView #view #travis', function() {
       expect(view.$('#avatar')).toBeInDom();
+    });
+
+    xit('displays the user\'s fach #userModelView #modelView #view #travis', function() {
+      // pending('Not yet implemented');
+      expect(view.$('#fach').html()).toContain('Soprano, lyric, coloratura');
     });
 
     _.each(['username', 'first_name', 'last_name', 'email', 'fach', 'city'], function(field) {

@@ -22,6 +22,7 @@ var JST = {
   'tasks/editForm'     : _.template(require('./modelTemplates/taskTemplates/taskEditFormTemplate.js')),
   'users/model'        : _.template(require('./modelTemplates/userTemplates/userModelTemplate.js')),
   'users/profile'      : _.template(require('./modelTemplates/userTemplates/userProfileTemplate.js')),
+  'fachs/form'         : _.template(require('./modelTemplates/fachTemplates/fachFormTemplate.js')),
 };
 
 /* istanbul ignore next */ module.exports = JST;
