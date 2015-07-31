@@ -41,8 +41,10 @@ Tessitura.UserModel = Tessitura.Model.extend({
     var successFunction = settings.success;
 
     settings.success = function(model, response, options) {
-      if (model.get('fach')) {
-        that.set('')
+      successFunction(model, response, options);
+      if (model.get('fach_id')) {
+        that.Fach = new Tessitura.FachModel({id: model.get('fach_id')});
+        that.Fach.fetch();
       }
     }
 
