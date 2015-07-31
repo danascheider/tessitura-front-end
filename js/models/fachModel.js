@@ -1,13 +1,7 @@
 Tessitura.FachModel = Tessitura.Model.extend({
 
-  // This endpoint does not actually exist, but I had to add a urlRoot property
-  // because Backbone was raising mysterious errors when the model didn't have
-  // one, and investigating this is not a priority. There is no endpoint for 
-  // Fachs because the set of Fachs, as well as the Fachs themselves, are not
-  // intended to be changed at runtime.
-
   urlRoot      : function() {
-    return Tessitura.API.base + '/fachs';
+    return Tessitura.API.fachs.collection;
   },
 
   displayTitle : function() {

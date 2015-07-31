@@ -16,6 +16,11 @@ var API = {
     fullCollection : function(uid) { return BaseURL + '/users/' + uid + '/tasks/all'; },
     single         : function(taskID) { return BaseURL + '/tasks/' + taskID; }
   },
+  fachs : {
+    root           : BaseURL + '/fachs',
+    collection     : BaseURL + '/fachs',
+    single         : function(fachID) { return BaseURL + '/fachs/' + fachID; }
+  }
 };
 
 /* istanbul ignore next */ module.exports = API;

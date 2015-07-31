@@ -64,6 +64,14 @@ describe('User Model', function() {
         user.fetch();
         expect($.ajax.calls[0].args[0].url).toEqual(user.url());
       });
+
+      it('creates a fach if one is given #model #travis', function() {
+        pending();
+        user.set('fach', {type: 'soprano', quality: 'lyric', coloratura: 'true'});
+        spyOn(Tessitura.FachModel.prototype, 'initialize');
+        user.fetch();
+        $.ajax.calls[0].args[0].success(user);
+      });
     });
   });
 
