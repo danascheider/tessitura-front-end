@@ -124,13 +124,12 @@ Tessitura.Router = Backbone.Router.extend({
 
   prepareTestEnvironment: function() {
     $.ajax({
-      type: 'DELETE',
+      type: 'POST',
       url: 'http://api.canto-test.com:1025/destroy'
     });
   },
 
   rerouteIfLoggedIn: function(fragment, args, next) {
-    /* istanbul ignore else */
     if (this.userLoggedIn()) {
       this.AppPresenter.removeAll();
       this.navigate('dashboard', {trigger: true});
@@ -140,7 +139,6 @@ Tessitura.Router = Backbone.Router.extend({
   },
 
   verifyLoggedIn: function(fragment, args, next) {
-    /* istanbul ignore if */
     if(this.userLoggedIn()) { 
       next(); 
     } else {
