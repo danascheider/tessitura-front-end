@@ -33,6 +33,9 @@ Tessitura.LoginFormView = Tessitura.View.extend({
         loginInfo.remember ? $.cookie('auth', hash, {expires: 365}) : $.cookie('auth', hash);
         loginInfo.remember ? $.cookie('userID', user.id, {expires: 365}) : $.cookie('userID', user.get('id'));
         that.trigger('userLoggedIn', {user: model});
+      },
+      error      : function(model, response) {
+        console.log(response);
       }
     });
   },
