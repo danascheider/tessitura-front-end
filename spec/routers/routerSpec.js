@@ -262,11 +262,11 @@ describe('Tessitura Router', function() {
     });
 
     describe('prepareTestEnvironment()', function() {
-      it('sends a DELETE request to the database destroyer #router #travis', function() {
+      it('sends a POST request to the database destroyer #router #travis', function() {
         spyOn($, 'ajax').andCallFake(function(args) { args.success && args.success(); });
         router.prepareTestEnvironment();
         expect($.ajax).toHaveBeenCalledWith(jasmine.objectContaining({
-          type: 'DELETE',
+          type: 'POST',
           url: 'http://api.canto-test.com:1025/destroy'
         }));
       });
