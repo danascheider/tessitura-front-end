@@ -37,13 +37,13 @@ Then(/^I should be on my dashboard$/) do
   expect(page).to have_css('.dashboard-home')
 end
 
-Then(/^I should (not )?be routed to my dashboard$/) do |neg|
+Then(/^I should be routed to my dashboard$/) do 
   wait_for_ajax
-  if neg
-    expect(page).not_to have_selector('#dashboard-wrapper')
-  else
-    expect(find '#dashboard-wrapper').to be_visible
-  end
+  expect(find '#dashboard-wrapper').to be_visible
+end
+
+Then(/^I should not be routed to my dashboard$/) do
+  expect(page).not_to have_selector('#dashboard-wrapper')
 end
 
 Then(/^I should (not )?see the '(\S+)' element$/) do |neg, selector|
