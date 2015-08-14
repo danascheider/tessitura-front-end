@@ -2,4 +2,4 @@
 *.log
 coverage/*
 .ruby-gemset
-screenshot.png
+*.png
