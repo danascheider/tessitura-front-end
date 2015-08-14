@@ -65,7 +65,7 @@ describe('User Model', function() {
         expect($.ajax.calls[0].args[0].url).toEqual(user.url());
       });
 
-      xit('creates a fach if one is given #model #travis', function() {
+      it('creates a fach if one is given #model #travis', function() {
         // pending('Not yet implemented');
         spyOn(Tessitura.FachModel.prototype, 'initialize');
         user.fetch();

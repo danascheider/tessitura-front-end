@@ -38,7 +38,7 @@ Tessitura.UserModel = Tessitura.Model.extend({
       xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
     };
 
-    var successFunction = settings.success;
+    var successFunction = settings.success || function() {};
 
     settings.success = function(model, response, options) {
       successFunction(model, response, options);

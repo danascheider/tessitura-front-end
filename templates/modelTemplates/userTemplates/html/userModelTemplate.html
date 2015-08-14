@@ -36,8 +36,9 @@
   <tr data-attribute='fach'>
     <th>Fach:</th>
     <td title='Double-click to edit'>
+      <% var displayFach = model.Fach ? model.Fach.displayTitle() : 'N/A' %>
       <span class='profile-field' id='fach'>
-        <span class='p'><%= model.get('fach') || 'N/A' %></span>
+        <span class='p'><%= displayFach %></span>
         <span class='form'>
           <form>
             <% var fach = model.escape('fach') %>
