@@ -38,9 +38,14 @@ Feature: User profile
     Then I should not see the input inside the '#city' element
     And the text in the '#city' element should be 'Louisville'
 
-  Scenario: Re-rendering after name change
-    When I submit the 'first_name' form with value 'Alessandra'
-    Then the '#profile-tab' element should contain the text 'Alessandra User's Profile'
+  Scenario Outline: Re-rendering after name change
+    When I submit the '<field>' form with value '<value>'
+    Then the '#profile-tab' element should contain the text '<title>'
+
+      Examples:
+        | field      | value | title                |
+        | first_name | Alex  | Alex User's Profile  |
+        | last_name  | Smith | Test Smith's Profile | 
 
   Scenario: Click outside the input
     Given the input inside the 'last_name' field is visible
