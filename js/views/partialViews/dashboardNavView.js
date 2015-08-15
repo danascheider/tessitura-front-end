@@ -22,7 +22,7 @@
   /**************************************************************************/
 
   events             : {
-    'click .navbar-header'   : 'toggleSidebar',
+    'click .navbar-brand'    : 'toggleSidebar',
     'click li.dropdown'      : 'toggleDropdownMenu',
   },
 

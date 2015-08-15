@@ -99,7 +99,7 @@ describe('Dashboard Nav View', function() {
   /****************************************************************************/
 
   describe('events', function() {
-    describe('click .navbar-header', function() {
+    describe('click .navbar-brand', function() {
       it('calls toggleSidebar() #dashboardNavView #partialView #view #travis', function() {
         spyOn(Tessitura.DashboardNavView.prototype, 'toggleSidebar');
         newView = new Tessitura.DashboardNavView({model: user});
