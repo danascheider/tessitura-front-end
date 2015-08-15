@@ -27,12 +27,30 @@ describe('User Profile View', function() {
   });
   
   describe('event wiring', function() {
+    beforeEach(function() {
+      spyOn(Tessitura.UserProfileView.prototype, 'hideInputs');
+      spyOn(Tessitura.UserProfileView.prototype, 'updateTitle');
+      newView = new Tessitura.UserProfileView({model: user});
+    });
+
     describe('click $el', function() {
       it('calls hideInputs() #userProfileView #modelView #view #travis', function() {
-        spyOn(Tessitura.UserProfileView.prototype, 'hideInputs');
-        newView = new Tessitura.UserProfileView({model: user});
         newView.render().$el.click();
         expect(Tessitura.UserProfileView.prototype.hideInputs).toHaveBeenCalled();
+      });
+    });
+
+    describe('change user first name', function() {
+      it('calls updateTitle #userProfileView #modelView #view #travis', function() {
+        user.set('first_name', 'Kelly');
+        expect(Tessitura.UserProfileView.prototype.updateTitle).toHaveBeenCalled();
+      });
+    });
+
+    describe('change user last name', function() {
+      it('calls updateTitle #userProfileView #modelView #view #travis', function() {
+        user.set('last_name', 'Jones');
+        expect(Tessitura.UserProfileView.prototype.updateTitle).toHaveBeenCalled();
       });
     });
   });
@@ -43,6 +61,15 @@ describe('User Profile View', function() {
         spyOn(view.modelView, 'hideInputs');
         view.hideInputs();
         expect(view.modelView.hideInputs).toHaveBeenCalled();
+      });
+    });
+
+    describe('updateTitle()', function() {
+      it('updates the title #userProfileView #modelView #view #travis', function() {
+        view.render();
+        user.set('first_name', 'Mickey', {silent: true});
+        view.updateTitle();
+        expect(view.$el).toHaveText('Jacob User\'s Profile');
       });
     });
   });
