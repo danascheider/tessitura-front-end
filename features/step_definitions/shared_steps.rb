@@ -50,3 +50,9 @@ Then(/^I should (not )?see the '(\S+)' element$/) do |neg, selector|
   if neg then expect(page).not_to have_selector(selector) 
   else expect(page).to have_selector(selector, visible: true); end
 end
+
+Then(/^the '(\S+)' element should contain the text '(.*)'$/) do |element, text|
+  within element do 
+    expect(page).to have_text text
+  end
+end

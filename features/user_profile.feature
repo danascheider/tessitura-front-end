@@ -40,7 +40,7 @@ Feature: User profile
 
   Scenario: Re-rendering after name change
     When I submit the 'first_name' form with value 'Alessandra'
-    Then the '#profile-tab' element should contain the text 'Alessandra User\'s Profile'
+    Then the '#profile-tab' element should contain the text 'Alessandra User's Profile'
 
   Scenario: Click outside the input
     Given the input inside the 'last_name' field is visible
