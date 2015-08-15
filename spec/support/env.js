@@ -10,7 +10,7 @@
   });
 };
 
-// /* istanbul ignore next */ require('jasmine-tagged');
-// /* istanbul ignore next */ var jasmineEnv = jasmine.getEnv();
-// /* istanbul ignore next */ jasmineEnv.setIncludedTags(['travis']);
-// /* istanbul ignore next */ jasmineEnv.includeSpecsWithoutTags(false);
+// require('jasmine-tagged');
+// var jasmineEnv = jasmine.getEnv();
+// jasmineEnv.setIncludedTags(['travis']);
+// jasmineEnv.includeSpecsWithoutTags(false);
