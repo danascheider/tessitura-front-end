@@ -15,7 +15,7 @@ When(/^I fill in the input '(.*)' with '(.*)' and press tab$/) do |field, value|
 end
 
 When(/^I submit the '(.*)' form with value '(.*)'$/) do |name, value|
-  step "I double-click on the '#city' element"
+  step "I double-click on the '##{name}' element"
   fill_in name, with: value
   find("input[name=#{name}]").native.send_key(:Enter)
 end
