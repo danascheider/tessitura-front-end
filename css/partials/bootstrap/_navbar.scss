@@ -160,7 +160,8 @@
 
 // Brand/project name
 
-.navbar-brand {
+.navbar-brand,
+.navbar-dash-link {
   float: left;
   padding: $navbar-padding-vertical $navbar-padding-horizontal;
   font-size: $font-size-large;
@@ -398,7 +399,8 @@
   background-color: $navbar-default-bg;
   border-color: $navbar-default-border;
 
-  .navbar-brand {
+  .navbar-brand,
+  .navbar-dash-link {
     color: $navbar-default-brand-color;
     &:hover,
     &:focus {
@@ -532,7 +534,8 @@
   background-color: $navbar-inverse-bg;
   border-color: $navbar-inverse-border;
 
-  .navbar-brand {
+  .navbar-brand,
+  .navbar-dash-link {
     color: $navbar-inverse-brand-color;
     &:hover,
     &:focus {
