@@ -90,6 +90,3 @@ DEPENDENCIES
   rspec-mocks (~> 3.2.1)
   sass (~> 3.4.13)
   selenium-webdriver (~> 2.44.0)
-
-BUNDLED WITH
-   1.10.6
