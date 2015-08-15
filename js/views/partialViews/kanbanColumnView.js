@@ -164,6 +164,7 @@ Tessitura.KanbanColumnView = Tessitura.View.extend({
 
       that.$('ul.task-list').sortable({
         connectWith : '.ui-sortable',
+        appendTo    : '.ui-sortable',
         items       : '>*:not(.not-sortable)',
         receive     : that.receiveItem
       });
