@@ -104,7 +104,7 @@ describe('Dashboard Nav View', function() {
         spyOn(Tessitura.DashboardNavView.prototype, 'toggleSidebar');
         newView = new Tessitura.DashboardNavView({model: user});
         newView.render();
-        newView.$('.navbar-header').first().click();
+        newView.$('.navbar-brand').first().click();
         expect(Tessitura.DashboardNavView.prototype.toggleSidebar).toHaveBeenCalled();
       });
     });
