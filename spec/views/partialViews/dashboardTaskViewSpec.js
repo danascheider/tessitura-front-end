@@ -69,11 +69,11 @@ describe('Dashboard Task View', function() {
       view.render();
     });
 
-    it('#view #travis is a div', function() {
+    it('is a div #dashboardTaskView #partialView #view #travis', function() {
       expect(view.$el[0].tagName).toEqual('DIV');
     });
 
-    it('#view #travis has ID #page-wrapper', function() {
+    it('has ID #page-wrapper #dashboardTaskView #partialView #view #travis', function() {
       expect(view.$el).toHaveId('page-wrapper');
     });
   });
