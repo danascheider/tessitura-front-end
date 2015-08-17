@@ -23,7 +23,7 @@ describe(/* ACTUAL VALUE */, function() {
   /**************************************************************************/
 
   beforeAll(function() {
-    jasmine.addMatchers(matchers);
+    this.addMatchers(matchers);
     _.extend(global, fixtures);
   })
 
