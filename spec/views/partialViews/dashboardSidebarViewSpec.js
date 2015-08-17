@@ -61,6 +61,10 @@ describe('Dashboard Sidebar View', function() {
     it('has a link to the task page #dashboardSidebarView #partialView #view #travis', function() {
       expect(sidebar.$('.task-page-link')).toExist();
     });
+
+    it('has a link to the local page #dashboardSidebarView #partialView #view #travis', function() {
+      expect(sidebar.$('.local-page-link')).toExist();
+    });
   });
 
   describe('events', function() {
