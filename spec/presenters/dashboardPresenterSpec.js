@@ -1,18 +1,12 @@
-/* istanbul ignore require */
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/spec/support/env.js');
 require(process.cwd() + '/js/tessitura.js');
 
-/* Configuration
-/*****************************************************************************************/
-
-/* istanbul ignore next */
 var matchers = require('jasmine-jquery-matchers'),
     fixtures = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     context  = describe,
     ccontext = ddescribe;
 
-/* istanbul ignore next */
 describe('Dashboard Presenter', function() {
   var presenter, spy;
 
@@ -69,6 +63,22 @@ describe('Dashboard Presenter', function() {
       expect(presenter.dashboardView).toExist();
     });
 
+    it('creates a dashboard home view #presenter #travis', function() {
+      expect(presenter.dashboardHomeView).toExist();
+    });
+
+    it('creates a dashboard task view #presenter #travis', function() {
+      expect(presenter.dashboardTaskView).toExist();
+    });
+
+    it('creates a dashboard profile view #presenter #travis', function() {
+      expect(presenter.dashboardProfileView).toExist();
+    });
+
+    it('creates a dashboard local view #presenter #travis', function() {
+      expect(presenter.dashboardLocalView).toExist();
+    });
+
     it('calls setUser #presenter #travis', function() {
       spyOn(Tessitura.DashboardPresenter.prototype, 'setUser');
       newPresenter = new Tessitura.DashboardPresenter({user: user});
@@ -108,6 +118,13 @@ describe('Dashboard Presenter', function() {
       it('emits the redirect:profile event #presenter #travis', function() {
         presenter.dashboardView.trigger('redirect', {destination: 'profile'});
         expect(spy).toHaveBeenCalledWith({destination: 'profile'});
+      });
+    });
+
+    describe('redirect:local on the dashboard view', function() {
+      it('emits the redirect:local event #presenter #travis', function() {
+        presenter.dashboardView.trigger('redirect', {destination: 'local'});
+        expect(spy).toHaveBeenCalledWith({destination: 'local'});
       });
     });
 
@@ -270,6 +287,43 @@ describe('Dashboard Presenter', function() {
       });
     });
 
+    describe('getLocal()', function() {
+      context('general', function() {
+        beforeEach(function(done) {
+          presenter.dashboardLocalView.setUser(user);
+          presenter.getLocal();
+          done();
+        });
+
+        it('sets the \'current\' property to the local view #presenter #travis', function() {
+          expect(presenter.current).toBe(presenter.dashboardLocalView);
+        });
+      });
+
+      context('when the local view is not already visible', function() {
+        beforeEach(function(done) {
+          spyOn($, 'ajax').andCallFake(function(args) {
+            args.success();
+          });
+
+          presenter.dashboardView.setUser(user);
+          presenter.dashboardProfileView.setUser(user);
+          spyOn(presenter.dashboardView.$el, 'is').andReturn(false);
+          spyOn(presenter.dashboardView, 'render').andCallThrough();
+          presenter.getLocal();
+          done();
+        });
+
+        it('renders the dashboard #presenter #travis', function() {
+          expect(presenter.dashboardView.render).toHaveBeenCalled();
+        });
+
+        it('attaches the local view to the DOM #presenter #travis', function() {
+          expect(presenter.dashboardView.$el).toBeInDom();
+        });
+      });
+    });
+
     describe('emitRedirect()', function() {
       beforeEach(function() {
         spy = jasmine.createSpy();
@@ -286,6 +340,16 @@ describe('Dashboard Presenter', function() {
       it('emits the redirect:tasks event #presenter #travis', function() {
         presenter.emitRedirect({destination: 'tasks'});
         expect(spy).toHaveBeenCalledWith({destination: 'tasks'});
+      });
+
+      it('emits the redirect:profile event #presenter #travis', function() {
+        presenter.emitRedirect({destination: 'profile'});
+        expect(spy).toHaveBeenCalledWith({destination: 'profile'});
+      });
+
+      it('emits the redirect:local event #presenter #travis', function() {
+        presenter.emitRedirect({destination: 'local'});
+        expect(spy).toHaveBeenCalledWith({destination: 'local'});
       });
     });
 

@@ -19,11 +19,25 @@ Tessitura.DashboardPresenter = Tessitura.Model.extend({
 
     this.clearViews();
 
-    /* istanbul ignore else */
     if(theViewNeedsToChange) {
       this.dashboardView.hideSidebar();
       this.dashboardHomeView.render();
       this.dashboardView.$el.append(this.dashboardHomeView.$el);
+    }
+  },
+
+  getLocal     : function() {
+    this.showDash();
+
+    var theViewNeedsToChange = this.current !== this.dashboardLocalView;
+    this.current = this.dashboardLocalView;
+
+    this.clearViews();
+
+    if(theViewNeedsToChange) {
+      this.dashboardView.hideSidebar();
+      this.dashboardLocalView.render();
+      this.dashboardView.$el.append(this.dashboardLocalView.$el);
     }
   },
 
@@ -35,7 +49,6 @@ Tessitura.DashboardPresenter = Tessitura.Model.extend({
 
     this.clearViews();
 
-    /* istanbul ignore else */
     if(theViewNeedsToChange) {
       this.dashboardView.hideSidebar();
       this.dashboardProfileView.render();
@@ -51,7 +64,6 @@ Tessitura.DashboardPresenter = Tessitura.Model.extend({
 
     this.clearViews();
 
-    /* istanbul ignore else */
     if(theViewNeedsToChange) {
       this.dashboardView.hideSidebar();
       this.dashboardTaskView.render();
@@ -164,17 +176,19 @@ Tessitura.DashboardPresenter = Tessitura.Model.extend({
     this.dashboardHomeView    = new Tessitura.DashboardHomeView();
     this.dashboardTaskView    = new Tessitura.DashboardTaskView();
     this.dashboardProfileView = new Tessitura.DashboardProfileView();
+    this.dashboardLocalView   = new Tessitura.DashboardLocalView();
 
     this.views                = [
                                   this.dashboardView, 
                                   this.dashboardHomeView,
                                   this.dashboardTaskView,
-                                  this.dashboardProfileView
+                                  this.dashboardProfileView,
+                                  this.dashboardLocalView
                                 ];
     
     if(!!opts.user) { this.setUser(opts.user) }
 
-    _.bindAll(this, 'showDash', 'getHome', 'getTask', 'getProfile', 'setUser', 'emitRedirect', 'removeAll');
+    _.bindAll(this, 'showDash', 'getHome', 'getLocal', 'getTask', 'getProfile', 'setUser', 'emitRedirect', 'removeAll');
   
     this.listenTo(this.dashboardView, 'redirect', this.emitRedirect);
     this.listenTo(this.dashboardView, 'hideShade', this.hideShade);

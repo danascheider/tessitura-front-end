@@ -1,30 +1,30 @@
 // Set globals
-/* istanbul ignore next */ global.document  = window.document;
-/* istanbul ignore next */ global.navigator = window.navigator;
-/* istanbul ignore next */ global.$         = global.jQuery = require('jquery');
-/* istanbul ignore next */ global._         = require('underscore');
-/* istanbul ignore next */ global.Backbone  = require('backbone');
-/* istanbul ignore next */ global.JST       = require('../templates/jst.js');
+global.document  = window.document;
+global.navigator = window.navigator;
+global.$         = global.jQuery = require('jquery');
+global._         = require('underscore');
+global.Backbone  = require('backbone');
+global.JST       = require('../templates/jst.js');
 
-/* istanbul ignore next */ global.btoa      = function(string) {
+global.btoa      = function(string) {
   return new Buffer(string).toString('base64');
 };
 
-/* istanbul ignore next */ global.atob      = function(string) {
+global.atob      = function(string) {
   return new Buffer(string, 'base64').toString('binary');
 };
 
-/* istanbul ignore next */ Backbone.$       = $;
+Backbone.$       = $;
 
 // Basic requires that don't need references stored
-/* istanbul ignore next */ require('jquery.cookie');
-/* istanbul ignore next */ require('bootstrap-sass');
-/* istanbul ignore next */ require('../vendor/jquery-ui-1.11.4.custom/jquery-ui.min.js');
-/* istanbul ignore next */ require('../vendor/backbone-route-filter.js');
-/* istanbul ignore next */ require('./views/backboneViewMods.js');
-/* istanbul ignore next */ require('./collections/backboneCollectionMods.js');
+require('jquery.cookie');
+require('bootstrap-sass');
+require('../vendor/jquery-ui-1.11.4.custom/jquery-ui.min.js');
+require('../vendor/backbone-route-filter.js');
+require('./views/backboneViewMods.js');
+require('./collections/backboneCollectionMods.js');
 
-/* istanbul ignore next */ global.Tessitura = {};
+global.Tessitura = {};
 
 // Auxiliary Tessitura modules
 Tessitura.API                    = require('./api.js');
@@ -60,6 +60,7 @@ Tessitura.UserProfileView       = require('./views/modelViews/userViews/userProf
 // Require partial views
 Tessitura.CalendarView           = require('./views/partialViews/calendarView.js');
 Tessitura.DashboardHomeView      = require('./views/partialViews/dashboardHomeView.js');
+Tessitura.DashboardLocalView     = require('./views/partialViews/dashboardLocalView.js');
 Tessitura.DashboardNavView       = require('./views/partialViews/dashboardNavView.js');
 Tessitura.DashboardProfileView   = require('./views/partialViews/dashboardProfileView.js');
 Tessitura.DashboardSidebarView   = require('./views/partialViews/dashboardSidebarView.js');

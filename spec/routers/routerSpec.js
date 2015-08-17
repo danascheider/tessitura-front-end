@@ -27,6 +27,10 @@ describe('Tessitura Router', function() {
     router = new Tessitura.Router();
   });
 
+  afterEach(function() {
+    router && router.stopListening();
+  });
+
   /* Constructor
   /****************************************************************************/
 
@@ -224,24 +228,46 @@ describe('Tessitura Router', function() {
       });
     });
 
-    describe('displayProfile()', function() {
+    describe('displayDashboardProfile()', function() {
       beforeEach(function() {
         spyOn($, 'cookie').andReturn(1);
         spyOn($, 'ajax').andCallFake(function(args) {
-          args.success & args.success();
+          args.success && args.success();
         });
       });
 
       it('sets the user #router #travis', function() {
         spyOn(router.DashboardPresenter, 'setUser');
-        router.displayProfile();
+        router.displayDashboardProfile();
         expect(router.DashboardPresenter.setUser).toHaveBeenCalled();
       });
 
       it('calls getProfile on the DashboardPresenter #router #travis', function(done) {
         spyOn(router.DashboardPresenter, 'getProfile');
-        router.displayProfile();
+        router.displayDashboardProfile();
         expect(router.DashboardPresenter.getProfile).toHaveBeenCalled();
+        done();
+      });
+    });
+
+    describe('displayDashboardLocal()', function() {
+      beforeEach(function() {
+        spyOn($, 'cookie').andReturn(1);
+        spyOn($, 'ajax').andCallFake(function(args) {
+          args.success && args.success();
+        });
+      });
+
+      it('sets the user #router #travis', function() {
+        spyOn(router.DashboardPresenter, 'setUser');
+        router.displayDashboardLocal();
+        expect(router.DashboardPresenter.setUser).toHaveBeenCalled();
+      });
+
+      it('calls getLocal on the DashboardPresenter #router #travis', function(done) {
+        spyOn(router.DashboardPresenter, 'getLocal');
+        router.displayDashboardLocal();
+        expect(router.DashboardPresenter.getLocal).toHaveBeenCalled();
         done();
       });
     });

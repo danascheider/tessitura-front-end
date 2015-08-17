@@ -60,10 +60,11 @@ Tessitura.Router = Backbone.Router.extend({
     '(/)'            : 'displayHomepage',
     'home(/)'        : 'displayHomepage',
     'dashboard(/)'   : 'displayDashboardHome',
-    'tasks(/)'       : 'displayDashboardTaskView',
+    'local(/)'       : 'displayDashboardLocal',
     'logout(/)'      : 'logOut',
     'prepare(/)'     : 'prepareTestEnvironment',
-    'profile(/)'     : 'displayProfile',
+    'profile(/)'     : 'displayDashboardProfile',
+    'tasks(/)'       : 'displayDashboardTaskView',
     '*actions'       : 'defaultAction'
   },
 
@@ -73,7 +74,7 @@ Tessitura.Router = Backbone.Router.extend({
     '(/)'          : 'rerouteIfLoggedIn'
   },
 
-  defaultAction: function(action) {
+  defaultAction            : function(action) {
     // FIX: In production this should render some sort of a 'missing
     //      resource' view since opera singers have an inexplicable
     //      tendency not to check their JavaScript consoles when a
@@ -81,55 +82,58 @@ Tessitura.Router = Backbone.Router.extend({
     console.log('No route for ', action);
   },
 
-  displayDashboardHome: function() {
+  displayDashboardHome     : function() {
     var that = this;
-    var user = new Tessitura.UserModel({id: $.cookie('userID')});
-    user.tasks = new Tessitura.TaskCollection();
 
     this.DashboardPresenter.setUser(new Tessitura.UserModel({id: $.cookie('userID')}), function() {
       that.DashboardPresenter.getHome();
     });
   },
 
-  displayDashboardTaskView: function() {
+  displayDashboardLocal    : function() {
     var that = this;
-    var user = new Tessitura.UserModel({id: $.cookie('userID')});
-    user.tasks = new Tessitura.TaskCollection();
 
-    this.DashboardPresenter.setUser(user, function() {
-      that.DashboardPresenter.getTask();
+    this.DashboardPresenter.setUser(new Tessitura.UserModel({id: $.cookie('userID')}), function() {
+      that.DashboardPresenter.getLocal();
     });
   },
 
-  displayHomepage: function() {
-    this.DashboardPresenter.removeAll();
-    this.AppPresenter.getHomepage();
-  },
-
-  displayProfile: function() {
+  displayDashboardProfile  : function() {
     var that = this;
-    var user = new Tessitura.UserModel({id: $.cookie('userID')});
-    user.tasks = new Tessitura.TaskCollection();
 
-    this.DashboardPresenter.setUser(user, function() {
+    this.DashboardPresenter.setUser(new Tessitura.UserModel({id: $.cookie('userID')}), function() {
       that.DashboardPresenter.getProfile();
     });
   },
 
-  logOut: function() {
+  displayDashboardTaskView : function() {
+    var that = this;
+
+    this.DashboardPresenter.setUser(new Tessitura.UserModel({id: $.cookie('userID')}), function() {
+      that.DashboardPresenter.getTask();
+    });
+  },
+
+  displayHomepage          : function() {
+    this.DashboardPresenter.removeAll();
+    this.AppPresenter.getHomepage();
+  },
+
+
+  logOut                   : function() {
     $.removeCookie('auth');
     $.removeCookie('userID');
     this.navigate('', {trigger: true});
   },
 
-  prepareTestEnvironment: function() {
+  prepareTestEnvironment   : function() {
     $.ajax({
       type: 'POST',
       url: 'http://api.canto-test.com:1025/destroy'
     });
   },
 
-  rerouteIfLoggedIn: function(fragment, args, next) {
+  rerouteIfLoggedIn        : function(fragment, args, next) {
     if (this.userLoggedIn()) {
       this.AppPresenter.removeAll();
       this.navigate('dashboard', {trigger: true});
@@ -138,7 +142,7 @@ Tessitura.Router = Backbone.Router.extend({
     }
   },
 
-  verifyLoggedIn: function(fragment, args, next) {
+  verifyLoggedIn           : function(fragment, args, next) {
     if(this.userLoggedIn()) { 
       next(); 
     } else {
