@@ -1,18 +1,12 @@
-/* istanbul ignore require */
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/js/tessitura.js');
 require(process.cwd() + '/spec/support/env.js');
 
-/* istanbul ignore next */
 var matchers       = require('jasmine-jquery-matchers'),
     fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     context        = describe,
     ccontext       = ddescribe;
 
-/* Main Dashboard View Spec
-/****************************************************************************/
-
-/* istanbul ignore next */
 describe('Main Dashboard View', function() {
   var dashboard, newView, e, spy;
 
