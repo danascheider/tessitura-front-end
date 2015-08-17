@@ -1,9 +1,7 @@
-/* istanbul ignore require */
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/js/tessitura.js');
 require(process.cwd() + '/spec/support/env.js');
 
-/* istanbul ignore next */
 var matchers       = require('jasmine-jquery-matchers'),
     context        = describe,
     ccontext       = ddescribe;
@@ -11,7 +9,6 @@ var matchers       = require('jasmine-jquery-matchers'),
 /* Dashboard Sidebar View Spec
 /****************************************************************************************/
 
-/* istanbul ignore next */
 describe('Dashboard Sidebar View', function() {
   var sidebar, newSidebar, e, link;
 
