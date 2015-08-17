@@ -9,7 +9,7 @@ require(process.cwd() + '/spec/support/env.js');
 var matchers       = _.extend(require('jasmine-jquery-matchers'), require(process.cwd() + '/spec/support/matchers/toBeA.js')),
     fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     context        = describe,
-    fcontext       = fdescribe;
+    ccontext       = ddescribe;
 
 /****************************************************************************
  * BEGIN SUITE                                                              *
