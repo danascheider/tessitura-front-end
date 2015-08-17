@@ -1,12 +1,12 @@
 @javascript
 Feature: Dashboard home elements
 
+  The data refer in this feature pertain to the user object hard-coded in the 
+  test API. This user has 5 tasks, 4 of which are incomplete. Note that values 
+  for resources other than tasks are currently hard-coded.
+
   Background:
     Given I am on my dashboard
-
-  # These data refer to the user object hard-coded in the test API. This user
-  # has 5 tasks, 4 of which are incomplete. Note that values for resources other
-  # than tasks are currently hard-coded.
 
   Scenario Outline: Dashboard top widgets
     Then I should see my '<name>' widget
