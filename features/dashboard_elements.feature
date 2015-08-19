@@ -30,7 +30,7 @@ Feature: Dashboard elements
 
   Scenario: Opening sidebar
     Given the sidebar is hidden
-    When I click on the '.navbar-header' element
+    When I click on the '.navbar-brand' element
     Then I should see the sidebar
 
   Scenario Outline: Closing sidebar
@@ -40,5 +40,5 @@ Feature: Dashboard elements
 
     Examples:
       | action                                |
-      | click on the '.navbar-header' element |
+      | click on the '.navbar-brand' element  |
       | double-click the 'nav' element        |
