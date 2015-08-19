@@ -107,7 +107,26 @@
           </form>
         </span>
       </span>
-    </td>  </tr>
+    </td>  
+  </tr>
+  <tr data-attribute='address_1'>
+    <th>Address 1:</th>
+    <td title='Double-click to edit'>
+      <span class='profile-field' id='address_1'>
+        <span class='p'><%= model.get('address_1') || 'N/A' %></span>
+        <span class='form'><form><input name='address_1' value='<%= model.get('address_1') %>' /></form></span>
+      </span>
+    </td>
+  </tr>
+  <tr data-attribute='address_2'>
+    <th>Address 2:</th>
+    <td title='Double-click to edit'>
+      <span class='profile-field' id='address_2'>
+        <span class='p'><%= model.get('address_2') || 'N/A' %></span>
+        <span class='form'><form><input name='address_1' value='<%= model.get('address_2') %>' /></form></span>
+      </span>
+    </td>
+  </tr>
   <tr data-attribute='city'>
     <th>City:</th>
     <td title='Double-click to edit'>
@@ -115,7 +134,182 @@
         <span class='p'><%= model.get('city') || 'N/A' %></span>
         <span class='form'><form><input name='city' value='<%= model.get('city') %>' /></form></span>
       </span>
-    </td>  </tr>
+    </td>  
+  </tr>
+  <tr data-attribute='state'>
+    <th>State:</th>
+    <td title='Double-click to edit'>
+      <span class='profile-field' id='state'>
+        <span class='p'><%= model.get('state') || 'N/A' %></span>
+        <span class='form'>
+          <form>
+            <% var state = model.get('state'); %>
+            <select name='address_1'>
+              <option<%- state === 'AK' ? ' selected' : '' %>>
+                AK
+              </option>
+              <option<%- state === 'AL' ? ' selected' : '' %>>
+                AL
+              </option>
+              <option<%- state === 'AR' ? ' selected' : '' %>>
+                AR
+              </option>
+              <option<%- state === 'AZ' ? ' selected' : '' %>>
+                AZ
+              </option>
+              <option<%- state === 'CA' ? ' selected' : '' %>>
+                CA
+              </option>
+              <option<%- state === 'CO' ? ' selected' : '' %>>
+                CO
+              </option>
+              <option<%- state === 'CT' ? ' selected' : '' %>>
+                CT
+              </option>
+              <option<%- state === 'DE' ? ' selected' : '' %>>
+                DE
+              </option>
+              <option<%- state === 'FL' ? ' selected' : '' %>>
+                FL
+              </option>
+              <option<%- state === 'GA' ? ' selected' : '' %>>
+                GA
+              </option>
+              <option<%- state === 'HI' ? ' selected' : '' %>>
+                HI
+              </option>
+              <option<%- state === 'IA' ? ' selected' : '' %>>
+                IA
+              </option>
+              <option<%- state === 'ID' ? ' selected' : '' %>>
+                ID
+              </option>
+              <option<%- state === 'IL' ? ' selected' : '' %>>
+                IL
+              </option>
+              <option<%- state === 'IN' ? ' selected' : '' %>>
+                IN
+              </option>
+              <option<%- state === 'KS' ? ' selected' : '' %>>
+                KS
+              </option>
+              <option<%- state === 'KY' ? ' selected' : '' %>>
+                KY
+              </option>
+              <option<%- state === 'LA' ? ' selected' : '' %>>
+                LA
+              </option>
+              <option<%- state === 'MA' ? ' selected' : '' %>>
+                MA
+              </option>
+              <option<%- state === 'MD' ? ' selected' : '' %>>
+                MD
+              </option>
+              <option<%- state === 'ME' ? ' selected' : '' %>>
+                ME
+              </option>
+              <option<%- state === 'MI' ? ' selected' : '' %>>
+                MI
+              </option>
+              <option<%- state === 'MN' ? ' selected' : '' %>>
+                MN
+              </option>
+              <option<%- state === 'MO' ? ' selected' : '' %>>
+                MO
+              </option>
+              <option<%- state === 'MS' ? ' selected' : '' %>>
+                MS
+              </option>
+              <option<%- state === 'MT' ? ' selected' : '' %>>
+                MT
+              </option>
+              <option<%- state === 'NC' ? ' selected' : '' %>>
+                NC
+              </option>
+              <option<%- state === 'ND' ? ' selected' : '' %>>
+                ND
+              </option>
+              <option<%- state === 'NE' ? ' selected' : '' %>>
+                NE
+              </option>
+              <option<%- state === 'NH' ? ' selected' : '' %>>
+                NH
+              </option>
+              <option<%- state === 'NJ' ? ' selected' : '' %>>
+                NJ
+              </option>
+              <option<%- state === 'NM' ? ' selected' : '' %>>
+                NM
+              </option>
+              <option<%- state === 'NV' ? ' selected' : '' %>>
+                NV
+              </option>
+              <option<%- state === 'NY' ? ' selected' : '' %>>
+                NY
+              </option>
+              <option<%- state === 'OH' ? ' selected' : '' %>>
+                OH
+              </option>
+              <option<%- state === 'OK' ? ' selected' : '' %>>
+                OK
+              </option>
+              <option<%- state === 'OR' ? ' selected' : '' %>>
+                OR
+              </option>
+              <option<%- state === 'PA' ? ' selected' : '' %>>
+                PA
+              </option>
+              <option<%- state === 'RI' ? ' selected' : '' %>>
+                RI
+              </option>
+              <option<%- state === 'SC' ? ' selected' : '' %>>
+                SC
+              </option>
+              <option<%- state === 'SD' ? ' selected' : '' %>>
+                SD
+              </option>
+              <option<%- state === 'TN' ? ' selected' : '' %>>
+                TN
+              </option>
+              <option<%- state === 'TX' ? ' selected' : '' %>>
+                TX
+              </option>
+              <option<%- state === 'UT' ? ' selected' : '' %>>
+                UT
+              </option>
+              <option<%- state === 'VA' ? ' selected' : '' %>>
+                VA
+              </option>
+              <option<%- state === 'VT' ? ' selected' : '' %>>
+                VT
+              </option>
+              <option<%- state === 'WA' ? ' selected' : '' %>>
+                WA
+              </option>
+              <option<%- state === 'WI' ? ' selected' : '' %>>
+                WI
+              </option>
+              <option<%- state === 'WV' ? ' selected' : '' %>>
+                WV
+              </option>
+              <option<%- state === 'WY' ? ' selected' : '' %>>
+                WY
+              </option>
+            </select>
+          </form>
+        </span>
+      </span>
+    </td>
+  </tr>
+  <tr data-attribute='zip'>
+    <th>Zip:</th>
+    <td title='Double-click to edit'>
+      <span class='profile-field' id='zip'>
+        <span class='p'><%= model.get('zip') || 'N/A' %></span>
+        <span class='form'><form><input name='zip' value='<%= model.get('zip') %>' /></form></span>
+      </span>
+    </td>  
+  </tr>
   <tr>
     <th>Member Since:</th>
     <td><%= model.prettyCreateDate() %></td>

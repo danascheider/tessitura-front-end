@@ -72,6 +72,26 @@ describe('User Model View', function() {
     it('displays the user\'s e-mail #userModelView #modelView #view #travis', function() {
       expect(html).toContain('E-mail:');
     });
+
+    it('displays the user\'s address_1 attribute #userModelView #modelView #view #travis', function() {
+      expect(html).toContain('Address 1:');
+    });
+
+    it('displays the user\'s address_2 attribute #userModelView #modelView #view #travis', function() {
+      expect(html).toContain('Address 2:');
+    });
+
+    it('displays the user\'s city #userModelView #modelView #view #travis', function() {
+      expect(html).toContain('City:');
+    });
+
+    it('displays the user\'s state #userModelView #modelView #view #travis', function() {
+      expect(html).toContain('State:');
+    });
+
+    it('displays the user\'s zip code #userModelView #modelView #view #travis', function() {
+      expect(html).toContain('Zip:');
+    });
   });
 
   describe('events', function() {
