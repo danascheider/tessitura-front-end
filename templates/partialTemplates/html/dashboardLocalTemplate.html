@@ -1,11 +1,70 @@
 <div class='row'>
-  <div class='col-lg-12'>
-    <h1 class='page-header'>Opportunities Near Me</h1>
-    <% if (!(model.get('address_1') || model.get('address_2') || model.get('state') || model.get('zip'))) { %>
-      <div class='alert alert-warning'>
-        Tell us where you live to find out what's near you!
-        <a href='#profile' class='internal-link alert-link'>Go <i class='fa fa-angle-double-right'></i></a>
-      </div>
-    <% } %>
+  <div class='col-lg-10 col-lg-offset-2'>
+    <h1 class='page-header'>Things Near Me</h1>
   </div>
+  <% if (!(model.get('address_1') || model.get('address_2') || model.get('state') || model.get('zip'))) { %>
+    <div class='col-md-8 col-md-offset-2'>
+      <div class='alert alert-info'>
+        <form id='location-form'>
+          City <input name='city' placeholder='City' title='City' class='form-control' />
+          State <select name='state' class='form-control'>
+            <option>AK</option>
+            <option>AL</option>
+            <option>AR</option>
+            <option>AZ</option>
+            <option>CA</option>
+            <option>CO</option>
+            <option>CT</option>
+            <option>DE</option>
+            <option>FL</option>
+            <option>GA</option>
+            <option>HI</option>
+            <option>IA</option>
+            <option>ID</option>
+            <option>IL</option>
+            <option>IN</option>
+            <option>KS</option>
+            <option>KY</option>
+            <option>LA</option>
+            <option>MA</option>
+            <option>MD</option>
+            <option>ME</option>
+            <option>MI</option>
+            <option>MN</option>
+            <option>MO</option>
+            <option>MS</option>
+            <option>MT</option>
+            <option>NC</option>
+            <option>ND</option>
+            <option>NE</option>
+            <option>NH</option>
+            <option>NJ</option>
+            <option>NM</option>
+            <option>NV</option>
+            <option>NY</option>
+            <option>OH</option>
+            <option>OK</option>
+            <option>OR</option>
+            <option>PA</option>
+            <option>RI</option>
+            <option>SC</option>
+            <option>SD</option>
+            <option>TN</option>
+            <option>TX</option>
+            <option>UT</option>
+            <option>VA</option>
+            <option>VT</option>
+            <option>WA</option>
+            <option>WI</option>
+            <option>WV</option>
+            <option>WY</option>
+          </select>
+          ZIP <input name='zip' placeholder='ZIP' title='ZIP' class='form-control' />
+          <button type='submit' class='btn btn-primary'>Get Local Results <i class='fa fa-angle-right fa-fw'></i></button>
+        </form>
+      </div>
+    </div>
+  <% } %>
+
+  <div class='col-lg-10 col-lg-offset-2'></div>
 </div>

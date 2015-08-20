@@ -8,6 +8,7 @@ group :test do
   gem 'cucumber-core',      '~> 1.2.0', git: 'https://github.com/cucumber/cucumber-ruby-core'
   gem 'capybara',           '~> 2.4.4'
   gem 'capybara-webkit',    '~> 1.4.1'
+  gem 'httparty',           '~> 0.13', '>= 0.13.5'
   gem 'rspec-expectations', '~> 3.2.0'
   gem 'rspec-mocks',        '~> 3.2.1'
   gem 'selenium-webdriver', '~> 2.44.0'

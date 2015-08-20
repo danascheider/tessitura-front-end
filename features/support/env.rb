@@ -3,6 +3,7 @@ require 'capybara/webkit'
 require 'capybara/poltergeist'
 require 'rspec/expectations'
 require 'base64'
+require 'httparty'
 
 require_relative 'wait_for_ajax'
 
