@@ -71,13 +71,13 @@ Tessitura.UserModelView = Tessitura.View.extend({
     var data = Tessitura.Utils.getAttributes($(e.target));
 
     this.model.save(data, {
-      beforeSend:  /* istanbul ignore next */ function(xhr) {
-        /* istanbul ignore next */ xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
+      beforeSend:  function(xhr) {
+        xhr.setRequestHeader('Authorization', 'Basic ' + $.cookie('auth'));
       },
-      error  : /* istanbul ignore next */ function(model, response, options) {
-        /* istanbul ignore next */ console.log('Model: ', model);
-        /* istanbul ignore next */ console.log('Response: ', response);
-        /* istanbul ignore next */ console.log('Options: ', options);
+      error  : function(model, response, options) {
+        console.log('Model: ', model);
+        console.log('Response: ', response);
+        console.log('Options: ', options);
       },
       success: function(model) {
         if(data['username'] || data['password']) {
