@@ -303,11 +303,11 @@ describe('Dashboard Presenter', function() {
       context('when the local view is not already visible', function() {
         beforeEach(function(done) {
           spyOn($, 'ajax').andCallFake(function(args) {
-            args.success();
+            args.success(user);
           });
 
           presenter.dashboardView.setUser(user);
-          presenter.dashboardProfileView.setUser(user);
+          presenter.dashboardLocalView.setUser(user);
           spyOn(presenter.dashboardView.$el, 'is').andReturn(false);
           spyOn(presenter.dashboardView, 'render').andCallThrough();
           presenter.getLocal();
