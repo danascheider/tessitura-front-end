@@ -1,16 +1,12 @@
-/* istanbul ignore require */
-
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/js/tessitura.js');
 require(process.cwd() + '/spec/support/env.js');
 
 var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
 
-/* istanbul ignore next */
 var context        = describe,
     ccontext       = ddescribe;
 
-/* istanbul ignore next */
 describe('User Model', function() {
   var user, newUser, xhr, newUser;
 
