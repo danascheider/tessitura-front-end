@@ -55,7 +55,7 @@ describe('App Presenter', function() {
   /***************************************************************************************/
 
   describe('constructor', function() {
-    it('initializes a homepage view #presenter #travis #presenter #travis', function() {
+    it('initializes a homepage view #presenter #travis', function() {
       expect(presenter.homepageView.isA('HomepageView')).toBe(true);
     });
   });
