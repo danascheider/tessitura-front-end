@@ -64,6 +64,52 @@ describe('Dashboard Local View', function() {
     });
   });
 
+  /* Event Wiring
+  /****************************************************************************/
+
+  describe('event wiring', function() {
+    describe('submit #location-form', function() {
+      it('calls updateProfile() #dashboardLocalView #partialView #view #travis', function() {
+        spyOn(Tessitura.DashboardLocalView.prototype, 'updateProfile');
+        newView = new Tessitura.DashboardLocalView({user: user});
+        newView.render();
+        newView.$('#location-form').submit();
+        expect(Tessitura.DashboardLocalView.prototype.updateProfile).toHaveBeenCalled();
+      });
+    });
+  });
+
+  /* Event Callbacks
+  /****************************************************************************/
+
+  describe('event callbacks', function() {
+    describe('updateProfile()', function() {
+      beforeEach(function() {
+        e = $.Event('submit', {target: view.$('#location-form')});
+      });
+
+      it('calls preventDefault() #dashboardLocalView #partialView #view #travis', function() {
+        spyOn(e, 'preventDefault');
+        spyOn($, 'ajax');
+        view.updateProfile(e);
+        expect(e.preventDefault).toHaveBeenCalled();
+      });
+
+      it('saves the model #dashboardLocalView #partialView #view #travis', function() {
+        spyOn(user, 'save');
+        view.updateProfile(e);
+        expect(user.save).toHaveBeenCalled();
+      });
+
+      it('hides the form #dashboardLocalView #partialView #view #travis', function(done) {
+        spyOn($, 'ajax').andCallFake(function(args) { args.success && args.success(); });
+        view.updateProfile(e);
+        expect(view.$('.alert')).toBeHidden();
+        done();
+      });
+    });
+  });
+
   /* Special Functions
   /****************************************************************************/
 
