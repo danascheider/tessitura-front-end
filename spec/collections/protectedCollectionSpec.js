@@ -1,8 +1,3 @@
-/* istanbul ignore require */
-
-/* Core Requires
-/****************************************************************************/
-
 require(process.cwd() + '/spec/support/env.js');
 require(process.cwd() + '/js/tessitura.js');
 require(process.cwd() + '/spec/support/jsdom.js');
@@ -11,11 +6,6 @@ var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
     Model          = Tessitura.Model.extend({}),
     context        = describe,
     ccontext       = ddescribe;
-
-/* istanbul ignore next */
-
-/* Suite
-/******************************************************************************/
 
 describe('Protected Collection', function() {
   var collection, model1, model2, model3, xhr, ajaxSettings, spy;
