@@ -15,20 +15,20 @@ describe('Organization Collection', function() {
   });
 
   afterEach(function() {
-    resetFixtures();
+    restoreFixtures()
     _.omit(global, fixtures);
   });
 
   describe('constructor', function() {
     it('sets the models #collection #travis', function() {
       organizationCollection = new Tessitura.OrganizationCollection([org1, org2, org3]);
-      expect(organizationCollection.models).toEqual([org1, org2, org3]);
+      expect(organizationCollection.models.length).toEqual(3);
     });
   });
 
   describe('URL', function() {
     it('goes to /organizations #collection #travis', function() {
-      expect(collection.url).toEqual('/organizations');
+      expect(organizations.url).toEqual('/organizations');
     });
   });
 });
