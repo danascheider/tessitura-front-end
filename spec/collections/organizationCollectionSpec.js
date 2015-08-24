@@ -8,24 +8,21 @@ var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
     ccontext       = ddescribe;
 
 describe('Organization Collection', function() {
-  var collection, newCollection, org1, org2, org3
+  var organizationCollection, newCollection, org1, org2, org3
 
   beforeEach(function() {
-    org1 = new Tessitura.OrganizationModel({name: 'Org1'});
-    org2 = new Tessitura.OrganizationModel({name: 'Org2'});
-    org3 = new Tessitura.OrganizationModel({name: 'Org3'});
-    collection = new Tessitura.OrganizationCollection([org1, org2, org3]);
+    _.extend(global, fixtures);
   });
 
   afterEach(function() {
-    org1.destroy();
-    org2.destroy();
-    org3.destroy();
+    resetFixtures();
+    _.omit(global, fixtures);
   });
 
   describe('constructor', function() {
     it('sets the models #collection #travis', function() {
-      expect(collection.models).toEqual([org1, org2, org3]);
+      organizationCollection = new Tessitura.organizationCollection([org1, org2, org3]);
+      expect(organizationCollection.models).toEqual([org1, org2, org3]);
     });
   });
 
