@@ -52,6 +52,7 @@ Tessitura.DashWidgetView         = require('./views/appViews/dashWidgetView.js')
 
 // Require model and collection views
 Tessitura.FachFormView           = require('./views/modelViews/fachViews/fachFormView.js');
+Tessitura.OrganizationListItemView = require('./views/modelViews/organizationViews/organizationListItemView.js');
 Tessitura.QuickAddFormView       = require('./views/modelViews/taskViews/quickAddFormView.js');
 Tessitura.TaskCreateFormView     = require('./views/modelViews/taskViews/taskCreateFormView.js');
 Tessitura.TaskEditFormView       = require('./views/modelViews/taskViews/taskEditFormView.js');
