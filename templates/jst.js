@@ -6,6 +6,7 @@ var JST = {
   'dashboard'          : _.template('<div id=\'shade\'></div>'),
   'homepage'           : _.template(require('./topLevelTemplates/homepageTemplate.js')),
   'collections/task'   : _.template('<li class=\'quick-add-form not-sortable\'></li>'),
+  'orgs/listItem'      : _.template(require('./modelTemplates/organizationTemplates/organizationListItemTemplate.js')),
   'partials/dashHome'  : _.template(require('./partialTemplates/dashboardHomeTemplate.js')),
   'partials/dashLocal' : _.template(require('./partialTemplates/dashboardLocalTemplate.js')),
   'partials/dashNav'   : _.template(require('./partialTemplates/dashboardNavTemplate.js')),

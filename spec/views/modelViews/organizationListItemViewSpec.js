@@ -34,6 +34,28 @@ describe('OrganizationListItemView', function() {
 
     it('is an li #organizationListItemView #modelView #view #travis', function() {
       expect(view.$el[0].tagName).toEqual('LI');
-    })
+    });
+
+    it('has class .organization-list-item-view #organizationListItemView #modelView #view #travis', function() {
+      expect(view.$el.attr('class')).toContain('organization-list-item-view');
+    });
+  });
+
+  describe('view elements', function() {
+    beforeEach(function() {
+      org.set({
+        email_1   : 'org1@example.org',
+        address_1 : '123 Main St.',
+        city      : 'Pierre',
+        state     : 'SD',
+        phone_1   : '(800) 555-4242'
+      });
+
+      view.render();
+    });
+
+    it('displays the name #organizationListItemView #modelView #view #travis', function() {
+      expect(view.$('a.organization-name').html()).toEqual('Foobar');
+    });
   });
 });
