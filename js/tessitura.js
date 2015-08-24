@@ -39,24 +39,25 @@ Tessitura.TaskModel              = require('./models/taskModel.js');
 Tessitura.UserModel              = require('./models/userModel.js');
 
 // Require collections
-Tessitura.ProtectedCollection   = require('./collections/protectedCollection.js');
-Tessitura.TaskCollection        = require('./collections/taskCollection.js');
+Tessitura.ProtectedCollection    = require('./collections/protectedCollection.js');
+Tessitura.OrganizationCollection = require('./collections/organizationCollection.js');
+Tessitura.TaskCollection         = require('./collections/taskCollection.js');
 
 // Require top-level views
-Tessitura.View                  = require('./views/appViews/tessituraView.js');
-Tessitura.DashboardView         = require('./views/appViews/dashboardView.js');
-Tessitura.HomepageView          = require('./views/appViews/homepageView.js');
-Tessitura.DashWidgetView        = require('./views/appViews/dashWidgetView.js');
+Tessitura.View                   = require('./views/appViews/tessituraView.js');
+Tessitura.DashboardView          = require('./views/appViews/dashboardView.js');
+Tessitura.HomepageView           = require('./views/appViews/homepageView.js');
+Tessitura.DashWidgetView         = require('./views/appViews/dashWidgetView.js');
 
 
 // Require model and collection views
-Tessitura.FachFormView          = require('./views/modelViews/fachViews/fachFormView.js');
-Tessitura.QuickAddFormView      = require('./views/modelViews/taskViews/quickAddFormView.js');
-Tessitura.TaskCreateFormView    = require('./views/modelViews/taskViews/taskCreateFormView.js');
-Tessitura.TaskEditFormView      = require('./views/modelViews/taskViews/taskEditFormView.js');
-Tessitura.TaskListItemView      = require('./views/modelViews/taskViews/taskListItemView.js');
-Tessitura.UserModelView         = require('./views/modelViews/userViews/userModelView.js');
-Tessitura.UserProfileView       = require('./views/modelViews/userViews/userProfileView.js');
+Tessitura.FachFormView           = require('./views/modelViews/fachViews/fachFormView.js');
+Tessitura.QuickAddFormView       = require('./views/modelViews/taskViews/quickAddFormView.js');
+Tessitura.TaskCreateFormView     = require('./views/modelViews/taskViews/taskCreateFormView.js');
+Tessitura.TaskEditFormView       = require('./views/modelViews/taskViews/taskEditFormView.js');
+Tessitura.TaskListItemView       = require('./views/modelViews/taskViews/taskListItemView.js');
+Tessitura.UserModelView          = require('./views/modelViews/userViews/userModelView.js');
+Tessitura.UserProfileView        = require('./views/modelViews/userViews/userProfileView.js');
 
 // Require partial views
 Tessitura.CalendarView           = require('./views/partialViews/calendarView.js');
