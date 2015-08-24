@@ -28,4 +28,12 @@ describe('OrganizationListItemView', function() {
       expect(view.model).toEqual(org);
     });
   });
+
+  describe('el', function() {
+    beforeEach(function() { view.render(); });
+
+    it('is an li #organizationListItemView #modelView #view #travis', function() {
+      expect(view.$el[0].tagName).toEqual('LI');
+    })
+  });
 });
