@@ -1,33 +1,21 @@
-/* Core Requires
-/****************************************************************************/
-/* istanbul ignore next */
 require(process.cwd() + '/js/tessitura.js');
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/spec/support/env.js');
 
-/* istanbul ignore next */
 var matchers       = _.extend(require('jasmine-jquery-matchers'), require(process.cwd() + '/spec/support/matchers/toBeA.js')),
     fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     context        = describe,
     ccontext       = ddescribe;
 
-/****************************************************************************
- * BEGIN SUITE                                                              *
-/****************************************************************************/
-
-/* istanbul ignore next */
 describe(/* ACTUAL VALUE */, function() {
   var view;
 
   /* Filters
   /**************************************************************************/
 
-  beforeAll(function() {
+  beforeEach(function() {
     this.addMatchers(matchers);
     _.extend(global, fixtures);
-  })
-
-  beforeEach(function() {
 
     // Create an instance of the view under test
     // Insert args here
@@ -37,29 +25,8 @@ describe(/* ACTUAL VALUE */, function() {
 
   afterEach(function() {
     restoreFixtures();
-  });
-
-  afterAll(function() {
-    view.remove();
-    view = null;
+    view.destroy();
     global = _.omit(global, fixtures);
-  });
-
-  /* Static Properties
-  /**************************************************************************/
-
-  describe('properties', function() {
-    it('has klass /* EXPECTED VALUE */ #partialView #view #travis', function() {
-      expect(view.klass).toEqual(/* Expected Value */);
-    });
-
-    it('has family Tessitura.View #partialView #view #travis', function() {
-      expect(view.family).toEqual('Tessitura.View');
-    });
-
-    it('has superFamily Backbone.View #partialView #view #travis', function() {
-      expect(view.superFamily).toEqual('Backbone.View');
-    });
   });
 
   /* View Constructor
@@ -100,25 +67,6 @@ describe(/* ACTUAL VALUE */, function() {
   describe('core view functions', function() {
     describe('render()', function() {
       //
-    });
-  });
-
-  /* Special Functions
-  /**************************************************************************/
-
-  describe('special functions', function() {
-    describe('isA()', function() {
-      it('returns true with argument /* ACTUAL VALUE HERE */ #partialView #view #travis', function() {
-        expect(view.isA(/* ACTUAL VALUE */)).toBe(true);
-      });
-
-      it('returns true with argument /* ACTUAL VALUE HERE */ #partialView #view #travis', function() {
-        expect(view.isA(/* ACTUAL VALUE */)).toBe(true);
-      });
-
-      it('returns false with another argument #partialView #view #travis', function() {
-        expect(view.isA('Corvette')).toBe(false);
-      });
     });
   });
 });
