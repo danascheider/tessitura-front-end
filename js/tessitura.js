@@ -34,6 +34,7 @@ Tessitura.Utils                  = require('./utils.js');
 Tessitura.Model                  = require('./models/tessituraModel.js');
 Tessitura.FachModel              = require('./models/fachModel.js');
 Tessitura.ProtectedResourceModel = require('./models/protectedResourceModel.js');
+Tessitura.OrganizationModel      = require('./models/organizationModel.js');
 Tessitura.TaskModel              = require('./models/taskModel.js');
 Tessitura.UserModel              = require('./models/userModel.js');
 
