@@ -34,13 +34,24 @@ describe('Organization Collection View', function() {
       var newView = new Tessitura.OrganizationCollectionView({collection: organizations});
       expect(Tessitura.OrganizationCollectionView.prototype.render).not.toHaveBeenCalled();
     });
+
+    it('creates a child views array #organizationCollectionView #collectionView #view #travis', function() {
+      var newView = new Tessitura.OrganizationCollectionView({collection: organizations});
+      expect(typeof newView.childViews).not.toBe('undefined');
+    });
   });
 
   /* Elements
   /**************************************************************************/
 
   describe('view elements', function() {
-    //
+    beforeEach(function() {
+      view.render();
+    });
+
+    it('has ID #organization-list #organizationCollectionView #collectionView #view #travis', function() {
+      expect(view.$el[0].id).toEqual('organization-list');
+    });
   });
 
   /* Event Wiring
