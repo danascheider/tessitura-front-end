@@ -78,6 +78,16 @@ describe('Organization Collection View', function() {
     //
   });
 
+  describe('special functions', function() {
+    describe('renderCollection()', function() {
+      it('renders the collection #organizationCollectionView #collectionView #view #travis', function() {
+        newView = new Tessitura.OrganizationCollectionView({collection: organizations});
+        view.renderCollection();
+        expect(view.childViews.length).toBe(organizations.models.length);
+      });
+    });
+  });
+
   /* Core View Functions
   /**************************************************************************/
 

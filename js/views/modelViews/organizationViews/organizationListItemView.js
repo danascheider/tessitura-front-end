@@ -4,7 +4,7 @@ Tessitura.OrganizationListItemView = Tessitura.View.extend({
   template  : JST['orgs/listItem'],
 
   render    : function() {
-    Tessitura.View.prototype.render.call(this, this.template({model: this.model}));
+    return Tessitura.View.prototype.render.call(this, this.template({model: this.model}));
   }
 });
 

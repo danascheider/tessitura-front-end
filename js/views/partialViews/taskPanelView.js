@@ -74,6 +74,7 @@ Tessitura.TaskPanelView = Tessitura.DashWidgetView.extend({
     this.collection.each(function(task) {
       if (i > 9) { return; }
 
+      // Verify that the task is incomplete, not backlogged, and not blocking before going forward
       if (task.get('status') !== 'Blocking' && task.get('status') !== 'Complete' && !task.get('backlog')) {
         var view = that.retrieveViewForModel(task) || new Tessitura.TaskListItemView({model: task, width: 40});
 

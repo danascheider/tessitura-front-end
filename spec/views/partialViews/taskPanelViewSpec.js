@@ -1,18 +1,12 @@
-/* istanbul ignore require */
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/js/tessitura.js');
 require(process.cwd() + '/spec/support/env.js');
 
-/* istanbul ignore next */
 var Fixtures       = require('../../support/fixtures/fixtures.js'),
     matchers       = require('jasmine-jquery-matchers'),
     context        = describe,
     ccontext       = ddescribe;
 
-/* Task Panel View Spec
-/****************************************************************************************/
-
-/* istanbul ignore next */
 describe('Task Panel View', function() {
   var taskPanel, opts, e, spy;
 
