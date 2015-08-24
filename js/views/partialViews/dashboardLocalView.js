@@ -44,6 +44,8 @@ Tessitura.DashboardLocalView = Tessitura.View.extend({
   initialize    : function(opts) {
     opts = opts || {};
     opts.user && this.setUser(opts.user);
+    this.organizationCollectionView = new Tessitura.OrganizationCollectionView();
+    this.childViews = [this.organizationCollectionView];
   },
 
   render        : function() {

@@ -45,6 +45,17 @@ describe('Dashboard Local View', function() {
       newView = new Tessitura.DashboardLocalView();
       expect(typeof newView.user).toBe('undefined');
     });
+
+    it('creates an OrganizationCollection view #dashboardLocalView #partialView #view #travis', function() {
+      spyOn(Tessitura.OrganizationCollectionView.prototype, 'initialize');
+      newView = new Tessitura.DashboardLocalView({user: user});
+      expect(Tessitura.OrganizationCollectionView.prototype.initialize).toHaveBeenCalled();
+    });
+
+    it('creates a childViews array #dashboardLocalView #partialView #view #travis', function() {
+      newView = new Tessitura.DashboardLocalView({user: user});
+      expect(typeof newView.childViews).not.toBe('undefined');
+    });
   });
 
   /* Elements
