@@ -39,6 +39,12 @@ describe('Organization Collection View', function() {
       var newView = new Tessitura.OrganizationCollectionView({collection: organizations});
       expect(typeof newView.childViews).not.toBe('undefined');
     });
+
+    it('fetches its collection #organizationCollectionView #collectionView #view #travis', function() {
+      spyOn(organizations, 'fetch');
+      var newView = new Tessitura.OrganizationCollectionView({collection: organizations});
+      expect(organizations.fetch).toHaveBeenCalled();
+    });
   });
 
   /* Elements
@@ -51,6 +57,10 @@ describe('Organization Collection View', function() {
 
     it('has ID #organization-list #organizationCollectionView #collectionView #view #travis', function() {
       expect(view.$el[0].id).toEqual('organization-list');
+    });
+
+    it('has class .well #organizationCollectionView #collectionView #view #travis', function() {
+      expect(view.$el[0].className).toContain('well');
     });
   });
 
