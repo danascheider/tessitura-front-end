@@ -21,7 +21,7 @@ describe('Organization Collection', function() {
 
   describe('constructor', function() {
     it('sets the models #collection #travis', function() {
-      organizationCollection = new Tessitura.organizationCollection([org1, org2, org3]);
+      organizationCollection = new Tessitura.OrganizationCollection([org1, org2, org3]);
       expect(organizationCollection.models).toEqual([org1, org2, org3]);
     });
   });
