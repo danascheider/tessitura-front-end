@@ -133,4 +133,17 @@ describe('Dashboard Local View', function() {
       });
     });
   });
+
+  /* Core View Functions
+  /*****************************************************************************/
+
+  describe('core view functions', function() {
+    describe('render()', function() {
+      it('calls render() on the organization collection view #dashboardLocalView #partialView #view #travis', function() {
+        spyOn(view.organizationCollectionView, 'render');
+        view.render();
+        expect(view.organizationCollectionView.render).toHaveBeenCalled();
+      });
+    });
+  });
 });
