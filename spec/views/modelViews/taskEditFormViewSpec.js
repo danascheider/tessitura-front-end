@@ -1,16 +1,13 @@
-/* istanbul ignore <require> */
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/js/tessitura.js');
 require(process.cwd() + '/spec/support/env.js');
 
-/* istanbul ignore next */
 var matchers       = require('jasmine-jquery-matchers'),
     fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
     context        = describe,
     ccontext       = ddescribe;
 
-/* istanbul ignore next */
 describe('Task Edit Form View', function() {
   var view, newView, e, xhr;
 
