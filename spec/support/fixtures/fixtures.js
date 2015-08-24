@@ -1,13 +1,6 @@
-/* istanbul ignore next */
 require('../../../js/tessitura.js');
 
-/* istanbul ignore next */
-var Fixtures = {};
-
-// Require the User model and create a user
 var user = new Tessitura.UserModel({id: 1, username: 'testuser', password: 'testuser', email: 'testuser@example.com', first_name: 'Test', last_name: 'User'});
-
-// Require the task model and create 3 tasks
 
 var task1 = new Tessitura.TaskModel({id: 1, owner_id: 1, title: 'Task 1', status: 'New', priority: 'Low', position: 1}),
     task2 = new Tessitura.TaskModel({id: 2, owner_id: 1, title: 'Task 2', status: 'New', priority: 'Normal', position: 2}),
@@ -34,6 +27,10 @@ Fixtures = {
   task5           : task5,
   collection      : collection,
   fach            : fach,
+  org1            : org1,
+  org2            : org2,
+  org3            : org3,
+  organizations   : organizations,
 
   restoreFixtures : function() {
     var that = this;
