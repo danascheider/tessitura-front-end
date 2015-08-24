@@ -28,7 +28,7 @@ describe('Organization Collection', function() {
 
   describe('URL', function() {
     it('goes to /organizations #collection #travis', function() {
-      expect(organizations.url).toEqual('/organizations');
+      expect(organizations.url()).toMatch(/\/organizations$/);
     });
   });
 });
