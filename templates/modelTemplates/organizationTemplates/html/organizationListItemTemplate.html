@@ -1,7 +1,13 @@
-<table>
+<table class='organization-listing' title="<%- model.get('name') %>">
   <tr>
-    <td colspan='2' class='organization-listing'>
-      <a href='#' class='organization-name' title="<%- model.get('name') %>"><%- model.get('name') %></a>
-    </td>
+    <td><a href='#' class='organization-name'><%- model.get('name') %></a></td>
   </tr>
+  <% var attributes = ['website', 'phone_1', 'phone_2', 'email_1', 'email_2', 'address_1', 'address_2', 'city', 'region', 'postal_code'] %>
+  <% _.each(attributes, function(attribute) { %>
+    <% if(model.get(attribute)) { %>
+      <tr>
+        <td><%- model.get(attribute) %></td>
+      </tr>
+    <% } %>
+  <% }) %>
 </table>
