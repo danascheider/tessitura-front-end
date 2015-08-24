@@ -2,7 +2,7 @@ require(process.cwd() + '/js/tessitura.js');
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/spec/support/env.js');
 
-var matchers       = _.extend(require('jasmine-jquery-matchers'), require(process.cwd() + '/spec/support/matchers/toBeA.js')),
+var matchers       = require('jasmine-jquery-matchers'),
     fixtures       = require(process.cwd() + '/spec/support/fixtures/fixtures.js'),
     context        = describe,
     ccontext       = ddescribe;
@@ -22,7 +22,7 @@ describe('Organization Collection View', function() {
   afterEach(function() {
     restoreFixtures();
     view.destroy();
-    global = _.omit(global, fixtures);
+    _.omit(global, fixtures);
   });
 
   /* View Constructor
