@@ -7,7 +7,7 @@
       <td><a href="<%- model.get('website') %>"><%- model.get('website') %></a></td>
     </tr>
   <% } %>
-  <% var attributes = ['phone_1', 'phone_2', 'email_1', 'email_2', 'address_1', 'address_2'] %>
+  <% var attributes = ['email_1', 'email_2', 'phone_1', 'phone_2', 'address_1', 'address_2'] %>
   <% _.each(attributes, function(attribute) { %>
     <% if(model.get(attribute)) { %>
       <tr>
