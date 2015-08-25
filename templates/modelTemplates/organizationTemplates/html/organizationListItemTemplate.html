@@ -2,7 +2,12 @@
   <tr>
     <td><a href='#' class='organization-name'><%- model.get('name') %></a></td>
   </tr>
-  <% var attributes = ['website', 'phone_1', 'phone_2', 'email_1', 'email_2', 'address_1', 'address_2', 'city', 'region', 'postal_code'] %>
+  <% if(model.get('website')) { %>
+    <tr>
+      <td><a href="<%- model.get('website') %>"><%- model.get('website') %></a></td>
+    </tr>
+  <% } %>
+  <% var attributes = ['phone_1', 'phone_2', 'email_1', 'email_2', 'address_1', 'address_2'] %>
   <% _.each(attributes, function(attribute) { %>
     <% if(model.get(attribute)) { %>
       <tr>
@@ -10,4 +15,10 @@
       </tr>
     <% } %>
   <% }) %>
+
+  <% if(model.cityStateZip()) { %>
+    <tr>
+      <td><%- model.cityStateZip() %></td>
+    </tr>
+  <% } %>
 </table>
