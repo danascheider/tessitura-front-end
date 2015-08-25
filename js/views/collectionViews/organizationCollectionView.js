@@ -18,7 +18,7 @@ Tessitura.OrganizationCollectionView = Tessitura.View.extend({
       container.appendChild(view.el);
     });
 
-    this.$el.append(container);
+    this.$('ul').first().html(container);
     return this;
   },
 
