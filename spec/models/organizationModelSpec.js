@@ -32,4 +32,47 @@ describe('Organization Model', function() {
       expect(org.klass).toEqual('OrganizationModel');
     });
   });
+
+  describe('special functions', function() {
+    describe('cityStateZip()', function() {
+      context('city, state, and zip present', function() {
+        it('returns the appropriate string #model #travis', function() {
+          org.set({city: 'Lake Oswego', region: 'OR', postal_code: 97034});
+          expect(org.cityStateZip()).toEqual('Lake Oswego, OR 97034');
+        });
+      });
+
+      context('city and state present', function() {
+        it('returns the appropriate string #model #travis', function() {
+          org.set({city: 'Lake Oswego', region: 'OR'});
+          org.unset('postal_code');
+          expect(org.cityStateZip()).toEqual('Lake Oswego, OR');
+        });
+      });
+
+      context('city and zip present', function() {
+        it('returns the appropriate string #model #travis', function() {
+          org.set({city: 'Lake Oswego', postal_code: '97034'});
+          org.unset('region');
+          expect(org.cityStateZip()).toEqual('Lake Oswego, 97034');
+        });
+      });
+
+      context('state and zip present', function() {
+        it('returns the appropriate string #model #travis', function() {
+          org.set({region: 'OR', postal_code: '97034'});
+          org.unset('city');
+          expect(org.cityStateZip()).toEqual('OR 97034');
+        })
+      });
+
+      context('one attribute defined', function() {
+        it('returns the known attribute #model #travis', function() {
+          org.set({city: 'Lake Oswego'});
+          org.unset(['region', 'postal_code']);
+          expect(org.cityStateZip()).toEqual('Lake Oswego');
+        })
+      });
+    });
+  });
 });
