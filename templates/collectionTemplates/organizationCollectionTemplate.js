@@ -1,3 +1,3 @@
-var string = "";
+var string = "<ul></ul>";
 
 module.exports = string;
