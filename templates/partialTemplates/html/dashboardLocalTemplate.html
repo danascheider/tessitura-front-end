@@ -1,9 +1,9 @@
 <div class='row'>
-  <div class='col-lg-10 col-lg-offset-2'>
+  <div class='col-lg-12 col-lg-offset-1'>
     <h1 class='page-header'>Things Near Me</h1>
   </div>
   <% if (!(model.get('address_1') || model.get('address_2') || model.get('state') || model.get('zip'))) { %>
-    <div class='col-md-8 col-md-offset-2'>
+    <div class='col-md-9 col-md-offset-1'>
       <div class='alert alert-info'>
         <form id='location-form'>
           City <input name='city' placeholder='City' title='City' class='form-control' />
@@ -60,11 +60,12 @@
             <option>WY</option>
           </select>
           ZIP <input name='zip' placeholder='ZIP' title='ZIP' class='form-control' />
+          Update My Profile <input type='checkbox' class='checkbox'>
           <button type='submit' class='btn btn-primary'>Get Local Results <i class='fa fa-angle-right fa-fw'></i></button>
         </form>
       </div>
     </div>
   <% } %>
 
-  <div class='col-md-8 col-md-offset-2'></div>
+  <div class='col-md-9 col-md-offset-1'></div>
 </div>
