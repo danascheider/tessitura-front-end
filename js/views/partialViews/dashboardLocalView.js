@@ -54,7 +54,7 @@ Tessitura.DashboardLocalView = Tessitura.View.extend({
 
     return Tessitura.View.prototype.render.call(this, html, function() {
       that.organizationCollectionView.render();
-      that.$('.col-md-8').last().html(that.organizationCollectionView.$el);
+      that.$('.col-md-9').last().html(that.organizationCollectionView.$el);
     });
   }
 });
