@@ -5,8 +5,8 @@ gem 'sass',     '~> 3.4.13'
 gem 'colorize', '~> 0.7.5'
 
 group :test do 
-  gem 'cucumber',           '~> 2.0', git: 'https://github.com/danascheider/cucumber-ruby', branch: 'add-fail-fast-switch'
-  gem 'cucumber-core',      '~> 1.2.0', git: 'https://github.com/cucumber/cucumber-ruby-core'
+  gem 'cucumber',           '~> 2.1'
+  gem 'cucumber-core',      '~> 1.2'
   gem 'capybara',           '~> 2.4.4'
   gem 'capybara-webkit',    '~> 1.4.1'
   gem 'httparty',           '~> 0.13', '>= 0.13.5'
