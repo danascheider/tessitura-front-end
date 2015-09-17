@@ -3,7 +3,7 @@ global.document  = window.document;
 global.navigator = window.navigator;
 global.$         = global.jQuery = require('jquery');
 global._         = require('underscore');
-global.Backbone  = require('backbone');
+global.Backbone  = Backbone = require('backbone');
 global.JST       = require('../templates/jst.js');
 
 global.btoa      = function(string) {
@@ -24,7 +24,7 @@ require('../vendor/backbone-route-filter.js');
 require('./views/backboneViewMods.js');
 require('./collections/backboneCollectionMods.js');
 
-global.Tessitura = {};
+global.Tessitura = Tessitura = {};
 
 // Auxiliary Tessitura modules
 Tessitura.API                    = require('./api.js');
