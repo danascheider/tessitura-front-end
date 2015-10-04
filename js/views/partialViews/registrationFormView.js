@@ -67,30 +67,37 @@ Tessitura.RegistrationFormView = Tessitura.View.extend({
 
     if(!data.username) {
       this.$('input[name=username]').addClass('has-error');
+      return false;
     }
 
     if(!data.password) {
       this.$('input[name=password]').addClass('has-error');
+      return false;
     }
 
     if(!data.passwordConfirmation) {
       this.$('input[name=passwordConfirmation]').addClass('has-error');
+      return false;
     }
 
     if(!data.email) {
       this.$('input[name=email]').addClass('has-error');
+      return false;
     }
 
     if(!data.emailConfirmation) {
       this.$('input[name=emailConfirmation]').addClass('has-error');
+      return false;
     }
 
     if(!data.first_name) {
       this.$('input[name=first_name]').addClass('has-error');
+      return false;
     }
 
     if(!data.last_name) {
       this.$('input[name=last_name]').addClass('has-error');
+      return false;
     }
 
     delete data.acceptTerms;
