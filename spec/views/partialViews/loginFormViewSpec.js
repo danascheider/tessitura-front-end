@@ -1,12 +1,10 @@
 /* Core Requires
 /****************************************************************************/
 
-/* istanbul ignore require */
 require(process.cwd() + '/js/tessitura.js');
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/spec/support/env.js');
 
-/* istanbul ignore next */
 var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
     matchers       = require('jasmine-jquery-matchers'),
     context        = describe,
@@ -15,7 +13,6 @@ var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
 /* Login Form View Spec
 /****************************************************************************/
 
-/* istanbul ignore next */
 describe('Login Form View', function() {
   var view, user, newView, e, spy, xhr;
 
