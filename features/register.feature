@@ -71,4 +71,10 @@ Feature: User registration
     Examples:
       | attribute1 | value1       | attribute2           | value2    |
       | password   | hadagohpuoh3 | passwordConfirmation | raboof266 |
-      | email      | a@b.com      | emailConfirmation    | b@c.com   |       
+      | email      | a@b.com      | emailConfirmation    | b@c.com   |
+
+  Scenario: Multiple errors
+    When I fill out the registration form with password 'foo' and last_name ''
+    And I submit the registration form
+    Then I should not be routed to my dashboard
+    And the password and last_name inputs should have class 'has-error'
