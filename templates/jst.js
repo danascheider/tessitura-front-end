@@ -10,6 +10,7 @@ var JST = {
   'partials/dashLocal'       : _.template(require('./partialTemplates/dashboardLocalTemplate.js')),
   'partials/dashNav'         : _.template(require('./partialTemplates/dashboardNavTemplate.js')),
   'partials/dashTasks'       : _.template(require('./partialTemplates/dashboardTaskTemplate.js')),
+  'partials/errorPanel'      : _.template(require('./partialTemplates/errorPanelTemplate.js')),
   'partials/kanbanCol'       : _.template(require('./partialTemplates/kanbanColumnTemplate.js')),
   'partials/loginForm'       : _.template(require('./partialTemplates/loginFormTemplate.js')),
   'partials/profile'         : _.template(require('./partialTemplates/dashboardProfileTemplate.js')),

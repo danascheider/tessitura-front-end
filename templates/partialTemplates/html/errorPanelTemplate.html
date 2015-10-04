@@ -1,0 +1,10 @@
+<div class='panel-heading'>
+  <%= errors.length %> Errors:
+</div>
+<div class='panel-body'>
+  <ul>
+    <% _.each(errors, function(error) { %>
+      <li><%= error %></li>
+    <% }); %>
+  </ul>
+</div>
