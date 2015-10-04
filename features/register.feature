@@ -37,27 +37,38 @@ Feature: User registration
       | passwordConfirmation |
       | emailConfirmation    |
 
-Scenario Outline: Invalid data
-  When I fill out the registration form with <attribute> '<value>'
-  And I submit the registration form
-  Then I should not be routed to my dashboard
-  And the <attribute> input should have class 'has-error'
+  Scenario Outline: Invalid data
+    When I fill out the registration form with <attribute> '<value>'
+    And I submit the registration form
+    Then I should not be routed to my dashboard
+    And the <attribute> input should have class 'has-error'
 
-  Examples:
-    | attribute            | value          |
-    | username             | foo            |
-    | password             | bar            |
-    | email                | baz            |
-    | passwordConfirmation | foobar888      |
-    | emailConfirmation    | jimbob@foo.bar |
+    Examples:
+      | attribute            | value          |
+      | username             | foo            |
+      | password             | bar            |
+      | email                | baz            |
+      | passwordConfirmation | foobar888      |
+      | emailConfirmation    | jimbob@foo.bar |
 
-Scenario Outline: Duplicate username or email
-  Given there is a user with <attribute> '<value>'
-  When I fill out the registration form with <attribute> '<value>'
-  Then I should not be routed to my dashboard
-  And the <attribute> input should have class 'has-error'
+  Scenario Outline: Duplicate username or email
+    Given there is a user with <attribute> '<value>'
+    When I fill out the registration form with <attribute> '<value>'
+    Then I should not be routed to my dashboard
+    And the <attribute> input should have class 'has-error'
 
-  Examples:
-    | attribute | value                  |
-    | username  | testuser86             |
-    | email     | testuser86@example.com | 
+    Examples:
+      | attribute | value                  |
+      | username  | testuser86             |
+      | email     | testuser86@example.com |
+
+  Scenario Outline: Confirmation doesn't match original
+    When I fill out the registration form with <attribute1> '<value1>' and <attribute2> '<value2>'
+    And I submit the registration form
+    Then I should not be routed to my dashboard
+    And the <attribute1> and <attribute2> inputs should have class 'has-error'
+
+    Examples:
+      | attribute1 | value1       | attribute2           | value2    |
+      | password   | hadagohpuoh3 | passwordConfirmation | raboof266 |
+      | email      | a@b.com      | emailConfirmation    | b@c.com   |       

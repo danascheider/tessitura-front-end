@@ -30,6 +30,15 @@ When(/^I fill out the registration form with valid data$/) do
   end
 end
 
+When(/^I fill out the registration form with (\S*) '(\S*)' and (\S*) '(\S*)'$/) do |attr1, val1, attr2, val2|
+  step 'I fill out the registration form with valid data'
+
+  within '#registration-form' do 
+    fill_in attr1, with: val1
+    fill_in attr2, with: val2
+  end
+end
+
 When(/^I (don't )?accept the terms of use$/) do |neg|
   within '#registration-form fieldset.terms' do 
     if neg then uncheck 'acceptTerms'; else check 'acceptTerms'; end
@@ -44,7 +53,7 @@ When(/^I fill out the registration form with the (.*) attribute blank$/) do |att
   end
 end
 
-When(/^I fill out the registration form with (\w*) '(.*)'$/) do |attr, val|
+When(/^I fill out the registration form with (\S*) '(\S*)'$/) do |attr, val|
   step 'I fill out the registration form with valid data'
 
   within '#registration-form' do 
