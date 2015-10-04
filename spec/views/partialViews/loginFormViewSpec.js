@@ -242,13 +242,4 @@ describe('Login Form View', function() {
       });
     });
   });
-
-  /* Core View Functions
-  /**************************************************************************/
-
-  describe('core view functions', function() {
-    describe('render()', function() {
-      //
-    });
-  });
 });
