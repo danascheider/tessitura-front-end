@@ -70,6 +70,7 @@ Tessitura.DashboardProfileView   = require('./views/partialViews/dashboardProfil
 Tessitura.DashboardSidebarView   = require('./views/partialViews/dashboardSidebarView.js');
 Tessitura.DashboardTopWidgetView = require('./views/partialViews/dashboardTopWidgetView.js');
 Tessitura.DashboardTaskView      = require('./views/partialViews/dashboardTaskView.js');
+Tessitura.ErrorPanelView         = require('./views/partialViews/errorPanelView.js');
 Tessitura.KanbanColumnView       = require('./views/partialViews/kanbanColumnView.js');
 Tessitura.LoginFormView          = require('./views/partialViews/loginFormView.js');
 Tessitura.RegistrationFormView   = require('./views/partialViews/registrationFormView.js');
