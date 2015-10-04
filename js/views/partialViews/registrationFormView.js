@@ -48,6 +48,7 @@ Tessitura.RegistrationFormView = Tessitura.View.extend({
     });
   },
 
+  // FIX: Need some way to remove has-error class from any fields that might have it
   removeError : function() {
     this.$('fieldset.terms').removeClass('has-error');
   },
@@ -123,6 +124,10 @@ Tessitura.RegistrationFormView = Tessitura.View.extend({
 
   /* Core View Functions
   /**************************************************************************/
+
+  initialize  : function() {
+    this.errorPanelView = new Tessitura.ErrorPanelView();
+  },
 
   render      : function() {
     return Tessitura.View.prototype.render.call(this, this.template());

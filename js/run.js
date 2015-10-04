@@ -1,4 +1,4 @@
-/* istanbul ignore next */ require('./tessitura.js');
+require('./tessitura.js');
 
-/* istanbul ignore next */ global.Router = new Tessitura.Router();
-/* istanbul ignore next */ Backbone.history.start();
+global.Router = new Tessitura.Router();
+Backbone.history.start();

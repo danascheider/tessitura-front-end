@@ -33,6 +33,11 @@ describe('Registration Form View', function() {
   
   /* View Elements
   /**************************************************************************/
+  describe('constructor', function() {
+    it('instantiates an error panel view #registrationFormView #partialView #view #travis', function() {
+      expect(typeof form.errorPanelView).not.toBe('undefined');
+    });
+  });
 
   describe('view elements', function() {
     beforeEach(function() {
