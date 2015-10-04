@@ -17,14 +17,21 @@ var matchers       = require('jasmine-jquery-matchers'),
 /****************************************************************************/
 
 describe('Error Panel View', function() {
-  var view, newView;
+  var view, newView, errors;
 
   /* Filters
   /**************************************************************************/
 
   beforeEach(function() {
     this.addMatchers(matchers);
-    view = new Tessitura.ErrorPanelView();
+
+    errors = [
+      'Username cannot be blank',
+      'Password cannot contain username',
+      'Please accept the terms of use'
+    ]
+
+    view = new Tessitura.ErrorPanelView(errors);
   });
 
   afterEach(function() {
@@ -40,6 +47,10 @@ describe('Error Panel View', function() {
       spyOn(Tessitura.ErrorPanelView.prototype, 'render');
       var newView = new Tessitura.ErrorPanelView();
       expect(Tessitura.ErrorPanelView.prototype.render).not.toHaveBeenCalled();
+    });
+
+    it('assigns this.errors #errorPanelView #partialView #view #travis', function() {
+      expect(view.errors).toEqual(errors);
     });
   });
 });
