@@ -16,6 +16,8 @@ Tessitura.RegistrationFormView = Tessitura.View.extend({
   /* Special Properties
   /**************************************************************************/
 
+
+  // FIX: See if this is actually called anywhere
   reqdFields  : ['username', 'password', 'email', 'first_name', 'last_name'],
 
   /* Event Callbacks
@@ -59,33 +61,48 @@ Tessitura.RegistrationFormView = Tessitura.View.extend({
   /* Special Functions
   /**************************************************************************/
 
+  // FIX: Don't return false until finished all validations
   validateForm: function(data) {
-    if(!data.acceptTerms) { 
+    var acceptTerms, validPassword, validUsername, validEmail, validName
+
+    acceptTerms = !!data.acceptTerms
+
+    if(!acceptTerms) {
       this.$('fieldset.form-group.terms').addClass('has-error');
-      return false; 
+      acceptTerms = false; 
     }
+
+    validPassword = this.validPassword(data.password, data.passwordConfirmation);
+    validUsername = this.validUsername(data.username);
+    validEmail    = this.validEmail(data.email, data.emailConfirmation);
+    validName     = this.validName(data.first_name, data.last_name);
+
 
     delete data.acceptTerms;
 
-    return this.validCreds(data.username, data.password, data.passwordConfirmation, data.email, data.emailConfirmation) && this.validName(data.first_name, data.last_name);
+    return acceptTerms && validPassword && validUsername && validEmail && validName;
   },
 
   /* Form Validations
   /**************************************************************************/
 
   validCreds   : function(username, password, passwordConfirmation, email, emailConfirmation) {
-    return this.validPassword(password, passwordConfirmation) && this.validUsername(username) && this.validEmail(email, emailConfirmation) && password.indexOf(username) === -1;
+    var validPassword = this.validPassword(password, passwordConfirmation),
+        validUsername = this.validUsername(username),
+        validEmail    = this.validEmail(email, emailConfirmation);
+
+    return validPassword && validUsername && validEmail && password.indexOf(username) === -1;
   },
 
   validEmail   : function(email, confirmation) {
-    var valid = !!email.match(/(\S+)@(\S+)\.(\S+)/) && !!confirmation && confirmation === email;
+    var valid = !!email && !!email.match(/(\S+)@(\S+)\.(\S+)/) && !!confirmation && confirmation === email;
     if (!valid) { this.$('input[name=email]').addClass('has-error') }
     return valid;
   },
 
   validName    : function(first, last) {
-    var first_valid = !!first.match(/^[A-Za-z' -]{2,}$/),
-        last_valid  = !!last.match(/^[A-Za-z\' -]{2,}$/);
+    var first_valid = !!first && !!first.match(/^[A-Za-z' -]{2,}$/),
+        last_valid  = !!last &&   !!last.match(/^[A-Za-z\' -]{2,}$/);
 
     if (!first_valid) { this.$('input[name=first_name]').addClass('has-error'); }
     if (!last_valid) { this.$('input[name=last_name]').addClass('has-error'); }
