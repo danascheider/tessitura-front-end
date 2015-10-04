@@ -47,7 +47,6 @@ Tessitura.RegistrationFormView = Tessitura.View.extend({
   },
 
   removeError : function() {
-    /* istanbul ignore next */
     this.$('fieldset.terms').removeClass('has-error');
   },
 
@@ -64,6 +63,34 @@ Tessitura.RegistrationFormView = Tessitura.View.extend({
     if(!data.acceptTerms) { 
       this.$('fieldset.form-group.terms').addClass('has-error');
       return false; 
+    }
+
+    if(!data.username) {
+      this.$('input[name=username]').addClass('has-error');
+    }
+
+    if(!data.password) {
+      this.$('input[name=password]').addClass('has-error');
+    }
+
+    if(!data.passwordConfirmation) {
+      this.$('input[name=passwordConfirmation]').addClass('has-error');
+    }
+
+    if(!data.email) {
+      this.$('input[name=email]').addClass('has-error');
+    }
+
+    if(!data.emailConfirmation) {
+      this.$('input[name=emailConfirmation]').addClass('has-error');
+    }
+
+    if(!data.first_name) {
+      this.$('input[name=first_name]').addClass('has-error');
+    }
+
+    if(!data.last_name) {
+      this.$('input[name=last_name]').addClass('has-error');
     }
 
     delete data.acceptTerms;
