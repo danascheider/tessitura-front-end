@@ -1,12 +1,10 @@
 /* Core Requires
 /****************************************************************************/
 
-/* istanbul ignore require */
 require(process.cwd() + '/js/tessitura.js');
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/spec/support/env.js');
 
-/* istanbul ignore next */
 var matchers       = _.extend(require('jasmine-jquery-matchers')),
     context        = describe,
     ccontext       = ddescribe;
@@ -14,8 +12,7 @@ var matchers       = _.extend(require('jasmine-jquery-matchers')),
 /* Registration Form View Spec
 /****************************************************************************/
 
-/* istanbul ignore next */
-describe('Registration Form View', function() {
+ddescribe('Registration Form View', function() {
   var form, newForm, e, spy, obj;
 
   /* Filters
@@ -282,7 +279,7 @@ describe('Registration Form View', function() {
   /**************************************************************************/
 
   describe('special functions', function() {
-    describe('validateForm', function() {
+    describe('validateForm()', function() {
       var formData;
 
       beforeEach(function() {
@@ -463,6 +460,47 @@ describe('Registration Form View', function() {
               });
             });
           });
+        });
+      });
+    });
+
+    describe('validUsername()', function() {
+      context('when the username is valid', function() {
+        it('returns true #registrationFormView #partialView #view #travis', function() {
+          expect(form.validUsername('frank446')).toBe(true);
+        });
+      });
+
+      context('nonexistent username', function() {
+        it('returns false #registrationFormView #partialView #view #travis', function() {
+          expect(form.validUsername()).toBe(false);
+        });
+
+        it('adds the message to the errors object #registrationFormView #partialView #view #travis', function() {
+          form.validUsername();
+          expect(form.errors).toContain('Username is required');
+        });
+      });
+
+      context('username too short', function() {
+        it('returns false #registrationFormView #partialView #view #travis', function() {
+          expect(form.validUsername('bob')).toBe(false);
+        });
+
+        it('adds the message to the errors object #registrationFormView #partialView #view #travis', function() {
+          form.validUsername('bob');
+          expect(form.errors).toContain('Username must be at least 6 characters long');
+        });
+      });
+
+      context('invalid character in username', function() {
+        it('returns false #registrationFormView #partialView #view #travis', function() {
+          expect(form.validUsername('kelly^^^')).toBe(false);
+        });
+
+        it('adds the message to the errors object #registrationFormView #partialView #view #travis', function() {
+          form.validUsername('kelly^^^');
+          expect(form.errors).toContain('Username may contain only alphanumeric characters, spaces, _, and -')
         });
       });
     });

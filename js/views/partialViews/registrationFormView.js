@@ -117,7 +117,24 @@ Tessitura.RegistrationFormView = Tessitura.View.extend({
   },
 
   validUsername: function(name) {
-    var valid = !!name && name.length >= 6 && !!name.match(/^[A-Za-z0-9_\- ]*$/);
+    this.errors = this.errors || [];
+    var valid = true;
+
+    if(!name) {
+      valid = false;
+      this.errors.push('Username is required');
+    }
+
+    if(name && name.length < 6) {
+      valid = false;
+      this.errors.push('Username must be at least 6 characters long');
+    }
+
+    if(name && !name.match(/^[A-Za-z0-9_\- ]*$/)) {
+      valid = false;
+      this.errors.push('Username may contain only alphanumeric characters, spaces, _, and -');
+    }
+
     if (!valid) { this.$('input[name=username]').addClass('has-error') }
     return valid;
   },
