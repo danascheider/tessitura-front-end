@@ -464,6 +464,14 @@ ddescribe('Registration Form View', function() {
       });
     });
 
+    describe('validEmail()', function() {
+      context('valid e-mail', function() {
+        it('returns true #registrationFormView #partialView #view #travis', function() {
+          expect(form.validEmail('foo@example.com', 'foo@example.com')).toBe(true);
+        });
+      });
+    });
+
     describe('validUsername()', function() {
       context('when the username is valid', function() {
         it('returns true #registrationFormView #partialView #view #travis', function() {
