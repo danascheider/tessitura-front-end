@@ -492,6 +492,17 @@ describe('Registration Form View', function() {
           expect(form.errors).toContain('E-mail confirmation is required');
         });
       });
+
+      context('bad e-mail format', function() {
+        it('returns false #registrationFormView #partialView #view #travis', function() {
+          expect(form.validEmail('foobar', 'foobar')).toBe(false);
+        });
+
+        it('adds the message to the errors object #registrationFormView #partialView #view #travis', function() {
+          form.validEmail('foobar', 'foobar');
+          expect(form.errors).toContain('Not a valid e-mail');
+        });
+      });
     });
 
     describe('validUsername()', function() {
