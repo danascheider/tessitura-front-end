@@ -96,6 +96,14 @@ Tessitura.RegistrationFormView = Tessitura.View.extend({
   },
 
   validEmail   : function(email, confirmation) {
+    this.errors = this.errors || [];
+    var valid   = true;
+
+    if(!email) {
+      this.errors.push('E-mail is required');
+      valid = false;
+    }
+
     var valid = !!email && !!email.match(/(\S+)@(\S+)\.(\S+)/) && !!confirmation && confirmation === email;
     if (!valid) { this.$('input[name=email]').addClass('has-error') }
     return valid;

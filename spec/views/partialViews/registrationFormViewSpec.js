@@ -470,6 +470,17 @@ ddescribe('Registration Form View', function() {
           expect(form.validEmail('foo@example.com', 'foo@example.com')).toBe(true);
         });
       });
+
+      context('missing e-mail', function() {
+        it('returns false #registrationFormView #partialView #view #travis', function() {
+          expect(form.validEmail()).toBe(false);
+        });
+
+        it('adds the message to the errors object #registrationFormView #partialView #view #travis', function() {
+          form.validEmail();
+          expect(form.errors).toContain('E-mail is required');
+        });
+      });
     });
 
     describe('validUsername()', function() {
