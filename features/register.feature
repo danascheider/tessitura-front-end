@@ -20,6 +20,7 @@ Feature: User registration
     And I submit the registration form
     Then I should not be routed to my dashboard
     And the 'terms' fieldset should have class 'has-error'
+    And I should see the '#error-panel' element
 
   Scenario Outline: Missing data
     When I fill out the registration form with the <attribute> attribute blank

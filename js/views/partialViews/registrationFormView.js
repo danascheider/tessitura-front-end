@@ -28,6 +28,8 @@ Tessitura.RegistrationFormView = Tessitura.View.extend({
 
     if(this.validateForm(data) !== true) {
       this.errorPanelView.errors = this.errors;
+      this.errorPanelView.render();
+      this.$el.prepend(this.errorPanelView.$el);
       return;
     }
 
@@ -68,6 +70,7 @@ Tessitura.RegistrationFormView = Tessitura.View.extend({
     acceptTerms = !!data.acceptTerms
 
     if(!acceptTerms) {
+      this.errors.push('Please accept terms of service');
       this.$('fieldset.form-group.terms').addClass('has-error');
       acceptTerms = false; 
     }
@@ -199,7 +202,7 @@ Tessitura.RegistrationFormView = Tessitura.View.extend({
     }
     
     if (!validPassword) { this.$('input[name=password]').addClass('has-error') }
-    if (!validPassword) { this.$('input[name=password]').addClass('has-error') }
+    if (!validConfirmation) { this.$('input[name=passwordConfirmation]').addClass('has-error') }
 
     return validPassword && validConfirmation;
   },

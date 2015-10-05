@@ -2,6 +2,7 @@ Tessitura.ErrorPanelView = Tessitura.View.extend({
   className : 'panel panel-danger',
   id        : 'error-panel',
   template  : JST['partials/errorPanel'], 
+  
   initialize: function(errors) {
     this.errors = errors;
   },

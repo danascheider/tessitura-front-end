@@ -30,6 +30,7 @@ describe('Registration Form View', function() {
   
   /* View Elements
   /**************************************************************************/
+
   describe('constructor', function() {
     it('instantiates an error panel view #registrationFormView #partialView #view #travis', function() {
       expect(typeof form.errorPanelView).not.toBe('undefined');
@@ -149,16 +150,22 @@ describe('Registration Form View', function() {
         expect(Tessitura.UserModel.prototype.save.calls[0].args).toContain(obj2);
       });
 
-      context('invalid form', function() {
+      ccontext('invalid form', function() {
         beforeEach(function() {
+          form.errors = ['Username is required'];
           spyOn(form, 'validateForm').andReturn(false);
           spyOn($, 'cookie');
         });
 
         it('passes the errors to the errorPanelView #partialView #view', function() {
-          form.errors = ['Username is required'];
           form.createUser(e);
           expect(form.errorPanelView.errors).toEqual(['Username is required']);
+        });
+
+        it('renders the errorPanelView #partialView #view', function() {
+          spyOn(form.errorPanelView, 'render');
+          form.createUser(e);
+          expect(form.errorPanelView.render).toHaveBeenCalled();
         });
 
         it('doesn\'t create a user #partialView #view', function() {
