@@ -155,13 +155,19 @@ describe('Registration Form View', function() {
           spyOn($, 'cookie');
         });
 
-        it('doesn\'t create a user #registrationFormView #partialView #view #travis', function() {
+        it('passes the errors to the errorPanelView #partialView #view', function() {
+          form.errors = ['Username is required'];
+          form.createUser(e);
+          expect(form.errorPanelView.errors).toEqual(['Username is required']);
+        });
+
+        it('doesn\'t create a user #partialView #view', function() {
           spyOn(Tessitura.UserModel.prototype, 'initialize');
           form.createUser(e);
           expect(Tessitura.UserModel.prototype.initialize).not.toHaveBeenCalled();
         });
 
-        it('doesn\'t trigger userCreated #registrationFormView #partialView #view #travis', function(done) {
+        it('doesn\'t trigger userCreated #partialView #view', function(done) {
           spy = jasmine.createSpy();
           form.on('userCreated', spy);
           form.createUser(e);
@@ -170,7 +176,7 @@ describe('Registration Form View', function() {
           form.off('userCreated');
         });
 
-        it('doesn\'t set cookies #registrationFormView #partialView #view #travis', function() {
+        it('doesn\'t set cookies #partialView #view', function() {
           form.createUser(e);
           expect($.cookie).not.toHaveBeenCalled();
         });
@@ -226,12 +232,12 @@ describe('Registration Form View', function() {
 
         afterEach(function() { form.off('userCreated'); });
 
-        it('doesn\'t set cookies #registrationFormView #partialView #view #travis', function(done) {
+        it('doesn\'t set cookies #partialView #view', function(done) {
           expect($.cookie).not.toHaveBeenCalled();
           done();
         });
 
-        it('doesn\'t trigger \'userCreated\' #registrationFormView #partialView #view #travis', function(done) {
+        it('doesn\'t trigger \'userCreated\' #partialView #view', function(done) {
           expect(spy).not.toHaveBeenCalled();
           done();
         });
@@ -292,13 +298,13 @@ describe('Registration Form View', function() {
 
       describe('return value', function() {
         context('when valid', function() {
-          it('returns true #registrationFormView #partialView #view #travis', function() {
+          it('returns true #partialView #view', function() {
             expect(form.validateForm(formData)).toBe(true);
           });
         });
 
         context('when invalid', function() {
-          it('returns false #registrationFormView #partialView #view #travis', function() {
+          it('returns false #partialView #view', function() {
             obj = {username: '', password: ''};
             expect(form.validateForm(obj)).toBe(false);
           });
@@ -312,15 +318,15 @@ describe('Registration Form View', function() {
           });
 
           describe('username', function() {
-            it('must exist #registrationFormView #partialView #view #travis', function() {
+            it('must exist #partialView #view', function() {
               formData.username = null;
             });
 
-            it('must be at least 6 characters #registrationFormView #partialView #view #travis', function() {
+            it('must be at least 6 characters #partialView #view', function() {
               formData.username = 'testu';
             });
 
-            it('can\'t contain special characters #registrationFormView #partialView #view #travis', function() {
+            it('can\'t contain special characters #partialView #view', function() {
               formData.username = '8!!#%5ajouuk';
             });
           });

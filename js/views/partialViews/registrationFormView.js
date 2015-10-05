@@ -16,8 +16,6 @@ Tessitura.RegistrationFormView = Tessitura.View.extend({
   /* Special Properties
   /**************************************************************************/
 
-
-  // FIX: See if this is actually called anywhere
   reqdFields  : ['username', 'password', 'email', 'first_name', 'last_name'],
 
   /* Event Callbacks
@@ -28,7 +26,8 @@ Tessitura.RegistrationFormView = Tessitura.View.extend({
 
     var data = Tessitura.Utils.getAttributes(this.$el);
 
-    if(!this.validateForm(data)) { 
+    if(this.validateForm(data) !== true) {
+      this.errorPanelView.errors = this.errors;
       return;
     }
 
@@ -64,7 +63,7 @@ Tessitura.RegistrationFormView = Tessitura.View.extend({
 
   // FIX: Don't return false until finished all validations
   validateForm: function(data) {
-    var acceptTerms, validPassword, validUsername, validEmail, validName
+    var acceptTerms, validCreds, validName
 
     acceptTerms = !!data.acceptTerms
 
@@ -73,15 +72,13 @@ Tessitura.RegistrationFormView = Tessitura.View.extend({
       acceptTerms = false; 
     }
 
-    validPassword = this.validPassword(data.password, data.passwordConfirmation);
-    validUsername = this.validUsername(data.username);
-    validEmail    = this.validEmail(data.email, data.emailConfirmation);
+    validCreds    = this.validCreds(data.username, data.password, data.passwordConfirmation, data.email, data.emailConfirmation);
     validName     = this.validName(data.first_name, data.last_name);
 
 
     delete data.acceptTerms;
 
-    return acceptTerms && validPassword && validUsername && validEmail && validName;
+    return acceptTerms && validCreds && validName;
   },
 
   /* Form Validations
@@ -94,7 +91,7 @@ Tessitura.RegistrationFormView = Tessitura.View.extend({
         validUsername = this.validUsername(username),
         validEmail    = this.validEmail(email, emailConfirmation);
 
-    if(password.indexOf(username) !== -1) {
+    if(password && password.indexOf(username) !== -1) {
       this.errors.push('Password cannot contain username');
       validPassword = false;
     }
