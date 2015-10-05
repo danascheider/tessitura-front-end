@@ -12,7 +12,7 @@ var matchers       = _.extend(require('jasmine-jquery-matchers')),
 /* Registration Form View Spec
 /****************************************************************************/
 
-ddescribe('Registration Form View', function() {
+describe('Registration Form View', function() {
   var form, newForm, e, spy, obj;
 
   /* Filters
