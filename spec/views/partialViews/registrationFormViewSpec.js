@@ -591,6 +591,80 @@ describe('Registration Form View', function() {
       });
     });
 
+    describe('validPassword()', function() {
+      context('valid password and confirmation', function() {
+        it('returns true #registrationFormView #partialView #view #travis', function() {
+          expect(form.validPassword('iguitupib366', 'iguitupib366')).toBe(true);
+        });
+      });
+
+      context('missing password', function() {
+        it('returns false #registrationFormView #partialView #view #travis', function() {
+          expect(form.validPassword(undefined, 'iguitupib366')).toBe(false);
+        });
+
+        it('adds the message to the errors obejct #registrationFormView #partialView #view #travis', function() {
+          form.validPassword(undefined, 'iguitupib366');
+          expect(form.errors).toContain('Password is required');
+        });
+      });
+
+      context('missing confirmation', function() {
+        it('returns false #registrationFormView #partialView #view #travis', function() {
+          expect(form.validPassword('iguitupib366', undefined)).toBe(false);
+        });
+
+        it('adds the message to the errors obejct #registrationFormView #partialView #view #travis', function() {
+          form.validPassword('iguitupib366', undefined);
+          expect(form.errors).toContain('Password confirmation is required');
+        });
+      });
+
+      context('password too short', function() {
+        it('returns false #registrationFormView #partialView #view #travis', function() {
+          expect(form.validPassword('upib366', 'upib366')).toBe(false);
+        });
+
+        it('adds the message to the errors obejct #registrationFormView #partialView #view #travis', function() {
+          form.validPassword('upib366', 'upib366');
+          expect(form.errors).toContain('Password must be at least 8 characters long');
+        });
+      });
+
+      context('password doesn\'t contain any letters', function() {
+        it('returns false #registrationFormView #partialView #view #travis', function() {
+          expect(form.validPassword('846176^$1', '846176^$1')).toBe(false);
+        });
+
+        it('adds the message to the errors obejct #registrationFormView #partialView #view #travis', function() {
+          form.validPassword('846176^$1', '846176^$1');
+          expect(form.errors).toContain('Password must contain at least 1 letter and 1 number');
+        });
+      });
+
+      context('password doesn\'t contain any numbers', function() {
+        it('returns false #registrationFormView #partialView #view #travis', function() {
+          expect(form.validPassword(':IGUuu^#a', ':IGUuu^#a')).toBe(false);
+        });
+
+        it('adds the message to the errors obejct #registrationFormView #partialView #view #travis', function() {
+          form.validPassword(':IGUuu^#a', ':IGUuu^#a');
+          expect(form.errors).toContain('Password must contain at least 1 letter and 1 number');
+        });
+      });
+
+      context('password doesn\'t match confirmation', function() {
+        it('returns false #registrationFormView #partialView #view #travis', function() {
+          expect(form.validPassword('foobar892', 'Foobar892')).toBe(false);
+        });
+
+        it('adds the message to the errors obejct #registrationFormView #partialView #view #travis', function() {
+          form.validPassword('foobar892', 'Foobar892');
+          expect(form.errors).toContain('Password and password confirmation don\'t match');
+        });
+      });
+    });
+
     describe('validUsername()', function() {
       context('when the username is valid', function() {
         it('returns true #registrationFormView #partialView #view #travis', function() {

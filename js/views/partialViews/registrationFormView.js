@@ -166,9 +166,38 @@ Tessitura.RegistrationFormView = Tessitura.View.extend({
   },
 
   validPassword: function(password, confirmation) {
-    var valid = !!password && password.length >= 8 && !!password.match(/[A-Za-z]/) && !!password.match(/[0-9]/) && !!confirmation && password === confirmation;
-    if (!valid) { this.$('input[name=password]').addClass('has-error') }
-    return valid;
+    this.errors = this.errors || [];
+    var validPassword = true, validConfirmation = true;
+
+    if(!password) {
+      this.errors.push('Password is required');
+      validPassword = false;
+    }
+
+    if(!confirmation) {
+      this.errors.push('Password confirmation is required');
+      validConfirmation = false;
+    }
+
+    if(password && password.length < 8) {
+      this.errors.push('Password must be at least 8 characters long');
+      validPassword = false, validConfirmation = false;
+    }
+
+    if(password && (!password.match(/[A-Za-z]/) || !password.match(/[0-9]/))) {
+      this.errors.push('Password must contain at least 1 letter and 1 number');
+      validPassword = false, validConfirmation = false;
+    }
+
+    if(password && confirmation && password !== confirmation) {
+      this.errors.push('Password and password confirmation don\'t match');
+      validPassword = false, validConfirmation = false;
+    }
+    
+    if (!validPassword) { this.$('input[name=password]').addClass('has-error') }
+    if (!validPassword) { this.$('input[name=password]').addClass('has-error') }
+
+    return validPassword && validConfirmation;
   },
 
   validUsername: function(name) {
