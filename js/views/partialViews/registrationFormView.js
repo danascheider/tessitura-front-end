@@ -119,18 +119,50 @@ Tessitura.RegistrationFormView = Tessitura.View.extend({
       validEmail = false, validConfirmation = false;
     }
 
-    var valid = !!email && !!email.match(/(\S+)@(\S+)\.(\S+)/) && !!confirmation && confirmation === email;
-    if (!valid) { this.$('input[name=email]').addClass('has-error') }
-    return valid;
+    if (!validEmail) { this.$('input[name=email]').addClass('has-error') }
+    if (!validConfirmation) { this.$('input[name=emailConfirmation]').addClass('has-error') }
+
+    return validEmail && validConfirmation;
   },
 
   validName    : function(first, last) {
-    var first_valid = !!first && !!first.match(/^[A-Za-z' -]{2,}$/),
-        last_valid  = !!last &&   !!last.match(/^[A-Za-z\' -]{2,}$/);
+    this.errors = this.errors || [];
 
-    if (!first_valid) { this.$('input[name=first_name]').addClass('has-error'); }
-    if (!last_valid) { this.$('input[name=last_name]').addClass('has-error'); }
-    return first_valid && last_valid;
+    var firstValid = true, lastValid = true;
+
+    if(!first) {
+      this.errors.push('First name is required');
+      firstValid = false;
+    }
+
+    if(!last) {
+      this.errors.push('Last name is required');
+      lastValid = false;
+    }
+
+    if(first && first.length < 2) {
+      this.errors.push('First name must be at least 2 characters long');
+      firstValid = false;
+    }
+
+    if(last && last.length < 2) {
+      this.errors.push('Last name must be at least 2 characters long');
+      lastValid = false;
+    }
+
+    if(first && !first.match(/^[A-Za-z\-' ]*$/)) {
+      this.errors.push('First name may only contain letters, spaces, \', and -');
+      firstValid = false;
+    }
+
+    if(last && !last.match(/^[A-Za-z\-' ]*$/)) {
+      this.errors.push('Last name may only contain letters, spaces, \', and -');
+      lastValid = false;
+    }
+
+    if (!firstValid) { this.$('input[name=first_name]').addClass('has-error'); }
+    if (!lastValid) { this.$('input[name=last_name]').addClass('has-error'); }
+    return firstValid && lastValid;
   },
 
   validPassword: function(password, confirmation) {

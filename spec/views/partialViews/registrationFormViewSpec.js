@@ -516,6 +516,81 @@ describe('Registration Form View', function() {
       });
     });
 
+    describe('validName()', function() {
+      context('valid first and last names', function() {
+        it('returns true #registrationFormView #partialView #view #travis', function() {
+          expect(form.validName('Ethan', 'Allen')).toBe(true);
+        });
+      });
+
+      context('first name missing', function() {
+        it('returns false #registrationFormView #partialView #view #travis', function() {
+          expect(form.validName(undefined, 'Allen')).toBe(false);
+        });
+
+        it('adds the message to the errors object #registrationFormView #partialView #view #travis', function() {
+          form.validName(undefined, 'Allen');
+          expect(form.errors).toContain('First name is required');
+        });
+      });
+
+      context('last name missing', function() {
+        it('returns false #registrationFormView #partialView #view #travis', function() {
+          expect(form.validName('Ethan')).toBe(false);
+        });
+
+        it('adds the message to the errors object #registrationFormView #partialView #view #travis', function() {
+          form.validName('Ethan');
+          expect(form.errors).toContain('Last name is required');
+        });
+      });
+
+      context('first name too short', function() {
+        it('returns false #registrationFormView #partialView #view #travis', function() {
+          expect(form.validName('E', 'Allen')).toBe(false);
+        });
+
+        it('adds the message to the errors object #registrationFormView #partialView #view #travis', function() {
+          form.validName('E', 'Allen');
+          expect(form.errors).toContain('First name must be at least 2 characters long');
+        });
+      });
+
+
+      context('last name too short', function() {
+        it('returns false #registrationFormView #partialView #view #travis', function() {
+          expect(form.validName('Ethan', 'A')).toBe(false);
+        });
+
+        it('adds the message to the errors object #registrationFormView #partialView #view #travis', function() {
+          form.validName('Ethan', 'A');
+          expect(form.errors).toContain('Last name must be at least 2 characters long');
+        });
+      });
+
+      context('illegal characters in first name', function() {
+        it('returns false #registrationFormView #partialView #view #travis', function() {
+          expect(form.validName('Eth@n', 'Allen')).toBe(false);
+        });
+
+        it('adds the message to the errors object #registrationFormView #partialView #view #travis', function() {
+          form.validName('Eth@n', 'Allen');
+          expect(form.errors).toContain('First name may only contain letters, spaces, \', and -');
+        });
+      });
+
+      context('illegal characters in last name', function() {
+        it('returns false #registrationFormView #partialView #view #travis', function() {
+          expect(form.validName('Ethan', 'All3n')).toBe(false);
+        });
+
+        it('adds the message to the errors object #registrationFormView #partialView #view #travis', function() {
+          form.validName('Ethan', 'All3n');
+          expect(form.errors).toContain('Last name may only contain letters, spaces, \', and -');
+        });
+      });
+    });
+
     describe('validUsername()', function() {
       context('when the username is valid', function() {
         it('returns true #registrationFormView #partialView #view #travis', function() {
