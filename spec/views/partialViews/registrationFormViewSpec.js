@@ -292,6 +292,22 @@ describe('Registration Form View', function() {
   /**************************************************************************/
 
   describe('special functions', function() {
+    describe('validateRequired()', function() {
+      context('required data present', function() {
+        it('returns true #partialView #view', function() {
+          expect(form.validateRequired({
+            username: 'foobar',
+            password: 'foobar',
+            passwordConfirmation: 'foobar',
+            email: 'foo@bar.com',
+            emailConfirmation: 'foo@bar.com',
+            first_name: 'Fred',
+            last_name: 'Flintstone'
+          })).toBe(true);
+        });
+      });
+    });
+
     describe('validateForm()', function() {
       var formData;
 

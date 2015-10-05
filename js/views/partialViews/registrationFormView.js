@@ -16,7 +16,15 @@ Tessitura.RegistrationFormView = Tessitura.View.extend({
   /* Special Properties
   /**************************************************************************/
 
-  reqdFields  : ['username', 'password', 'email', 'first_name', 'last_name'],
+  reqdFields  : {
+    username            : 'Username', 
+    password            : 'Password', 
+    passwordConfirmation: 'Password confirmation',
+    email               : 'E-mail', 
+    emailConfirmation   : 'emailConfirmation',
+    first_name          : 'First name', 
+    last_name           : 'Last name'
+  },
 
   /* Event Callbacks
   /**************************************************************************/
@@ -65,6 +73,8 @@ Tessitura.RegistrationFormView = Tessitura.View.extend({
 
   // FIX: Don't return false until finished all validations
   validateForm: function(data) {
+    this.errors = this.errors || [];
+
     var acceptTerms, validCreds, validName
 
     acceptTerms = !!data.acceptTerms
@@ -100,6 +110,21 @@ Tessitura.RegistrationFormView = Tessitura.View.extend({
     }
 
     return validPassword && validUsername && validEmail;
+  },
+
+  validateRequired : function(data) {
+    this.errors = this.errors || [];
+    var that = this;
+    var valid = true;
+
+    _.each(this.required, function(key, val) {
+      if(!data[key]) {
+        that.errors.push(val + ' is required');
+        valid = false;
+      }
+    });
+
+    return valid;
   },
 
   validEmail   : function(email, confirmation) {
