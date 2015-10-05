@@ -464,6 +464,47 @@ describe('Registration Form View', function() {
       });
     });
 
+    describe('validCreds()', function() {
+      it('calls validUsername() #partialView #view', function() {
+        spyOn(form, 'validUsername');
+        form.validCreds('foobar', 'raboof', 'raboof', 'foo@bar.com', 'foo@bar.com');
+        expect(form.validUsername).toHaveBeenCalledWith('foobar');
+      });
+
+      it('calls validPassword() #partialView #view', function() {
+        spyOn(form, 'validPassword');
+        form.validCreds('foobar', 'raboof', 'raboof', 'foo@bar.com', 'foo@bar.com');
+        expect(form.validPassword).toHaveBeenCalledWith('raboof', 'raboof');
+      });
+
+      it('calls validEmail() #partialView #view', function() {
+        spyOn(form, 'validEmail');
+        form.validCreds('foobar', 'raboof', 'raboof', 'foo@bar.com', 'foo@bar.com');
+        expect(form.validEmail).toHaveBeenCalledWith('foo@bar.com', 'foo@bar.com');
+      });
+
+      context('valid everything', function() {
+        it('returns true #partialView #view', function() {
+          spyOn(form, 'validUsername').andReturn(true);
+          spyOn(form, 'validPassword').andReturn(true);
+          spyOn(form, 'validEmail').andReturn(true);
+
+          expect(form.validCreds('foobar400', 'raboof', 'raboof', 'foo@bar.com', 'foo@bar.com')).toBe(true);
+        });
+      });
+
+      context('password contains username', function() {
+        it('returns false #partialView #view', function() {
+          expect(form.validCreds('foobar400', '**foobar400**', '**foobar400**', 'foo@bar.com', 'foo@bar.com')).toBe(false);
+        });
+
+        it('adds the message to the errors object #partialView #view', function() {
+          form.validCreds('foobar400', '**foobar400**', '**foobar400**', 'foo@bar.com', 'foo@bar.com');
+          expect(form.errors).toContain('Password cannot contain username');
+        });
+      });
+    });
+
     describe('validEmail()', function() {
       context('valid e-mail', function() {
         it('returns true #registrationFormView #partialView #view #travis', function() {
@@ -712,7 +753,7 @@ describe('Registration Form View', function() {
 
   describe('core view functions', function() {
     describe('render()', function() {
-      it('calls render on the Tessitura View prototype #registrationFormView #partialView #view #travis', function() {
+      it('calls render on the Tessitura View prototype #partialView #view', function() {
         spyOn(Tessitura.View.prototype.render, 'call');
         form.render();
         expect(Tessitura.View.prototype.render.call).toHaveBeenCalled();

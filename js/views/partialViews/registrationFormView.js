@@ -88,11 +88,18 @@ Tessitura.RegistrationFormView = Tessitura.View.extend({
   /**************************************************************************/
 
   validCreds   : function(username, password, passwordConfirmation, email, emailConfirmation) {
+    this.errors = this.errors || [];
+
     var validPassword = this.validPassword(password, passwordConfirmation),
         validUsername = this.validUsername(username),
         validEmail    = this.validEmail(email, emailConfirmation);
 
-    return validPassword && validUsername && validEmail && password.indexOf(username) === -1;
+    if(password.indexOf(username) !== -1) {
+      this.errors.push('Password cannot contain username');
+      validPassword = false;
+    }
+
+    return validPassword && validUsername && validEmail;
   },
 
   validEmail   : function(email, confirmation) {
