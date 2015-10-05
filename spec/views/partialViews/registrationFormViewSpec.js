@@ -500,7 +500,18 @@ describe('Registration Form View', function() {
 
         it('adds the message to the errors object #registrationFormView #partialView #view #travis', function() {
           form.validEmail('foobar', 'foobar');
-          expect(form.errors).toContain('Not a valid e-mail');
+          expect(form.errors).toContain('Not a valid e-mail address');
+        });
+      });
+
+      context('e-mail doesn\'t match confirmation', function() {
+        it('returns false #registrationFormView #partialView #view #travis', function() {
+          expect(form.validEmail('foo@example.com', 'bar@example.com')).toBe(false);
+        });
+
+        it('adds the message to the errors object #registrationFormView #partialView #view #travis', function() {
+          form.validEmail('foo@example.com', 'bar@example.com');
+          expect(form.errors).toContain('E-mail and e-mail confirmation don\'t match');
         });
       });
     });
