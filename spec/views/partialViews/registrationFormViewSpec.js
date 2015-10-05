@@ -473,12 +473,23 @@ ddescribe('Registration Form View', function() {
 
       context('missing e-mail', function() {
         it('returns false #registrationFormView #partialView #view #travis', function() {
-          expect(form.validEmail()).toBe(false);
+          expect(form.validEmail(undefined, 'foo@example.com')).toBe(false);
         });
 
         it('adds the message to the errors object #registrationFormView #partialView #view #travis', function() {
           form.validEmail();
           expect(form.errors).toContain('E-mail is required');
+        });
+      });
+
+      context('missing confirmation', function() {
+        it('returns false #registrationFormView #partialView #view #travis', function() {
+          expect(form.validEmail('foo@example.com')).toBe(false)
+        });
+
+        it('adds the message to the errors object #registrationFormView #partialView #view #travis', function() {
+          form.validEmail('foo@example.com');
+          expect(form.errors).toContain('E-mail confirmation is required');
         });
       });
     });
