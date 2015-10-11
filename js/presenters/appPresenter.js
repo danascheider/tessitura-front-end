@@ -41,7 +41,6 @@ Tessitura.AppPresenter = Tessitura.Model.extend({
     this.homepageView = new Tessitura.HomepageView();
 
     this.listenTo(this.homepageView, 'redirect', this.emitRedirect);
-    this.listenTo(this.homepageView, 'top', this.scrollToTop);
   }
 });
 
