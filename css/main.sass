@@ -1,0 +1,87 @@
+$main-dark-gray: #333
+
+@import '_bootstrap.scss'
+
+*:before,
+*:after
+  box-sizing: border-box
+
+html,
+body
+  height    : 100%
+  width     : 100%
+  overflow-x: hidden
+
+.form-control
+  display      : block
+  width        : 100%
+  border            : 1px solid #ccc
+
+.input-group
+  position       : relative
+  display        : table 
+  border-collapse: separate
+
+  & .form-control
+    float        : left
+    margin-bottom: 0
+    display      : table-cell
+
+    &:first-child
+      border-bottom-right-radius: 0
+      border-top-right-radius   : 0
+
+    &:last-child
+      border-bottom-left-radius: 0
+      border-top-left-radius   : 0
+
+  &-btn
+    display       : table-cell
+    width         : 1%
+    white-space   : nowrap
+    vertical-align: middle
+    position      : relative
+    font-size     : 0
+    white-space   : nowrap
+
+    & > .btn
+      position: relative 
+
+      &:focus,
+      &:hover,
+      &:active
+        z-index: 2
+
+    &:first-child > .btn
+      border-bottom-right-radius: 0
+      border-top-right-radius   : 0
+      margin-right              : -1px
+
+    &:last-child > .btn 
+      border-bottom-left-radius: 0
+      border-top-left-radius   : 0 
+      margin-left              : -1px
+
+  & .form-control:not(:first-child):not(:last-child),
+  &-btn:not(:first-child):not(:last-child)
+    border-radius: 0
+
+.radio,
+.checkbox 
+  display      : block
+  min-height   : 20px
+  padding-left : 20px
+  margin-top   : 10px
+  margin-bottom: 10px
+
+  & label
+    display    : inline
+    font-weight: normal
+    cursor     : pointer
+
+  & input[type=checkbox],
+  & input[type=radio],
+  &-inline input[type=checkbox],
+  &-inline input[type=radio]
+    float      : left
+    margin-left: -20px
