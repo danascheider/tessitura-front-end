@@ -46,7 +46,6 @@ Tessitura.TaskCollection         = require('./collections/taskCollection.js');
 // Require top-level views
 Tessitura.View                   = require('./views/appViews/tessituraView.js');
 Tessitura.DashboardView          = require('./views/appViews/dashboardView.js');
-Tessitura.HomepageView           = require('./views/appViews/homepageView.js');
 Tessitura.DashWidgetView         = require('./views/appViews/dashWidgetView.js');
 
 
@@ -72,12 +71,9 @@ Tessitura.DashboardTopWidgetView = require('./views/partialViews/dashboardTopWid
 Tessitura.DashboardTaskView      = require('./views/partialViews/dashboardTaskView.js');
 Tessitura.ErrorPanelView         = require('./views/partialViews/errorPanelView.js');
 Tessitura.KanbanColumnView       = require('./views/partialViews/kanbanColumnView.js');
-Tessitura.LoginFormView          = require('./views/partialViews/loginFormView.js');
-Tessitura.RegistrationFormView   = require('./views/partialViews/registrationFormView.js');
 Tessitura.TaskPanelView          = require('./views/partialViews/taskPanelView.js');
 
 // Require presenters
-Tessitura.AppPresenter           = require('./presenters/appPresenter.js');
 Tessitura.DashboardPresenter     = require('./presenters/dashboardPresenter.js');
 
 // Require router
