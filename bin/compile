@@ -1,3 +1,5 @@
 #!/bin/bash
+sass css/main.sass --style compressed 2>&1 css/main.min.css
 sass css/tessitura.sass --style compressed 2>&1 css/tessitura.min.css
+sass css/homepage.sass --style compressed 2>&1 css/homepage.min.css
 scss css/google-fonts-chrome.css -t compressed 2>&1 css/google-fonts-chrome.min.css
