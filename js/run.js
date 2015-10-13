@@ -1,4 +1,4 @@
 require('./tessitura.js');
 
 global.Router = new Tessitura.Router();
-Backbone.history.start();
+Backbone.history.start({pushState: true});
