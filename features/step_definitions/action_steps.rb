@@ -26,5 +26,5 @@ When(/^I click the top nav menu called '(.*)'$/) do |name|
 end
 
 Then(/^I should be on the (.*) page$/) do |page|
-  expect(current_url).to include '#' + page
+  expect(current_url).to include page
 end
