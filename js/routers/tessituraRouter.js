@@ -30,7 +30,7 @@ Tessitura.Router = Backbone.Router.extend({
   navigateTo         : function(obj) {
     var that = this;
 
-    if(obj.user && ['dashboard', 'tasks'].indexOf(obj.destination) > -1) {
+    if(obj.user && ['dashboard', 'tasks', 'profile', 'local'].indexOf(obj.destination) > -1) {
 
       // The redirect:dashboard event is emitted with a user object when the
       // user logs in. The router should call `setUser` on the dashboard presenter
@@ -67,6 +67,8 @@ Tessitura.Router = Backbone.Router.extend({
   before: {
     'dashboard(/)' : 'verifyLoggedIn',
     'tasks(/)'     : 'verifyLoggedIn',
+    'profile(/)'   : 'verifyLoggedIn',
+    'local(/)'     : 'verifyLoggedIn'
   },
 
   defaultAction            : function(action) {
