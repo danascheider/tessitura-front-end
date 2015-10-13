@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 
 browserify js/run.js -d -p [minifyify --map run.min.js.map --output js/run.min.js.map] > js/run.min.js
+browserify js/homepage.js -d -p [minifyify --map homepage.min.js.map --output js/homepage.min.js.map] > js/homepage.min.js
 compile
