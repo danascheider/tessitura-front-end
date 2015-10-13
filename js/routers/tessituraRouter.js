@@ -19,10 +19,8 @@ Tessitura.Router = Backbone.Router.extend({
   /****************************************************************************/
 
   initialize : function() {
-    this.AppPresenter = new Tessitura.AppPresenter();
     this.DashboardPresenter = new Tessitura.DashboardPresenter();
 
-    this.listenTo(this.AppPresenter, 'redirect', this.navigateTo);
     this.listenTo(this.DashboardPresenter, 'redirect', this.navigateTo);
   },
 
@@ -116,7 +114,6 @@ Tessitura.Router = Backbone.Router.extend({
 
   displayHomepage          : function() {
     this.DashboardPresenter.removeAll();
-    this.AppPresenter.getHomepage();
   },
 
 
@@ -135,7 +132,6 @@ Tessitura.Router = Backbone.Router.extend({
 
   rerouteIfLoggedIn        : function(fragment, args, next) {
     if (this.userLoggedIn()) {
-      this.AppPresenter.removeAll();
       this.navigate('dashboard', {trigger: true});
     } else {
       next();
