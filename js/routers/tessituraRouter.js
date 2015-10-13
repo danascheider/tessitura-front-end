@@ -55,8 +55,6 @@ Tessitura.Router = Backbone.Router.extend({
   /****************************************************************************/
 
   routes: {
-    '(/)'            : 'displayHomepage',
-    'home(/)'        : 'displayHomepage',
     'dashboard(/)'   : 'displayDashboardHome',
     'local(/)'       : 'displayDashboardLocal',
     'logout(/)'      : 'logOut',
@@ -69,7 +67,6 @@ Tessitura.Router = Backbone.Router.extend({
   before: {
     'dashboard(/)' : 'verifyLoggedIn',
     'tasks(/)'     : 'verifyLoggedIn',
-    '(/)'          : 'rerouteIfLoggedIn'
   },
 
   defaultAction            : function(action) {
@@ -112,11 +109,6 @@ Tessitura.Router = Backbone.Router.extend({
     });
   },
 
-  displayHomepage          : function() {
-    this.DashboardPresenter.removeAll();
-  },
-
-
   logOut                   : function() {
     $.removeCookie('auth');
     $.removeCookie('userID');
@@ -128,14 +120,6 @@ Tessitura.Router = Backbone.Router.extend({
       type: 'POST',
       url: 'http://api.canto-test.com:1025/destroy'
     });
-  },
-
-  rerouteIfLoggedIn        : function(fragment, args, next) {
-    if (this.userLoggedIn()) {
-      this.navigate('dashboard', {trigger: true});
-    } else {
-      next();
-    }
   },
 
   verifyLoggedIn           : function(fragment, args, next) {

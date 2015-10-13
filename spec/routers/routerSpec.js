@@ -35,10 +35,6 @@ describe('Tessitura Router', function() {
   /****************************************************************************/
 
   describe('constructor', function() {
-    it('instantiates an app presenter #router #travis', function() {
-      expect(router.AppPresenter.isAn('AppPresenter')).toBe(true);
-    });
-
     it('instantiates a dashboard presenter #router #travis', function() {
       expect(router.DashboardPresenter.isA('DashboardPresenter')).toBe(true);
     });
@@ -48,42 +44,6 @@ describe('Tessitura Router', function() {
   /****************************************************************************/
 
   describe('before filters', function() {
-    describe('rerouteIfLoggedIn()', function() {
-      context('when logged in', function() {
-        beforeEach(function() { spyOn($, 'cookie').andReturn('Basic ' + btoa('testuser:testuser')); });
-
-        it('calls remove on the app presenter #router #travis', function() {
-          spyOn(router.AppPresenter, 'removeAll');
-          router.rerouteIfLoggedIn();
-          expect(router.AppPresenter.removeAll).toHaveBeenCalled();
-        });
-
-        it('navigates to the dashboard #router #travis', function() {
-          spyOn(router, 'navigate');
-          router.rerouteIfLoggedIn();
-          expect(router.navigate).toHaveBeenCalledWith('dashboard', {trigger: true});
-        });
-      });
-
-      context('when not logged in', function() {
-        beforeEach(function() { spyOn($, 'cookie').andReturn(null); });
-
-        xit('doesn\'t reroute #router #travis', function() {
-          // "next is not a function"
-          spyOn(router, 'navigate');
-          router.rerouteIfLoggedIn();
-          expect(router.navigate).not.toHaveBeenCalled();
-        });
-
-        xit('doesn\'t remove app views #router #travis', function() {
-          // "next is not a function"
-          spyOn(router.AppPresenter, 'removeAll');
-          router.rerouteIfLoggedIn();
-          expect(router.AppPresenter.removeAll).not.toHaveBeenCalled();
-        });
-      });
-    });
-
     describe('verifyLoggedIn()', function() {
       context('when not logged in', function() {
         beforeEach(function() { spyOn($, 'cookie').andReturn(null); });
@@ -125,13 +85,6 @@ describe('Tessitura Router', function() {
       newRouter = new Tessitura.Router();
       newRouter.DashboardPresenter.emitRedirect({destination: 'homepage'});
       expect(Tessitura.Router.prototype.navigateTo).toHaveBeenCalledWith({destination: 'homepage'});
-      done();
-    });
-
-    it('listens to its app presenter #router #travis', function(done) {
-      newRouter = new Tessitura.Router();
-      newRouter.AppPresenter.emitRedirect({destination: 'dashboard', user: user});
-      expect(Tessitura.Router.prototype.navigateTo).toHaveBeenCalledWith({destination: 'dashboard', user: user});
       done();
     });
   });
@@ -211,20 +164,6 @@ describe('Tessitura Router', function() {
         router.displayDashboardTaskView();
         expect(router.DashboardPresenter.getTask).toHaveBeenCalled();
         done();
-      });
-    });
-
-    describe('displayHomepage()', function() {
-      it('calls removeAll on the dashboard presenter #router #travis', function() {
-        spyOn(router.DashboardPresenter, 'removeAll');
-        router.displayHomepage();
-        expect(router.DashboardPresenter.removeAll).toHaveBeenCalled();
-      });
-
-      it('calls getHomepage on the App Presenter #router #travis', function() {
-        spyOn(router.AppPresenter, 'getHomepage');
-        router.displayHomepage();
-        expect(router.AppPresenter.getHomepage).toHaveBeenCalled();
       });
     });
 
