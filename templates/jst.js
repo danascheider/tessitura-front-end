@@ -2,7 +2,6 @@ var _   = require('underscore');
 var JST = {
   'calendar'                 : _.template(require('./partialTemplates/calendarTemplate.js')),
   'dashboard'                : _.template('<div id=\'shade\'></div>'),
-  'homepage'                 : _.template(require('./topLevelTemplates/homepageTemplate.js')),
   'collections/organization' : _.template(require('./collectionTemplates/organizationCollectionTemplate.js')),
   'collections/task'         : _.template('<li class=\'quick-add-form not-sortable\'></li>'),
   'orgs/listItem'            : _.template(require('./modelTemplates/organizationTemplates/organizationListItemTemplate.js')),
