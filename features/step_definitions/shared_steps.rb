@@ -30,7 +30,7 @@ When(/^I navigate to '(.*)'$/) do |url|
 end
 
 When(/^I navigate to the dashboard$/) do 
-  visit '/#dashboard'
+  visit '/dashboard'
 end
 
 Then(/^I should be on my dashboard$/) do 
