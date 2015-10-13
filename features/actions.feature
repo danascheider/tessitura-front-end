@@ -15,7 +15,7 @@ Feature: Actions and links
     Then I should be on the tasks page
 
   Scenario: User clicks '#dashboard' link in dashboard sidebar
-    Given I am on the '/#tasks' page
+    Given I am on the '/tasks' page
     And the sidebar is visible
     When I click on the 'Dashboard' link in the sidebar
     Then I should be on my dashboard
