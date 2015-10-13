@@ -9,16 +9,237 @@
 
   <!-- Core CSS - Include with every page -->
   <link href='css/font-awesome.min.css' rel='stylesheet' type='text/css'>
-  <link href='css/google-fonts-chrome.min.css' rel='stylesheet' type='text/css'>  
-
+  <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,400italic,600italic,600,700italic' rel='stylesheet' type='text/css'>
   <!-- App-specific CSS -->
-  <link href='css/tessitura.min.css' rel='stylesheet'>
+  <link href='css/main.min.css' rel='stylesheet'>
+  <link href='css/homepage.min.css' rel='stylesheet'>
 </head>
 
 <body>
+  <div id='homepage-wrapper'>
 
+    <!-- Navigation -->
+    <nav id='navbar-top' class='nav'>
+      <ul class='top-nav'>
+        <li>
+          <a href='#top' title='Top' class='btn btn-dark btn-lg toggle'><i class='fa fa-arrow-up fa-fw'></i></a>
+        </li>
+        <li>
+          <a href='#contact' title='Contact' class='btn btn-dark btn-lg toggle'><i class='fa fa-phone fa-fw'></i></a>
+        </li>
+        <li>
+          <a href='#about' title='About' class='btn btn-dark btn-lg toggle'><i class='fa fa-info-circle fa-fw'></i></a>
+        </li>
+        <li>
+          <a href='#register' title='Register' class='btn btn-dark btn-lg toggle'><i class='fa fa-user-plus fa-fw'></i></a>
+        </li>
+        <li>
+          <a href='#login' title='Log In' class='btn btn-dark btn-lg toggle login-link'><i class='fa fa-sign-in fa-fw'></i></a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Login Form Goes Here -->
+    <div id='shade'>
+      <form id='login-form'>
+        <div class='form-elements'>
+          <div class='form group'>
+            <input class='form-control' type='text' name='username' placeholder='Username'>
+          </div>
+          <div class='form-group'>
+            <input class='form-control' type='password' name='password' placeholder='Password'>
+          </div>
+          <div class='checkbox'>
+              <input name='remember' type='checkbox' value='Remember Me' checked><label>Remember Me</label>
+            <span class='pull-right'>
+              <a href='' class='login-help-link'>Need Help?</a>
+            </span>
+          </div>
+          <button type='submit' class='btn btn-dark btn-lg btn-block'>Login</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Header -->
+    <header id='top' class='header'>
+      <div class='text-vertical-center'>
+        <h1>Welcome to Tessitura</h1>
+        <h3>Career Management for Classical Singers</h3>
+        <br>
+        <a href='#about' class='btn btn-dark btn-lg' onclick='return false'>Find Out More</a>
+      </div>
+    </header>
+
+    <!-- About -->
+    <section id='about' class='about'>
+      <div class='container'>
+        <div class='row'>
+          <div class='col-lg-12 text-center'>
+            <h2>Tessitura makes it easy to manage your career and life as a classical singer.</h2>
+            <p class='lead'>You have a lot to keep track of: Performances, rehearsals, 
+              professional development, education, and more - not to mention the rest 
+              of your life. Tessitura provides an easy, convenient way for you to stay
+              on top of it all, managing everything from just one place.
+            </p>
+          </div>
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container -->
+    </section>
+
+    <!-- Features -->
+    <!-- The circle icons use Font Awesome's stacked icon classes. For more information, visit http://fontawesome.io/examples/ -->
+    <section id='features' class='services bg-primary'>
+      <div class='container'>
+        <div class='row text-center'>
+          <div class='col-lg-10 col-lg-offset-1'>
+            <h2>Features</h2>
+            <hr class='small'>
+            <div class='row'>
+              <div class='col-md-3 col-sm-6'>
+                <div class='service-item'>
+                  <span class='fa-stack fa-4x'>
+                  <i class='fa fa-circle fa-stack-2x'></i>
+                  <i class='fa fa-check fa-stack-1x text-primary'></i>
+                </span>
+                  <h4>
+                    <strong>Flexible Task Management</strong>
+                  </h4>
+                  <p>Stay on top of all your professional and personal obligations</p>
+                </div>
+              </div>
+              <div class='col-md-3 col-sm-6'>
+                <div class='service-item'>
+                  <span class='fa-stack fa-4x'>
+                  <i class='fa fa-circle fa-stack-2x'></i>
+                  <i class='fa fa-thumb-tack fa-stack-1x text-primary'></i>
+                </span>
+                  <h4>
+                    <strong>Audition Listings</strong>
+                  </h4>
+                  <p>Find listings of great performance opportunities all in one place</p>
+                </div>
+              </div>
+              <div class='col-md-3 col-sm-6'>
+                <div class='service-item'>
+                  <span class='fa-stack fa-4x'>
+                  <i class='fa fa-circle fa-stack-2x'></i>
+                  <i class='fa fa-rocket fa-stack-1x text-primary'></i>
+                </span>
+                  <h4>
+                    <strong>Professional Development</strong>
+                  </h4>
+                  <p>Resources to help you become a better singer or educator</p>
+                </div>
+              </div>
+              <div class='col-md-3 col-sm-6'>
+                <div class='service-item'>
+                  <span class='fa-stack fa-4x'>
+                  <i class='fa fa-circle fa-stack-2x'></i>
+                  <i class='fa fa-mobile-phone fa-stack-1x text-primary'></i>
+                </span>
+                  <h4>
+                    <strong>Mobile-Friendly Interface</strong>
+                  </h4>
+                  <p>Manage your time easily - access your account any time, any place</p>
+                </div>
+              </div>
+            </div> <!-- end .row (nested) -->
+          </div> <!-- end .col-lg-10 -->
+        </div> <!-- end .row -->
+      </div> <!-- end .container -->
+    </section>
+
+    <!-- Portfolio -->
+    <section id='register' class='register'>
+      <div class='container'>
+        <div class='row'>
+          <div class='col-lg-10 col-lg-offset-1 text-center'>
+            <h2>Sign Up!</h2>
+            <hr class='small'>
+            <div class='row'>
+              <div class='col-md-12'>
+                <form id='registration form'>
+                  <fieldset class='form-group login-information'>
+                    <legend>Login Information</legend>
+                    <input class='form-control' name='username' title='Username' placeholder='Username (required)'>
+                    <input class='form-control half-width left' type='password' name='password' title='Password' placeholder='Password (required)'>
+                    <input class='form-control half-width right' type='password' name='passwordConfirmation' title='Re-type Password' placeholder='Re-type Password (required)'>
+                    <input class='form-control half-width left' type='email' name='email' title='E-mail Address' placeholder='E-mail (required)'>
+                    <input class='form-control half-width right' type='email' name='emailConfirmation' title='Re-type E-mail' placeholder='Re-type E-mail (required)'> 
+                  </fieldset>
+                  <fieldset class='form-group profile-information'>
+                    <legend>Profile Information</legend>
+                    <input class='form-control half-width left' name='first_name' title='First Name' placeholder='First Name (required)'>
+                    <input class='form-control half-width right' name='last_name' title='Last Name' placeholder='Last Name (required)'>
+                    <input class='form-control half-width left' name='birthdate' type='date' title='Date of Birth'>
+                    <input class='form-control half-width right' name='fach' list='fachs' title='Fach' placeholder='Fach'>
+
+                    <datalist id='fachs'>
+                      <option value='Soprano - lyric coloratura' />
+                      <option value='Soprano - dramatic coloratura' />
+                      <option value='Soprano - lyric' />
+                      <option value='Soprano - spinto' />
+                      <option value='Soprano - dramatic' />
+                      <option value='Mezzo-soprano - Rossini' />
+                      <option value='Mezzo-soprano - lyric' />
+                      <option value='Mezzo-soprano - dramatic' />
+                      <option value='Contralto' />
+                      <option value='Countertenor' />
+                      <option value='Tenor leggiero' />
+                      <option value='Tenor - lyric' />
+                      <option value='Tenor - spinto' />
+                      <option value='Heldentenor' />
+                      <option value='Lyric baritone' />
+                      <option value='Dramatic baritone' />
+                      <option value='Lyric bass' />
+                      <option value='Basso buffo' />
+                      <option value='Basso profondo' />
+                      <option value='Other' />
+                    </datalist>
+
+                    <input class='form-control half-width left' name='country' title='Country' placeholder='Country'>
+                    <input class='form-control half-width right' name='city' title='City' placeholder='City'>
+                  </fieldset>
+                  <fieldset class='form-group terms'>
+                    <div class='checkbox'>
+                      <input class='checkbox' type='checkbox' name='acceptTerms' value='Accept Terms'><label for='acceptTerms'>I accept the <a href='#'>Terms of Use</a></label>
+                    </div>
+                  </fieldset>
+                  <fieldset class='form-group submit'>
+                    <button type='submit' class='btn btn-dark half-width'>Create Account</button>
+                    <button type='reset' class='btn btn-dark half-width'>Clear Form</button>
+                  </fieldset>
+                </form>
+              </div>
+            </div><!-- end .row (nested) -->
+          </div> <!-- end .col-lg-10 -->
+        </div> <!-- end .row -->
+      </div> <!-- end .container -->
+    </section>
+    <!-- Footer -->
+    <footer class='bg-primary'>
+      <div class='container'>
+        <div class='row'>
+          <div id='contact' class='col-lg-10 col-lg-offset-1 text-center'>
+            <h4><strong>Tessitura</strong></h4>
+            <p>3841 SE 51st Ave.<br>Portland, OR 97206</p>
+            <ul class='list-unstyled'>
+              <li><i class='fa fa-phone fa-fw'></i> (503) 720-6147</li>
+              <li><i class='fa fa-envelope-o fa-fw'></i>  <a href='mailto:info@tessitura.io'>info@tessitura.io</a>
+              </li>
+            </ul>
+            <hr class='small'>
+            <p class='text-muted'>Copyright &copy; Tessitura 2015</p>
+          </div> <!-- end .col-lg-10 .col-lg-offset-1 .text-center -->
+        </div> <!-- end .row -->
+      </div> <!-- end .container -->
+    </footer>
+  </div> <!-- end #homepage-wrapper -->
+    
   <!-- Tessitura scripts -->
-  <script src='js/run.min.js'></script>
+  <script src='js/homepage.min.js'></script>
   <script type='text/javascript'>
     $(window).bind('load resize', function() {
       width = (this.window.innerWidth > 0) ? this.window.innerWidth : this.screen.width;

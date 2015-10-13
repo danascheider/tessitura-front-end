@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset='utf8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+
+  <title>Tessitura - Career Management for Classical Singers</title>
+
+  <!-- Core CSS - Include with every page -->
+  <link href='css/font-awesome.min.css' rel='stylesheet' type='text/css'>
+  <link href='css/google-fonts-chrome.min.css' rel='stylesheet' type='text/css'>  
+
+  <!-- App-specific CSS -->
+  <link href='css/main.min.css' rel='stylesheet'>
+  <link href='css/tessitura.min.css' rel='stylesheet'>
+</head>
+
+<body>
+
+  <!-- Tessitura scripts -->
+  <script src='js/run.min.js'></script>
+  <script type='text/javascript'>
+    $(window).bind('load resize', function() {
+      width = (this.window.innerWidth > 0) ? this.window.innerWidth : this.screen.width;
+      if (width < 768) {
+        $('div.sidebar-collapse').addClass('collapse')
+      } else {
+        $('div.sidebar-collapse').removeClass('collapse')
+      }
+    });
+  </script>
+
+</body>
+
+</html>
