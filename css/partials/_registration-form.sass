@@ -1,5 +1,7 @@
+$state-danger-text = #a94442
+
 #homepage-wrapper
-  form:not(#login-form)
+  #registration-form
     margin-bottom: 0.938em
 
     .half-width
@@ -39,7 +41,7 @@
       &.has-error
         & input.checkbox,
         & label > input.checkbox
-          color: #a94442
+          color: $state-danger-text
 
       & input.has-error
         border-color: $state-danger-text
@@ -53,4 +55,4 @@
         margin-top : 0
 
       &.has-error
-        border : 0.063em solid #a94442
+        border : 0.063em solid $state-danger-text
