@@ -215,6 +215,7 @@ describe('Tessitura Router', function() {
 
     describe('logOut()', function() {
       it('removes cookies #router #travis', function() {
+        window.location = jasmine.createSpy();
         spyOn($, 'removeCookie');
         router.logOut();
         expect($.removeCookie).toHaveBeenCalledWith('auth');
