@@ -42,4 +42,4 @@ Feature: Task Forms
     And I submit the '#task-create-form'
     Then the form should be hidden
     And my task panel should show 3 tasks
-    And my 'tasks' widget should say I have 5 incomplete tasks
+    And my 'tasks' widget should say I have 4 incomplete tasks
