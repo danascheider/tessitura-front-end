@@ -115,7 +115,7 @@ Tessitura.Router = Backbone.Router.extend({
     $.removeCookie('auth');
     $.removeCookie('userID');
     // FIX: This should be changed in production to the correct base URL
-    location.href = 'http://localhost'
+    location.href = 'https://tessitura.io'
   },
 
   prepareTestEnvironment   : function() {
@@ -130,7 +130,7 @@ Tessitura.Router = Backbone.Router.extend({
       next(); 
     } else {
       // FIX: This should be changed in production to the correct base URL
-      location.href = 'http://localhost'
+      location.href = 'https://tessitura.io'
     }
   }
 });

@@ -2,7 +2,7 @@ $ = jQuery = require('jquery');
 require('jquery.cookie');
 
 var api = require('./api.js');
-var base = 'http://localhost';
+var base = 'https://tessitura.io';
 
 // Get the contents of a form when it is submitted
 function getFormContents(form) {
