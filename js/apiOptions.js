@@ -1,5 +1,5 @@
 var opts = {
-  useTestAPI   : false
+  useTestAPI   : true
 };
 
 module.exports = opts;
