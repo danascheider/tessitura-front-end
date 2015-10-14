@@ -2,7 +2,7 @@
 Feature: User profile view
 
   Background:
-    Given I am on the '/#profile' page
+    Given I am on the '/profile' page
 
   Scenario Outline: Data
     Then I should see my '<attribute>' attribute

@@ -2,7 +2,7 @@
 Feature: User profile
 
   Background:
-    Given I am on the '/#profile' page
+    Given I am on the '/profile' page
 
   Scenario Outline: Show inputs
     When I double-click on the '<element>' field
