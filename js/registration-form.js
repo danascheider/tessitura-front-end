@@ -188,8 +188,6 @@ $(document).ready(function() {
     var data = getFormContents(this);
     compact(data);
 
-    console.log(data);
-
     validator.errors = [];
 
     if(validator.validateForm(data, this) !== true) {
@@ -197,7 +195,7 @@ $(document).ready(function() {
       return;
     } 
 
-    var auth = data.username + ':' + data.password;
+    var auth = btoa(data.username + ':' + data.password);
 
     delete data.emailConfirmation;
     delete data.passwordConfirmation;
@@ -208,9 +206,12 @@ $(document).ready(function() {
       data       : JSON.stringify(data),
       contentType: 'application/json',
       success    : function(model, status, xhr) {
-        $.cookie('auth', auth)
-        $.cookie('userID', model.userID);
-        location.href = base + '/dashboard'
+        model = JSON.parse(model);
+        $.cookie('userID', model.id, {expires: 1, path: '/dashboard'});
+        $.cookie('auth', auth, {expires: 1, path: '/dashboard'});
+
+        // FIX: This needs to be the actual site, not the local version
+        location.href = 'http://localhost/dashboard';
       },
       error      : function() {
         alert('We\'re sorry! Your account could not be created just now. Please contact support if you continue having problems.');
