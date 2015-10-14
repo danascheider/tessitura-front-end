@@ -220,12 +220,6 @@ describe('Tessitura Router', function() {
         expect($.removeCookie).toHaveBeenCalledWith('auth');
         expect($.removeCookie).toHaveBeenCalledWith('userID');
       });
-
-      it('navigates to the homepage #router #travis', function() {
-        spyOn(router, 'navigate');
-        router.logOut();
-        expect(router.navigate).toHaveBeenCalledWith('', {trigger: true});
-      });
     });
 
     describe('prepareTestEnvironment()', function() {

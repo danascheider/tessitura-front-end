@@ -114,7 +114,8 @@ Tessitura.Router = Backbone.Router.extend({
   logOut                   : function() {
     $.removeCookie('auth');
     $.removeCookie('userID');
-    this.navigate('', {trigger: true});
+    // FIX: This should be changed in production to the correct base URL
+    location.href = 'http://localhost'
   },
 
   prepareTestEnvironment   : function() {
