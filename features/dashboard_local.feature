@@ -5,5 +5,5 @@ Feature: Dashboard local view
 
   Scenario: User views local page
     Given I am logged in
-    When I navigate to '/#local'
+    When I navigate to '/local'
     Then I should see a form to enter my location information
