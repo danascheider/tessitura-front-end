@@ -128,7 +128,8 @@ Tessitura.Router = Backbone.Router.extend({
     if(this.userLoggedIn()) { 
       next(); 
     } else {
-      this.navigate('/', {trigger: true});
+      // FIX: This should be changed in production to the correct base URL
+      location.href = 'http://localhost'
     }
   }
 });

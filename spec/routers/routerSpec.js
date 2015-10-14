@@ -51,7 +51,7 @@ describe('Tessitura Router', function() {
         it('redirects to the homepage #router #travis', function() {
           spyOn(router, 'navigate');
           router.verifyLoggedIn();
-          expect(router.navigate).toHaveBeenCalledWith('/', {trigger: true});
+          expect(router.navigate).toHaveBeenCalledWith('http://localhost', {trigger: true});
         });
       });
 

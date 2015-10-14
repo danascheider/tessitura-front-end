@@ -1,6 +1,5 @@
 When(/^I click on the '(\S+)' link in the sidebar$/) do |link|
   sleep 1
-  save_screenshot 'screenshot.png'
   within '#side-menu' do 
     click_on link
   end
