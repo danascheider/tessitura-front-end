@@ -2,7 +2,7 @@
 Feature: Dashboard task view
 
   Background:
-    Given I am on the '/#tasks' page
+    Given I am on the '/tasks' page
 
   Scenario Outline: Elements
     Then I should see the '<el>' column
