@@ -10,7 +10,8 @@
 
         <!-- This is the div with the number and kind of items -->
         <div class='col-xs-9 text-right'>
-          <div class='huge'><%= taskCollection.length %></div>
+          <% var included = taskCollection.filter(function(task) { return !(task.get('backlog') || task.get('status') == 'Complete'); }); %>
+          <div class='huge'><%= included.length %></div>
           <div>Incomplete Tasks!</div>
         </div> <!-- end col-xs-9 text-right' -->
 

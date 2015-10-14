@@ -6,7 +6,7 @@ Tessitura.DashboardTopWidgetView = Tessitura.View.extend({
   /**************************************************************************************/
 
   initialize          : function(data) {
-    this.data = data || /* istanbul ignore next */ {};
+    this.data = data || {};
 
     // For convenience, make the data available as own properties
     // of the view.
