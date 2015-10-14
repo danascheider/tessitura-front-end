@@ -1,9 +1,7 @@
-/* istanbul ignore require */
 require(process.cwd() + '/spec/support/jsdom.js');
 require(process.cwd() + '/js/tessitura.js');
 require(process.cwd() + '/spec/support/env.js');
 
-/* istanbul ignore next */
 var matchers       = _.extend(require('jasmine-jquery-matchers'), require(process.cwd() + '/spec/support/matchers/toBeA.js')),
     XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest,
     context        = describe,
@@ -11,8 +9,6 @@ var matchers       = _.extend(require('jasmine-jquery-matchers'), require(proces
 
 /* Dashboard Top Widget View Spec
 /****************************************************************************************/
-
-/* istanbul ignore next */
 
 describe('Dashboard Top Widget View', function() {
   var view, newView, collection, data, e, newView;
@@ -60,10 +56,32 @@ describe('Dashboard Top Widget View', function() {
       expect(view.$el).toHaveId('dashboard-top-widgets');
     });
 
-    describe('task widget', function() {
+    ddescribe('task widget', function() {
       it('includes the task count #dashboardTopWidgetView #partialView #view #travis', function() {
-        expect(view.$('div.dash-widget[data-name=tasks] div.huge')).toHaveText(data.taskCollection.length);
+        var num = data.taskCollection.length.toString();
+        expect(view.$('div.dash-widget[data-name=tasks] div.huge').text()).toEqual(num);
       });
+
+      it('doesn\'t include completed tasks', function() {
+        data.taskCollection.push(new Tessitura.TaskModel({status: 'Complete'}));
+        var num = (data.taskCollection.length - 1).toString();
+        view.render();
+        expect(view.$('div.dash-widget[data-name=tasks] div.huge').text()).toEqual(num);
+      });
+
+      it('includes blocking tasks', function() {
+        data.taskCollection.models[0].set('status', 'Blocking');
+        var num = data.taskCollection.length.toString();
+        view.render();
+        expect(view.$('div.dash-widget[data-name=tasks] div.huge').text()).toEqual(num);
+      });
+
+      it('doesn\'t include backlogged tasks', function() {
+        data.taskCollection.models[0].set('backlog', true);
+        var num = (data.taskCollection.length - 1).toString();
+        view.render();
+        expect(view.$('div.dash-widget[data-name=tasks] div.huge').text()).toEqual(num);
+      })
     });
 
     describe('deadline widget', function() {
