@@ -1,4 +1,6 @@
 var _          = require('underscore');
+var API        = require('./api.js');
+var base       = 'http://localhost'
 
 // Get the contents of a form when it is submitted
 function getFormContents(form) {
@@ -12,6 +14,14 @@ function getFormContents(form) {
   }
 
   return attributes;
+}
+
+function compact(data) {
+  for(var key in data) {
+    if(data[key] == null || data[key] == '') {
+      delete data[key];
+    }
+  }
 }
 
 // Create a template for an error panel that can be populated during form validation
@@ -176,12 +186,35 @@ $(document).ready(function() {
     e.preventDefault();
 
     var data = getFormContents(this);
+    compact(data);
+
+    console.log(data);
 
     validator.errors = [];
 
     if(validator.validateForm(data, this) !== true) {
       renderErrorPanel(validator.errors, this);
       return;
-    }
+    } 
+
+    var auth = data.username + ':' + data.password;
+
+    delete data.emailConfirmation;
+    delete data.passwordConfirmation;
+
+    $.ajax({
+      type       : 'POST',
+      url        : API.users.collection,
+      data       : JSON.stringify(data),
+      contentType: 'application/json',
+      success    : function(model, status, xhr) {
+        $.cookie('auth', auth)
+        $.cookie('userID', model.userID);
+        location.href = base + '/dashboard'
+      },
+      error      : function() {
+        alert('We\'re sorry! Your account could not be created just now. Please contact support if you continue having problems.');
+      }
+    })
   });
 });
