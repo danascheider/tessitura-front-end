@@ -56,7 +56,7 @@ describe('Dashboard Top Widget View', function() {
       expect(view.$el).toHaveId('dashboard-top-widgets');
     });
 
-    ddescribe('task widget', function() {
+    describe('task widget', function() {
       it('includes the task count #dashboardTopWidgetView #partialView #view #travis', function() {
         var num = data.taskCollection.length.toString();
         expect(view.$('div.dash-widget[data-name=tasks] div.huge').text()).toEqual(num);
