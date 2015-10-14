@@ -1,8 +1,8 @@
 Before do 
-  visit '/#prepare'
+  visit '/prepare'
   wait_for_ajax
 end
 
 After do
-  visit '/#prepare'
+  visit '/prepare'
 end
