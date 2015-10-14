@@ -14,7 +14,7 @@ Feature: Dashboard home elements
 
     Examples:
       | name            | num | obj                |
-      | tasks           | 4   | incomplete tasks   |
+      | tasks           | 3   | incomplete tasks   |
       | deadlines       | 7   | upcoming deadlines |
       | appointments    | 4   | new appointments   |
       | recommendations | 14  | recommendations    |
